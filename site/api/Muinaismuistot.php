@@ -90,21 +90,29 @@ class Muinaismuistot {
 	}
 
 	protected function getWhere() {
-		$where = [];
+		$where = [
+			'AND' => []
+		];
 		foreach ($_GET as $paramName => $paramValue) {
-			if($paramName == 'viewbox' && is_array($paramValue) && count($paramValue) == 4) {
-				$where['X[<>]'] = [(double)$paramValue[0], (double)$paramValue[2]];
-				$where['Y[<>]'] = [(double)$paramValue[1], (double)$paramValue[3]];
+			if($paramName == 'viewbox') {
+				//ViewBox = [minX, minY, maxX, maxY]
+				$viewbox = explode(",", $paramValue);
+				if(count($viewbox) != 4) {
+					continue;
+				}
+
+				$where['AND']['X[<>]'] = [(double)$viewbox[0], (double)$viewbox[2]];
+				$where['AND']['Y[<>]'] = [(double)$viewbox[1], (double)$viewbox[3]];
 			}
 			else {
 				$value = $this->castColumnValueToType($paramValue, $paramName);
 				if(!is_null($value)) {
-					$where[$paramName] = $value;
+					$where['AND'][$paramName] = $value;
 				}
 			}
 		}
 
-		if(count($where) == 0) {
+		if(count($where['AND']) == 0) {
 			$where['LIMIT'] = 10;
 		}
 
@@ -113,12 +121,15 @@ class Muinaismuistot {
 
 	protected function mapToGeoJson($data) {
 		$features = [];
-		foreach ($data as $row) {
-			$point = new Point([(double)$row['X'], (double)$row['Y']]);
-			unset($row['X']);
-			unset($row['Y']);
 
-			$features[] = new Feature($point, $row);
+		if(is_array($data)) {
+			foreach ($data as $row) {
+				$point = new Point([(double)$row['X'], (double)$row['Y']]);
+				unset($row['X']);
+				unset($row['Y']);
+
+				$features[] = new Feature($point, $row);
+			}
 		}
 
 		return new FeatureCollection($features);
@@ -127,7 +138,7 @@ class Muinaismuistot {
 	
 	public function runRequest() {
 		$queryResults = $this->database->select($this->TABLE_MUINAISJAANNOSPISTEET, $this->getColumns(), $this->getWhere());
-		
+
 		header('Content-Type: application/json');
 		echo json_encode($this->mapToGeoJson($queryResults));
 	}
