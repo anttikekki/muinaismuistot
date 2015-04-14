@@ -16,6 +16,14 @@ function init() {
     zoom: 11
   });
 
+  var fill = new ol.style.Fill({
+   color: 'rgba(255,0,0,0.5)'
+  });
+  var stroke = new ol.style.Stroke({
+   color: '#FF0000',
+   width: 1.25
+  });
+
   var vectorLoader = function(extent, resolution, projection) {
     var url = 'api/index.php?viewbox=' + extent.join(',');
 
@@ -39,7 +47,16 @@ function init() {
     });
 
   var geojsonLayer = new ol.layer.Vector({
-    source: vectorSource
+    source: vectorSource,
+    style: new ol.style.Style({
+       image: new ol.style.Circle({
+         fill: fill,
+         stroke: stroke,
+         radius: 8
+       }),
+       fill: fill,
+       stroke: stroke
+     })
   });
 
   /**
