@@ -128,7 +128,7 @@ class Muinaismuistot {
 	public function runRequest() {
 		$queryResults = $this->database->select($this->TABLE_MUINAISJAANNOSPISTEET, $this->getColumns(), $this->getWhere());
 		
-		//header('Content-Type: application/json');
+		header('Content-Type: application/json');
 		echo json_encode($this->mapToGeoJson($queryResults));
 	}
 	
