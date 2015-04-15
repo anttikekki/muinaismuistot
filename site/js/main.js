@@ -87,6 +87,12 @@ function init() {
         view.setCenter(geolocation.getPosition());
         console.log(geolocation.getPosition());
       });
+
+      map.on("click", function(e) {
+          map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+              //do something
+          }
+      };
     }
   };
   xhr.send();

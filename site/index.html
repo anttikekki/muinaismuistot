@@ -6,9 +6,10 @@
         <meta http-equiv="X-UA-Compatible" content="chrome=1">
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
         <title>Muinaismuistot</title>
+        <link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css"></link>
         <link href="css/ol.css" rel="stylesheet" type="text/css"></link>
         <style type="text/css">
-          html, body, .map {
+          html, body, #map {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -17,9 +18,19 @@
         </style>
     </head>
     <body onload="init();">
-        <div id="map" class="map"></div>
+        <div id="map" data-role="page"></div>
+        <div id="muinaismuisto-details" data-role="page">
+            <div data-role="header">
+                <h1>Tiedot</h1>
+            </div><!-- /header -->
+
+            <div role="main" class="ui-content">
+                <p>Page content goes here.</p>
+            </div><!-- /content -->
+        </div>
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript" src="js/fastclick.js"></script>
         <script type="text/javascript" src="js/ol.js"></script>
         <script type="text/javascript" src="js/proj4.js"></script>
