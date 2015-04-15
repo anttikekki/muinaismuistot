@@ -74,15 +74,8 @@ class Muinaismuistot {
 
 	protected function getColumns() {
 		$columns = ['X','Y','MJTUNNUS'];
-		if(isset($_GET['columns']) && is_array($_GET['columns'])) {
-			$columns = $_GET['columns'];
-		}
-
-		if(in_array('X', $columns)) {
-			$columns[] = 'X';
-		}
-		if(in_array('Y', $columns)) {
-			$columns[] = 'Y';
+		if(isset($_GET['columns'])) {
+			$columns = explode(",", $_GET['columns']);
 		}
 
 		//Remove unknown columns
@@ -135,12 +128,25 @@ class Muinaismuistot {
 		return new FeatureCollection($features);
 	}
 
+	protected function toJson($data) {
+		$format = 'geojson';
+		if(isset($_GET['format'])) {
+			$format = $_GET['format'];
+		}
+
+		if($format == 'json') {
+			return json_encode(is_array($data) && isset($data[0]) ? $data[0] : $data);
+		}
+		else {
+			return json_encode($this->mapToGeoJson($data));
+		}
+	}
 	
 	public function runRequest() {
 		$queryResults = $this->database->select($this->TABLE_MUINAISJAANNOSPISTEET, $this->getColumns(), $this->getWhere());
 
 		header('Content-Type: application/json');
-		echo json_encode($this->mapToGeoJson($queryResults));
+		echo $this->toJson($queryResults);
 	}
 	
 }

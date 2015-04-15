@@ -1,10 +1,11 @@
 var MuinaismuistotMap = function() {
-
+  this.apiUrl;
   this.map;
   this.view;
 
-  this.init = function() {
+  this.init = function(apiUrl) {
     var self = this;
+    this.apiUrl = apiUrl;
     this.loadWmtsCapabilities();
 
     proj4.defs("EPSG:3067","+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
@@ -39,7 +40,7 @@ var MuinaismuistotMap = function() {
       });
 
       if(muinaisjaannosTunnus) {
-        $.mobile.pageContainer.pagecontainer("change", 'templates/details.html', {transition: 'slide'});
+        $.mobile.pageContainer.pagecontainer("change", 'templates/details.html', {transition: 'slide', muinaisjaannosTunnus: muinaisjaannosTunnus});
       }
     });
 
@@ -77,6 +78,8 @@ var MuinaismuistotMap = function() {
   };
 
   this.addMuinaismuistotLayer = function() {
+    var self = this;
+
     var fill = new ol.style.Fill({
      color: 'rgba(255,0,0,0.5)'
     });
@@ -85,22 +88,19 @@ var MuinaismuistotMap = function() {
      width: 1.25
     });
 
-    var vectorLoader = function(extent, resolution, projection) {
-      var url = 'api/index.php?viewbox=' + extent.join(',');
-      var self = this;
-
-      $.ajax({
-        url: url,
-        success: function(response) {
-          var features = vectorSource.readFeatures(response);
-          vectorSource.addFeatures(features);
-        }
-      });
-    };
-
     var vectorSource = new ol.source.ServerVector({
         format: new ol.format.GeoJSON(),
-        loader: vectorLoader,
+        loader: function(extent, resolution, projection) {
+          var url = self.apiUrl + '?format=geojson&columns=X,Y,MJTUNNUS&viewbox=' + extent.join(',');
+
+          $.ajax({
+            url: url,
+            success: function(response) {
+              var features = vectorSource.readFeatures(response);
+              vectorSource.addFeatures(features);
+            }
+          });
+        },
         strategy: ol.loadingstrategy.createTile(new ol.tilegrid.XYZ({
           maxZoom: 15
         }))
