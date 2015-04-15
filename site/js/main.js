@@ -89,10 +89,15 @@ function init() {
       });
 
       map.on("click", function(e) {
-          map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
-              //do something
-          }
-      };
+        var muinaisjaannosTunnus;
+        map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+          muinaisjaannosTunnus = feature.n.MJTUNNUS
+        });
+
+        if(muinaisjaannosTunnus) {
+          $.mobile.pageContainer.pagecontainer("change", 'templates/details.html', {transition: 'slide'});
+        }
+      });
     }
   };
   xhr.send();
