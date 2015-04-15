@@ -24,5 +24,12 @@ var MuinaismuistotDetailsPage = function() {
 
 	this.setMuinaisjaannosData = function(data) {
 		this.muinaisjaannosData = data;
+		if(!data) {
+			return;
+		}
+
+		$.each(data, function(key, value) {
+			$('#'+key).html(value);
+		});
 	};
 };
