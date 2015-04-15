@@ -17,14 +17,22 @@
           }
         </style>
     </head>
-    <body onload="init();">
+    <body>
         <div id="map" data-role="page"></div>
 
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
-        <script type="text/javascript" src="js/fastclick.js"></script>
-        <script type="text/javascript" src="js/ol.js"></script>
-        <script type="text/javascript" src="js/proj4.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="js/lib/fastclick.js"></script>
+        <script type="text/javascript" src="js/lib/ol.js"></script>
+        <script type="text/javascript" src="js/lib/proj4.js"></script>
+        <script type="text/javascript" src="js/Muinaismuistot.js"></script>
+        <script type="text/javascript" src="js/MuinaismuistotMap.js"></script>
+        <script type="text/javascript" src="js/MuinaismuistotDetailsPage.js"></script>
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                var muinaismuistot = new Muinaismuistot();
+                muinaismuistot.init();
+            });
+        </script>
     </body>
 </html>
