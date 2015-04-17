@@ -10,7 +10,6 @@ var MuinaismuistotDetailsPage = function() {
 	this.pageBeforechange = function(muinaisjaannosTunnus) {
 		this.muinaisjaannosTunnus = muinaisjaannosTunnus;
 		this.loadMuinaisjaannospisteData(muinaisjaannosTunnus);
-		this.loadKulttuuriymparistoData(muinaisjaannosTunnus);
 	};
 
 	this.loadMuinaisjaannospisteData = function(muinaisjaannosTunnus) {
@@ -32,24 +31,5 @@ var MuinaismuistotDetailsPage = function() {
 		$.each(data, function(key, value) {
 			$('#'+key).html(value);
 		});
-	};
-
-	this.loadKulttuuriymparistoData = function(muinaisjaannosTunnus) {
-		var self = this;
-		var url = 'http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/mjreki/read/asp/r_kohde_det1.aspx?KOHDE_ID=' + muinaisjaannosTunnus;
-
-		$.ajax({
-	        url: url,
-	        success: function(response) {
-	          self.parseKulttuuriymparistoData(response);
-	        }
-      	});
-	};
-
-	this.parseKulttuuriymparistoData = function(response) {
-		var $response = $(response);
-		$kuvaus = $response.find( "div:contains('Kuvaus:')");
-		console.log(response);
-		console.log($kuvaus);
 	};
 };
