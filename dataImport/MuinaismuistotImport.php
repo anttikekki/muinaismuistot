@@ -25,6 +25,8 @@ class MuinaismuistotImport {
 		$this->importCSV();
 		$this->createAjoituTable();
 		$this->insertDataToAjoitus();
+		$this->createMuinaisjaannospisteAjoitusTable();
+		$this->insertDataToMuinaisjaannospisteAjoitus();
 		echo "Import finished<br>";
 	}
 
@@ -133,7 +135,7 @@ class MuinaismuistotImport {
 		$createTableSql = "
 			DROP TABLE IF EXISTS `ajoitus`;
 			CREATE TABLE IF NOT EXISTS `ajoitus` (
-			  `ID` int(4) NOT NULL AUTO_INCREMENT,
+			  `ID` int(2) NOT NULL AUTO_INCREMENT,
 			  `NIMI` varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -156,7 +158,7 @@ class MuinaismuistotImport {
 
 		foreach ($data as $row) {
 			//Data example: 'abc, , , ' or 'abc, def, , '
-			$rowAjoitukset = array_filter(array_map('trim', explode(",", $row['AJOITUS'])));
+			$rowAjoitukset = $this->parseAjoituksetStringToArray($row['AJOITUS']);
 			$distinctAjoitukset = array_merge($distinctAjoitukset, $rowAjoitukset);
 			$distinctAjoitukset = array_unique($distinctAjoitukset);
 		}
@@ -169,6 +171,65 @@ class MuinaismuistotImport {
 		}
 
 		echo "Inserted distinct data to ajoitus table<br>";
+	}
+
+	protected function parseAjoituksetStringToArray($str) {
+		//Data example: 'abc, , , ' or 'abc, def, , '
+		return array_filter(array_map('trim', explode(",", $str)));
+	}
+
+	protected function createMuinaisjaannospisteAjoitusTable() {
+		$createTableSql = "
+			DROP TABLE IF EXISTS `muinaisjaannospiste_ajoitus`;
+			CREATE TABLE IF NOT EXISTS `muinaisjaannospiste_ajoitus` (
+			  `MUINAISJAANNOSPISTE_ID` int(8) NOT NULL,
+			  `AJOITUS_ID` int(4) NOT NULL,
+			  PRIMARY KEY (MUINAISJAANNOSPISTE_ID, AJOITUS_ID)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+		";
+		$this->database->query($createTableSql);
+		$this->checkErrorAndDieIfPresent();
+
+		echo "Created muinaisjaannospiste_ajoitus table<br>";
+	}
+
+	protected function getAjoituksetIdByNameMap() {
+		$sql = "
+			SELECT ID, NIMI
+			FROM ajoitus
+		";
+		$ajoitukset = $this->database->query($sql)->fetchAll();
+		$this->checkErrorAndDieIfPresent();
+		$map = [];
+
+		foreach ($ajoitukset as $ajoitus) {
+			$map[$ajoitus['NIMI']] = $ajoitus['ID'];
+		}
+		return $map;
+	}
+
+	protected function insertDataToMuinaisjaannospisteAjoitus() {
+		$ajoitusIdByNameMap = $this->getAjoituksetIdByNameMap();
+
+		$sql = "
+			SELECT ID, AJOITUS
+			FROM muinaisjaannospisteet_work
+		";
+		$data = $this->database->query($sql)->fetchAll();
+		$this->checkErrorAndDieIfPresent();
+
+		foreach ($data as $row) {
+			//Data example: 'abc, , , ' or 'abc, def, , '
+			$rowAjoitukset = $this->parseAjoituksetStringToArray($row['AJOITUS']);
+			foreach ($rowAjoitukset as $rowAjoitus) {
+				$this->database->insert("muinaisjaannospiste_ajoitus", [
+					'MUINAISJAANNOSPISTE_ID' => $row['ID'],
+					'AJOITUS_ID' => $ajoitusIdByNameMap[$rowAjoitus]
+				]);
+			}
+		}
+
+		echo "Inserted link data to muinaisjaannospiste_ajoitus table<br>";
 	}
 
 }
