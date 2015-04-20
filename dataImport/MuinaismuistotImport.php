@@ -51,6 +51,11 @@ class MuinaismuistotImport {
 		$this->updateTuhoutunutToBoolean();
 		$this->updateVedenalainenToBoolean();
 
+		//Final result
+		$this->dropAndCreateMuinaismuistopisteFinalTable();
+		$this->copyMuinaismuistopisteFromWorkToFinal();
+		$this->dropMuinaismuistopisteWorkTable();
+
 		$this->printMessage("Import finished");
 	}
 
@@ -102,10 +107,20 @@ class MuinaismuistotImport {
 		$this->printMessage("Created muinaisjaannospisteet_work table");
 	}
 
+	protected function dropMuinaismuistopisteWorkTable() {
+		$sql = "
+			DROP TABLE IF EXISTS `muinaisjaannospisteet_work`;
+		";
+		$this->database->query($sql);
+		$this->checkErrorAndDieIfPresent();
+
+		$this->printMessage("Dropped muinaisjaannospisteet_work table");
+	}
+
 	protected function dropAndCreateMuinaismuistopisteFinalTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS `muinaisjaannospisteet_work`;
-			CREATE TABLE IF NOT EXISTS `muinaisjaannospisteet_work` (
+			DROP TABLE IF EXISTS `muinaisjaannospiste`;
+			CREATE TABLE IF NOT EXISTS `muinaisjaannospiste` (
 			  `ID` int(8) NOT NULL AUTO_INCREMENT,
 			  `X` decimal(20,12) NOT NULL,
 			  `Y` decimal(20,12) NOT NULL,
@@ -131,7 +146,19 @@ class MuinaismuistotImport {
 		$this->database->query($createTableSql);
 		$this->checkErrorAndDieIfPresent();
 
-		$this->printMessage("Created muinaisjaannospisteet_work table");
+		$this->printMessage("Created final muinaisjaannospiste table");
+	}
+
+	protected function copyMuinaismuistopisteFromWorkToFinal() {
+		$sql = "
+			INSERT INTO muinaisjaannospiste(X,Y,KUNTA,MJTUNNUS,KOHDENIMI,TYYPPI,ALATYYPPI,LAJI,PAIKANNUST,PAIKANNU0,SELITE,TUHOUTUNUT,LUONTIPVM,MUUTOSPVM,ZALA,ZYLA,VEDENALAIN)
+			SELECT X,Y,KUNTA,MJTUNNUS,KOHDENIMI,TYYPPI,ALATYYPPI,LAJI,PAIKANNUST,PAIKANNU0,SELITE,TUHOUTUNUT,LUONTIPVM,MUUTOSPVM,ZALA,ZYLA,VEDENALAIN
+			FROM muinaisjaannospisteet_work
+		";
+		$this->database->query($sql);
+		$this->checkErrorAndDieIfPresent();
+
+		$this->printMessage("Copied muinaisjaannospiste data from work to final");
 	}
 
 	protected function importCSVToMuinaismuistopisteWork() {
