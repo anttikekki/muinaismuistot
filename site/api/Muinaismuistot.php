@@ -15,7 +15,7 @@ use GeoJson\Feature\Feature;
 use GeoJson\Feature\FeatureCollection;
 
 class Muinaismuistot {
-	protected $TABLE_MUINAISJAANNOSPISTEET = 'muinaisjaannospisteet';
+	protected $TABLE_MUINAISJAANNOSPISTEET = 'muinaisjaannospiste';
 	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMNS = ['X','Y','KUNTA','MJTUNNUS','KOHDENIMI','TYYPPI','ALATYYPPI','LAJI','PAIKANNUST','PAIKANNU0','SELITE','TUHOUTUNUT','LUONTIPVM','MUUTOSPVM','ZALA','ZYLÄ','VEDENALAIN'];
 	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMN_TYPE_CONVERSION = [
 		'X' => 'double',
@@ -38,6 +38,7 @@ class Muinaismuistot {
 		'VEDENALAIN' => 'string'
 	];
 	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN = ['KUNTA', 'KOHDENIMI', 'AJOITUS', 'TYYPPI', 'ALATYYPPI', 'LAJI'];
+	protected $FILTERS;
 	protected $settings;
 	protected $database;
 
@@ -51,14 +52,66 @@ class Muinaismuistot {
 			'password' => $this->settings->DB_PASSWORD,
 			'charset' => $this->settings->DB_CHARSET
 		]);
+		$this->FILTERS = array_merge($this->TABLE_MUINAISJAANNOSPISTEET_COLUMNS, ['viewbox']);
 	}
 
-	protected function castColumnValueToType($value, $name) {
-		if(!isset($this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_TYPE_CONVERSION[$name])) {
-			return null;
+	protected function getSelectColumns() {
+		$columns = ['X','Y','MJTUNNUS'];
+		if(isset($_GET['columns'])) {
+			$columns = explode(",", $_GET['columns']);
 		}
 
-		$type = $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_TYPE_CONVERSION[$name];
+		//Remove unknown columns
+		return array_intersect($columns, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMNS);
+	}
+
+	protected function getSelectSql() {
+		$select = [];
+
+		foreach ($this->getSelectColumns() as $column) {
+			if(in_array($column, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN)) {
+				$select[] = "$column.NIMI";
+			}
+			else {
+				$select[] = $column;
+			}
+		}
+
+		return " SELECT " . implode(", ", $select);
+	}
+
+	protected function getSqlJoins() {
+		$allRequiredFields = array_merge($this->getSelectColumns(), array_keys($this->getFilters()));
+
+		$sql = "";
+		foreach ($allRequiredFields as $column) {
+			if(in_array($column, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN)) {
+				if($column == 'AJOITUS') {
+					$sql .= " INNER JOIN muinaisjaannospiste_ajoitus ON muinaisjaannospiste.ID = muinaisjaannospiste_ajoitus.MUINAISJAANNOSPISTE_ID ";
+					$sql .= " INNER JOIN ajoitus ON muinaisjaannospiste_ajoitus.AJOITUS_ID = ajoitus.ID ";
+				}
+				else {
+					$sql .= " LEFT JOIN $column ON muinaisjaannospiste.$column = $column.ID ";
+				}
+			}
+		}
+		return $sql;
+	}
+
+	protected function getFilters() {
+		$filters = [];
+		foreach ($_GET as $paramName => $paramValue) {
+			if(in_array($paramName, $this->FILTERS)) {
+				$filters[] = $paramName;
+			}
+		}
+		return $filters;
+	}
+
+	protected function getFilterSqlValue($filter) {
+		$value = $_GET[$filter];
+
+		$type = $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_TYPE_CONVERSION[$filter];
 		if($type == 'double') {
 			return (double)$value;
 		}
@@ -71,60 +124,38 @@ class Muinaismuistot {
 		return null;
 	}
 
-	protected function getColumns() {
-		$columns = ['X','Y','MJTUNNUS'];
-		if(isset($_GET['columns'])) {
-			$columns = explode(",", $_GET['columns']);
-		}
-
-		//Remove unknown columns
-		return array_intersect($columns, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMNS);
-	}
-
-	protected function getSqlJoins($columns) {
-		$sql = "";
-		foreach ($columns as $column) {
-			if(in_array($column, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN)) {
-				if($column == 'AJOITUS') {
-					$sql .= " INNER JOIN $column ON mjpiste.$column = $column.ID ";
-					$sql .= " INNER JOIN $column ON mjpiste.$column = $column.ID ";
-				}
-				else {
-					$sql .= " LEFT JOIN $column ON mjpiste.$column = $column.ID ";
-				}
-			}
-		}
-		return $sql;
-	}
-
-	protected function getWhere() {
-		$where = [
-			'AND' => []
-		];
-		foreach ($_GET as $paramName => $paramValue) {
-			if($paramName == 'viewbox') {
+	protected function getSqlWhere() {
+		$where = [];
+		foreach ($this->getFilters() as $filter) {
+			if($filter == 'viewbox') {
 				//ViewBox = [minX, minY, maxX, maxY]
-				$viewbox = explode(",", $paramValue);
+				$viewbox = explode(",", $_GET[$filter]);
 				if(count($viewbox) != 4) {
 					continue;
 				}
 
-				$where['AND']['X[<>]'] = [(double)$viewbox[0], (double)$viewbox[2]];
-				$where['AND']['Y[<>]'] = [(double)$viewbox[1], (double)$viewbox[3]];
+				$where[] = " X BETWEEN " . (double)$viewbox[0] . " AND " . (double)$viewbox[2];
+				$where[] = " Y BETWEEN " . (double)$viewbox[1] . " AND " . (double)$viewbox[3];
 			}
 			else {
-				$value = $this->castColumnValueToType($paramValue, $paramName);
-				if(!is_null($value)) {
-					$where['AND'][$paramName] = $value;
-				}
+				$where[] = " $filter = " . $this->getFilterSqlValue($filter);
 			}
 		}
 
-		if(count($where['AND']) == 0) {
-			$where['LIMIT'] = 10;
+		if(count($where) == 0) {
+			return "";
 		}
 
-		return $where;
+		return " WHERE " . implode(" AND ", $where);
+	}
+
+	protected function getSql() {
+		$sql = $this->getSelectSql();
+		$sql .= " FROM " . $this->TABLE_MUINAISJAANNOSPISTEET;
+		$sql .= $this->getSqlJoins();
+		$sql .= $this->getSqlWhere();
+
+		return $sql;
 	}
 
 	protected function mapToGeoJson($data) {
@@ -156,9 +187,19 @@ class Muinaismuistot {
 			return json_encode($this->mapToGeoJson($data));
 		}
 	}
+
+	protected function checkErrorAndDieIfPresent() {
+		if($this->database->error()[0] != '0000') {
+			$this->printMessage("Last SQL Query: ".$this->database->last_query());
+			$this->printMessage("Error: ");
+			var_dump($this->database->error());
+			die();
+		}
+	}
 	
 	public function runRequest() {
-		$queryResults = $this->database->select($this->TABLE_MUINAISJAANNOSPISTEET, $this->getColumns(), $this->getWhere());
+		$queryResults = $this->database->query($this->getSql())->fetchAll();
+		$this->checkErrorAndDieIfPresent();
 
 		header('Content-Type: application/json');
 		echo $this->toJson($queryResults);
