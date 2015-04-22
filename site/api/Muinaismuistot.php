@@ -16,7 +16,7 @@ use GeoJson\Feature\FeatureCollection;
 
 class Muinaismuistot {
 	protected $TABLE_MUINAISJAANNOSPISTEET = 'muinaisjaannospisteet';
-	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMNS = ['X','Y','KUNTA','MJTUNNUS','KOHDENIMI','AJOITUS','TYYPPI','ALATYYPPI','LAJI','I','P','PAIKANNUST','PAIKANNU0','SELITE','TUHOUTUNUT','LUONTIPVM','MUUTOSPVM','ZALA','ZYLÄ','VEDENALAIN'];
+	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMNS = ['X','Y','KUNTA','MJTUNNUS','KOHDENIMI','TYYPPI','ALATYYPPI','LAJI','PAIKANNUST','PAIKANNU0','SELITE','TUHOUTUNUT','LUONTIPVM','MUUTOSPVM','ZALA','ZYLÄ','VEDENALAIN'];
 	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMN_TYPE_CONVERSION = [
 		'X' => 'double',
 		'Y' => 'double',
@@ -27,8 +27,6 @@ class Muinaismuistot {
 		'TYYPPI' => 'string',
 		'ALATYYPPI' => 'string',
 		'LAJI' => 'string',
-		'I' => 'double',
-		'P' => 'double',
 		'PAIKANNUST' => 'string',
 		'PAIKANNU0' => 'string',
 		'SELITE' => 'string',
@@ -36,9 +34,10 @@ class Muinaismuistot {
 		'LUONTIPVM' => 'string',
 		'MUUTOSPVM' => 'string',
 		'ZALA' => 'double',
-		'ZYLÄ' => 'double',
+		'ZYLA' => 'double',
 		'VEDENALAIN' => 'string'
 	];
+	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN = ['KUNTA', 'KOHDENIMI', 'AJOITUS', 'TYYPPI', 'ALATYYPPI', 'LAJI'];
 	protected $settings;
 	protected $database;
 
@@ -80,6 +79,22 @@ class Muinaismuistot {
 
 		//Remove unknown columns
 		return array_intersect($columns, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMNS);
+	}
+
+	protected function getSqlJoins($columns) {
+		$sql = "";
+		foreach ($columns as $column) {
+			if(in_array($column, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN)) {
+				if($column == 'AJOITUS') {
+					$sql .= " INNER JOIN $column ON mjpiste.$column = $column.ID ";
+					$sql .= " INNER JOIN $column ON mjpiste.$column = $column.ID ";
+				}
+				else {
+					$sql .= " LEFT JOIN $column ON mjpiste.$column = $column.ID ";
+				}
+			}
+		}
+		return $sql;
 	}
 
 	protected function getWhere() {
@@ -135,7 +150,7 @@ class Muinaismuistot {
 		}
 
 		if($format == 'json') {
-			return json_encode(is_array($data) && isset($data[0]) ? $data[0] : $data);
+			return json_encode($data);
 		}
 		else {
 			return json_encode($this->mapToGeoJson($data));
