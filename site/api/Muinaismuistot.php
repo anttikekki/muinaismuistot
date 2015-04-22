@@ -66,7 +66,7 @@ class Muinaismuistot {
 	}
 
 	protected function getSelectSql() {
-		$select = [];
+		$select = ["muinaisjaannospiste.ID"];
 
 		foreach ($this->getSelectColumns() as $column) {
 			if(in_array($column, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN)) {
@@ -77,16 +77,16 @@ class Muinaismuistot {
 			}
 		}
 
-		return " SELECT " . implode(", ", $select);
+		return " SELECT DISTINCT " . implode(", ", $select);
 	}
 
 	protected function getSqlJoins() {
-		$allRequiredFields = array_merge($this->getSelectColumns(), array_keys($this->getFilters()));
+		$allRequiredFields = array_merge($this->getSelectColumns(), $this->getFilters());
 
 		$sql = "";
 		foreach ($allRequiredFields as $column) {
 			if(in_array($column, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN)) {
-				if($column == 'AJOITUS') {
+				if($column === 'AJOITUS') {
 					$sql .= " INNER JOIN muinaisjaannospiste_ajoitus ON muinaisjaannospiste.ID = muinaisjaannospiste_ajoitus.MUINAISJAANNOSPISTE_ID ";
 					$sql .= " INNER JOIN ajoitus ON muinaisjaannospiste_ajoitus.AJOITUS_ID = ajoitus.ID ";
 				}
@@ -198,6 +198,7 @@ class Muinaismuistot {
 	}
 	
 	public function runRequest() {
+		//print_r($this->getSql());
 		$queryResults = $this->database->query($this->getSql())->fetchAll();
 		$this->checkErrorAndDieIfPresent();
 
