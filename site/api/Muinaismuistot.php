@@ -37,7 +37,7 @@ class Muinaismuistot {
 		'ZYLA' => 'double',
 		'VEDENALAIN' => 'string'
 	];
-	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN = ['KUNTA', 'KOHDENIMI', 'AJOITUS', 'TYYPPI', 'ALATYYPPI', 'LAJI'];
+	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN = ['KUNTA', 'AJOITUS', 'TYYPPI', 'ALATYYPPI', 'LAJI'];
 	protected $FILTERS;
 	protected $settings;
 	protected $database;
