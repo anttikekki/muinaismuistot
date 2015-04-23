@@ -1,6 +1,5 @@
 <?php
 require_once 'MuinaismuistotSettings.php';
-require_once 'lib/Medoo/medoo.php';
 require_once 'lib/GeoJson/JsonUnserializable.php';
 require_once 'lib/GeoJson/GeoJson.php';
 require_once 'lib/GeoJson/Geometry/Geometry.php';
@@ -44,16 +43,19 @@ class Muinaismuistot {
 
 	public function __construct() {
 		$this->settings = new MuinaismuistotSettings();
-		$this->database = new medoo([
-			'database_type' => 'mysql',
-			'database_name' => $this->settings->DB_NAME,
-			'server' => $this->settings->DB_SERVER,
-			'username' => $this->settings->DB_USERNAME,
-			'password' => $this->settings->DB_PASSWORD,
-			'charset' => $this->settings->DB_CHARSET
-		]);
+		$this->initDatabase();
 
 		$this->FILTERS = array_merge($this->TABLE_MUINAISJAANNOSPISTEET_COLUMNS, ['viewbox']);
+	}
+
+	protected function initDatabase() {
+		$this->pdo = new PDO(
+			'mysql:host=' . $this->settings->DB_SERVER . ';dbname=' . $this->settings->DB_NAME,
+			$this->settings->DB_USERNAME,
+			$this->settings->DB_PASSWORD
+		);
+		$this->pdo->exec('SET SQL_MODE=ANSI_QUOTES');
+		$this->pdo->exec("SET NAMES '" . $this->settings->DB_CHARSET . "'");
 	}
 
 	protected function getSelectColumns() {
@@ -120,7 +122,7 @@ class Muinaismuistot {
 			return (int)$value;
 		}
 		if($type == 'string') {
-			return $this->database->quote($value);
+			return $this->pdo->quote($value);
 		}
 		return null;
 	}
@@ -192,17 +194,17 @@ class Muinaismuistot {
 	}
 
 	protected function checkErrorAndDieIfPresent() {
-		if($this->database->error()[0] != '0000') {
+		if($this->pdo->errorInfo()[0] != '0000') {
 			$this->printMessage("Last SQL Query: ".$this->database->last_query());
 			$this->printMessage("Error: ");
-			var_dump($this->database->error());
+			var_dump($this->pdo->errorInfo());
 			die();
 		}
 	}
 	
 	public function runRequest() {
 		//print_r($this->getSql());
-		$queryResults = $this->database->query($this->getSql())->fetchAll();
+		$queryResults = $this->pdo->query($this->getSql())->fetchAll(PDO::FETCH_ASSOC);
 		$this->checkErrorAndDieIfPresent();
 		
 		echo $this->toJson($queryResults);
