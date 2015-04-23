@@ -75,29 +75,29 @@ class MuinaismuistotImport {
 
 	protected function dropAndCreateMuinaismuistopisteWorkTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS `muinaisjaannospisteet_work`;
-			CREATE TABLE IF NOT EXISTS `muinaisjaannospisteet_work` (
-			  `ID` int(8) NOT NULL AUTO_INCREMENT,
-			  `X` decimal(20,12) NOT NULL,
-			  `Y` decimal(20,12) NOT NULL,
-			  `KUNTA` varchar(256) NOT NULL,
-			  `MJTUNNUS` int(8) NOT NULL,
-			  `KOHDENIMI` varchar(256) NOT NULL,
-			  `AJOITUS` varchar(256) NOT NULL,
-			  `TYYPPI` varchar(256) NOT NULL,
-			  `ALATYYPPI` varchar(256) NOT NULL,
-			  `LAJI` varchar(256) NOT NULL,
-			  `I` decimal(20,12) NOT NULL,
-  			  `P` decimal(20,12) NOT NULL,
-			  `PAIKANNUST` int(5) NOT NULL,
-			  `PAIKANNU0` int(1) NOT NULL,
-			  `SELITE` text NOT NULL,
-			  `TUHOUTUNUT` varchar(5) NOT NULL,
-			  `LUONTIPVM` date,
-			  `MUUTOSPVM` date,
-			  `ZALA` decimal(20,12) NOT NULL,
-			  `ZYLA` decimal(20,12) NOT NULL,
-			  `VEDENALAIN` varchar(1) NOT NULL,
+			DROP TABLE IF EXISTS muinaisjaannospisteet_work;
+			CREATE TABLE IF NOT EXISTS muinaisjaannospisteet_work (
+			  ID int(8) NOT NULL AUTO_INCREMENT,
+			  X decimal(20,12) NOT NULL,
+			  Y decimal(20,12) NOT NULL,
+			  KUNTA varchar(256) NOT NULL,
+			  MJTUNNUS int(8) NOT NULL,
+			  KOHDENIMI varchar(256) NOT NULL,
+			  AJOITUS varchar(256) NOT NULL,
+			  TYYPPI varchar(256) NOT NULL,
+			  ALATYYPPI varchar(256) NOT NULL,
+			  LAJI varchar(256) NOT NULL,
+			  I decimal(20,12) NOT NULL,
+  			  P decimal(20,12) NOT NULL,
+			  PAIKANNUST int(5) NOT NULL,
+			  PAIKANNU0 int(1) NOT NULL,
+			  SELITE text NOT NULL,
+			  TUHOUTUNUT varchar(5) NOT NULL,
+			  LUONTIPVM date,
+			  MUUTOSPVM date,
+			  ZALA decimal(20,12) NOT NULL,
+			  ZYLA decimal(20,12) NOT NULL,
+			  VEDENALAIN varchar(1) NOT NULL,
 			  PRIMARY KEY (ID)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 		";
@@ -109,7 +109,7 @@ class MuinaismuistotImport {
 
 	protected function dropMuinaismuistopisteWorkTable() {
 		$sql = "
-			DROP TABLE IF EXISTS `muinaisjaannospisteet_work`;
+			DROP TABLE IF EXISTS muinaisjaannospisteet_work;
 		";
 		$this->database->query($sql);
 		$this->checkErrorAndDieIfPresent();
@@ -119,27 +119,27 @@ class MuinaismuistotImport {
 
 	protected function dropAndCreateMuinaismuistopisteFinalTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS `muinaisjaannospiste`;
-			CREATE TABLE IF NOT EXISTS `muinaisjaannospiste` (
-			  `ID` int(8) NOT NULL AUTO_INCREMENT,
-			  `X` decimal(20,12) NOT NULL,
-			  `Y` decimal(20,12) NOT NULL,
-			  `KUNTA` int(3) NOT NULL,
-			  `MJTUNNUS` int(8) NOT NULL,
-			  `KOHDENIMI` varchar(256) NOT NULL,
-			  `AJOITUS` int(3) NOT NULL,
-			  `TYYPPI` int(3) NOT NULL,
-			  `ALATYYPPI` int(3) NOT NULL,
-			  `LAJI` int(3) NOT NULL,
-			  `PAIKANNUST` int(5) NOT NULL,
-			  `PAIKANNU0` int(1) NOT NULL,
-			  `SELITE` text NOT NULL,
-			  `TUHOUTUNUT` tinyint(1) NOT NULL,
-			  `LUONTIPVM` date,
-			  `MUUTOSPVM` date,
-			  `ZALA` decimal(20,12) NOT NULL,
-			  `ZYLA` decimal(20,12) NOT NULL,
-			  `VEDENALAIN` tinyint(1) NOT NULL,
+			DROP TABLE IF EXISTS muinaisjaannospiste;
+			CREATE TABLE IF NOT EXISTS muinaisjaannospiste (
+			  ID int(8) NOT NULL AUTO_INCREMENT,
+			  X decimal(20,12) NOT NULL,
+			  Y decimal(20,12) NOT NULL,
+			  KUNTA int(3) NOT NULL,
+			  MJTUNNUS int(8) NOT NULL,
+			  KOHDENIMI varchar(256) NOT NULL,
+			  AJOITUS int(3) NOT NULL,
+			  TYYPPI int(3) NOT NULL,
+			  ALATYYPPI int(3) NOT NULL,
+			  LAJI int(3) NOT NULL,
+			  PAIKANNUST int(5) NOT NULL,
+			  PAIKANNU0 int(1) NOT NULL,
+			  SELITE text NOT NULL,
+			  TUHOUTUNUT tinyint(1) NOT NULL,
+			  LUONTIPVM date,
+			  MUUTOSPVM date,
+			  ZALA decimal(20,12) NOT NULL,
+			  ZYLA decimal(20,12) NOT NULL,
+			  VEDENALAIN tinyint(1) NOT NULL,
 			  PRIMARY KEY (ID)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 		";
@@ -235,10 +235,10 @@ class MuinaismuistotImport {
 
 	protected function createAjoituTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS `ajoitus`;
-			CREATE TABLE IF NOT EXISTS `ajoitus` (
-			  `ID` int(2) NOT NULL AUTO_INCREMENT,
-			  `NIMI` varchar(50) NOT NULL,
+			DROP TABLE IF EXISTS AJOITUS;
+			CREATE TABLE IF NOT EXISTS AJOITUS (
+			  ID int(2) NOT NULL AUTO_INCREMENT,
+			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 		";
@@ -266,13 +266,13 @@ class MuinaismuistotImport {
 		}
 
 		foreach ($distinctAjoitukset as $ajoitus) {
-			$this->database->insert("ajoitus", [
+			$this->database->insert("AJOITUS", [
 				'NIMI' => $ajoitus
 			]);
 			$this->checkErrorAndDieIfPresent();
 		}
 
-		$this->printMessage("Inserted distinct data to ajoitus table");
+		$this->printMessage("Inserted distinct data to AJOITUS table");
 	}
 
 	protected function parseAjoituksetStringToArray($str) {
@@ -282,23 +282,23 @@ class MuinaismuistotImport {
 
 	protected function createMuinaisjaannospisteAjoitusTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS `muinaisjaannospiste_ajoitus`;
-			CREATE TABLE IF NOT EXISTS `muinaisjaannospiste_ajoitus` (
-			  `MUINAISJAANNOSPISTE_ID` int(8) NOT NULL,
-			  `AJOITUS_ID` int(4) NOT NULL,
+			DROP TABLE IF EXISTS MUINAISJAANNOSPISTE_AJOITUS;
+			CREATE TABLE IF NOT EXISTS MUINAISJAANNOSPISTE_AJOITUS (
+			  MUINAISJAANNOSPISTE_ID int(8) NOT NULL,
+			  AJOITUS_ID int(4) NOT NULL,
 			  PRIMARY KEY (MUINAISJAANNOSPISTE_ID, AJOITUS_ID)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 		";
 		$this->database->query($createTableSql);
 		$this->checkErrorAndDieIfPresent();
 
-		$this->printMessage("Created muinaisjaannospiste_ajoitus table");
+		$this->printMessage("Created MUINAISJAANNOSPISTE_AJOITUS table");
 	}
 
 	protected function getAjoituksetIdByNameMap() {
 		$sql = "
 			SELECT ID, NIMI
-			FROM ajoitus
+			FROM AJOITUS
 		";
 		$ajoitukset = $this->database->query($sql)->fetchAll();
 		$this->checkErrorAndDieIfPresent();
@@ -324,22 +324,22 @@ class MuinaismuistotImport {
 			//Data example: 'abc, , , ' or 'abc, def, , '
 			$rowAjoitukset = $this->parseAjoituksetStringToArray($row['AJOITUS']);
 			foreach ($rowAjoitukset as $rowAjoitus) {
-				$this->database->insert("muinaisjaannospiste_ajoitus", [
+				$this->database->insert("MUINAISJAANNOSPISTE_AJOITUS", [
 					'MUINAISJAANNOSPISTE_ID' => $row['ID'],
 					'AJOITUS_ID' => $ajoitusIdByNameMap[$rowAjoitus]
 				]);
 			}
 		}
 
-		$this->printMessage("Inserted link data to muinaisjaannospiste_ajoitus table");
+		$this->printMessage("Inserted link data to MUINAISJAANNOSPISTE_AJOITUS table");
 	}
 
 	protected function createAndPopoulateTyyppiTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS `tyyppi`;
-			CREATE TABLE IF NOT EXISTS `tyyppi` (
-			  `ID` int(2) NOT NULL AUTO_INCREMENT,
-			  `NIMI` varchar(50) NOT NULL,
+			DROP TABLE IF EXISTS TYYPPI;
+			CREATE TABLE IF NOT EXISTS TYYPPI (
+			  ID int(2) NOT NULL AUTO_INCREMENT,
+			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 		";
@@ -347,20 +347,20 @@ class MuinaismuistotImport {
 		$this->checkErrorAndDieIfPresent();
 
 		$sql = "
-			INSERT INTO tyyppi(NIMI)
+			INSERT INTO TYYPPI(NIMI)
 			SELECT DISTINCT TYYPPI
 			FROM muinaisjaannospisteet_work
 		";
 		$this->database->query($sql);
 		$this->checkErrorAndDieIfPresent();
 
-		$this->printMessage("Created and populated tyyppi table");
+		$this->printMessage("Created and populated TYYPPI table");
 	}
 
 	protected function updateTyyppiToID() {
 		$sql = "
 			SELECT ID, NIMI
-			FROM tyyppi
+			FROM TYYPPI
 		";
 		$tyypit = $this->database->query($sql)->fetchAll();
 		$this->checkErrorAndDieIfPresent();
@@ -378,10 +378,10 @@ class MuinaismuistotImport {
 
 	protected function createAndPopoulateAlatyyppiTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS `alatyyppi`;
-			CREATE TABLE IF NOT EXISTS `alatyyppi` (
-			  `ID` int(2) NOT NULL AUTO_INCREMENT,
-			  `NIMI` varchar(50) NOT NULL,
+			DROP TABLE IF EXISTS ALATYYPPI;
+			CREATE TABLE IF NOT EXISTS ALATYYPPI (
+			  ID int(2) NOT NULL AUTO_INCREMENT,
+			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 		";
@@ -389,7 +389,7 @@ class MuinaismuistotImport {
 		$this->checkErrorAndDieIfPresent();
 
 		$sql = "
-			INSERT INTO alatyyppi(NIMI)
+			INSERT INTO ALATYYPPI(NIMI)
 			SELECT DISTINCT ALATYYPPI
 			FROM muinaisjaannospisteet_work
 		";
@@ -402,7 +402,7 @@ class MuinaismuistotImport {
 	protected function updateAlatyyppiToID() {
 		$sql = "
 			SELECT ID, NIMI
-			FROM alatyyppi
+			FROM ALATYYPPI
 		";
 		$rows = $this->database->query($sql)->fetchAll();
 		$this->checkErrorAndDieIfPresent();
@@ -415,15 +415,15 @@ class MuinaismuistotImport {
 			]);
 		}
 
-		$this->printMessage("Replaced alatyyppi name with id");
+		$this->printMessage("Replaced ALATYYPPI name with id");
 	}
 
 	protected function createAndPopoulateLajiTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS `laji`;
-			CREATE TABLE IF NOT EXISTS `laji` (
-			  `ID` int(2) NOT NULL AUTO_INCREMENT,
-			  `NIMI` varchar(50) NOT NULL,
+			DROP TABLE IF EXISTS LAJI;
+			CREATE TABLE IF NOT EXISTS LAJI (
+			  ID int(2) NOT NULL AUTO_INCREMENT,
+			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 		";
@@ -431,20 +431,20 @@ class MuinaismuistotImport {
 		$this->checkErrorAndDieIfPresent();
 
 		$sql = "
-			INSERT INTO laji(NIMI)
+			INSERT INTO LAJI(NIMI)
 			SELECT DISTINCT LAJI
 			FROM muinaisjaannospisteet_work
 		";
 		$this->database->query($sql);
 		$this->checkErrorAndDieIfPresent();
 
-		$this->printMessage("Created and populated laji table");
+		$this->printMessage("Created and populated LAJI table");
 	}
 
 	protected function updateLajiToID() {
 		$sql = "
 			SELECT ID, NIMI
-			FROM laji
+			FROM LAJI
 		";
 		$rows = $this->database->query($sql)->fetchAll();
 		$this->checkErrorAndDieIfPresent();
@@ -462,10 +462,10 @@ class MuinaismuistotImport {
 
 	protected function createAndPopoulateKuntaTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS `kunta`;
-			CREATE TABLE IF NOT EXISTS `kunta` (
-			  `ID` int(2) NOT NULL AUTO_INCREMENT,
-			  `NIMI` varchar(50) NOT NULL,
+			DROP TABLE IF EXISTS KUNTA;
+			CREATE TABLE IF NOT EXISTS KUNTA (
+			  ID int(2) NOT NULL AUTO_INCREMENT,
+			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 		";
@@ -473,20 +473,20 @@ class MuinaismuistotImport {
 		$this->checkErrorAndDieIfPresent();
 
 		$sql = "
-			INSERT INTO kunta(NIMI)
+			INSERT INTO KUNTA(NIMI)
 			SELECT DISTINCT KUNTA
 			FROM muinaisjaannospisteet_work
 		";
 		$this->database->query($sql);
 		$this->checkErrorAndDieIfPresent();
 
-		$this->printMessage("Created and populated kunta table");
+		$this->printMessage("Created and populated KUNTA table");
 	}
 
 	protected function updateKuntaToID() {
 		$sql = "
 			SELECT ID, NIMI
-			FROM kunta
+			FROM KUNTA
 		";
 		$rows = $this->database->query($sql)->fetchAll();
 		$this->checkErrorAndDieIfPresent();
