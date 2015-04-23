@@ -52,6 +52,7 @@ class Muinaismuistot {
 			'password' => $this->settings->DB_PASSWORD,
 			'charset' => $this->settings->DB_CHARSET
 		]);
+
 		$this->FILTERS = array_merge($this->TABLE_MUINAISJAANNOSPISTEET_COLUMNS, ['viewbox']);
 	}
 
@@ -70,7 +71,7 @@ class Muinaismuistot {
 
 		foreach ($this->getSelectColumns() as $column) {
 			if(in_array($column, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN)) {
-				$select[] = "$column.NIMI";
+				$select[] = "$column.NIMI AS $column";
 			}
 			else {
 				$select[] = $column;
@@ -175,6 +176,8 @@ class Muinaismuistot {
 	}
 
 	protected function toJson($data) {
+		header('Content-Type: application/json');
+
 		$format = 'geojson';
 		if(isset($_GET['format'])) {
 			$format = $_GET['format'];
@@ -201,8 +204,7 @@ class Muinaismuistot {
 		//print_r($this->getSql());
 		$queryResults = $this->database->query($this->getSql())->fetchAll();
 		$this->checkErrorAndDieIfPresent();
-
-		header('Content-Type: application/json');
+		
 		echo $this->toJson($queryResults);
 	}
 	
