@@ -26,6 +26,7 @@ class MuinaismuistotImport {
 		switch ($step) {
 		    case 1:
 		        //Create temp work table
+		    	$this->dropOldTables();
 				$this->dropAndCreateMuinaismuistopisteWorkTable();
 				$this->printMessage('Next: Import data from CSV');
 		        break;
@@ -56,7 +57,7 @@ class MuinaismuistotImport {
 		        //Kunta
 				$this->createAndPopoulateKuntaTable();
 				$this->updateKuntaToID();
-				$this->printMessage('Next: Touhutunut ja Vedenalainen');
+				$this->printMessage('Next: Tuhoutunut ja Vedenalainen');
 		        break;
 		    case 7:
 		        //Tuhoutunut and vedenalainen
@@ -86,7 +87,7 @@ class MuinaismuistotImport {
 				$this->dropMuinaismuistopisteWorkTable();
 		        break;
 		    default:
-       			echo "DONE";
+       			echo "IMPORT_DONE";
 		}
 		
 	}
@@ -95,9 +96,24 @@ class MuinaismuistotImport {
 		echo '<li>'.$message.'</li>';
 	}
 
+	protected function dropOldTables() {
+		$sql = "
+			DROP TABLE IF EXISTS muinaisjaannospisteet_work;
+			DROP TABLE IF EXISTS MUINAISJAANNOSPISTE_AJOITUS;
+			DROP TABLE IF EXISTS AJOITUS;
+			DROP TABLE IF EXISTS MUINAISJAANNOSPISTE;
+			DROP TABLE IF EXISTS TYYPPI;
+			DROP TABLE IF EXISTS ALATYYPPI;
+			DROP TABLE IF EXISTS LAJI;
+			DROP TABLE IF EXISTS KUNTA;
+		";
+		$this->pdo->query($sql);
+
+		$this->printMessage("Dropped old tables");
+	}
+
 	protected function dropAndCreateMuinaismuistopisteWorkTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS muinaisjaannospisteet_work;
 			CREATE TABLE IF NOT EXISTS muinaisjaannospisteet_work (
 			  ID int(8) NOT NULL AUTO_INCREMENT,
 			  X decimal(20,12) NOT NULL,
@@ -139,7 +155,6 @@ class MuinaismuistotImport {
 
 	protected function dropAndCreateMuinaismuistopisteFinalTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS MUINAISJAANNOSPISTE;
 			CREATE TABLE IF NOT EXISTS MUINAISJAANNOSPISTE (
 			  ID int(8) NOT NULL AUTO_INCREMENT,
 			  X decimal(20,12) NOT NULL,
@@ -162,9 +177,9 @@ class MuinaismuistotImport {
 			  VEDENALAIN tinyint(1) NOT NULL,
 			  PRIMARY KEY (ID),
 			  CONSTRAINT fk_KUNTA FOREIGN KEY (KUNTA) REFERENCES KUNTA(ID),
-			  CONSTRAINT fk_TYYPPI FOREIGN KEY (TYYPPI_ID) REFERENCES TYYPPI(ID),
-			  CONSTRAINT fk_ALATYYPPI FOREIGN KEY (ALATYYPPI_ID) REFERENCES ALATYYPPI(ID),
-			  CONSTRAINT fk_LAJI FOREIGN KEY (LAJI_ID) REFERENCES LAJI(ID)
+			  CONSTRAINT fk_TYYPPI FOREIGN KEY (TYYPPI) REFERENCES TYYPPI(ID),
+			  CONSTRAINT fk_ALATYYPPI FOREIGN KEY (ALATYYPPI) REFERENCES ALATYYPPI(ID),
+			  CONSTRAINT fk_LAJI FOREIGN KEY (LAJI) REFERENCES LAJI(ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
 		$this->pdo->query($createTableSql);
@@ -258,7 +273,6 @@ class MuinaismuistotImport {
 
 	protected function createAjoituTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS AJOITUS;
 			CREATE TABLE IF NOT EXISTS AJOITUS (
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
@@ -308,7 +322,6 @@ class MuinaismuistotImport {
 
 	protected function createMuinaisjaannospisteAjoitusTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS MUINAISJAANNOSPISTE_AJOITUS;
 			CREATE TABLE IF NOT EXISTS MUINAISJAANNOSPISTE_AJOITUS (
 			  MUINAISJAANNOSPISTE_ID int(8) NOT NULL,
 			  AJOITUS_ID int(4) NOT NULL,
@@ -367,7 +380,6 @@ class MuinaismuistotImport {
 
 	protected function createAndPopoulateTyyppiTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS TYYPPI;
 			CREATE TABLE IF NOT EXISTS TYYPPI (
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
@@ -412,7 +424,6 @@ class MuinaismuistotImport {
 
 	protected function createAndPopoulateAlatyyppiTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS ALATYYPPI;
 			CREATE TABLE IF NOT EXISTS ALATYYPPI (
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
@@ -457,7 +468,6 @@ class MuinaismuistotImport {
 
 	protected function createAndPopoulateLajiTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS LAJI;
 			CREATE TABLE IF NOT EXISTS LAJI (
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
@@ -502,7 +512,6 @@ class MuinaismuistotImport {
 
 	protected function createAndPopoulateKuntaTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS KUNTA;
 			CREATE TABLE IF NOT EXISTS KUNTA (
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,

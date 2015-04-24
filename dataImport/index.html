@@ -26,12 +26,15 @@
                 $.ajax({
                     url: 'executeTask.php?step=' + step,
                     success: function(response) {
-                        if(response != 'DONE') {
+                        $('#messages').append(response);
+
+                        if(!stop && 
+                            response.indexOf('Fatal error') === -1 && 
+                            response.indexOf('ABORT_IMPORT') === -1 && 
+                            response.indexOf('IMPORT_DONE') === -1) {
+                            
                             step++;
-                            $('#messages').append(response);
-                            if(!stop) {
-                                executeNextStep();
-                            }
+                            executeNextStep();
                         }
                     }
                 });
@@ -40,6 +43,8 @@
             $(document).ready(function() {
                 $('#startButton').on('click', function() {
                     $('#messages').html('');
+                    stop = false;
+                    step = 1;
                     executeNextStep();
                 });
                 $('#stopButton').on('click', function() {
