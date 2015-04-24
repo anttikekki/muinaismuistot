@@ -1,77 +1,98 @@
 <?php
 
-require_once 'lib/Medoo/medoo.php';
 require_once 'MuinaismuistotImportSettings.php';
 
 class MuinaismuistotImport {
 	protected $settings;
-	protected $database;
+	protected $pdo;
 
 	public function __construct() {
 		$this->settings = new MuinaismuistotImportSettings();
-		$this->database = new medoo([
-			'database_type' => 'mysql',
-			'database_name' => $this->settings->DB_NAME,
-			'server' => $this->settings->DB_SERVER,
-			'username' => $this->settings->DB_USERNAME,
-			'password' => $this->settings->DB_PASSWORD,
-			'charset' => $this->settings->DB_CHARSET
-		]);
+		$this->initDatabase();
 	}
 
-	public function start() {
-		$this->printMessage("Starting import");
+	protected function initDatabase() {
+		$this->pdo = new PDO(
+			'mysql:host=' . $this->settings->DB_SERVER . ';dbname=' . $this->settings->DB_NAME,
+			$this->settings->DB_USERNAME,
+			$this->settings->DB_PASSWORD
+		);
+		$this->pdo->exec('SET SQL_MODE=ANSI_QUOTES');
+		$this->pdo->exec("SET NAMES '" . $this->settings->DB_CHARSET . "'");
+		$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	}
 
-		//Create tables
-		$this->dropAndCreateMuinaismuistopisteWorkTable();
-		$this->importCSVToMuinaismuistopisteWork();
-
-		//Ajoitus
-		$this->createAjoituTable();
-		$this->insertDataToAjoitus();
-		$this->createMuinaisjaannospisteAjoitusTable();
-		$this->insertDataToMuinaisjaannospisteAjoitus();
-
-		//Tyyppi
-		$this->createAndPopoulateTyyppiTable();
-		$this->updateTyyppiToID();
-
-		//Alatyyppi
-		$this->createAndPopoulateAlatyyppiTable();
-		$this->updateAlatyyppiToID();
-
-		//Laji
-		$this->createAndPopoulateLajiTable();
-		$this->updateLajiToID();
-
-		//Kunta
-		$this->createAndPopoulateKuntaTable();
-		$this->updateKuntaToID();
-
-		//Tuhoutunut and vedenalainen
-		$this->updateTuhoutunutToBoolean();
-		$this->updateVedenalainenToBoolean();
-
-		//Final result
-		$this->dropAndCreateMuinaismuistopisteFinalTable();
-		$this->copyMuinaismuistopisteFromWorkToFinal();
-		$this->dropMuinaismuistopisteWorkTable();
-
-		$this->printMessage("Import finished");
+	public function start($step) {
+		switch ($step) {
+		    case 1:
+		        //Create temp work table
+				$this->dropAndCreateMuinaismuistopisteWorkTable();
+				$this->printMessage('Next: Import data from CSV');
+		        break;
+		    case 2:
+		        //Import data from CSV
+				$this->importCSVToMuinaismuistopisteWork();
+				$this->printMessage('Next: Tyyppi');
+		        break;
+		    case 3:
+		        //Tyyppi
+				$this->createAndPopoulateTyyppiTable();
+				$this->updateTyyppiToID();
+				$this->printMessage('Next: Alatyyppi');
+		        break;
+		    case 4:
+		        //Alatyyppi
+				$this->createAndPopoulateAlatyyppiTable();
+				$this->updateAlatyyppiToID();
+				$this->printMessage('Next: Laji');
+		        break;
+		    case 5:
+		        //Laji
+				$this->createAndPopoulateLajiTable();
+				$this->updateLajiToID();
+				$this->printMessage('Next: Kunta');
+		        break;
+		    case 6:
+		        //Kunta
+				$this->createAndPopoulateKuntaTable();
+				$this->updateKuntaToID();
+				$this->printMessage('Next: Touhutunut ja Vedenalainen');
+		        break;
+		    case 7:
+		        //Tuhoutunut and vedenalainen
+				$this->updateTuhoutunutToBoolean();
+				$this->updateVedenalainenToBoolean();
+				$this->printMessage('Next: Create final table');
+		        break;
+		    case 8:
+		        //Create final table
+				$this->dropAndCreateMuinaismuistopisteFinalTable();
+				$this->printMessage('Next: Copy data from work table to final');
+		        break;
+		    case 9:
+		        //Final result
+				$this->copyMuinaismuistopisteFromWorkToFinal();
+				$this->printMessage('Next: Ajoitus');
+		    case 10:
+		        //Ajoitus
+				$this->createAjoituTable();
+				$this->insertDataToAjoitus();
+				$this->createMuinaisjaannospisteAjoitusTable();
+				$this->insertDataToMuinaisjaannospisteAjoitus();
+				$this->printMessage('Next: Drop work table');
+		        break;
+		    case 11:
+		    	//Drop work table
+				$this->dropMuinaismuistopisteWorkTable();
+		        break;
+		    default:
+       			echo "DONE";
+		}
+		
 	}
 
 	protected function printMessage($message) {
-		echo $message."<br>";
-		flush();
-	}
-
-	protected function checkErrorAndDieIfPresent() {
-		if($this->database->error()[0] != '0000') {
-			$this->printMessage("Last SQL Query: ".$this->database->last_query());
-			$this->printMessage("Error: ");
-			var_dump($this->database->error());
-			die();
-		}
+		echo '<li>'.$message.'</li>';
 	}
 
 	protected function dropAndCreateMuinaismuistopisteWorkTable() {
@@ -102,8 +123,7 @@ class MuinaismuistotImport {
 			  PRIMARY KEY (ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
-		$this->database->query($createTableSql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($createTableSql);
 
 		$this->printMessage("Created muinaisjaannospisteet_work table");
 	}
@@ -112,8 +132,7 @@ class MuinaismuistotImport {
 		$sql = "
 			DROP TABLE IF EXISTS muinaisjaannospisteet_work;
 		";
-		$this->database->query($sql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($sql);
 
 		$this->printMessage("Dropped muinaisjaannospisteet_work table");
 	}
@@ -148,8 +167,7 @@ class MuinaismuistotImport {
 			  CONSTRAINT fk_LAJI FOREIGN KEY (LAJI_ID) REFERENCES LAJI(ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
-		$this->database->query($createTableSql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($createTableSql);
 
 		$this->printMessage("Created final MUINAISJAANNOSPISTE table");
 	}
@@ -160,8 +178,7 @@ class MuinaismuistotImport {
 			SELECT X,Y,KUNTA,MJTUNNUS,KOHDENIMI,TYYPPI,ALATYYPPI,LAJI,PAIKANNUST,PAIKANNU0,SELITE,TUHOUTUNUT,LUONTIPVM,MUUTOSPVM,ZALA,ZYLA,VEDENALAIN
 			FROM muinaisjaannospisteet_work
 		";
-		$this->database->query($sql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($sql);
 
 		$this->printMessage("Copied muinaisjaannospiste data from work to final");
 	}
@@ -184,10 +201,17 @@ class MuinaismuistotImport {
 		if(!file_exists("muinaisjaannospisteet.csv")) {
 			die("Error: muinaisjaannospisteet.csv file does not exist<br>");
 		}
+
 		$handle = fopen("muinaisjaannospisteet.csv", "r");
 		$rowIndex = 0;
 		$separator = ",";
 		$errorCode = null;
+
+		$sql = "
+			INSERT INTO muinaisjaannospisteet_work(X,Y,KUNTA,MJTUNNUS,KOHDENIMI,AJOITUS,TYYPPI,ALATYYPPI,LAJI,I,P,PAIKANNUST,PAIKANNU0,SELITE,TUHOUTUNUT,LUONTIPVM,MUUTOSPVM,ZALA,ZYLA,VEDENALAIN)
+			VALUES (:X,:Y,:KUNTA,:MJTUNNUS,:KOHDENIMI,:AJOITUS,:TYYPPI,:ALATYYPPI,:LAJI,:I,:P,:PAIKANNUST,:PAIKANNU0,:SELITE,:TUHOUTUNUT,:LUONTIPVM,:MUUTOSPVM,:ZALA,:ZYLA,:VEDENALAIN)
+		";
+		$stmt = $this->pdo->prepare($sql);
 
 		while (($data = fgetcsv($handle, $length, $separator)) !== false) {
 			$rowIndex++;
@@ -196,34 +220,28 @@ class MuinaismuistotImport {
 				continue;
 			}
 
-			$this->database->insert("muinaisjaannospisteet_work", [
-				'X' => (double)$data[0],
-				'Y' => (double)$data[1],
-				'KUNTA' => $data[2],
-				'MJTUNNUS' => (int)$data[3],
-				'KOHDENIMI' => $data[4],
-				'AJOITUS' => $data[5],
-				'TYYPPI' => $data[6],
-				'ALATYYPPI' => $data[7],
-				'LAJI' => $data[8],
-				'I' => (double)$data[9],
-				'P' => (double)$data[10],
-				'PAIKANNUST' => (int)$data[11],
-				'PAIKANNU0' => (int)$data[12],
-				'SELITE' => $data[13],
-				'TUHOUTUNUT' => $data[14],
-				'LUONTIPVM' => $this->parseDateToMySql($data[15]),
-				'MUUTOSPVM' => $this->parseDateToMySql($data[16]),
-				'ZALA' => (double)$data[17],
-				'ZYLA' => (double)$data[18],
-				'VEDENALAIN' => $data[19]
+			$stmt->execute([
+				':X' => (double)$data[0],
+				':Y' => (double)$data[1],
+				':KUNTA' => $data[2],
+				':MJTUNNUS' => (int)$data[3],
+				':KOHDENIMI' => $data[4],
+				':AJOITUS' => $data[5],
+				':TYYPPI' => $data[6],
+				':ALATYYPPI' => $data[7],
+				':LAJI' => $data[8],
+				':I' => (double)$data[9],
+				':P' => (double)$data[10],
+				':PAIKANNUST' => (int)$data[11],
+				':PAIKANNU0' => (int)$data[12],
+				':SELITE' => $data[13],
+				':TUHOUTUNUT' => $data[14],
+				':LUONTIPVM' => $this->parseDateToMySql($data[15]),
+				':MUUTOSPVM' => $this->parseDateToMySql($data[16]),
+				':ZALA' => (double)$data[17],
+				':ZYLA' => (double)$data[18],
+				':VEDENALAIN' => $data[19]
 			]);
-
-			$this->checkErrorAndDieIfPresent();
-
-			if($rowIndex % 5000 == 0) {
-				$this->printMessage($rowIndex . " rows imported");
-			}
 		}
 
 		fclose($handle);
@@ -247,8 +265,7 @@ class MuinaismuistotImport {
 			  PRIMARY KEY (ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
-		$this->database->query($createTableSql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($createTableSql);
 
 		$this->printMessage("Created ajoitus table");
 	}
@@ -258,8 +275,7 @@ class MuinaismuistotImport {
 			SELECT DISTINCT AJOITUS
 			FROM muinaisjaannospisteet_work
 		";
-		$data = $this->database->query($sql)->fetchAll();
-		$this->checkErrorAndDieIfPresent();
+		$data = $this->pdo->query($sql)->fetchAll();
 
 		$distinctAjoitukset = [];
 
@@ -270,11 +286,16 @@ class MuinaismuistotImport {
 			$distinctAjoitukset = array_unique($distinctAjoitukset);
 		}
 
+		$sql = "
+			INSERT INTO AJOITUS (NIMI)
+			VALUES (:NIMI)
+		";
+		$stmt = $this->pdo->prepare($sql);
+
 		foreach ($distinctAjoitukset as $ajoitus) {
-			$this->database->insert("AJOITUS", [
-				'NIMI' => $ajoitus
+			$stmt->execute([
+				':NIMI' => $ajoitus
 			]);
-			$this->checkErrorAndDieIfPresent();
 		}
 
 		$this->printMessage("Inserted distinct data to AJOITUS table");
@@ -296,8 +317,7 @@ class MuinaismuistotImport {
 			  CONSTRAINT fk_AJOITUS_ID FOREIGN KEY (AJOITUS_ID) REFERENCES AJOITUS(ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
-		$this->database->query($createTableSql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($createTableSql);
 
 		$this->printMessage("Created MUINAISJAANNOSPISTE_AJOITUS table");
 	}
@@ -307,8 +327,7 @@ class MuinaismuistotImport {
 			SELECT ID, NIMI
 			FROM AJOITUS
 		";
-		$ajoitukset = $this->database->query($sql)->fetchAll();
-		$this->checkErrorAndDieIfPresent();
+		$ajoitukset = $this->pdo->query($sql)->fetchAll();
 		$map = [];
 
 		foreach ($ajoitukset as $ajoitus) {
@@ -324,16 +343,21 @@ class MuinaismuistotImport {
 			SELECT ID, AJOITUS
 			FROM muinaisjaannospisteet_work
 		";
-		$data = $this->database->query($sql)->fetchAll();
-		$this->checkErrorAndDieIfPresent();
+		$data = $this->pdo->query($sql)->fetchAll();
+
+		$sql = "
+			INSERT INTO MUINAISJAANNOSPISTE_AJOITUS (MUINAISJAANNOSPISTE_ID, AJOITUS_ID)
+			VALUES (:MUINAISJAANNOSPISTE_ID, :AJOITUS_ID)
+		";
+		$stmt = $this->pdo->prepare($sql);
 
 		foreach ($data as $row) {
 			//Data example: 'abc, , , ' or 'abc, def, , '
 			$rowAjoitukset = $this->parseAjoituksetStringToArray($row['AJOITUS']);
 			foreach ($rowAjoitukset as $rowAjoitus) {
-				$this->database->insert("MUINAISJAANNOSPISTE_AJOITUS", [
-					'MUINAISJAANNOSPISTE_ID' => $row['ID'],
-					'AJOITUS_ID' => $ajoitusIdByNameMap[$rowAjoitus]
+				$stmt->execute([
+					':MUINAISJAANNOSPISTE_ID' => $row['ID'],
+					':AJOITUS_ID' => $ajoitusIdByNameMap[$rowAjoitus]
 				]);
 			}
 		}
@@ -350,16 +374,14 @@ class MuinaismuistotImport {
 			  PRIMARY KEY (ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
-		$this->database->query($createTableSql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($createTableSql);
 
 		$sql = "
 			INSERT INTO TYYPPI(NIMI)
 			SELECT DISTINCT TYYPPI
 			FROM muinaisjaannospisteet_work
 		";
-		$this->database->query($sql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($sql);
 
 		$this->printMessage("Created and populated TYYPPI table");
 	}
@@ -369,14 +391,19 @@ class MuinaismuistotImport {
 			SELECT ID, NIMI
 			FROM TYYPPI
 		";
-		$tyypit = $this->database->query($sql)->fetchAll();
-		$this->checkErrorAndDieIfPresent();
+		$tyypit = $this->pdo->query($sql)->fetchAll();
+
+		$sql = "
+			UPDATE muinaisjaannospisteet_work
+			SET TYYPPI = :TYYPPI_ID
+			WHERE TYYPPI = :TYYPPI_NIMI
+		";
+		$stmt = $this->pdo->prepare($sql);
 
 		foreach ($tyypit as $tyyppi) {
-			$this->database->update("muinaisjaannospisteet_work", [
-				"TYYPPI" => $tyyppi["ID"]
-			], [
-				"TYYPPI" => $tyyppi["NIMI"]
+			$stmt->execute([
+				":TYYPPI_ID" => $tyyppi["ID"],
+				":TYYPPI_NIMI" => $tyyppi["NIMI"]
 			]);
 		}
 
@@ -392,16 +419,14 @@ class MuinaismuistotImport {
 			  PRIMARY KEY (ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
-		$this->database->query($createTableSql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($createTableSql);
 
 		$sql = "
 			INSERT INTO ALATYYPPI(NIMI)
 			SELECT DISTINCT ALATYYPPI
 			FROM muinaisjaannospisteet_work
 		";
-		$this->database->query($sql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($sql);
 
 		$this->printMessage("Created and populated alatyyppi table");
 	}
@@ -411,14 +436,19 @@ class MuinaismuistotImport {
 			SELECT ID, NIMI
 			FROM ALATYYPPI
 		";
-		$rows = $this->database->query($sql)->fetchAll();
-		$this->checkErrorAndDieIfPresent();
+		$rows = $this->pdo->query($sql)->fetchAll();
+
+		$sql = "
+			UPDATE muinaisjaannospisteet_work
+			SET ALATYYPPI = :ALATYYPPI_ID
+			WHERE ALATYYPPI = :ALATYYPPI_NIMI
+		";
+		$stmt = $this->pdo->prepare($sql);
 
 		foreach ($rows as $row) {
-			$this->database->update("muinaisjaannospisteet_work", [
-				"ALATYYPPI" => $row["ID"]
-			], [
-				"ALATYYPPI" => $row["NIMI"]
+			$stmt->execute([
+				":ALATYYPPI_ID" => $row["ID"],
+				":ALATYYPPI_NIMI" => $row["NIMI"]
 			]);
 		}
 
@@ -434,16 +464,14 @@ class MuinaismuistotImport {
 			  PRIMARY KEY (ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
-		$this->database->query($createTableSql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($createTableSql);
 
 		$sql = "
 			INSERT INTO LAJI(NIMI)
 			SELECT DISTINCT LAJI
 			FROM muinaisjaannospisteet_work
 		";
-		$this->database->query($sql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($sql);
 
 		$this->printMessage("Created and populated LAJI table");
 	}
@@ -453,14 +481,19 @@ class MuinaismuistotImport {
 			SELECT ID, NIMI
 			FROM LAJI
 		";
-		$rows = $this->database->query($sql)->fetchAll();
-		$this->checkErrorAndDieIfPresent();
+		$rows = $this->pdo->query($sql)->fetchAll();
+
+		$sql = "
+			UPDATE muinaisjaannospisteet_work
+			SET LAJI = :LAJI_ID
+			WHERE LAJI = :LAJI_NIMI
+		";
+		$stmt = $this->pdo->prepare($sql);
 
 		foreach ($rows as $row) {
-			$this->database->update("muinaisjaannospisteet_work", [
-				"LAJI" => $row["ID"]
-			], [
-				"LAJI" => $row["NIMI"]
+			$stmt->execute([
+				":LAJI_ID" => $row["ID"],
+				":LAJI_NIMI" => $row["NIMI"]
 			]);
 		}
 
@@ -476,16 +509,14 @@ class MuinaismuistotImport {
 			  PRIMARY KEY (ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
-		$this->database->query($createTableSql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($createTableSql);
 
 		$sql = "
 			INSERT INTO KUNTA(NIMI)
 			SELECT DISTINCT KUNTA
 			FROM muinaisjaannospisteet_work
 		";
-		$this->database->query($sql);
-		$this->checkErrorAndDieIfPresent();
+		$this->pdo->query($sql);
 
 		$this->printMessage("Created and populated KUNTA table");
 	}
@@ -495,14 +526,19 @@ class MuinaismuistotImport {
 			SELECT ID, NIMI
 			FROM KUNTA
 		";
-		$rows = $this->database->query($sql)->fetchAll();
-		$this->checkErrorAndDieIfPresent();
+		$rows = $this->pdo->query($sql)->fetchAll();
+
+		$sql = "
+			UPDATE muinaisjaannospisteet_work
+			SET KUNTA = :KUNTA_ID
+			WHERE KUNTA = :KUNTA_NIMI
+		";
+		$stmt = $this->pdo->prepare($sql);
 
 		foreach ($rows as $row) {
-			$this->database->update("muinaisjaannospisteet_work", [
-				"KUNTA" => $row["ID"]
-			], [
-				"KUNTA" => $row["NIMI"]
+			$stmt->execute([
+				":KUNTA_ID" => $row["ID"],
+				":KUNTA_NIMI" => $row["NIMI"]
 			]);
 		}
 
@@ -510,32 +546,42 @@ class MuinaismuistotImport {
 	}
 
 	protected function updateTuhoutunutToBoolean() {
-		$this->database->update("muinaisjaannospisteet_work", [
-			"TUHOUTUNUT" => 1
-		], [
-			"TUHOUTUNUT" => "Kyllä"
+		$sql = "
+			UPDATE muinaisjaannospisteet_work
+			SET TUHOUTUNUT = :TUHOUTUNUT_NEW
+			WHERE TUHOUTUNUT = :TUHOUTUNUT_OLD
+		";
+		$stmt = $this->pdo->prepare($sql);
+
+		$stmt->execute([
+			":TUHOUTUNUT_NEW" => 1,
+			":TUHOUTUNUT_OLD" => "Kyllä"
 		]);
 
-		$this->database->update("muinaisjaannospisteet_work", [
-			"TUHOUTUNUT" => 0
-		], [
-			"TUHOUTUNUT" => "Ei"
+		$stmt->execute([
+			":TUHOUTUNUT_NEW" => 0,
+			":TUHOUTUNUT_OLD" => "EI"
 		]);
 
 		$this->printMessage("Replaced tuhoutunut name with boolean");
 	}
 
 	protected function updateVedenalainenToBoolean() {
-		$this->database->update("muinaisjaannospisteet_work", [
-			"VEDENALAIN" => 1
-		], [
-			"VEDENALAIN" => "k"
+		$sql = "
+			UPDATE muinaisjaannospisteet_work
+			SET VEDENALAIN = :VEDENALAIN_NEW
+			WHERE VEDENALAIN = :VEDENALAIN_OLD
+		";
+		$stmt = $this->pdo->prepare($sql);
+
+		$stmt->execute([
+			":VEDENALAIN_NEW" => 1,
+			":VEDENALAIN_OLD" => "k"
 		]);
 
-		$this->database->update("muinaisjaannospisteet_work", [
-			"VEDENALAIN" => 0
-		], [
-			"VEDENALAIN" => "e"
+		$stmt->execute([
+			":VEDENALAIN_NEW" => 0,
+			":VEDENALAIN_OLD" => "e"
 		]);
 
 		$this->printMessage("Replaced vedenalainen name with boolean");

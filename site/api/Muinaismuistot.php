@@ -39,7 +39,7 @@ class Muinaismuistot {
 	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN = ['KUNTA', 'AJOITUS', 'TYYPPI', 'ALATYYPPI', 'LAJI'];
 	protected $FILTERS;
 	protected $settings;
-	protected $database;
+	protected $pdo;
 
 	public function __construct() {
 		$this->settings = new MuinaismuistotSettings();
@@ -56,6 +56,7 @@ class Muinaismuistot {
 		);
 		$this->pdo->exec('SET SQL_MODE=ANSI_QUOTES');
 		$this->pdo->exec("SET NAMES '" . $this->settings->DB_CHARSET . "'");
+		$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 
 	protected function getSelectColumns() {

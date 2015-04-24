@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <meta name="viewport" content="initial-scale=1.0, width=device-width">
+        <title>Import</title>
+    </head>
+    <body>
+        <p>
+            <button id="startButton">Start</button> 
+            <button id="stopButton">Stop</button>
+        </p>
+
+        <ol id="messages">
+            
+        </ol>
+
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript">
+            var step = 1;
+            var stop = false;
+
+            function executeNextStep() {
+                $.ajax({
+                    url: 'executeTask.php?step=' + step,
+                    success: function(response) {
+                        if(response != 'DONE') {
+                            step++;
+                            $('#messages').append(response);
+                            if(!stop) {
+                                executeNextStep();
+                            }
+                        }
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                $('#startButton').on('click', function() {
+                    $('#messages').html('');
+                    executeNextStep();
+                });
+                $('#stopButton').on('click', function() {
+                    stop = true;
+                });
+            });
+        </script>
+    </body>
+</html>
