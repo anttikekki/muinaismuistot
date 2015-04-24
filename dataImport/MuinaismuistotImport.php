@@ -80,9 +80,14 @@ class MuinaismuistotImport {
 				$this->insertDataToAjoitus();
 				$this->createMuinaisjaannospisteAjoitusTable();
 				$this->insertDataToMuinaisjaannospisteAjoitus();
-				$this->printMessage('Next: Drop work table');
+				$this->printMessage('Next: Create indexes to MUINAISJAANNOSPISTE');
 		        break;
 		    case 11:
+		    	//Create indexes to final table
+		    	$this->createIndexesToFinalTable();
+		    	$this->printMessage('Next: Drop work table');
+		    	break;
+		    case 12:
 		    	//Drop work table
 				$this->dropMuinaismuistopisteWorkTable();
 		        break;
@@ -196,6 +201,20 @@ class MuinaismuistotImport {
 		$this->pdo->query($sql);
 
 		$this->printMessage("Copied muinaisjaannospiste data from work to final");
+	}
+
+	protected function createIndexesToFinalTable() {
+		$sql = "
+			CREATE INDEX id_XY ON MUINAISJAANNOSPISTE (X, Y);
+			CREATE INDEX id_KUNTA ON MUINAISJAANNOSPISTE (KUNTA);
+			CREATE INDEX id_MJTUNNUS ON MUINAISJAANNOSPISTE (MJTUNNUS);
+			CREATE INDEX id_TYYPPI ON MUINAISJAANNOSPISTE (TYYPPI);
+			CREATE INDEX id_ALATYYPPI ON MUINAISJAANNOSPISTE (ALATYYPPI);
+			CREATE INDEX id_LAJI ON MUINAISJAANNOSPISTE (LAJI);
+		";
+		$this->pdo->query($sql);
+
+		$this->printMessage("Created indexes to MUINAISJAANNOSPISTE");
 	}
 
 	protected function importCSVToMuinaismuistopisteWork() {
