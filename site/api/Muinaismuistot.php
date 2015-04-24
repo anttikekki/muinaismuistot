@@ -14,7 +14,7 @@ use GeoJson\Feature\Feature;
 use GeoJson\Feature\FeatureCollection;
 
 class Muinaismuistot {
-	protected $TABLE_MUINAISJAANNOSPISTEET = 'muinaisjaannospiste';
+	protected $TABLE_MUINAISJAANNOSPISTEET = 'MUINAISJAANNOSPISTE';
 	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMNS = ['X','Y','KUNTA','MJTUNNUS','KOHDENIMI','TYYPPI','ALATYYPPI','LAJI','PAIKANNUST','PAIKANNU0','SELITE','TUHOUTUNUT','LUONTIPVM','MUUTOSPVM','ZALA','ZYLÄ','VEDENALAIN'];
 	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMN_TYPE_CONVERSION = [
 		'X' => 'double',
@@ -70,18 +70,27 @@ class Muinaismuistot {
 	}
 
 	protected function getSelectSql() {
-		$select = ["muinaisjaannospiste.ID"];
+		$select = [];
 
 		foreach ($this->getSelectColumns() as $column) {
 			if(in_array($column, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN)) {
 				$select[] = "$column.NIMI AS $column";
+				if($column === 'AJOITUS') {
+					array_unshift($select, "MUINAISJAANNOSPISTE.ID");
+				}
 			}
 			else {
 				$select[] = $column;
 			}
 		}
 
-		return " SELECT DISTINCT " . implode(", ", $select);
+		$sql = " SELECT ";
+		if(in_array("MUINAISJAANNOSPISTE.ID", $select)) {
+			//To remove duplicates if MUINAISMUISTOPISTE_AJOITUS is joined
+			$sql .= " DISTINCT ";
+		}
+
+		return $sql . implode(", ", $select);
 	}
 
 	protected function getSqlJoins() {
@@ -91,11 +100,11 @@ class Muinaismuistot {
 		foreach ($allRequiredFields as $column) {
 			if(in_array($column, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN)) {
 				if($column === 'AJOITUS') {
-					$sql .= " INNER JOIN muinaisjaannospiste_ajoitus ON muinaisjaannospiste.ID = muinaisjaannospiste_ajoitus.MUINAISJAANNOSPISTE_ID ";
-					$sql .= " INNER JOIN ajoitus ON muinaisjaannospiste_ajoitus.AJOITUS_ID = ajoitus.ID ";
+					$sql .= " INNER JOIN MUINAISJAANNOSPISTE_AJOITUS ON MUINAISJAANNOSPISTE.ID = MUINAISJAANNOSPISTE_AJOITUS.MUINAISJAANNOSPISTE_ID ";
+					$sql .= " INNER JOIN AJOITUS ON MUINAISJAANNOSPISTE_AJOITUS.AJOITUS_ID = AJOITUS.ID ";
 				}
 				else {
-					$sql .= " LEFT JOIN $column ON muinaisjaannospiste.$column = $column.ID ";
+					$sql .= " LEFT JOIN $column ON MUINAISJAANNOSPISTE.$column = $column.ID ";
 				}
 			}
 		}
@@ -193,20 +202,10 @@ class Muinaismuistot {
 			return json_encode($this->mapToGeoJson($data));
 		}
 	}
-
-	protected function checkErrorAndDieIfPresent() {
-		if($this->pdo->errorInfo()[0] != '0000') {
-			$this->printMessage("Last SQL Query: ".$this->database->last_query());
-			$this->printMessage("Error: ");
-			var_dump($this->pdo->errorInfo());
-			die();
-		}
-	}
 	
 	public function runRequest() {
 		//print_r($this->getSql());
 		$queryResults = $this->pdo->query($this->getSql())->fetchAll(PDO::FETCH_ASSOC);
-		$this->checkErrorAndDieIfPresent();
 		
 		echo $this->toJson($queryResults);
 	}
