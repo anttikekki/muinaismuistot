@@ -22,6 +22,7 @@ class MuinaismuistotImport {
 	public function start() {
 		$this->printMessage("Starting import");
 
+		//Create tables
 		$this->dropAndCreateMuinaismuistopisteWorkTable();
 		$this->importCSVToMuinaismuistopisteWork();
 
@@ -99,7 +100,7 @@ class MuinaismuistotImport {
 			  ZYLA decimal(20,12) NOT NULL,
 			  VEDENALAIN varchar(1) NOT NULL,
 			  PRIMARY KEY (ID)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
 		$this->database->query($createTableSql);
 		$this->checkErrorAndDieIfPresent();
@@ -119,8 +120,8 @@ class MuinaismuistotImport {
 
 	protected function dropAndCreateMuinaismuistopisteFinalTable() {
 		$createTableSql = "
-			DROP TABLE IF EXISTS muinaisjaannospiste;
-			CREATE TABLE IF NOT EXISTS muinaisjaannospiste (
+			DROP TABLE IF EXISTS MUINAISJAANNOSPISTE;
+			CREATE TABLE IF NOT EXISTS MUINAISJAANNOSPISTE (
 			  ID int(8) NOT NULL AUTO_INCREMENT,
 			  X decimal(20,12) NOT NULL,
 			  Y decimal(20,12) NOT NULL,
@@ -140,18 +141,22 @@ class MuinaismuistotImport {
 			  ZALA decimal(20,12) NOT NULL,
 			  ZYLA decimal(20,12) NOT NULL,
 			  VEDENALAIN tinyint(1) NOT NULL,
-			  PRIMARY KEY (ID)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+			  PRIMARY KEY (ID),
+			  CONSTRAINT fk_KUNTA FOREIGN KEY (KUNTA) REFERENCES KUNTA(ID),
+			  CONSTRAINT fk_TYYPPI FOREIGN KEY (TYYPPI_ID) REFERENCES TYYPPI(ID),
+			  CONSTRAINT fk_ALATYYPPI FOREIGN KEY (ALATYYPPI_ID) REFERENCES ALATYYPPI(ID),
+			  CONSTRAINT fk_LAJI FOREIGN KEY (LAJI_ID) REFERENCES LAJI(ID)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
 		$this->database->query($createTableSql);
 		$this->checkErrorAndDieIfPresent();
 
-		$this->printMessage("Created final muinaisjaannospiste table");
+		$this->printMessage("Created final MUINAISJAANNOSPISTE table");
 	}
 
 	protected function copyMuinaismuistopisteFromWorkToFinal() {
 		$sql = "
-			INSERT INTO muinaisjaannospiste(X,Y,KUNTA,MJTUNNUS,KOHDENIMI,TYYPPI,ALATYYPPI,LAJI,PAIKANNUST,PAIKANNU0,SELITE,TUHOUTUNUT,LUONTIPVM,MUUTOSPVM,ZALA,ZYLA,VEDENALAIN)
+			INSERT INTO MUINAISJAANNOSPISTE(X,Y,KUNTA,MJTUNNUS,KOHDENIMI,TYYPPI,ALATYYPPI,LAJI,PAIKANNUST,PAIKANNU0,SELITE,TUHOUTUNUT,LUONTIPVM,MUUTOSPVM,ZALA,ZYLA,VEDENALAIN)
 			SELECT X,Y,KUNTA,MJTUNNUS,KOHDENIMI,TYYPPI,ALATYYPPI,LAJI,PAIKANNUST,PAIKANNU0,SELITE,TUHOUTUNUT,LUONTIPVM,MUUTOSPVM,ZALA,ZYLA,VEDENALAIN
 			FROM muinaisjaannospisteet_work
 		";
@@ -240,7 +245,7 @@ class MuinaismuistotImport {
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
 		$this->database->query($createTableSql);
 		$this->checkErrorAndDieIfPresent();
@@ -286,8 +291,10 @@ class MuinaismuistotImport {
 			CREATE TABLE IF NOT EXISTS MUINAISJAANNOSPISTE_AJOITUS (
 			  MUINAISJAANNOSPISTE_ID int(8) NOT NULL,
 			  AJOITUS_ID int(4) NOT NULL,
-			  PRIMARY KEY (MUINAISJAANNOSPISTE_ID, AJOITUS_ID)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+			  PRIMARY KEY (MUINAISJAANNOSPISTE_ID, AJOITUS_ID),
+			  CONSTRAINT fk_MUINAISJAANNOSPISTE_ID FOREIGN KEY (MUINAISJAANNOSPISTE_ID) REFERENCES MUINAISJAANNOSPISTE(ID),
+			  CONSTRAINT fk_AJOITUS_ID FOREIGN KEY (AJOITUS_ID) REFERENCES AJOITUS(ID)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
 		$this->database->query($createTableSql);
 		$this->checkErrorAndDieIfPresent();
@@ -341,7 +348,7 @@ class MuinaismuistotImport {
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
 		$this->database->query($createTableSql);
 		$this->checkErrorAndDieIfPresent();
@@ -383,7 +390,7 @@ class MuinaismuistotImport {
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
 		$this->database->query($createTableSql);
 		$this->checkErrorAndDieIfPresent();
@@ -425,7 +432,7 @@ class MuinaismuistotImport {
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
 		$this->database->query($createTableSql);
 		$this->checkErrorAndDieIfPresent();
@@ -467,7 +474,7 @@ class MuinaismuistotImport {
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
 		$this->database->query($createTableSql);
 		$this->checkErrorAndDieIfPresent();
