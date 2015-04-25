@@ -1,10 +1,11 @@
 var MuinaismuistotMap = function() {
+  var self = this;
   this.apiUrl;
   this.map;
   this.view;
+  this.eventListener;
 
   this.init = function(apiUrl) {
-    var self = this;
     this.apiUrl = apiUrl;
     this.loadWmtsCapabilities();
 
@@ -40,7 +41,7 @@ var MuinaismuistotMap = function() {
       });
 
       if(muinaisjaannosTunnus) {
-        $.mobile.pageContainer.pagecontainer("change", 'templates/details.html', {transition: 'slide', muinaisjaannosTunnus: muinaisjaannosTunnus});
+        self.eventListener.muinaisjaannosSelected(muinaisjaannosTunnus);
       }
     });
 
@@ -121,4 +122,8 @@ var MuinaismuistotMap = function() {
 
     this.map.addLayer(muinaismuistotLayer);
   }
+
+  this.setEventListener = function(listener) {
+    this.eventListener = listener;
+  };
 }

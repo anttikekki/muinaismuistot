@@ -1,0 +1,60 @@
+html, body, #map {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#map {
+	z-index: 1;
+	position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+#detailsPage {
+	
+}
+
+.page {
+	z-index: 2;
+	position: absolute;
+    top: 0px;
+    background-color: #fff;
+    height: 100%;
+    width : 100%;
+}
+
+.page-right-visible {
+	-webkit-transition: right 0.5s ease;
+    -moz-transition: right 0.5s ease;
+    -o-transition: right 0.5s ease;
+	transition: right 0.5s ease;
+	right: 0px;
+}
+
+.page-right-hidden {
+	-webkit-transition: right 0.5s ease;
+    -moz-transition: right 0.5s ease;
+    -o-transition: right 0.5s ease;
+	transition: right 0.5s ease;
+	right: -100%;
+}
+
+@media (min-width: 768px) {
+	.page {
+		
+	}
+	.page-right-hidden {
+		
+	}
+}
+
+@media (min-width: 992px) {
+	.page {
+		width : 400px;
+	}
+	.page-right-hidden {
+		right: -400px;	
+	}
+}

@@ -9,16 +9,18 @@ var Muinaismuistot = function() {
 
     this.map = new MuinaismuistotMap();
     this.map.init(this.apiUrl);
+    this.map.setEventListener({
+      muinaisjaannosSelected : function(muinaisjaannosTunnus) {
+        self.detailsPage.setMuinaisjaannosTunnus(muinaisjaannosTunnus);
+        $("#detailsPage").removeClass('page-right-hidden').addClass('page-right-visible');
+      }
+    });
 
     this.detailsPage = new MuinaismuistotDetailsPage();
     this.detailsPage.init(this.apiUrl);
-
-    $.mobile.pageContainer.pagecontainer({
-      beforechange: function( event, ui ) {
-        self.detailsPage.pageBeforechange(ui.options.muinaisjaannosTunnus);
-      },
-      change: function( event, ui ) {
-
+    this.detailsPage.setEventListener({
+      hideDetailsPage : function() {
+        $("#detailsPage").removeClass('page-right-visible').addClass('page-right-hidden');
       }
     });
   };
