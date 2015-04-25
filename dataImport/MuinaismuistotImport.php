@@ -74,6 +74,7 @@ class MuinaismuistotImport {
 		        //Final result
 				$this->copyMuinaismuistopisteFromWorkToFinal();
 				$this->printMessage('Next: Ajoitus');
+				break;
 		    case 10:
 		        //Ajoitus
 				$this->createAjoituTable();
