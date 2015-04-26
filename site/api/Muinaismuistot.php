@@ -14,38 +14,67 @@ use GeoJson\Feature\Feature;
 use GeoJson\Feature\FeatureCollection;
 
 class Muinaismuistot {
-	protected $TABLE_MUINAISJAANNOSPISTEET = 'MUINAISJAANNOSPISTE';
-	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMNS = ['X','Y','KUNTA','MJTUNNUS', 'AJOITUS', 'KOHDENIMI','TYYPPI','ALATYYPPI','LAJI','PAIKANNUST','PAIKANNU0','SELITE','TUHOUTUNUT','LUONTIPVM','MUUTOSPVM','ZALA','ZYLÄ','VEDENALAIN'];
-	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMN_TYPE_CONVERSION = [
-		'X' => 'double',
-		'Y' => 'double',
-		'KUNTA' => 'string',
-		'MJTUNNUS' => 'integer',
-		'KOHDENIMI' => 'string',
-		'AJOITUS' => 'string',
-		'TYYPPI' => 'string',
-		'ALATYYPPI' => 'string',
-		'LAJI' => 'string',
-		'PAIKANNUST' => 'string',
-		'PAIKANNU0' => 'string',
-		'SELITE' => 'string',
-		'TUHOUTUNUT' => 'string',
-		'LUONTIPVM' => 'string',
-		'MUUTOSPVM' => 'string',
-		'ZALA' => 'double',
-		'ZYLA' => 'double',
-		'VEDENALAIN' => 'string'
+	protected $TABLES = ['MUINAISJAANNOSPISTE'];
+	protected $FILTERS = [ 
+		'MUINAISJAANNOSPISTE' => [
+			'viewbox',
+			'X',
+			'Y',
+			'KUNTA',
+			'MJTUNNUS',
+			'AJOITUS',
+			'KOHDENIMI',
+			'TYYPPI',
+			'ALATYYPPI',
+			'LAJI',
+			'PAIKANNUST',
+			'PAIKANNU0',
+			'SELITE',
+			'TUHOUTUNUT',
+			'LUONTIPVM',
+			'MUUTOSPVM',
+			'ZALA',
+			'ZYLA',
+			'VEDENALAIN']
 	];
-	protected $TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN = ['KUNTA', 'AJOITUS', 'TYYPPI', 'ALATYYPPI', 'LAJI'];
-	protected $FILTERS;
+	protected $DATATYPE = [ 
+		'MUINAISJAANNOSPISTE' => [
+			'X' => 'double',
+			'Y' => 'double',
+			'KUNTA' => 'string',
+			'MJTUNNUS' => 'integer',
+			'KOHDENIMI' => 'string',
+			'AJOITUS' => 'string',
+			'TYYPPI' => 'string',
+			'ALATYYPPI' => 'string',
+			'LAJI' => 'string',
+			'PAIKANNUST' => 'string',
+			'PAIKANNU0' => 'string',
+			'SELITE' => 'string',
+			'TUHOUTUNUT' => 'string',
+			'LUONTIPVM' => 'string',
+			'MUUTOSPVM' => 'string',
+			'ZALA' => 'double',
+			'ZYLA' => 'double',
+			'VEDENALAIN' => 'string'
+		]
+	];
+	protected $JOINS = [ 
+		'MUINAISJAANNOSPISTE' => ['KUNTA', 'TYYPPI', 'ALATYYPPI', 'LAJI', 'AJOITUS']
+	];
+	protected $LEFT_JOINS = [ 
+		'MUINAISJAANNOSPISTE' => ['KUNTA', 'TYYPPI', 'ALATYYPPI', 'LAJI']
+	];
+	protected $INNER_JOINS = [
+		'MUINAISJAANNOSPISTE' => ['AJOITUS']
+	];
+
 	protected $settings;
 	protected $pdo;
 
 	public function __construct() {
 		$this->settings = new MuinaismuistotSettings();
 		$this->initDatabase();
-
-		$this->FILTERS = array_merge($this->TABLE_MUINAISJAANNOSPISTEET_COLUMNS, ['viewbox']);
 	}
 
 	protected function initDatabase() {
@@ -60,52 +89,66 @@ class Muinaismuistot {
 	}
 
 	protected function getSelectColumns($params) {
+		$data = $this->getSelectedData($params);
+
 		$columns = ['X','Y','MJTUNNUS'];
 		if(isset($params['columns'])) {
 			$columns = explode(",", $params['columns']);
 		}
 
+		if(count(array_intersect($columns, $this->INNER_JOINS[$data])) > 0) {
+			//Add ID for inner join queries to ebale GROUP BY ID to remove duplicates
+			array_unshift($columns, "$data.ID");
+		}
+
 		//Remove unknown columns
-		return array_intersect($columns, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMNS);
+		return array_intersect($columns, $this->FILTERS[$data]);
 	}
 
 	protected function getSelectSql($params) {
 		$select = [];
+		$columns = $this->getSelectColumns($params);
+		$data = $this->getSelectedData($params);
 
-		foreach ($this->getSelectColumns($params) as $column) {
-			if(in_array($column, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN)) {
+		foreach ($columns as $column) {
+			if(in_array($column, $this->LEFT_JOINS[$data])) {
 				$select[] = "$column.NIMI AS $column";
-				if($column === 'AJOITUS') {
-					array_unshift($select, "MUINAISJAANNOSPISTE.ID");
-				}
+			}
+			elseif(in_array($column, $this->INNER_JOINS[$data])) {
+				$select[] = "GROUP_CONCAT($column.NIMI) AS $column";
 			}
 			else {
 				$select[] = $column;
 			}
 		}
 
-		$sql = " SELECT ";
-		if(in_array("MUINAISJAANNOSPISTE.ID", $select)) {
-			//To remove duplicates if MUINAISMUISTOPISTE_AJOITUS is joined
-			$sql .= " DISTINCT ";
-		}
+		return " SELECT " . implode(", ", $select);
+	}
 
-		return $sql . implode(", ", $select);
+	protected function hasInnerJoins($params) {
+		return count($this->getInnerJoinColumns($params)) > 0;
+	}
+
+	protected function getInnerJoinColumns($params) {
+		$columns = $this->getSelectColumns($params);
+		$data = $this->getSelectedData($params);
+
+		return array_intersect($columns, $this->INNER_JOINS[$data]);
 	}
 
 	protected function getSqlJoins($params) {
 		$allRequiredFields = array_merge($this->getSelectColumns($params), $this->getFilters($params));
+		$data = $this->getSelectedData($params);
 
 		$sql = "";
 		foreach ($allRequiredFields as $column) {
-			if(in_array($column, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN)) {
-				if($column === 'AJOITUS') {
-					$sql .= " INNER JOIN MUINAISJAANNOSPISTE_AJOITUS ON MUINAISJAANNOSPISTE.ID = MUINAISJAANNOSPISTE_AJOITUS.MUINAISJAANNOSPISTE_ID ";
-					$sql .= " INNER JOIN AJOITUS ON MUINAISJAANNOSPISTE_AJOITUS.AJOITUS_ID = AJOITUS.ID ";
-				}
-				else {
-					$sql .= " LEFT JOIN $column ON MUINAISJAANNOSPISTE.$column = $column.ID ";
-				}
+			if(in_array($column, $this->INNER_JOINS[$data])) {
+				$linkTable = $data ."_".$column;
+				$sql .= " INNER JOIN $linkTable ON $data.ID = $linkTable.{$data}_ID ";
+				$sql .= " INNER JOIN $column ON $linkTable.AJOITUS_ID = $column.ID ";
+			}
+			if(in_array($column, $this->LEFT_JOINS[$data])) {
+				$sql .= " LEFT JOIN $column ON $data.$column = $column.ID ";
 			}
 		}
 		return $sql;
@@ -123,8 +166,9 @@ class Muinaismuistot {
 
 	protected function getFilterSqlValue($filter, $params) {
 		$value = $params[$filter];
+		$data = $this->getSelectedData($params);
 
-		$type = $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_TYPE_CONVERSION[$filter];
+		$type = $$this->DATATYPE[$data][$filter];
 		if($type == 'double') {
 			return (double)$value;
 		}
@@ -162,11 +206,36 @@ class Muinaismuistot {
 		return " WHERE " . implode(" AND ", $where);
 	}
 
+	protected function getSelectedData($params) {
+		if(isset($params['data'])) {
+			if(in_array($params['data'], $this->TABLES)) {
+				return $params['data'];
+			}
+		}
+		return 'MUINAISJAANNOSPISTE'; 
+	}
+
+	protected function getSqlFrom($params) {
+		return ' FROM ' . $this->getSelectedData($params);
+	}
+
+	protected function getSqlGroupBy($params) {
+		if($this->hasInnerJoins($params)) {
+			//GROUP BY to merge INNER JOIN data to one row
+			$innerJoinColumns = $this->getInnerJoinColumns($params);
+			$allColumns = $this->getSelectColumns($params);
+			$select[] = " GROUP BY " . implode(", ", array_diff($allColumns, $innerJoinColumns));
+		}
+
+		return '';
+	}
+
 	protected function getSql($params) {
 		$sql = $this->getSelectSql($params);
-		$sql .= " FROM " . $this->TABLE_MUINAISJAANNOSPISTEET;
+		$sql .= $this->getSqlFrom($params);
 		$sql .= $this->getSqlJoins($params);
 		$sql .= $this->getSqlWhere($params);
+		$sql .= $this->getSqlGroupBy($params);
 
 		return $sql;
 	}
@@ -204,7 +273,7 @@ class Muinaismuistot {
 	}
 	
 	public function runRequest($params) {
-		//print_r($this->getSql());
+		print_r($this->getSql($params));
 		$queryResults = $this->pdo->query($this->getSql($params))->fetchAll(PDO::FETCH_ASSOC);
 		
 		echo $this->toJson($queryResults, $params);
