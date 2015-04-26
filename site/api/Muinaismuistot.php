@@ -59,20 +59,20 @@ class Muinaismuistot {
 		$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 
-	protected function getSelectColumns() {
+	protected function getSelectColumns($params) {
 		$columns = ['X','Y','MJTUNNUS'];
-		if(isset($_GET['columns'])) {
-			$columns = explode(",", $_GET['columns']);
+		if(isset($params['columns'])) {
+			$columns = explode(",", $params['columns']);
 		}
 
 		//Remove unknown columns
 		return array_intersect($columns, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMNS);
 	}
 
-	protected function getSelectSql() {
+	protected function getSelectSql($params) {
 		$select = [];
 
-		foreach ($this->getSelectColumns() as $column) {
+		foreach ($this->getSelectColumns($params) as $column) {
 			if(in_array($column, $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_JOIN)) {
 				$select[] = "$column.NIMI AS $column";
 				if($column === 'AJOITUS') {
@@ -93,8 +93,8 @@ class Muinaismuistot {
 		return $sql . implode(", ", $select);
 	}
 
-	protected function getSqlJoins() {
-		$allRequiredFields = array_merge($this->getSelectColumns(), $this->getFilters());
+	protected function getSqlJoins($params) {
+		$allRequiredFields = array_merge($this->getSelectColumns($params), $this->getFilters($params));
 
 		$sql = "";
 		foreach ($allRequiredFields as $column) {
@@ -111,9 +111,9 @@ class Muinaismuistot {
 		return $sql;
 	}
 
-	protected function getFilters() {
+	protected function getFilters($params) {
 		$filters = [];
-		foreach ($_GET as $paramName => $paramValue) {
+		foreach ($params as $paramName => $paramValue) {
 			if(in_array($paramName, $this->FILTERS)) {
 				$filters[] = $paramName;
 			}
@@ -121,8 +121,8 @@ class Muinaismuistot {
 		return $filters;
 	}
 
-	protected function getFilterSqlValue($filter) {
-		$value = $_GET[$filter];
+	protected function getFilterSqlValue($filter, $params) {
+		$value = $params[$filter];
 
 		$type = $this->TABLE_MUINAISJAANNOSPISTEET_COLUMN_TYPE_CONVERSION[$filter];
 		if($type == 'double') {
@@ -137,9 +137,9 @@ class Muinaismuistot {
 		return null;
 	}
 
-	protected function getSqlWhere() {
+	protected function getSqlWhere($params) {
 		$where = [];
-		foreach ($this->getFilters() as $filter) {
+		foreach ($this->getFilters($params) as $filter) {
 			if($filter == 'viewbox') {
 				//ViewBox = [minX, minY, maxX, maxY]
 				$viewbox = explode(",", $_GET[$filter]);
@@ -151,7 +151,7 @@ class Muinaismuistot {
 				$where[] = " Y BETWEEN " . (double)$viewbox[1] . " AND " . (double)$viewbox[3];
 			}
 			else {
-				$where[] = " $filter = " . $this->getFilterSqlValue($filter);
+				$where[] = " $filter = " . $this->getFilterSqlValue($filter, $params);
 			}
 		}
 
@@ -162,11 +162,11 @@ class Muinaismuistot {
 		return " WHERE " . implode(" AND ", $where);
 	}
 
-	protected function getSql() {
-		$sql = $this->getSelectSql();
+	protected function getSql($params) {
+		$sql = $this->getSelectSql($params);
 		$sql .= " FROM " . $this->TABLE_MUINAISJAANNOSPISTEET;
-		$sql .= $this->getSqlJoins();
-		$sql .= $this->getSqlWhere();
+		$sql .= $this->getSqlJoins($params);
+		$sql .= $this->getSqlWhere($params);
 
 		return $sql;
 	}
@@ -187,12 +187,12 @@ class Muinaismuistot {
 		return new FeatureCollection($features);
 	}
 
-	protected function toJson($data) {
+	protected function toJson($data, $params) {
 		header('Content-Type: application/json');
 
 		$format = 'geojson';
-		if(isset($_GET['format'])) {
-			$format = $_GET['format'];
+		if(isset($params['format'])) {
+			$format = $params['format'];
 		}
 
 		if($format == 'json') {
@@ -203,11 +203,11 @@ class Muinaismuistot {
 		}
 	}
 	
-	public function runRequest() {
+	public function runRequest($params) {
 		//print_r($this->getSql());
-		$queryResults = $this->pdo->query($this->getSql())->fetchAll(PDO::FETCH_ASSOC);
+		$queryResults = $this->pdo->query($this->getSql($params))->fetchAll(PDO::FETCH_ASSOC);
 		
-		echo $this->toJson($queryResults);
+		echo $this->toJson($queryResults, $params);
 	}
 	
 }
