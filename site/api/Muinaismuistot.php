@@ -148,7 +148,7 @@ class Muinaismuistot {
 			if(in_array($column, $this->INNER_JOINS[$data])) {
 				$linkTable = $data ."_".$column;
 				$sql .= " INNER JOIN $linkTable ON $data.ID = $linkTable.{$data}_ID ";
-				$sql .= " INNER JOIN $column ON $linkTable.AJOITUS_ID = $column.ID ";
+				$sql .= " LEFT JOIN $column ON $linkTable.{$column}_ID = $column.ID ";
 			}
 			if(in_array($column, $this->LEFT_JOINS[$data])) {
 				$sql .= " LEFT JOIN $column ON $data.$column = $column.ID ";
