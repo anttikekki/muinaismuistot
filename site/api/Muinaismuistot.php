@@ -18,6 +18,7 @@ class Muinaismuistot {
 	protected $FILTERS = [ 
 		'MUINAISJAANNOSPISTE' => [
 			'viewbox',
+			'ID',
 			'X',
 			'Y',
 			'KUNTA',
@@ -96,13 +97,15 @@ class Muinaismuistot {
 			$columns = explode(",", $params['columns']);
 		}
 
+		//Remove unknown columns
+		$columns = array_intersect($columns, $this->FILTERS[$data]);
+
 		if(count(array_intersect($columns, $this->INNER_JOINS[$data])) > 0) {
 			//Add ID for inner join queries to ebale GROUP BY ID to remove duplicates
 			array_unshift($columns, "$data.ID");
 		}
 
-		//Remove unknown columns
-		return array_intersect($columns, $this->FILTERS[$data]);
+		return $columns;
 	}
 
 	protected function getSelectSql($params) {
@@ -156,8 +159,10 @@ class Muinaismuistot {
 
 	protected function getFilters($params) {
 		$filters = [];
+		$data = $this->getSelectedData($params);
+
 		foreach ($params as $paramName => $paramValue) {
-			if(in_array($paramName, $this->FILTERS)) {
+			if(in_array($paramName, $this->FILTERS[$data])) {
 				$filters[] = $paramName;
 			}
 		}
@@ -168,7 +173,7 @@ class Muinaismuistot {
 		$value = $params[$filter];
 		$data = $this->getSelectedData($params);
 
-		$type = $$this->DATATYPE[$data][$filter];
+		$type = $this->DATATYPE[$data][$filter];
 		if($type == 'double') {
 			return (double)$value;
 		}
@@ -224,7 +229,7 @@ class Muinaismuistot {
 			//GROUP BY to merge INNER JOIN data to one row
 			$innerJoinColumns = $this->getInnerJoinColumns($params);
 			$allColumns = $this->getSelectColumns($params);
-			$select[] = " GROUP BY " . implode(", ", array_diff($allColumns, $innerJoinColumns));
+			return " GROUP BY " . implode(", ", array_diff($allColumns, $innerJoinColumns));
 		}
 
 		return '';
@@ -273,7 +278,7 @@ class Muinaismuistot {
 	}
 	
 	public function runRequest($params) {
-		print_r($this->getSql($params));
+		//print_r($this->getSql($params));
 		$queryResults = $this->pdo->query($this->getSql($params))->fetchAll(PDO::FETCH_ASSOC);
 		
 		echo $this->toJson($queryResults, $params);
