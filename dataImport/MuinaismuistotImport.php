@@ -120,7 +120,7 @@ class MuinaismuistotImport {
 
 	protected function dropAndCreateMuinaismuistopisteWorkTable() {
 		$createTableSql = "
-			CREATE TABLE IF NOT EXISTS muinaisjaannospisteet_work (
+			CREATE TABLE muinaisjaannospisteet_work (
 			  ID int(8) NOT NULL AUTO_INCREMENT,
 			  X decimal(20,12) NOT NULL,
 			  Y decimal(20,12) NOT NULL,
@@ -161,7 +161,7 @@ class MuinaismuistotImport {
 
 	protected function dropAndCreateMuinaismuistopisteFinalTable() {
 		$createTableSql = "
-			CREATE TABLE IF NOT EXISTS MUINAISJAANNOSPISTE (
+			CREATE TABLE MUINAISJAANNOSPISTE (
 			  ID int(8) NOT NULL AUTO_INCREMENT,
 			  X decimal(20,12) NOT NULL,
 			  Y decimal(20,12) NOT NULL,
@@ -289,7 +289,7 @@ class MuinaismuistotImport {
 
 	protected function createAjoituTable() {
 		$createTableSql = "
-			CREATE TABLE IF NOT EXISTS AJOITUS (
+			CREATE TABLE AJOITUS (
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
@@ -338,7 +338,7 @@ class MuinaismuistotImport {
 
 	protected function createMuinaisjaannospisteAjoitusTable() {
 		$createTableSql = "
-			CREATE TABLE IF NOT EXISTS MUINAISJAANNOSPISTE_AJOITUS (
+			CREATE TABLE MUINAISJAANNOSPISTE_AJOITUS (
 			  MUINAISJAANNOSPISTE_ID int(8) NOT NULL,
 			  AJOITUS_ID int(4) NOT NULL,
 			  PRIMARY KEY (MUINAISJAANNOSPISTE_ID, AJOITUS_ID),
@@ -396,7 +396,7 @@ class MuinaismuistotImport {
 
 	protected function createAndPopoulateTyyppiTable() {
 		$createTableSql = "
-			CREATE TABLE IF NOT EXISTS TYYPPI (
+			CREATE TABLE TYYPPI (
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
@@ -440,7 +440,7 @@ class MuinaismuistotImport {
 
 	protected function createAndPopoulateAlatyyppiTable() {
 		$createTableSql = "
-			CREATE TABLE IF NOT EXISTS ALATYYPPI (
+			CREATE TABLE ALATYYPPI (
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
@@ -484,7 +484,7 @@ class MuinaismuistotImport {
 
 	protected function createAndPopoulateLajiTable() {
 		$createTableSql = "
-			CREATE TABLE IF NOT EXISTS LAJI (
+			CREATE TABLE LAJI (
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
@@ -528,7 +528,7 @@ class MuinaismuistotImport {
 
 	protected function createAndPopoulateKuntaTable() {
 		$createTableSql = "
-			CREATE TABLE IF NOT EXISTS KUNTA (
+			CREATE TABLE KUNTA (
 			  ID int(2) NOT NULL AUTO_INCREMENT,
 			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
