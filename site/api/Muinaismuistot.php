@@ -249,7 +249,7 @@ class Muinaismuistot {
 		$features = [];
 
 		if(is_array($data)) {
-			foreach ($data as $row) {
+			foreach ($data as &$row) {
 				$point = new Point([(double)$row['X'], (double)$row['Y']]);
 				unset($row['X']);
 				unset($row['Y']);
