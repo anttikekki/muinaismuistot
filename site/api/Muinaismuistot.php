@@ -245,7 +245,7 @@ class Muinaismuistot {
 		return $sql;
 	}
 
-	protected function mapToGeoJson($data) {
+	protected function toGeoJson($data, $params) {
 		$features = [];
 
 		if(is_array($data)) {
@@ -262,6 +262,23 @@ class Muinaismuistot {
 	}
 
 	protected function toJson($data, $params) {
+		$innerJoins = $this->getInnerJoinColumns($params);
+
+		if(count($innerJoins) === 0) {
+			return $data;
+		}
+
+		foreach ($data as &$row) {
+			foreach ($innerJoins as $innerJoin) {
+				//Change GROUP_CONCAT String to Array
+				$row[$innerJoin] = explode(',', $row[$innerJoin]);
+			}
+			
+		}
+		return $data;
+	}
+
+	protected function printResult($data, $params) {
 		header('Content-Type: application/json');
 
 		$format = 'geojson';
@@ -269,11 +286,11 @@ class Muinaismuistot {
 			$format = $params['format'];
 		}
 
-		if($format == 'json') {
-			return json_encode($data);
+		if($format === 'json') {
+			echo json_encode($this->toJson($data, $params));
 		}
 		else {
-			return json_encode($this->mapToGeoJson($data));
+			echo json_encode($this->toGeoJson($data, $params));
 		}
 	}
 	
@@ -281,7 +298,7 @@ class Muinaismuistot {
 		//print_r($this->getSql($params));
 		$queryResults = $this->pdo->query($this->getSql($params))->fetchAll(PDO::FETCH_ASSOC);
 		
-		echo $this->toJson($queryResults, $params);
+		$this->printResult($queryResults, $params);
 	}
 	
 }
