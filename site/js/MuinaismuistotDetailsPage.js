@@ -40,5 +40,9 @@ var MuinaismuistotDetailsPage = function() {
 		$.each(data, function(key, value) {
 			$('#'+key).html(value);
 		});
+
+		var url = 'http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/portti/default.aspx?sovellus=mjreki&taulu=T_KOHDE&tunnus=';
+		url += self.muinaisjaannosTunnus;
+		$('#muinaisjaannosarekisteri-link').attr('href', url)
 	};
 };
