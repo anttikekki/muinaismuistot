@@ -4,6 +4,8 @@ var MuinaismuistotMap = function() {
   this.map;
   this.view;
   this.eventListener;
+  this.mmlMaastokarttaLayer;
+  this.mmlTaustakarttaLayer;
 
   this.init = function(apiUrl) {
     this.apiUrl = apiUrl;
@@ -65,15 +67,26 @@ var MuinaismuistotMap = function() {
     var parser = new ol.format.WMTSCapabilities();
     var capabilities = parser.read(response);
 
-    var layerSource = new ol.source.WMTS(ol.source.WMTS.optionsFromCapabilities(capabilities, {
+    var maastokarttaLayerSource = new ol.source.WMTS(ol.source.WMTS.optionsFromCapabilities(capabilities, {
       layer: 'maastokartta'
     }));
+    var taustakarttaLayerSource = new ol.source.WMTS(ol.source.WMTS.optionsFromCapabilities(capabilities, {
+      layer: 'taustakartta'
+    }));
 
-    var mmlMaastokarttaLayer = new ol.layer.Tile({
-      source: layerSource
+    this.mmlMaastokarttaLayer = new ol.layer.Tile({
+      title: 'Maastokartta',
+      source: maastokarttaLayerSource,
+      visible: false
+    });
+    this.mmlTaustakarttaLayer = new ol.layer.Tile({
+      title: 'Taustakartta',
+      source: taustakarttaLayerSource,
+      visible: true
     });
 
-    this.map.addLayer(mmlMaastokarttaLayer);
+    this.map.addLayer(this.mmlMaastokarttaLayer);
+    this.map.addLayer(this.mmlTaustakarttaLayer);
     this.addMuinaismuistotLayer();
   };
 
@@ -122,5 +135,26 @@ var MuinaismuistotMap = function() {
 
   this.setEventListener = function(listener) {
     this.eventListener = listener;
+  };
+
+  this.getVisibleBackgroundLayerName = function() {
+    if(this.mmlMaastokarttaLayer && this.mmlMaastokarttaLayer.getVisible()) {
+      return 'maastokartta';
+    }
+    else if(this.mmlTaustakarttaLayer && this.mmlTaustakarttaLayer.getVisible()) {
+      return 'taustakartta';
+    }
+    return 'taustakartta';
+  };
+
+  this.setVisibleBackgroundLayerName = function(layerName) {
+    if(layerName === 'taustakartta') {
+      this.mmlMaastokarttaLayer.setVisible(false);
+      this.mmlTaustakarttaLayer.setVisible(true);
+    }
+    else if(layerName === 'maastokartta') {
+      this.mmlMaastokarttaLayer.setVisible(true);
+      this.mmlTaustakarttaLayer.setVisible(false);
+    }
   };
 }

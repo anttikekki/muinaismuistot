@@ -26,9 +26,13 @@ var Muinaismuistot = function() {
 
     this.settingsPage = new MuinaismuistotSettingsPage();
     this.settingsPage.init();
+    this.settingsPage.setSelectedMapBackgroundLayerName(this.map.getVisibleBackgroundLayerName());
     this.settingsPage.setEventListener({
       hideSettingsPage : function() {
         self.hidePage('settingsPage');
+      },
+      selectedMapBackgroundLayerChanged: function(layerName) {
+        self.map.setVisibleBackgroundLayerName(layerName);
       }
     });
 
