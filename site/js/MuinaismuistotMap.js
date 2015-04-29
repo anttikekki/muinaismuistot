@@ -53,7 +53,6 @@ var MuinaismuistotMap = function() {
   };
 
   this.loadWmtsCapabilities = function() {
-    var self = this;
     $.ajax({
       url: 'http://avoindata.maanmittauslaitos.fi/mapcache/wmts?service=wmts&request=getcapabilities&version=1.0.0',
       success: function(response) {
@@ -79,8 +78,6 @@ var MuinaismuistotMap = function() {
   };
 
   this.addMuinaismuistotLayer = function() {
-    var self = this;
-
     var fill = new ol.style.Fill({
      color: 'rgba(255,0,0,0.5)'
     });

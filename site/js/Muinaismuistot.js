@@ -1,10 +1,10 @@
 var Muinaismuistot = function() {
+  var self = this;
   this.map = null;
   this.detailsPage = null;
   this.apiUrl = null;
 
   this.init = function() {
-    var self = this;
     this.apiUrl = window.location.href + 'api/index.php';
 
     this.map = new MuinaismuistotMap();
@@ -12,7 +12,7 @@ var Muinaismuistot = function() {
     this.map.setEventListener({
       muinaisjaannosSelected : function(muinaisjaannosTunnus) {
         self.detailsPage.setMuinaisjaannosTunnus(muinaisjaannosTunnus);
-        $("#detailsPage").removeClass('page-right-hidden').addClass('page-right-visible');
+        self.showPage('detailsPage');
       }
     });
 
@@ -20,8 +20,35 @@ var Muinaismuistot = function() {
     this.detailsPage.init(this.apiUrl);
     this.detailsPage.setEventListener({
       hideDetailsPage : function() {
-        $("#detailsPage").removeClass('page-right-visible').addClass('page-right-hidden');
+        self.hidePage('detailsPage');
       }
     });
+
+    this.settingsPage = new MuinaismuistotSettingsPage();
+    this.settingsPage.setEventListener({
+      hideSettingsPage : function() {
+        self.hidePage('settingsPage');
+      }
+    });
+
+    $('#map-button-settings').on('click', function() {
+      self.showPage('settingsPage');
+    });
+  };
+
+  this.showPage = function(pageId) {
+    $page = $('#'+pageId);
+
+    if($page.hasClass('page-right-hidden')) {
+      $page.removeClass('page-right-hidden').addClass('page-right-visible');
+    }
+  };
+
+  this.hidePage = function(pageId) {
+    $page = $('#'+pageId);
+
+    if($page.hasClass('page-right-visible')) {
+      $page.removeClass('page-right-visible').addClass('page-right-hidden');
+    }
   };
 };
