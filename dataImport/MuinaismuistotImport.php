@@ -165,7 +165,7 @@ class MuinaismuistotImport {
 			  ID int(8) NOT NULL AUTO_INCREMENT,
 			  X decimal(20,12) NOT NULL,
 			  Y decimal(20,12) NOT NULL,
-			  KUNTA int(3) NOT NULL,
+			  KUNTA CHAR(3) NOT NULL DEFAULT '000',
 			  MJTUNNUS int(8) NOT NULL,
 			  KOHDENIMI varchar(256) NOT NULL,
 			  AJOITUS int(3) NOT NULL,
@@ -214,9 +214,7 @@ class MuinaismuistotImport {
 		$this->printMessage("Created indexes to MUINAISJAANNOSPISTE");
 	}
 
-	protected function importCSVToMuinaismuistopisteWork() {
-		$this->printMessage("Starting import to muinaisjaannospisteet_work table");
-
+	protected function readNextLineFromCSV(&$filehandle, $separator) {
 		/*
 		* When turned on, PHP will examine the data read by fgets() and file() to see if it is using Unix, MS-Dos or Macintosh line-ending conventions. 
 		* This enables PHP to interoperate with Macintosh systems, but defaults to Off, as there is a very small performance penalty when detecting the EOL conventions for the first line
@@ -229,14 +227,22 @@ class MuinaismuistotImport {
 		*/
 		$length = 0;
 
-		if(!file_exists("muinaisjaannospisteet.csv")) {
-			die("Error: muinaisjaannospisteet.csv file does not exist<br>");
+		return fgetcsv($filehandle, $length, $separator);
+	}
+
+	protected function openFile($filename) {
+		if(!file_exists($filename)) {
+			die("Error: $filename file does not exist<br>");
 		}
 
-		$handle = fopen("muinaisjaannospisteet.csv", "r");
+		return fopen($filename, "r");
+	}
+
+	protected function importCSVToMuinaismuistopisteWork() {
+		$this->printMessage("Starting import to muinaisjaannospisteet_work table");
+
+		$handle = $this->openFile("data".DIRECTORY_SEPARATOR."muinaisjaannospisteet.csv");
 		$rowIndex = 0;
-		$separator = ",";
-		$errorCode = null;
 
 		$sql = "
 			INSERT INTO muinaisjaannospisteet_work(X,Y,KUNTA,MJTUNNUS,KOHDENIMI,AJOITUS,TYYPPI,ALATYYPPI,LAJI,I,P,PAIKANNUST,PAIKANNU0,SELITE,TUHOUTUNUT,LUONTIPVM,MUUTOSPVM,ZALA,ZYLA,VEDENALAIN)
@@ -244,7 +250,7 @@ class MuinaismuistotImport {
 		";
 		$stmt = $this->pdo->prepare($sql);
 
-		while (($data = fgetcsv($handle, $length, $separator)) !== false) {
+		while (($data = $this->readNextLineFromCSV($handle, ",")) !== false) {
 			$rowIndex++;
 			if($rowIndex == 1) {
 				//Don't import column header row
@@ -529,20 +535,30 @@ class MuinaismuistotImport {
 	protected function createAndPopoulateKuntaTable() {
 		$createTableSql = "
 			CREATE TABLE KUNTA (
-			  ID int(2) NOT NULL AUTO_INCREMENT,
+			  ID CHAR(3) NOT NULL,
 			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
 		$this->pdo->query($createTableSql);
 
-		$sql = "
-			INSERT INTO KUNTA(NIMI)
-			SELECT DISTINCT KUNTA
-			FROM muinaisjaannospisteet_work
-		";
-		$this->pdo->query($sql);
+		$handle = $this->openFile("data".DIRECTORY_SEPARATOR."kunnat.csv");
+		$rowIndex = 0;
 
+		$sql = "
+			INSERT INTO KUNTA(ID, NIMI)
+			VALUES (:ID, :NIMI)
+		";
+		$stmt = $this->pdo->prepare($sql);
+
+		while (($data = $this->readNextLineFromCSV($handle, ",")) !== false) {
+			$stmt->execute([
+				':ID' => $data[0],
+				':NIMI' => $data[1]
+			]);
+		}
+
+		fclose($handle);
 		$this->printMessage("Created and populated KUNTA table");
 	}
 
