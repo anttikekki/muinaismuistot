@@ -88,6 +88,8 @@ var MuinaismuistotMap = function() {
     this.map.addLayer(this.mmlMaastokarttaLayer);
     this.map.addLayer(this.mmlTaustakarttaLayer);
     this.addMuinaismuistotLayer();
+    this.addKuntarajatLayer();
+    this.addMaakuntarajatLayer();
   };
 
   this.addMuinaismuistotLayer = function() {
@@ -119,6 +121,8 @@ var MuinaismuistotMap = function() {
 
     var muinaismuistotLayer = new ol.layer.Vector({
       source: vectorSource,
+      minResolution: 0,
+      maxResolution: 30,
       style: new ol.style.Style({
          image: new ol.style.Circle({
            fill: fill,
@@ -131,7 +135,52 @@ var MuinaismuistotMap = function() {
     });
 
     this.map.addLayer(muinaismuistotLayer);
-  }
+  };
+
+  this.addKuntarajatLayer = function() {
+
+    var kuntarajatSource = new ol.source.GeoJSON({
+      projection: 'EPSG:3067',
+      url: 'data/kuntarajat.geojson'
+    });
+
+    var kuntarajatLayer = new ol.layer.Vector({
+      source: kuntarajatSource,
+      minResolution: 30,
+      maxResolution: 200,
+      style : new ol.style.Style({
+        stroke: new ol.style.Stroke({
+          color: 'blue',
+          lineDash: [4],
+          width: 3
+        })
+      })
+    });
+
+    this.map.addLayer(kuntarajatLayer);
+  };
+
+  this.addMaakuntarajatLayer = function() {
+
+    var maakuntarajatSource = new ol.source.GeoJSON({
+      projection: 'EPSG:3067',
+      url: 'data/maakuntarajat.geojson'
+    });
+
+    var maakuntarajatLayer = new ol.layer.Vector({
+      source: maakuntarajatSource,
+      minResolution: 200,
+      style : new ol.style.Style({
+        stroke: new ol.style.Stroke({
+          color: 'blue',
+          lineDash: [4],
+          width: 3
+        })
+      })
+    });
+
+    this.map.addLayer(maakuntarajatLayer);
+  };
 
   this.setEventListener = function(listener) {
     this.eventListener = listener;
