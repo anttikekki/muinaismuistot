@@ -18,16 +18,23 @@ class Muinaismuistot {
 	protected $FILTERS = [ 
 		'MUINAISJAANNOSPISTE' => [
 			'viewbox',
+			'COUNT',
 			'ID',
 			'X',
 			'Y',
 			'KUNTA',
+			'KUNTA_ID',
+			'MAAKUNTA',
+			'MAAKUNTA_ID',
 			'MJTUNNUS',
 			'AJOITUS',
 			'KOHDENIMI',
 			'TYYPPI',
+			'TYYPPI_ID',
 			'ALATYYPPI',
+			'ALATYYPPI_ID',
 			'LAJI',
+			'LAJI_ID',
 			'PAIKANNUST',
 			'PAIKANNU0',
 			'SELITE',
@@ -43,12 +50,18 @@ class Muinaismuistot {
 			'X' => 'double',
 			'Y' => 'double',
 			'KUNTA' => 'string',
+			'KUNTA_ID' => 'string',
+			'MAAKUNTA' => 'string',
+			'MAAKUNTA_ID' => 'string',
 			'MJTUNNUS' => 'integer',
 			'KOHDENIMI' => 'string',
 			'AJOITUS' => 'string',
 			'TYYPPI' => 'string',
+			'TYYPPI_ID' => 'integer',
 			'ALATYYPPI' => 'string',
+			'ALATYYPPI_ID' => 'integer',
 			'LAJI' => 'string',
+			'LAJI_ID' => 'integer',
 			'PAIKANNUST' => 'string',
 			'PAIKANNU0' => 'string',
 			'SELITE' => 'string',
@@ -151,7 +164,7 @@ class Muinaismuistot {
 				$sql .= " LEFT JOIN $column ON $linkTable.{$column}_ID = $column.ID ";
 			}
 			if(in_array($column, $this->LEFT_JOINS[$data])) {
-				$sql .= " LEFT JOIN $column ON $data.$column = $column.ID ";
+				$sql .= " LEFT JOIN $column ON $data.{$column}_ID = $column.ID ";
 			}
 		}
 		return $sql;
