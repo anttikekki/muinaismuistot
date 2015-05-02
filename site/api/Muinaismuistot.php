@@ -74,10 +74,10 @@ class Muinaismuistot {
 		]
 	];
 	protected $JOINS = [ 
-		'MUINAISJAANNOSPISTE' => ['KUNTA', 'TYYPPI', 'ALATYYPPI', 'LAJI', 'AJOITUS']
+		'MUINAISJAANNOSPISTE' => ['KUNTA', 'MAAKUNTA', 'TYYPPI', 'ALATYYPPI', 'LAJI', 'AJOITUS']
 	];
 	protected $LEFT_JOINS = [ 
-		'MUINAISJAANNOSPISTE' => ['KUNTA', 'TYYPPI', 'ALATYYPPI', 'LAJI']
+		'MUINAISJAANNOSPISTE' => ['KUNTA', 'MAAKUNTA', 'TYYPPI', 'ALATYYPPI', 'LAJI']
 	];
 	protected $INNER_JOINS = [
 		'MUINAISJAANNOSPISTE' => ['AJOITUS']
@@ -132,6 +132,9 @@ class Muinaismuistot {
 			}
 			elseif(in_array($column, $this->INNER_JOINS[$data])) {
 				$select[] = "GROUP_CONCAT($column.NIMI) AS $column";
+			}
+			elseif(in_array('COUNT', $columns)) {
+				$select[] = 'COUNT(*) AS COUNT';
 			}
 			else {
 				$select[] = $column;
@@ -238,11 +241,15 @@ class Muinaismuistot {
 	}
 
 	protected function getSqlGroupBy($params) {
+		$allColumns = $this->getSelectColumns($params);
+
 		if($this->hasInnerJoins($params)) {
 			//GROUP BY to merge INNER JOIN data to one row
 			$innerJoinColumns = $this->getInnerJoinColumns($params);
-			$allColumns = $this->getSelectColumns($params);
 			return " GROUP BY " . implode(", ", array_diff($allColumns, $innerJoinColumns));
+		}
+		elseif(in_array('COUNT', $allColumns)) {
+			return " GROUP BY " . implode(", ", array_diff($allColumns, ['COUNT']));
 		}
 
 		return '';
