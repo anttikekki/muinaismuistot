@@ -3,4 +3,4 @@
 require_once 'Muinaismuistot.php';
 
 $muinaismuistot = new Muinaismuistot();
-$muinaismuistot->runRequest($_GET);
+$muinaismuistot->runRequest(array_merge($_GET, $_POST));
