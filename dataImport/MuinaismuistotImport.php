@@ -55,8 +55,9 @@ class MuinaismuistotImport {
 		        break;
 		    case 6:
 		        //Kunta
-				$this->createAndPopoulateKuntaTable();
+				$this->createAndPopoulateMaakuntaAndKuntaTable();
 				$this->updateKuntaToID();
+				$this->insertMaakutaID();
 				$this->printMessage('Next: Tuhoutunut ja Vedenalainen');
 		        break;
 		    case 7:
@@ -112,6 +113,7 @@ class MuinaismuistotImport {
 			DROP TABLE IF EXISTS ALATYYPPI;
 			DROP TABLE IF EXISTS LAJI;
 			DROP TABLE IF EXISTS KUNTA;
+			DROP TABLE IF EXISTS MAAKUNTA;
 		";
 		$this->pdo->query($sql);
 
@@ -125,6 +127,7 @@ class MuinaismuistotImport {
 			  X decimal(20,12) NOT NULL,
 			  Y decimal(20,12) NOT NULL,
 			  KUNTA varchar(256) NOT NULL,
+			  MAAKUNTA_ID varchar(256),
 			  MJTUNNUS int(8) NOT NULL,
 			  KOHDENIMI varchar(256) NOT NULL,
 			  AJOITUS varchar(256) NOT NULL,
@@ -166,9 +169,9 @@ class MuinaismuistotImport {
 			  X decimal(20,12) NOT NULL,
 			  Y decimal(20,12) NOT NULL,
 			  KUNTA CHAR(3) NOT NULL DEFAULT '000',
+			  MAAKUNTA_ID CHAR(3) NOT NULL DEFAULT '00',
 			  MJTUNNUS int(8) NOT NULL,
 			  KOHDENIMI varchar(256) NOT NULL,
-			  AJOITUS int(3) NOT NULL,
 			  TYYPPI int(3) NOT NULL,
 			  ALATYYPPI int(3) NOT NULL,
 			  LAJI int(3) NOT NULL,
@@ -183,6 +186,7 @@ class MuinaismuistotImport {
 			  VEDENALAIN tinyint(1) NOT NULL,
 			  PRIMARY KEY (ID),
 			  CONSTRAINT fk_KUNTA FOREIGN KEY (KUNTA) REFERENCES KUNTA(ID),
+			  CONSTRAINT fk_MAAKUNTA FOREIGN KEY (MAAKUNTA_ID) REFERENCES MAAKUNTA(ID),
 			  CONSTRAINT fk_TYYPPI FOREIGN KEY (TYYPPI) REFERENCES TYYPPI(ID),
 			  CONSTRAINT fk_ALATYYPPI FOREIGN KEY (ALATYYPPI) REFERENCES ALATYYPPI(ID),
 			  CONSTRAINT fk_LAJI FOREIGN KEY (LAJI) REFERENCES LAJI(ID)
@@ -532,31 +536,78 @@ class MuinaismuistotImport {
 		$this->printMessage("Replaced laji name with id");
 	}
 
-	protected function createAndPopoulateKuntaTable() {
-		$createTableSql = "
-			CREATE TABLE KUNTA (
+	protected function createAndPopoulateMaakuntaAndKuntaTable() {
+		$sql = "
+			CREATE TABLE MAAKUNTA (
 			  ID CHAR(3) NOT NULL,
 			  NIMI varchar(50) NOT NULL,
 			  PRIMARY KEY (ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
-		$this->pdo->query($createTableSql);
-
-		$handle = $this->openFile("data".DIRECTORY_SEPARATOR."kunnat.csv");
-		$rowIndex = 0;
+		$this->pdo->query($sql);
 
 		$sql = "
-			INSERT INTO KUNTA(ID, NIMI)
+			CREATE TABLE KUNTA (
+			  ID CHAR(3) NOT NULL,
+			  NIMI varchar(50) NOT NULL,
+			  MAAKUNTA_ID CHAR(2) NOT NULL,
+			  PRIMARY KEY (ID),
+			  CONSTRAINT fk_MAAKUNTA FOREIGN KEY (MAAKUNTA_ID) REFERENCES MAAKUNTA(ID)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		";
+		$this->pdo->query($sql);
+
+		$handle = $this->openFile("data".DIRECTORY_SEPARATOR."maakunnat_kunnat.csv");
+		$maakunnat = [];
+		$kunnat = [];
+		$kunnanMaakunta = [];
+
+		while (($data = $this->readNextLineFromCSV($handle, "\t")) !== false) {
+			$maakuntakoodi = $data[0];
+			$maakuntanimi = $data[1];
+			$kuntakoodi = $data[2];
+			$kuntanimi = $data[3];
+			
+			$maakunnat[$maakuntakoodi] = $maakuntanimi;
+			$kunnat[$kuntakoodi] = $kuntanimi;
+			$kunnanMaakunta[$kuntakoodi] = $maakuntakoodi;
+		}
+
+		$sql = "
+			INSERT INTO MAAKUNTA(ID, NIMI)
 			VALUES (:ID, :NIMI)
 		";
 		$stmt = $this->pdo->prepare($sql);
 
-		while (($data = $this->readNextLineFromCSV($handle, ",")) !== false) {
+		foreach ($maakunnat as $koodi => $nimi) {
 			$stmt->execute([
-				':ID' => $data[0],
-				':NIMI' => $data[1]
+				':ID' => $koodi,
+				':NIMI' => $nimi
 			]);
 		}
+		$stmt->execute([
+			':ID' => '00',
+			':NIMI' => 'ei maakuntatietoa'
+		]);
+
+		$sql = "
+			INSERT INTO KUNTA(ID, NIMI, MAAKUNTA_ID)
+			VALUES (:ID, :NIMI, :MAAKUNTA_ID)
+		";
+		$stmt = $this->pdo->prepare($sql);
+
+		foreach ($kunnat as $kuntakoodi => $nimi) {
+			$stmt->execute([
+				':ID' => $kuntakoodi,
+				':NIMI' => $nimi,
+				':MAAKUNTA_ID' => $kunnanMaakunta[$kuntakoodi]
+			]);
+		}
+		$stmt->execute([
+			':ID' => '00',
+			':NIMI' => 'ei kuntatietoa',
+			':MAAKUNTA_ID' => '00'
+		]);
 
 		fclose($handle);
 		$this->printMessage("Created and populated KUNTA table");
@@ -576,6 +627,12 @@ class MuinaismuistotImport {
 		";
 		$stmt = $this->pdo->prepare($sql);
 
+		//Fix Pedersöre --> Pedersören kunta to match kunta csv
+		$stmt->execute([
+			":KUNTA_ID" => 'Pedersöre',
+			":KUNTA_NIMI" => 'Pedersören kunta'
+		]);
+
 		foreach ($rows as $row) {
 			$stmt->execute([
 				":KUNTA_ID" => $row["ID"],
@@ -584,6 +641,30 @@ class MuinaismuistotImport {
 		}
 
 		$this->printMessage("Replaced kunta name with id");
+	}
+
+	protected function insertMaakutaID() {
+		$sql = "
+			SELECT ID, MAAKUNTA_ID
+			FROM KUNTA
+		";
+		$rows = $this->pdo->query($sql)->fetchAll();
+
+		$sql = "
+			UPDATE muinaisjaannospisteet_work
+			SET MAAKUNTA_ID = :MAAKUNTA_ID
+			WHERE KUNTA = :KUNTA_ID
+		";
+		$stmt = $this->pdo->prepare($sql);
+
+		foreach ($rows as &$row) {
+			$stmt->execute([
+				":MAAKUNTA_ID" => $row["MAAKUNTA_ID"],
+				":KUNTA_ID" => $row["ID"]
+			]);
+		}
+
+		$this->printMessage("Inserted  data to MAAKUNTA_ID");
 	}
 
 	protected function updateTuhoutunutToBoolean() {
