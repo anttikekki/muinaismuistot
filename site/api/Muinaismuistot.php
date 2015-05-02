@@ -102,7 +102,7 @@ class Muinaismuistot {
 		$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 
-	protected function getSelectColumns($params) {
+	protected function getSelectColumns(&$params) {
 		$data = $this->getSelectedData($params);
 
 		$columns = ['X','Y','MJTUNNUS'];
@@ -121,12 +121,12 @@ class Muinaismuistot {
 		return $columns;
 	}
 
-	protected function getSelectSql($params) {
+	protected function getSelectSql(&$params) {
 		$select = [];
 		$columns = $this->getSelectColumns($params);
 		$data = $this->getSelectedData($params);
 
-		foreach ($columns as $column) {
+		foreach ($columns as &$column) {
 			if(in_array($column, $this->LEFT_JOINS[$data])) {
 				$select[] = "$column.NIMI AS $column";
 			}
@@ -144,23 +144,23 @@ class Muinaismuistot {
 		return " SELECT " . implode(", ", $select);
 	}
 
-	protected function hasInnerJoins($params) {
+	protected function hasInnerJoins(&$params) {
 		return count($this->getInnerJoinColumns($params)) > 0;
 	}
 
-	protected function getInnerJoinColumns($params) {
+	protected function getInnerJoinColumns(&$params) {
 		$columns = $this->getSelectColumns($params);
 		$data = $this->getSelectedData($params);
 
 		return array_intersect($columns, $this->INNER_JOINS[$data]);
 	}
 
-	protected function getSqlJoins($params) {
+	protected function getSqlJoins(&$params) {
 		$allRequiredFields = array_merge($this->getSelectColumns($params), $this->getFilters($params));
 		$data = $this->getSelectedData($params);
 
 		$sql = "";
-		foreach ($allRequiredFields as $column) {
+		foreach ($allRequiredFields as &$column) {
 			if(in_array($column, $this->INNER_JOINS[$data])) {
 				$linkTable = $data ."_".$column;
 				$sql .= " INNER JOIN $linkTable ON $data.ID = $linkTable.{$data}_ID ";
@@ -173,11 +173,11 @@ class Muinaismuistot {
 		return $sql;
 	}
 
-	protected function getFilters($params) {
+	protected function getFilters(&$params) {
 		$filters = [];
 		$data = $this->getSelectedData($params);
 
-		foreach ($params as $paramName => $paramValue) {
+		foreach ($params as $paramName => &$paramValue) {
 			if(in_array($paramName, $this->FILTERS[$data])) {
 				$filters[] = $paramName;
 			}
@@ -185,7 +185,7 @@ class Muinaismuistot {
 		return $filters;
 	}
 
-	protected function getFilterSqlValue($filter, $params) {
+	protected function getFilterSqlValue(&$filter, &$params) {
 		$value = $params[$filter];
 		$data = $this->getSelectedData($params);
 
@@ -202,7 +202,7 @@ class Muinaismuistot {
 		return null;
 	}
 
-	protected function getSqlWhere($params) {
+	protected function getSqlWhere(&$params) {
 		$where = [];
 		foreach ($this->getFilters($params) as $filter) {
 			if($filter == 'viewbox') {
@@ -227,7 +227,7 @@ class Muinaismuistot {
 		return " WHERE " . implode(" AND ", $where);
 	}
 
-	protected function getSelectedData($params) {
+	protected function getSelectedData(&$params) {
 		if(isset($params['data'])) {
 			if(in_array($params['data'], $this->TABLES)) {
 				return $params['data'];
@@ -236,11 +236,11 @@ class Muinaismuistot {
 		return 'MUINAISJAANNOSPISTE'; 
 	}
 
-	protected function getSqlFrom($params) {
+	protected function getSqlFrom(&$params) {
 		return ' FROM ' . $this->getSelectedData($params);
 	}
 
-	protected function getSqlGroupBy($params) {
+	protected function getSqlGroupBy(&$params) {
 		$allColumns = $this->getSelectColumns($params);
 
 		if($this->hasInnerJoins($params)) {
@@ -255,7 +255,7 @@ class Muinaismuistot {
 		return '';
 	}
 
-	protected function getSql($params) {
+	protected function getSql(&$params) {
 		$sql = $this->getSelectSql($params);
 		$sql .= $this->getSqlFrom($params);
 		$sql .= $this->getSqlJoins($params);
@@ -265,7 +265,7 @@ class Muinaismuistot {
 		return $sql;
 	}
 
-	protected function toGeoJson($data, $params) {
+	protected function toGeoJson(&$data, &$params) {
 		$features = [];
 
 		if(is_array($data)) {
@@ -281,7 +281,7 @@ class Muinaismuistot {
 		return new FeatureCollection($features);
 	}
 
-	protected function toJson($data, $params) {
+	protected function toJson(&$data, &$params) {
 		$innerJoins = $this->getInnerJoinColumns($params);
 
 		if(count($innerJoins) === 0) {
@@ -289,7 +289,7 @@ class Muinaismuistot {
 		}
 
 		foreach ($data as &$row) {
-			foreach ($innerJoins as $innerJoin) {
+			foreach ($innerJoins as &$innerJoin) {
 				//Change GROUP_CONCAT String to Array
 				$row[$innerJoin] = explode(',', $row[$innerJoin]);
 			}
@@ -298,7 +298,7 @@ class Muinaismuistot {
 		return $data;
 	}
 
-	protected function printResult($data, $params) {
+	protected function printResult(&$data, &$params) {
 		header('Content-Type: application/json');
 
 		$format = 'geojson';
@@ -314,7 +314,7 @@ class Muinaismuistot {
 		}
 	}
 	
-	public function runRequest($params) {
+	public function runRequest(&$params) {
 		//print_r($this->getSql($params));
 		$queryResults = $this->pdo->query($this->getSql($params))->fetchAll(PDO::FETCH_ASSOC);
 		
