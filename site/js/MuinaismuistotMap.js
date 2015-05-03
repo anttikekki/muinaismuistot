@@ -90,6 +90,7 @@ var MuinaismuistotMap = function() {
     this.addMuinaismuistotLayer();
     this.addKuntarajatLayer();
     this.addMaakuntarajatLayer();
+    this.addMaakuntasummatLayer();
   };
 
   this.addMuinaismuistotLayer = function() {
@@ -180,6 +181,10 @@ var MuinaismuistotMap = function() {
     });
 
     this.map.addLayer(maakuntarajatLayer);
+  };
+
+  this.addMaakuntasummatLayer = function() {
+    
   };
 
   this.setEventListener = function(listener) {

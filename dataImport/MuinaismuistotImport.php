@@ -1,6 +1,7 @@
 <?php
 
 require_once 'MuinaismuistotImportSettings.php';
+include_once('lib/GeoPHP/geoPHP.inc');
 
 class MuinaismuistotImport {
 	protected $settings;
@@ -51,32 +52,39 @@ class MuinaismuistotImport {
 		        //Laji
 				$this->createAndPopoulateLajiTable();
 				$this->updateLajiToID();
-				$this->printMessage('Next: Kunta');
+				$this->printMessage('Next: Kunta and Maakunta');
 		        break;
 		    case 6:
-		        //Kunta
+		        //Kunta and maakunta
 				$this->createAndPopoulateMaakuntaAndKuntaTable();
 				$this->updateKuntaToID();
 				$this->insertMaakutaID();
-				$this->printMessage('Next: Tuhoutunut ja Vedenalainen');
+				$this->calculateAndInsertMaakuntaCenterCoordinate();
+				$this->printMessage('Next: Maakunta center calculation');
 		        break;
 		    case 7:
+		        //Maakunta center calulation
+				$this->calculateAndInsertMaakuntaCenterCoordinate();
+				$this->printMessage('Next: Tuhoutunut ja Vedenalainen');
+		        break;
+
+		    case 8:
 		        //Tuhoutunut and vedenalainen
 				$this->updateTuhoutunutToBoolean();
 				$this->updateVedenalainenToBoolean();
 				$this->printMessage('Next: Create final table');
 		        break;
-		    case 8:
+		    case 9:
 		        //Create final table
 				$this->dropAndCreateMuinaismuistopisteFinalTable();
 				$this->printMessage('Next: Copy data from work table to final');
 		        break;
-		    case 9:
+		    case 10:
 		        //Final result
 				$this->copyMuinaismuistopisteFromWorkToFinal();
 				$this->printMessage('Next: Ajoitus');
 				break;
-		    case 10:
+		    case 11:
 		        //Ajoitus
 				$this->createAjoituTable();
 				$this->insertDataToAjoitus();
@@ -84,12 +92,12 @@ class MuinaismuistotImport {
 				$this->insertDataToMuinaisjaannospisteAjoitus();
 				$this->printMessage('Next: Create indexes to MUINAISJAANNOSPISTE');
 		        break;
-		    case 11:
+		    case 12:
 		    	//Create indexes to final table
 		    	$this->createIndexesToFinalTable();
 		    	$this->printMessage('Next: Drop work table');
 		    	break;
-		    case 12:
+		    case 13:
 		    	//Drop work table
 				$this->dropMuinaismuistopisteWorkTable();
 		        break;
@@ -541,6 +549,8 @@ class MuinaismuistotImport {
 			CREATE TABLE MAAKUNTA (
 			  ID CHAR(3) NOT NULL,
 			  NIMI varchar(50) NOT NULL,
+			  CENTERX decimal(20,12),
+			  CENTERY decimal(20,12),
 			  PRIMARY KEY (ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 		";
@@ -551,6 +561,8 @@ class MuinaismuistotImport {
 			  ID CHAR(3) NOT NULL,
 			  NIMI varchar(50) NOT NULL,
 			  MAAKUNTA_ID CHAR(2) NOT NULL,
+			  CENTERX decimal(20,12),
+			  CENTERY decimal(20,12),
 			  PRIMARY KEY (ID),
 			  CONSTRAINT fk_KUNTA_MAAKUNTA FOREIGN KEY (MAAKUNTA_ID) REFERENCES MAAKUNTA(ID)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -665,6 +677,39 @@ class MuinaismuistotImport {
 		}
 
 		$this->printMessage("Inserted  data to MAAKUNTA_ID");
+	}
+
+	protected function calculateAndInsertMaakuntaCenterCoordinate() {
+		$maakuntarajatGeoJsonString = file_get_contents("data/maakuntarajat.geojson");
+		$maakuntarajatGeoJson = json_decode($maakuntarajatGeoJsonString);
+		$maakuntarajaFeatures = $maakuntarajatGeoJson->features;
+
+		//print_r($maakuntarajatGeoJson); 
+		//print_r($maakuntarajaFeatures); 
+
+		$sql = "
+			UPDATE MAAKUNTA
+			SET CENTERX = :CENTERX, CENTERY = :CENTERY
+			WHERE ID = :MAAKUNTA_ID
+		";
+		$stmt = $this->pdo->prepare($sql);
+
+		foreach ($maakuntarajaFeatures as &$maakuntarajaFeature) {
+			$maakuntarajaGeometry = geoPHP::load($maakuntarajaFeature,'geojson');
+			$centroid = $maakuntarajaGeometry->centroid();
+			$maakuntakoodi = $maakuntarajaFeature->properties->maakuntakoodi;
+
+			print_r($centroid);
+			echo '<br>';
+
+			$stmt->execute([
+				":CENTERX" => $centroid->x(),
+				":CENTERY" => $centroid->y(),
+				":MAAKUNTA_ID" => $maakuntakoodi
+			]);
+		}
+
+		$this->printMessage("Calculated Maakunta center point");
 	}
 
 	protected function updateTuhoutunutToBoolean() {
