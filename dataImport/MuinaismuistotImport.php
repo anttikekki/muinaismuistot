@@ -60,10 +60,11 @@ class MuinaismuistotImport {
 				$this->updateKuntaToID();
 				$this->insertMaakutaID();
 				$this->calculateAndInsertMaakuntaCenterCoordinate();
-				$this->printMessage('Next: Maakunta center calculation');
+				$this->printMessage('Next: Kunta and Maakunta center calculation');
 		        break;
 		    case 7:
-		        //Maakunta center calulation
+		        //Kuntan and Maakunta center calulation
+				$this->calculateAndInsertKuntaCenterCoordinate();
 				$this->calculateAndInsertMaakuntaCenterCoordinate();
 				$this->printMessage('Next: Tuhoutunut ja Vedenalainen');
 		        break;
@@ -684,9 +685,6 @@ class MuinaismuistotImport {
 		$maakuntarajatGeoJson = json_decode($maakuntarajatGeoJsonString);
 		$maakuntarajaFeatures = $maakuntarajatGeoJson->features;
 
-		//print_r($maakuntarajatGeoJson); 
-		//print_r($maakuntarajaFeatures); 
-
 		$sql = "
 			UPDATE MAAKUNTA
 			SET CENTERX = :CENTERX, CENTERY = :CENTERY
@@ -699,9 +697,6 @@ class MuinaismuistotImport {
 			$centroid = $maakuntarajaGeometry->centroid();
 			$maakuntakoodi = $maakuntarajaFeature->properties->maakuntakoodi;
 
-			print_r($centroid);
-			echo '<br>';
-
 			$stmt->execute([
 				":CENTERX" => $centroid->x(),
 				":CENTERY" => $centroid->y(),
@@ -710,6 +705,33 @@ class MuinaismuistotImport {
 		}
 
 		$this->printMessage("Calculated Maakunta center point");
+	}
+
+	protected function calculateAndInsertKuntaCenterCoordinate() {
+		$kuntarajatGeoJsonString = file_get_contents("data/kuntarajat.geojson");
+		$kuntarajatGeoJson = json_decode($kuntarajatGeoJsonString);
+		$kuntarajaFeatures = $kuntarajatGeoJson->features;
+
+		$sql = "
+			UPDATE KUNTA
+			SET CENTERX = :CENTERX, CENTERY = :CENTERY
+			WHERE ID = :KUNTA_ID
+		";
+		$stmt = $this->pdo->prepare($sql);
+
+		foreach ($kuntarajaFeatures as &$kuntarajaFeature) {
+			$kuntarajaGeometry = geoPHP::load($kuntarajaFeature,'geojson');
+			$centroid = $kuntarajaGeometry->centroid();
+			$kuntakoodi = $kuntarajaFeature->properties->kuntakoodi;
+
+			$stmt->execute([
+				":CENTERX" => $centroid->x(),
+				":CENTERY" => $centroid->y(),
+				":KUNTA_ID" => $kuntakoodi
+			]);
+		}
+
+		$this->printMessage("Calculated Kunta center point");
 	}
 
 	protected function updateTuhoutunutToBoolean() {
