@@ -14,52 +14,53 @@ use GeoJson\Feature\Feature;
 use GeoJson\Feature\FeatureCollection;
 
 class Muinaismuistot {
-	protected $TABLES = ['MUINAISJAANNOSPISTE', 'KUNTA', 'MAAKUNTA', 'TYYPPI', 'ALATYYPPI', 'LAJI'];
+	protected $TABLES = ['MUINAISJAANNOSPISTE'];
 	protected $FILTERS = [ 
 		'MUINAISJAANNOSPISTE' => [
-			'viewbox' => 		['table' => 'MUINAISJAANNOSPISTE', 'column' => ''],
-			'COUNT' => 			['table' => 'MUINAISJAANNOSPISTE', 'column' => ''],
-			'ID' => 			['table' => 'MUINAISJAANNOSPISTE', 'column' => 'ID'],
-			'X' => 				['table' => 'MUINAISJAANNOSPISTE', 'column' => 'X'],
-			'Y' => 				['table' => 'MUINAISJAANNOSPISTE', 'column' => 'Y'],
-			'KUNTA_ID' => 		['table' => 'MUINAISJAANNOSPISTE', 'column' => 'KUNTA_ID'],
-			'MAAKUNTA_ID' => 	['table' => 'MUINAISJAANNOSPISTE', 'column' => 'MAAKUNTA_ID'],
-			'MJTUNNUS' => 		['table' => 'MUINAISJAANNOSPISTE', 'column' => 'MJTUNNUS'],
-			'KOHDENIMI' => 		['table' => 'MUINAISJAANNOSPISTE', 'column' => 'KOHDENIMI'],
-			'TYYPPI_ID' => 		['table' => 'MUINAISJAANNOSPISTE', 'column' => 'YTYYPPI_ID'],
-			'ALATYYPPI_ID' => 	['table' => 'MUINAISJAANNOSPISTE', 'column' => 'ALATYYPPI_ID'],
-			'LAJI_ID' => 		['table' => 'MUINAISJAANNOSPISTE', 'column' => 'LAJI_ID'],
-			'PAIKANNUST' => 	['table' => 'MUINAISJAANNOSPISTE', 'column' => 'PAIKANNUST'],
-			'PAIKANNU0' => 		['table' => 'MUINAISJAANNOSPISTE', 'column' => 'PAIKANNU0'],
-			'SELITE' => 		['table' => 'MUINAISJAANNOSPISTE', 'column' => 'SELITE'],
-			'TUHOUTUNUT' => 	['table' => 'MUINAISJAANNOSPISTE', 'column' => 'TUHOUTUNUT'],
-			'LUONTIPVM' => 		['table' => 'MUINAISJAANNOSPISTE', 'column' => 'LUONTIPVM'],
-			'MUUTOSPVM' => 		['table' => 'MUINAISJAANNOSPISTE', 'column' => 'MUUTOSPVM'],
-			'ZALA' => 			['table' => 'MUINAISJAANNOSPISTE', 'column' => 'ZALA'],
-			'ZYLA' => 			['table' => 'MUINAISJAANNOSPISTE', 'column' => 'ZYLA'],
-			'VEDENALAIN' => 	['table' => 'MUINAISJAANNOSPISTE', 'column' => 'VEDENALAIN'],
-			'KUNTA.NIMI' => 	['table' => 'KUNTA', 'column' => 'NIMI'],
-			'KUNTA.CENTERX' => 	['table' => 'KUNTA', 'column' => 'CENTERX'],
-			'KUNTA.CENTERY' => 	['table' => 'KUNTA', 'column' => 'CENTERY'],
-			'MAAKUNTA.NIMI' => 		['table' => 'MAAKUNTA', 'column' => 'NIMI'],
-			'MAAKUNTA.CENTERX' => 	['table' => 'MAAKUNTA', 'column' => 'CENTERX'],
-			'MAAKUNTA.CENTERY' => 	['table' => 'MAAKUNTA', 'column' => 'CENTERY'],
-			'TYYPPI.NIMI' => 		['table' => 'TYYPPI', 'column' => 'NIMI'],
-			'ALATYYPPI.NIMI' => 	['table' => 'ALATYYPPI', 'column' => 'NIMI'],
-			'LAJI.NIMI' => 			['table' => 'LAJI', 'column' => 'NIMI'],
-			'AJOITUS.NIMI' => 		['table' => 'AJOITUS', 'column' => 'NIMI']
-		]
+			'viewbox',
+			'COUNT',
+			'ID',
+			'X',
+			'Y',
+			'KUNTA',
+			'KUNTA_ID',
+			'MAAKUNTA',
+			'MAAKUNTA_ID',
+			'MJTUNNUS',
+			'AJOITUS',
+			'KOHDENIMI',
+			'TYYPPI',
+			'TYYPPI_ID',
+			'ALATYYPPI',
+			'ALATYYPPI_ID',
+			'LAJI',
+			'LAJI_ID',
+			'PAIKANNUST',
+			'PAIKANNU0',
+			'SELITE',
+			'TUHOUTUNUT',
+			'LUONTIPVM',
+			'MUUTOSPVM',
+			'ZALA',
+			'ZYLA',
+			'VEDENALAIN']
 	];
 	protected $DATATYPE = [ 
 		'MUINAISJAANNOSPISTE' => [
 			'X' => 'double',
 			'Y' => 'double',
+			'KUNTA' => 'string',
 			'KUNTA_ID' => 'string',
+			'MAAKUNTA' => 'string',
 			'MAAKUNTA_ID' => 'string',
 			'MJTUNNUS' => 'integer',
 			'KOHDENIMI' => 'string',
+			'AJOITUS' => 'string',
+			'TYYPPI' => 'string',
 			'TYYPPI_ID' => 'integer',
+			'ALATYYPPI' => 'string',
 			'ALATYYPPI_ID' => 'integer',
+			'LAJI' => 'string',
 			'LAJI_ID' => 'integer',
 			'PAIKANNUST' => 'string',
 			'PAIKANNU0' => 'string',
@@ -69,50 +70,17 @@ class Muinaismuistot {
 			'MUUTOSPVM' => 'string',
 			'ZALA' => 'double',
 			'ZYLA' => 'double',
-			'VEDENALAIN' => 'string',
-			'KUNTA.NIMI' => 'string',
-			'KUNTA.CENTERX' => 'double',
-			'KUNTA.CENTERY' => 'double',
-			'MAAKUNTA.NIMI' => 'string',
-			'MAAKUNTA.CENTERX' => 'double',
-			'MAAKUNTA.CENTERY' => 'double',
-			'AJOITUS.NIMI' => 'string',
-			'TYYPPI.NIMI' => 'string',
-			'ALATYYPPI.NIMI' => 'string',
-			'LAJI.NIMI' => 'string'
+			'VEDENALAIN' => 'string'
 		]
 	];
 	protected $JOINS = [ 
-		'MUINAISJAANNOSPISTE' => [
-			'KUNTA.NIMI' => 		['table' => 'KUNTA', 'column' => 'NIMI'],
-			'KUNTA.CENTERX' => 		['table' => 'KUNTA', 'column' => 'CENTERX'],
-			'KUNTA.CENTERY' => 		['table' => 'KUNTA', 'column' => 'CENTERY'],
-			'MAAKUNTA.NIMI' => 		['table' => 'MAAKUNTA', 'column' => 'NIMI'],
-			'MAAKUNTA.CENTERX' => 	['table' => 'MAAKUNTA', 'column' => 'CENTERX'],
-			'MAAKUNTA.CENTERY' => 	['table' => 'MAAKUNTA', 'column' => 'CENTERY'],
-			'TYYPPI.NIMI' => 		['table' => 'TYYPPI', 'column' => 'NIMI'],
-			'ALATYYPPI.NIMI' => 	['table' => 'ALATYYPPI', 'column' => 'NIMI'],
-			'LAJI.NIMI' => 			['table' => 'LAJI', 'column' => 'NIMI'],
-			'AJOITUS.NIMI' => 		['table' => 'AJOITUS', 'column' => 'NIMI']
-		]
+		'MUINAISJAANNOSPISTE' => ['KUNTA', 'MAAKUNTA', 'TYYPPI', 'ALATYYPPI', 'LAJI', 'AJOITUS']
 	];
 	protected $LEFT_JOINS = [ 
-		'MUINAISJAANNOSPISTE' => [
-			'KUNTA.NIMI' => 	['table' => 'KUNTA', 'column' => 'NIMI'],
-			'KUNTA.CENTERX' => 	['table' => 'KUNTA', 'column' => 'CENTERX'],
-			'KUNTA.CENTERY' => 	['table' => 'KUNTA', 'column' => 'CENTERY'],
-			'MAAKUNTA.NIMI' => 		['table' => 'MAAKUNTA', 'column' => 'NIMI'],
-			'MAAKUNTA.CENTERX' => 	['table' => 'MAAKUNTA', 'column' => 'CENTERX'],
-			'MAAKUNTA.CENTERY' => 	['table' => 'MAAKUNTA', 'column' => 'CENTERY'],
-			'TYYPPI.NIMI' => 		['table' => 'TYYPPI', 'column' => 'NIMI'],
-			'ALATYYPPI.NIMI' => 	['table' => 'ALATYYPPI', 'column' => 'NIMI'],
-			'LAJI.NIMI' => 			['table' => 'LAJI', 'column' => 'NIMI']
-		]
+		'MUINAISJAANNOSPISTE' => ['KUNTA', 'MAAKUNTA', 'TYYPPI', 'ALATYYPPI', 'LAJI']
 	];
 	protected $INNER_JOINS = [
-		'MUINAISJAANNOSPISTE' => [
-			'AJOITUS.NIMI' => 		['table' => 'AJOITUS', 'column' => 'NIMI']
-		]
+		'MUINAISJAANNOSPISTE' => ['AJOITUS']
 	];
 
 	protected $settings;
@@ -143,7 +111,7 @@ class Muinaismuistot {
 		}
 
 		//Remove unknown columns
-		$columns = array_intersect($columns, array_keys($this->FILTERS[$data]));
+		$columns = array_intersect($columns, $this->FILTERS[$data]);
 
 		if(count(array_intersect($columns, $this->INNER_JOINS[$data])) > 0) {
 			//Add ID for inner join queries to ebale GROUP BY ID to remove duplicates
