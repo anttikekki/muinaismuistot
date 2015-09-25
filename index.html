@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta content="IE=edge" http-equiv="X-UA-Compatible">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+        <title>Muinaismuistot</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"></link>
+        <link href="css/ol.css" rel="stylesheet" type="text/css"></link>
+        <link href="css/muinaismuistot.css" rel="stylesheet" type="text/css"></link>
+    </head>
+    <body>
+        <div id="map"></div>
+
+
+
+        <div id="map-button-settings" class="map-button">
+            <button type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            </button>
+        </div>
+
+
+
+        <div id="settingsPage" class="container page page-right-hidden">
+            <div class="row pageHeader">
+                <div class="col-xs-12">
+                    <button class="btn btn-primary btn-sm" id="hide-settingsPage-button">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Karttapohja</div>
+                        <div class="panel-body">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default active">
+                                    <input type="radio" id="map-selection-taustakartta" name="selectedMapLayer"autocomplete="off" value="taustakartta" checked> Taustakartta
+                                </label>
+
+                                <label class="btn btn-default">
+                                    <input type="radio" id="map-selection-maastokartta" name="selectedMapLayer" autocomplete="off" value="maastokartta"> Maastokartta
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div id="detailsPage" class="container page page-right-hidden">
+            <div class="row pageHeader">
+                <div class="col-xs-12">
+                    <button class="btn btn-primary btn-sm" id="hide-detailsPage-button">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <form>
+                        <div class="form-group">
+                            <label>Kohdenimi</label>
+                            <p id="KOHDENIMI"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>Ajoitus</label>
+                            <p id="AJOITUS"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>Tyyppi</label>
+                            <p id="TYYPPI"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>Alatyyppi</label>
+                            <p id="ALATYYPPI"></p>
+                        </div>
+                        <div class="form-group">
+                            <label>Laji</label>
+                            <p id="LAJI"></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                Lisää tietoa kohteesta Museoviraston <a href="" target="_blank" id="muinaisjaannosarekisteri-link">Muinaisjäännösrekisteristä</a>.
+                </div>
+            </div>
+
+        </div>
+
+        <script type="text/javascript" src="js/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="js/lib/fastclick.js"></script>
+        <script type="text/javascript" src="js/lib/ol.js"></script>
+        <script type="text/javascript" src="js/lib/proj4.js"></script>
+        <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/Muinaismuistot.js"></script>
+        <script type="text/javascript" src="js/MuinaismuistotMap.js"></script>
+        <script type="text/javascript" src="js/MuinaismuistotDetailsPage.js"></script>
+        <script type="text/javascript" src="js/MuinaismuistotSettingsPage.js"></script>
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                var muinaismuistot = new Muinaismuistot();
+                muinaismuistot.init();
+            });
+        </script>
+    </body>
+</html>

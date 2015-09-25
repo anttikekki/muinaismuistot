@@ -1,0 +1,11 @@
+{
+  "name": "Muinaismuistot",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "start": "http-server ./ -p 8081 -c-1 -a localhost -o"
+  },
+  "devDependencies": {
+    "http-server": "0.8.0"
+  }
+}
