@@ -11,6 +11,18 @@ var MuinaismuistotSettingsPage = function() {
 			var mapLayerName = $(this).val();
 			self.eventListener.selectedMapBackgroundLayerChanged(mapLayerName);
 		});
+
+		$("#muinaismuistot-visible-layer-selections input").change(function() {
+			self.eventListener.visibleMuinaismuistotLayersChanged(self.getSelectedMuinaismuistotLayerIds());
+		});
+	};
+
+	this.getSelectedMuinaismuistotLayerIds = function() {
+		var layerIds = [];
+	    $('#muinaismuistot-visible-layer-selections :checked').each(function() {
+	       layerIds.push($(this).val());
+	    });
+	    return layerIds;
 	};
 
 	this.setEventListener = function(listener) {

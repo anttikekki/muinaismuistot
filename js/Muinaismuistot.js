@@ -35,8 +35,14 @@ var Muinaismuistot = function() {
       },
       selectedMapBackgroundLayerChanged: function(layerName) {
         self.map.setVisibleBackgroundLayerName(layerName);
+      },
+      visibleMuinaismuistotLayersChanged: function(selectedLayerIds) {
+        self.map.setVisibleMuinaismuistotLayers(selectedLayerIds);
       }
     });
+
+    //Update selected muinausmuisto layers initial situation
+    this.map.setVisibleMuinaismuistotLayers(this.settingsPage.getSelectedMuinaismuistotLayerIds());
 
     $('#map-button-settings').on('click', function() {
       self.showPage('settingsPage');

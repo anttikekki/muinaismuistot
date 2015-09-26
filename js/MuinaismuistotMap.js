@@ -6,6 +6,8 @@ var MuinaismuistotMap = function() {
   this.eventListener;
   this.mmlMaastokarttaLayer;
   this.mmlTaustakarttaLayer;
+  this.nbaMuinaismuistotLayer;
+  this.visibleMuinaismuistotLayerIds;
 
   this.init = function(muinaismuistotData) {
     this.muinaismuistotData = muinaismuistotData;
@@ -87,12 +89,31 @@ var MuinaismuistotMap = function() {
   };
 
   this.addMuinaismuistotLayer = function() {
-    var layer =  new ol.layer.Tile({
-      source: new ol.source.TileArcGISRest({
-        url: 'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMSJULK/MapServer/export?'
-      })
+    self.nbaMuinaismuistotLayer =  new ol.layer.Tile({
+      source: new ol.source.TileArcGISRest(self.getMuinaismuistotLayerSourceParams())
     });
-    this.map.addLayer(layer);
+    this.map.addLayer(self.nbaMuinaismuistotLayer);
+  };
+
+  this.setVisibleMuinaismuistotLayers = function(visibleMuinaismuistotLayerIds) {
+    this.visibleMuinaismuistotLayerIds = visibleMuinaismuistotLayerIds;
+    if(self.nbaMuinaismuistotLayer) {
+      self.nbaMuinaismuistotLayer.setSource(new ol.source.TileArcGISRest(self.getMuinaismuistotLayerSourceParams()));
+    }
+  };
+
+  this.getMuinaismuistotLayerSourceParams = function() {
+    var layers = 'hide'; //Hide all layers if no settings present
+    if(this.visibleMuinaismuistotLayerIds && this.visibleMuinaismuistotLayerIds.length > 0) {
+      layers = 'show:' + this.visibleMuinaismuistotLayerIds.join(',');
+    }
+
+    return {
+      url: 'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMSJULK/MapServer/export?',
+      params: {
+        'LAYERS': layers
+      }
+    };
   };
 
   this.setEventListener = function(listener) {
