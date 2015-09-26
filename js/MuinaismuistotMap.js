@@ -1,14 +1,14 @@
 var MuinaismuistotMap = function() {
   var self = this;
-  this.apiUrl;
+  this.muinaismuistotData;
   this.map;
   this.view;
   this.eventListener;
   this.mmlMaastokarttaLayer;
   this.mmlTaustakarttaLayer;
 
-  this.init = function(apiUrl) {
-    this.apiUrl = apiUrl;
+  this.init = function(muinaismuistotData) {
+    this.muinaismuistotData = muinaismuistotData;
     this.loadWmtsCapabilities();
 
     proj4.defs("EPSG:3067","+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
@@ -37,14 +37,16 @@ var MuinaismuistotMap = function() {
     });
 
     this.map.on("click", function(e) {
-      var muinaisjaannosTunnus;
-      self.map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
-        muinaisjaannosTunnus = feature.n.MJTUNNUS
-      });
-
-      if(muinaisjaannosTunnus) {
-        self.eventListener.muinaisjaannosSelected(muinaisjaannosTunnus);
-      }
+      self.muinaismuistotData.getMuinaisjaannospisteet(
+        e.coordinate,
+        self.map.getSize(),
+        self.map.getView().calculateExtent(self.map.getSize()),
+        function(muinaisjaannos) {
+          if(muinaisjaannos) {
+            self.eventListener.muinaisjaannosSelected(muinaisjaannos);
+          }
+        }
+      );
     });
   };
 

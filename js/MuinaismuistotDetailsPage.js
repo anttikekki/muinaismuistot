@@ -1,13 +1,9 @@
 var MuinaismuistotDetailsPage = function() {
 	var self = this;
-	this.muinaisjaannosTunnus = null;
-	this.muinaisjaannospisteData = null;
-	this.apiUrl;
+	this.muinaisjaannos = null;
 	this.eventListener;
 
-	this.init = function(apiUrl) {
-		this.apiUrl = apiUrl;
-
+	this.init = function() {
 		$('#hide-detailsPage-button').on('click', function() {
 			self.eventListener.hideDetailsPage();
 		});
@@ -17,32 +13,19 @@ var MuinaismuistotDetailsPage = function() {
 	    this.eventListener = listener;
 	};
 
-	this.setMuinaisjaannosTunnus = function(muinaisjaannosTunnus) {
-		this.muinaisjaannosTunnus = muinaisjaannosTunnus;
-		this.loadMuinaisjaannospisteData(muinaisjaannosTunnus);
-	};
-
-	this.loadMuinaisjaannospisteData = function(muinaisjaannosTunnus) {
-		$.ajax({
-	        url: self.apiUrl + '?format=json&columns=KOHDENIMI,AJOITUS,TYYPPI,ALATYYPPI,LAJI&MJTUNNUS=' + muinaisjaannosTunnus,
-	        success: function(response) {
-	        	self.muinaisjaannospisteData = $.isArray(response) ? response[0] : response;
-	          	self.displayData(self.muinaisjaannospisteData);
-	        }
-      	});
-	};
-
-	this.displayData = function(data) {
-		if(!data) {
-			return;
+	this.setMuinaisjaannos = function(muinaisjaannos) {
+		this.muinaisjaannos = muinaisjaannos;
+		if(muinaisjaannos) {
+			this.displayData(muinaisjaannos);
 		}
+	};
 
-		$.each(data, function(key, value) {
-			$('#'+key).html(value);
-		});
-
-		var url = 'http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/portti/default.aspx?sovellus=mjreki&taulu=T_KOHDE&tunnus=';
-		url += self.muinaisjaannosTunnus;
-		$('#muinaisjaannosarekisteri-link').attr('href', url)
+	this.displayData = function(muinaisjaannos) {
+		$('#Kohdenimi').html(muinaisjaannos.attributes.Kohdenimi.trim());
+		$('#Ajoitus').html(muinaisjaannos.attributes.Ajoitus.trim());
+		$('#Tyyppi').html(muinaisjaannos.attributes.Tyyppi.trim());
+		$('#Alatyyppi').html(muinaisjaannos.attributes.Alatyyppi.trim());
+		$('#Laji').html(muinaisjaannos.attributes.Laji.trim());
+		$('#muinaisjaannosarekisteri-link').attr('href', muinaisjaannos.attributes.URL)
 	};
 };

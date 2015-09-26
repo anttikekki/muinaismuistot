@@ -6,11 +6,14 @@ var Muinaismuistot = function() {
   this.muinaismuistotData = null;
 
   this.init = function() {
+    this.muinaismuistotData = new MuinaismuistotData();
+    this.muinaismuistotData.init();
+
     this.map = new MuinaismuistotMap();
-    this.map.init();
+    this.map.init(this.muinaismuistotData);
     this.map.setEventListener({
-      muinaisjaannosSelected : function(muinaisjaannosTunnus) {
-        self.detailsPage.setMuinaisjaannosTunnus(muinaisjaannosTunnus);
+      muinaisjaannosSelected : function(muinaisjaannos) {
+        self.detailsPage.setMuinaisjaannos(muinaisjaannos);
         self.showPage('detailsPage');
       }
     });
@@ -38,9 +41,6 @@ var Muinaismuistot = function() {
     $('#map-button-settings').on('click', function() {
       self.showPage('settingsPage');
     });
-
-    this.muinaismuistotData = new MuinaismuistotData();
-    this.muinaismuistotData.init();
 
     // Use FastClick to eliminate the 300ms delay between a physical tap
     // and the firing of a click event on mobile browsers.
