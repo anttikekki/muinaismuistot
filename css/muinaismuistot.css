@@ -1,0 +1,80 @@
+html, body, #map {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+#map {
+	z-index: 10;
+	position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.map-button {
+	z-index: 15;
+	position: absolute;
+}
+
+#map-button-settings {
+	bottom: 20px;
+	right: 20px;
+}
+
+#detailsPage {
+	
+}
+
+#settingsPage {
+	
+}
+
+.page {
+	z-index: 20;
+	position: absolute;
+    top: 0px;
+    background-color: #fff;
+    height: 100%;
+    width : 100%;
+}
+
+.pageHeader {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.page-right-visible {
+	-webkit-transition: right 0.5s ease;
+    -moz-transition: right 0.5s ease;
+    -o-transition: right 0.5s ease;
+	transition: right 0.5s ease;
+	right: 0px;
+}
+
+.page-right-hidden {
+	-webkit-transition: right 0.5s ease;
+    -moz-transition: right 0.5s ease;
+    -o-transition: right 0.5s ease;
+	transition: right 0.5s ease;
+	right: -100%;
+}
+
+@media (min-width: 768px) {
+	.page {
+		
+	}
+	.page-right-hidden {
+		
+	}
+}
+
+@media (min-width: 992px) {
+	.page {
+		width : 400px;
+	}
+	.page-right-hidden {
+		right: -400px;	
+	}
+}
