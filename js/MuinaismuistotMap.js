@@ -97,56 +97,6 @@ var MuinaismuistotMap = function() {
       })
     });
     this.map.addLayer(layer);
-    
-  };
-
-  this.addKuntarajatLayer = function() {
-
-    var kuntarajatSource = new ol.source.GeoJSON({
-      projection: 'EPSG:3067',
-      url: 'data/kuntarajat.geojson'
-    });
-
-    var kuntarajatLayer = new ol.layer.Vector({
-      source: kuntarajatSource,
-      minResolution: 30,
-      maxResolution: 200,
-      style : new ol.style.Style({
-        stroke: new ol.style.Stroke({
-          color: 'blue',
-          lineDash: [4],
-          width: 3
-        })
-      })
-    });
-
-    this.map.addLayer(kuntarajatLayer);
-  };
-
-  this.addMaakuntarajatLayer = function() {
-
-    var maakuntarajatSource = new ol.source.GeoJSON({
-      projection: 'EPSG:3067',
-      url: 'data/maakuntarajat.geojson'
-    });
-
-    var maakuntarajatLayer = new ol.layer.Vector({
-      source: maakuntarajatSource,
-      minResolution: 200,
-      style : new ol.style.Style({
-        stroke: new ol.style.Stroke({
-          color: 'blue',
-          lineDash: [4],
-          width: 3
-        })
-      })
-    });
-
-    this.map.addLayer(maakuntarajatLayer);
-  };
-
-  this.addMaakuntasummatLayer = function() {
-    
   };
 
   this.setEventListener = function(listener) {
