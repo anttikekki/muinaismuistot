@@ -8,9 +8,11 @@ var MuinaismuistotMap = function() {
   this.mmlTaustakarttaLayer;
   this.nbaMuinaismuistotLayer;
   this.visibleMuinaismuistotLayerIds;
+  var muinaismuistotSettings;
 
-  this.init = function(muinaismuistotData) {
+  this.init = function(muinaismuistotData, settings) {
     this.muinaismuistotData = muinaismuistotData;
+    muinaismuistotSettings = settings;
     this.loadWmtsCapabilities();
 
     proj4.defs("EPSG:3067","+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
@@ -103,10 +105,7 @@ var MuinaismuistotMap = function() {
   };
 
   this.getMuinaismuistotLayerSourceParams = function() {
-    var layers = 'hide'; //Hide all layers if no settings present
-    if(this.visibleMuinaismuistotLayerIds && this.visibleMuinaismuistotLayerIds.length > 0) {
-      layers = 'show:' + this.visibleMuinaismuistotLayerIds.join(',');
-    }
+    var layers = 'show:' + muinaismuistotSettings.getSelectedMuinaismuistotLayerIds().join(',');
 
     return {
       url: 'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMSJULK/MapServer/export?',

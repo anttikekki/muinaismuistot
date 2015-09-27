@@ -1,23 +1,41 @@
 var MuinaismuistotSettingsPage = function() {
 	var self = this;
-	this.eventListener;
+	var eventListener;
+	var muinaismuistotSettings;
 
-	this.init = function() {
+	this.init = function(settings) {
+		muinaismuistotSettings = settings;
+		setSelectedMuinaismuistotLayerIds(settings.getSelectedMuinaismuistotLayerIds());
+		setSelectedMapBackgroundLayerName(settings.getSelectedBackgroundMapLayerName());
+
 		$('#hide-settingsPage-button').on('click', function() {
-			self.eventListener.hideSettingsPage();
+			eventListener.hideSettingsPage();
 		});
 
 		$("input[name='selectedMapLayer']").change(function() {
 			var mapLayerName = $(this).val();
-			self.eventListener.selectedMapBackgroundLayerChanged(mapLayerName);
+			settings.setSelectedBackgroundMapLayerName(mapLayerName);
+			eventListener.selectedMapBackgroundLayerChanged(mapLayerName);
 		});
 
 		$("#muinaismuistot-visible-layer-selections input").change(function() {
-			self.eventListener.visibleMuinaismuistotLayersChanged(self.getSelectedMuinaismuistotLayerIds());
+			var selectedLayerIds = getSelectedMuinaismuistotLayerIds();
+			settings.setSelectedMuinaismuistotLayerIds(selectedLayerIds);
+			eventListener.visibleMuinaismuistotLayersChanged(selectedLayerIds);
 		});
 	};
 
-	this.getSelectedMuinaismuistotLayerIds = function() {
+	this.setEventListener = function(listener) {
+	    eventListener = listener;
+	};
+
+	var setSelectedMuinaismuistotLayerIds = function(layerIds) {
+		layerIds.forEach(function(layerId) {
+			$('#settings-muinaismuistot-layer-' + layerId).prop('checked', true);
+		});
+	};
+
+	var getSelectedMuinaismuistotLayerIds = function() {
 		var layerIds = [];
 	    $('#muinaismuistot-visible-layer-selections :checked').each(function() {
 	       layerIds.push($(this).val());
@@ -25,11 +43,7 @@ var MuinaismuistotSettingsPage = function() {
 	    return layerIds;
 	};
 
-	this.setEventListener = function(listener) {
-	    this.eventListener = listener;
-	};
-
-	this.setSelectedMapBackgroundLayerName = function(mapName) {
+	var setSelectedMapBackgroundLayerName = function(mapName) {
 		$('#map-selection-'+mapName).click();
 	};
 
