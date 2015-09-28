@@ -1,24 +1,9 @@
 var MuinaismuistotData = function() {
   var self = this;
-  var layerIds = {
-    'RKY': 0,
-        'RKY alueet': 1,
-        'RKY viivat': 2,
-        'RKY pisteet': 3,
-    'Maailmanperintökohteet': 4,
-        'Maailmanperintö alueet': 5,
-        'Maailmanperintö pisteet': 6,
-    'Rakennusperintörekisteri': 7,
-        'Rakennetut alueet': 8,
-        'Rakennukset': 9,
-    'Muinaisjäännösrekisteri': 10,
-        'Muinaisjäännösalueet': 11,
-        'Muinaisj.alakohteet': 12,
-        'Muinaisjäännökset': 13
-  };
+  var muinaismuistotSettings;
 
-  this.init = function() {
-    
+  this.init = function(settings) {
+    muinaismuistotSettings = settings;
   };
 
   this.getMuinaisjaannospisteet = function(coordinate, mapSize, mapExtent, callback) {
@@ -28,7 +13,7 @@ var MuinaismuistotData = function() {
       tolerance: 10,
       imageDisplay: mapSize.join(',') + ",96",
       mapExtent: mapExtent.join(','),
-      layers: "visible:" + layerIds['Muinaisjäännökset'],
+      layers: "visible:" + muinaismuistotSettings.getMuinaismuistotLayerIdMap()['Muinaisjäännökset'],
       f: "json",
       returnGeometry: "false"
     };

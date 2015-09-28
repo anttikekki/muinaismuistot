@@ -1,65 +1,69 @@
 var MuinaismuistotMap = function() {
   var self = this;
-  this.muinaismuistotData;
-  this.map;
-  this.view;
-  this.eventListener;
-  this.mmlMaastokarttaLayer;
-  this.mmlTaustakarttaLayer;
+  var muinaismuistotData;
+  var map;
+  var view;
+  var eventListener;
+  var mmlMaastokarttaLayer;
+  var mmlTaustakarttaLayer;
+  var nbaMuinaismuistotLayer;
+  var visibleMuinaismuistotLayerIds;
+  var muinaismuistotSettings;
 
-  this.init = function(muinaismuistotData) {
-    this.muinaismuistotData = muinaismuistotData;
-    this.loadWmtsCapabilities();
+  this.init = function(data, settings) {
+    muinaismuistotData = data;
+    muinaismuistotSettings = settings;
+    loadWmtsCapabilities();
 
     proj4.defs("EPSG:3067","+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
 
     var extent = [50199.4814, 6582464.0358, 761274.6247, 7799839.8902];
     ol.proj.get('EPSG:3067').setExtent(extent);
 
-    this.view = new ol.View({
+    view = new ol.View({
       center: [387685, 6679679],
       projection: 'EPSG:3067',
       zoom: 11
     });
     
-    this.map = new ol.Map({
+    map = new ol.Map({
       target: 'map',
-      view: this.view,
+      view: view,
       renderer: 'canvas'
     });
 
     var geolocation = new ol.Geolocation({
-      projection: this.view.getProjection(),
+      projection: view.getProjection(),
       tracking: true
     });
     geolocation.once('change:position', function() {
-      self.view.setCenter(geolocation.getPosition());
+      view.setCenter(geolocation.getPosition());
     });
 
-    this.map.on("click", function(e) {
-      self.muinaismuistotData.getMuinaisjaannospisteet(
+    map.on("click", function(e) {
+      muinaismuistotData.getMuinaisjaannospisteet(
         e.coordinate,
-        self.map.getSize(),
-        self.map.getView().calculateExtent(self.map.getSize()),
+        map.getSize(),
+        map.getView().calculateExtent(map.getSize()),
         function(muinaisjaannos) {
           if(muinaisjaannos) {
-            self.eventListener.muinaisjaannosSelected(muinaisjaannos);
+            eventListener.muinaisjaannosSelected(muinaisjaannos);
           }
         }
       );
     });
   };
 
-  this.loadWmtsCapabilities = function() {
+  var loadWmtsCapabilities = function() {
     $.ajax({
       url: 'http://avoindata.maanmittauslaitos.fi/mapcache/wmts?service=wmts&request=getcapabilities&version=1.0.0',
       success: function(response) {
-        self.addWmtsLayers(response);
+        addWmtsLayers(response);
       }
     });
   };
 
-  this.addWmtsLayers = function(response) {
+  var addWmtsLayers = function(response) {
     var parser = new ol.format.WMTSCapabilities();
     var capabilities = parser.read(response);
 
@@ -70,40 +74,64 @@ var MuinaismuistotMap = function() {
       layer: 'taustakartta'
     }));
 
-    this.mmlMaastokarttaLayer = new ol.layer.Tile({
+    mmlMaastokarttaLayer = new ol.layer.Tile({
       title: 'Maastokartta',
       source: maastokarttaLayerSource,
       visible: false
     });
-    this.mmlTaustakarttaLayer = new ol.layer.Tile({
+    mmlTaustakarttaLayer = new ol.layer.Tile({
       title: 'Taustakartta',
       source: taustakarttaLayerSource,
       visible: true
     });
 
-    this.map.addLayer(this.mmlMaastokarttaLayer);
-    this.map.addLayer(this.mmlTaustakarttaLayer);
-    this.addMuinaismuistotLayer();
+    map.addLayer(mmlMaastokarttaLayer);
+    map.addLayer(mmlTaustakarttaLayer);
+    addMuinaismuistotLayer();
   };
 
-  this.addMuinaismuistotLayer = function() {
-    var layer =  new ol.layer.Tile({
-      source: new ol.source.TileArcGISRest({
-        url: 'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMSJULK/MapServer/export?'
-      })
+  var addMuinaismuistotLayer = function() {
+    nbaMuinaismuistotLayer =  new ol.layer.Tile({
+      source: new ol.source.TileArcGISRest(getMuinaismuistotLayerSourceParams())
     });
-    this.map.addLayer(layer);
+    map.addLayer(nbaMuinaismuistotLayer);
+  };
+
+  this.setVisibleMuinaismuistotLayers = function(layerIds) {
+    visibleMuinaismuistotLayerIds = layerIds;
+    if(nbaMuinaismuistotLayer) {
+      nbaMuinaismuistotLayer.setSource(new ol.source.TileArcGISRest(getMuinaismuistotLayerSourceParams()));
+    }
+  };
+
+  var getMuinaismuistotLayerSourceParams = function() {
+    var layerIds = muinaismuistotSettings.getSelectedMuinaismuistotLayerIds();
+    var layers = '';
+
+    if(layerIds.length > 0) {
+      layers = 'show:' + layerIds.join(',');
+    }
+    else {
+      layers = 'hide:' + muinaismuistotSettings.getDefaultSelectedMuinaismuistotLayerIds().join(',');
+    }
+
+    return {
+      url: 'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMSJULK/MapServer/export?',
+      params: {
+        'LAYERS': layers
+      }
+    };
   };
 
   this.setEventListener = function(listener) {
-    this.eventListener = listener;
+    eventListener = listener;
   };
 
   this.getVisibleBackgroundLayerName = function() {
-    if(this.mmlMaastokarttaLayer && this.mmlMaastokarttaLayer.getVisible()) {
+    if(mmlMaastokarttaLayer && mmlMaastokarttaLayer.getVisible()) {
       return 'maastokartta';
     }
-    else if(this.mmlTaustakarttaLayer && this.mmlTaustakarttaLayer.getVisible()) {
+    else if(mmlTaustakarttaLayer && mmlTaustakarttaLayer.getVisible()) {
       return 'taustakartta';
     }
     return 'taustakartta';
@@ -111,12 +139,12 @@ var MuinaismuistotMap = function() {
 
   this.setVisibleBackgroundLayerName = function(layerName) {
     if(layerName === 'taustakartta') {
-      this.mmlMaastokarttaLayer.setVisible(false);
-      this.mmlTaustakarttaLayer.setVisible(true);
+      mmlMaastokarttaLayer.setVisible(false);
+      mmlTaustakarttaLayer.setVisible(true);
     }
     else if(layerName === 'maastokartta') {
-      this.mmlMaastokarttaLayer.setVisible(true);
-      this.mmlTaustakarttaLayer.setVisible(false);
+      mmlMaastokarttaLayer.setVisible(true);
+      mmlTaustakarttaLayer.setVisible(false);
     }
   };
 }

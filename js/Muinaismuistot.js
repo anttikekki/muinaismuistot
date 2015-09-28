@@ -1,55 +1,57 @@
 var Muinaismuistot = function() {
   var self = this;
-  this.map = null;
-  this.detailsPage = null;
-  this.settingsPage = null;
-  this.muinaismuistotData = null;
+  var map = null;
+  var detailsPage = null;
+  var settingsPage = null;
+  var muinaismuistotData = null;
+  var muinaismuistotSettings = null;
 
   this.init = function() {
-    this.muinaismuistotData = new MuinaismuistotData();
-    this.muinaismuistotData.init();
-
-    this.map = new MuinaismuistotMap();
-    this.map.init(this.muinaismuistotData);
-    this.map.setEventListener({
-      muinaisjaannosSelected : function(muinaisjaannos) {
-        self.detailsPage.setMuinaisjaannos(muinaisjaannos);
-        self.showPage('detailsPage');
-      }
-    });
-
-    this.detailsPage = new MuinaismuistotDetailsPage();
-    this.detailsPage.init();
-    this.detailsPage.setEventListener({
-      hideDetailsPage : function() {
-        self.hidePage('detailsPage');
-      }
-    });
-
-    this.settingsPage = new MuinaismuistotSettingsPage();
-    this.settingsPage.init();
-    this.settingsPage.setSelectedMapBackgroundLayerName(this.map.getVisibleBackgroundLayerName());
-    this.settingsPage.setEventListener({
-      hideSettingsPage : function() {
-        self.hidePage('settingsPage');
-      },
+    muinaismuistotSettings = new MuinaismuistotSettings();
+    muinaismuistotSettings.init();
+    muinaismuistotSettings.setEventListener({
       selectedMapBackgroundLayerChanged: function(layerName) {
-        self.map.setVisibleBackgroundLayerName(layerName);
+        map.setVisibleBackgroundLayerName(layerName);
+      },
+      visibleMuinaismuistotLayersChanged: function(selectedLayerIds) {
+        map.setVisibleMuinaismuistotLayers(selectedLayerIds);
+      }
+    });
+
+    muinaismuistotData = new MuinaismuistotData();
+    muinaismuistotData.init(muinaismuistotSettings);
+
+    map = new MuinaismuistotMap();
+    map.init(muinaismuistotData, muinaismuistotSettings);
+    map.setEventListener({
+      muinaisjaannosSelected : function(muinaisjaannos) {
+        detailsPage.setMuinaisjaannos(muinaisjaannos);
+        showPage('detailsPage');
+      }
+    });
+
+    detailsPage = new MuinaismuistotDetailsPage();
+    detailsPage.init();
+    detailsPage.setEventListener({
+      hideDetailsPage : function() {
+        hidePage('detailsPage');
+      }
+    });
+
+    settingsPage = new MuinaismuistotSettingsPage();
+    settingsPage.init(muinaismuistotSettings);
+    settingsPage.setEventListener({
+      hideSettingsPage : function() {
+        hidePage('settingsPage');
       }
     });
 
     $('#map-button-settings').on('click', function() {
-      self.showPage('settingsPage');
+      showPage('settingsPage');
     });
-
-    // Use FastClick to eliminate the 300ms delay between a physical tap
-    // and the firing of a click event on mobile browsers.
-    // See http://updates.html5rocks.com/2013/12/300ms-tap-delay-gone-away
-    // for more information.
-    //FastClick.attach(document.body);
   };
 
-  this.showPage = function(pageId) {
+  var showPage = function(pageId) {
     $page = $('#'+pageId);
 
     if($page.hasClass('page-right-hidden')) {
@@ -57,7 +59,7 @@ var Muinaismuistot = function() {
     }
   };
 
-  this.hidePage = function(pageId) {
+  var hidePage = function(pageId) {
     $page = $('#'+pageId);
 
     if($page.hasClass('page-right-visible')) {
