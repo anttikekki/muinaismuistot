@@ -1,26 +1,26 @@
 var MuinaismuistotDetailsPage = function() {
 	var self = this;
-	this.muinaisjaannos = null;
-	this.eventListener;
+	var muinaisjaannos = null;
+	var eventListener;
 
 	this.init = function() {
 		$('#hide-detailsPage-button').on('click', function() {
-			self.eventListener.hideDetailsPage();
+			eventListener.hideDetailsPage();
 		});
 	};
 
 	this.setEventListener = function(listener) {
-	    this.eventListener = listener;
+	    eventListener = listener;
 	};
 
 	this.setMuinaisjaannos = function(muinaisjaannos) {
-		this.muinaisjaannos = muinaisjaannos;
+		muinaisjaannos = muinaisjaannos;
 		if(muinaisjaannos) {
-			this.displayData(muinaisjaannos);
+			displayData(muinaisjaannos);
 		}
 	};
 
-	this.displayData = function(muinaisjaannos) {
+	var displayData = function(muinaisjaannos) {
 		$('#Kohdenimi').html(muinaisjaannos.attributes.Kohdenimi.trim());
 		$('#Ajoitus').html(muinaisjaannos.attributes.Ajoitus.trim());
 		$('#Tyyppi').html(muinaisjaannos.attributes.Tyyppi.trim());
