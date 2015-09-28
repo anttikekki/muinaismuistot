@@ -1,5 +1,6 @@
 var MuinaismuistotSettings = function() {
   var self = this;
+  var eventListener = null;
   var selectedLayerIds = [];
   var selectedBackgroundMapLayerName = '';
 
@@ -9,12 +10,17 @@ var MuinaismuistotSettings = function() {
     selectedBackgroundMapLayerName = 'taustakartta';
   };
 
+  this.setEventListener = function(listener) {
+      eventListener = listener;
+  };
+
   this.getSelectedMuinaismuistotLayerIds = function() {
     return selectedLayerIds;
   };
 
   this.setSelectedMuinaismuistotLayerIds = function(layerIds) {
     selectedLayerIds = layerIds;
+    eventListener.visibleMuinaismuistotLayersChanged(layerIds);
   };
 
   this.getSelectedBackgroundMapLayerName = function() {
@@ -23,6 +29,7 @@ var MuinaismuistotSettings = function() {
 
   this.setSelectedBackgroundMapLayerName = function(layerName) {
     selectedBackgroundMapLayerName = layerName;
+    eventListener.selectedMapBackgroundLayerChanged(layerName);
   };
 
   this.getMuinaismuistotLayerIdMap = function() {

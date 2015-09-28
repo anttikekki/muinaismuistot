@@ -15,13 +15,11 @@ var MuinaismuistotSettingsPage = function() {
 		$("input[name='selectedMapLayer']").change(function() {
 			var mapLayerName = $(this).val();
 			settings.setSelectedBackgroundMapLayerName(mapLayerName);
-			eventListener.selectedMapBackgroundLayerChanged(mapLayerName);
 		});
 
 		$("#muinaismuistot-visible-layer-selections input").change(function() {
 			var selectedLayerIds = getSelectedMuinaismuistotLayerIds();
 			settings.setSelectedMuinaismuistotLayerIds(selectedLayerIds);
-			eventListener.visibleMuinaismuistotLayersChanged(selectedLayerIds);
 		});
 	};
 

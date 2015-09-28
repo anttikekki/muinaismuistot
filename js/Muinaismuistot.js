@@ -1,55 +1,57 @@
 var Muinaismuistot = function() {
   var self = this;
-  this.map = null;
-  this.detailsPage = null;
-  this.settingsPage = null;
-  this.muinaismuistotData = null;
-  this.muinaismuistotSettings = null;
+  var map = null;
+  var detailsPage = null;
+  var settingsPage = null;
+  var muinaismuistotData = null;
+  var muinaismuistotSettings = null;
 
   this.init = function() {
-    this.muinaismuistotSettings = new MuinaismuistotSettings();
-    this.muinaismuistotSettings.init();
-
-    this.muinaismuistotData = new MuinaismuistotData();
-    this.muinaismuistotData.init(this.muinaismuistotSettings);
-
-    this.map = new MuinaismuistotMap();
-    this.map.init(this.muinaismuistotData, this.muinaismuistotSettings);
-    this.map.setEventListener({
-      muinaisjaannosSelected : function(muinaisjaannos) {
-        self.detailsPage.setMuinaisjaannos(muinaisjaannos);
-        self.showPage('detailsPage');
-      }
-    });
-
-    this.detailsPage = new MuinaismuistotDetailsPage();
-    this.detailsPage.init();
-    this.detailsPage.setEventListener({
-      hideDetailsPage : function() {
-        self.hidePage('detailsPage');
-      }
-    });
-
-    this.settingsPage = new MuinaismuistotSettingsPage();
-    this.settingsPage.init(this.muinaismuistotSettings);
-    this.settingsPage.setEventListener({
-      hideSettingsPage : function() {
-        self.hidePage('settingsPage');
-      },
+    muinaismuistotSettings = new MuinaismuistotSettings();
+    muinaismuistotSettings.init();
+    muinaismuistotSettings.setEventListener({
       selectedMapBackgroundLayerChanged: function(layerName) {
-        self.map.setVisibleBackgroundLayerName(layerName);
+        map.setVisibleBackgroundLayerName(layerName);
       },
       visibleMuinaismuistotLayersChanged: function(selectedLayerIds) {
-        self.map.setVisibleMuinaismuistotLayers(selectedLayerIds);
+        map.setVisibleMuinaismuistotLayers(selectedLayerIds);
+      }
+    });
+
+    muinaismuistotData = new MuinaismuistotData();
+    muinaismuistotData.init(muinaismuistotSettings);
+
+    map = new MuinaismuistotMap();
+    map.init(muinaismuistotData, muinaismuistotSettings);
+    map.setEventListener({
+      muinaisjaannosSelected : function(muinaisjaannos) {
+        detailsPage.setMuinaisjaannos(muinaisjaannos);
+        showPage('detailsPage');
+      }
+    });
+
+    detailsPage = new MuinaismuistotDetailsPage();
+    detailsPage.init();
+    detailsPage.setEventListener({
+      hideDetailsPage : function() {
+        hidePage('detailsPage');
+      }
+    });
+
+    settingsPage = new MuinaismuistotSettingsPage();
+    settingsPage.init(muinaismuistotSettings);
+    settingsPage.setEventListener({
+      hideSettingsPage : function() {
+        hidePage('settingsPage');
       }
     });
 
     $('#map-button-settings').on('click', function() {
-      self.showPage('settingsPage');
+      showPage('settingsPage');
     });
   };
 
-  this.showPage = function(pageId) {
+  var showPage = function(pageId) {
     $page = $('#'+pageId);
 
     if($page.hasClass('page-right-hidden')) {
@@ -57,7 +59,7 @@ var Muinaismuistot = function() {
     }
   };
 
-  this.hidePage = function(pageId) {
+  var hidePage = function(pageId) {
     $page = $('#'+pageId);
 
     if($page.hasClass('page-right-visible')) {
