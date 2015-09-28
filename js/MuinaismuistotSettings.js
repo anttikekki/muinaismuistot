@@ -5,13 +5,17 @@ var MuinaismuistotSettings = function() {
   var selectedBackgroundMapLayerName = '';
 
   this.init = function() {
-    var layerMap = self.getMuinaismuistotLayerIdMap();
-    selectedLayerIds = [layerMap['RKY'], layerMap['Maailmanperintökohteet'], layerMap['Rakennusperintörekisteri'], layerMap['Muinaisjäännösrekisteri']];
+    selectedLayerIds = this.getDefaultSelectedMuinaismuistotLayerIds();
     selectedBackgroundMapLayerName = 'taustakartta';
   };
 
   this.setEventListener = function(listener) {
       eventListener = listener;
+  };
+
+  this.getDefaultSelectedMuinaismuistotLayerIds = function() {
+    var layerMap = self.getMuinaismuistotLayerIdMap();
+    return [layerMap['RKY'], layerMap['Maailmanperintökohteet'], layerMap['Rakennusperintörekisteri'], layerMap['Muinaisjäännösrekisteri']];
   };
 
   this.getSelectedMuinaismuistotLayerIds = function() {

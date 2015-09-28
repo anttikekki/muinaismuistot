@@ -105,7 +105,15 @@ var MuinaismuistotMap = function() {
   };
 
   var getMuinaismuistotLayerSourceParams = function() {
-    var layers = 'show:' + muinaismuistotSettings.getSelectedMuinaismuistotLayerIds().join(',');
+    var layerIds = muinaismuistotSettings.getSelectedMuinaismuistotLayerIds();
+    var layers = '';
+
+    if(layerIds.length > 0) {
+      layers = 'show:' + layerIds.join(',');
+    }
+    else {
+      layers = 'hide:' + muinaismuistotSettings.getDefaultSelectedMuinaismuistotLayerIds().join(',');
+    }
 
     return {
       url: 'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMSJULK/MapServer/export?',
