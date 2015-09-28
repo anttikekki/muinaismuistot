@@ -19,24 +19,45 @@ var MuinaismuistotDetailsPage = function() {
 	this.setMuinaisjaannosFeatures = function(features) {
 		muinaisjaannosFeatures = features;
 		var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
+		var sectionVisibilityMap = {
+			'muinaisjaannos-collapse-container': false,
+			'muinaisjaannosalue-collapse-container': false,
+			'rky-collapse-container': false,
+			'maailmanperinto-collapse-container': false,
+			'rakennusperintorekisteri-collapse-container': false,
+		};
 
 		features.forEach(function(feature) {
 			switch (feature.layerId) {
 				case layerMap['Muinaisjäännökset']:
 					showMuinaisjaannos(feature);
+					sectionVisibilityMap['muinaisjaannos-collapse-container'] = true;
 					break;
 				case layerMap['Muinaisjäännösalueet']:
 					showMuinaisjaannosAlue(feature);
+					sectionVisibilityMap['muinaisjaannosalue-collapse-container'] = true;
 					break;
 				case layerMap['RKY alueet']:
 					showRkyAlue(feature);
+					sectionVisibilityMap['rky-collapse-container'] = true;
 					break;
 				case layerMap['Maailmanperintö alueet']:
 					showMaailmanperintokohde(feature);
+					sectionVisibilityMap['maailmanperinto-collapse-container'] = true;
 					break;
 				case layerMap['Rakennetut alueet']:
 					showRakennusperintorekisteriKohde(feature);
+					sectionVisibilityMap['rakennusperintorekisteri-collapse-container'] = true;
 					break;
+			}
+
+			for (var sectionId in sectionVisibilityMap) {
+				if(sectionVisibilityMap[sectionId]) {
+					$('#' + sectionId).removeClass('hidden');
+				}
+				else {
+					$('#' + sectionId).addClass('hidden');
+				}
 			}
 		});
 	};
