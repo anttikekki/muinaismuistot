@@ -41,13 +41,13 @@ var MuinaismuistotMap = function() {
     });
 
     map.on("click", function(e) {
-      muinaismuistotData.getMuinaisjaannospisteet(
+      muinaismuistotData.getMuinaisjaannosFeatures(
         e.coordinate,
         map.getSize(),
         map.getView().calculateExtent(map.getSize()),
-        function(muinaisjaannos) {
-          if(muinaisjaannos) {
-            eventListener.muinaisjaannosSelected(muinaisjaannos);
+        function(muinaisjaannosFeatures) {
+          if(muinaisjaannosFeatures.length > 0) {
+            eventListener.muinaisjaannosFeaturesSelected(muinaisjaannosFeatures);
           }
         }
       );
