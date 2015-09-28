@@ -24,14 +24,14 @@ var Muinaismuistot = function() {
     map = new MuinaismuistotMap();
     map.init(muinaismuistotData, muinaismuistotSettings);
     map.setEventListener({
-      muinaisjaannosSelected : function(muinaisjaannos) {
-        detailsPage.setMuinaisjaannos(muinaisjaannos);
+      muinaisjaannosFeaturesSelected : function(muinaisjaannosFeatures) {
+        detailsPage.setMuinaisjaannosFeatures(muinaisjaannosFeatures);
         showPage('detailsPage');
       }
     });
 
     detailsPage = new MuinaismuistotDetailsPage();
-    detailsPage.init();
+    detailsPage.init(muinaismuistotSettings);
     detailsPage.setEventListener({
       hideDetailsPage : function() {
         hidePage('detailsPage');

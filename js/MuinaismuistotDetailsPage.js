@@ -1,9 +1,12 @@
 var MuinaismuistotDetailsPage = function() {
 	var self = this;
-	var muinaisjaannos = null;
+	var muinaisjaannosFeatures = null;
 	var eventListener;
+	var muinaismuistotSettings;
 
-	this.init = function() {
+	this.init = function(settings) {
+		muinaismuistotSettings = settings;
+
 		$('#hide-detailsPage-button').on('click', function() {
 			eventListener.hideDetailsPage();
 		});
@@ -13,19 +16,74 @@ var MuinaismuistotDetailsPage = function() {
 	    eventListener = listener;
 	};
 
-	this.setMuinaisjaannos = function(muinaisjaannos) {
-		muinaisjaannos = muinaisjaannos;
-		if(muinaisjaannos) {
-			displayData(muinaisjaannos);
-		}
+	this.setMuinaisjaannosFeatures = function(features) {
+		muinaisjaannosFeatures = features;
+		var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
+
+		features.forEach(function(feature) {
+			switch (feature.layerId) {
+				case layerMap['Muinaisjäännökset']:
+					showMuinaisjaannos(feature);
+					break;
+				case layerMap['Muinaisjäännösalueet']:
+					showMuinaisjaannosAlue(feature);
+					break;
+				case layerMap['RKY alueet']:
+					showRkyAlue(feature);
+					break;
+				case layerMap['Maailmanperintö alueet']:
+					showMaailmanperintokohde(feature);
+					break;
+				case layerMap['Rakennetut alueet']:
+					showRakennusperintorekisteriKohde(feature);
+					break;
+			}
+		});
 	};
 
-	var displayData = function(muinaisjaannos) {
-		$('#Kohdenimi').html(muinaisjaannos.attributes.Kohdenimi.trim());
-		$('#Ajoitus').html(muinaisjaannos.attributes.Ajoitus.trim());
-		$('#Tyyppi').html(muinaisjaannos.attributes.Tyyppi.trim());
-		$('#Alatyyppi').html(muinaisjaannos.attributes.Alatyyppi.trim());
-		$('#Laji').html(muinaisjaannos.attributes.Laji.trim());
-		$('#muinaisjaannosarekisteri-link').attr('href', muinaisjaannos.attributes.URL)
+	var showMuinaisjaannos = function(feature) {
+		$('#muinaisjaannos-Kohdenimi').html(feature.attributes.Kohdenimi.trim());
+		$('#muinaisjaannos-Ajoitus').html(feature.attributes.Ajoitus.trim());
+		$('#muinaisjaannos-Tyyppi').html(feature.attributes.Tyyppi.trim());
+		$('#muinaisjaannos-Alatyyppi').html(feature.attributes.Alatyyppi.trim());
+		$('#muinaisjaannos-Laji').html(feature.attributes.Laji.trim());
+		$('#muinaisjaannos-muinaisjaannosarekisteri-link').attr('href', feature.attributes.URL);
+	};
+
+	var showMuinaisjaannosAlue = function(feature) {
+		$('#muinaisjaannosalue-Kohdenimi').html(feature.attributes.Kohdenimi.trim());
+		$('#muinaisjaannosalue-muinaisjaannosarekisteri-link').attr('href', generateKulttuuriymparistoURL(feature.attributes.Mjtunnus));
+	};
+
+	var showRkyAlue = function(feature) {
+		$('#rky-Kohdenimi').html(feature.attributes.KOHDENIMI.trim());
+		$('#rky-link').attr('href', generateRkyURL(feature.attributes.ID));
+	};
+
+	var showMaailmanperintokohde = function(feature) {
+		$('#maailmanperinto-Kohdenimi').html(feature.attributes.Nimi.trim());
+		$('#maailmanperinto-link').attr('href', feature.attributes.URL);
+	};
+
+	var showRakennusperintorekisteriKohde = function(feature) {
+		$('#rakennusperintorekisteri-Kohdenimi').html(feature.attributes.Nimi.trim());
+		$('#rakennusperintorekisteri-Kunta').html(feature.attributes.Kunta.trim());
+		$('#rakennusperintorekisteri-Kohdetyyppi').html(feature.attributes.Kohdetyyppi.trim());
+		$('#rakennusperintorekisteri-Kulttuurihist_tyyppi').html(feature.attributes.Kulttuurihist_tyyppi.trim());
+		$('#rakennusperintorekisteri-Suojelu').html(feature.attributes.Suojelu.trim());
+		$('#rakennusperintorekisteri-Ajoitus').html(feature.attributes.Ajoitus.trim());
+		$('#rakennusperintorekisteri-link').attr('href', generateRakennusperintorekisteriURL(feature.attributes.KOHDEID));
+	};
+
+	var generateKulttuuriymparistoURL = function(muinaisjaannosTunnus) {
+		return 'http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/portti/default.aspx?sovellus=mjreki&taulu=T_KOHDE&tunnus=' + muinaisjaannosTunnus;
+	};
+
+	var generateRkyURL = function(id) {
+		return 'http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=' + id;
+	};
+
+	var generateRakennusperintorekisteriURL = function(id) {
+		return 'http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/rapea/read/asp/r_kohde_det.aspx?KOHDE_ID=' + id;
 	};
 };

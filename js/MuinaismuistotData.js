@@ -6,28 +6,23 @@ var MuinaismuistotData = function() {
     muinaismuistotSettings = settings;
   };
 
-  this.getMuinaisjaannospisteet = function(coordinate, mapSize, mapExtent, callback) {
+  this.getMuinaisjaannosFeatures = function(coordinate, mapSize, mapExtent, callback) {
     var queryoptions = {
       geometry: coordinate.join(','),
-      geometryType: "esriGeometryPoint",
+      geometryType: 'esriGeometryPoint',
       tolerance: 10,
-      imageDisplay: mapSize.join(',') + ",96",
+      imageDisplay: mapSize.join(',') + ',96',
       mapExtent: mapExtent.join(','),
-      layers: "visible:" + muinaismuistotSettings.getMuinaismuistotLayerIdMap()['Muinaisjäännökset'],
-      f: "json",
-      returnGeometry: "false"
+      layers: 'visible:' + muinaismuistotSettings.getSelectedMuinaismuistotLayerIds(),
+      f: 'json',
+      returnGeometry: 'false'
     };
 
     $.getJSON(
       'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMS/MapServer/identify?',
       queryoptions,
       function(response) {
-        if(!response.results.length === 0) {
-          callback(null);
-        }
-        else {
-          callback(response.results[0]);
-        }
+        callback(response.results);
       }
     );
   };
