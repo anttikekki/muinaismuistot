@@ -20,45 +20,53 @@ var MuinaismuistotDetailsPage = function() {
 		muinaisjaannosFeatures = features;
 		var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
 		var sectionVisibilityMap = {
-			'muinaisjaannos-collapse-container': false,
-			'muinaisjaannosalue-collapse-container': false,
-			'rky-collapse-container': false,
-			'maailmanperinto-collapse-container': false,
-			'rakennusperintorekisteri-collapse-container': false,
+			'muinaisjaannos': false,
+			'muinaisjaannosalue': false,
+			'rky': false,
+			'maailmanperinto': false,
+			'rakennusperintorekisteri': false,
 		};
 
 		features.forEach(function(feature) {
 			switch (feature.layerId) {
 				case layerMap['Muinaisjäännökset']:
 					showMuinaisjaannos(feature);
-					sectionVisibilityMap['muinaisjaannos-collapse-container'] = true;
+					sectionVisibilityMap['muinaisjaannos'] = true;
 					break;
 				case layerMap['Muinaisjäännösalueet']:
 					showMuinaisjaannosAlue(feature);
-					sectionVisibilityMap['muinaisjaannosalue-collapse-container'] = true;
+					sectionVisibilityMap['muinaisjaannosalue'] = true;
 					break;
 				case layerMap['RKY alueet']:
 					showRkyAlue(feature);
-					sectionVisibilityMap['rky-collapse-container'] = true;
+					sectionVisibilityMap['rky'] = true;
 					break;
 				case layerMap['Maailmanperintö alueet']:
 					showMaailmanperintokohde(feature);
-					sectionVisibilityMap['maailmanperinto-collapse-container'] = true;
+					sectionVisibilityMap['maailmanperinto'] = true;
 					break;
 				case layerMap['Rakennetut alueet']:
 					showRakennusperintorekisteriKohde(feature);
-					sectionVisibilityMap['rakennusperintorekisteri-collapse-container'] = true;
+					sectionVisibilityMap['rakennusperintorekisteri'] = true;
 					break;
 			}
 
+			var lastVisibleSectionId = '';
 			for (var sectionId in sectionVisibilityMap) {
+				var sectionContainerId = sectionId + '-collapse-container';
+
+				$('#' + sectionId + '-collapse').removeClass('in');
+
 				if(sectionVisibilityMap[sectionId]) {
-					$('#' + sectionId).removeClass('hidden');
+					$('#' + sectionContainerId).removeClass('hidden');
+					lastVisibleSectionId = sectionId;
 				}
 				else {
-					$('#' + sectionId).addClass('hidden');
+					$('#' + sectionContainerId).addClass('hidden');
 				}
 			}
+
+			$('#' + lastVisibleSectionId + '-collapse').addClass('in');
 		});
 	};
 
