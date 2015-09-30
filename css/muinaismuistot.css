@@ -45,6 +45,11 @@ html, body, #map {
 	margin-bottom: 10px;
 }
 
+.pageContent {
+	height: 90%;
+	overflow-y: auto;
+}
+
 .page-right-visible {
 	-webkit-transition: right 0.5s ease;
     -moz-transition: right 0.5s ease;

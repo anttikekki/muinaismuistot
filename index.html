@@ -31,63 +31,67 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-xs-12">
+            <div class="pageContent">
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Karttapohja</div>
-                        <div class="panel-body">
-                            <div class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-default active">
-                                    <input type="radio" id="map-selection-taustakartta" name="selectedMapLayer"autocomplete="off" value="taustakartta" checked> Taustakartta
-                                </label>
+                <div class="row">
+                    <div class="col-xs-12">
 
-                                <label class="btn btn-default">
-                                    <input type="radio" id="map-selection-maastokartta" name="selectedMapLayer" autocomplete="off" value="maastokartta"> Maastokartta
-                                </label>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Karttapohja</div>
+                            <div class="panel-body">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-default active">
+                                        <input type="radio" id="map-selection-taustakartta" name="selectedMapLayer"autocomplete="off" value="taustakartta" checked> Taustakartta
+                                    </label>
+
+                                    <label class="btn btn-default">
+                                        <input type="radio" id="map-selection-maastokartta" name="selectedMapLayer" autocomplete="off" value="maastokartta"> Maastokartta
+                                    </label>
+                                </div>
                             </div>
                         </div>
+
                     </div>
-
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Kartalla näkyvät muinaismuistojen tiedot</div>
-                        <div class="panel-body" id="muinaismuistot-visible-layer-selections">
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox" value="0" id="settings-muinaismuistot-layer-0">
-                                Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
-                              </label>
-                            </div>
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox" value="4"  id="settings-muinaismuistot-layer-4">
-                                Maailmanperintökohteet
-                              </label>
-                            </div>
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox" value="7"  id="settings-muinaismuistot-layer-7">
-                                Rakennusperintörekisteri
-                              </label>
-                            </div>
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox" value="10" id="settings-muinaismuistot-layer-10">
-                                Muinaisjäännösrekisteri
-                              </label>
-                            </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Kartalla näkyvät muinaismuistojen tiedot</div>
+                            <div class="panel-body" id="muinaismuistot-visible-layer-selections">
+                                <div class="checkbox">
+                                  <label>
+                                    <input type="checkbox" value="0" id="settings-muinaismuistot-layer-0">
+                                    Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
+                                  </label>
+                                </div>
+                                <div class="checkbox">
+                                  <label>
+                                    <input type="checkbox" value="4"  id="settings-muinaismuistot-layer-4">
+                                    Maailmanperintökohteet
+                                  </label>
+                                </div>
+                                <div class="checkbox">
+                                  <label>
+                                    <input type="checkbox" value="7"  id="settings-muinaismuistot-layer-7">
+                                    Rakennusperintörekisteri
+                                  </label>
+                                </div>
+                                <div class="checkbox">
+                                  <label>
+                                    <input type="checkbox" value="10" id="settings-muinaismuistot-layer-10">
+                                    Muinaisjäännösrekisteri
+                                  </label>
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
+
+            </div> <!-- pageContent -->
 
         </div>
 
@@ -102,185 +106,189 @@
                 </div>
             </div>
 
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              <div class="panel panel-default" id="muinaisjaannos-collapse-container">
-                <div class="panel-heading" role="tab" id="muinaisjaannos-heading">
-                  <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#muinaisjaannos-collapse" aria-expanded="true" aria-controls="muinaisjaannos-collapse">
-                      Muinaisjäännös
-                    </a>
-                  </h4>
-                </div>
-                <div id="muinaisjaannos-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="muinaisjaannos-heading">
-                  <div class="panel-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Kohdenimi</label>
-                            <p id="muinaisjaannos-Kohdenimi"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Ajoitus</label>
-                            <p id="muinaisjaannos-Ajoitus"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Tyyppi</label>
-                            <p id="muinaisjaannos-Tyyppi"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Alatyyppi</label>
-                            <p id="muinaisjaannos-Alatyyppi"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Laji</label>
-                            <p id="muinaisjaannos-Laji"></p>
-                        </div>
+            <div class="pageContent">
 
-                        <p>
-                            Lisää tietoa kohteesta Museoviraston <a href="" target="_blank" id="muinaisjaannos-muinaisjaannosarekisteri-link">Muinaisjäännösrekisteristä</a>.
-                        </p>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <div class="panel panel-default" id="muinaisjaannosalue-collapse-container">
-                <div class="panel-heading" role="tab" id="muinaisjaannosalue-heading">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#muinaisjaannosalue-collapse" aria-expanded="false" aria-controls="muinaisjaannosalue-collapse">
-                      Muinaisjäännösalue
-                    </a>
-                  </h4>
-                </div>
-                <div id="muinaisjaannosalue-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="muinaisjaannosalue-heading">
-                  <div class="panel-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Kohdenimi</label>
-                            <p id="muinaisjaannosalue-Kohdenimi"></p>
-                        </div>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default" id="muinaisjaannos-collapse-container">
+                    <div class="panel-heading" role="tab" id="muinaisjaannos-heading">
+                      <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#muinaisjaannos-collapse" aria-expanded="true" aria-controls="muinaisjaannos-collapse">
+                          Muinaisjäännös
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="muinaisjaannos-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="muinaisjaannos-heading">
+                      <div class="panel-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Kohdenimi</label>
+                                <p id="muinaisjaannos-Kohdenimi"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Ajoitus</label>
+                                <p id="muinaisjaannos-Ajoitus"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Tyyppi</label>
+                                <p id="muinaisjaannos-Tyyppi"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Alatyyppi</label>
+                                <p id="muinaisjaannos-Alatyyppi"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Laji</label>
+                                <p id="muinaisjaannos-Laji"></p>
+                            </div>
 
-                        <p>
-                            Lisää tietoa kohteesta Museoviraston <a href="" target="_blank" id="muinaisjaannosalue-muinaisjaannosarekisteri-link">Muinaisjäännösrekisteristä</a>.
-                        </p>
-                    </form>
+                            <p>
+                                Lisää tietoa kohteesta Museoviraston <a href="" target="_blank" id="muinaisjaannos-muinaisjaannosarekisteri-link">Muinaisjäännösrekisteristä</a>.
+                            </p>
+                        </form>
+                      </div>
+                    </div>
                   </div>
-                </div>
-            </div>
-            <div class="panel panel-default" id="rky-collapse-container">
-                <div class="panel-heading" role="tab" id="rky-heading">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#rky-collapse" aria-expanded="false" aria-controls="rky-collapse">
-                      Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
-                    </a>
-                  </h4>
-                </div>
-                <div id="rky-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="rky-heading">
-                  <div class="panel-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Kohdenimi</label>
-                            <p id="rky-Kohdenimi"></p>
-                        </div>
+                  <div class="panel panel-default" id="muinaisjaannosalue-collapse-container">
+                    <div class="panel-heading" role="tab" id="muinaisjaannosalue-heading">
+                      <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#muinaisjaannosalue-collapse" aria-expanded="false" aria-controls="muinaisjaannosalue-collapse">
+                          Muinaisjäännösalue
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="muinaisjaannosalue-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="muinaisjaannosalue-heading">
+                      <div class="panel-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Kohdenimi</label>
+                                <p id="muinaisjaannosalue-Kohdenimi"></p>
+                            </div>
 
-                        <p>
-                            Lisää tietoa kohteesta <a href="" target="_blank" id="rky-link">rky.fi rekisteristä</a>.
-                        </p>
-                    </form>
-                  </div>
+                            <p>
+                                Lisää tietoa kohteesta Museoviraston <a href="" target="_blank" id="muinaisjaannosalue-muinaisjaannosarekisteri-link">Muinaisjäännösrekisteristä</a>.
+                            </p>
+                        </form>
+                      </div>
+                    </div>
                 </div>
-            </div>
-            <div class="panel panel-default" id="maailmanperinto-collapse-container">
-                <div class="panel-heading" role="tab" id="maailmanperinto-heading">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#maailmanperinto-collapse" aria-expanded="false" aria-controls="maailmanperinto-collapse">
-                      Maailmanperintökohde
-                    </a>
-                  </h4>
-                </div>
-                <div id="maailmanperinto-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="maailmanperinto-heading">
-                  <div class="panel-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Kohdenimi</label>
-                            <p id="maailmanperinto-Kohdenimi"></p>
-                        </div>
+                <div class="panel panel-default" id="rky-collapse-container">
+                    <div class="panel-heading" role="tab" id="rky-heading">
+                      <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#rky-collapse" aria-expanded="false" aria-controls="rky-collapse">
+                          Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="rky-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="rky-heading">
+                      <div class="panel-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Kohdenimi</label>
+                                <p id="rky-Kohdenimi"></p>
+                            </div>
 
-                        <p>
-                            Lisää tietoa kohteesta <a href="" target="_blank" id="maailmanperinto-link">Museoviraston sivuilta</a>.
-                        </p>
-                    </form>
-                  </div>
+                            <p>
+                                Lisää tietoa kohteesta <a href="" target="_blank" id="rky-link">rky.fi rekisteristä</a>.
+                            </p>
+                        </form>
+                      </div>
+                    </div>
                 </div>
-            </div>
-            <div class="panel panel-default" id="rakennusperintorekisteriAlue-collapse-container">
-                <div class="panel-heading" role="tab" id="rakennusperintorekisteriAlue-heading">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#rakennusperintorekisteriAlue-collapse" aria-expanded="false" aria-controls="rakennusperintorekisteriAlue-collapse">
-                      Rakennusperintörekisterin alue
-                    </a>
-                  </h4>
-                </div>
-                <div id="rakennusperintorekisteriAlue-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="rakennusperintorekisteriAlue-heading">
-                  <div class="panel-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Kohdenimi</label>
-                            <p id="rakennusperintorekisteriAlue-Kohdenimi"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Kunta</label>
-                            <p id="rakennusperintorekisteriAlue-Kunta"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Kohdetyyppi</label>
-                            <p id="rakennusperintorekisteriAlue-Kohdetyyppi"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Kulttuurihistoriallinen tyyppi</label>
-                            <p id="rakennusperintorekisteriAlue-Kulttuurihist_tyyppi"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Suojelu</label>
-                            <p id="rakennusperintorekisteriAlue-Suojelu"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Ajoitus</label>
-                            <p id="rakennusperintorekisteriAlue-Ajoitus"></p>
-                        </div>
+                <div class="panel panel-default" id="maailmanperinto-collapse-container">
+                    <div class="panel-heading" role="tab" id="maailmanperinto-heading">
+                      <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#maailmanperinto-collapse" aria-expanded="false" aria-controls="maailmanperinto-collapse">
+                          Maailmanperintökohde
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="maailmanperinto-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="maailmanperinto-heading">
+                      <div class="panel-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Kohdenimi</label>
+                                <p id="maailmanperinto-Kohdenimi"></p>
+                            </div>
 
-                        <p>
-                            Lisää tietoa kohteesta Museoviraston <a href="" target="_blank" id="rakennusperintorekisteriAlue-link">rakennusperintörekisteristä</a>.
-                        </p>
-                    </form>
-                  </div>
+                            <p>
+                                Lisää tietoa kohteesta <a href="" target="_blank" id="maailmanperinto-link">Museoviraston sivuilta</a>.
+                            </p>
+                        </form>
+                      </div>
+                    </div>
                 </div>
-            </div>
-            <div class="panel panel-default" id="rakennusperintorekisteriRakennus-collapse-container">
-                <div class="panel-heading" role="tab" id="rakennusperintorekisteriRakennus-heading">
-                  <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#rakennusperintorekisteriRakennus-collapse" aria-expanded="false" aria-controls="rakennusperintorekisteriRakennus-collapse">
-                      Rakennusperintörekisterin rakennus
-                    </a>
-                  </h4>
+                <div class="panel panel-default" id="rakennusperintorekisteriAlue-collapse-container">
+                    <div class="panel-heading" role="tab" id="rakennusperintorekisteriAlue-heading">
+                      <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#rakennusperintorekisteriAlue-collapse" aria-expanded="false" aria-controls="rakennusperintorekisteriAlue-collapse">
+                          Rakennusperintörekisterin alue
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="rakennusperintorekisteriAlue-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="rakennusperintorekisteriAlue-heading">
+                      <div class="panel-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Kohdenimi</label>
+                                <p id="rakennusperintorekisteriAlue-Kohdenimi"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Kunta</label>
+                                <p id="rakennusperintorekisteriAlue-Kunta"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Kohdetyyppi</label>
+                                <p id="rakennusperintorekisteriAlue-Kohdetyyppi"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Kulttuurihistoriallinen tyyppi</label>
+                                <p id="rakennusperintorekisteriAlue-Kulttuurihist_tyyppi"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Suojelu</label>
+                                <p id="rakennusperintorekisteriAlue-Suojelu"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Ajoitus</label>
+                                <p id="rakennusperintorekisteriAlue-Ajoitus"></p>
+                            </div>
+
+                            <p>
+                                Lisää tietoa kohteesta Museoviraston <a href="" target="_blank" id="rakennusperintorekisteriAlue-link">rakennusperintörekisteristä</a>.
+                            </p>
+                        </form>
+                      </div>
+                    </div>
                 </div>
-                <div id="rakennusperintorekisteriRakennus-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="rakennusperintorekisteriRakennus-heading">
-                  <div class="panel-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Kohdenimi</label>
-                            <p id="rakennusperintorekisteriRakennus-Kohdenimi"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Osoite</label>
-                            <p id="rakennusperintorekisteriRakennus-Osoite"></p>
-                        </div>
-                        <div class="form-group">
-                            <label>Suojelu</label>
-                            <p id="rakennusperintorekisteriRakennus-Suojelu"></p>
-                        </div>
-                    </form>
-                  </div>
+                <div class="panel panel-default" id="rakennusperintorekisteriRakennus-collapse-container">
+                    <div class="panel-heading" role="tab" id="rakennusperintorekisteriRakennus-heading">
+                      <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#rakennusperintorekisteriRakennus-collapse" aria-expanded="false" aria-controls="rakennusperintorekisteriRakennus-collapse">
+                          Rakennusperintörekisterin rakennus
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="rakennusperintorekisteriRakennus-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="rakennusperintorekisteriRakennus-heading">
+                      <div class="panel-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Kohdenimi</label>
+                                <p id="rakennusperintorekisteriRakennus-Kohdenimi"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Osoite</label>
+                                <p id="rakennusperintorekisteriRakennus-Osoite"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Suojelu</label>
+                                <p id="rakennusperintorekisteriRakennus-Suojelu"></p>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
                 </div>
-            </div>
+
+            </div> <!-- pageContent -->
 
         </div>
 
