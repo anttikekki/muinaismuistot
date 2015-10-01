@@ -13,9 +13,21 @@ html, body, #map {
     top: 0px;
 }
 
+#loading-animation {
+	z-index: 25;
+	position: absolute;
+	top: 15px;
+	right: 20px;
+}
+
 .map-button {
 	z-index: 15;
 	position: absolute;
+}
+
+#map-button-info {
+	bottom: 60px;
+	right: 20px;
 }
 
 #map-button-settings {

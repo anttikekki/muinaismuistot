@@ -64,7 +64,9 @@ var MuinaismuistotDetailsPage = function() {
 			for (var sectionId in sectionVisibilityMap) {
 				var sectionContainerId = sectionId + '-collapse-container';
 
-				$('#' + sectionId + '-collapse').removeClass('in');
+				$('#' + sectionId + '-collapse')
+					.removeClass('in')  //Bootstrap opened accordion
+					.removeAttr( 'style' ); //Bootstrap JS accordion custom style "height:0px"
 
 				if(sectionVisibilityMap[sectionId]) {
 					$('#' + sectionContainerId).removeClass('hidden');
@@ -117,6 +119,11 @@ var MuinaismuistotDetailsPage = function() {
 		$('#rakennusperintorekisteriRakennus-Kohdenimi').html(trim(feature.attributes.Nimi));
 		$('#rakennusperintorekisteriRakennus-Osoite').html(trim(feature.attributes.Osoite));
 		$('#rakennusperintorekisteriRakennus-Suojelu').html(trim(feature.attributes.Suojelu));
+
+		var url = trim(feature.attributes.URL)
+		if(url.length > 0) {
+			$('#rakennusperintorekisteriRakennus-link').attr('href', url);
+		}
 	};
 
 	var generateKulttuuriymparistoURL = function(muinaisjaannosTunnus) {
