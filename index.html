@@ -95,6 +95,24 @@
                     </div>
                 </div>
 
+                <div class="panel panel-default">
+                    <div class="panel-heading">Tietoa sivustosta</div>
+                    <div class="panel-body">
+                        <p>Tältä sivulta näet kartalla <a href="http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/portti/default.aspx">Museoviraston</a> ylläpitämät rekisterit:
+                        <ul>
+                            <li><a href="http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/mjreki/default.aspx">Muinaisjäännösrekisteri</a></li>
+                            <li><a href="http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/rapea/default.aspx">Rakennusperintörekisteri</a></li>
+                            <li><a href="http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa">Maailmanperintökohteet</a></li>
+                            <li><a href="http://www.rky.fi/">Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</a></li>
+                        </ul>
+                        </p>
+
+                        <p>Museoviraston rekistereistä tietoa haetaan <a href="https://www.avoindata.fi/data/fi/dataset/museoviraston-wms">avoimen rajapinnan</a> kautta. Taustakarttana on <a href="http://www.maanmittauslaitos.fi/aineistot-palvelut/rajapintapalvelut/paikkatiedon-palvelualustan-pilotti">Maanmittauslaitoksen</a> tausta- ja peruskartta (<a href="http://www.maanmittauslaitos.fi/avoindata_lisenssi_versio1_20120501">materiaalin lisenssi</a>).</p>
+
+                        <p>Tämän sivuston tekninen toteutus on <a href="https://github.com/anttikekki/muinaismuistot">avointa lähdekoodia</a>, lisenssinä on <a href="https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE">MIT</a>.</p>
+                    </div>
+                </div>
+
             </div> <!-- pageContent -->
 
         </div>
@@ -102,69 +120,56 @@
 
 
         <div id="settingsPage" class="container page page-right-hidden">
-            <div class="row pageHeader">
-                <div class="col-xs-12">
-                    <button class="btn btn-primary btn-sm" id="hide-settingsPage-button">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                    </button>
-                </div>
+            <div class="pageHeader">
+                <button class="btn btn-primary btn-sm" id="hide-settingsPage-button">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                </button>
             </div>
 
             <div class="pageContent">
 
-                <div class="row">
-                    <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Karttapohja</div>
+                    <div class="panel-body">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default active">
+                                <input type="radio" id="map-selection-taustakartta" name="selectedMapLayer"autocomplete="off" value="taustakartta" checked> Taustakartta
+                            </label>
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Karttapohja</div>
-                            <div class="panel-body">
-                                <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-default active">
-                                        <input type="radio" id="map-selection-taustakartta" name="selectedMapLayer"autocomplete="off" value="taustakartta" checked> Taustakartta
-                                    </label>
-
-                                    <label class="btn btn-default">
-                                        <input type="radio" id="map-selection-maastokartta" name="selectedMapLayer" autocomplete="off" value="maastokartta"> Maastokartta
-                                    </label>
-                                </div>
-                            </div>
+                            <label class="btn btn-default">
+                                <input type="radio" id="map-selection-maastokartta" name="selectedMapLayer" autocomplete="off" value="maastokartta"> Maastokartta
+                            </label>
                         </div>
-
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-xs-12">
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Kartalla näkyvät muinaismuistojen tiedot</div>
-                            <div class="panel-body" id="muinaismuistot-visible-layer-selections">
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" value="0" id="settings-muinaismuistot-layer-0">
-                                    Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
-                                  </label>
-                                </div>
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" value="4"  id="settings-muinaismuistot-layer-4">
-                                    Maailmanperintökohteet
-                                  </label>
-                                </div>
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" value="7"  id="settings-muinaismuistot-layer-7">
-                                    Rakennusperintörekisteri
-                                  </label>
-                                </div>
-                                <div class="checkbox">
-                                  <label>
-                                    <input type="checkbox" value="10" id="settings-muinaismuistot-layer-10">
-                                    Muinaisjäännösrekisteri
-                                  </label>
-                                </div>
-
-                            </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Kartalla näkyvät muinaismuistojen tiedot</div>
+                    <div class="panel-body" id="muinaismuistot-visible-layer-selections">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" value="0" id="settings-muinaismuistot-layer-0">
+                            Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
+                          </label>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" value="4"  id="settings-muinaismuistot-layer-4">
+                            Maailmanperintökohteet
+                          </label>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" value="7"  id="settings-muinaismuistot-layer-7">
+                            Rakennusperintörekisteri
+                          </label>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" value="10" id="settings-muinaismuistot-layer-10">
+                            Muinaisjäännösrekisteri
+                          </label>
                         </div>
 
                     </div>
@@ -177,12 +182,10 @@
 
 
         <div id="detailsPage" class="container page page-right-hidden">
-            <div class="row pageHeader">
-                <div class="col-xs-12">
-                    <button class="btn btn-primary btn-sm" id="hide-detailsPage-button">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                    </button>
-                </div>
+            <div class="pageHeader">
+                <button class="btn btn-primary btn-sm" id="hide-detailsPage-button">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                </button>
             </div>
 
             <div class="pageContent">
