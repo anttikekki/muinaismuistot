@@ -13,11 +13,90 @@
         <div id="map"></div>
 
 
+        <div id="map-button-info" class="map-button">
+            <button type="button" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </button>
+        </div>
 
         <div id="map-button-settings" class="map-button">
-            <button type="button" class="btn btn-primary">
-                <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            <button type="button" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             </button>
+        </div>
+
+
+        <div id="infoPage" class="container page page-right-hidden">
+            <div class="pageHeader">
+                <button class="btn btn-primary btn-sm" id="hide-infoPage-button">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                </button>
+            </div>
+
+            <div class="pageContent">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Karttasymbolit</div>
+                    <div class="panel-body">
+                        <p>
+                            <h5>Muinaisjäännösrekisteri</h5>
+
+                            <img src="images/muinaisjaannos_kohde.png">
+                            <span>Kohde</span>
+
+                            <img src="images/muinaisjaannos_alakohde.png">
+                            <span>Alakohde</span>
+
+                            <img src="images/muinaisjaannos_alue.png">
+                            <span>Alue</span>
+                        </p>
+
+                        <br>
+
+                        <p>
+                            <h5>Rakennusperintörekisteri</h5>
+                            
+                            <img src="images/rakennusperintorekisteri_rakennus.png">
+                            <span>Rakennus</span>
+                            
+                            <img src="images/rakennusperintorekisteri_alue.png">
+                            <span>Alue</span>
+                        </p>
+
+                        <br>
+
+                        <p>
+                            <h5>Maailmanperintökohteet</h5>
+                            
+                            <img src="images/maailmanperinto_piste.png">
+                            <span>Kohde</span>
+                            
+                            <img src="images/maailmanperinto_alue.png">
+                            <span>Alue</span>
+                            
+                            <img src="images/maailmanperinto_suoja_alue.png">
+                            <span>Suoja-alue</span>
+                        </p>
+
+                        <br>
+
+                        <p>
+                            <h5>Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</h5>
+                            
+                            <img src="images/rky_piste.png">
+                            <span>Kohde</span>
+                            
+                            <img src="images/rky_viiva.png">
+                            <span>Viiva (esim. tie)</span>
+                            
+                            <img src="images/rky_alue.png">
+                            <span>Alue</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div> <!-- pageContent -->
+
         </div>
 
 
@@ -302,6 +381,7 @@
         <script type="text/javascript" src="js/MuinaismuistotMap.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotDetailsPage.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotSettingsPage.js"></script>
+        <script type="text/javascript" src="js/MuinaismuistotInfoPage.js"></script>
         <script type="text/javascript">
             $( document ).ready(function() {
                 var muinaismuistot = new Muinaismuistot();

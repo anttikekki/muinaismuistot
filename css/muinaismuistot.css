@@ -18,6 +18,11 @@ html, body, #map {
 	position: absolute;
 }
 
+#map-button-info {
+	bottom: 60px;
+	right: 20px;
+}
+
 #map-button-settings {
 	bottom: 20px;
 	right: 20px;

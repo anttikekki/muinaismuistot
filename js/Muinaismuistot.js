@@ -3,6 +3,7 @@ var Muinaismuistot = function() {
   var map = null;
   var detailsPage = null;
   var settingsPage = null;
+  var infoPage = null;
   var muinaismuistotData = null;
   var muinaismuistotSettings = null;
 
@@ -46,8 +47,20 @@ var Muinaismuistot = function() {
       }
     });
 
+    infoPage = new MuinaismuistotInfoPage();
+    infoPage.init();
+    infoPage.setEventListener({
+      hideInfoPage : function() {
+        hidePage('infoPage');
+      }
+    });
+
     $('#map-button-settings').on('click', function() {
       showPage('settingsPage');
+    });
+
+    $('#map-button-info').on('click', function() {
+      showPage('infoPage');
     });
   };
 
