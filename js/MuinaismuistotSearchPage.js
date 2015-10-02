@@ -10,22 +10,28 @@ var MuinaismuistotSearchPage = function() {
 			eventListener.hidePage();
 		});
 
-		//Ajoitus
-		$('#muinaisjaannos-search-ajoitus-container input')
-			.prop('checked', true)
-			.change(function() {
-				var ajoitukset = [];
-				$('#muinaisjaannos-search-ajoitus-container :checked').each(function() {
-			       ajoitukset.push($(this).val());
-			    });
-				var params = settings.getSearchParameters();
-				params['Muinaisjäännökset'].ajoitus = ajoitukset;
-				settings.setSearchParameters(params)
-		});
+		//Muinaisjäännösrekisteri
+		addCheckboxListener('muinaisjaannos-search-tyyppi-container', 'Muinaisjäännökset', 'tyyppi');
+		addCheckboxListener('muinaisjaannos-search-ajoitus-container', 'Muinaisjäännökset', 'ajoitus');
+		
 	};
 
 	this.setEventListener = function(listener) {
 	    eventListener = listener;
+	};
+
+	var addCheckboxListener = function(inputContainerId, layerName, paramName) {
+		$('#' + inputContainerId + ' input')
+			.prop('checked', true) //Select all for start
+			.change(function() {
+				var selectedValues = [];
+				$('#' + inputContainerId + ' input:checked').each(function() {
+			       selectedValues.push($(this).val());
+			    });
+				var params = muinaismuistotSettings.getSearchParameters();
+				params[layerName][paramName] = selectedValues;
+				muinaismuistotSettings.setSearchParameters(params)
+		});
 	};
 
 };

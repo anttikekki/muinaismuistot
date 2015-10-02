@@ -40,6 +40,7 @@ var MuinaismuistotSettings = function() {
       },
       'Muinaisjäännökset': {
         layerId: 13,
+        tyyppi: [],
         ajoitus: []
       },
   };
@@ -106,18 +107,24 @@ var MuinaismuistotSettings = function() {
 
   this.getSearchParamsLayerDefinitions = function() {
     var resultArray = [];
-    addLayerDefinitionSearchParams(searchParameters['Muinaisjäännökset'], resultArray);
+    for (var property in searchParameters) {
+      if (searchParameters.hasOwnProperty(property)) {
+        addLayerDefinitionSearchParams(searchParameters[property], resultArray);
+      }
+    }
     return resultArray.join(';');
   };
 
-  var addLayerDefinitionSearchParams = function(layerParams, resultArray) {
+  var addLayerDefinitionSearchParams = function(layerParams, allResultArray) {
     var result = '';
+    var resultArray = [];
     var layerHasSearchValues = false;
     var value;
     var layerId;
 
     for (var property in layerParams) {
       if (layerParams.hasOwnProperty(property)) {
+        result = '';
         value = layerParams[property];
 
         if(property === 'layerId') {
@@ -126,13 +133,16 @@ var MuinaismuistotSettings = function() {
         else if(Array.isArray(value) && value.length > 0) {
           layerHasSearchValues = true;
           result += property;
-          result += ' IN (' + value.join(',') + ')';
+          result += ' IN (';
+          result += value.map(function(valueItem) { return "'" + valueItem + "'"; }).join(", ");
+           result += ')';
+          resultArray.push(result);
         }
       }
     }
 
     if(layerHasSearchValues) {
-      resultArray.push(layerId + ': ' + result);
+      allResultArray.push(layerId + ':' + resultArray.join(' AND '));
     }
   };
 
