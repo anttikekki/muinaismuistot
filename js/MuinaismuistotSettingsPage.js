@@ -9,7 +9,7 @@ var MuinaismuistotSettingsPage = function() {
 		setSelectedMapBackgroundLayerName(settings.getSelectedBackgroundMapLayerName());
 
 		$('#hide-settingsPage-button').on('click', function() {
-			eventListener.hideSettingsPage();
+			eventListener.hidePage();
 		});
 
 		$("input[name='selectedMapLayer']").change(function() {

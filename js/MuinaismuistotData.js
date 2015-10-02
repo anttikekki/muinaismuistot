@@ -14,7 +14,7 @@ var MuinaismuistotData = function() {
       tolerance: 10,
       imageDisplay: mapSize.join(',') + ',96',
       mapExtent: mapExtent.join(','),
-      layers: 'visible:' + muinaismuistotSettings.getSelectedMuinaismuistotLayerIds(),
+      layers: 'visible:' + muinaismuistotSettings.getSelectedMuinaismuistotLayerIds().join(','),
       f: 'json',
       returnGeometry: 'false'
     };

@@ -7,7 +7,6 @@ var MuinaismuistotMap = function() {
   var mmlMaastokarttaLayer;
   var mmlTaustakarttaLayer;
   var nbaMuinaismuistotLayer;
-  var visibleMuinaismuistotLayerIds;
   var muinaismuistotSettings;
 
   this.init = function(data, settings) {
@@ -97,8 +96,7 @@ var MuinaismuistotMap = function() {
     map.addLayer(nbaMuinaismuistotLayer);
   };
 
-  this.setVisibleMuinaismuistotLayers = function(layerIds) {
-    visibleMuinaismuistotLayerIds = layerIds;
+  var updateMuinaismuistotLayerSource = function() {
     if(nbaMuinaismuistotLayer) {
       nbaMuinaismuistotLayer.setSource(new ol.source.TileArcGISRest(getMuinaismuistotLayerSourceParams()));
     }
@@ -118,9 +116,18 @@ var MuinaismuistotMap = function() {
     return {
       url: 'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMSJULK/MapServer/export?',
       params: {
-        'LAYERS': layers
+        'layers': layers,
+        'layerDefs': muinaismuistotSettings.getSearchParamsLayerDefinitions()
       }
     };
+  };
+
+  this.setVisibleMuinaismuistotLayers = function(layerIds) {
+    updateMuinaismuistotLayerSource();
+  };
+
+  this.setSearchParams = function(searchParams) {
+    updateMuinaismuistotLayerSource();
   };
 
   this.setEventListener = function(listener) {

@@ -3,6 +3,46 @@ var MuinaismuistotSettings = function() {
   var eventListener = null;
   var selectedLayerIds = [];
   var selectedBackgroundMapLayerName = '';
+  var searchParameters = {
+      //RKY - Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
+      'RKY alueet': {
+        layerId: 1
+      },
+      'RKY viivat': {
+        layerId: 2
+      },
+      'RKY pisteet': {
+        layerId: 3
+      },
+  
+      //Maailmanperintökohteet
+      'Maailmanperintö alueet': {
+        layerId: 5
+      },
+      'Maailmanperintö pisteet': {
+        layerId: 6
+      },
+  
+      //Rakennusperintörekisteri
+      'Rakennetut alueet': {
+        layerId: 8
+      },
+      'Rakennukset': {
+        layerId: 9
+      },
+  
+      //Muinaisjäännösrekisteri
+      'Muinaisjäännösalueet': {
+        layerId: 11
+      },
+      'Muinaisj.alakohteet': {
+        layerId: 12
+      },
+      'Muinaisjäännökset': {
+        layerId: 13,
+        ajoitus: []
+      },
+  };
 
   this.init = function() {
     selectedLayerIds = this.getDefaultSelectedMuinaismuistotLayerIds();
@@ -36,6 +76,15 @@ var MuinaismuistotSettings = function() {
     eventListener.selectedMapBackgroundLayerChanged(layerName);
   };
 
+  this.getSearchParameters = function() {
+    return searchParameters;
+  };
+
+  this.setSearchParameters = function(searchParams) {
+    searchParameters = searchParams;
+    eventListener.searchParametersChanged(searchParams);
+  };
+
   this.getMuinaismuistotLayerIdMap = function() {
     return {
       'RKY': 0,
@@ -54,4 +103,37 @@ var MuinaismuistotSettings = function() {
           'Muinaisjäännökset': 13
     };
   };
+
+  this.getSearchParamsLayerDefinitions = function() {
+    var resultArray = [];
+    addLayerDefinitionSearchParams(searchParameters['Muinaisjäännökset'], resultArray);
+    return resultArray.join(';');
+  };
+
+  var addLayerDefinitionSearchParams = function(layerParams, resultArray) {
+    var result = '';
+    var layerHasSearchValues = false;
+    var value;
+    var layerId;
+
+    for (var property in layerParams) {
+      if (layerParams.hasOwnProperty(property)) {
+        value = layerParams[property];
+
+        if(property === 'layerId') {
+          layerId = value ;
+        }
+        else if(Array.isArray(value) && value.length > 0) {
+          layerHasSearchValues = true;
+          result += property;
+          result += ' IN (' + value.join(',') + ')';
+        }
+      }
+    }
+
+    if(layerHasSearchValues) {
+      resultArray.push(layerId + ': ' + result);
+    }
+  };
+
 };

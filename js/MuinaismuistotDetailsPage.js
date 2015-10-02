@@ -8,7 +8,7 @@ var MuinaismuistotDetailsPage = function() {
 		muinaismuistotSettings = settings;
 
 		$('#hide-detailsPage-button').on('click', function() {
-			eventListener.hideDetailsPage();
+			eventListener.hidePage();
 		});
 	};
 
@@ -62,18 +62,20 @@ var MuinaismuistotDetailsPage = function() {
 
 			var lastVisibleSectionId = '';
 			for (var sectionId in sectionVisibilityMap) {
-				var sectionContainerId = sectionId + '-collapse-container';
+				if (sectionVisibilityMap.hasOwnProperty(sectionId)) {
+					var sectionContainerId = sectionId + '-collapse-container';
 
-				$('#' + sectionId + '-collapse')
-					.removeClass('in')  //Bootstrap opened accordion
-					.removeAttr( 'style' ); //Bootstrap JS accordion custom style "height:0px"
+					$('#' + sectionId + '-collapse')
+						.removeClass('in')  //Bootstrap opened accordion
+						.removeAttr( 'style' ); //Bootstrap JS accordion custom style "height:0px"
 
-				if(sectionVisibilityMap[sectionId]) {
-					$('#' + sectionContainerId).removeClass('hidden');
-					lastVisibleSectionId = sectionId;
-				}
-				else {
-					$('#' + sectionContainerId).addClass('hidden');
+					if(sectionVisibilityMap[sectionId]) {
+						$('#' + sectionContainerId).removeClass('hidden');
+						lastVisibleSectionId = sectionId;
+					}
+					else {
+						$('#' + sectionContainerId).addClass('hidden');
+					}
 				}
 			}
 
@@ -83,6 +85,7 @@ var MuinaismuistotDetailsPage = function() {
 
 	var showMuinaisjaannos = function(feature) {
 		$('#muinaisjaannos-Kohdenimi').html(trim(feature.attributes.Kohdenimi));
+		$('#muinaisjaannos-Kunta').html(trim(feature.attributes.Kunta));
 		$('#muinaisjaannos-Ajoitus').html(trim(feature.attributes.Ajoitus));
 		$('#muinaisjaannos-Tyyppi').html(trim(feature.attributes.Tyyppi));
 		$('#muinaisjaannos-Alatyyppi').html(trim(feature.attributes.Alatyyppi));
