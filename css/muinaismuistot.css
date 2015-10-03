@@ -26,6 +26,11 @@ html, body, #map {
 }
 
 #map-button-search {
+	bottom: 140px;
+	right: 20px;
+}
+
+#map-button-filter {
 	bottom: 100px;
 	right: 20px;
 }

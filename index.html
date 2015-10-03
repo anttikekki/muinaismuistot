@@ -46,6 +46,11 @@
             </button>
         </div>
 
+        <div id="map-button-filter" class="map-button">
+            <button type="button" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+            </button>
+        </div>
 
         <div id="map-button-info" class="map-button">
             <button type="button" class="btn btn-primary btn-sm">
@@ -59,7 +64,6 @@
             </button>
         </div>
 
-
         <div id="searchPage" class="container page page-right-hidden">
             <div class="pageHeader">
                 <button class="btn btn-primary btn-sm" id="hide-searchPage-button">
@@ -69,24 +73,40 @@
 
             <div class="pageContent">
 
-                <div class="panel-group" id="search-accordion" role="tablist" aria-multiselectable="true">
                 
-                  <div class="panel panel-default" id="muinaisjaannos-search-collapse-container">
-                    <div class="panel-heading" role="tab" id="muinaisjaannos-search-heading">
+
+            </div> <!-- pageContent -->
+
+        </div>
+
+
+        <div id="filterPage" class="container page page-right-hidden">
+            <div class="pageHeader">
+                <button class="btn btn-primary btn-sm" id="hide-filterPage-button">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                </button>
+            </div>
+
+            <div class="pageContent">
+
+                <div class="panel-group" id="filter-accordion" role="tablist" aria-multiselectable="true">
+
+                  <div class="panel panel-default" id="muinaisjaannos-filter-collapse-container">
+                    <div class="panel-heading" role="tab" id="muinaisjaannos-filter-heading">
                       <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#search-accordion" href="#muinaisjaannos-search-collapse" aria-expanded="true" aria-controls="muinaisjaannos-search-collapse">
+                        <a role="button" data-toggle="collapse" data-parent="#filter-accordion" href="#muinaisjaannos-filter-collapse" aria-expanded="true" aria-controls="muinaisjaannos-filter-collapse">
                           Muinaisjäännökset
                         </a>
                       </h4>
                     </div>
-                    <div id="muinaisjaannos-search-collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="muinaisjaannos-search-heading">
+                    <div id="muinaisjaannos-filter-collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="muinaisjaannos-filter-heading">
                       <div class="panel-body">
                         
                         <form>
 
                             <h5>Tyyppi</h5>
 
-                            <div id="muinaisjaannos-search-tyyppi-container">
+                            <div id="muinaisjaannos-filter-tyyppi-container">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" value="ei määritelty"> ei määritelty
@@ -186,7 +206,7 @@
 
                             <h5>Ajoitus</h5>
 
-                            <div id="muinaisjaannos-search-ajoitus-container">
+                            <div id="muinaisjaannos-filter-ajoitus-container">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" value="moniperiodinen"> moniperiodinen
@@ -625,6 +645,7 @@
         <script type="text/javascript" src="js/MuinaismuistotSettingsPage.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotInfoPage.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotSearchPage.js"></script>
+        <script type="text/javascript" src="js/MuinaismuistotFilterPage.js"></script>
         <script type="text/javascript">
             $( document ).ready(function() {
                 var muinaismuistot = new Muinaismuistot();

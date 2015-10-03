@@ -117,7 +117,7 @@ var MuinaismuistotMap = function() {
       url: 'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMSJULK/MapServer/export?',
       params: {
         'layers': layers,
-        'layerDefs': muinaismuistotSettings.getSearchParamsLayerDefinitions()
+        'layerDefs': muinaismuistotSettings.getFilterParamsLayerDefinitions()
       }
     };
   };
@@ -126,7 +126,7 @@ var MuinaismuistotMap = function() {
     updateMuinaismuistotLayerSource();
   };
 
-  this.setSearchParams = function(searchParams) {
+  this.setFilterParams = function(params) {
     updateMuinaismuistotLayerSource();
   };
 

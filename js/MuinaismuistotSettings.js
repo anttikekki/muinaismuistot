@@ -3,7 +3,7 @@ var MuinaismuistotSettings = function() {
   var eventListener = null;
   var selectedLayerIds = [];
   var selectedBackgroundMapLayerName = '';
-  var searchParameters = {
+  var filterParameters = {
       //RKY - Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
       'RKY alueet': {
         layerId: 1
@@ -77,13 +77,18 @@ var MuinaismuistotSettings = function() {
     eventListener.selectedMapBackgroundLayerChanged(layerName);
   };
 
-  this.getSearchParameters = function() {
-    return searchParameters;
+  this.getFilterParameters = function() {
+    return filterParameters;
   };
 
-  this.setSearchParameters = function(searchParams) {
-    searchParameters = searchParams;
-    eventListener.searchParametersChanged(searchParams);
+  this.setFilterParameters = function(params) {
+    filterParameters = params;
+    eventListener.filterParametersChanged(filterParameters);
+  };
+
+  this.setFilterParameterForLayer = function(layerName, field, value) {
+    filterParameters[layerName][field] = value;
+    eventListener.filterParametersChanged(filterParameters);
   };
 
   this.getMuinaismuistotLayerIdMap = function() {
@@ -105,17 +110,17 @@ var MuinaismuistotSettings = function() {
     };
   };
 
-  this.getSearchParamsLayerDefinitions = function() {
+  this.getFilterParamsLayerDefinitions = function() {
     var resultArray = [];
-    for (var property in searchParameters) {
-      if (searchParameters.hasOwnProperty(property)) {
-        addLayerDefinitionSearchParams(searchParameters[property], resultArray);
+    for (var property in filterParameters) {
+      if (filterParameters.hasOwnProperty(property)) {
+        addLayerDefinitionFilterParams(filterParameters[property], resultArray);
       }
     }
     return resultArray.join(';');
   };
 
-  var addLayerDefinitionSearchParams = function(layerParams, allResultArray) {
+  var addLayerDefinitionFilterParams = function(layerParams, allResultArray) {
     var resultArray = [];
     var layerHasSearchValues = false;
     var value;
