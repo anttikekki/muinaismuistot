@@ -6,13 +6,13 @@ var Muinaismuistot = function() {
   var infoPage = null;
   var searchPage = null;
   var filterPage = null;
-  var muinaismuistotData = null;
-  var muinaismuistotSettings = null;
+  var data = null;
+  var settings = null;
 
   this.init = function() {
-    muinaismuistotSettings = new MuinaismuistotSettings();
-    muinaismuistotSettings.init();
-    muinaismuistotSettings.setEventListener({
+    settings = new MuinaismuistotSettings();
+    settings.init();
+    settings.setEventListener({
       selectedMapBackgroundLayerChanged: function(layerName) {
         map.setVisibleBackgroundLayerName(layerName);
       },
@@ -24,11 +24,11 @@ var Muinaismuistot = function() {
       }
     });
 
-    muinaismuistotData = new MuinaismuistotData();
-    muinaismuistotData.init(muinaismuistotSettings);
+    data = new MuinaismuistotData();
+    data.init(settings);
 
     map = new MuinaismuistotMap();
-    map.init(muinaismuistotData, muinaismuistotSettings);
+    map.init(data, settings);
     map.setEventListener({
       muinaisjaannosFeaturesSelected : function(muinaisjaannosFeatures) {
         detailsPage.setMuinaisjaannosFeatures(muinaisjaannosFeatures);
@@ -37,7 +37,7 @@ var Muinaismuistot = function() {
     });
 
     detailsPage = new MuinaismuistotDetailsPage();
-    detailsPage.init(muinaismuistotSettings);
+    detailsPage.init(data, settings);
     detailsPage.setEventListener({
       hidePage : function() {
         hidePage('detailsPage');
@@ -45,7 +45,7 @@ var Muinaismuistot = function() {
     });
 
     settingsPage = new MuinaismuistotSettingsPage();
-    settingsPage.init(muinaismuistotSettings);
+    settingsPage.init(settings);
     settingsPage.setEventListener({
       hidePage : function() {
         hidePage('settingsPage');
@@ -53,7 +53,7 @@ var Muinaismuistot = function() {
     });
 
     searchPage = new MuinaismuistotSearchPage();
-    searchPage.init(muinaismuistotSettings);
+    searchPage.init(data, settings);
     searchPage.setEventListener({
       hidePage : function() {
         hidePage('searchPage');
@@ -61,7 +61,7 @@ var Muinaismuistot = function() {
     });
 
     filterPage = new MuinaismuistotFilterPage();
-    filterPage.init(muinaismuistotSettings);
+    filterPage.init(settings);
     filterPage.setEventListener({
       hidePage : function() {
         hidePage('filterPage');

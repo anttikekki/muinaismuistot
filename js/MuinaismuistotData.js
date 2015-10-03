@@ -7,7 +7,7 @@ var MuinaismuistotData = function() {
     muinaismuistotSettings = settings;
   };
 
-  this.getMuinaisjaannosFeatures = function(coordinate, mapSize, mapExtent, callback) {
+  this.identifyFeaturesAt = function(coordinate, mapSize, mapExtent, callback) {
     var queryoptions = {
       geometry: coordinate.join(','),
       geometryType: 'esriGeometryPoint',
@@ -28,6 +28,65 @@ var MuinaismuistotData = function() {
         showLoadingAnimation(false);
       }
     );
+  };
+
+  this.findFeatures = function(searchText, callback) {
+    var queryoptions = {
+      searchText: searchText,
+      contains: true,
+      layers: muinaismuistotSettings.getSelectedMuinaismuistotLayerSubLayerIds().join(','), //Sub-layers
+      f: 'json',
+      returnGeometry: 'true'
+    };
+    showLoadingAnimation(true);
+
+    $.getJSON(
+      'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMS/MapServer/find?',
+      queryoptions,
+      function(response) {
+        callback(response.results);
+        showLoadingAnimation(false);
+      }
+    );
+  };
+
+  this.getFeatureName = function(feature) {
+    var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
+    switch (feature.layerId) {
+      case layerMap['Muinaisjäännökset']:
+      case layerMap['Muinaisj.alakohteet']:
+      case layerMap['Muinaisjäännösalueet']:
+        return feature.attributes.Kohdenimi;
+        break;
+      case layerMap['RKY alueet']:
+      case layerMap['RKY viivat']:
+      case layerMap['RKY pisteet']:
+        return feature.attributes.KOHDENIMI;
+        break;
+      case layerMap['Maailmanperintö alueet']:
+      case layerMap['Maailmanperintö pisteet']:
+      case layerMap['Rakennetut alueet']:
+      case layerMap['Rakennukset']:
+        return feature.attributes.Nimi;
+        break;
+    }
+  };
+
+  this.trimTextData = function(value) {
+    if(value == null) { //Null and undefined
+      return '';
+    }
+
+    value = value.trim();
+    if(value.toLowerCase() === 'null') {
+      return ''; //For  example RKY ajoitus field may sometimes be 'Null'
+    }
+
+    //Remove trailing commas
+    while(value.substr(value.length-1, 1) === ',') {
+          value = value.substring(0, value.length-1).trim();
+      }
+      return value;
   };
 
   var showLoadingAnimation = function(show) {

@@ -1,10 +1,11 @@
 var MuinaismuistotDetailsPage = function() {
 	var self = this;
-	var muinaisjaannosFeatures = null;
 	var eventListener;
+	var muinaismuistotData;
 	var muinaismuistotSettings;
 
-	this.init = function(settings) {
+	this.init = function(data, settings) {
+		muinaismuistotData = data;
 		muinaismuistotSettings = settings;
 
 		$('#hide-detailsPage-button').on('click', function() {
@@ -17,7 +18,6 @@ var MuinaismuistotDetailsPage = function() {
 	};
 
 	this.setMuinaisjaannosFeatures = function(features) {
-		muinaisjaannosFeatures = features;
 		var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
 		var sectionVisibilityMap = {
 			'muinaisjaannos': false,
@@ -142,19 +142,6 @@ var MuinaismuistotDetailsPage = function() {
 	};
 
 	var trim = function(value) {
-		if(value == null) { //Null and undefined
-			return '';
-		}
-
-		value = value.trim();
-		if(value.toLowerCase() === 'null') {
-			return ''; //For  example RKY ajoitus field may sometimes be 'Null'
-		}
-
-		//Remove trailing commas
-		while(value.substr(value.length-1, 1) === ',') {
-	        value = value.substring(0, value.length-1).trim();
-	    }
-	    return value;
+		return muinaismuistotData.trimTextData(value);
 	};
 };

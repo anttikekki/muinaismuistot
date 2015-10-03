@@ -68,6 +68,17 @@ var MuinaismuistotSettings = function() {
     eventListener.visibleMuinaismuistotLayersChanged(layerIds);
   };
 
+  this.getSelectedMuinaismuistotLayerSubLayerIds = function() {
+    var subLayerIds = [];
+    var subLayerMap = self.getMuinaismuistotSubLayerIdsToParentLayerIdMap();
+    selectedLayerIds.forEach(function(parentLayerId) {
+      subLayerMap[parentLayerId].forEach(function(subLayerId) {
+        subLayerIds.push(subLayerId);
+      });
+    });
+    return subLayerIds;
+  };
+
   this.getSelectedBackgroundMapLayerName = function() {
     return selectedBackgroundMapLayerName;
   };
@@ -110,6 +121,15 @@ var MuinaismuistotSettings = function() {
     };
   };
 
+  this.getMuinaismuistotSubLayerIdsToParentLayerIdMap = function() {
+    return {
+      '0': [1, 2, 3],
+      '4': [5, 6],
+      '7': [8, 9],
+      '10': [11, 12, 13]
+    };
+  };
+
   this.getFilterParamsLayerDefinitions = function() {
     var resultArray = [];
     for (var property in filterParameters) {
@@ -122,7 +142,7 @@ var MuinaismuistotSettings = function() {
 
   var addLayerDefinitionFilterParams = function(layerParams, allResultArray) {
     var resultArray = [];
-    var layerHasSearchValues = false;
+    var layerHasFilterValues = false;
     var value;
     var layerId;
 
@@ -134,14 +154,14 @@ var MuinaismuistotSettings = function() {
           layerId = value ;
         }
         else if(Array.isArray(value) && value.length > 0) {
-          layerHasSearchValues = true;
+          layerHasFilterValues = true;
           var result = value.map(function(valueItem) { return property + " LIKE '%" + valueItem + "%'"; }).join(' OR ');
           resultArray.push('(' + result + ')');
         }
       }
     }
 
-    if(layerHasSearchValues) {
+    if(layerHasFilterValues) {
       allResultArray.push(layerId + ':' + resultArray.join(' AND '));
     }
   };

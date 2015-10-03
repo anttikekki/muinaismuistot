@@ -40,13 +40,13 @@ var MuinaismuistotMap = function() {
     });
 
     map.on("click", function(e) {
-      muinaismuistotData.getMuinaisjaannosFeatures(
+      muinaismuistotData.identifyFeaturesAt(
         e.coordinate,
         map.getSize(),
         map.getView().calculateExtent(map.getSize()),
-        function(muinaisjaannosFeatures) {
-          if(muinaisjaannosFeatures.length > 0) {
-            eventListener.muinaisjaannosFeaturesSelected(muinaisjaannosFeatures);
+        function(features) {
+          if(features.length > 0) {
+            eventListener.muinaisjaannosFeaturesSelected(features);
           }
         }
       );
