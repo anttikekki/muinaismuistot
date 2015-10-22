@@ -15,6 +15,11 @@ var MuinaismuistotSearchPage = function() {
 		$('#search-button').on('click', function() {
 			search($('#search-text').val());
 		});
+
+		$("#search-form").submit(function(e) {
+			e.preventDefault();
+			search($('#search-text').val());
+		});
 	};
 
 	this.setEventListener = function(listener) {
@@ -36,10 +41,12 @@ var MuinaismuistotSearchPage = function() {
 
 	var generateResultFeatureRowHtml = function(feature) {
 		var nimi = muinaismuistotData.getFeatureName(feature);
+		var tyypinNimi = muinaismuistotData.getFeatureTypeName(feature);
+		var iconURL = muinaismuistotData.getFeatureTypeIconURL(feature);
 
 		return '<a href="#" class="list-group-item">' +
 		    '<h4 class="list-group-item-heading">' + nimi + '</h4>' +
-		    '<p class="list-group-item-text">...</p>' +
+		    '<p class="list-group-item-text"><img src="' + iconURL + '"> ' + tyypinNimi + '</p>' +
 		  '</a>';
 	};
 };

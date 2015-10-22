@@ -121,6 +121,42 @@ var MuinaismuistotSettings = function() {
     };
   };
 
+  this.getLayerIconURL = function(layerId) {
+    var layerMap = this.getMuinaismuistotLayerIdMap();
+    switch (layerId) {
+      case layerMap['Muinaisjäännökset']:
+        return 'images/muinaisjaannos_kohde.png';
+        break;
+      case layerMap['Muinaisj.alakohteet']:
+        return 'images/muinaisjaannos_alakohde.png';
+        break;
+      case layerMap['Muinaisjäännösalueet']:
+        return 'images/muinaisjaannos_alue.png';
+        break;
+      case layerMap['RKY alueet']:
+        return 'images/rky_alue.png';
+        break;
+      case layerMap['RKY viivat']:
+        return 'images/rky_viiva.png';
+        break;
+      case layerMap['RKY pisteet']:
+        return 'images/rky_piste.png';
+        break;
+      case layerMap['Maailmanperintö alueet']:
+        return 'images/maailmanperinto_alue.png';
+        break;
+      case layerMap['Maailmanperintö pisteet']:
+        return 'mages/maailmanperinto_piste.png';
+        break;
+      case layerMap['Rakennetut alueet']:
+        return 'images/rakennusperintorekisteri_alue.png';
+        break;
+      case layerMap['Rakennukset']:
+        return 'images/rakennusperintorekisteri_rakennus.png';
+        break;
+    }
+  };
+
   this.getMuinaismuistotSubLayerIdsToParentLayerIdMap = function() {
     return {
       '0': [1, 2, 3],

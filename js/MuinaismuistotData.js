@@ -34,6 +34,7 @@ var MuinaismuistotData = function() {
     var queryoptions = {
       searchText: searchText,
       contains: true,
+      searchFields: 'Kohdenimi, Nimi, KOHDENIMI',
       layers: muinaismuistotSettings.getSelectedMuinaismuistotLayerSubLayerIds().join(','), //Sub-layers
       f: 'json',
       returnGeometry: 'true'
@@ -70,6 +71,34 @@ var MuinaismuistotData = function() {
         return feature.attributes.Nimi;
         break;
     }
+  };
+
+  this.getFeatureTypeName = function(feature) {
+    var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
+    switch (feature.layerId) {
+      case layerMap['Muinaisjäännökset']:
+      case layerMap['Muinaisj.alakohteet']:
+      case layerMap['Muinaisjäännösalueet']:
+        return 'Muinaisjäännös';
+        break;
+      case layerMap['RKY alueet']:
+      case layerMap['RKY viivat']:
+      case layerMap['RKY pisteet']:
+        return 'Rakennettu kulttuuriympäristö';
+        break;
+      case layerMap['Maailmanperintö alueet']:
+      case layerMap['Maailmanperintö pisteet']:
+        return 'Maailmanperintökohde';
+        break;
+      case layerMap['Rakennetut alueet']:
+      case layerMap['Rakennukset']:
+        return 'Rakennusperintökohde';
+        break;
+    }
+  };
+
+  this.getFeatureTypeIconURL = function(feature) {
+    return muinaismuistotSettings.getLayerIconURL(feature.layerId);
   };
 
   this.trimTextData = function(value) {
