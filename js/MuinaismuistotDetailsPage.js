@@ -1,14 +1,15 @@
 var MuinaismuistotDetailsPage = function() {
 	var self = this;
-	var muinaisjaannosFeatures = null;
 	var eventListener;
+	var muinaismuistotData;
 	var muinaismuistotSettings;
 
-	this.init = function(settings) {
+	this.init = function(data, settings) {
+		muinaismuistotData = data;
 		muinaismuistotSettings = settings;
 
 		$('#hide-detailsPage-button').on('click', function() {
-			eventListener.hideDetailsPage();
+			eventListener.hidePage();
 		});
 	};
 
@@ -17,7 +18,6 @@ var MuinaismuistotDetailsPage = function() {
 	};
 
 	this.setMuinaisjaannosFeatures = function(features) {
-		muinaisjaannosFeatures = features;
 		var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
 		var sectionVisibilityMap = {
 			'muinaisjaannos': false,
@@ -62,18 +62,20 @@ var MuinaismuistotDetailsPage = function() {
 
 			var lastVisibleSectionId = '';
 			for (var sectionId in sectionVisibilityMap) {
-				var sectionContainerId = sectionId + '-collapse-container';
+				if (sectionVisibilityMap.hasOwnProperty(sectionId)) {
+					var sectionContainerId = sectionId + '-collapse-container';
 
-				$('#' + sectionId + '-collapse')
-					.removeClass('in')  //Bootstrap opened accordion
-					.removeAttr( 'style' ); //Bootstrap JS accordion custom style "height:0px"
+					$('#' + sectionId + '-collapse')
+						.removeClass('in')  //Bootstrap opened accordion
+						.removeAttr( 'style' ); //Bootstrap JS accordion custom style "height:0px"
 
-				if(sectionVisibilityMap[sectionId]) {
-					$('#' + sectionContainerId).removeClass('hidden');
-					lastVisibleSectionId = sectionId;
-				}
-				else {
-					$('#' + sectionContainerId).addClass('hidden');
+					if(sectionVisibilityMap[sectionId]) {
+						$('#' + sectionContainerId).removeClass('hidden');
+						lastVisibleSectionId = sectionId;
+					}
+					else {
+						$('#' + sectionContainerId).addClass('hidden');
+					}
 				}
 			}
 
@@ -83,6 +85,7 @@ var MuinaismuistotDetailsPage = function() {
 
 	var showMuinaisjaannos = function(feature) {
 		$('#muinaisjaannos-Kohdenimi').html(trim(feature.attributes.Kohdenimi));
+		$('#muinaisjaannos-Kunta').html(trim(feature.attributes.Kunta));
 		$('#muinaisjaannos-Ajoitus').html(trim(feature.attributes.Ajoitus));
 		$('#muinaisjaannos-Tyyppi').html(trim(feature.attributes.Tyyppi));
 		$('#muinaisjaannos-Alatyyppi').html(trim(feature.attributes.Alatyyppi));
@@ -139,19 +142,6 @@ var MuinaismuistotDetailsPage = function() {
 	};
 
 	var trim = function(value) {
-		if(value == null) { //Null and undefined
-			return '';
-		}
-
-		value = value.trim();
-		if(value.toLowerCase() === 'null') {
-			return ''; //For  example RKY ajoitus field may sometimes be 'Null'
-		}
-
-		//Remove trailing commas
-		while(value.substr(value.length-1, 1) === ',') {
-	        value = value.substring(0, value.length-1).trim();
-	    }
-	    return value;
+		return muinaismuistotData.trimTextData(value);
 	};
 };

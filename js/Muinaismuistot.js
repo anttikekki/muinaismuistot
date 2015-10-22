@@ -4,26 +4,31 @@ var Muinaismuistot = function() {
   var detailsPage = null;
   var settingsPage = null;
   var infoPage = null;
-  var muinaismuistotData = null;
-  var muinaismuistotSettings = null;
+  var searchPage = null;
+  var filterPage = null;
+  var data = null;
+  var settings = null;
 
   this.init = function() {
-    muinaismuistotSettings = new MuinaismuistotSettings();
-    muinaismuistotSettings.init();
-    muinaismuistotSettings.setEventListener({
+    settings = new MuinaismuistotSettings();
+    settings.init();
+    settings.setEventListener({
       selectedMapBackgroundLayerChanged: function(layerName) {
         map.setVisibleBackgroundLayerName(layerName);
       },
       visibleMuinaismuistotLayersChanged: function(selectedLayerIds) {
         map.setVisibleMuinaismuistotLayers(selectedLayerIds);
+      },
+      filterParametersChanged: function(params) {
+        map.setFilterParams(params);
       }
     });
 
-    muinaismuistotData = new MuinaismuistotData();
-    muinaismuistotData.init(muinaismuistotSettings);
+    data = new MuinaismuistotData();
+    data.init(settings);
 
     map = new MuinaismuistotMap();
-    map.init(muinaismuistotData, muinaismuistotSettings);
+    map.init(data, settings);
     map.setEventListener({
       muinaisjaannosFeaturesSelected : function(muinaisjaannosFeatures) {
         detailsPage.setMuinaisjaannosFeatures(muinaisjaannosFeatures);
@@ -32,36 +37,64 @@ var Muinaismuistot = function() {
     });
 
     detailsPage = new MuinaismuistotDetailsPage();
-    detailsPage.init(muinaismuistotSettings);
+    detailsPage.init(data, settings);
     detailsPage.setEventListener({
-      hideDetailsPage : function() {
+      hidePage : function() {
         hidePage('detailsPage');
       }
     });
 
     settingsPage = new MuinaismuistotSettingsPage();
-    settingsPage.init(muinaismuistotSettings);
+    settingsPage.init(settings);
     settingsPage.setEventListener({
-      hideSettingsPage : function() {
+      hidePage : function() {
         hidePage('settingsPage');
+      }
+    });
+
+    searchPage = new MuinaismuistotSearchPage();
+    searchPage.init(data, settings);
+    searchPage.setEventListener({
+      hidePage : function() {
+        hidePage('searchPage');
+      }
+    });
+
+    filterPage = new MuinaismuistotFilterPage();
+    filterPage.init(settings);
+    filterPage.setEventListener({
+      hidePage : function() {
+        hidePage('filterPage');
       }
     });
 
     infoPage = new MuinaismuistotInfoPage();
     infoPage.init();
     infoPage.setEventListener({
-      hideInfoPage : function() {
+      hidePage : function() {
         hidePage('infoPage');
       }
+    });
+
+    $('#map-button-search').on('click', function() {
+      showPage('searchPage');
+    });
+
+    $('#map-button-filter').on('click', function() {
+      showPage('filterPage');
+    });
+
+    $('#map-button-info').on('click', function() {
+      showPage('infoPage');
     });
 
     $('#map-button-settings').on('click', function() {
       showPage('settingsPage');
     });
 
-    $('#map-button-info').on('click', function() {
-      showPage('infoPage');
-    });
+    window.onhashchange = function(location) {
+      map.setMapLocation(window.location.hash);
+    };
   };
 
   var showPage = function(pageId) {

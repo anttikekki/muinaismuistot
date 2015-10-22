@@ -25,6 +25,16 @@ html, body, #map {
 	position: absolute;
 }
 
+#map-button-search {
+	bottom: 140px;
+	right: 20px;
+}
+
+#map-button-filter {
+	bottom: 100px;
+	right: 20px;
+}
+
 #map-button-info {
 	bottom: 60px;
 	right: 20px;

@@ -5,7 +5,7 @@ var MuinaismuistotInfoPage = function() {
 	this.init = function() {
 
 		$('#hide-infoPage-button').on('click', function() {
-			eventListener.hideInfoPage();
+			eventListener.hidePage();
 		});
 	};
 

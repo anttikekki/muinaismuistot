@@ -40,6 +40,18 @@
         </div>
 
 
+        <div id="map-button-search" class="map-button">
+            <button type="button" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
+        </div>
+
+        <div id="map-button-filter" class="map-button">
+            <button type="button" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+            </button>
+        </div>
+
         <div id="map-button-info" class="map-button">
             <button type="button" class="btn btn-primary btn-sm">
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -51,6 +63,234 @@
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             </button>
         </div>
+
+
+
+        <div id="searchPage" class="container page page-right-hidden">
+            <div class="pageHeader">
+                <button class="btn btn-primary btn-sm" id="hide-searchPage-button">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                </button>
+            </div>
+
+            <div class="pageContent">
+                <h5>Hae kohteita</h5>
+
+                <form id="search-form">
+                    <div class="input-group">
+                        <input type="text" id="search-text" class="form-control" placeholder="Kirjoita nimi tai sen osa">
+                        <span class="input-group-btn">
+                            <button id="search-button" class="btn btn-default" type="button">Hae</button>
+                        </span>
+                    </div>
+                </form>
+
+                <h5>Hakutulokset<small id="search-result-count"></small></h5>
+
+                <div id="search-results-container">
+                    
+                </div>
+
+            </div> <!-- pageContent -->
+
+        </div>
+
+
+        <div id="filterPage" class="container page page-right-hidden">
+            <div class="pageHeader">
+                <button class="btn btn-primary btn-sm" id="hide-filterPage-button">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                </button>
+            </div>
+
+            <div class="pageContent">
+
+                <div class="panel-group" id="filter-accordion" role="tablist" aria-multiselectable="true">
+
+                  <div class="panel panel-default" id="muinaisjaannos-filter-collapse-container">
+                    <div class="panel-heading" role="tab" id="muinaisjaannos-filter-heading">
+                      <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#filter-accordion" href="#muinaisjaannos-filter-collapse" aria-expanded="true" aria-controls="muinaisjaannos-filter-collapse">
+                          Muinaisjäännökset
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="muinaisjaannos-filter-collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="muinaisjaannos-filter-heading">
+                      <div class="panel-body">
+                        
+                        <form>
+
+                            <h5>Tyyppi</h5>
+
+                            <div id="muinaisjaannos-filter-tyyppi-container">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="ei määritelty"> ei määritelty
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="alusten hylyt"> alusten hylyt
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="asuinpaikat"> asuinpaikat
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="hautapaikat"> hautapaikat
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="kirkkorakenteet"> kirkkorakenteet
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="kivirakenteet"> kivirakenteet
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="kulkuväylät"> kulkuväylät
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="kultti- ja tarinapaikat"> kultti- ja tarinapaikat
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="luonnonmuodostumat"> luonnonmuodostumat
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="löytöpaikat"> löytöpaikat
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="maarakenteet"> maarakenteet
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="muinaisjäännösryhmät"> muinaisjäännösryhmät
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="puolustusvarustukset"> puolustusvarustukset
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="puurakenteet"> puurakenteet
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="raaka-aineen hankintapaikat"> raaka-aineen hankintapaikat
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="taide, muistomerkit"> taide, muistomerkit
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="tapahtumapaikat"> tapahtumapaikat
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="teollisuuskohteet"> teollisuuskohteet
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="työ- ja valmistuspaikat"> työ- ja valmistuspaikat
+                                    </label>
+                                </div>
+                            </div>
+
+                            <h5>Ajoitus</h5>
+
+                            <div id="muinaisjaannos-filter-ajoitus-container">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="moniperiodinen"> moniperiodinen
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="esihistoriallinen"> esihistoriallinen
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="kivikautinen"> kivikautinen
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="varhaismetallikautinen"> varhaismetallikautinen
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="pronssikautinen"> pronssikautinen
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="rautakautinen"> rautakautinen
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="keskiaikainen"> keskiaikainen
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="historiallinen"> historiallinen
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="moderni"> moderni
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="ajoittamaton"> ajoittamaton
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="ei määritelty"> ei määritelty
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div> <!-- accordion end -->
+
+            </div> <!-- pageContent -->
+
+        </div>
+
 
 
         <div id="infoPage" class="container page page-right-hidden">
@@ -232,6 +472,10 @@
                             <div class="form-group">
                                 <label>Kohdenimi</label>
                                 <p id="muinaisjaannos-Kohdenimi"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Kunta</label>
+                                <p id="muinaisjaannos-Kunta"></p>
                             </div>
                             <div class="form-group">
                                 <label>Ajoitus</label>
@@ -416,6 +660,8 @@
         <script type="text/javascript" src="js/MuinaismuistotDetailsPage.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotSettingsPage.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotInfoPage.js"></script>
+        <script type="text/javascript" src="js/MuinaismuistotSearchPage.js"></script>
+        <script type="text/javascript" src="js/MuinaismuistotFilterPage.js"></script>
         <script type="text/javascript">
             $( document ).ready(function() {
                 var muinaismuistot = new Muinaismuistot();
