@@ -154,4 +154,22 @@ var MuinaismuistotMap = function() {
       mmlTaustakarttaLayer.setVisible(false);
     }
   };
+
+  this.setMapLocation = function(coordimateString) {
+    var coordinateArray = coordimateString
+        .replace('#', '')
+        .replace('x=', '')
+        .replace('y=', '')
+        .split(';');
+    
+    if(coordinateArray.length !== 2) {
+      return;
+    }
+    coordinateArray[0] = parseFloat(coordinateArray[0]);
+    coordinateArray[1] = parseFloat(coordinateArray[1]);
+
+    if(!isNaN(coordinateArray[0]) && !isNaN(coordinateArray[1])) {
+      map.getView().setCenter(coordinateArray);
+    }
+  };
 }

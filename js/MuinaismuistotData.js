@@ -37,7 +37,8 @@ var MuinaismuistotData = function() {
       searchFields: 'Kohdenimi, Nimi, KOHDENIMI',
       layers: muinaismuistotSettings.getSelectedMuinaismuistotLayerSubLayerIds().join(','), //Sub-layers
       f: 'json',
-      returnGeometry: 'true'
+      returnGeometry: 'true',
+      returnZ: 'false'
     };
     showLoadingAnimation(true);
 
@@ -99,6 +100,26 @@ var MuinaismuistotData = function() {
 
   this.getFeatureTypeIconURL = function(feature) {
     return muinaismuistotSettings.getLayerIconURL(feature.layerId);
+  };
+
+  this.getFeatureLocation = function(feature) {
+    if(feature.geometryType === 'esriGeometryPolygon') {
+      var point = feature.geometry.rings[0][0];
+      return {
+        x: point[0],
+        y: point[1]
+      };
+    }
+    else if(feature.geometryType === 'esriGeometryPoint') {
+      return feature.geometry;
+    }
+    else if(feature.geometryType === 'esriGeometryPolyline') {
+      var point = feature.geometry.paths[0][0];
+      return {
+        x: point[0],
+        y: point[1]
+      };
+    }
   };
 
   this.trimTextData = function(value) {

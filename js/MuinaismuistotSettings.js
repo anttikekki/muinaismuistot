@@ -146,7 +146,7 @@ var MuinaismuistotSettings = function() {
         return 'images/maailmanperinto_alue.png';
         break;
       case layerMap['Maailmanperintö pisteet']:
-        return 'mages/maailmanperinto_piste.png';
+        return 'images/maailmanperinto_piste.png';
         break;
       case layerMap['Rakennetut alueet']:
         return 'images/rakennusperintorekisteri_alue.png';

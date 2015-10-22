@@ -91,6 +91,10 @@ var Muinaismuistot = function() {
     $('#map-button-settings').on('click', function() {
       showPage('settingsPage');
     });
+
+    window.onhashchange = function(location) {
+      map.setMapLocation(window.location.hash);
+    };
   };
 
   var showPage = function(pageId) {
