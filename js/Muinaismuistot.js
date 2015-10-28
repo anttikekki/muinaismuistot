@@ -76,6 +76,10 @@ var Muinaismuistot = function() {
       }
     });
 
+    $('#map-button-position').on('click', function() {
+      map.centerToCurrentPositions();
+    });
+
     $('#map-button-search').on('click', function() {
       showPage('searchPage');
     });

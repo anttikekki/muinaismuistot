@@ -3,6 +3,7 @@ var MuinaismuistotMap = function() {
   var muinaismuistotData;
   var map;
   var view;
+  var geolocation;
   var eventListener;
   var mmlMaastokarttaLayer;
   var mmlTaustakarttaLayer;
@@ -31,13 +32,7 @@ var MuinaismuistotMap = function() {
       renderer: 'canvas'
     });
 
-    var geolocation = new ol.Geolocation({
-      projection: view.getProjection(),
-      tracking: true
-    });
-    geolocation.once('change:position', function() {
-      view.setCenter(geolocation.getPosition());
-    });
+    initGeolocation();
 
     map.on("click", function(e) {
       muinaismuistotData.identifyFeaturesAt(
@@ -50,6 +45,16 @@ var MuinaismuistotMap = function() {
           }
         }
       );
+    });
+  };
+
+  var initGeolocation = function() {
+    geolocation = new ol.Geolocation({
+      projection: view.getProjection(),
+      tracking: true
+    });
+    geolocation.once('change:position', function() {
+      view.setCenter(geolocation.getPosition());
     });
   };
 
@@ -169,7 +174,16 @@ var MuinaismuistotMap = function() {
     coordinateArray[1] = parseFloat(coordinateArray[1]);
 
     if(!isNaN(coordinateArray[0]) && !isNaN(coordinateArray[1])) {
-      map.getView().setCenter(coordinateArray);
+      view.setCenter(coordinateArray);
+    }
+  };
+
+  this.centerToCurrentPositions = function() {
+    if(geolocation.getPosition()) {
+      view.setCenter(geolocation.getPosition());
+    }
+    else {
+      initGeolocation();
     }
   };
 }
