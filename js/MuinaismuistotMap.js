@@ -1,18 +1,20 @@
 var MuinaismuistotMap = function() {
   var self = this;
   var muinaismuistotData;
+  var muinaismuistotSettings;
   var map;
   var view;
+  var geolocation;
   var eventListener;
   var mmlMaastokarttaLayer;
   var mmlTaustakarttaLayer;
   var nbaMuinaismuistotLayer;
-  var muinaismuistotSettings;
+  var dynamicFeatureLayer;
+  var currentPositionFeature;
 
   this.init = function(data, settings) {
     muinaismuistotData = data;
     muinaismuistotSettings = settings;
-    loadWmtsCapabilities();
 
     proj4.defs("EPSG:3067","+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
 
@@ -31,13 +33,11 @@ var MuinaismuistotMap = function() {
       renderer: 'canvas'
     });
 
-    var geolocation = new ol.Geolocation({
-      projection: view.getProjection(),
-      tracking: true
-    });
-    geolocation.once('change:position', function() {
-      view.setCenter(geolocation.getPosition());
-    });
+    initGeolocation();
+
+    loadMMLWmtsCapabilitiesAndAddLayers();
+    addMuinaismuistotLayer();
+    addDynamicFeatureLayer();
 
     map.on("click", function(e) {
       muinaismuistotData.identifyFeaturesAt(
@@ -53,7 +53,47 @@ var MuinaismuistotMap = function() {
     });
   };
 
-  var loadWmtsCapabilities = function() {
+  var initGeolocation = function() {
+    geolocation = new ol.Geolocation({
+      projection: view.getProjection(),
+      tracking: true
+    });
+
+    geolocation.once('change:position', function() {
+      self.centerToCurrentPositions();
+    });
+  };
+
+  var addCurrentPositionMarker = function(coordinates) {
+    if(currentPositionFeature) {
+      currentPositionFeature.getGeometry().setCoordinates(coordinates);
+      return;
+    }
+
+    var fill = new ol.style.Fill({
+     color: 'rgba(0, 0, 255, 1.0)'
+    });
+    var stroke = new ol.style.Stroke({
+     color: 'rgba(255, 255, 255, 1.0)',
+     width: 3
+    });
+
+    currentPositionFeature = new ol.Feature({
+      geometry: new ol.geom.Point(coordinates)
+    });
+    currentPositionFeature.setStyle(new ol.style.Style({
+     image: new ol.style.Circle({
+       fill: fill,
+       stroke: stroke,
+       radius: 7
+     }),
+     fill: fill,
+     stroke: stroke
+    }));
+    dynamicFeatureLayer.getSource().addFeature(currentPositionFeature);
+  };
+
+  var loadMMLWmtsCapabilitiesAndAddLayers = function() {
     $.ajax({
       url: 'http://avoindata.maanmittauslaitos.fi/mapcache/wmts?service=wmts&request=getcapabilities&version=1.0.0',
       success: function(response) {
@@ -84,9 +124,15 @@ var MuinaismuistotMap = function() {
       visible: true
     });
 
-    map.addLayer(mmlMaastokarttaLayer);
-    map.addLayer(mmlTaustakarttaLayer);
-    addMuinaismuistotLayer();
+    map.getLayers().insertAt(0, mmlMaastokarttaLayer);
+    map.getLayers().insertAt(1, mmlTaustakarttaLayer);
+  };
+
+  var addDynamicFeatureLayer = function() {
+    dynamicFeatureLayer = new ol.layer.Vector({
+      source: new ol.source.Vector({})
+    });
+    map.addLayer(dynamicFeatureLayer);
   };
 
   var addMuinaismuistotLayer = function() {
@@ -169,7 +215,18 @@ var MuinaismuistotMap = function() {
     coordinateArray[1] = parseFloat(coordinateArray[1]);
 
     if(!isNaN(coordinateArray[0]) && !isNaN(coordinateArray[1])) {
-      map.getView().setCenter(coordinateArray);
+      view.setCenter(coordinateArray);
+    }
+  };
+
+  this.centerToCurrentPositions = function() {
+    if(geolocation.getPosition()) {
+      var position = geolocation.getPosition();
+      view.setCenter(position);
+      addCurrentPositionMarker(position);
+    }
+    else {
+      initGeolocation();
     }
   };
 }
