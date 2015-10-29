@@ -3,10 +3,12 @@ var MuinaismuistotDetailsPage = function() {
 	var eventListener;
 	var muinaismuistotData;
 	var muinaismuistotSettings;
+	var urlHashHelper;
 
-	this.init = function(data, settings) {
+	this.init = function(data, settings, urlHelper) {
 		muinaismuistotData = data;
 		muinaismuistotSettings = settings;
+		urlHashHelper = urlHelper;
 
 		$('#hide-detailsPage-button').on('click', function() {
 			eventListener.hidePage();
@@ -91,23 +93,27 @@ var MuinaismuistotDetailsPage = function() {
 		$('#muinaisjaannos-Alatyyppi').html(trim(feature.attributes.Alatyyppi));
 		$('#muinaisjaannos-Laji').html(trim(feature.attributes.Laji));
 		$('#muinaisjaannos-muinaisjaannosarekisteri-link').attr('href', feature.attributes.URL);
+		$('#muinaisjaannos-permanent-link').attr('href', urlHashHelper.createLocationHash(muinaismuistotData.getFeatureLocation(feature), feature));
 	};
 
 	var showMuinaisjaannosAlue = function(feature) {
 		$('#muinaisjaannosalue-Kohdenimi').html(trim(feature.attributes.Kohdenimi));
 		$('#muinaisjaannosalue-muinaisjaannosarekisteri-link').attr('href', generateKulttuuriymparistoURL(feature.attributes.Mjtunnus));
+		$('#muinaisjaannosalue-permanent-link').attr('href', urlHashHelper.createLocationHash(muinaismuistotData.getFeatureLocation(feature), feature));
 	};
 
 	var showRky = function(feature) {
 		$('#rky-details-icon').html('<img src="' + muinaismuistotData.getFeatureTypeIconURL(feature) + '">');
 		$('#rky-Kohdenimi').html(trim(feature.attributes.KOHDENIMI));
 		$('#rky-link').attr('href', generateRkyURL(feature.attributes.ID));
+		$('#rky-permanent-link').attr('href', urlHashHelper.createLocationHash(muinaismuistotData.getFeatureLocation(feature), feature));
 	};
 
 	var showMaailmanperintokohde = function(feature) {
 		$('#maailmanperinto-details-icon').html('<img src="' + muinaismuistotData.getFeatureTypeIconURL(feature) + '">');
 		$('#maailmanperinto-Kohdenimi').html(trim(feature.attributes.Nimi));
 		$('#maailmanperinto-link').attr('href', feature.attributes.URL);
+		$('#maailmanperinto-permanent-link').attr('href', urlHashHelper.createLocationHash(muinaismuistotData.getFeatureLocation(feature), feature));
 	};
 
 	var showRakennusperintorekisteriAlue = function(feature) {
@@ -118,12 +124,14 @@ var MuinaismuistotDetailsPage = function() {
 		$('#rakennusperintorekisteriAlue-Suojelu').html(trim(feature.attributes.Suojelu));
 		$('#rakennusperintorekisteriAlue-Ajoitus').html(trim(feature.attributes.Ajoitus));
 		$('#rakennusperintorekisteriAlue-link').attr('href', generateRakennusperintorekisteriURL(feature.attributes.KOHDEID));
+		$('#rakennusperintorekisteriAlue-permanent-link').attr('href', urlHashHelper.createLocationHash(muinaismuistotData.getFeatureLocation(feature), feature));
 	};
 
 	var showRakennusperintorekisteriRakennus = function(feature) {
 		$('#rakennusperintorekisteriRakennus-Kohdenimi').html(trim(feature.attributes.Nimi));
 		$('#rakennusperintorekisteriRakennus-Osoite').html(trim(feature.attributes.Osoite));
 		$('#rakennusperintorekisteriRakennus-Suojelu').html(trim(feature.attributes.Suojelu));
+		$('#rakennusperintorekisteriRakennus-permanent-link').attr('href', urlHashHelper.createLocationHash(muinaismuistotData.getFeatureLocation(feature), feature));
 
 		var url = trim(feature.attributes.URL)
 		if(url.length > 0) {

@@ -8,6 +8,7 @@ var Muinaismuistot = function() {
   var filterPage = null;
   var data = null;
   var settings = null;
+  var urlHashHelper = null;
 
   this.init = function() {
     settings = new MuinaismuistotSettings();
@@ -24,6 +25,8 @@ var Muinaismuistot = function() {
       }
     });
 
+    urlHashHelper = new MuinaismuistotURLHashHelper();
+
     data = new MuinaismuistotData();
     data.init(settings);
 
@@ -37,7 +40,7 @@ var Muinaismuistot = function() {
     });
 
     detailsPage = new MuinaismuistotDetailsPage();
-    detailsPage.init(data, settings);
+    detailsPage.init(data, settings, urlHashHelper);
     detailsPage.setEventListener({
       hidePage : function() {
         hidePage('detailsPage');
@@ -53,7 +56,7 @@ var Muinaismuistot = function() {
     });
 
     searchPage = new MuinaismuistotSearchPage();
-    searchPage.init(data, settings);
+    searchPage.init(data, settings, urlHashHelper);
     searchPage.setEventListener({
       hidePage : function() {
         hidePage('searchPage');
@@ -120,7 +123,7 @@ var Muinaismuistot = function() {
   };
 
   var determineStartLocation = function() {
-    if(parseURLHashCoordinates(window.location.hash)) {
+    if(urlHashHelper.parseCoordinates()) {
       setMapLocationFromURLHash();
     }
     else {
@@ -129,29 +132,10 @@ var Muinaismuistot = function() {
   };
 
   var setMapLocationFromURLHash = function() {
-    var coordinates = parseURLHashCoordinates(window.location.hash);
+    var coordinates = urlHashHelper.parseCoordinates();
     if(coordinates) {
       map.setMapLocation(coordinates);
       map.showSelectedLocationMarker(coordinates);
     }
   };
-
-  var parseURLHashCoordinates = function(coordinateString) {
-    var coordinateArray = coordinateString
-        .replace('#', '')
-        .replace('x=', '')
-        .replace('y=', '')
-        .split(';');
-    
-    if(coordinateArray.length !== 2) {
-      return null;
-    }
-    coordinateArray[0] = parseFloat(coordinateArray[0]);
-    coordinateArray[1] = parseFloat(coordinateArray[1]);
-
-    if(!isNaN(coordinateArray[0]) && !isNaN(coordinateArray[1])) {
-      return coordinateArray;
-    }
-    return null;
-  }
 };

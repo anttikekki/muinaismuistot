@@ -3,10 +3,12 @@ var MuinaismuistotSearchPage = function() {
 	var eventListener;
 	var muinaismuistotData;
 	var muinaismuistotSettings;
+	var urlHashHelper;
 
-	this.init = function(data, settings) {
+	this.init = function(data, settings, urlHelper) {
 		muinaismuistotData = data;
 		muinaismuistotSettings = settings;
+		urlHashHelper = urlHelper;
 
 		$('#hide-searchPage-button').on('click', function() {
 			eventListener.hidePage();
@@ -52,9 +54,8 @@ var MuinaismuistotSearchPage = function() {
 		var tyypinNimi = muinaismuistotData.getFeatureTypeName(feature);
 		var iconURL = muinaismuistotData.getFeatureTypeIconURL(feature);
 		var coordinates = muinaismuistotData.getFeatureLocation(feature);
-		var coordinateString = 'x=' + coordinates.x + ';y=' + coordinates.y;
 
-		return '<a href="#' + coordinateString + '" class="list-group-item">' +
+		return '<a href="' + urlHashHelper.createLocationHash(coordinates, feature) + '" class="list-group-item">' +
 		    '<h4 class="list-group-item-heading">' + nimi + '</h4>' +
 		    '<p class="list-group-item-text"><img src="' + iconURL + '"> ' + tyypinNimi + '</p>' +
 		  '</a>';

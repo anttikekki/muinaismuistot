@@ -16,7 +16,7 @@ var MuinaismuistotData = function() {
       mapExtent: mapExtent.join(','),
       layers: 'visible:' + muinaismuistotSettings.getSelectedMuinaismuistotLayerIds().join(','),
       f: 'json',
-      returnGeometry: 'false'
+      returnGeometry: 'true'
     };
     showLoadingAnimation(true);
 
@@ -147,9 +147,9 @@ var MuinaismuistotData = function() {
 
     //Remove trailing commas
     while(value.substr(value.length-1, 1) === ',') {
-          value = value.substring(0, value.length-1).trim();
-      }
-      return value;
+      value = value.substring(0, value.length-1).trim();
+    }
+    return value;
   };
 
   var showLoadingAnimation = function(show) {
