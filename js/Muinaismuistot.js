@@ -97,8 +97,10 @@ var Muinaismuistot = function() {
     });
 
     window.onhashchange = function(location) {
-      map.setMapLocation(window.location.hash);
+      setMapLocationFromURLHash();
     };
+
+    determineStartLocation();
   };
 
   var showPage = function(pageId) {
@@ -116,4 +118,40 @@ var Muinaismuistot = function() {
       $page.removeClass('page-right-visible').addClass('page-right-hidden');
     }
   };
+
+  var determineStartLocation = function() {
+    if(parseURLHashCoordinates(window.location.hash)) {
+      setMapLocationFromURLHash();
+    }
+    else {
+      map.centerToCurrentPositions();
+    }
+  };
+
+  var setMapLocationFromURLHash = function() {
+    var coordinates = parseURLHashCoordinates(window.location.hash);
+    if(coordinates) {
+      map.setMapLocation(coordinates);
+      map.showSelectedLocationMarker(coordinates);
+    }
+  };
+
+  var parseURLHashCoordinates = function(coordinateString) {
+    var coordinateArray = coordinateString
+        .replace('#', '')
+        .replace('x=', '')
+        .replace('y=', '')
+        .split(';');
+    
+    if(coordinateArray.length !== 2) {
+      return null;
+    }
+    coordinateArray[0] = parseFloat(coordinateArray[0]);
+    coordinateArray[1] = parseFloat(coordinateArray[1]);
+
+    if(!isNaN(coordinateArray[0]) && !isNaN(coordinateArray[1])) {
+      return coordinateArray;
+    }
+    return null;
+  }
 };
