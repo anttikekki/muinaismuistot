@@ -99,11 +99,13 @@ var MuinaismuistotDetailsPage = function() {
 	};
 
 	var showRky = function(feature) {
+		$('#rky-details-icon').html('<img src="' + muinaismuistotData.getFeatureTypeIconURL(feature) + '">');
 		$('#rky-Kohdenimi').html(trim(feature.attributes.KOHDENIMI));
 		$('#rky-link').attr('href', generateRkyURL(feature.attributes.ID));
 	};
 
 	var showMaailmanperintokohde = function(feature) {
+		$('#maailmanperinto-details-icon').html('<img src="' + muinaismuistotData.getFeatureTypeIconURL(feature) + '">');
 		$('#maailmanperinto-Kohdenimi').html(trim(feature.attributes.Nimi));
 		$('#maailmanperinto-link').attr('href', feature.attributes.URL);
 	};
