@@ -73,16 +73,21 @@
 
 
         <div id="searchPage" class="container page page-right-hidden">
-            <div class="pageHeader">
-                <button class="btn btn-primary btn-sm" id="hide-searchPage-button">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                </button>
+            <div class="row pageHeader">
+                <div class="col-xs-3">
+                    <button class="btn btn-primary btn-sm" id="hide-searchPage-button">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                    </button>
+                </div>
+                <div class="col-xs-9">
+                    <span class="pageHeaderText">Hae kohteita</span>
+                </div>
             </div>
 
             <div class="pageContent">
-                <h5>Hae kohteita</h5>
 
                 <form id="search-form">
+                    <div id="search-form-error" class="alert alert-danger hidden" role="alert">Hakusanan pitää olla vähintään kolme merkkiä</div>
                     <div class="input-group">
                         <input type="text" id="search-text" class="form-control" placeholder="Kirjoita nimi tai sen osa">
                         <span class="input-group-btn">
@@ -103,10 +108,15 @@
 
 
         <div id="filterPage" class="container page page-right-hidden">
-            <div class="pageHeader">
-                <button class="btn btn-primary btn-sm" id="hide-filterPage-button">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                </button>
+            <div class="row pageHeader">
+                <div class="col-xs-3">
+                    <button class="btn btn-primary btn-sm" id="hide-filterPage-button">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                    </button>
+                </div>
+                <div class="col-xs-9">
+                    <span class="pageHeaderText">Suodata kohteita</span>
+                </div>
             </div>
 
             <div class="pageContent">
@@ -300,10 +310,15 @@
 
 
         <div id="infoPage" class="container page page-right-hidden">
-            <div class="pageHeader">
-                <button class="btn btn-primary btn-sm" id="hide-infoPage-button">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                </button>
+            <div class="row pageHeader">
+                <div class="col-xs-3">
+                    <button class="btn btn-primary btn-sm" id="hide-infoPage-button">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                    </button>
+                </div>
+                <div class="col-xs-9">
+                    <span class="pageHeaderText">Ohjeet</span>
+                </div>
             </div>
 
             <div class="pageContent">
@@ -393,10 +408,15 @@
 
 
         <div id="settingsPage" class="container page page-right-hidden">
-            <div class="pageHeader">
-                <button class="btn btn-primary btn-sm" id="hide-settingsPage-button">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                </button>
+            <div class="row pageHeader">
+                <div class="col-xs-3">
+                    <button class="btn btn-primary btn-sm" id="hide-settingsPage-button">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                    </button>
+                </div>
+                <div class="col-xs-9">
+                    <span class="pageHeaderText">Asetukset</span>
+                </div>
             </div>
 
             <div class="pageContent">
@@ -468,8 +488,10 @@
                     <div class="panel-heading" role="tab" id="muinaisjaannos-heading">
                       <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#muinaisjaannos-collapse" aria-expanded="true" aria-controls="muinaisjaannos-collapse">
-                          Muinaisjäännös
+                          <img src="images/muinaisjaannos_kohde.png"> 
+                          <span>Muinaisjäännös</span>
                         </a>
+                        <a id="muinaisjaannos-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
                       </h4>
                     </div>
                     <div id="muinaisjaannos-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="muinaisjaannos-heading">
@@ -511,8 +533,10 @@
                     <div class="panel-heading" role="tab" id="muinaisjaannosalue-heading">
                       <h4 class="panel-title">
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#muinaisjaannosalue-collapse" aria-expanded="false" aria-controls="muinaisjaannosalue-collapse">
-                          Muinaisjäännösalue
+                          <img src="images/muinaisjaannos_alue.png"> 
+                          <span>Muinaisjäännösalue</span>
                         </a>
+                        <a id="muinaisjaannosalue-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
                       </h4>
                     </div>
                     <div id="muinaisjaannosalue-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="muinaisjaannosalue-heading">
@@ -534,8 +558,10 @@
                     <div class="panel-heading" role="tab" id="rky-heading">
                       <h4 class="panel-title">
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#rky-collapse" aria-expanded="false" aria-controls="rky-collapse">
-                          Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
+                          <span id="rky-details-icon"></span>
+                          <span>Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</span>
                         </a>
+                        <a id="rky-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
                       </h4>
                     </div>
                     <div id="rky-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="rky-heading">
@@ -557,8 +583,10 @@
                     <div class="panel-heading" role="tab" id="maailmanperinto-heading">
                       <h4 class="panel-title">
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#maailmanperinto-collapse" aria-expanded="false" aria-controls="maailmanperinto-collapse">
-                          Maailmanperintökohde
+                          <span id="maailmanperinto-details-icon"></span>
+                          <span>Maailmanperintökohde</span>
                         </a>
+                        <a id="maailmanperinto-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
                       </h4>
                     </div>
                     <div id="maailmanperinto-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="maailmanperinto-heading">
@@ -580,8 +608,10 @@
                     <div class="panel-heading" role="tab" id="rakennusperintorekisteriAlue-heading">
                       <h4 class="panel-title">
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#rakennusperintorekisteriAlue-collapse" aria-expanded="false" aria-controls="rakennusperintorekisteriAlue-collapse">
-                          Rakennusperintörekisterin alue
+                          <img src="images/rakennusperintorekisteri_alue.png">
+                          <span>Rakennusperintörekisterin alue</span>
                         </a>
+                        <a id="rakennusperintorekisteriAlue-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
                       </h4>
                     </div>
                     <div id="rakennusperintorekisteriAlue-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="rakennusperintorekisteriAlue-heading">
@@ -623,8 +653,10 @@
                     <div class="panel-heading" role="tab" id="rakennusperintorekisteriRakennus-heading">
                       <h4 class="panel-title">
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#rakennusperintorekisteriRakennus-collapse" aria-expanded="false" aria-controls="rakennusperintorekisteriRakennus-collapse">
-                          Rakennusperintörekisterin rakennus
+                          <img src="images/rakennusperintorekisteri_rakennus.png">
+                          <span>Rakennusperintörekisterin rakennus</span>
                         </a>
+                        <a id="rakennusperintorekisteriRakennus-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
                       </h4>
                     </div>
                     <div id="rakennusperintorekisteriRakennus-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="rakennusperintorekisteriRakennus-heading">
@@ -668,6 +700,7 @@
         <script type="text/javascript" src="js/MuinaismuistotInfoPage.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotSearchPage.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotFilterPage.js"></script>
+        <script type="text/javascript" src="js/MuinaismuistotURLHashHelper.js"></script>
         <script type="text/javascript">
             $( document ).ready(function() {
                 var muinaismuistot = new Muinaismuistot();

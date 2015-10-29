@@ -72,6 +72,11 @@ html, body, #map {
 	margin-bottom: 10px;
 }
 
+.pageHeaderText {
+	font-size: 20px;
+	font-weight: 500;
+}
+
 .pageContent {
 	height: 90%;
 	overflow-y: auto;

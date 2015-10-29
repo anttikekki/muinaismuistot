@@ -8,6 +8,7 @@ var Muinaismuistot = function() {
   var filterPage = null;
   var data = null;
   var settings = null;
+  var urlHashHelper = null;
 
   this.init = function() {
     settings = new MuinaismuistotSettings();
@@ -24,6 +25,8 @@ var Muinaismuistot = function() {
       }
     });
 
+    urlHashHelper = new MuinaismuistotURLHashHelper();
+
     data = new MuinaismuistotData();
     data.init(settings);
 
@@ -37,7 +40,7 @@ var Muinaismuistot = function() {
     });
 
     detailsPage = new MuinaismuistotDetailsPage();
-    detailsPage.init(data, settings);
+    detailsPage.init(data, settings, urlHashHelper);
     detailsPage.setEventListener({
       hidePage : function() {
         hidePage('detailsPage');
@@ -53,7 +56,7 @@ var Muinaismuistot = function() {
     });
 
     searchPage = new MuinaismuistotSearchPage();
-    searchPage.init(data, settings);
+    searchPage.init(data, settings, urlHashHelper);
     searchPage.setEventListener({
       hidePage : function() {
         hidePage('searchPage');
@@ -97,8 +100,10 @@ var Muinaismuistot = function() {
     });
 
     window.onhashchange = function(location) {
-      map.setMapLocation(window.location.hash);
+      setMapLocationFromURLHash();
     };
+
+    determineStartLocation();
   };
 
   var showPage = function(pageId) {
@@ -114,6 +119,23 @@ var Muinaismuistot = function() {
 
     if($page.hasClass('page-right-visible')) {
       $page.removeClass('page-right-visible').addClass('page-right-hidden');
+    }
+  };
+
+  var determineStartLocation = function() {
+    if(urlHashHelper.parseCoordinates()) {
+      setMapLocationFromURLHash();
+    }
+    else {
+      map.centerToCurrentPositions();
+    }
+  };
+
+  var setMapLocationFromURLHash = function() {
+    var coordinates = urlHashHelper.parseCoordinates();
+    if(coordinates) {
+      map.setMapLocation(coordinates);
+      map.showSelectedLocationMarker(coordinates);
     }
   };
 };

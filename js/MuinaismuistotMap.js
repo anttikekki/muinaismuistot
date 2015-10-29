@@ -11,6 +11,7 @@ var MuinaismuistotMap = function() {
   var nbaMuinaismuistotLayer;
   var dynamicFeatureLayer;
   var currentPositionFeature;
+  var selectedLocationFeature;
 
   this.init = function(data, settings) {
     muinaismuistotData = data;
@@ -32,8 +33,6 @@ var MuinaismuistotMap = function() {
       view: view,
       renderer: 'canvas'
     });
-
-    initGeolocation();
 
     loadMMLWmtsCapabilitiesAndAddLayers();
     addMuinaismuistotLayer();
@@ -91,6 +90,23 @@ var MuinaismuistotMap = function() {
      stroke: stroke
     }));
     dynamicFeatureLayer.getSource().addFeature(currentPositionFeature);
+  };
+
+  var addSelectedLocationFeatureMarker = function(coordinates) {
+    if(selectedLocationFeature) {
+      selectedLocationFeature.getGeometry().setCoordinates(coordinates);
+      return;
+    }
+
+    selectedLocationFeature = new ol.Feature({
+      geometry: new ol.geom.Point(coordinates)
+    });
+    selectedLocationFeature.setStyle(new ol.style.Style({
+     image: new ol.style.Icon({
+       src: 'images/map-pin.png'
+     })
+    }));
+    dynamicFeatureLayer.getSource().addFeature(selectedLocationFeature);
   };
 
   var loadMMLWmtsCapabilitiesAndAddLayers = function() {
@@ -201,26 +217,12 @@ var MuinaismuistotMap = function() {
     }
   };
 
-  this.setMapLocation = function(coordimateString) {
-    var coordinateArray = coordimateString
-        .replace('#', '')
-        .replace('x=', '')
-        .replace('y=', '')
-        .split(';');
-    
-    if(coordinateArray.length !== 2) {
-      return;
-    }
-    coordinateArray[0] = parseFloat(coordinateArray[0]);
-    coordinateArray[1] = parseFloat(coordinateArray[1]);
-
-    if(!isNaN(coordinateArray[0]) && !isNaN(coordinateArray[1])) {
-      view.setCenter(coordinateArray);
-    }
+  this.setMapLocation = function(coordinates) {
+    view.setCenter(coordinates);
   };
 
   this.centerToCurrentPositions = function() {
-    if(geolocation.getPosition()) {
+    if(geolocation && geolocation.getPosition()) {
       var position = geolocation.getPosition();
       view.setCenter(position);
       addCurrentPositionMarker(position);
@@ -228,5 +230,9 @@ var MuinaismuistotMap = function() {
     else {
       initGeolocation();
     }
+  };
+
+  this.showSelectedLocationMarker = function(coordinates) {
+    addSelectedLocationFeatureMarker(coordinates);
   };
 }

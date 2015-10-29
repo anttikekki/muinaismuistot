@@ -16,7 +16,7 @@ var MuinaismuistotData = function() {
       mapExtent: mapExtent.join(','),
       layers: 'visible:' + muinaismuistotSettings.getSelectedMuinaismuistotLayerIds().join(','),
       f: 'json',
-      returnGeometry: 'false'
+      returnGeometry: 'true'
     };
     showLoadingAnimation(true);
 
@@ -31,11 +31,24 @@ var MuinaismuistotData = function() {
   };
 
   this.findFeatures = function(searchText, callback) {
+    var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
+    var selectedSubLayers = muinaismuistotSettings.getSelectedMuinaismuistotLayerSubLayerIds();
+
+    //Muinaismustot areas and sub-points arlways has same name as main point so do not search those
+    var areaIndex = selectedSubLayers.indexOf(layerMap['Muinaisjäännösalueet']);
+    if (areaIndex > -1) {
+      selectedSubLayers.splice(areaIndex, 1);
+    }
+    var subPointIndex = selectedSubLayers.indexOf(layerMap['Muinaisj.alakohteet']);
+    if (subPointIndex > -1) {
+      selectedSubLayers.splice(subPointIndex, 1);
+    }
+
     var queryoptions = {
       searchText: searchText,
       contains: true,
       searchFields: 'Kohdenimi, Nimi, KOHDENIMI',
-      layers: muinaismuistotSettings.getSelectedMuinaismuistotLayerSubLayerIds().join(','), //Sub-layers
+      layers: selectedSubLayers.join(','), //Sub-layers
       f: 'json',
       returnGeometry: 'true',
       returnZ: 'false'
@@ -134,9 +147,9 @@ var MuinaismuistotData = function() {
 
     //Remove trailing commas
     while(value.substr(value.length-1, 1) === ',') {
-          value = value.substring(0, value.length-1).trim();
-      }
-      return value;
+      value = value.substring(0, value.length-1).trim();
+    }
+    return value;
   };
 
   var showLoadingAnimation = function(show) {
