@@ -73,16 +73,21 @@
 
 
         <div id="searchPage" class="container page page-right-hidden">
-            <div class="pageHeader">
-                <button class="btn btn-primary btn-sm" id="hide-searchPage-button">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                </button>
+            <div class="row pageHeader">
+                <div class="col-xs-3">
+                    <button class="btn btn-primary btn-sm" id="hide-searchPage-button">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                    </button>
+                </div>
+                <div class="col-xs-9">
+                    <span class="pageHeaderText">Hae kohteita</span>
+                </div>
             </div>
 
             <div class="pageContent">
-                <h5>Hae kohteita</h5>
 
                 <form id="search-form">
+                    <div id="search-form-error" class="alert alert-danger hidden" role="alert">Hakusanan pitää olla vähintään kolme merkkiä</div>
                     <div class="input-group">
                         <input type="text" id="search-text" class="form-control" placeholder="Kirjoita nimi tai sen osa">
                         <span class="input-group-btn">
@@ -103,10 +108,15 @@
 
 
         <div id="filterPage" class="container page page-right-hidden">
-            <div class="pageHeader">
-                <button class="btn btn-primary btn-sm" id="hide-filterPage-button">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                </button>
+            <div class="row pageHeader">
+                <div class="col-xs-3">
+                    <button class="btn btn-primary btn-sm" id="hide-filterPage-button">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                    </button>
+                </div>
+                <div class="col-xs-9">
+                    <span class="pageHeaderText">Suodata kohteita</span>
+                </div>
             </div>
 
             <div class="pageContent">
@@ -300,10 +310,15 @@
 
 
         <div id="infoPage" class="container page page-right-hidden">
-            <div class="pageHeader">
-                <button class="btn btn-primary btn-sm" id="hide-infoPage-button">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                </button>
+            <div class="row pageHeader">
+                <div class="col-xs-3">
+                    <button class="btn btn-primary btn-sm" id="hide-infoPage-button">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                    </button>
+                </div>
+                <div class="col-xs-9">
+                    <span class="pageHeaderText">Ohjeet</span>
+                </div>
             </div>
 
             <div class="pageContent">
@@ -393,10 +408,15 @@
 
 
         <div id="settingsPage" class="container page page-right-hidden">
-            <div class="pageHeader">
-                <button class="btn btn-primary btn-sm" id="hide-settingsPage-button">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                </button>
+            <div class="row pageHeader">
+                <div class="col-xs-3">
+                    <button class="btn btn-primary btn-sm" id="hide-settingsPage-button">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                    </button>
+                </div>
+                <div class="col-xs-9">
+                    <span class="pageHeaderText">Asetukset</span>
+                </div>
             </div>
 
             <div class="pageContent">

@@ -27,6 +27,13 @@ var MuinaismuistotSearchPage = function() {
 	};
 
 	var search = function(searchText) {
+		if(!searchText || searchText.trim().length < 3) {
+			$('#search-form').addClass('has-error');
+			$('#search-form-error').removeClass('hidden');
+			return;
+		}
+		$('#search-form').removeClass('has-error');
+		$('#search-form-error').addClass('hidden');
 		muinaismuistotData.findFeatures(searchText, displayResults);
 	};
 
