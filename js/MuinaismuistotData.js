@@ -31,11 +31,24 @@ var MuinaismuistotData = function() {
   };
 
   this.findFeatures = function(searchText, callback) {
+    var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
+    var selectedSubLayers = muinaismuistotSettings.getSelectedMuinaismuistotLayerSubLayerIds();
+
+    //Muinaismustot areas and sub-points arlways has same name as main point so do not search those
+    var areaIndex = selectedSubLayers.indexOf(layerMap['Muinaisjäännösalueet']);
+    if (areaIndex > -1) {
+      selectedSubLayers.splice(areaIndex, 1);
+    }
+    var subPointIndex = selectedSubLayers.indexOf(layerMap['Muinaisj.alakohteet']);
+    if (subPointIndex > -1) {
+      selectedSubLayers.splice(subPointIndex, 1);
+    }
+
     var queryoptions = {
       searchText: searchText,
       contains: true,
       searchFields: 'Kohdenimi, Nimi, KOHDENIMI',
-      layers: muinaismuistotSettings.getSelectedMuinaismuistotLayerSubLayerIds().join(','), //Sub-layers
+      layers: selectedSubLayers.join(','), //Sub-layers
       f: 'json',
       returnGeometry: 'true',
       returnZ: 'false'
