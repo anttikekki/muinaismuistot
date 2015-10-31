@@ -60,6 +60,9 @@ var Muinaismuistot = function() {
     searchPage.setEventListener({
       hidePage : function() {
         hidePage('searchPage');
+      },
+      searchResultItemClicked: function() {
+        hidePage('searchPage');
       }
     });
 
