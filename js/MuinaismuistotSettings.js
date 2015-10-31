@@ -46,7 +46,7 @@ var MuinaismuistotSettings = function() {
   };
 
   this.init = function() {
-    selectedLayerIds = this.getDefaultSelectedMuinaismuistotLayerIds();
+    selectedLayerIds = this.getMuinaismuistotLayerIds();
     selectedBackgroundMapLayerName = 'taustakartta';
   };
 
@@ -54,13 +54,8 @@ var MuinaismuistotSettings = function() {
       eventListener = listener;
   };
 
-  this.getDefaultSelectedMuinaismuistotLayerIds = function() {
-    var layerMap = self.getMuinaismuistotLayerIdMap();
-    return [layerMap['RKY'], layerMap['Maailmanperintökohteet'], layerMap['Rakennusperintörekisteri'], layerMap['Muinaisjäännösrekisteri']];
-  };
-
   this.getSelectedMuinaismuistotLayerIds = function() {
-    return selectedLayerIds;
+    return selectedLayerIds.slice(); //Return shallow copy
   };
 
   this.setSelectedMuinaismuistotLayerIds = function(layerIds) {
@@ -70,11 +65,11 @@ var MuinaismuistotSettings = function() {
 
   this.getSelectedMuinaismuistotLayerSubLayerIds = function() {
     var subLayerIds = [];
-    var subLayerMap = self.getMuinaismuistotSubLayerIdsToParentLayerIdMap();
-    selectedLayerIds.forEach(function(parentLayerId) {
-      subLayerMap[parentLayerId].forEach(function(subLayerId) {
-        subLayerIds.push(subLayerId);
-      });
+    var parentLayerIds = self.getParentLayerIds();
+    selectedLayerIds.forEach(function(layerId) {
+      if(parentLayerIds.indexOf(layerId) === -1) {
+        subLayerIds.push(layerId);
+      }
     });
     return subLayerIds;
   };
@@ -102,6 +97,10 @@ var MuinaismuistotSettings = function() {
     eventListener.filterParametersChanged(filterParameters);
   };
 
+  this.getMuinaismuistotLayerIds = function() {
+    return [0,1,2,3,4,5,6,7,8,9,10,11,12,13];
+  };
+
   this.getMuinaismuistotLayerIdMap = function() {
     return {
       'RKY': 0,
@@ -118,6 +117,34 @@ var MuinaismuistotSettings = function() {
           'Muinaisjäännösalueet': 11,
           'Muinaisj.alakohteet': 12,
           'Muinaisjäännökset': 13
+    };
+  };
+
+  this.getParentLayerIds = function() {
+    return [0,4,7,10];
+  };
+
+  this.getMuinaismuistotSubLayerIdsToParentLayerIdMap = function() {
+    return {
+      '0': [1, 2, 3],
+      '4': [5, 6],
+      '7': [8, 9],
+      '10': [11, 12, 13]
+    };
+  };
+
+  this.getMuinaismuistotParentLayerIdToSubLayerIdMap = function() {
+    return {
+      '1': 0,
+      '2': 0,
+      '4': 0,
+      '5': 4,
+      '6': 4,
+      '8': 7,
+      '9': 7,
+      '11': 10,
+      '12': 10,
+      '13': 10
     };
   };
 
@@ -157,15 +184,6 @@ var MuinaismuistotSettings = function() {
     }
   };
 
-  this.getMuinaismuistotSubLayerIdsToParentLayerIdMap = function() {
-    return {
-      '0': [1, 2, 3],
-      '4': [5, 6],
-      '7': [8, 9],
-      '10': [11, 12, 13]
-    };
-  };
-
   this.getFilterParamsLayerDefinitions = function() {
     var resultArray = [];
     for (var property in filterParameters) {
@@ -200,6 +218,67 @@ var MuinaismuistotSettings = function() {
     if(layerHasFilterValues) {
       allResultArray.push(layerId + ':' + resultArray.join(' AND '));
     }
+  };
+
+  this.layerSelectionChanged = function(layerId, isSelected) {
+    layerId = parseInt(layerId);
+    var selectedLayerIds = self.getSelectedMuinaismuistotLayerIds();
+
+    if(isSelected) {
+      selectedLayerIds.push(layerId);
+    }
+    else {
+      var i = selectedLayerIds.indexOf(layerId);
+        if (i > -1) {
+          selectedLayerIds.splice(i, 1);
+        }
+    }
+
+    if(self.getParentLayerIds().indexOf(layerId) !== -1) {
+      var subLayerIds = self.getMuinaismuistotSubLayerIdsToParentLayerIdMap()[layerId];
+
+      if(isSelected) {
+        //Add all parent sub layers
+        subLayerIds.forEach(function(subLayerId) {
+          selectedLayerIds.push(subLayerId);
+        });
+      }
+      else {
+        //Remove all sub layers for parent
+        selectedLayerIds = selectedLayerIds.map(function(selectedLayerId) {
+          if(subLayerIds.indexOf(selectedLayerId) === -1) {
+            return selectedLayerId;
+          }
+        });
+      }
+    }
+    else {
+      //Sub layer selection changed
+      var parentLayerId = self.getMuinaismuistotParentLayerIdToSubLayerIdMap()[layerId];
+      var subLayerIds = self.getMuinaismuistotSubLayerIdsToParentLayerIdMap()[parentLayerId];
+
+      if(isSelected) {
+        //Add parent layer to selection if all sub layers are selected
+        var allSelected = true;
+        subLayerIds.forEach(function(subLayerId) {
+          if(selectedLayerIds.indexOf(subLayerId) === -1) {
+            allSelected = false;
+          }
+        });
+        if(allSelected) {
+          selectedLayerIds.push(parentLayerId);
+        }
+      }
+      else {
+        //Remove parent layer from selection
+        var i = selectedLayerIds.indexOf(parentLayerId);
+          if (i > -1) {
+            selectedLayerIds.splice(i, 1);
+          }
+      }
+    }
+
+    self.setSelectedMuinaismuistotLayerIds(selectedLayerIds);
   };
 
 };

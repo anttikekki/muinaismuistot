@@ -19,6 +19,7 @@ var Muinaismuistot = function() {
       },
       visibleMuinaismuistotLayersChanged: function(selectedLayerIds) {
         map.setVisibleMuinaismuistotLayers(selectedLayerIds);
+        settingsPage.setVisibleMuinaismuistotLayers(selectedLayerIds);
       },
       filterParametersChanged: function(params) {
         map.setFilterParams(params);
