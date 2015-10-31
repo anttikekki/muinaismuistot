@@ -52,12 +52,6 @@
             </button>
         </div>
 
-        <div id="map-button-filter" class="map-button">
-            <button type="button" class="btn btn-primary btn-sm">
-                <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
-            </button>
-        </div>
-
         <div id="map-button-info" class="map-button">
             <button type="button" class="btn btn-primary btn-sm">
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -96,7 +90,7 @@
                     </div>
                 </form>
 
-                <h5>Hakutulokset<small id="search-result-count"></small></h5>
+                <h5 id="search-result-header" class="hidden">Hakutulokset<small id="search-result-count"></small></h5>
 
                 <div id="search-results-container">
                     
@@ -107,32 +101,261 @@
         </div>
 
 
-        <div id="filterPage" class="container page page-right-hidden">
+
+
+        <div id="infoPage" class="container page page-right-hidden">
             <div class="row pageHeader">
                 <div class="col-xs-3">
-                    <button class="btn btn-primary btn-sm" id="hide-filterPage-button">
+                    <button class="btn btn-primary btn-sm" id="hide-infoPage-button">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
                     </button>
                 </div>
                 <div class="col-xs-9">
-                    <span class="pageHeaderText">Suodata kohteita</span>
+                    <span class="pageHeaderText">Ohjeet</span>
                 </div>
             </div>
 
             <div class="pageContent">
 
-                <div class="panel-group" id="filter-accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Tietoa sivustosta</div>
+                    <div class="panel-body">
+                        <p>Tältä sivulta näet kartalla <a href="http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/portti/default.aspx">Museoviraston</a> ylläpitämien rekisteriten tiedot:
+                        <ul>
+                            <li><a href="http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/mjreki/default.aspx">Muinaisjäännösrekisteri</a></li>
+                            <li><a href="http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/rapea/default.aspx">Rakennusperintörekisteri</a></li>
+                            <li><a href="http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa">Maailmanperintökohteet</a></li>
+                            <li><a href="http://www.rky.fi/">Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</a></li>
+                        </ul>
+                        </p>
 
-                  <div class="panel panel-default" id="muinaisjaannos-filter-collapse-container">
-                    <div class="panel-heading" role="tab" id="muinaisjaannos-filter-heading">
-                      <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#filter-accordion" href="#muinaisjaannos-filter-collapse" aria-expanded="true" aria-controls="muinaisjaannos-filter-collapse">
-                          Muinaisjäännökset
-                        </a>
-                      </h4>
+                        <p>Kartta keskitetään oletuksena nykyiseen sijaintiisi jos annat selaimelle luvan luovuttaa se tieto. Keskityksen nykyiseen sijaintiin voi suorittaa myös myöhemmin <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> painikkeesta.</p>
+
+                        <p>Kohteista saa lisätietoikkunan näkyviin klikkaamalla kohdetta kartalla. Tästä näkymästä on myös linkki kohteen lisätietoihin Museoviraston rekistereissä. Kohteen otsikon vieressä olevasta kuvakkeesta (<span class="glyphicon glyphicon-link" aria-hidden="true"></span>) saa talteen pysyvän linkin kohteen sijaintiin kartalla.</p>
+
+                        <p>Kohteita pystyy myös hakemaan nimen perusteella hakunäkymässä (<span class="glyphicon glyphicon-search" aria-hidden="true"></span>). Hakutuloksen klikkaaminen keskittää kartan kohteeseen ja lisää siihen paikkamerkin <img src="images/map-pin-small.png"/>.</p>
+
+                        <p>Pohjakartan voi vaihtaa taustakertan ja maastokartan välillä asetuksista (<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>). Samasta näkymästä voi piilottaa kohteita tyypin mukaan jos haluaa tarkastella esimerkiksi pelkästään muinaisjäännöksiä.</p>
+
+                        <p>Muinaisjäännösten näkyvyyttä pystyy rajoittamaan asetuksista myös ajoituksen ja tyypin perusteella.</p>
                     </div>
-                    <div id="muinaisjaannos-filter-collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="muinaisjaannos-filter-heading">
-                      <div class="panel-body">
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Karttasymbolit</div>
+                    <div class="panel-body">
+                        <p>
+                            <h5>Muinaisjäännösrekisteri</h5>
+
+                            <img src="images/muinaisjaannos_kohde.png">
+                            <span>Kohde</span>
+
+                            <img src="images/muinaisjaannos_alakohde.png">
+                            <span>Alakohde</span>
+
+                            <img src="images/muinaisjaannos_alue.png">
+                            <span>Alue</span>
+                        </p>
+
+                        <br>
+
+                        <p>
+                            <h5>Rakennusperintörekisteri</h5>
+                            
+                            <img src="images/rakennusperintorekisteri_rakennus.png">
+                            <span>Rakennus</span>
+                            
+                            <img src="images/rakennusperintorekisteri_alue.png">
+                            <span>Alue</span>
+                        </p>
+
+                        <br>
+
+                        <p>
+                            <h5>Maailmanperintökohteet</h5>
+                            
+                            <img src="images/maailmanperinto_piste.png">
+                            <span>Kohde</span>
+                            
+                            <img src="images/maailmanperinto_alue.png">
+                            <span>Alue</span>
+                            
+                            <img src="images/maailmanperinto_suoja_alue.png">
+                            <span>Suoja-alue</span>
+                        </p>
+
+                        <br>
+
+                        <p>
+                            <h5>Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</h5>
+                            
+                            <img src="images/rky_piste.png">
+                            <span>Kohde</span>
+                            
+                            <img src="images/rky_viiva.png">
+                            <span>Viiva (esim. tie)</span>
+                            
+                            <img src="images/rky_alue.png">
+                            <span>Alue</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Tekninen toteutus</div>
+                    <div class="panel-body">
+
+                        <p>Museoviraston rekistereistä tietoa haetaan <a href="https://www.avoindata.fi/data/fi/dataset/museoviraston-wms">avoimen rajapinnan</a> kautta. Taustakarttana on <a href="http://www.maanmittauslaitos.fi/aineistot-palvelut/rajapintapalvelut/paikkatiedon-palvelualustan-pilotti">Maanmittauslaitoksen</a> tausta- ja peruskartta (<a href="http://www.maanmittauslaitos.fi/avoindata_lisenssi_versio1_20120501">materiaalin lisenssi</a>).</p>
+
+                        <p>Tämän sivuston tekninen toteutus on <a href="https://github.com/anttikekki/muinaismuistot">avointa lähdekoodia</a>, lisenssinä on <a href="https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE">MIT</a>.</p>
+                    </div>
+                </div>
+
+            </div> <!-- pageContent -->
+
+        </div>
+
+
+
+        <div id="settingsPage" class="container page page-right-hidden">
+            <div class="row pageHeader">
+                <div class="col-xs-3">
+                    <button class="btn btn-primary btn-sm" id="hide-settingsPage-button">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
+                    </button>
+                </div>
+                <div class="col-xs-9">
+                    <span class="pageHeaderText">Asetukset</span>
+                </div>
+            </div>
+
+            <div class="pageContent">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Karttapohja</div>
+                    <div class="panel-body">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default active">
+                                <input type="radio" id="map-selection-taustakartta" name="selectedMapLayer"autocomplete="off" value="taustakartta" checked> Taustakartta
+                            </label>
+
+                            <label class="btn btn-default">
+                                <input type="radio" id="map-selection-maastokartta" name="selectedMapLayer" autocomplete="off" value="maastokartta"> Maastokartta
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Kartalla näkyvät kohteet</div>
+                    <div class="panel-body" id="muinaismuistot-visible-layer-selections">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" value="0" id="settings-muinaismuistot-layer-0">
+                            Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
+                          </label>
+                        </div>
+                        <div class="checkbox sub-layer-select-checkbox-container">
+                          <label>
+                            <input type="checkbox" value="1" id="settings-muinaismuistot-layer-1">
+                            <img src="images/rky_alue.png"/>
+                            Alueet
+                          </label>
+                        </div>
+                        <div class="checkbox sub-layer-select-checkbox-container">
+                          <label>
+                            <input type="checkbox" value="2" id="settings-muinaismuistot-layer-2">
+                            <img src="images/rky_viiva.png"/>
+                            Viivat (esim. tie)
+                          </label>
+                        </div>
+                        <div class="checkbox sub-layer-select-checkbox-container">
+                          <label>
+                            <input type="checkbox" value="3" id="settings-muinaismuistot-layer-3">
+                            <img src="images/rky_piste.png"/>
+                            Pisteet
+                          </label>
+                        </div>
+
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" value="4"  id="settings-muinaismuistot-layer-4">
+                            Maailmanperintökohteet
+                          </label>
+                        </div>
+                        <div class="checkbox sub-layer-select-checkbox-container">
+                          <label>
+                            <input type="checkbox" value="5" id="settings-muinaismuistot-layer-5">
+                            <img src="images/maailmanperinto_alue.png"/>
+                            Alueet
+                          </label>
+                        </div>
+                        <div class="checkbox sub-layer-select-checkbox-container">
+                          <label>
+                            <input type="checkbox" value="6" id="settings-muinaismuistot-layer-6">
+                            <img src="images/maailmanperinto_piste.png"/>
+                            Pisteet
+                          </label>
+                        </div>
+
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" value="7"  id="settings-muinaismuistot-layer-7">
+                            Rakennusperintörekisteri
+                          </label>
+                        </div>
+                        <div class="checkbox sub-layer-select-checkbox-container">
+                          <label>
+                            <input type="checkbox" value="8" id="settings-muinaismuistot-layer-8">
+                            <img src="images/rakennusperintorekisteri_alue.png"/>
+                            Rakennetut alueet
+                          </label>
+                        </div>
+                        <div class="checkbox sub-layer-select-checkbox-container">
+                          <label>
+                            <input type="checkbox" value="9" id="settings-muinaismuistot-layer-9">
+                            <img src="images/rakennusperintorekisteri_rakennus.png"/>
+                            Rakennukset
+                          </label>
+                        </div>
+
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" value="10" id="settings-muinaismuistot-layer-10">
+                            Muinaisjäännösrekisteri
+                          </label>
+                        </div>
+                        <div class="checkbox sub-layer-select-checkbox-container">
+                          <label>
+                            <input type="checkbox" value="11" id="settings-muinaismuistot-layer-11">
+                            <img src="images/muinaisjaannos_alue.png"/>
+                            Alueet
+                          </label>
+                        </div>
+                        <div class="checkbox sub-layer-select-checkbox-container">
+                          <label>
+                            <input type="checkbox" value="12" id="settings-muinaismuistot-layer-12">
+                            <img src="images/muinaisjaannos_alakohde.png"/>
+                            Alakohteet
+                          </label>
+                        </div>
+                        <div class="checkbox sub-layer-select-checkbox-container">
+                          <label>
+                            <input type="checkbox" value="13" id="settings-muinaismuistot-layer-13">
+                            <img src="images/muinaisjaannos_kohde.png"/>
+                            Kohteet
+                          </label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="panel panel-default" id="muinaisjaannos-filter-container">
+                    <div class="panel-heading">Rajoita näkyviä muinaisjäännöksiä</div>
+                    <div class="panel-body">
+
+                        <p>Näkyvien muinaisjäännöksien rajoittaminen toimii vain kohteille mutta ei alakohteille eikä alueille.</p>
                         
                         <form>
 
@@ -297,176 +520,7 @@
                             </div>
                         </form>
 
-                      </div>
-                    </div>
                   </div>
-
-                </div> <!-- accordion end -->
-
-            </div> <!-- pageContent -->
-
-        </div>
-
-
-
-        <div id="infoPage" class="container page page-right-hidden">
-            <div class="row pageHeader">
-                <div class="col-xs-3">
-                    <button class="btn btn-primary btn-sm" id="hide-infoPage-button">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                    </button>
-                </div>
-                <div class="col-xs-9">
-                    <span class="pageHeaderText">Ohjeet</span>
-                </div>
-            </div>
-
-            <div class="pageContent">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">Karttasymbolit</div>
-                    <div class="panel-body">
-                        <p>
-                            <h5>Muinaisjäännösrekisteri</h5>
-
-                            <img src="images/muinaisjaannos_kohde.png">
-                            <span>Kohde</span>
-
-                            <img src="images/muinaisjaannos_alakohde.png">
-                            <span>Alakohde</span>
-
-                            <img src="images/muinaisjaannos_alue.png">
-                            <span>Alue</span>
-                        </p>
-
-                        <br>
-
-                        <p>
-                            <h5>Rakennusperintörekisteri</h5>
-                            
-                            <img src="images/rakennusperintorekisteri_rakennus.png">
-                            <span>Rakennus</span>
-                            
-                            <img src="images/rakennusperintorekisteri_alue.png">
-                            <span>Alue</span>
-                        </p>
-
-                        <br>
-
-                        <p>
-                            <h5>Maailmanperintökohteet</h5>
-                            
-                            <img src="images/maailmanperinto_piste.png">
-                            <span>Kohde</span>
-                            
-                            <img src="images/maailmanperinto_alue.png">
-                            <span>Alue</span>
-                            
-                            <img src="images/maailmanperinto_suoja_alue.png">
-                            <span>Suoja-alue</span>
-                        </p>
-
-                        <br>
-
-                        <p>
-                            <h5>Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</h5>
-                            
-                            <img src="images/rky_piste.png">
-                            <span>Kohde</span>
-                            
-                            <img src="images/rky_viiva.png">
-                            <span>Viiva (esim. tie)</span>
-                            
-                            <img src="images/rky_alue.png">
-                            <span>Alue</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">Tietoa sivustosta</div>
-                    <div class="panel-body">
-                        <p>Tältä sivulta näet kartalla <a href="http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/portti/default.aspx">Museoviraston</a> ylläpitämät rekisterit:
-                        <ul>
-                            <li><a href="http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/mjreki/default.aspx">Muinaisjäännösrekisteri</a></li>
-                            <li><a href="http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/rapea/default.aspx">Rakennusperintörekisteri</a></li>
-                            <li><a href="http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa">Maailmanperintökohteet</a></li>
-                            <li><a href="http://www.rky.fi/">Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</a></li>
-                        </ul>
-                        </p>
-
-                        <p>Museoviraston rekistereistä tietoa haetaan <a href="https://www.avoindata.fi/data/fi/dataset/museoviraston-wms">avoimen rajapinnan</a> kautta. Taustakarttana on <a href="http://www.maanmittauslaitos.fi/aineistot-palvelut/rajapintapalvelut/paikkatiedon-palvelualustan-pilotti">Maanmittauslaitoksen</a> tausta- ja peruskartta (<a href="http://www.maanmittauslaitos.fi/avoindata_lisenssi_versio1_20120501">materiaalin lisenssi</a>).</p>
-
-                        <p>Tämän sivuston tekninen toteutus on <a href="https://github.com/anttikekki/muinaismuistot">avointa lähdekoodia</a>, lisenssinä on <a href="https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE">MIT</a>.</p>
-                    </div>
-                </div>
-
-            </div> <!-- pageContent -->
-
-        </div>
-
-
-
-        <div id="settingsPage" class="container page page-right-hidden">
-            <div class="row pageHeader">
-                <div class="col-xs-3">
-                    <button class="btn btn-primary btn-sm" id="hide-settingsPage-button">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                    </button>
-                </div>
-                <div class="col-xs-9">
-                    <span class="pageHeaderText">Asetukset</span>
-                </div>
-            </div>
-
-            <div class="pageContent">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">Karttapohja</div>
-                    <div class="panel-body">
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default active">
-                                <input type="radio" id="map-selection-taustakartta" name="selectedMapLayer"autocomplete="off" value="taustakartta" checked> Taustakartta
-                            </label>
-
-                            <label class="btn btn-default">
-                                <input type="radio" id="map-selection-maastokartta" name="selectedMapLayer" autocomplete="off" value="maastokartta"> Maastokartta
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">Kartalla näkyvät muinaismuistojen tiedot</div>
-                    <div class="panel-body" id="muinaismuistot-visible-layer-selections">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" value="0" id="settings-muinaismuistot-layer-0">
-                            Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
-                          </label>
-                        </div>
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" value="4"  id="settings-muinaismuistot-layer-4">
-                            Maailmanperintökohteet
-                          </label>
-                        </div>
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" value="7"  id="settings-muinaismuistot-layer-7">
-                            Rakennusperintörekisteri
-                          </label>
-                        </div>
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" value="10" id="settings-muinaismuistot-layer-10">
-                            Muinaisjäännösrekisteri
-                          </label>
-                        </div>
-
-                    </div>
-                </div>
 
             </div> <!-- pageContent -->
 
@@ -699,7 +753,6 @@
         <script type="text/javascript" src="js/MuinaismuistotSettingsPage.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotInfoPage.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotSearchPage.js"></script>
-        <script type="text/javascript" src="js/MuinaismuistotFilterPage.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotURLHashHelper.js"></script>
         <script type="text/javascript">
             $( document ).ready(function() {

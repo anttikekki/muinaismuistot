@@ -5,7 +5,6 @@ var Muinaismuistot = function() {
   var settingsPage = null;
   var infoPage = null;
   var searchPage = null;
-  var filterPage = null;
   var data = null;
   var settings = null;
   var urlHashHelper = null;
@@ -19,6 +18,7 @@ var Muinaismuistot = function() {
       },
       visibleMuinaismuistotLayersChanged: function(selectedLayerIds) {
         map.setVisibleMuinaismuistotLayers(selectedLayerIds);
+        settingsPage.setVisibleMuinaismuistotLayers(selectedLayerIds);
       },
       filterParametersChanged: function(params) {
         map.setFilterParams(params);
@@ -60,14 +60,9 @@ var Muinaismuistot = function() {
     searchPage.setEventListener({
       hidePage : function() {
         hidePage('searchPage');
-      }
-    });
-
-    filterPage = new MuinaismuistotFilterPage();
-    filterPage.init(settings);
-    filterPage.setEventListener({
-      hidePage : function() {
-        hidePage('filterPage');
+      },
+      searchResultItemClicked: function() {
+        hidePage('searchPage');
       }
     });
 
@@ -85,10 +80,6 @@ var Muinaismuistot = function() {
 
     $('#map-button-search').on('click', function() {
       showPage('searchPage');
-    });
-
-    $('#map-button-filter').on('click', function() {
-      showPage('filterPage');
     });
 
     $('#map-button-info').on('click', function() {

@@ -46,7 +46,12 @@ var MuinaismuistotSearchPage = function() {
 		});
 
 		$('#search-results-container').empty().html('<div class="list-group">' + htmlRows.join('') + '</div>');
+		$('#search-result-header').removeClass('hidden');
 		$('#search-result-count').html(' (' + searchResults.length + ' kpl)');
+
+		$('#search-results-container a').on('click', function() {
+			eventListener.searchResultItemClicked();
+		});
 	};
 
 	var generateResultFeatureRowHtml = function(feature) {
