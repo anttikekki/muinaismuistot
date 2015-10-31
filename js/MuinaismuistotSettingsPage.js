@@ -43,7 +43,7 @@ var MuinaismuistotSettingsPage = function() {
 				$('#' + inputContainerId + ' input:checked').each(function() {
 			       selectedValues.push($(this).val());
 			    });
-				settings.setFilterParameterForLayer(layerName, paramName, selectedValues);
+				settings.setMuinaisjaannosFilterParameter(paramName, selectedValues);
 		});
 	};
 

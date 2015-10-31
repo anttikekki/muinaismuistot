@@ -4,46 +4,42 @@ var MuinaismuistotSettings = function() {
   var selectedLayerIds = [];
   var selectedBackgroundMapLayerName = '';
   var filterParameters = {
-      //RKY - Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
-      'RKY alueet': {
-        layerId: 1
-      },
-      'RKY viivat': {
-        layerId: 2
-      },
-      'RKY pisteet': {
-        layerId: 3
-      },
-  
-      //Maailmanperintökohteet
-      'Maailmanperintö alueet': {
-        layerId: 5
-      },
-      'Maailmanperintö pisteet': {
-        layerId: 6
-      },
-  
-      //Rakennusperintörekisteri
-      'Rakennetut alueet': {
-        layerId: 8
-      },
-      'Rakennukset': {
-        layerId: 9
-      },
-  
-      //Muinaisjäännösrekisteri
-      'Muinaisjäännösalueet': {
-        layerId: 11
-      },
-      'Muinaisj.alakohteet': {
-        layerId: 12
-      },
       'Muinaisjäännökset': {
         layerId: 13,
         tyyppi: [],
         ajoitus: []
       },
   };
+  var muinaisjaannosTyyppiAllValues = ['ei määritelty', 
+                                      'alusten hylyt', 
+                                      'asuinpaikat', 
+                                      'hautapaikat', 
+                                      'kirkkorakenteet', 
+                                      'kivirakenteet', 
+                                      'kulkuväylät', 
+                                      'kultti- ja tarinapaikat', 
+                                      'luonnonmuodostumat', 
+                                      'löytöpaikat', 
+                                      'maarakenteet', 
+                                      'muinaisjäännösryhmät', 
+                                      'puolustusvarustukset', 
+                                      'puurakenteet', 
+                                      'raaka-aineen hankintapaikat', 
+                                      'taide, muistomerkit', 
+                                      'tapahtumapaikat', 
+                                      'teollisuuskohteet', 
+                                      'työ- ja valmistuspaikat'];
+  var muinaisjaannosAjoitusAllValues = ['moniperiodinen', 
+                                       'esihistoriallinen', 
+                                       'kivikautinen', 
+                                       'varhaismetallikautinen', 
+                                       'pronssikautinen', 
+                                       'rautakautinen', 
+                                       'keskiaikainen', 
+                                       'historiallinen', 
+                                       'moderni', 
+                                       'ajoittamaton', 
+                                       'ei määritelty'];
 
   this.init = function() {
     selectedLayerIds = this.getMuinaismuistotLayerIds();
@@ -92,8 +88,8 @@ var MuinaismuistotSettings = function() {
     eventListener.filterParametersChanged(filterParameters);
   };
 
-  this.setFilterParameterForLayer = function(layerName, field, value) {
-    filterParameters[layerName][field] = value;
+  this.setMuinaisjaannosFilterParameter = function(field, value) {
+    filterParameters['Muinaisjäännökset'][field] = value;
     eventListener.filterParametersChanged(filterParameters);
   };
 
@@ -186,37 +182,28 @@ var MuinaismuistotSettings = function() {
 
   this.getFilterParamsLayerDefinitions = function() {
     var resultArray = [];
-    for (var property in filterParameters) {
-      if (filterParameters.hasOwnProperty(property)) {
-        addLayerDefinitionFilterParams(filterParameters[property], resultArray);
-      }
-    }
+    addMuinaisjaannosLayerDefinitionFilterParams('Muinaisjäännökset', resultArray);
     return resultArray.join(';');
   };
 
-  var addLayerDefinitionFilterParams = function(layerParams, allResultArray) {
+  var addMuinaisjaannosLayerDefinitionFilterParams = function(filterValueName, allResultArray) {
     var resultArray = [];
-    var layerHasFilterValues = false;
     var value;
-    var layerId;
 
-    for (var property in layerParams) {
-      if (layerParams.hasOwnProperty(property)) {
-        value = layerParams[property];
-
-        if(property === 'layerId') {
-          layerId = value ;
-        }
-        else if(Array.isArray(value) && value.length > 0) {
-          layerHasFilterValues = true;
-          var result = value.map(function(valueItem) { return property + " LIKE '%" + valueItem + "%'"; }).join(' OR ');
-          resultArray.push('(' + result + ')');
-        }
-      }
+    value = filterParameters[filterValueName]['tyyppi'];
+    if(Array.isArray(value) && value.length > 0 && value.length != muinaisjaannosTyyppiAllValues.length) {
+      var result = value.map(function(valueItem) { return "tyyppi LIKE '%" + valueItem + "%'"; }).join(' OR ');
+      resultArray.push('(' + result + ')');
     }
 
-    if(layerHasFilterValues) {
-      allResultArray.push(layerId + ':' + resultArray.join(' AND '));
+    value = filterParameters[filterValueName]['ajoitus'];
+    if(Array.isArray(value) && value.length > 0 && value.length != muinaisjaannosAjoitusAllValues.length) {
+      var result = value.map(function(valueItem) { return "ajoitus LIKE '%" + valueItem + "%'"; }).join(' OR ');
+      resultArray.push('(' + result + ')');
+    }
+
+    if(resultArray.length > 0) {
+      allResultArray.push(filterParameters[filterValueName].layerId + ':' + resultArray.join(' AND '));
     }
   };
 
