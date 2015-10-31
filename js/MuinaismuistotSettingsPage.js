@@ -19,6 +19,10 @@ var MuinaismuistotSettingsPage = function() {
 		});
 
 		initLayerCheckboxChangeLister();
+
+		//Muinaisjäännösrekisteri
+		addCheckboxListener('muinaisjaannos-filter-tyyppi-container', 'Muinaisjäännökset', 'tyyppi');
+		addCheckboxListener('muinaisjaannos-filter-ajoitus-container', 'Muinaisjäännökset', 'ajoitus');
 	};
 
 	this.setEventListener = function(listener) {
@@ -29,6 +33,18 @@ var MuinaismuistotSettingsPage = function() {
 		stopListeningLayerCheckboxChanges();
 		setSelectedMuinaismuistotLayerIds(selectedLayerIds);
 		initLayerCheckboxChangeLister();
+	};
+
+	var addCheckboxListener = function(inputContainerId, layerName, paramName) {
+		$('#' + inputContainerId + ' input')
+			.prop('checked', true) //Select all for start
+			.change(function() {
+				var selectedValues = [];
+				$('#' + inputContainerId + ' input:checked').each(function() {
+			       selectedValues.push($(this).val());
+			    });
+				settings.setFilterParameterForLayer(layerName, paramName, selectedValues);
+		});
 	};
 
 	var initLayerCheckboxChangeLister = function() {
