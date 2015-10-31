@@ -155,6 +155,7 @@ var MuinaismuistotMap = function() {
     nbaMuinaismuistotLayer =  new ol.layer.Tile({
       source: new ol.source.TileArcGISRest(getMuinaismuistotLayerSourceParams())
     });
+    nbaMuinaismuistotLayer.setOpacity(0.7);
     map.addLayer(nbaMuinaismuistotLayer);
   };
 
