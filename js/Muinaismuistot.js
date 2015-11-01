@@ -98,7 +98,7 @@ var Muinaismuistot = function() {
   };
 
   var showPage = function(pageId) {
-    $page = $('#'+pageId);
+    var $page = $('#'+pageId);
 
     if($page.hasClass('page-right-hidden')) {
       $page.removeClass('page-right-hidden').addClass('page-right-visible');
@@ -106,7 +106,7 @@ var Muinaismuistot = function() {
   };
 
   var hidePage = function(pageId) {
-    $page = $('#'+pageId);
+    var $page = $('#'+pageId);
 
     if($page.hasClass('page-right-visible')) {
       $page.removeClass('page-right-visible').addClass('page-right-hidden');
