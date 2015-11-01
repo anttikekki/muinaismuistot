@@ -3,6 +3,7 @@ var MuinaismuistotSettingsPage = function() {
 	var eventListener;
 	var settings;
 	var layerCheckboxSelector = "#muinaismuistot-visible-layer-selections input";
+	var layerCheckboxListerDisabled = false;
 
 	this.init = function(muinaismuistotSettings) {
 		settings = muinaismuistotSettings;
@@ -30,9 +31,9 @@ var MuinaismuistotSettingsPage = function() {
 	};
 
 	this.setVisibleMuinaismuistotLayers = function(selectedLayerIds) {
-		stopListeningLayerCheckboxChanges();
+		layerCheckboxListerDisabled = true;
 		setSelectedMuinaismuistotLayerIds(selectedLayerIds);
-		initLayerCheckboxChangeLister();
+		layerCheckboxListerDisabled = false;
 	};
 
 	var addCheckboxListener = function(inputContainerId, layerName, paramName) {
@@ -49,15 +50,12 @@ var MuinaismuistotSettingsPage = function() {
 
 	var initLayerCheckboxChangeLister = function() {
 		$(layerCheckboxSelector).on('change', function() {
-			stopListeningLayerCheckboxChanges();
+			if(layerCheckboxListerDisabled) {
+				return;
+			}
 			var checkbox = $(this);
 			settings.layerSelectionChanged(checkbox.val(), checkbox.prop('checked') === true);
-			initLayerCheckboxChangeLister();
 		});
-	};
-
-	var stopListeningLayerCheckboxChanges = function() {
-		$(layerCheckboxSelector).off('change');
 	};
 
 	var setSelectedMuinaismuistotLayerIds = function(layerIds) {

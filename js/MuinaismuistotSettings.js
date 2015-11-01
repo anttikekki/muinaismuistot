@@ -212,13 +212,15 @@ var MuinaismuistotSettings = function() {
     var selectedLayerIds = self.getSelectedMuinaismuistotLayerIds();
 
     if(isSelected) {
-      selectedLayerIds.push(layerId);
+      if(selectedLayerIds.indexOf(layerId) === -1) {
+        selectedLayerIds.push(layerId);
+      }
     }
     else {
       var i = selectedLayerIds.indexOf(layerId);
-        if (i > -1) {
-          selectedLayerIds.splice(i, 1);
-        }
+      if (i > -1) {
+        selectedLayerIds.splice(i, 1);
+      }
     }
 
     if(self.getParentLayerIds().indexOf(layerId) !== -1) {
@@ -227,14 +229,17 @@ var MuinaismuistotSettings = function() {
       if(isSelected) {
         //Add all parent sub layers
         subLayerIds.forEach(function(subLayerId) {
-          selectedLayerIds.push(subLayerId);
+          if(selectedLayerIds.indexOf(subLayerId) === -1) {
+            selectedLayerIds.push(subLayerId);
+          }
         });
       }
       else {
         //Remove all sub layers for parent
-        selectedLayerIds = selectedLayerIds.map(function(selectedLayerId) {
-          if(subLayerIds.indexOf(selectedLayerId) === -1) {
-            return selectedLayerId;
+        subLayerIds.forEach(function(subLayerId) {
+          var i = selectedLayerIds.indexOf(subLayerId);
+          if (i > -1) {
+            selectedLayerIds.splice(i, 1);
           }
         });
       }
@@ -252,16 +257,16 @@ var MuinaismuistotSettings = function() {
             allSelected = false;
           }
         });
-        if(allSelected) {
+        if(allSelected && selectedLayerIds.indexOf(parentLayerId) === -1) {
           selectedLayerIds.push(parentLayerId);
         }
       }
       else {
         //Remove parent layer from selection
         var i = selectedLayerIds.indexOf(parentLayerId);
-          if (i > -1) {
-            selectedLayerIds.splice(i, 1);
-          }
+        if (i > -1) {
+          selectedLayerIds.splice(i, 1);
+        }
       }
     }
 
