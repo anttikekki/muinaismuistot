@@ -173,7 +173,8 @@ var MuinaismuistotMap = function() {
       layers = 'show:' + layerIds.join(',');
     }
     else {
-      layers = 'hide:' + muinaismuistotSettings.getDefaultSelectedMuinaismuistotLayerIds().join(',');
+      //HIde all layers
+      layers = 'hide:' + muinaismuistotSettings.getMuinaismuistotLayerIds().join(',');
     }
 
     return {
