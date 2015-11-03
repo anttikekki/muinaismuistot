@@ -74,11 +74,17 @@ var Muinaismuistot = function() {
       }
     });
 
+    $('#top-page-info-alert a').on('click', function() {
+      showPage('infoPage');
+    });
+
     $('#map-button-zoom-in').on('click', function() {
+      hideTopAlert();
       map.zoomIn();
     });
 
     $('#map-button-zoom-out').on('click', function() {
+      hideTopAlert();
       map.zoomOut();
     });
 
@@ -103,9 +109,16 @@ var Muinaismuistot = function() {
     };
 
     determineStartLocation();
+
+    window.setTimeout(hideTopAlert, 8000);
+  };
+
+  var hideTopAlert = function() {
+    $('#top-page-info-alert').alert('close');
   };
 
   var showPage = function(pageId) {
+    hideTopAlert();
     var $page = $('#'+pageId);
 
     if($page.hasClass('page-right-hidden')) {

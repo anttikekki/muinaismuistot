@@ -41,42 +41,49 @@
     <body>
         <div id="map"></div>
 
+        <div id="top-page-info-alert-container" class="text-center">
+            <div id="top-page-info-alert" class="alert alert-info alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <strong>Tervetuloa tutkimaan muinaismuistoja!</strong> Lue lisää toiminnoista sivuston <a href="#">ohjeista</a>.
+            </div>
+        </div>
+
         <div id="loading-animation" class="hidden">
             <img src="images/loading.gif">
         </div>
 
         <div id="map-button-zoom-in" class="map-button">
-            <button type="button" class="btn btn-primary btn-sm" title="Lähennä">
+            <button type="button" class="btn btn-primary" title="Lähennä">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
         </div>
 
         <div id="map-button-zoom-out" class="map-button">
-            <button type="button" class="btn btn-primary btn-sm" title="Loitonna">
+            <button type="button" class="btn btn-primary" title="Loitonna">
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
             </button>
         </div>
 
         <div id="map-button-position" class="map-button">
-            <button type="button" class="btn btn-primary btn-sm" title="Keskitä kartta nykyiseen sijaintiisi">
+            <button type="button" class="btn btn-primary" title="Keskitä kartta nykyiseen sijaintiisi">
                 <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
             </button>
         </div>
 
         <div id="map-button-search" class="map-button">
-            <button type="button" class="btn btn-primary btn-sm" title="Hae kohteita">
+            <button type="button" class="btn btn-primary" title="Hae kohteita">
                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             </button>
         </div>
 
         <div id="map-button-info" class="map-button">
-            <button type="button" class="btn btn-primary btn-sm" title="Ohjeita sivuston käyttöön">
+            <button type="button" class="btn btn-primary" title="Ohjeita sivuston käyttöön">
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
             </button>
         </div>
 
         <div id="map-button-settings" class="map-button">
-            <button type="button" class="btn btn-primary btn-sm" title="Kartan asetukset">
+            <button type="button" class="btn btn-primary" title="Kartan asetukset">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             </button>
         </div>
