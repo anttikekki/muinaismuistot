@@ -31,7 +31,8 @@ var MuinaismuistotMap = function() {
     map = new ol.Map({
       target: 'map',
       view: view,
-      renderer: 'canvas'
+      renderer: 'canvas',
+      controls: new ol.Collection()
     });
 
     loadMMLWmtsCapabilitiesAndAddLayers();
@@ -237,4 +238,25 @@ var MuinaismuistotMap = function() {
   this.showSelectedLocationMarker = function(coordinates) {
     addSelectedLocationFeatureMarker(coordinates);
   };
+
+  this.zoomIn = function() {
+    zoom(1);
+  };
+
+  this.zoomOut = function() {
+    zoom(-1);
+  };
+
+  var zoom = function(delta) {
+    var currentResolution = view.getResolution();
+
+    map.beforeRender(ol.animation.zoom({
+      resolution: currentResolution,
+      duration: 250,
+      easing: ol.easing.easeOut
+    }));
+
+    var newResolution = view.constrainResolution(currentResolution, delta);
+    view.setResolution(newResolution);
+  }
 }
