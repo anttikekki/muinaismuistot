@@ -8,6 +8,7 @@ var Muinaismuistot = function() {
   var data = null;
   var settings = null;
   var urlHashHelper = null;
+  var visiblePageId = null;
 
   this.init = function() {
     settings = new MuinaismuistotSettings();
@@ -74,6 +75,20 @@ var Muinaismuistot = function() {
       }
     });
 
+    $('#top-page-info-alert a').on('click', function() {
+      showPage('infoPage');
+    });
+
+    $('#map-button-zoom-in').on('click', function() {
+      hideTopAlert();
+      map.zoomIn();
+    });
+
+    $('#map-button-zoom-out').on('click', function() {
+      hideTopAlert();
+      map.zoomOut();
+    });
+
     $('#map-button-position').on('click', function() {
       map.centerToCurrentPositions();
     });
@@ -95,13 +110,26 @@ var Muinaismuistot = function() {
     };
 
     determineStartLocation();
+
+    window.setTimeout(hideTopAlert, 8000);
+  };
+
+  var hideTopAlert = function() {
+    $('#top-page-info-alert').alert('close');
   };
 
   var showPage = function(pageId) {
+    hideTopAlert();
     var $page = $('#'+pageId);
+
+    //Hide possible old page
+    if(visiblePageId) {
+      hidePage(visiblePageId);
+    }
 
     if($page.hasClass('page-right-hidden')) {
       $page.removeClass('page-right-hidden').addClass('page-right-visible');
+      visiblePageId = pageId;
     }
   };
 
@@ -110,6 +138,7 @@ var Muinaismuistot = function() {
 
     if($page.hasClass('page-right-visible')) {
       $page.removeClass('page-right-visible').addClass('page-right-hidden');
+      visiblePageId = null;
     }
   };
 
