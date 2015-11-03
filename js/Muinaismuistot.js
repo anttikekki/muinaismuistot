@@ -8,6 +8,7 @@ var Muinaismuistot = function() {
   var data = null;
   var settings = null;
   var urlHashHelper = null;
+  var visiblePageId = null;
 
   this.init = function() {
     settings = new MuinaismuistotSettings();
@@ -121,8 +122,14 @@ var Muinaismuistot = function() {
     hideTopAlert();
     var $page = $('#'+pageId);
 
+    //Hide possible old page
+    if(visiblePageId) {
+      hidePage(visiblePageId);
+    }
+
     if($page.hasClass('page-right-hidden')) {
       $page.removeClass('page-right-hidden').addClass('page-right-visible');
+      visiblePageId = pageId;
     }
   };
 
@@ -131,6 +138,7 @@ var Muinaismuistot = function() {
 
     if($page.hasClass('page-right-visible')) {
       $page.removeClass('page-right-visible').addClass('page-right-hidden');
+      visiblePageId = null;
     }
   };
 
