@@ -179,7 +179,7 @@ var MuinaismuistotMap = function() {
     }
 
     return {
-      url: 'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMSJULK/MapServer/export?',
+      url: 'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMSJULK/MapServer',
       params: {
         'layers': layers,
         'layerDefs': muinaismuistotSettings.getFilterParamsLayerDefinitions()
