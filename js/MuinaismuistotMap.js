@@ -25,7 +25,7 @@ var MuinaismuistotMap = function() {
     view = new ol.View({
       center: [387685, 6679679],
       projection: 'EPSG:3067',
-      zoom: 11
+      zoom: 8
     });
     
     map = new ol.Map({

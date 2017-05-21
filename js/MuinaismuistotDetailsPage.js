@@ -140,7 +140,7 @@ var MuinaismuistotDetailsPage = function() {
 	};
 
 	var generateKulttuuriymparistoURL = function(muinaisjaannosTunnus) {
-		return 'http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/portti/default.aspx?sovellus=mjreki&taulu=T_KOHDE&tunnus=' + muinaisjaannosTunnus;
+		return 'https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=' + muinaisjaannosTunnus;
 	};
 
 	var generateRkyURL = function(id) {
@@ -148,7 +148,7 @@ var MuinaismuistotDetailsPage = function() {
 	};
 
 	var generateRakennusperintorekisteriURL = function(id) {
-		return 'http://kulttuuriymparisto.nba.fi/netsovellus/rekisteriportaali/rapea/read/asp/r_kohde_det.aspx?KOHDE_ID=' + id;
+		return 'https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_kohde_det.aspx?KOHDE_ID=' + id;
 	};
 
 	var trim = function(value) {
