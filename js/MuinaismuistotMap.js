@@ -247,16 +247,10 @@ var MuinaismuistotMap = function() {
     zoom(-1);
   };
 
-  var zoom = function(delta) {
-    var currentResolution = view.getResolution();
-
-    map.beforeRender(ol.animation.zoom({
-      resolution: currentResolution,
-      duration: 250,
-      easing: ol.easing.easeOut
-    }));
-
-    var newResolution = view.constrainResolution(currentResolution, delta);
-    view.setResolution(newResolution);
+  var zoom = function(zoomChange) {
+    view.animate({
+      zoom: view.getZoom() + zoomChange,
+      duration: 250
+    });
   }
 }
