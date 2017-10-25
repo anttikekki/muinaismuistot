@@ -27,7 +27,7 @@ var MuinaismuistotMap = function() {
       projection: 'EPSG:3067',
       zoom: 8
     });
-    
+
     map = new ol.Map({
       target: 'map',
       view: view,
@@ -112,7 +112,7 @@ var MuinaismuistotMap = function() {
 
   var loadMMLWmtsCapabilitiesAndAddLayers = function() {
     $.ajax({
-      url: 'http://avoindata.maanmittauslaitos.fi/mapcache/wmts?service=wmts&request=getcapabilities&version=1.0.0',
+      url: 'capabilities/maanmittauslaitos_wmts_capabilities.xml',
       success: function(response) {
         addWmtsLayers(response);
       }
@@ -179,7 +179,7 @@ var MuinaismuistotMap = function() {
     }
 
     return {
-      url: 'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMSJULK/MapServer',
+      url: 'https://d1ni9pwcac9w21.cloudfront.net',
       params: {
         'layers': layers,
         'layerDefs': muinaismuistotSettings.getFilterParamsLayerDefinitions()
