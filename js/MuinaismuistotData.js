@@ -21,7 +21,7 @@ var MuinaismuistotData = function() {
     showLoadingAnimation(true);
 
     $.getJSON(
-      'http://kartta.nba.fi/arcgis/rest/services/WMS/MVWMS/MapServer/identify?',
+      'https://d2h14icpze3arm.cloudfront.net?',
       queryoptions,
       function(response) {
         callback(response.results);
