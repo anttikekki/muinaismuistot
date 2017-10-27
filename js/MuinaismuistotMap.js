@@ -36,6 +36,7 @@ var MuinaismuistotMap = function() {
     });
 
     loadMMLWmtsCapabilitiesAndAddLayers();
+    loadAlandWmtsCapabilitiesAndAddLayers();
     addMuinaismuistotLayer();
     addDynamicFeatureLayer();
 
@@ -143,6 +144,32 @@ var MuinaismuistotMap = function() {
 
     map.getLayers().insertAt(0, mmlMaastokarttaLayer);
     map.getLayers().insertAt(1, mmlTaustakarttaLayer);
+  };
+
+  var loadAlandWmtsCapabilitiesAndAddLayers = function() {
+    $.ajax({
+      url: 'http://inspire.regeringen.ax:8080/geoserver/gwc/service/wmts?REQUEST=GetCapabilities',
+      success: function(response) {
+        addAlandWmtsLayers(response);
+      }
+    });
+  };
+
+  var addAlandWmtsLayers = function(response) {
+    var parser = new ol.format.WMTSCapabilities();
+    var capabilities = parser.read(response);
+
+    var fornminnenLayerSource = new ol.source.WMTS(ol.source.WMTS.optionsFromCapabilities(capabilities, {
+      layer: 'fornminnen'
+    }));
+
+    fornminnenLayer = new ol.layer.Tile({
+      title: 'Taustakartta',
+      source: fornminnenLayerSource,
+      visible: true
+    });
+
+    map.addLayer(fornminnenLayer);
   };
 
   var addDynamicFeatureLayer = function() {
