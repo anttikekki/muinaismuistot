@@ -12,6 +12,7 @@ var MuinaismuistotMap = function() {
   var dynamicFeatureLayer;
   var currentPositionFeature;
   var selectedLocationFeature;
+  var ahvenanmaaWMTS;
 
   this.init = function(data, settings) {
     muinaismuistotData = data;
@@ -36,11 +37,16 @@ var MuinaismuistotMap = function() {
     });
 
     loadMMLWmtsCapabilitiesAndAddLayers();
-    loadAlandWmtsCapabilitiesAndAddLayers();
     addMuinaismuistotLayer();
     addDynamicFeatureLayer();
 
+    ahvenanmaaWMTS = new AhvenanmaaWMTS(function(layer) {
+      map.getLayers().insertAt(2, layer);
+    });
+
     map.on("click", function(e) {
+      ahvenanmaaWMTS.getFeatureInfo(map, e.coordinate);
+
       muinaismuistotData.identifyFeaturesAt(
         e.coordinate,
         map.getSize(),
@@ -146,31 +152,7 @@ var MuinaismuistotMap = function() {
     map.getLayers().insertAt(1, mmlTaustakarttaLayer);
   };
 
-  var loadAlandWmtsCapabilitiesAndAddLayers = function() {
-    $.ajax({
-      url: 'http://inspire.regeringen.ax:8080/geoserver/gwc/service/wmts?REQUEST=GetCapabilities',
-      success: function(response) {
-        addAlandWmtsLayers(response);
-      }
-    });
-  };
 
-  var addAlandWmtsLayers = function(response) {
-    var parser = new ol.format.WMTSCapabilities();
-    var capabilities = parser.read(response);
-
-    var fornminnenLayerSource = new ol.source.WMTS(ol.source.WMTS.optionsFromCapabilities(capabilities, {
-      layer: 'fornminnen'
-    }));
-
-    fornminnenLayer = new ol.layer.Tile({
-      title: 'Taustakartta',
-      source: fornminnenLayerSource,
-      visible: true
-    });
-
-    map.addLayer(fornminnenLayer);
-  };
 
   var addDynamicFeatureLayer = function() {
     dynamicFeatureLayer = new ol.layer.Vector({
@@ -184,7 +166,7 @@ var MuinaismuistotMap = function() {
       source: new ol.source.TileArcGISRest(getMuinaismuistotLayerSourceParams())
     });
     nbaMuinaismuistotLayer.setOpacity(0.7);
-    map.addLayer(nbaMuinaismuistotLayer);
+    map.getLayers().insertAt(3, nbaMuinaismuistotLayer);
   };
 
   var updateMuinaismuistotLayerSource = function() {
