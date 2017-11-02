@@ -4,12 +4,10 @@ var MuinaismuistotMap = function(settings, eventListeners) {
   var map;
   var view;
   var geolocation;
-  var dynamicFeatureLayer;
-  var currentPositionFeature;
-  var selectedLocationFeature;
   var maanmittauslaitosWMTS;
   var museovirastoArcGISWMS;
   var ahvenanmaaWMTS;
+  var positionAndSelectedLocation;
 
   var init = function() {
     proj4.defs("EPSG:3067","+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
@@ -29,8 +27,6 @@ var MuinaismuistotMap = function(settings, eventListeners) {
       renderer: 'canvas',
       controls: new ol.Collection()
     });
-
-    addDynamicFeatureLayer();
 
     maanmittauslaitosWMTS = new MaanmittauslaitosWMTS(
       function(mmlMaastokarttaLayer, mmlTaustakarttaLayer) {
@@ -54,24 +50,32 @@ var MuinaismuistotMap = function(settings, eventListeners) {
       }
     );
 
-    map.on("click", function(e) {
-      ahvenanmaaWMTS.getFeatureInfo(map, e.coordinate, function(features) {
+    positionAndSelectedLocation = new CurrentPositionAndSelectedLocationMarkerLayer(
+      function(createdLayer) {
+        map.getLayers().insertAt(4, createdLayer);
+      }
+    );
+
+    map.on("click", onMapClicked);
+  };
+
+  var onMapClicked = function(e) {
+    ahvenanmaaWMTS.getFeatureInfo(map, e.coordinate, function(features) {
+      if(features.length > 0) {
+        eventListeners.muinaisjaannosFeaturesSelected(features);
+      }
+    });
+
+    museovirastoArcGISWMS.identifyFeaturesAt(
+      e.coordinate,
+      map.getSize(),
+      map.getView().calculateExtent(map.getSize()),
+      function(features) {
         if(features.length > 0) {
           eventListeners.muinaisjaannosFeaturesSelected(features);
         }
-      });
-
-      museovirastoArcGISWMS.identifyFeaturesAt(
-        e.coordinate,
-        map.getSize(),
-        map.getView().calculateExtent(map.getSize()),
-        function(features) {
-          if(features.length > 0) {
-            eventListeners.muinaisjaannosFeaturesSelected(features);
-          }
-        }
-      );
-    });
+      }
+    );
   };
 
   var initGeolocation = function() {
@@ -80,63 +84,19 @@ var MuinaismuistotMap = function(settings, eventListeners) {
       tracking: true
     });
 
-    geolocation.once('change:position', function() {
-      self.centerToCurrentPositions();
-    });
+    geolocation.once('change:position', geolocationChanged);
   };
 
-  var addCurrentPositionMarker = function(coordinates) {
-    if(currentPositionFeature) {
-      currentPositionFeature.getGeometry().setCoordinates(coordinates);
-      return;
-    }
-
-    var fill = new ol.style.Fill({
-     color: 'rgba(0, 0, 255, 1.0)'
-    });
-    var stroke = new ol.style.Stroke({
-     color: 'rgba(255, 255, 255, 1.0)',
-     width: 3
-    });
-
-    currentPositionFeature = new ol.Feature({
-      geometry: new ol.geom.Point(coordinates)
-    });
-    currentPositionFeature.setStyle(new ol.style.Style({
-     image: new ol.style.Circle({
-       fill: fill,
-       stroke: stroke,
-       radius: 7
-     }),
-     fill: fill,
-     stroke: stroke
-    }));
-    dynamicFeatureLayer.getSource().addFeature(currentPositionFeature);
+  var geolocationChanged = function() {
+    self.centerToCurrentPositions();
   };
 
-  var addSelectedLocationFeatureMarker = function(coordinates) {
-    if(selectedLocationFeature) {
-      selectedLocationFeature.getGeometry().setCoordinates(coordinates);
-      return;
-    }
-
-    selectedLocationFeature = new ol.Feature({
-      geometry: new ol.geom.Point(coordinates)
+  var zoom = function(zoomChange) {
+    view.animate({
+      zoom: view.getZoom() + zoomChange,
+      duration: 250
     });
-    selectedLocationFeature.setStyle(new ol.style.Style({
-     image: new ol.style.Icon({
-       src: 'images/map-pin.png'
-     })
-    }));
-    dynamicFeatureLayer.getSource().addFeature(selectedLocationFeature);
-  };
-
-  var addDynamicFeatureLayer = function() {
-    dynamicFeatureLayer = new ol.layer.Vector({
-      source: new ol.source.Vector({})
-    });
-    map.addLayer(dynamicFeatureLayer);
-  };
+  }
 
   this.updateVisibleMuinaismuistotLayersFromSettings = function() {
     museovirastoArcGISWMS.updateVisibleLayersFromSettings();
@@ -166,7 +126,7 @@ var MuinaismuistotMap = function(settings, eventListeners) {
     if(geolocation && geolocation.getPosition()) {
       var position = geolocation.getPosition();
       view.setCenter(position);
-      addCurrentPositionMarker(position);
+      positionAndSelectedLocation.addCurrentPositionMarker(position);
     }
     else {
       initGeolocation();
@@ -174,7 +134,7 @@ var MuinaismuistotMap = function(settings, eventListeners) {
   };
 
   this.showSelectedLocationMarker = function(coordinates) {
-    addSelectedLocationFeatureMarker(coordinates);
+    positionAndSelectedLocation.addSelectedLocationFeatureMarker(coordinates);
   };
 
   this.zoomIn = function() {
@@ -184,13 +144,6 @@ var MuinaismuistotMap = function(settings, eventListeners) {
   this.zoomOut = function() {
     zoom(-1);
   };
-
-  var zoom = function(zoomChange) {
-    view.animate({
-      zoom: view.getZoom() + zoomChange,
-      duration: 250
-    });
-  }
 
   init();
 }
