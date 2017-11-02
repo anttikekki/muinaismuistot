@@ -51,7 +51,7 @@ var MuseovirastoArcGISWMS = function(muinaismuistotSettings, showLoadingAnimatio
     updateMuinaismuistotLayerSource();
   };
 
-  this.identifyFeaturesAt = function(coordinate, mapSize, mapExtent, callback) {
+  this.identifyFeaturesAt = function(coordinate, mapSize, mapExtent) {
     var queryoptions = {
       geometry: coordinate.join(','),
       geometryType: 'esriGeometryPoint',
@@ -64,14 +64,9 @@ var MuseovirastoArcGISWMS = function(muinaismuistotSettings, showLoadingAnimatio
     };
     showLoadingAnimationFn(true);
 
-    $.getJSON(
-      'https://d2h14icpze3arm.cloudfront.net?',
-      queryoptions,
-      function(response) {
-        callback(response.results);
-        showLoadingAnimationFn(false);
-      }
-    );
+    return $.getJSON('https://d2h14icpze3arm.cloudfront.net?', queryoptions).done(function(response) {
+      showLoadingAnimationFn(false);
+    });
   };
 
   this.findFeatures = function(searchText, callback) {

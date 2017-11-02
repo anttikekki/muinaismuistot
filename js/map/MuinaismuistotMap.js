@@ -60,22 +60,21 @@ var MuinaismuistotMap = function(settings, eventListeners) {
   };
 
   var onMapClicked = function(e) {
-    ahvenanmaaWMTS.getFeatureInfo(map, e.coordinate, function(features) {
-      if(features.length > 0) {
-        eventListeners.muinaisjaannosFeaturesSelected(features);
-      }
-    });
-
-    museovirastoArcGISWMS.identifyFeaturesAt(
+    var ahvenanmaaQuery = ahvenanmaaWMTS.getFeatureInfo(map, e.coordinate);
+    var museovirastoQuery = museovirastoArcGISWMS.identifyFeaturesAt(
       e.coordinate,
       map.getSize(),
-      map.getView().calculateExtent(map.getSize()),
-      function(features) {
-        if(features.length > 0) {
-          eventListeners.muinaisjaannosFeaturesSelected(features);
-        }
-      }
+      map.getView().calculateExtent(map.getSize())
     );
+
+    $.when(ahvenanmaaQuery, museovirastoQuery).done(function(ahvenanmaaResult, museovirastoResult) {
+      var ahvennamaaFeatures = ahvenanmaaResult[0].features;
+      var museovirastoFeatures = museovirastoResult[0].results;
+      var allFeatures = ahvennamaaFeatures.concat(museovirastoFeatures);
+      if(allFeatures.length > 0) {
+        eventListeners.muinaisjaannosFeaturesSelected(allFeatures);
+      }
+    });
   };
 
   var initGeolocation = function() {

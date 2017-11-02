@@ -34,7 +34,7 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
     onLayerCreatedCallbackFn(layer);
   };
 
-  this.getFeatureInfo = function(map, coordinate, callback) {
+  this.getFeatureInfo = function(map, coordinate) {
     var view = map.getView();
     var source = layer.getSource();
     var tileUrlFunction = source.getTileUrlFunction();
@@ -93,21 +93,17 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
     var y = Math.floor((tileExtent[3] - transformedCoordinate[1]) / (tileResolution / pixelRatio));
     var fetureInfoUrl = tileUrl.replace('Request=GetTile', 'Request=GetFeatureInfo');
 
+    var queryoptions = {
+      'I': x,
+      'J': y,
+      'INFOFORMAT': 'application/json'
+    };
     showLoadingAnimationFn(true);
 
-    $.getJSON(
-      fetureInfoUrl,
-      {
-        'I': x,
-        'J': y,
-        'INFOFORMAT': 'application/json'
-      },
-      function(response) {
-        console.log(response);
-        showLoadingAnimationFn(false);
-        callback(response.features);
-      }
-    );
+    return $.getJSON(fetureInfoUrl, queryoptions).done(function(response) {
+      console.log(response);
+      showLoadingAnimationFn(false);
+    });
 
     console.log('-----------------------------------------');
   };
