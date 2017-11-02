@@ -88,18 +88,36 @@ var AhvenanmaaWMTS = function(callbackFn) {
     var tileCoordForTileUrlFunction = source.getTileCoordForTileUrlFunction(tileCoord);
     console.log('tileCoordForTileUrlFunction', tileCoordForTileUrlFunction);
 
-    var url = tileUrlFunction.call(source, tileCoord, ol.has.DEVICE_PIXEL_RATIO, sourceProjection);
-    console.log('tileUrlFunction', url);
+    var pixelRatio = source.getTilePixelRatio();
+    var tileUrl = tileUrlFunction.call(source, tileCoord, pixelRatio, sourceProjection);
+    console.log('tileUrl', tileUrl);
 
     var tileExtent = tileGrid.getTileCoordExtent(tileCoord);
     var tileResolution = sourceResolution;
-    var pixelRatio = ol.has.DEVICE_PIXEL_RATIO;
-    var x = Math.floor((coordinate[0] - tileExtent[0]) / (tileResolution / pixelRatio));
-    var y = Math.floor((tileExtent[3] - coordinate[1]) / (tileResolution / pixelRatio));
+
+    var x = Math.floor((transformedCoordinate[0] - tileExtent[0]) / (tileResolution / pixelRatio));
+    var y = Math.floor((tileExtent[3] - transformedCoordinate[1]) / (tileResolution / pixelRatio));
     console.log('tileExtent', tileExtent);
     console.log('tileResolution', tileResolution);
+    console.log('transformedCoordinate[0] - tileExtent[0]', transformedCoordinate[0] - tileExtent[0]);
+    console.log('tileResolution / pixelRatio', tileResolution / pixelRatio);
+    console.log('tileExtent[3] - transformedCoordinate[1]', tileExtent[3] - transformedCoordinate[1]);
     console.log('x', x);
     console.log('y', y);
+
+    var fetureInfoUrl = tileUrl.replace('Request=GetTile', 'Request=GetFeatureInfo');
+
+    $.getJSON(
+      fetureInfoUrl,
+      {
+        'I': x,
+        'J': y,
+        'INFOFORMAT': 'application/json'
+      },
+      function(response) {
+        console.log(response);
+      }
+    );
 
     console.log('-----------------------------------------');
   };
