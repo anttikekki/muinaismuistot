@@ -4,12 +4,10 @@ var MuinaismuistotMap = function(settings, eventListeners) {
   var map;
   var view;
   var geolocation;
-  var eventListeners;
-  var mmlMaastokarttaLayer;
-  var mmlTaustakarttaLayer;
   var dynamicFeatureLayer;
   var currentPositionFeature;
   var selectedLocationFeature;
+  var maanmittauslaitosWMTS;
   var museovirastoArcGISWMS;
   var ahvenanmaaWMTS;
 
@@ -32,8 +30,14 @@ var MuinaismuistotMap = function(settings, eventListeners) {
       controls: new ol.Collection()
     });
 
-    loadMMLWmtsCapabilitiesAndAddLayers();
     addDynamicFeatureLayer();
+
+    maanmittauslaitosWMTS = new MaanmittauslaitosWMTS(
+      function(mmlMaastokarttaLayer, mmlTaustakarttaLayer) {
+        map.getLayers().insertAt(0, mmlMaastokarttaLayer);
+        map.getLayers().insertAt(1, mmlTaustakarttaLayer);
+      }
+    );
 
     ahvenanmaaWMTS = new AhvenanmaaWMTS(
       eventListeners.showLoadingAnimation,
@@ -127,41 +131,6 @@ var MuinaismuistotMap = function(settings, eventListeners) {
     dynamicFeatureLayer.getSource().addFeature(selectedLocationFeature);
   };
 
-  var loadMMLWmtsCapabilitiesAndAddLayers = function() {
-    $.ajax({
-      url: 'capabilities/maanmittauslaitos_wmts_capabilities.xml',
-      success: function(response) {
-        addWmtsLayers(response);
-      }
-    });
-  };
-
-  var addWmtsLayers = function(response) {
-    var parser = new ol.format.WMTSCapabilities();
-    var capabilities = parser.read(response);
-
-    var maastokarttaLayerSource = new ol.source.WMTS(ol.source.WMTS.optionsFromCapabilities(capabilities, {
-      layer: 'maastokartta'
-    }));
-    var taustakarttaLayerSource = new ol.source.WMTS(ol.source.WMTS.optionsFromCapabilities(capabilities, {
-      layer: 'taustakartta'
-    }));
-
-    mmlMaastokarttaLayer = new ol.layer.Tile({
-      title: 'Maastokartta',
-      source: maastokarttaLayerSource,
-      visible: false
-    });
-    mmlTaustakarttaLayer = new ol.layer.Tile({
-      title: 'Taustakartta',
-      source: taustakarttaLayerSource,
-      visible: true
-    });
-
-    map.getLayers().insertAt(0, mmlMaastokarttaLayer);
-    map.getLayers().insertAt(1, mmlTaustakarttaLayer);
-  };
-
   var addDynamicFeatureLayer = function() {
     dynamicFeatureLayer = new ol.layer.Vector({
       source: new ol.source.Vector({})
@@ -173,7 +142,7 @@ var MuinaismuistotMap = function(settings, eventListeners) {
     museovirastoArcGISWMS.updateVisibleLayersFromSettings();
   };
 
-  this.setFilterParams = function(params) {
+  this.updateMuinaismuistotFilterParamsFromSettings = function() {
     museovirastoArcGISWMS.updateVisibleLayersFromSettings();
   };
 
@@ -181,25 +150,12 @@ var MuinaismuistotMap = function(settings, eventListeners) {
     museovirastoArcGISWMS.findFeatures(searchText, callbackFn);
   };
 
-  this.getVisibleBackgroundLayerName = function() {
-    if(mmlMaastokarttaLayer && mmlMaastokarttaLayer.getVisible()) {
-      return 'maastokartta';
-    }
-    else if(mmlTaustakarttaLayer && mmlTaustakarttaLayer.getVisible()) {
-      return 'taustakartta';
-    }
-    return 'taustakartta';
+  this.getVisibleMaanmittauslaitosLayerName = function() {
+    return maanmittauslaitosWMTS.getVisibleLayerName();
   };
 
-  this.setVisibleBackgroundLayerName = function(layerName) {
-    if(layerName === 'taustakartta') {
-      mmlMaastokarttaLayer.setVisible(false);
-      mmlTaustakarttaLayer.setVisible(true);
-    }
-    else if(layerName === 'maastokartta') {
-      mmlMaastokarttaLayer.setVisible(true);
-      mmlTaustakarttaLayer.setVisible(false);
-    }
+  this.setVisibleMaanmittauslaitosLayerName = function(layerName) {
+    maanmittauslaitosWMTS.setVisibleLayerName(layerName);
   };
 
   this.setMapLocation = function(coordinates) {

@@ -16,14 +16,14 @@ var Muinaismuistot = function() {
     settings.init();
     settings.setEventListener({
       selectedMapBackgroundLayerChanged: function(layerName) {
-        map.setVisibleBackgroundLayerName(layerName);
+        map.setVisibleMaanmittauslaitosLayerName(layerName);
       },
       visibleMuinaismuistotLayersChanged: function(selectedLayerIds) {
         map.updateVisibleMuinaismuistotLayersFromSettings();
         settingsPage.setVisibleMuinaismuistotLayers(selectedLayerIds);
       },
       filterParametersChanged: function(params) {
-        map.setFilterParams(params);
+        map.updateMuinaismuistotFilterParamsFromSettings();
       }
     });
 
