@@ -13,7 +13,7 @@ var MuinaismuistotSearchPage = function() {
 		$('#hide-searchPage-button').on('click', function() {
 			eventListener.hidePage();
 		});
-		
+
 		$('#search-button').on('click', function() {
 			search($('#search-text').val());
 		});
@@ -36,7 +36,7 @@ var MuinaismuistotSearchPage = function() {
 		}
 		$('#search-form').removeClass('has-error');
 		$('#search-form-error').addClass('hidden');
-		muinaismuistotData.findFeatures(searchText, displayResults);
+		eventListener.searchMuinaismuistoja(searchText, displayResults);
 	};
 
 	var displayResults = function(searchResults) {

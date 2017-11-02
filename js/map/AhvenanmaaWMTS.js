@@ -1,21 +1,21 @@
-var AhvenanmaaWMTS = function(callbackFn) {
+var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) {
   var source;
   var layer;
 
-  var init = function(callbackFn) {
-    loadAlandWmtsCapabilitiesAndAddLayers(callbackFn);
+  var init = function() {
+    loadAlandWmtsCapabilitiesAndAddLayers();
   };
 
-  var loadAlandWmtsCapabilitiesAndAddLayers = function(callbackFn) {
+  var loadAlandWmtsCapabilitiesAndAddLayers = function() {
     $.ajax({
       url: 'capabilities/regeringen-wmts-capabilities.xml',
       success: function(response) {
-        addAlandWmtsLayers(response, callbackFn);
+        addAlandWmtsLayers(response);
       }
     });
   };
 
-  var addAlandWmtsLayers = function(response, callbackFn) {
+  var addAlandWmtsLayers = function(response) {
     var parser = new ol.format.WMTSCapabilities();
     var capabilities = parser.read(response);
 
@@ -31,7 +31,7 @@ var AhvenanmaaWMTS = function(callbackFn) {
     });
 
     layer.setOpacity(0.7);
-    callbackFn(layer);
+    onLayerCreatedCallbackFn(layer);
   };
 
   this.getFeatureInfo = function(map, coordinate, callback) {
@@ -93,6 +93,8 @@ var AhvenanmaaWMTS = function(callbackFn) {
     var y = Math.floor((tileExtent[3] - transformedCoordinate[1]) / (tileResolution / pixelRatio));
     var fetureInfoUrl = tileUrl.replace('Request=GetTile', 'Request=GetFeatureInfo');
 
+    showLoadingAnimationFn(true);
+
     $.getJSON(
       fetureInfoUrl,
       {
@@ -102,6 +104,7 @@ var AhvenanmaaWMTS = function(callbackFn) {
       },
       function(response) {
         console.log(response);
+        showLoadingAnimationFn(false);
         callback(response.features);
       }
     );
@@ -109,5 +112,5 @@ var AhvenanmaaWMTS = function(callbackFn) {
     console.log('-----------------------------------------');
   };
 
-  init(callbackFn);
+  init();
 };

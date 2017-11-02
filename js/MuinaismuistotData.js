@@ -1,68 +1,8 @@
 var MuinaismuistotData = function() {
-  var self = this;
   var muinaismuistotSettings;
-  var loadingAnimationTimeoutID;
 
   this.init = function(settings) {
     muinaismuistotSettings = settings;
-  };
-
-  this.identifyFeaturesAt = function(coordinate, mapSize, mapExtent, callback) {
-    var queryoptions = {
-      geometry: coordinate.join(','),
-      geometryType: 'esriGeometryPoint',
-      tolerance: 10,
-      imageDisplay: mapSize.join(',') + ',96',
-      mapExtent: mapExtent.join(','),
-      layers: 'visible:' + muinaismuistotSettings.getSelectedMuinaismuistotLayerIds().join(','),
-      f: 'json',
-      returnGeometry: 'true'
-    };
-    showLoadingAnimation(true);
-
-    $.getJSON(
-      'https://d2h14icpze3arm.cloudfront.net?',
-      queryoptions,
-      function(response) {
-        callback(response.results);
-        showLoadingAnimation(false);
-      }
-    );
-  };
-
-  this.findFeatures = function(searchText, callback) {
-    var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
-    var selectedSubLayers = muinaismuistotSettings.getSelectedMuinaismuistotLayerSubLayerIds();
-
-    //Muinaismustot areas and sub-points arlways has same name as main point so do not search those
-    var areaIndex = selectedSubLayers.indexOf(layerMap['Muinaisjäännösalueet']);
-    if (areaIndex > -1) {
-      selectedSubLayers.splice(areaIndex, 1);
-    }
-    var subPointIndex = selectedSubLayers.indexOf(layerMap['Muinaisj.alakohteet']);
-    if (subPointIndex > -1) {
-      selectedSubLayers.splice(subPointIndex, 1);
-    }
-
-    var queryoptions = {
-      searchText: searchText,
-      contains: true,
-      searchFields: 'Kohdenimi, Nimi, KOHDENIMI',
-      layers: selectedSubLayers.join(','), //Sub-layers
-      f: 'json',
-      returnGeometry: 'true',
-      returnZ: 'false'
-    };
-    showLoadingAnimation(true);
-
-    $.getJSON(
-      'https://d31x4e4yytlrm0.cloudfront.net?',
-      queryoptions,
-      function(response) {
-        callback(response.results);
-        showLoadingAnimation(false);
-      }
-    );
   };
 
   this.getFeatureName = function(feature) {
@@ -158,20 +98,5 @@ var MuinaismuistotData = function() {
       value = value.substring(0, value.length-1).trim();
     }
     return value;
-  };
-
-  var showLoadingAnimation = function(show) {
-    if(show) {
-      loadingAnimationTimeoutID = window.setTimeout(function() {
-        if(loadingAnimationTimeoutID) {
-          $('#loading-animation').removeClass('hidden');
-        }
-      }, 300);
-    }
-    else {
-      window.clearTimeout(loadingAnimationTimeoutID);
-      loadingAnimationTimeoutID = null;
-      $('#loading-animation').addClass('hidden');
-    }
   };
 };

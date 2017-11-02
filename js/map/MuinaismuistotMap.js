@@ -1,23 +1,19 @@
-var MuinaismuistotMap = function() {
+var MuinaismuistotMap = function(settings, eventListeners) {
   var self = this;
-  var muinaismuistotData;
-  var muinaismuistotSettings;
+  var muinaismuistotSettings = settings;
   var map;
   var view;
   var geolocation;
-  var eventListener;
+  var eventListeners;
   var mmlMaastokarttaLayer;
   var mmlTaustakarttaLayer;
-  var nbaMuinaismuistotLayer;
   var dynamicFeatureLayer;
   var currentPositionFeature;
   var selectedLocationFeature;
+  var museovirastoArcGISWMS;
   var ahvenanmaaWMTS;
 
-  this.init = function(data, settings) {
-    muinaismuistotData = data;
-    muinaismuistotSettings = settings;
-
+  var init = function() {
     proj4.defs("EPSG:3067","+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
 
     var extent = [50199.4814, 6582464.0358, 761274.6247, 7799839.8902];
@@ -37,27 +33,37 @@ var MuinaismuistotMap = function() {
     });
 
     loadMMLWmtsCapabilitiesAndAddLayers();
-    addMuinaismuistotLayer();
     addDynamicFeatureLayer();
 
-    ahvenanmaaWMTS = new AhvenanmaaWMTS(function(layer) {
-      map.getLayers().insertAt(2, layer);
-    });
+    ahvenanmaaWMTS = new AhvenanmaaWMTS(
+      eventListeners.showLoadingAnimation,
+      function(createdLayer) {
+        map.getLayers().insertAt(2, createdLayer);
+      }
+    );
+
+    museovirastoArcGISWMS = new MuseovirastoArcGISWMS(
+      muinaismuistotSettings,
+      eventListeners.showLoadingAnimation,
+      function(createdLayer) {
+        map.getLayers().insertAt(3, createdLayer);
+      }
+    );
 
     map.on("click", function(e) {
       ahvenanmaaWMTS.getFeatureInfo(map, e.coordinate, function(features) {
         if(features.length > 0) {
-          eventListener.muinaisjaannosFeaturesSelected(features);
+          eventListeners.muinaisjaannosFeaturesSelected(features);
         }
       });
 
-      muinaismuistotData.identifyFeaturesAt(
+      museovirastoArcGISWMS.identifyFeaturesAt(
         e.coordinate,
         map.getSize(),
         map.getView().calculateExtent(map.getSize()),
         function(features) {
           if(features.length > 0) {
-            eventListener.muinaisjaannosFeaturesSelected(features);
+            eventListeners.muinaisjaannosFeaturesSelected(features);
           }
         }
       );
@@ -163,51 +169,16 @@ var MuinaismuistotMap = function() {
     map.addLayer(dynamicFeatureLayer);
   };
 
-  var addMuinaismuistotLayer = function() {
-    nbaMuinaismuistotLayer =  new ol.layer.Tile({
-      source: new ol.source.TileArcGISRest(getMuinaismuistotLayerSourceParams())
-    });
-    nbaMuinaismuistotLayer.setOpacity(0.7);
-    map.getLayers().insertAt(3, nbaMuinaismuistotLayer);
-  };
-
-  var updateMuinaismuistotLayerSource = function() {
-    if(nbaMuinaismuistotLayer) {
-      nbaMuinaismuistotLayer.setSource(new ol.source.TileArcGISRest(getMuinaismuistotLayerSourceParams()));
-    }
-  };
-
-  var getMuinaismuistotLayerSourceParams = function() {
-    var layerIds = muinaismuistotSettings.getSelectedMuinaismuistotLayerIds();
-    var layers = '';
-
-    if(layerIds.length > 0) {
-      layers = 'show:' + layerIds.join(',');
-    }
-    else {
-      //HIde all layers
-      layers = 'hide:' + muinaismuistotSettings.getMuinaismuistotLayerIds().join(',');
-    }
-
-    return {
-      url: 'https://d1ni9pwcac9w21.cloudfront.net',
-      params: {
-        'layers': layers,
-        'layerDefs': muinaismuistotSettings.getFilterParamsLayerDefinitions()
-      }
-    };
-  };
-
-  this.setVisibleMuinaismuistotLayers = function(layerIds) {
-    updateMuinaismuistotLayerSource();
+  this.updateVisibleMuinaismuistotLayersFromSettings = function() {
+    museovirastoArcGISWMS.updateVisibleLayersFromSettings();
   };
 
   this.setFilterParams = function(params) {
-    updateMuinaismuistotLayerSource();
+    museovirastoArcGISWMS.updateVisibleLayersFromSettings();
   };
 
-  this.setEventListener = function(listener) {
-    eventListener = listener;
+  this.searchMuinaismuistoja = function(searchText, callbackFn) {
+    museovirastoArcGISWMS.findFeatures(searchText, callbackFn);
   };
 
   this.getVisibleBackgroundLayerName = function() {
@@ -264,4 +235,6 @@ var MuinaismuistotMap = function() {
       duration: 250
     });
   }
+
+  init();
 }

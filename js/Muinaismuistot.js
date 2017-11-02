@@ -9,6 +9,7 @@ var Muinaismuistot = function() {
   var settings = null;
   var urlHashHelper = null;
   var visiblePageId = null;
+  var loadingAnimationTimeoutID = null;
 
   this.init = function() {
     settings = new MuinaismuistotSettings();
@@ -18,7 +19,7 @@ var Muinaismuistot = function() {
         map.setVisibleBackgroundLayerName(layerName);
       },
       visibleMuinaismuistotLayersChanged: function(selectedLayerIds) {
-        map.setVisibleMuinaismuistotLayers(selectedLayerIds);
+        map.updateVisibleMuinaismuistotLayersFromSettings();
         settingsPage.setVisibleMuinaismuistotLayers(selectedLayerIds);
       },
       filterParametersChanged: function(params) {
@@ -31,13 +32,12 @@ var Muinaismuistot = function() {
     data = new MuinaismuistotData();
     data.init(settings);
 
-    map = new MuinaismuistotMap();
-    map.init(data, settings);
-    map.setEventListener({
+    map = new MuinaismuistotMap(settings, {
       muinaisjaannosFeaturesSelected : function(muinaisjaannosFeatures) {
         detailsPage.setMuinaisjaannosFeatures(muinaisjaannosFeatures);
         showPage('detailsPage');
-      }
+      },
+      showLoadingAnimation: showLoadingAnimation
     });
 
     detailsPage = new MuinaismuistotDetailsPage();
@@ -64,6 +64,9 @@ var Muinaismuistot = function() {
       },
       searchResultItemClicked: function() {
         hidePage('searchPage');
+      },
+      searchMuinaismuistoja: function(searchText, callbackFn) {
+        map.searchMuinaismuistoja(searchText, callbackFn);
       }
     });
 
@@ -156,6 +159,21 @@ var Muinaismuistot = function() {
     if(coordinates) {
       map.setMapLocation(coordinates);
       map.showSelectedLocationMarker(coordinates);
+    }
+  };
+
+  var showLoadingAnimation = function(show) {
+    if(show) {
+      loadingAnimationTimeoutID = window.setTimeout(function() {
+        if(loadingAnimationTimeoutID) {
+          $('#loading-animation').removeClass('hidden');
+        }
+      }, 300);
+    }
+    else {
+      window.clearTimeout(loadingAnimationTimeoutID);
+      loadingAnimationTimeoutID = null;
+      $('#loading-animation').addClass('hidden');
     }
   };
 };
