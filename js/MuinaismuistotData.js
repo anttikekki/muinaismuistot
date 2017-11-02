@@ -133,6 +133,14 @@ var MuinaismuistotData = function() {
         y: point[1]
       };
     }
+    else if(feature.geometry && feature.geometry.type === 'MultiPolygon') {
+      // Ahvenanmaan muinaismuisto
+      var point = feature.geometry.coordinates[0][0][0];
+      return {
+        x: point[0],
+        y: point[1]
+      };
+    }
   };
 
   this.trimTextData = function(value) {

@@ -1,6 +1,6 @@
 var MuinaismuistotURLHashHelper = function() {
 
-  this.createLocationHash = function(coordinates, feature) {
+  this.createLocationHash = function(coordinates) {
   	return '#x=' + coordinates.x + ';y=' + coordinates.y;
   };
 
@@ -10,7 +10,7 @@ var MuinaismuistotURLHashHelper = function() {
         .replace('x=', '')
         .replace('y=', '')
         .split(';');
-    
+
     if(coordinateArray.length !== 2) {
       return null;
     }

@@ -34,7 +34,7 @@ var AhvenanmaaWMTS = function(callbackFn) {
     callbackFn(layer);
   };
 
-  this.getFeatureInfo = function(map, coordinate) {
+  this.getFeatureInfo = function(map, coordinate, callback) {
     var view = map.getView();
     var source = layer.getSource();
     var tileUrlFunction = source.getTileUrlFunction();
@@ -83,28 +83,14 @@ var AhvenanmaaWMTS = function(callbackFn) {
 
 
     tileCoord = tileGrid.getTileCoordForCoordAndZ(transformedCoordinate, sourceZ);
-    console.log('tileCoord', tileCoord);
-
     var tileCoordForTileUrlFunction = source.getTileCoordForTileUrlFunction(tileCoord);
-    console.log('tileCoordForTileUrlFunction', tileCoordForTileUrlFunction);
-
     var pixelRatio = source.getTilePixelRatio();
     var tileUrl = tileUrlFunction.call(source, tileCoord, pixelRatio, sourceProjection);
-    console.log('tileUrl', tileUrl);
-
     var tileExtent = tileGrid.getTileCoordExtent(tileCoord);
     var tileResolution = sourceResolution;
 
     var x = Math.floor((transformedCoordinate[0] - tileExtent[0]) / (tileResolution / pixelRatio));
     var y = Math.floor((tileExtent[3] - transformedCoordinate[1]) / (tileResolution / pixelRatio));
-    console.log('tileExtent', tileExtent);
-    console.log('tileResolution', tileResolution);
-    console.log('transformedCoordinate[0] - tileExtent[0]', transformedCoordinate[0] - tileExtent[0]);
-    console.log('tileResolution / pixelRatio', tileResolution / pixelRatio);
-    console.log('tileExtent[3] - transformedCoordinate[1]', tileExtent[3] - transformedCoordinate[1]);
-    console.log('x', x);
-    console.log('y', y);
-
     var fetureInfoUrl = tileUrl.replace('Request=GetTile', 'Request=GetFeatureInfo');
 
     $.getJSON(
@@ -116,6 +102,7 @@ var AhvenanmaaWMTS = function(callbackFn) {
       },
       function(response) {
         console.log(response);
+        callback(response.features);
       }
     );
 

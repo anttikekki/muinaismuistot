@@ -45,7 +45,11 @@ var MuinaismuistotMap = function() {
     });
 
     map.on("click", function(e) {
-      ahvenanmaaWMTS.getFeatureInfo(map, e.coordinate);
+      ahvenanmaaWMTS.getFeatureInfo(map, e.coordinate, function(features) {
+        if(features.length > 0) {
+          eventListener.muinaisjaannosFeaturesSelected(features);
+        }
+      });
 
       muinaismuistotData.identifyFeaturesAt(
         e.coordinate,
@@ -151,8 +155,6 @@ var MuinaismuistotMap = function() {
     map.getLayers().insertAt(0, mmlMaastokarttaLayer);
     map.getLayers().insertAt(1, mmlTaustakarttaLayer);
   };
-
-
 
   var addDynamicFeatureLayer = function() {
     dynamicFeatureLayer = new ol.layer.Vector({
