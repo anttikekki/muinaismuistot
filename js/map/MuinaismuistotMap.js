@@ -60,7 +60,7 @@ var MuinaismuistotMap = function(settings, eventListeners) {
   };
 
   var onMapClicked = function(e) {
-    var ahvenanmaaQuery = ahvenanmaaWMTS.getFeatureInfo(map, e.coordinate);
+    var ahvenanmaaQuery = ahvenanmaaWMTS.getFeatureInfo(e.coordinate, view.getProjection(), view.getZoom());
     var museovirastoQuery = museovirastoArcGISWMS.identifyFeaturesAt(
       e.coordinate,
       map.getSize(),
