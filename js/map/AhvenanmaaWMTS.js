@@ -66,6 +66,7 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
     var targetCenter = ol.extent.getCenter(limitedTargetExtent);
     var sourceResolution = ol.reproj.calculateSourceResolution(sourceProjection, targetProjection, targetCenter, targetResolution);
     var sourceZ = sourceTileGrid.getZForResolution(sourceResolution);
+/*
     console.log('sourceProjection', sourceProjection);
     console.log('targetProjection', targetProjection);
     console.log('sourceTileGrid', sourceTileGrid);
@@ -80,6 +81,7 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
     console.log('targetCenter', targetCenter);
     console.log('sourceResolution', sourceResolution);
     console.log('sourceZ', sourceZ);
+    */
 
 
     tileCoord = tileGrid.getTileCoordForCoordAndZ(transformedCoordinate, sourceZ);
@@ -88,10 +90,23 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
     var tileUrl = tileUrlFunction.call(source, tileCoord, pixelRatio, sourceProjection);
     var tileExtent = tileGrid.getTileCoordExtent(tileCoord);
     var tileResolution = sourceResolution;
+    var tileSize = ol.size.toSize(tileGrid.getTileSize(sourceZ));
 
     var x = Math.floor((transformedCoordinate[0] - tileExtent[0]) / (tileResolution / pixelRatio));
     var y = Math.floor((tileExtent[3] - transformedCoordinate[1]) / (tileResolution / pixelRatio));
+    x = Math.min(x, tileSize[0]);
+    y = Math.min(y, tileSize[1]);
+
     var fetureInfoUrl = tileUrl.replace('Request=GetTile', 'Request=GetFeatureInfo');
+
+    console.log('pixelRatio', pixelRatio);
+    console.log('tileSize', tileSize);
+    console.log('transformedCoordinate[0]', transformedCoordinate[0]);
+    console.log('tileExtent[0]', tileExtent[0]);
+    console.log('transformedCoordinate[0] - tileExtent[0]', transformedCoordinate[0] - tileExtent[0]);
+    console.log('tileResolution / pixelRatio', tileResolution / pixelRatio);
+    console.log('x', x);
+    console.log('y', y);
 
     var queryoptions = {
       'I': x,
