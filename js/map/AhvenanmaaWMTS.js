@@ -214,6 +214,12 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
   }
   */
   this.getFeatureInfo = function(clickedViewProjectionCoordinate, viewProjection, viewZoomLevel) {
+    /*
+    * Make sure that zoom level is integer. This may be decimal (9.141352016977429) if map is zoomed very far away and
+    * then zoomed back closer. calculateAhvenanmaaWMTSResolution method requires that zoom is integer.
+    */
+    viewZoomLevel = Math.floor(viewZoomLevel);
+
     var clickedCoordinateInAhvenanmaaWMTSProjection = transformClickedCoordinateFromViewProjectionToAhvenanmaaWMTSProjection(clickedViewProjectionCoordinate, viewProjection);
 
     if (!isCoordinateInsideAhvenmaaWMTSTileGrid(clickedCoordinateInAhvenanmaaWMTSProjection)) {
