@@ -104,6 +104,8 @@
 
             <div class="pageContent">
 
+                <div class="well well-sm">Haku toimii vain Museoviraston rekisterien kohteisiin eli haulla ei valitettavasti löydä Ahvenanmaan muinaisjäännöksiä.</div>
+
                 <form id="search-form">
                     <div id="search-form-error" class="alert alert-danger hidden" role="alert">Hakusanan pitää olla vähintään kolme merkkiä</div>
                     <div class="input-group">
@@ -144,28 +146,35 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Tietoa sivustosta</div>
                     <div class="panel-body">
-                        <p>Tältä sivulta näet kartalla <a href="https://www.kyppi.fi/palveluikkuna/portti/read/asp/default.aspx">Museoviraston</a> ylläpitämien rekisteriten tiedot:
+                        <p>Tällä sivustolla näet kartalla seuraavien rekisterien tiedot:</p>
+
+                        <h5>Museovirasto</h5>
                         <ul>
                             <li><a href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx">Muinaisjäännösrekisteri</a></li>
                             <li><a href="https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_default.aspx">Rakennusperintörekisteri</a></li>
                             <li><a href="http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa">Maailmanperintökohteet</a></li>
                             <li><a href="http://www.rky.fi/">Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</a></li>
                         </ul>
-                        </p>
 
-                        <p>Kaikki samat kohteet näkee kartalla myös Museoviraston omassa <a href="https://kartta.museoverkko.fi/">kartta.museoverkko.fi</a> -karttapalvelussa. Tämän sivuston tarkoitus on tarjota virallista palvelua helpompi käyttöliittymä ja parempi toimivuus mobiililaitteilla.</p>
+                        <h5>Ahvenamaan paikallishallinto</h5>
+                        <ul>
+                            <li><a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">Muinaisjäännösrekisteri</a></li>
+                        </ul>
 
+                        <p>Kaikki näytettävät kohteet ovat avointa dataa ja haettu rekisterin ylläpitäjän tarjoamasta karttapalvelusta.</p>
+
+                        <p>Kohteista saa lisätietoikkunan näkyviin klikkaamalla kohdetta kartalla. Tästä näkymästä on myös linkki kohteen lisätietoihin rekisterin ylläpitäjän sivustolla. Kohteen otsikon vieressä olevasta kuvakkeesta (<span class="glyphicon glyphicon-link" aria-hidden="true"></span>) saa talteen pysyvän linkin kohteen sijaintiin kartalla.</p>
+
+                        <h5>Paikannus</h5>
                         <p>Kartta keskitetään oletuksena nykyiseen sijaintiisi jos annat selaimelle luvan luovuttaa se tieto. Keskityksen nykyiseen sijaintiin voi suorittaa myös myöhemmin <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> painikkeesta.</p>
 
-                        <p>Kohteista saa lisätietoikkunan näkyviin klikkaamalla kohdetta kartalla. Tästä näkymästä on myös linkki kohteen lisätietoihin Museoviraston rekistereissä. Kohteen otsikon vieressä olevasta kuvakkeesta (<span class="glyphicon glyphicon-link" aria-hidden="true"></span>) saa talteen pysyvän linkin kohteen sijaintiin kartalla.</p>
+                        <h5>Haku</h5>
+                        <p>Museoviraston rekisterien kohteita pystyy hakemaan nimen perusteella hakunäkymässä (<span class="glyphicon glyphicon-search" aria-hidden="true"></span>). Hakutuloksen klikkaaminen keskittää kartan kohteeseen ja lisää siihen paikkamerkin <img src="images/map-pin-small.png"/>.</p>
 
-                        <p>Kohteita pystyy myös hakemaan nimen perusteella hakunäkymässä (<span class="glyphicon glyphicon-search" aria-hidden="true"></span>). Hakutuloksen klikkaaminen keskittää kartan kohteeseen ja lisää siihen paikkamerkin <img src="images/map-pin-small.png"/>.</p>
+                        <h5>Asetukset</h5>
+                        <p>Pohjakartan voi vaihtaa taustakartan ja maastokartan välillä asetuksista (<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>). Samasta näkymästä voi piilottaa Museoviraston rekisterien kohteita tyypin ja muinaisjäännöksiä myös ajoituksen mukaan jos haluaa tarkastella esimerkiksi pelkästään muinaisjäännöksiä rautakaudelta.</p>
 
-                        <p>Pohjakartan voi vaihtaa taustakertan ja maastokartan välillä asetuksista (<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>). Samasta näkymästä voi piilottaa kohteita tyypin mukaan jos haluaa tarkastella esimerkiksi pelkästään muinaisjäännöksiä.</p>
-
-                        <p>Muinaisjäännösten näkyvyyttä pystyy rajoittamaan asetuksista myös ajoituksen ja tyypin perusteella.</p>
-
-                        <p>Palautetta sivustosta otetaan mielellään vastaan! Lähetä risut ja ruusut osoitteeseen <a href="mailto:antti.kekki@gmail.com">antti.kekki@gmail.com</a></p>
+                        <p>Palautetta sivustosta otetaan mielellään vastaan osoitteeseen <a href="mailto:antti.kekki@gmail.com">antti.kekki@gmail.com</a></p>
                     </div>
                 </div>
 
@@ -173,7 +182,7 @@
                     <div class="panel-heading">Karttasymbolit</div>
                     <div class="panel-body">
                         <p>
-                            <h5>Muinaisjäännösrekisteri</h5>
+                            <h5>Museoviraston muinaisjäännösrekisteri</h5>
 
                             <img src="images/muinaisjaannos_kohde.png">
                             <span>Kohde</span>
@@ -183,6 +192,15 @@
 
                             <img src="images/muinaisjaannos_alue.png">
                             <span>Alue</span>
+                        </p>
+
+                        <br>
+
+                        <p>
+                            <h5>Ahvenanmaan muinaisjäännösrekisteri</h5>
+
+                            <img src="images/ahvenanmaa_muinaisjaannos.png">
+                            <span>Kohde</span>
                         </p>
 
                         <br>
@@ -235,9 +253,9 @@
 
                         <p>Museoviraston rekistereistä tietoa haetaan <a href="http://www.paikkatietohakemisto.fi/geonetwork/srv/fin/catalog.search#/metadata/49c9be83-bfb5-4380-870d-7c7323760990">avoimen rajapinnan</a> kautta (<a href="http://www.nba.fi/fi/File/2104/lisenssi-su-sv.pdf">materiaalin lisenssi</a>).</p>
 
-                        <p>Taustakarttana on <a href="http://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-11">Maanmittauslaitoksen</a> tausta- ja peruskartta (<a href="http://www.maanmittauslaitos.fi/avoindata_lisenssi_versio1_20120501">materiaalin lisenssi</a>).</p>
+                        <p>Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href="http://inspire.regeringen.ax:8080/geoserver/web/">avoimen rajapinnan</a> kautta. Sisältöä hallinnoi <a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">Ålands landskapsregering - Kulturbyrån</a>.</p>
 
-                        <p>Ahvenanmaan muinaisjäännöksistä tietoa haetaan <a href="http://inspire.regeringen.ax:8080/geoserver/web/">avoimen rajapinnan</a> kautta. Sisältöä hallinnoi <a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">Ålands landskapsregering - Kulturbyrån</a>.</p>
+                        <p>Taustakarttana on <a href="http://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-11">Maanmittauslaitoksen</a> tausta- ja peruskartta (<a href="http://www.maanmittauslaitos.fi/avoindata_lisenssi_versio1_20120501">materiaalin lisenssi</a>).</p>
 
                         <p>Tämän sivuston tekninen toteutus on <a href="https://github.com/anttikekki/muinaismuistot">avointa lähdekoodia</a>, lisenssinä on <a href="https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE">MIT</a>.</p>
                     </div>
@@ -355,7 +373,7 @@
                         <div class="checkbox">
                           <label>
                             <input type="checkbox" value="10" id="settings-muinaismuistot-layer-10">
-                            Muinaisjäännösrekisteri
+                            Museoviraston muinaisjäännösrekisteri
                           </label>
                         </div>
                         <div class="checkbox sub-layer-select-checkbox-container">
@@ -380,6 +398,20 @@
                           </label>
                         </div>
 
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" value="" checked disabled>
+                            Ahvenamaan muinaisjäännösrekisteri
+                          </label>
+                        </div>
+                        <div class="checkbox sub-layer-select-checkbox-container">
+                          <label>
+                            <input type="checkbox" value="" checked disabled>
+                            <img src="images/ahvenanmaa_muinaisjaannos.png"/>
+                            Kohde
+                          </label>
+                        </div>
+
                     </div>
                 </div>
 
@@ -387,7 +419,7 @@
                     <div class="panel-heading">Rajoita näkyviä muinaisjäännöksiä</div>
                     <div class="panel-body">
 
-                        <p>Näkyvien muinaisjäännöksien rajoittaminen toimii vain kohteille mutta ei alakohteille eikä alueille.</p>
+                        <div class="well well-sm">Rajoitus toimii vain Museoviraston muijaisjäännöksille ja kohteille mutta ei alakohteille eikä alueille.</div>
 
                         <form>
 
