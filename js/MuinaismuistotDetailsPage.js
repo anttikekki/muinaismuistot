@@ -156,7 +156,18 @@ var MuinaismuistotDetailsPage = function() {
 		$('#ahvenamaaMuinaismuisto-Kategoria').html(feature.properties.huvudkat);
 		$('#ahvenamaaMuinaismuisto-Ajoitus').html(feature.properties.tid);
 		$('#ahvenamaaMuinaismuisto-Tunniste').html(feature.properties.fornl);
+		$('#ahvenamaaMuinaismuisto-pdf-link-Tunniste').html(feature.properties.fornl);
 		$('#ahvenamaaMuinaismuisto-permanent-link').attr('href', urlHashHelper.createLocationHash(muinaismuistotData.getFeatureLocation(feature)));
+
+		var kuvaus = feature.properties.kommentar;
+		if (kuvaus && kuvaus.length > 0) {
+			$('#ahvenamaaMuinaismuisto-Kuvaus-container').removeClass('hidden');
+			$('#ahvenamaaMuinaismuisto-Kuvaus').html(kuvaus);
+		} else {
+			$('#ahvenamaaMuinaismuisto-Kuvaus-container').addClass('hidden');
+		}
+
+		$('#ahvenamaaMuinaismuisto-pdf-link').attr('href', generateAhvenanmaaKuntaPdfUrl(feature.properties.fornl));
 	};
 
 	var generateKulttuuriymparistoURL = function(muinaisjaannosTunnus) {
@@ -169,6 +180,29 @@ var MuinaismuistotDetailsPage = function() {
 
 	var generateRakennusperintorekisteriURL = function(id) {
 		return 'https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_kohde_det.aspx?KOHDE_ID=' + id;
+	};
+
+	var generateAhvenanmaaKuntaPdfUrl = function(kohteenTunniste) {
+		var kunnanPdfLinkkiTunnisteenAlkukirjaimelle = {
+			'Br': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/BR%c3%84ND%c3%96.pdf',
+			'Ec': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/ECKER%c3%96.pdf',
+			'Fö': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/F%c3%96GL%c3%96.pdf',
+			'Fi': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/FINSTR%c3%96M.pdf',
+			'Ge': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/GETA.pdf',
+			'Ha': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/HAMMARLAND.pdf',
+			'Jo': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/JOMALA.pdf',
+			'Kö': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/K%c3%96KAR.pdf',
+			'Ku': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/KUMLINGE.pdf',
+			'Le': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/LEMLAND.pdf',
+			'Lu': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/LUMPARLAND.pdf',
+			'Ma': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/MARIEHAMN.pdf',
+			'Sa': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/SALTVIK.pdf',
+			'So': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/SOTTUNGA.pdf',
+			'Su': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/SUND.pdf',
+			'Vå': 'http://www.kulturarv.ax/wp-content/uploads/2014/11/V%c3%85RD%c3%96.pdf'
+		};
+
+		return kunnanPdfLinkkiTunnisteenAlkukirjaimelle[kohteenTunniste.substring(0, 2)];
 	};
 
 	var trim = function(value) {
