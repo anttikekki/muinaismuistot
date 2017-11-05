@@ -149,6 +149,16 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
   };
 
   /**
+  * Checks if clicked EPSG:4326 coordinate is inside Ahvenanmaa WMTS data extent (area).
+  *
+  * @param {ol.Coordinate} clickedCoordinateInAhvenanmaaWMTSProjection Clicked coordinate in EPSG:4326 projection (example: [20.13916745874376, 60.199400306258006]).
+  * @return {boolean} True clicked coordinate is inside Ahvenanmaa WMTS data extent
+  */
+  var isCoordinateInsideAhvenmaaWMTSTileGrid = function(clickedCoordinateInAhvenanmaaWMTSProjection) {
+    return ol.extent.containsCoordinate(source.getTileGrid().getExtent(), clickedCoordinateInAhvenanmaaWMTSProjection);
+  };
+
+  /**
   * Loads features with GetFeatureInfo request from Ahvenanmaa WMTS service for clicked coordinate.
   *
   * @param {ol.Coordinate} clickedViewProjectionCoordinate Clicked view projection EPSG:3067 coordinate (example: [120085.10887374285, 6693391.965484285]).
@@ -205,6 +215,12 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
   */
   this.getFeatureInfo = function(clickedViewProjectionCoordinate, viewProjection, viewZoomLevel) {
     var clickedCoordinateInAhvenanmaaWMTSProjection = transformClickedCoordinateFromViewProjectionToAhvenanmaaWMTSProjection(clickedViewProjectionCoordinate, viewProjection);
+
+    if (!isCoordinateInsideAhvenmaaWMTSTileGrid(clickedCoordinateInAhvenanmaaWMTSProjection)) {
+      // Returns resolved Promise with data that mimicks JQuery Ajax response
+      return $.Deferred().resolveWith(self, [{features: []}, {}]);
+    }
+
     var ahvenanmaaWMTSResolution = calculateAhvenanmaaWMTSResolution(clickedViewProjectionCoordinate, viewProjection, viewZoomLevel);
     var ahvenanmaaWMTSZoomLevel = calculateAhvenanmaaWMTSZoomLevel(ahvenanmaaWMTSResolution);
     var clickedAhvenanmaaWMTSTilePixel = calculateClickedAhvenanmaaWMTSTilePixel(clickedCoordinateInAhvenanmaaWMTSProjection, ahvenanmaaWMTSResolution);
