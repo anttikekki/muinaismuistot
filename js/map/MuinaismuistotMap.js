@@ -56,10 +56,11 @@ var MuinaismuistotMap = function(settings, eventListeners) {
       }
     );
 
-    map.on("click", onMapClicked);
+    // Fires also on double click but "singleclick" has 250 ms delay so it is too annoying to be used
+    map.on("click", loadFeaturesOnClickedCoordinate);
   };
 
-  var onMapClicked = function(e) {
+  var loadFeaturesOnClickedCoordinate = function(e) {
     var ahvenanmaaQuery = ahvenanmaaWMTS.getFeatureInfo(e.coordinate, view.getProjection(), view.getZoom());
     var museovirastoQuery = museovirastoArcGISWMS.identifyFeaturesAt(
       e.coordinate,
@@ -67,14 +68,16 @@ var MuinaismuistotMap = function(settings, eventListeners) {
       map.getView().calculateExtent(map.getSize())
     );
 
-    $.when(ahvenanmaaQuery, museovirastoQuery).done(function(ahvenanmaaResult, museovirastoResult) {
-      var ahvennamaaFeatures = ahvenanmaaResult[0].features;
-      var museovirastoFeatures = museovirastoResult[0].results;
-      var allFeatures = ahvennamaaFeatures.concat(museovirastoFeatures);
-      if(allFeatures.length > 0) {
-        eventListeners.muinaisjaannosFeaturesSelected(allFeatures);
-      }
-    });
+    $.when(ahvenanmaaQuery, museovirastoQuery).done(resolveFeaturesFromHttpResponseAndFireEventlistener);
+  };
+
+  var resolveFeaturesFromHttpResponseAndFireEventlistener = function(ahvenanmaaResult, museovirastoResult) {
+    var ahvennamaaFeatures = ahvenanmaaResult[0].features;
+    var museovirastoFeatures = museovirastoResult[0].results;
+    var allFeatures = ahvennamaaFeatures.concat(museovirastoFeatures);
+    if(allFeatures.length > 0) {
+      eventListeners.muinaisjaannosFeaturesSelected(allFeatures);
+    }
   };
 
   var initGeolocation = function() {
