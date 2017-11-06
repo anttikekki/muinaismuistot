@@ -235,7 +235,6 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
     showLoadingAnimationFn(true);
 
     return $.getJSON(featureInfoUrl).done(function(response) {
-      console.log(response);
       showLoadingAnimationFn(false);
     });
   };
