@@ -155,7 +155,7 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
   * @return {boolean} True clicked coordinate is inside Ahvenanmaa WMTS data extent
   */
   var isCoordinateInsideAhvenmaaWMTSTileGrid = function(clickedCoordinateInAhvenanmaaWMTSProjection) {
-    return ol.extent.containsCoordinate(source.getTileGrid().getExtent(), clickedCoordinateInAhvenanmaaWMTSProjection);
+    return ol.extent.containsCoordinate(source.getTileGrid().s, clickedCoordinateInAhvenanmaaWMTSProjection);
   };
 
   /**
