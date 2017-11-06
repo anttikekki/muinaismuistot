@@ -83,12 +83,10 @@ var Muinaismuistot = function() {
     });
 
     $('#map-button-zoom-in').on('click', function() {
-      hideTopAlert();
       map.zoomIn();
     });
 
     $('#map-button-zoom-out').on('click', function() {
-      hideTopAlert();
       map.zoomOut();
     });
 
@@ -113,17 +111,9 @@ var Muinaismuistot = function() {
     };
 
     determineStartLocation();
-
-    window.setTimeout(hideTopAlert, 8000);
-  };
-
-  var hideTopAlert = function() {
-    // TODO Bootstrap ei toimi koska ei ole importattu
-    //$('#top-page-info-alert').alert('close');
   };
 
   var showPage = function(pageId) {
-    hideTopAlert();
     var $page = $('#'+pageId);
 
     //Hide possible old page

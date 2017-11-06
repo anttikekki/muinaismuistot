@@ -38,13 +38,6 @@
     <body>
         <div id="map"></div>
 
-        <div id="top-page-info-alert-container" class="text-center">
-            <div id="top-page-info-alert" class="alert alert-info alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <strong>Tervetuloa tutkimaan muinaismuistoja!</strong> Lue lisää toiminnoista sivuston <a href="#">ohjeista</a>.
-            </div>
-        </div>
-
         <div id="loading-animation" class="hidden">
             <img src="images/loading.gif">
         </div>
@@ -603,7 +596,7 @@
                   <div class="panel panel-default" id="muinaisjaannos-collapse-container">
                     <div class="panel-heading" role="tab" id="muinaisjaannos-heading">
                       <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#muinaisjaannos-collapse" aria-expanded="true" aria-controls="muinaisjaannos-collapse">
+                        <a role="button" data-toggle="collapse" data-section="muinaisjaannos" data-parent="#accordion" href="#muinaisjaannos-collapse" aria-expanded="true" aria-controls="muinaisjaannos-collapse">
                           <img src="images/muinaisjaannos_kohde.png">
                           <span>Muinaisjäännös</span>
                         </a>
@@ -648,7 +641,7 @@
                   <div class="panel panel-default" id="muinaisjaannosalue-collapse-container">
                     <div class="panel-heading" role="tab" id="muinaisjaannosalue-heading">
                       <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#muinaisjaannosalue-collapse" aria-expanded="false" aria-controls="muinaisjaannosalue-collapse">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-section="muinaisjaannosalue" data-parent="#accordion" href="#muinaisjaannosalue-collapse" aria-expanded="false" aria-controls="muinaisjaannosalue-collapse">
                           <img src="images/muinaisjaannos_alue.png">
                           <span>Muinaisjäännösalue</span>
                         </a>
@@ -673,7 +666,7 @@
                 <div class="panel panel-default" id="rky-collapse-container">
                     <div class="panel-heading" role="tab" id="rky-heading">
                       <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#rky-collapse" aria-expanded="false" aria-controls="rky-collapse">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-section="rky" data-parent="#accordion" href="#rky-collapse" aria-expanded="false" aria-controls="rky-collapse">
                           <span id="rky-details-icon"></span>
                           <span>Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</span>
                         </a>
@@ -698,7 +691,7 @@
                 <div class="panel panel-default" id="maailmanperinto-collapse-container">
                     <div class="panel-heading" role="tab" id="maailmanperinto-heading">
                       <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#maailmanperinto-collapse" aria-expanded="false" aria-controls="maailmanperinto-collapse">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-section="maailmanperinto" data-parent="#accordion" href="#maailmanperinto-collapse" aria-expanded="false" aria-controls="maailmanperinto-collapse">
                           <span id="maailmanperinto-details-icon"></span>
                           <span>Maailmanperintökohde</span>
                         </a>
@@ -723,7 +716,7 @@
                 <div class="panel panel-default" id="rakennusperintorekisteriAlue-collapse-container">
                     <div class="panel-heading" role="tab" id="rakennusperintorekisteriAlue-heading">
                       <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#rakennusperintorekisteriAlue-collapse" aria-expanded="false" aria-controls="rakennusperintorekisteriAlue-collapse">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-section="rakennusperintorekisteriAlue" data-parent="#accordion" href="#rakennusperintorekisteriAlue-collapse" aria-expanded="false" aria-controls="rakennusperintorekisteriAlue-collapse">
                           <img src="images/rakennusperintorekisteri_alue.png">
                           <span>Rakennusperintörekisterin alue</span>
                         </a>
@@ -768,7 +761,7 @@
                 <div class="panel panel-default" id="rakennusperintorekisteriRakennus-collapse-container">
                     <div class="panel-heading" role="tab" id="rakennusperintorekisteriRakennus-heading">
                       <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#rakennusperintorekisteriRakennus-collapse" aria-expanded="false" aria-controls="rakennusperintorekisteriRakennus-collapse">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-section="rakennusperintorekisteriRakennus" data-parent="#accordion" href="#rakennusperintorekisteriRakennus-collapse" aria-expanded="false" aria-controls="rakennusperintorekisteriRakennus-collapse">
                           <img src="images/rakennusperintorekisteri_rakennus.png">
                           <span>Rakennusperintörekisterin rakennus</span>
                         </a>
@@ -801,7 +794,7 @@
                 <div class="panel panel-default" id="ahvenamaaMuinaismuisto-collapse-container">
                     <div class="panel-heading" role="tab" id="ahvenamaaMuinaismuisto-heading">
                       <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#ahvenamaaMuinaismuisto-collapse" aria-expanded="false" aria-controls="ahvenamaaMuinaismuisto-collapse">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-section="ahvenamaaMuinaismuisto" data-parent="#accordion" href="#ahvenamaaMuinaismuisto-collapse" aria-expanded="false" aria-controls="ahvenamaaMuinaismuisto-collapse">
                           <img src="images/ahvenanmaa_muinaisjaannos.png">
                           <span>Ahvenanmaan muinaisjäännös</span>
                         </a>

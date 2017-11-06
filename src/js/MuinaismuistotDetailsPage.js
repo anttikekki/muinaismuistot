@@ -7,6 +7,36 @@ export default function MuinaismuistotDetailsPage(muinaismuistotData, muinaismui
 		eventListener.hidePage();
 	});
 
+	//var allDetailAccordions = $('#accordion a[data-toggle="collapse"]');
+	$('#accordion a[data-toggle="collapse"]').on('click', function(e) {
+		e.preventDefault();
+		var clickedSectionId = $(e.target).parent().data('section');
+		$('#' + clickedSectionId + '-collapse').toggleClass('in');
+
+		getSectionIds().forEach(function(sectionId) {
+			if (sectionId === clickedSectionId) {
+				return;
+			}
+
+			if ($('#' +  sectionId + '-collapse-container').hasClass('hidden')) {
+				return;
+			}
+			$('#' + sectionId + '-collapse').removeClass('in');
+		});
+	});
+
+	var getSectionIds = function() {
+		return [
+			'muinaisjaannos',
+			'muinaisjaannosalue',
+			'rky',
+			'maailmanperinto',
+			'rakennusperintorekisteriAlue',
+			'rakennusperintorekisteriRakennus',
+			'ahvenamaaMuinaismuisto'
+		];
+	};
+
 	this.setMuinaisjaannosFeatures = function(features) {
 		var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
 		var sectionVisibilityMap = {
