@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
     <head>
         <meta charset="utf-8">
         <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -104,6 +104,8 @@
 
             <div class="pageContent">
 
+                <div class="well well-sm">Haku toimii vain Museoviraston rekisterien kohteisiin eli haulla ei valitettavasti löydä Ahvenanmaan muinaisjäännöksiä.</div>
+
                 <form id="search-form">
                     <div id="search-form-error" class="alert alert-danger hidden" role="alert">Hakusanan pitää olla vähintään kolme merkkiä</div>
                     <div class="input-group">
@@ -117,7 +119,7 @@
                 <h5 id="search-result-header" class="hidden">Hakutulokset<small id="search-result-count"></small></h5>
 
                 <div id="search-results-container">
-                    
+
                 </div>
 
             </div> <!-- pageContent -->
@@ -144,28 +146,35 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Tietoa sivustosta</div>
                     <div class="panel-body">
-                        <p>Tältä sivulta näet kartalla <a href="https://www.kyppi.fi/palveluikkuna/portti/read/asp/default.aspx">Museoviraston</a> ylläpitämien rekisteriten tiedot:
+                        <p>Tällä sivustolla näet kartalla seuraavien rekisterien tiedot:</p>
+
+                        <h5>Museovirasto</h5>
                         <ul>
                             <li><a href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx">Muinaisjäännösrekisteri</a></li>
                             <li><a href="https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_default.aspx">Rakennusperintörekisteri</a></li>
                             <li><a href="http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa">Maailmanperintökohteet</a></li>
                             <li><a href="http://www.rky.fi/">Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</a></li>
                         </ul>
-                        </p>
 
-                        <p>Kaikki samat kohteet näkee kartalla myös Museoviraston omassa <a href="https://kartta.museoverkko.fi/">kartta.museoverkko.fi</a> -karttapalvelussa. Tämän sivuston tarkoitus on tarjota virallista palvelua helpompi käyttöliittymä ja parempi toimivuus mobiililaitteilla.</p>
+                        <h5>Ahvenamaan paikallishallinto</h5>
+                        <ul>
+                            <li><a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">Muinaisjäännösrekisteri</a></li>
+                        </ul>
 
+                        <p>Kaikki näytettävät kohteet ovat avointa dataa ja haettu rekisterin ylläpitäjän tarjoamasta karttapalvelusta.</p>
+
+                        <p>Kohteista saa lisätietoikkunan näkyviin klikkaamalla kohdetta kartalla. Tästä näkymästä on myös linkki kohteen lisätietoihin rekisterin ylläpitäjän sivustolla. Kohteen otsikon vieressä olevasta kuvakkeesta (<span class="glyphicon glyphicon-link" aria-hidden="true"></span>) saa talteen pysyvän linkin kohteen sijaintiin kartalla.</p>
+
+                        <h5>Paikannus</h5>
                         <p>Kartta keskitetään oletuksena nykyiseen sijaintiisi jos annat selaimelle luvan luovuttaa se tieto. Keskityksen nykyiseen sijaintiin voi suorittaa myös myöhemmin <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> painikkeesta.</p>
 
-                        <p>Kohteista saa lisätietoikkunan näkyviin klikkaamalla kohdetta kartalla. Tästä näkymästä on myös linkki kohteen lisätietoihin Museoviraston rekistereissä. Kohteen otsikon vieressä olevasta kuvakkeesta (<span class="glyphicon glyphicon-link" aria-hidden="true"></span>) saa talteen pysyvän linkin kohteen sijaintiin kartalla.</p>
+                        <h5>Haku</h5>
+                        <p>Museoviraston rekisterien kohteita pystyy hakemaan nimen perusteella hakunäkymässä (<span class="glyphicon glyphicon-search" aria-hidden="true"></span>). Hakutuloksen klikkaaminen keskittää kartan kohteeseen ja lisää siihen paikkamerkin <img src="images/map-pin-small.png"/>.</p>
 
-                        <p>Kohteita pystyy myös hakemaan nimen perusteella hakunäkymässä (<span class="glyphicon glyphicon-search" aria-hidden="true"></span>). Hakutuloksen klikkaaminen keskittää kartan kohteeseen ja lisää siihen paikkamerkin <img src="images/map-pin-small.png"/>.</p>
+                        <h5>Asetukset</h5>
+                        <p>Pohjakartan voi vaihtaa taustakartan ja maastokartan välillä asetuksista (<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>). Samasta näkymästä voi piilottaa Museoviraston rekisterien kohteita tyypin ja muinaisjäännöksiä myös ajoituksen mukaan jos haluaa tarkastella esimerkiksi pelkästään muinaisjäännöksiä rautakaudelta.</p>
 
-                        <p>Pohjakartan voi vaihtaa taustakertan ja maastokartan välillä asetuksista (<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>). Samasta näkymästä voi piilottaa kohteita tyypin mukaan jos haluaa tarkastella esimerkiksi pelkästään muinaisjäännöksiä.</p>
-
-                        <p>Muinaisjäännösten näkyvyyttä pystyy rajoittamaan asetuksista myös ajoituksen ja tyypin perusteella.</p>
-
-                        <p>Palautetta sivustosta otetaan mielellään vastaan! Lähetä risut ja ruusut osoitteeseen <a href="mailto:antti.kekki@gmail.com">antti.kekki@gmail.com</a></p>
+                        <p>Palautetta sivustosta otetaan mielellään vastaan osoitteeseen <a href="mailto:antti.kekki@gmail.com">antti.kekki@gmail.com</a></p>
                     </div>
                 </div>
 
@@ -173,7 +182,7 @@
                     <div class="panel-heading">Karttasymbolit</div>
                     <div class="panel-body">
                         <p>
-                            <h5>Muinaisjäännösrekisteri</h5>
+                            <h5>Museoviraston muinaisjäännösrekisteri</h5>
 
                             <img src="images/muinaisjaannos_kohde.png">
                             <span>Kohde</span>
@@ -188,11 +197,20 @@
                         <br>
 
                         <p>
+                            <h5>Ahvenanmaan muinaisjäännösrekisteri</h5>
+
+                            <img src="images/ahvenanmaa_muinaisjaannos.png">
+                            <span>Kohde</span>
+                        </p>
+
+                        <br>
+
+                        <p>
                             <h5>Rakennusperintörekisteri</h5>
-                            
+
                             <img src="images/rakennusperintorekisteri_rakennus.png">
                             <span>Rakennus</span>
-                            
+
                             <img src="images/rakennusperintorekisteri_alue.png">
                             <span>Alue</span>
                         </p>
@@ -201,13 +219,13 @@
 
                         <p>
                             <h5>Maailmanperintökohteet</h5>
-                            
+
                             <img src="images/maailmanperinto_piste.png">
                             <span>Kohde</span>
-                            
+
                             <img src="images/maailmanperinto_alue.png">
                             <span>Alue</span>
-                            
+
                             <img src="images/maailmanperinto_suoja_alue.png">
                             <span>Suoja-alue</span>
                         </p>
@@ -216,13 +234,13 @@
 
                         <p>
                             <h5>Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</h5>
-                            
+
                             <img src="images/rky_piste.png">
                             <span>Kohde</span>
-                            
+
                             <img src="images/rky_viiva.png">
                             <span>Viiva (esim. tie)</span>
-                            
+
                             <img src="images/rky_alue.png">
                             <span>Alue</span>
                         </p>
@@ -234,6 +252,8 @@
                     <div class="panel-body">
 
                         <p>Museoviraston rekistereistä tietoa haetaan <a href="http://www.paikkatietohakemisto.fi/geonetwork/srv/fin/catalog.search#/metadata/49c9be83-bfb5-4380-870d-7c7323760990">avoimen rajapinnan</a> kautta (<a href="http://www.nba.fi/fi/File/2104/lisenssi-su-sv.pdf">materiaalin lisenssi</a>).</p>
+
+                        <p>Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href="http://inspire.regeringen.ax:8080/geoserver/web/">avoimen rajapinnan</a> kautta. Sisältöä hallinnoi <a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">Ålands landskapsregering - Kulturbyrån</a>.</p>
 
                         <p>Taustakarttana on <a href="http://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-11">Maanmittauslaitoksen</a> tausta- ja peruskartta (<a href="http://www.maanmittauslaitos.fi/avoindata_lisenssi_versio1_20120501">materiaalin lisenssi</a>).</p>
 
@@ -353,7 +373,7 @@
                         <div class="checkbox">
                           <label>
                             <input type="checkbox" value="10" id="settings-muinaismuistot-layer-10">
-                            Muinaisjäännösrekisteri
+                            Museoviraston muinaisjäännösrekisteri
                           </label>
                         </div>
                         <div class="checkbox sub-layer-select-checkbox-container">
@@ -378,6 +398,20 @@
                           </label>
                         </div>
 
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" value="" checked disabled>
+                            Ahvenamaan muinaisjäännösrekisteri
+                          </label>
+                        </div>
+                        <div class="checkbox sub-layer-select-checkbox-container">
+                          <label>
+                            <input type="checkbox" value="" checked disabled>
+                            <img src="images/ahvenanmaa_muinaisjaannos.png"/>
+                            Kohde
+                          </label>
+                        </div>
+
                     </div>
                 </div>
 
@@ -385,8 +419,8 @@
                     <div class="panel-heading">Rajoita näkyviä muinaisjäännöksiä</div>
                     <div class="panel-body">
 
-                        <p>Näkyvien muinaisjäännöksien rajoittaminen toimii vain kohteille mutta ei alakohteille eikä alueille.</p>
-                        
+                        <div class="well well-sm">Rajoitus toimii vain Museoviraston muijaisjäännöksille ja kohteille mutta ei alakohteille eikä alueille.</div>
+
                         <form>
 
                             <h5>Tyyppi</h5>
@@ -573,7 +607,7 @@
                     <div class="panel-heading" role="tab" id="muinaisjaannos-heading">
                       <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#muinaisjaannos-collapse" aria-expanded="true" aria-controls="muinaisjaannos-collapse">
-                          <img src="images/muinaisjaannos_kohde.png"> 
+                          <img src="images/muinaisjaannos_kohde.png">
                           <span>Muinaisjäännös</span>
                         </a>
                         <a id="muinaisjaannos-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
@@ -618,7 +652,7 @@
                     <div class="panel-heading" role="tab" id="muinaisjaannosalue-heading">
                       <h4 class="panel-title">
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#muinaisjaannosalue-collapse" aria-expanded="false" aria-controls="muinaisjaannosalue-collapse">
-                          <img src="images/muinaisjaannos_alue.png"> 
+                          <img src="images/muinaisjaannos_alue.png">
                           <span>Muinaisjäännösalue</span>
                         </a>
                         <a id="muinaisjaannosalue-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
@@ -767,6 +801,51 @@
                       </div>
                     </div>
                 </div>
+                <div class="panel panel-default" id="ahvenamaaMuinaismuisto-collapse-container">
+                    <div class="panel-heading" role="tab" id="ahvenamaaMuinaismuisto-heading">
+                      <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#ahvenamaaMuinaismuisto-collapse" aria-expanded="false" aria-controls="ahvenamaaMuinaismuisto-collapse">
+                          <img src="images/ahvenanmaa_muinaisjaannos.png">
+                          <span>Ahvenanmaan muinaisjäännös</span>
+                        </a>
+                        <a id="ahvenamaaMuinaismuisto-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+                      </h4>
+                    </div>
+                    <div id="ahvenamaaMuinaismuisto-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="ahvenamaaMuinaismuisto-heading">
+                      <div class="panel-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Kunta</label>
+                                <p id="ahvenamaaMuinaismuisto-Kunta"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Kylä</label>
+                                <p id="ahvenamaaMuinaismuisto-Kyla"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Kategoria</label>
+                                <p id="ahvenamaaMuinaismuisto-Kategoria"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Ajoitus</label>
+                                <p id="ahvenamaaMuinaismuisto-Ajoitus"></p>
+                            </div>
+                            <div class="form-group" id="ahvenamaaMuinaismuisto-Kuvaus-container">
+                                <label>Kuvaus</label>
+                                <p id="ahvenamaaMuinaismuisto-Kuvaus"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Tunniste</label>
+                                <p id="ahvenamaaMuinaismuisto-Tunniste"></p>
+                            </div>
+
+                            <p>
+                                Lisää tietoa kohteesta löytyy <a href="" target="_blank" id="ahvenamaaMuinaismuisto-pdf-link">kuntakohtaisesta Pdf-tiedostosta</a>, josta voit etsiä kohteen tunnisteella <span class="label label-default" id="ahvenamaaMuinaismuisto-pdf-link-Tunniste"></span>.
+                            </p>
+                        </form>
+                      </div>
+                    </div>
+                </div>
 
             </div> <!-- pageContent -->
 
@@ -779,7 +858,11 @@
         <script type="text/javascript" src="js/Muinaismuistot.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotSettings.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotData.js"></script>
-        <script type="text/javascript" src="js/MuinaismuistotMap.js"></script>
+        <script type="text/javascript" src="js/map/MuinaismuistotMap.js"></script>
+        <script type="text/javascript" src="js/map/AhvenanmaaWMTS.js"></script>
+        <script type="text/javascript" src="js/map/MuseovirastoArcGISWMS.js"></script>
+        <script type="text/javascript" src="js/map/MaanmittauslaitosWMTS.js"></script>
+        <script type="text/javascript" src="js/map/CurrentPositionAndSelectedLocationMarkerLayer.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotDetailsPage.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotSettingsPage.js"></script>
         <script type="text/javascript" src="js/MuinaismuistotInfoPage.js"></script>
