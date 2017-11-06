@@ -1,12 +1,11 @@
-var MuinaismuistotSettingsPage = function() {
+import $ from "jquery";
+
+export default function MuinaismuistotSettingsPage(settings, eventListener) {
 	var self = this;
-	var eventListener;
-	var settings;
 	var layerCheckboxSelector = "#muinaismuistot-visible-layer-selections input";
 	var layerCheckboxListerDisabled = false;
 
-	this.init = function(muinaismuistotSettings) {
-		settings = muinaismuistotSettings;
+	var init = function() {
 		setSelectedMuinaismuistotLayerIds(settings.getSelectedMuinaismuistotLayerIds());
 		setSelectedMapBackgroundLayerName(settings.getSelectedBackgroundMapLayerName());
 
@@ -24,10 +23,6 @@ var MuinaismuistotSettingsPage = function() {
 		//Muinaisjäännösrekisteri
 		addCheckboxListener('muinaisjaannos-filter-tyyppi-container', 'Muinaisjäännökset', 'tyyppi');
 		addCheckboxListener('muinaisjaannos-filter-ajoitus-container', 'Muinaisjäännökset', 'ajoitus');
-	};
-
-	this.setEventListener = function(listener) {
-	    eventListener = listener;
 	};
 
 	this.setVisibleMuinaismuistotLayers = function(selectedLayerIds) {
@@ -76,4 +71,5 @@ var MuinaismuistotSettingsPage = function() {
 		$('#map-selection-'+mapName).click();
 	};
 
+	init();
 };

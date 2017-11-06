@@ -1,4 +1,14 @@
-var CurrentPositionAndSelectedLocationMarkerLayer = function(onLayerCreatedCallbackFn) {
+import VectorLayer from 'ol/layer/vector';
+import VectorSource from 'ol/source/vector';
+import Fill from 'ol/style/fill';
+import Stroke from 'ol/style/stroke';
+import Circle from 'ol/style/circle';
+import Style from 'ol/style/style';
+import Icon from 'ol/style/icon';
+import Feature from 'ol/feature';
+import Point from 'ol/geom/point';
+
+export default function CurrentPositionAndSelectedLocationMarkerLayer(onLayerCreatedCallbackFn) {
   var layer;
   var source;
   var currentPositionFeature;
@@ -9,8 +19,8 @@ var CurrentPositionAndSelectedLocationMarkerLayer = function(onLayerCreatedCallb
   };
 
   var addLayer = function() {
-    source = new ol.source.Vector({});
-    layer = new ol.layer.Vector({
+    source = new VectorSource({});
+    layer = new VectorLayer({
       source: source
     });
     onLayerCreatedCallbackFn(layer);
@@ -22,19 +32,19 @@ var CurrentPositionAndSelectedLocationMarkerLayer = function(onLayerCreatedCallb
       return;
     }
 
-    var fill = new ol.style.Fill({
+    var fill = new Fill({
      color: 'rgba(0, 0, 255, 1.0)'
     });
-    var stroke = new ol.style.Stroke({
+    var stroke = new Stroke({
      color: 'rgba(255, 255, 255, 1.0)',
      width: 3
     });
 
-    currentPositionFeature = new ol.Feature({
-      geometry: new ol.geom.Point(coordinates)
+    currentPositionFeature = new Feature({
+      geometry: new Point(coordinates)
     });
-    currentPositionFeature.setStyle(new ol.style.Style({
-     image: new ol.style.Circle({
+    currentPositionFeature.setStyle(new Style({
+     image: new Circle({
        fill: fill,
        stroke: stroke,
        radius: 7
@@ -51,11 +61,11 @@ var CurrentPositionAndSelectedLocationMarkerLayer = function(onLayerCreatedCallb
       return;
     }
 
-    selectedLocationFeature = new ol.Feature({
-      geometry: new ol.geom.Point(coordinates)
+    selectedLocationFeature = new Feature({
+      geometry: new Point(coordinates)
     });
-    selectedLocationFeature.setStyle(new ol.style.Style({
-     image: new ol.style.Icon({
+    selectedLocationFeature.setStyle(new Style({
+     image: new Icon({
        src: 'images/map-pin.png'
      })
     }));

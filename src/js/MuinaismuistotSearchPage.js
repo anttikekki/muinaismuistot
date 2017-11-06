@@ -1,15 +1,9 @@
-var MuinaismuistotSearchPage = function() {
+import $ from "jquery";
+
+export default function MuinaismuistotSearchPage(muinaismuistotData, muinaismuistotSettings, urlHashHelper, eventListener) {
 	var self = this;
-	var eventListener;
-	var muinaismuistotData;
-	var muinaismuistotSettings;
-	var urlHashHelper;
 
-	this.init = function(data, settings, urlHelper) {
-		muinaismuistotData = data;
-		muinaismuistotSettings = settings;
-		urlHashHelper = urlHelper;
-
+	var init = function() {
 		$('#hide-searchPage-button').on('click', function() {
 			eventListener.hidePage();
 		});
@@ -22,10 +16,6 @@ var MuinaismuistotSearchPage = function() {
 			e.preventDefault();
 			search($('#search-text').val());
 		});
-	};
-
-	this.setEventListener = function(listener) {
-	    eventListener = listener;
 	};
 
 	var search = function(searchText) {
@@ -65,4 +55,6 @@ var MuinaismuistotSearchPage = function() {
 		    '<p class="list-group-item-text"><img src="' + iconURL + '"> ' + tyypinNimi + '</p>' +
 		  '</a>';
 	};
+
+	init();
 };

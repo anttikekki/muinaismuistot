@@ -1,6 +1,5 @@
-var MuinaismuistotSettings = function() {
+export default function MuinaismuistotSettings(eventListener) {
   var self = this;
-  var eventListener = null;
   var selectedLayerIds = [];
   var selectedBackgroundMapLayerName = '';
   var filterParameters = {
@@ -10,39 +9,39 @@ var MuinaismuistotSettings = function() {
         ajoitus: []
       },
   };
-  var muinaisjaannosTyyppiAllValues = ['ei määritelty', 
-                                      'alusten hylyt', 
-                                      'asuinpaikat', 
-                                      'hautapaikat', 
-                                      'kirkkorakenteet', 
-                                      'kivirakenteet', 
-                                      'kulkuväylät', 
-                                      'kultti- ja tarinapaikat', 
-                                      'luonnonmuodostumat', 
-                                      'löytöpaikat', 
-                                      'maarakenteet', 
-                                      'muinaisjäännösryhmät', 
-                                      'puolustusvarustukset', 
-                                      'puurakenteet', 
-                                      'raaka-aineen hankintapaikat', 
-                                      'taide, muistomerkit', 
-                                      'tapahtumapaikat', 
-                                      'teollisuuskohteet', 
+  var muinaisjaannosTyyppiAllValues = ['ei määritelty',
+                                      'alusten hylyt',
+                                      'asuinpaikat',
+                                      'hautapaikat',
+                                      'kirkkorakenteet',
+                                      'kivirakenteet',
+                                      'kulkuväylät',
+                                      'kultti- ja tarinapaikat',
+                                      'luonnonmuodostumat',
+                                      'löytöpaikat',
+                                      'maarakenteet',
+                                      'muinaisjäännösryhmät',
+                                      'puolustusvarustukset',
+                                      'puurakenteet',
+                                      'raaka-aineen hankintapaikat',
+                                      'taide, muistomerkit',
+                                      'tapahtumapaikat',
+                                      'teollisuuskohteet',
                                       'työ- ja valmistuspaikat'];
-  var muinaisjaannosAjoitusAllValues = ['moniperiodinen', 
-                                       'esihistoriallinen', 
-                                       'kivikautinen', 
-                                       'varhaismetallikautinen', 
-                                       'pronssikautinen', 
-                                       'rautakautinen', 
-                                       'keskiaikainen', 
-                                       'historiallinen', 
-                                       'moderni', 
-                                       'ajoittamaton', 
+  var muinaisjaannosAjoitusAllValues = ['moniperiodinen',
+                                       'esihistoriallinen',
+                                       'kivikautinen',
+                                       'varhaismetallikautinen',
+                                       'pronssikautinen',
+                                       'rautakautinen',
+                                       'keskiaikainen',
+                                       'historiallinen',
+                                       'moderni',
+                                       'ajoittamaton',
                                        'ei määritelty'];
 
-  this.init = function() {
-    selectedLayerIds = this.getMuinaismuistotLayerIds();
+  var init = function() {
+    selectedLayerIds = self.getMuinaismuistotLayerIds();
     selectedBackgroundMapLayerName = 'taustakartta';
   };
 
@@ -273,4 +272,5 @@ var MuinaismuistotSettings = function() {
     self.setSelectedMuinaismuistotLayerIds(selectedLayerIds);
   };
 
+  init();
 };

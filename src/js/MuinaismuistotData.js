@@ -1,9 +1,4 @@
-var MuinaismuistotData = function() {
-  var muinaismuistotSettings;
-
-  this.init = function(settings) {
-    muinaismuistotSettings = settings;
-  };
+export default function MuinaismuistotData(muinaismuistotSettings) {
 
   this.getFeatureName = function(feature) {
     var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();

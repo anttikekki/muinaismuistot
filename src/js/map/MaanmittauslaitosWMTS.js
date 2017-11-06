@@ -1,4 +1,9 @@
-var MaanmittauslaitosWMTS = function(onLayersCreatedCallbackFn) {
+import $ from "jquery";
+import TileLayer from 'ol/layer/tile';
+import WMTSCapabilities from 'ol/format/WMTSCapabilities';
+import WMTSSource from 'ol/source/WMTS';
+
+export default function MaanmittauslaitosWMTS(onLayersCreatedCallbackFn) {
   var mmlMaastokarttaLayer;
   var mmlTaustakarttaLayer;
   var maastokarttaLayerSource;
@@ -18,22 +23,22 @@ var MaanmittauslaitosWMTS = function(onLayersCreatedCallbackFn) {
   };
 
   var addWmtsLayers = function(response) {
-    var parser = new ol.format.WMTSCapabilities();
+    var parser = new WMTSCapabilities();
     var capabilities = parser.read(response);
 
-    maastokarttaLayerSource = new ol.source.WMTS(ol.source.WMTS.optionsFromCapabilities(capabilities, {
+    maastokarttaLayerSource = new WMTSSource(WMTSSource.optionsFromCapabilities(capabilities, {
       layer: 'maastokartta'
     }));
-    taustakarttaLayerSource = new ol.source.WMTS(ol.source.WMTS.optionsFromCapabilities(capabilities, {
+    taustakarttaLayerSource = new WMTSSource(WMTSSource.optionsFromCapabilities(capabilities, {
       layer: 'taustakartta'
     }));
 
-    mmlMaastokarttaLayer = new ol.layer.Tile({
+    mmlMaastokarttaLayer = new TileLayer({
       title: 'Maastokartta',
       source: maastokarttaLayerSource,
       visible: false
     });
-    mmlTaustakarttaLayer = new ol.layer.Tile({
+    mmlTaustakarttaLayer = new TileLayer({
       title: 'Taustakartta',
       source: taustakarttaLayerSource,
       visible: true

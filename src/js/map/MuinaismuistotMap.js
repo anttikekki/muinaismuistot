@@ -1,4 +1,17 @@
-var MuinaismuistotMap = function(settings, eventListeners) {
+import 'ol/ol.css';
+import $ from "jquery";
+import proj4 from 'proj4';
+import Map from 'ol/map.js';
+import View from 'ol/view.js';
+import proj from 'ol/proj.js';
+import Collection from 'ol/collection';
+import Geolocation from 'ol/geolocation';
+import MaanmittauslaitosWMTS from './MaanmittauslaitosWMTS';
+import AhvenanmaaWMTS from './AhvenanmaaWMTS';
+import MuseovirastoArcGISWMS from './MuseovirastoArcGISWMS';
+import CurrentPositionAndSelectedLocationMarkerLayer from './CurrentPositionAndSelectedLocationMarkerLayer';
+
+export default function MuinaismuistotMap(settings, eventListeners) {
   var self = this;
   var muinaismuistotSettings = settings;
   var map;
@@ -10,22 +23,23 @@ var MuinaismuistotMap = function(settings, eventListeners) {
   var positionAndSelectedLocation;
 
   var init = function() {
+    proj.setProj4(proj4);
     proj4.defs("EPSG:3067","+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
 
     var extent = [50199.4814, 6582464.0358, 761274.6247, 7799839.8902];
-    ol.proj.get('EPSG:3067').setExtent(extent);
+    proj.get('EPSG:3067').setExtent(extent);
 
-    view = new ol.View({
+    view = new View({
       center: [387685, 6679679],
       projection: 'EPSG:3067',
       zoom: 8
     });
 
-    map = new ol.Map({
+    map = new Map({
       target: 'map',
       view: view,
       renderer: 'canvas',
-      controls: new ol.Collection()
+      controls: new Collection()
     });
 
     maanmittauslaitosWMTS = new MaanmittauslaitosWMTS(
@@ -81,7 +95,7 @@ var MuinaismuistotMap = function(settings, eventListeners) {
   };
 
   var initGeolocation = function() {
-    geolocation = new ol.Geolocation({
+    geolocation = new Geolocation({
       projection: view.getProjection(),
       tracking: true
     });

@@ -1,3 +1,15 @@
+import 'bootstrap/dist/css/bootstrap.css';
+import '../css/muinaismuistot.css';
+import $ from "jquery";
+import MuinaismuistotSettings from './MuinaismuistotSettings';
+import MuinaismuistotURLHashHelper from './MuinaismuistotURLHashHelper';
+import MuinaismuistotData from './MuinaismuistotData';
+import MuinaismuistotMap from './map/MuinaismuistotMap';
+import MuinaismuistotDetailsPage from './MuinaismuistotDetailsPage';
+import MuinaismuistotSettingsPage from './MuinaismuistotSettingsPage';
+import MuinaismuistotSearchPage from './MuinaismuistotSearchPage';
+import MuinaismuistotInfoPage from './MuinaismuistotInfoPage';
+
 var Muinaismuistot = function() {
   var self = this;
   var map = null;
@@ -11,10 +23,8 @@ var Muinaismuistot = function() {
   var visiblePageId = null;
   var loadingAnimationTimeoutID = null;
 
-  this.init = function() {
-    settings = new MuinaismuistotSettings();
-    settings.init();
-    settings.setEventListener({
+  var init = function() {
+    settings = new MuinaismuistotSettings({
       selectedMapBackgroundLayerChanged: function(layerName) {
         map.setVisibleMaanmittauslaitosLayerName(layerName);
       },
@@ -28,9 +38,7 @@ var Muinaismuistot = function() {
     });
 
     urlHashHelper = new MuinaismuistotURLHashHelper();
-
-    data = new MuinaismuistotData();
-    data.init(settings);
+    data = new MuinaismuistotData(settings);
 
     map = new MuinaismuistotMap(settings, {
       muinaisjaannosFeaturesSelected : function(muinaisjaannosFeatures) {
@@ -40,25 +48,19 @@ var Muinaismuistot = function() {
       showLoadingAnimation: showLoadingAnimation
     });
 
-    detailsPage = new MuinaismuistotDetailsPage();
-    detailsPage.init(data, settings, urlHashHelper);
-    detailsPage.setEventListener({
+    detailsPage = new MuinaismuistotDetailsPage(data, settings, urlHashHelper, {
       hidePage : function() {
         hidePage('detailsPage');
       }
     });
 
-    settingsPage = new MuinaismuistotSettingsPage();
-    settingsPage.init(settings);
-    settingsPage.setEventListener({
+    settingsPage = new MuinaismuistotSettingsPage(settings, {
       hidePage : function() {
         hidePage('settingsPage');
       }
     });
 
-    searchPage = new MuinaismuistotSearchPage();
-    searchPage.init(data, settings, urlHashHelper);
-    searchPage.setEventListener({
+    searchPage = new MuinaismuistotSearchPage(data, settings, urlHashHelper, {
       hidePage : function() {
         hidePage('searchPage');
       },
@@ -70,9 +72,7 @@ var Muinaismuistot = function() {
       }
     });
 
-    infoPage = new MuinaismuistotInfoPage();
-    infoPage.init();
-    infoPage.setEventListener({
+    infoPage = new MuinaismuistotInfoPage({
       hidePage : function() {
         hidePage('infoPage');
       }
@@ -118,7 +118,8 @@ var Muinaismuistot = function() {
   };
 
   var hideTopAlert = function() {
-    $('#top-page-info-alert').alert('close');
+    // TODO Bootstrap ei toimi koska ei ole importattu
+    //$('#top-page-info-alert').alert('close');
   };
 
   var showPage = function(pageId) {
@@ -176,4 +177,10 @@ var Muinaismuistot = function() {
       $('#loading-animation').addClass('hidden');
     }
   };
+
+  init();
 };
+
+$(document).ready(function() {
+    new Muinaismuistot();
+});

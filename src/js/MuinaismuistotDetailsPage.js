@@ -1,23 +1,11 @@
-var MuinaismuistotDetailsPage = function() {
+import $ from "jquery";
+
+export default function MuinaismuistotDetailsPage(muinaismuistotData, muinaismuistotSettings, urlHashHelper, eventListener) {
 	var self = this;
-	var eventListener;
-	var muinaismuistotData;
-	var muinaismuistotSettings;
-	var urlHashHelper;
 
-	this.init = function(data, settings, urlHelper) {
-		muinaismuistotData = data;
-		muinaismuistotSettings = settings;
-		urlHashHelper = urlHelper;
-
-		$('#hide-detailsPage-button').on('click', function() {
-			eventListener.hidePage();
-		});
-	};
-
-	this.setEventListener = function(listener) {
-	    eventListener = listener;
-	};
+	$('#hide-detailsPage-button').on('click', function() {
+		eventListener.hidePage();
+	});
 
 	this.setMuinaisjaannosFeatures = function(features) {
 		var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();

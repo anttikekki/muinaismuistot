@@ -1,4 +1,8 @@
-var MuseovirastoArcGISWMS = function(muinaismuistotSettings, showLoadingAnimationFn, onLayerCreatedCallbackFn) {
+import $ from "jquery";
+import TileLayer from 'ol/layer/tile';
+import TileArcGISRestSource from 'ol/source/TileArcGISRest';
+
+export default function MuseovirastoArcGISWMS(muinaismuistotSettings, showLoadingAnimationFn, onLayerCreatedCallbackFn) {
   var source;
   var layer;
 
@@ -8,7 +12,7 @@ var MuseovirastoArcGISWMS = function(muinaismuistotSettings, showLoadingAnimatio
 
   var addMuinaismuistotLayer = function() {
     source = createSource();
-    layer =  new ol.layer.Tile({
+    layer =  new TileLayer({
       source: source
     });
     layer.setOpacity(0.7);
@@ -16,7 +20,7 @@ var MuseovirastoArcGISWMS = function(muinaismuistotSettings, showLoadingAnimatio
   };
 
   var createSource = function() {
-    return new ol.source.TileArcGISRest(getMuinaismuistotLayerSourceParams());
+    return new TileArcGISRestSource(getMuinaismuistotLayerSourceParams());
   };
 
   var updateMuinaismuistotLayerSource = function() {

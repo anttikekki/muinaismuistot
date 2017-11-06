@@ -1,4 +1,13 @@
-var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) {
+import $ from "jquery";
+import TileLayer from 'ol/layer/tile';
+import WMTSCapabilities from 'ol/format/WMTSCapabilities';
+import WMTSSource from 'ol/source/WMTS';
+import extent from 'ol/extent';
+import reproj from 'ol/reproj';
+import proj from 'ol/proj';
+import size from 'ol/size';
+
+export default function AhvenanmaaWMTS(showLoadingAnimationFn, onLayerCreatedCallbackFn) {
   var source;
   var layer;
 
@@ -16,15 +25,15 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
   };
 
   var addAlandWmtsLayers = function(response) {
-    var parser = new ol.format.WMTSCapabilities();
+    var parser = new WMTSCapabilities();
     var capabilities = parser.read(response);
 
-    source = new ol.source.WMTS(ol.source.WMTS.optionsFromCapabilities(capabilities, {
+    source = new WMTSSource(WMTSSource.optionsFromCapabilities(capabilities, {
       layer: 'inspire:fornminnen',
       format: 'image/png'
     }));
 
-    layer = new ol.layer.Tile({
+    layer = new TileLayer({
       title: 'Ahvenanmaa',
       source: source,
       visible: true
@@ -44,7 +53,7 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
   */
   var transformClickedCoordinateFromViewProjectionToAhvenanmaaWMTSProjection = function(clickedViewProjectionCoordinate, viewProjection) {
     var ahvenanmaaWMTSProjection = source.getProjection().getCode();
-    return ol.proj.transform(clickedViewProjectionCoordinate, viewProjection, ahvenanmaaWMTSProjection);
+    return proj.transform(clickedViewProjectionCoordinate, viewProjection, ahvenanmaaWMTSProjection);
   };
 
   /**
@@ -67,8 +76,8 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
     var targetTileCoord = targetTileGrid.getTileCoordForCoordAndZ(clickedViewProjectionCoordinate, viewZoomLevel);
     var targetExtent = targetTileGrid.getTileCoordExtent(targetTileCoord);
     var targetResolution = targetTileGrid.getResolution(viewZoomLevel);
-    var targetCenter = ol.extent.getCenter(targetExtent);
-    return ol.reproj.calculateSourceResolution(sourceProjection, targetProjection, targetCenter, targetResolution);
+    var targetCenter = extent.getCenter(targetExtent);
+    return reproj.calculateSourceResolution(sourceProjection, targetProjection, targetCenter, targetResolution);
   };
 
   /**
@@ -97,7 +106,7 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
     var ahvenanmaaWMTSZoomLevel = calculateAhvenanmaaWMTSZoomLevel(ahvenanmaaWMTSResolution);
     var tileCoord = tileGrid.getTileCoordForCoordAndZ(clickedCoordinateInAhvenanmaaWMTSProjection, ahvenanmaaWMTSZoomLevel);
     var tileExtent = tileGrid.getTileCoordExtent(tileCoord);
-    var tileSize = ol.size.toSize(tileGrid.getTileSize(ahvenanmaaWMTSZoomLevel));
+    var tileSize = size.toSize(tileGrid.getTileSize(ahvenanmaaWMTSZoomLevel));
     var pixelRatio = source.getTilePixelRatio();
 
     var x = Math.floor((clickedCoordinateInAhvenanmaaWMTSProjection[0] - tileExtent[0]) / (ahvenanmaaWMTSResolution / pixelRatio));
@@ -155,7 +164,7 @@ var AhvenanmaaWMTS = function(showLoadingAnimationFn, onLayerCreatedCallbackFn) 
   * @return {boolean} True clicked coordinate is inside Ahvenanmaa WMTS data extent
   */
   var isCoordinateInsideAhvenmaaWMTSTileGrid = function(clickedCoordinateInAhvenanmaaWMTSProjection) {
-    return ol.extent.containsCoordinate(source.getTileGrid().getExtent(), clickedCoordinateInAhvenanmaaWMTSProjection);
+    return extent.containsCoordinate(source.getTileGrid().getExtent(), clickedCoordinateInAhvenanmaaWMTSProjection);
   };
 
   /**

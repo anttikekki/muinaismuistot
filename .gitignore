@@ -1,3 +1,5 @@
 node_modules/
 .DS_Store
-js/lib/ol-debug.js
+dist/bundle.js
+dist/bundle.js.map
+dist/index.html
