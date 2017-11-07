@@ -1,7 +1,7 @@
 import MuinaismuistotSettings from './MuinaismuistotSettings';
-import MuinaismuistotURLHashHelper from './MuinaismuistotURLHashHelper';
 import MuinaismuistotMap from './map/MuinaismuistotMap';
 import MuinaismuistotUI from './ui/MuinaismuistotUI';
+import URLHashHelper from './util/URLHashHelper';
 
 export default function Muinaismuistot() {
   var map;
@@ -23,7 +23,7 @@ export default function Muinaismuistot() {
       }
     });
 
-    urlHashHelper = new MuinaismuistotURLHashHelper();
+    urlHashHelper = new URLHashHelper();
 
     map = new MuinaismuistotMap(settings, {
       muinaisjaannosFeaturesSelected : function(muinaisjaannosFeatures) {

@@ -1,4 +1,4 @@
-export default function MuinaismuistotURLHashHelper() {
+export default function URLHashHelper() {
 
   this.createLocationHash = function(coordinates) {
   	return '#x=' + coordinates.x + ';y=' + coordinates.y;
