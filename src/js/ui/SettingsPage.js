@@ -14,9 +14,18 @@ export default function SettingsPage(settings, eventListener) {
 		});
 
 		$("input[name='selectedMapLayer']").on('change', function() {
-			//TODO Button state update to GUI
-			var mapLayerName = $(this).val();
+			var checkbox = $(this);
+			var mapLayerName = checkbox.val();
 			settings.setSelectedBackgroundMapLayerName(mapLayerName);
+			checkbox.parent().addClass('active');
+
+			// Remove active state from other buttons in button group
+			$("input[name='selectedMapLayer']").each(function() {
+				var input = $(this);
+				if (checkbox.attr('id') !== input.attr('id')) {
+					input.parent().removeClass('active');
+				}
+			});
 		});
 
 		initLayerCheckboxChangeLister();

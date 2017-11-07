@@ -7,12 +7,12 @@ export default function FeatureDetailsPage(featureParser, muinaismuistotSettings
 		eventListener.hidePage();
 	});
 
-	//var allDetailAccordions = $('#accordion a[data-toggle="collapse"]');
 	$('#accordion a[data-toggle="collapse"]').on('click', function(e) {
 		e.preventDefault();
 		var clickedSectionId = $(e.target).parent().data('section');
 		$('#' + clickedSectionId + '-collapse').toggleClass('in');
 
+		// Collapse all other visible feature sections
 		getSectionIds().forEach(function(sectionId) {
 			if (sectionId === clickedSectionId) {
 				return;
