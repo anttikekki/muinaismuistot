@@ -1,4 +1,4 @@
-export default function MuinaismuistotSettings(eventListener) {
+export default function Settings(eventListener) {
   var self = this;
   var selectedLayerIds = [];
   var selectedBackgroundMapLayerName = '';

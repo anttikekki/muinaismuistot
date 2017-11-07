@@ -11,9 +11,8 @@ import AhvenanmaaWMTS from './AhvenanmaaWMTS';
 import MuseovirastoArcGISWMS from './MuseovirastoArcGISWMS';
 import CurrentPositionAndSelectedLocationMarkerLayer from './CurrentPositionAndSelectedLocationMarkerLayer';
 
-export default function MuinaismuistotMap(settings, eventListeners) {
+export default function MuinaismuistotMap(muinaismuistotSettings, eventListeners) {
   var self = this;
-  var muinaismuistotSettings = settings;
   var map;
   var view;
   var geolocation;

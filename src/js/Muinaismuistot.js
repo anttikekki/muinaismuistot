@@ -1,4 +1,4 @@
-import MuinaismuistotSettings from './MuinaismuistotSettings';
+import Settings from './Settings';
 import MuinaismuistotMap from './map/MuinaismuistotMap';
 import MuinaismuistotUI from './ui/MuinaismuistotUI';
 import URLHashHelper from './util/URLHashHelper';
@@ -10,7 +10,7 @@ export default function Muinaismuistot() {
   var ui;
 
   var init = function() {
-    settings = new MuinaismuistotSettings({
+    settings = new Settings({
       selectedMapBackgroundLayerChanged: function(layerName) {
         map.setVisibleMaanmittauslaitosLayerName(layerName);
       },
