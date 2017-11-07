@@ -14,6 +14,7 @@ export default function MuinaismuistotSettingsPage(settings, eventListener) {
 		});
 
 		$("input[name='selectedMapLayer']").on('change', function() {
+			//TODO Button state update to GUI
 			var mapLayerName = $(this).val();
 			settings.setSelectedBackgroundMapLayerName(mapLayerName);
 		});

@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/js/Muinaismuistot.js',
+  entry: './src/js/index.js',
   output: {
     path: __dirname + '/dist',
     filename: 'bundle.js'
