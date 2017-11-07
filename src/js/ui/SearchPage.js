@@ -1,6 +1,6 @@
 import $ from "jquery";
 
-export default function SearchPage(muinaismuistotData, muinaismuistotSettings, urlHashHelper, eventListener) {
+export default function SearchPage(featureParser, muinaismuistotSettings, urlHashHelper, eventListener) {
 	var self = this;
 
 	var init = function() {
@@ -45,10 +45,10 @@ export default function SearchPage(muinaismuistotData, muinaismuistotSettings, u
 	};
 
 	var generateResultFeatureRowHtml = function(feature) {
-		var nimi = muinaismuistotData.getFeatureName(feature);
-		var tyypinNimi = muinaismuistotData.getFeatureTypeName(feature);
-		var iconURL = muinaismuistotData.getFeatureTypeIconURL(feature);
-		var coordinates = muinaismuistotData.getFeatureLocation(feature);
+		var nimi = featureParser.getFeatureName(feature);
+		var tyypinNimi = featureParser.getFeatureTypeName(feature);
+		var iconURL = featureParser.getFeatureTypeIconURL(feature);
+		var coordinates = featureParser.getFeatureLocation(feature);
 
 		return '<a href="' + urlHashHelper.createLocationHash(coordinates, feature) + '" class="list-group-item">' +
 		    '<h4 class="list-group-item-heading">' + nimi + '</h4>' +

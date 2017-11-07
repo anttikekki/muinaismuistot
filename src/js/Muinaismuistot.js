@@ -1,12 +1,10 @@
 import MuinaismuistotSettings from './MuinaismuistotSettings';
 import MuinaismuistotURLHashHelper from './MuinaismuistotURLHashHelper';
-import MuinaismuistotData from './MuinaismuistotData';
 import MuinaismuistotMap from './map/MuinaismuistotMap';
 import MuinaismuistotUI from './ui/MuinaismuistotUI';
 
 export default function Muinaismuistot() {
   var map;
-  var data;
   var settings;
   var urlHashHelper;
   var ui;
@@ -26,7 +24,6 @@ export default function Muinaismuistot() {
     });
 
     urlHashHelper = new MuinaismuistotURLHashHelper();
-    data = new MuinaismuistotData(settings);
 
     map = new MuinaismuistotMap(settings, {
       muinaisjaannosFeaturesSelected : function(muinaisjaannosFeatures) {
@@ -37,7 +34,7 @@ export default function Muinaismuistot() {
       }
     });
 
-    ui = new MuinaismuistotUI(data, settings, urlHashHelper, {
+    ui = new MuinaismuistotUI(settings, urlHashHelper, {
       searchMuinaismuistoja: function(searchText, callbackFn) {
         map.searchMuinaismuistoja(searchText, callbackFn);
       },

@@ -1,4 +1,4 @@
-export default function MuinaismuistotData(muinaismuistotSettings) {
+export default function FeatureParser(muinaismuistotSettings) {
 
   this.getFeatureName = function(feature) {
     var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();

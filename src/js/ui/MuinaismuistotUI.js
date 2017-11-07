@@ -5,17 +5,20 @@ import FeatureDetailsPage from './FeatureDetailsPage';
 import SettingsPage from './SettingsPage';
 import SearchPage from './SearchPage';
 import InfoPage from './InfoPage';
+import FeatureParser from '../util/FeatureParser';
 
-export default function MuinaismuistotUI(data, settings, urlHashHelper, eventListeners) {
-  var detailsPage = null;
-  var settingsPage = null;
-  var infoPage = null;
-  var searchPage = null;
+export default function MuinaismuistotUI(settings, urlHashHelper, eventListeners) {
+  var detailsPage;
+  var settingsPage;
+  var infoPage;
+  var searchPage;
+  var featureParser;
   var visiblePageId = null;
   var loadingAnimationTimeoutID = null;
 
   var init = function() {
-    detailsPage = new FeatureDetailsPage(data, settings, urlHashHelper, {
+    featureParser = new FeatureParser(settings);
+    detailsPage = new FeatureDetailsPage(featureParser, settings, urlHashHelper, {
       hidePage : function() {
         hidePage('detailsPage');
       }
@@ -27,7 +30,7 @@ export default function MuinaismuistotUI(data, settings, urlHashHelper, eventLis
       }
     });
 
-    searchPage = new SearchPage(data, settings, urlHashHelper, {
+    searchPage = new SearchPage(featureParser, settings, urlHashHelper, {
       hidePage : function() {
         hidePage('searchPage');
       },
