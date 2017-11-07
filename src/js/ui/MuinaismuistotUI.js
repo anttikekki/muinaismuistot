@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../css/muinaismuistot.css';
 import $ from "jquery";
-import MuinaismuistotDetailsPage from './MuinaismuistotDetailsPage';
-import MuinaismuistotSettingsPage from './MuinaismuistotSettingsPage';
-import MuinaismuistotSearchPage from './MuinaismuistotSearchPage';
-import MuinaismuistotInfoPage from './MuinaismuistotInfoPage';
+import FeatureDetailsPage from './FeatureDetailsPage';
+import SettingsPage from './SettingsPage';
+import SearchPage from './SearchPage';
+import InfoPage from './InfoPage';
 
 export default function MuinaismuistotUI(data, settings, urlHashHelper, eventListeners) {
   var detailsPage = null;
@@ -15,19 +15,19 @@ export default function MuinaismuistotUI(data, settings, urlHashHelper, eventLis
   var loadingAnimationTimeoutID = null;
 
   var init = function() {
-    detailsPage = new MuinaismuistotDetailsPage(data, settings, urlHashHelper, {
+    detailsPage = new FeatureDetailsPage(data, settings, urlHashHelper, {
       hidePage : function() {
         hidePage('detailsPage');
       }
     });
 
-    settingsPage = new MuinaismuistotSettingsPage(settings, {
+    settingsPage = new SettingsPage(settings, {
       hidePage : function() {
         hidePage('settingsPage');
       }
     });
 
-    searchPage = new MuinaismuistotSearchPage(data, settings, urlHashHelper, {
+    searchPage = new SearchPage(data, settings, urlHashHelper, {
       hidePage : function() {
         hidePage('searchPage');
       },
@@ -39,7 +39,7 @@ export default function MuinaismuistotUI(data, settings, urlHashHelper, eventLis
       }
     });
 
-    infoPage = new MuinaismuistotInfoPage({
+    infoPage = new InfoPage({
       hidePage : function() {
         hidePage('infoPage');
       }

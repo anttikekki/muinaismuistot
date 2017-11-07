@@ -1,6 +1,6 @@
 import $ from "jquery";
 
-export default function MuinaismuistotDetailsPage(muinaismuistotData, muinaismuistotSettings, urlHashHelper, eventListener) {
+export default function FeatureDetailsPage(muinaismuistotData, muinaismuistotSettings, urlHashHelper, eventListener) {
 	var self = this;
 
 	$('#hide-detailsPage-button').on('click', function() {

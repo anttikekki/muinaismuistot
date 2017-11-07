@@ -1,6 +1,6 @@
 import $ from "jquery";
 
-export default function MuinaismuistotSearchPage(muinaismuistotData, muinaismuistotSettings, urlHashHelper, eventListener) {
+export default function SearchPage(muinaismuistotData, muinaismuistotSettings, urlHashHelper, eventListener) {
 	var self = this;
 
 	var init = function() {

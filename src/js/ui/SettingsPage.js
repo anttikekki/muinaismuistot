@@ -1,6 +1,6 @@
 import $ from "jquery";
 
-export default function MuinaismuistotSettingsPage(settings, eventListener) {
+export default function SettingsPage(settings, eventListener) {
 	var self = this;
 	var layerCheckboxSelector = "#muinaismuistot-visible-layer-selections input";
 	var layerCheckboxListerDisabled = false;
