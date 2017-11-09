@@ -29,8 +29,8 @@ export default function Muinaismuistot() {
       muinaisjaannosFeaturesSelected : function(muinaisjaannosFeatures) {
         ui.muinaisjaannosFeaturesSelected(muinaisjaannosFeatures);
       },
-      showLoadingAnimation: function() {
-        ui.showLoadingAnimation();
+      showLoadingAnimation: function(show) {
+        ui.showLoadingAnimation(show);
       }
     });
 
