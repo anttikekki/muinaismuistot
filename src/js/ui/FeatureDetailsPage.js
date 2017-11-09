@@ -117,7 +117,17 @@ export default function FeatureDetailsPage(featureParser, muinaismuistotSettings
 	var showMuinaisjaannos = function(feature) {
 		$('#muinaisjaannos-Kohdenimi').html(trim(feature.attributes.Kohdenimi));
 		$('#muinaisjaannos-Kunta').html(trim(feature.attributes.Kunta));
-		$('#muinaisjaannos-Ajoitus').html(trim(feature.attributes.Ajoitus));
+
+		var ajoitus = trim(feature.attributes.Ajoitus);
+		$('#muinaisjaannos-Ajoitus').html(ajoitus);
+
+		var ajoitusVuodet = featureParser.getTimespanInYearsForTimingName(ajoitus);
+		if (ajoitusVuodet) {
+			$('#muinaisjaannos-Ajoitus-aikajanne').removeClass('hidden').html(ajoitusVuodet);
+		} else {
+			$('#muinaisjaannos-Ajoitus-aikajanne').addClass('hidden');
+		}
+
 		$('#muinaisjaannos-Tyyppi').html(trim(feature.attributes.Tyyppi));
 		$('#muinaisjaannos-Alatyyppi').html(trim(feature.attributes.Alatyyppi));
 		$('#muinaisjaannos-Laji').html(trim(feature.attributes.Laji));
@@ -173,6 +183,14 @@ export default function FeatureDetailsPage(featureParser, muinaismuistotSettings
 		$('#ahvenamaaMuinaismuisto-Kyla').html(feature.properties.by_);
 		$('#ahvenamaaMuinaismuisto-Kategoria').html(feature.properties.huvudkat);
 		$('#ahvenamaaMuinaismuisto-Ajoitus').html(feature.properties.tid);
+
+		var ajoitusVuodet = featureParser.getTimespanInYearsForTimingName(feature.properties.tid);
+		if (ajoitusVuodet) {
+			$('#ahvenamaaMuinaismuisto-Ajoitus-aikajanne').removeClass('hidden').html(ajoitusVuodet);
+		} else {
+			$('#ahvenamaaMuinaismuisto-Ajoitus-aikajanne').addClass('hidden');
+		}
+
 		$('#ahvenamaaMuinaismuisto-Tunniste').html(feature.properties.fornl);
 		$('#ahvenamaaMuinaismuisto-pdf-link-Tunniste').html(feature.properties.fornl);
 		$('#ahvenamaaMuinaismuisto-permanent-link').attr('href', urlHashHelper.createLocationHash(featureParser.getFeatureLocation(feature)));

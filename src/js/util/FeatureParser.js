@@ -78,6 +78,35 @@ export default function FeatureParser(muinaismuistotSettings) {
     }
   };
 
+  /**
+  * Resolves timespan in years for timing name.
+  *
+  * @param {string} name Timing name in SE or FI. Example: "Sentida" or "rautakautinen".
+  * @return {string} timespan. Example: "1200 - 1600". Returns undefined if there is no timspan for timing name.
+  */
+  this.getTimespanInYearsForTimingName = function(name) {
+    var timings = {
+      'Stenålder': '8600–1500 eaa.',
+      'Bronsålder': '1700 – 500 eaa.',
+      'Brons/Ä järnålder': '1700 eaa. – 1200 jaa.',
+      'Yngre järnålder': '500 eaa. – 400 jaa.',
+      'Äldre järnålder': '800 – 1200 jaa.',
+      'Järnålder': '500 eaa. - 1200 jaa.',
+      'Järnålder/Medeltid': '500 eaa. – 1570 jaa.',
+      'Medeltida': '1200 - 1570 jaa.',
+      'Sentida': '1800 jaa. -',
+      'esihistoriallinen': '8600 eaa. - 1200 jaa.',
+      'kivikautinen': '8600 – 1500 eaa.',
+      'varhaismetallikautinen': '1500 eaa. - 200 jaa.',
+      'pronssikautinen': '1700 – 500 eaa.',
+      'rautakautinen': '500 eaa. - 1200 jaa.',
+      'keskiaikainen': '1200 - 1570 jaa.',
+      'historiallinen': '1200 jaa. -',
+      'moderni': '1800 jaa -'
+    };
+    return timings[name];
+  };
+
   this.trimTextData = function(value) {
     if(value == null) { //Null and undefined
       return '';
