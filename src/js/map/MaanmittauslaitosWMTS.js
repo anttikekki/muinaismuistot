@@ -1,7 +1,7 @@
 import $ from "jquery";
-import TileLayer from 'ol/layer/tile';
-import WMTSCapabilities from 'ol/format/WMTSCapabilities';
-import WMTSSource from 'ol/source/WMTS';
+import TileLayer from "ol/layer/tile";
+import WMTSCapabilities from "ol/format/WMTSCapabilities";
+import WMTSSource from "ol/source/WMTS";
 
 export default function MaanmittauslaitosWMTS(onLayersCreatedCallbackFn) {
   var mmlMaastokarttaLayer;
@@ -15,7 +15,8 @@ export default function MaanmittauslaitosWMTS(onLayersCreatedCallbackFn) {
 
   var loadMMLWmtsCapabilitiesAndAddLayers = function() {
     $.ajax({
-      url: 'capabilities/maanmittauslaitos_wmts_capabilities.xml',
+      url:
+        "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml",
       success: function(response) {
         addWmtsLayers(response);
       }
@@ -26,47 +27,49 @@ export default function MaanmittauslaitosWMTS(onLayersCreatedCallbackFn) {
     var parser = new WMTSCapabilities();
     var capabilities = parser.read(response);
 
-    maastokarttaLayerSource = new WMTSSource(WMTSSource.optionsFromCapabilities(capabilities, {
-      layer: 'maastokartta'
-    }));
-    taustakarttaLayerSource = new WMTSSource(WMTSSource.optionsFromCapabilities(capabilities, {
-      layer: 'taustakartta'
-    }));
+    maastokarttaLayerSource = new WMTSSource(
+      WMTSSource.optionsFromCapabilities(capabilities, {
+        layer: "maastokartta"
+      })
+    );
+    taustakarttaLayerSource = new WMTSSource(
+      WMTSSource.optionsFromCapabilities(capabilities, {
+        layer: "taustakartta"
+      })
+    );
 
     mmlMaastokarttaLayer = new TileLayer({
-      title: 'Maastokartta',
+      title: "Maastokartta",
       source: maastokarttaLayerSource,
       visible: false
     });
     mmlTaustakarttaLayer = new TileLayer({
-      title: 'Taustakartta',
+      title: "Taustakartta",
       source: taustakarttaLayerSource,
       visible: true
     });
 
-    onLayersCreatedCallbackFn(mmlMaastokarttaLayer, mmlTaustakarttaLayer)
+    onLayersCreatedCallbackFn(mmlMaastokarttaLayer, mmlTaustakarttaLayer);
   };
 
   this.getVisibleLayerName = function() {
-    if(mmlMaastokarttaLayer && mmlMaastokarttaLayer.getVisible()) {
-      return 'maastokartta';
+    if (mmlMaastokarttaLayer && mmlMaastokarttaLayer.getVisible()) {
+      return "maastokartta";
+    } else if (mmlTaustakarttaLayer && mmlTaustakarttaLayer.getVisible()) {
+      return "taustakartta";
     }
-    else if(mmlTaustakarttaLayer && mmlTaustakarttaLayer.getVisible()) {
-      return 'taustakartta';
-    }
-    return 'taustakartta';
+    return "taustakartta";
   };
 
   this.setVisibleLayerName = function(layerName) {
-    if(layerName === 'taustakartta') {
+    if (layerName === "taustakartta") {
       mmlMaastokarttaLayer.setVisible(false);
       mmlTaustakarttaLayer.setVisible(true);
-    }
-    else if(layerName === 'maastokartta') {
+    } else if (layerName === "maastokartta") {
       mmlMaastokarttaLayer.setVisible(true);
       mmlTaustakarttaLayer.setVisible(false);
     }
   };
 
   init();
-};
+}
