@@ -49,6 +49,26 @@ export default function Settings(eventListener) {
     selectedBackgroundMapLayerName = "taustakartta";
   };
 
+  this.getMuseovirastoArcGISWMSExportURL = function() {
+    return "https://d1ni9pwcac9w21.cloudfront.net";
+  };
+
+  this.getMuseovirastoArcGISWMSIndentifyURL = function() {
+    return "https://d2h14icpze3arm.cloudfront.net?";
+  };
+
+  this.getMuseovirastoArcGISWMSFindFeaturesURL = function() {
+    return "https://d31x4e4yytlrm0.cloudfront.net?";
+  };
+
+  this.getMaanmittauslaitosWMTSCapabilitiesURL = function() {
+    return "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml";
+  };
+
+  this.getAhvenanmaaWMTSCapabilitiesURL = function() {
+    return "capabilities/regeringen-wmts-capabilities.xml";
+  };
+
   this.setEventListener = function(listener) {
     eventListener = listener;
   };

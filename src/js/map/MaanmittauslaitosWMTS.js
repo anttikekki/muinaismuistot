@@ -3,7 +3,10 @@ import TileLayer from "ol/layer/tile";
 import WMTSCapabilities from "ol/format/WMTSCapabilities";
 import WMTSSource from "ol/source/WMTS";
 
-export default function MaanmittauslaitosWMTS(onLayersCreatedCallbackFn) {
+export default function MaanmittauslaitosWMTS(
+  muinaismuistotSettings,
+  onLayersCreatedCallbackFn
+) {
   var mmlMaastokarttaLayer;
   var mmlTaustakarttaLayer;
   var maastokarttaLayerSource;
@@ -15,8 +18,7 @@ export default function MaanmittauslaitosWMTS(onLayersCreatedCallbackFn) {
 
   var loadMMLWmtsCapabilitiesAndAddLayers = function() {
     $.ajax({
-      url:
-        "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml",
+      url: muinaismuistotSettings.getMaanmittauslaitosWMTSCapabilitiesURL(),
       success: function(response) {
         addWmtsLayers(response);
       }

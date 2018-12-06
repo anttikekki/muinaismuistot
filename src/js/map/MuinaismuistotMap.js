@@ -1,17 +1,20 @@
-import 'ol/ol.css';
+import "ol/ol.css";
 import $ from "jquery";
-import proj4 from 'proj4';
-import Map from 'ol/map.js';
-import View from 'ol/view.js';
-import proj from 'ol/proj.js';
-import Collection from 'ol/collection';
-import Geolocation from 'ol/geolocation';
-import MaanmittauslaitosWMTS from './MaanmittauslaitosWMTS';
-import AhvenanmaaWMTS from './AhvenanmaaWMTS';
-import MuseovirastoArcGISWMS from './MuseovirastoArcGISWMS';
-import CurrentPositionAndSelectedLocationMarkerLayer from './CurrentPositionAndSelectedLocationMarkerLayer';
+import proj4 from "proj4";
+import Map from "ol/map.js";
+import View from "ol/view.js";
+import proj from "ol/proj.js";
+import Collection from "ol/collection";
+import Geolocation from "ol/geolocation";
+import MaanmittauslaitosWMTS from "./MaanmittauslaitosWMTS";
+import AhvenanmaaWMTS from "./AhvenanmaaWMTS";
+import MuseovirastoArcGISWMS from "./MuseovirastoArcGISWMS";
+import CurrentPositionAndSelectedLocationMarkerLayer from "./CurrentPositionAndSelectedLocationMarkerLayer";
 
-export default function MuinaismuistotMap(muinaismuistotSettings, eventListeners) {
+export default function MuinaismuistotMap(
+  muinaismuistotSettings,
+  eventListeners
+) {
   var self = this;
   var map;
   var view;
@@ -23,25 +26,29 @@ export default function MuinaismuistotMap(muinaismuistotSettings, eventListeners
 
   var init = function() {
     proj.setProj4(proj4);
-    proj4.defs("EPSG:3067","+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
+    proj4.defs(
+      "EPSG:3067",
+      "+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+    );
 
     var extent = [50199.4814, 6582464.0358, 761274.6247, 7799839.8902];
-    proj.get('EPSG:3067').setExtent(extent);
+    proj.get("EPSG:3067").setExtent(extent);
 
     view = new View({
       center: [387685, 6679679],
-      projection: 'EPSG:3067',
+      projection: "EPSG:3067",
       zoom: 8
     });
 
     map = new Map({
-      target: 'map',
+      target: "map",
       view: view,
-      renderer: 'canvas',
+      renderer: "canvas",
       controls: new Collection()
     });
 
     maanmittauslaitosWMTS = new MaanmittauslaitosWMTS(
+      muinaismuistotSettings,
       function(mmlMaastokarttaLayer, mmlTaustakarttaLayer) {
         map.getLayers().insertAt(0, mmlMaastokarttaLayer);
         map.getLayers().insertAt(1, mmlTaustakarttaLayer);
@@ -49,6 +56,7 @@ export default function MuinaismuistotMap(muinaismuistotSettings, eventListeners
     );
 
     ahvenanmaaWMTS = new AhvenanmaaWMTS(
+      muinaismuistotSettings,
       eventListeners.showLoadingAnimation,
       function(createdLayer) {
         map.getLayers().insertAt(2, createdLayer);
@@ -74,21 +82,30 @@ export default function MuinaismuistotMap(muinaismuistotSettings, eventListeners
   };
 
   var loadFeaturesOnClickedCoordinate = function(e) {
-    var ahvenanmaaQuery = ahvenanmaaWMTS.getFeatureInfo(e.coordinate, view.getProjection(), view.getZoom());
+    var ahvenanmaaQuery = ahvenanmaaWMTS.getFeatureInfo(
+      e.coordinate,
+      view.getProjection(),
+      view.getZoom()
+    );
     var museovirastoQuery = museovirastoArcGISWMS.identifyFeaturesAt(
       e.coordinate,
       map.getSize(),
       map.getView().calculateExtent(map.getSize())
     );
 
-    $.when(ahvenanmaaQuery, museovirastoQuery).done(resolveFeaturesFromHttpResponseAndFireEventlistener);
+    $.when(ahvenanmaaQuery, museovirastoQuery).done(
+      resolveFeaturesFromHttpResponseAndFireEventlistener
+    );
   };
 
-  var resolveFeaturesFromHttpResponseAndFireEventlistener = function(ahvenanmaaResult, museovirastoResult) {
+  var resolveFeaturesFromHttpResponseAndFireEventlistener = function(
+    ahvenanmaaResult,
+    museovirastoResult
+  ) {
     var ahvennamaaFeatures = ahvenanmaaResult[0].features;
     var museovirastoFeatures = museovirastoResult[0].results;
     var allFeatures = ahvennamaaFeatures.concat(museovirastoFeatures);
-    if(allFeatures.length > 0) {
+    if (allFeatures.length > 0) {
       eventListeners.muinaisjaannosFeaturesSelected(allFeatures);
     }
   };
@@ -99,7 +116,7 @@ export default function MuinaismuistotMap(muinaismuistotSettings, eventListeners
       tracking: true
     });
 
-    geolocation.once('change:position', geolocationChanged);
+    geolocation.once("change:position", geolocationChanged);
   };
 
   var geolocationChanged = function() {
@@ -111,7 +128,7 @@ export default function MuinaismuistotMap(muinaismuistotSettings, eventListeners
       zoom: view.getZoom() + zoomChange,
       duration: 250
     });
-  }
+  };
 
   this.updateVisibleMuinaismuistotLayersFromSettings = function() {
     museovirastoArcGISWMS.updateVisibleLayersFromSettings();
@@ -138,12 +155,11 @@ export default function MuinaismuistotMap(muinaismuistotSettings, eventListeners
   };
 
   this.centerToCurrentPositions = function() {
-    if(geolocation && geolocation.getPosition()) {
+    if (geolocation && geolocation.getPosition()) {
       var position = geolocation.getPosition();
       view.setCenter(position);
       positionAndSelectedLocation.addCurrentPositionMarker(position);
-    }
-    else {
+    } else {
       initGeolocation();
     }
   };

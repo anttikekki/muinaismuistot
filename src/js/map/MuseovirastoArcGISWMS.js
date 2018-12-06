@@ -1,8 +1,12 @@
 import $ from "jquery";
-import TileLayer from 'ol/layer/tile';
-import TileArcGISRestSource from 'ol/source/TileArcGISRest';
+import TileLayer from "ol/layer/tile";
+import TileArcGISRestSource from "ol/source/TileArcGISRest";
 
-export default function MuseovirastoArcGISWMS(muinaismuistotSettings, showLoadingAnimationFn, onLayerCreatedCallbackFn) {
+export default function MuseovirastoArcGISWMS(
+  muinaismuistotSettings,
+  showLoadingAnimationFn,
+  onLayerCreatedCallbackFn
+) {
   var source;
   var layer;
 
@@ -12,7 +16,7 @@ export default function MuseovirastoArcGISWMS(muinaismuistotSettings, showLoadin
 
   var addMuinaismuistotLayer = function() {
     source = createSource();
-    layer =  new TileLayer({
+    layer = new TileLayer({
       source: source
     });
     layer.setOpacity(0.7);
@@ -24,7 +28,7 @@ export default function MuseovirastoArcGISWMS(muinaismuistotSettings, showLoadin
   };
 
   var updateMuinaismuistotLayerSource = function() {
-    if(layer) {
+    if (layer) {
       source = createSource();
       layer.setSource(source);
     }
@@ -32,21 +36,21 @@ export default function MuseovirastoArcGISWMS(muinaismuistotSettings, showLoadin
 
   var getMuinaismuistotLayerSourceParams = function() {
     var layerIds = muinaismuistotSettings.getSelectedMuinaismuistotLayerIds();
-    var layers = '';
+    var layers = "";
 
-    if(layerIds.length > 0) {
-      layers = 'show:' + layerIds.join(',');
-    }
-    else {
+    if (layerIds.length > 0) {
+      layers = "show:" + layerIds.join(",");
+    } else {
       //Hide all layers
-      layers = 'hide:' + muinaismuistotSettings.getMuinaismuistotLayerIds().join(',');
+      layers =
+        "hide:" + muinaismuistotSettings.getMuinaismuistotLayerIds().join(",");
     }
 
     return {
-      url: 'https://d1ni9pwcac9w21.cloudfront.net',
+      url: muinaismuistotSettings.getMuseovirastoArcGISWMSExportURL(),
       params: {
-        'layers': layers,
-        'layerDefs': muinaismuistotSettings.getFilterParamsLayerDefinitions()
+        layers: layers,
+        layerDefs: muinaismuistotSettings.getFilterParamsLayerDefinitions()
       }
     };
   };
@@ -57,18 +61,23 @@ export default function MuseovirastoArcGISWMS(muinaismuistotSettings, showLoadin
 
   this.identifyFeaturesAt = function(coordinate, mapSize, mapExtent) {
     var queryoptions = {
-      geometry: coordinate.join(','),
-      geometryType: 'esriGeometryPoint',
+      geometry: coordinate.join(","),
+      geometryType: "esriGeometryPoint",
       tolerance: 10,
-      imageDisplay: mapSize.join(',') + ',96',
-      mapExtent: mapExtent.join(','),
-      layers: 'visible:' + muinaismuistotSettings.getSelectedMuinaismuistotLayerIds().join(','),
-      f: 'json',
-      returnGeometry: 'true'
+      imageDisplay: mapSize.join(",") + ",96",
+      mapExtent: mapExtent.join(","),
+      layers:
+        "visible:" +
+        muinaismuistotSettings.getSelectedMuinaismuistotLayerIds().join(","),
+      f: "json",
+      returnGeometry: "true"
     };
     showLoadingAnimationFn(true);
 
-    return $.getJSON('https://d2h14icpze3arm.cloudfront.net?', queryoptions).done(function(response) {
+    return $.getJSON(
+      muinaismuistotSettings.getMuseovirastoArcGISWMSIndentifyURL(),
+      queryoptions
+    ).done(function(response) {
       showLoadingAnimationFn(false);
     });
   };
@@ -78,11 +87,13 @@ export default function MuseovirastoArcGISWMS(muinaismuistotSettings, showLoadin
     var selectedSubLayers = muinaismuistotSettings.getSelectedMuinaismuistotLayerSubLayerIds();
 
     //Muinaismustot areas and sub-points arlways has same name as main point so do not search those
-    var areaIndex = selectedSubLayers.indexOf(layerMap['Muinaisjäännösalueet']);
+    var areaIndex = selectedSubLayers.indexOf(layerMap["Muinaisjäännösalueet"]);
     if (areaIndex > -1) {
       selectedSubLayers.splice(areaIndex, 1);
     }
-    var subPointIndex = selectedSubLayers.indexOf(layerMap['Muinaisj.alakohteet']);
+    var subPointIndex = selectedSubLayers.indexOf(
+      layerMap["Muinaisj.alakohteet"]
+    );
     if (subPointIndex > -1) {
       selectedSubLayers.splice(subPointIndex, 1);
     }
@@ -90,16 +101,16 @@ export default function MuseovirastoArcGISWMS(muinaismuistotSettings, showLoadin
     var queryoptions = {
       searchText: searchText,
       contains: true,
-      searchFields: 'Kohdenimi, Nimi, KOHDENIMI',
-      layers: selectedSubLayers.join(','), //Sub-layers
-      f: 'json',
-      returnGeometry: 'true',
-      returnZ: 'false'
+      searchFields: "Kohdenimi, Nimi, KOHDENIMI",
+      layers: selectedSubLayers.join(","), //Sub-layers
+      f: "json",
+      returnGeometry: "true",
+      returnZ: "false"
     };
     showLoadingAnimationFn(true);
 
     $.getJSON(
-      'https://d31x4e4yytlrm0.cloudfront.net?',
+      muinaismuistotSettings.getMuseovirastoArcGISWMSFindFeaturesURL(),
       queryoptions,
       function(response) {
         callback(response.results);
@@ -109,4 +120,4 @@ export default function MuseovirastoArcGISWMS(muinaismuistotSettings, showLoadin
   };
 
   init();
-};
+}
