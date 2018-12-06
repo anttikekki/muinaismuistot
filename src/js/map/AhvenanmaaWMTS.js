@@ -1,11 +1,11 @@
 import $ from "jquery";
-import TileLayer from "ol/layer/tile";
+import TileLayer from "ol/layer/Tile";
 import WMTSCapabilities from "ol/format/WMTSCapabilities";
-import WMTSSource from "ol/source/WMTS";
-import extent from "ol/extent";
-import reproj from "ol/reproj";
-import proj from "ol/proj";
-import size from "ol/size";
+import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS";
+import { getCenter, containsCoordinate } from "ol/extent";
+import { calculateSourceResolution } from "ol/reproj";
+import { transform } from "ol/proj";
+import { toSize } from "ol/size";
 
 export default function AhvenanmaaWMTS(
   muinaismuistotSettings,
@@ -33,7 +33,7 @@ export default function AhvenanmaaWMTS(
     var capabilities = parser.read(response);
 
     source = new WMTSSource(
-      WMTSSource.optionsFromCapabilities(capabilities, {
+      optionsFromCapabilities(capabilities, {
         layer: "inspire:fornminnen",
         format: "image/png"
       })
@@ -62,7 +62,7 @@ export default function AhvenanmaaWMTS(
     viewProjection
   ) {
     var ahvenanmaaWMTSProjection = source.getProjection().getCode();
-    return proj.transform(
+    return transform(
       clickedViewProjectionCoordinate,
       viewProjection,
       ahvenanmaaWMTSProjection
@@ -96,8 +96,8 @@ export default function AhvenanmaaWMTS(
     );
     var targetExtent = targetTileGrid.getTileCoordExtent(targetTileCoord);
     var targetResolution = targetTileGrid.getResolution(viewZoomLevel);
-    var targetCenter = extent.getCenter(targetExtent);
-    return reproj.calculateSourceResolution(
+    var targetCenter = getCenter(targetExtent);
+    return calculateSourceResolution(
       sourceProjection,
       targetProjection,
       targetCenter,
@@ -139,7 +139,7 @@ export default function AhvenanmaaWMTS(
       ahvenanmaaWMTSZoomLevel
     );
     var tileExtent = tileGrid.getTileCoordExtent(tileCoord);
-    var tileSize = size.toSize(tileGrid.getTileSize(ahvenanmaaWMTSZoomLevel));
+    var tileSize = toSize(tileGrid.getTileSize(ahvenanmaaWMTSZoomLevel));
     var pixelRatio = source.getTilePixelRatio();
 
     var x = Math.floor(
@@ -222,7 +222,7 @@ export default function AhvenanmaaWMTS(
   var isCoordinateInsideAhvenmaaWMTSTileGrid = function(
     clickedCoordinateInAhvenanmaaWMTSProjection
   ) {
-    return extent.containsCoordinate(
+    return containsCoordinate(
       source.getTileGrid().getExtent(),
       clickedCoordinateInAhvenanmaaWMTSProjection
     );

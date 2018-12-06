@@ -1,11 +1,12 @@
 import "ol/ol.css";
 import $ from "jquery";
 import proj4 from "proj4";
-import Map from "ol/map.js";
-import View from "ol/view.js";
-import proj from "ol/proj.js";
-import Collection from "ol/collection";
-import Geolocation from "ol/geolocation";
+import Map from "ol/Map";
+import View from "ol/View";
+import { register as registerProj4 } from "ol/proj/proj4";
+import { get as getProjection } from "ol/proj";
+import Collection from "ol/Collection";
+import Geolocation from "ol/Geolocation";
 import MaanmittauslaitosWMTS from "./MaanmittauslaitosWMTS";
 import AhvenanmaaWMTS from "./AhvenanmaaWMTS";
 import MuseovirastoArcGISWMS from "./MuseovirastoArcGISWMS";
@@ -25,14 +26,14 @@ export default function MuinaismuistotMap(
   var positionAndSelectedLocation;
 
   var init = function() {
-    proj.setProj4(proj4);
     proj4.defs(
       "EPSG:3067",
       "+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
     );
+    registerProj4(proj4);
 
     var extent = [50199.4814, 6582464.0358, 761274.6247, 7799839.8902];
-    proj.get("EPSG:3067").setExtent(extent);
+    getProjection("EPSG:3067").setExtent(extent);
 
     view = new View({
       center: [387685, 6679679],

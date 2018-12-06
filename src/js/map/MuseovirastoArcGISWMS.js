@@ -1,5 +1,5 @@
 import $ from "jquery";
-import TileLayer from "ol/layer/tile";
+import TileLayer from "ol/layer/Tile";
 import TileArcGISRestSource from "ol/source/TileArcGISRest";
 
 export default function MuseovirastoArcGISWMS(

@@ -1,7 +1,7 @@
 import $ from "jquery";
-import TileLayer from "ol/layer/tile";
+import TileLayer from "ol/layer/Tile";
 import WMTSCapabilities from "ol/format/WMTSCapabilities";
-import WMTSSource from "ol/source/WMTS";
+import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS";
 
 export default function MaanmittauslaitosWMTS(
   muinaismuistotSettings,
@@ -30,12 +30,12 @@ export default function MaanmittauslaitosWMTS(
     var capabilities = parser.read(response);
 
     maastokarttaLayerSource = new WMTSSource(
-      WMTSSource.optionsFromCapabilities(capabilities, {
+      optionsFromCapabilities(capabilities, {
         layer: "maastokartta"
       })
     );
     taustakarttaLayerSource = new WMTSSource(
-      WMTSSource.optionsFromCapabilities(capabilities, {
+      optionsFromCapabilities(capabilities, {
         layer: "taustakartta"
       })
     );
