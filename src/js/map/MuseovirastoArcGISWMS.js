@@ -84,25 +84,19 @@ export default function MuseovirastoArcGISWMS(
 
   this.findFeatures = function(searchText, callback) {
     var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
-    var selectedSubLayers = muinaismuistotSettings.getSelectedMuinaismuistotLayerSubLayerIds();
+    var selectedLayerIds = muinaismuistotSettings.getSelectedMuinaismuistotLayerIds();
 
-    //Muinaismustot areas and sub-points arlways has same name as main point so do not search those
-    var areaIndex = selectedSubLayers.indexOf(layerMap["Muinaisjäännösalueet"]);
+    //Muinaismustot areas always has same name as main point so do not search those
+    var areaIndex = selectedLayerIds.indexOf(layerMap.Muinaisjäännökset_alue);
     if (areaIndex > -1) {
-      selectedSubLayers.splice(areaIndex, 1);
-    }
-    var subPointIndex = selectedSubLayers.indexOf(
-      layerMap["Muinaisj.alakohteet"]
-    );
-    if (subPointIndex > -1) {
-      selectedSubLayers.splice(subPointIndex, 1);
+      selectedLayerIds.splice(areaIndex, 1);
     }
 
     var queryoptions = {
       searchText: searchText,
       contains: true,
       searchFields: "Kohdenimi, Nimi, KOHDENIMI",
-      layers: selectedSubLayers.join(","), //Sub-layers
+      layers: selectedLayerIds.join(","),
       f: "json",
       returnGeometry: "true",
       returnZ: "false"
