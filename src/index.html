@@ -174,11 +174,25 @@
                         <p>
                             <h5>Museoviraston muinaisjäännösrekisteri</h5>
 
-                            <img src="images/muinaisjaannos_kohde.png">
-                            <span>Kohde</span>
+                            <p>
+                                <img src="images/muinaisjaannos_kohde.png">
+                                <span>Kiinteä muinaisjäännös</span>
+                            </p>
 
-                            <img src="images/muinaisjaannos_alue.png">
-                            <span>Alue</span>
+                            <p>
+                                <img src="images/muinaisjaannos_alue.png">
+                                <span>Kiinteä muinaisjäännös (alue)</span>
+                            </p>
+
+                            <p>
+                                <img src="images/muu_kulttuuriperintokohde_kohde.png">
+                                <span>Muu kulttuuriperintökohde</span>
+                            </p>
+
+                            <p>
+                                <img src="images/muu-kulttuuriperintokohde-alue.png">
+                                <span>Muu kulttuuriperintökohde (alue)</span>
+                            </p>
                         </p>
 
                         <br>
@@ -354,6 +368,7 @@
                         <label>
                             <input type="checkbox" value="1" id="settings-muinaismuistot-layer-1">
                             <img src="images/muinaisjaannos_alue.png"/>
+                            <img src="images/muu-kulttuuriperintokohde-alue.png"/>
                             Alueet
                         </label>
                         </div>
@@ -361,6 +376,7 @@
                         <label>
                             <input type="checkbox" value="0" id="settings-muinaismuistot-layer-0">
                             <img src="images/muinaisjaannos_kohde.png"/>
+                            <img src="images/muu_kulttuuriperintokohde_kohde.png"/>
                             Pisteet
                         </label>
                         </div>
@@ -571,8 +587,8 @@
                     <div class="panel-heading" role="tab" id="muinaisjaannos-heading">
                       <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-section="muinaisjaannos" data-parent="#accordion" href="#muinaisjaannos-collapse" aria-expanded="true" aria-controls="muinaisjaannos-collapse">
-                          <img src="images/muinaisjaannos_kohde.png">
-                          <span>Muinaisjäännös</span>
+                          <img id="muinaisjaannos-heading-image" src="images/muinaisjaannos_kohde.png">
+                          <span id="muinaisjaannos-heading-name">Kiinteä muinaisjäännös</span>
                         </a>
                         <a id="muinaisjaannos-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
                       </h4>
@@ -619,8 +635,8 @@
                     <div class="panel-heading" role="tab" id="muinaisjaannosalue-heading">
                       <h4 class="panel-title">
                         <a class="collapsed" role="button" data-toggle="collapse" data-section="muinaisjaannosalue" data-parent="#accordion" href="#muinaisjaannosalue-collapse" aria-expanded="false" aria-controls="muinaisjaannosalue-collapse">
-                          <img src="images/muinaisjaannos_alue.png">
-                          <span>Muinaisjäännösalue</span>
+                          <img id="muinaisjaannosalue-heading-image" src="images/muinaisjaannos_alue.png">
+                          <span id="muinaisjaannosalue-heading-name">Muinaisjäännösalue</span>
                         </a>
                         <a id="muinaisjaannosalue-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
                       </h4>
@@ -665,7 +681,7 @@
                                 <label>Kohdenimi</label>
                                 <p id="rky-Kohdenimi"></p>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="rky-Nimi-container">
                                 <label>Nimi</label>
                                 <p id="rky-Nimi"></p>
                             </div>

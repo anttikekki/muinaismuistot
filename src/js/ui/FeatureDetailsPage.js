@@ -137,7 +137,24 @@ export default function FeatureDetailsPage(
 
     $("#muinaisjaannos-Tyyppi").html(trim(feature.attributes.tyyppi));
     $("#muinaisjaannos-Alatyyppi").html(trim(feature.attributes.alatyyppi));
-    $("#muinaisjaannos-Laji").html(trim(feature.attributes.laji));
+
+    var laji = trim(feature.attributes.laji);
+    $("#muinaisjaannos-Laji").html(laji);
+
+    if (laji === "kiinteä muinaisjäännös") {
+      $("#muinaisjaannos-heading-image").attr(
+        "src",
+        "images/muinaisjaannos_kohde.png"
+      );
+      $("#muinaisjaannos-heading-name").html("Kiinteä muinaisjäännös");
+    } else if (laji === "muu kulttuuriperintökohde") {
+      $("#muinaisjaannos-heading-image").attr(
+        "src",
+        "images/muu_kulttuuriperintokohde_kohde.png"
+      );
+      $("#muinaisjaannos-heading-name").html("Muu kulttuuriperintökohde");
+    }
+
     $("#muinaisjaannos-muinaisjaannosarekisteri-link").attr(
       "href",
       "https://" + feature.attributes.url
@@ -154,6 +171,28 @@ export default function FeatureDetailsPage(
     $("#muinaisjaannosalue-Kohdenimi").html(trim(feature.attributes.kohdenimi));
     $("#muinaisjaannosalue-Kunta").html(trim(feature.attributes.kunta));
     $("#muinaisjaannosalue-Laji").html(trim(feature.attributes.laji));
+
+    var laji = trim(feature.attributes.laji);
+    $("#muinaisjaannosalue-Laji").html(laji);
+
+    if (laji === "kiinteä muinaisjäännös") {
+      $("#muinaisjaannosalue-heading-image").attr(
+        "src",
+        "images/muinaisjaannos_alue.png"
+      );
+      $("#muinaisjaannosalue-heading-name").html(
+        "Kiinteä muinaisjäännös (alue)"
+      );
+    } else if (laji === "muu kulttuuriperintökohde") {
+      $("#muinaisjaannosalue-heading-image").attr(
+        "src",
+        "images/muu-kulttuuriperintokohde-alue.png"
+      );
+      $("#muinaisjaannosalue-heading-name").html(
+        "Muu kulttuuriperintökohde (alue)"
+      );
+    }
+
     $("#muinaisjaannosalue-muinaisjaannosarekisteri-link").attr(
       "href",
       "https://" + feature.attributes.url
@@ -171,7 +210,15 @@ export default function FeatureDetailsPage(
       '<img src="' + featureParser.getFeatureTypeIconURL(feature) + '">'
     );
     $("#rky-Kohdenimi").html(trim(feature.attributes.kohdenimi));
-    $("#rky-Nimi").html(trim(feature.attributes.nimi));
+
+    var nimi = trim(feature.attributes.nimi);
+    $("#rky-Nimi").html(nimi);
+    if (nimi && nimi.length > 0) {
+      $("#rky-Nimi-container").removeClass("hidden");
+    } else {
+      $("#rky-Nimi-container").addClass("hidden");
+    }
+
     $("#rky-link").attr("href", feature.attributes.url);
     $("#rky-permanent-link").attr(
       "href",
