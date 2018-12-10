@@ -233,13 +233,37 @@ export default function FeatureDetailsPage(
       '<img src="' + featureParser.getFeatureTypeIconURL(feature) + '">'
     );
     $("#maailmanperinto-Kohdenimi").html(trim(feature.attributes.Nimi));
-    $("#maailmanperinto-link").attr("href", feature.attributes.URL);
+
+    var url = getMaailmanperintoUrl(feature);
+    $("#maailmanperinto-link").attr("href", url);
+
     $("#maailmanperinto-permanent-link").attr(
       "href",
       urlHashHelper.createLocationHash(
         featureParser.getFeatureLocation(feature)
       )
     );
+  };
+
+  var getMaailmanperintoUrl = function(feature) {
+    var url = feature.attributes.URL;
+    if (
+      url.startsWith(
+        "http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa"
+      )
+    ) {
+      // Deprecated nba.fi url. Redirect to new page does not work. Create new working url.
+      var hashStartIndex = url.indexOf("#");
+      var hash = "";
+      if (hashStartIndex !== -1) {
+        hash = url.substring(hashStartIndex);
+      }
+
+      url =
+        "https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa" +
+        hash;
+    }
+    return url;
   };
 
   var showRakennusperintorekisteriAlue = function(feature) {
