@@ -72,14 +72,11 @@ export default function MuseovirastoArcGISWMS(
       f: "json",
       returnGeometry: "true"
     };
-    showLoadingAnimationFn(true);
 
     return $.getJSON(
       muinaismuistotSettings.getMuseovirastoArcGISWMSIndentifyURL(),
       queryoptions
-    ).done(function(response) {
-      showLoadingAnimationFn(false);
-    });
+    );
   };
 
   this.findFeatures = function(searchText, callback) {

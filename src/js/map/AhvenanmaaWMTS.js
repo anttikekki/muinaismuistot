@@ -326,11 +326,7 @@ export default function AhvenanmaaWMTS(
       clickedAhvenanmaaWMTSTilePixel
     );
 
-    showLoadingAnimationFn(true);
-
-    return $.getJSON(featureInfoUrl).done(function(response) {
-      showLoadingAnimationFn(false);
-    });
+    return $.getJSON(featureInfoUrl);
   };
 
   init();
