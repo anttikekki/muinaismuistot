@@ -123,32 +123,6 @@ export default function Settings(eventListener) {
     };
   };
 
-  this.getLayerIconURL = function(layerId) {
-    var layerMap = this.getMuinaismuistotLayerIdMap();
-    switch (layerId) {
-      case layerMap.Muinaisjäännökset_piste:
-        return "images/muinaisjaannos_kohde.png";
-      //case layerMap["Muinaisj.alakohteet"]:
-      //  return "images/muinaisjaannos_alakohde.png";
-      case layerMap.Muinaisjäännökset_alue:
-        return "images/muinaisjaannos_alue.png";
-      case layerMap.RKY_alue:
-        return "images/rky_alue.png";
-      case layerMap.RKY_viiva:
-        return "images/rky_viiva.png";
-      case layerMap.RKY_piste:
-        return "images/rky_piste.png";
-      case layerMap.Maailmanperintö_alue:
-        return "images/maailmanperinto_alue.png";
-      case layerMap.Maailmanperintö_piste:
-        return "images/maailmanperinto_piste.png";
-      case layerMap.Suojellut_rakennukset_alue:
-        return "images/rakennusperintorekisteri_alue.png";
-      case layerMap.Suojellut_rakennukset_piste:
-        return "images/rakennusperintorekisteri_rakennus.png";
-    }
-  };
-
   this.getFilterParamsLayerDefinitions = function() {
     var resultArray = [];
     addMuinaisjaannosLayerDefinitionFilterParams(

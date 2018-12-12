@@ -1,4 +1,16 @@
 export default function FeatureParser(muinaismuistotSettings) {
+  this.isKiinteäMuinaisjäännös = function(feature) {
+    return (
+      this.trimTextData(feature.attributes.laji) === "kiinteä muinaisjäännös"
+    );
+  };
+
+  this.isMuuKulttuuriperintökohde = function(feature) {
+    return (
+      this.trimTextData(feature.attributes.laji) === "muu kulttuuriperintökohde"
+    );
+  };
+
   this.getFeatureName = function(feature) {
     var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
     switch (feature.layerId) {
@@ -20,8 +32,19 @@ export default function FeatureParser(muinaismuistotSettings) {
     var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
     switch (feature.layerId) {
       case layerMap.Muinaisjäännökset_piste:
+        if (this.isKiinteäMuinaisjäännös(feature)) {
+          return "Kiinteä muinaisjäännös";
+        } else if (this.isMuuKulttuuriperintökohde(feature)) {
+          return "Muu kulttuuriperintökohde";
+        }
+        break;
       case layerMap.Muinaisjäännökset_alue:
-        return "Muinaisjäännös";
+        if (this.isKiinteäMuinaisjäännös(feature)) {
+          return "Kiinteä muinaisjäännös (alue)";
+        } else if (this.isMuuKulttuuriperintökohde(feature)) {
+          return "Muu kulttuuriperintökohde (alue)";
+        }
+        break;
       case layerMap.RKY_alue:
       case layerMap.RKY_piste:
       case layerMap.RKY_viiva:
@@ -36,7 +59,37 @@ export default function FeatureParser(muinaismuistotSettings) {
   };
 
   this.getFeatureTypeIconURL = function(feature) {
-    return muinaismuistotSettings.getLayerIconURL(feature.layerId);
+    var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
+    switch (feature.layerId) {
+      case layerMap.Muinaisjäännökset_piste:
+        if (this.isKiinteäMuinaisjäännös(feature)) {
+          return "images/muinaisjaannos_kohde.png";
+        } else if (this.isMuuKulttuuriperintökohde(feature)) {
+          return "images/muu_kulttuuriperintokohde_kohde.png";
+        }
+        break;
+      case layerMap.Muinaisjäännökset_alue:
+        if (this.isKiinteäMuinaisjäännös(feature)) {
+          return "images/muinaisjaannos_alue.png";
+        } else if (this.isMuuKulttuuriperintökohde(feature)) {
+          return "images/muu-kulttuuriperintokohde-alue.png";
+        }
+        break;
+      case layerMap.RKY_alue:
+        return "images/rky_alue.png";
+      case layerMap.RKY_viiva:
+        return "images/rky_viiva.png";
+      case layerMap.RKY_piste:
+        return "images/rky_piste.png";
+      case layerMap.Maailmanperintö_alue:
+        return "images/maailmanperinto_alue.png";
+      case layerMap.Maailmanperintö_piste:
+        return "images/maailmanperinto_piste.png";
+      case layerMap.Suojellut_rakennukset_alue:
+        return "images/rakennusperintorekisteri_alue.png";
+      case layerMap.Suojellut_rakennukset_piste:
+        return "images/rakennusperintorekisteri_rakennus.png";
+    }
   };
 
   this.getFeatureLocation = function(feature) {

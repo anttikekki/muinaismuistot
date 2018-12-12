@@ -141,19 +141,12 @@ export default function FeatureDetailsPage(
     var laji = trim(feature.attributes.laji);
     $("#muinaisjaannos-Laji").html(laji);
 
-    if (laji === "kiinteä muinaisjäännös") {
-      $("#muinaisjaannos-heading-image").attr(
-        "src",
-        "images/muinaisjaannos_kohde.png"
-      );
-      $("#muinaisjaannos-heading-name").html("Kiinteä muinaisjäännös");
-    } else if (laji === "muu kulttuuriperintökohde") {
-      $("#muinaisjaannos-heading-image").attr(
-        "src",
-        "images/muu_kulttuuriperintokohde_kohde.png"
-      );
-      $("#muinaisjaannos-heading-name").html("Muu kulttuuriperintökohde");
-    }
+    $("#muinaisjaannos-details-icon").html(
+      '<img src="' + featureParser.getFeatureTypeIconURL(feature) + '">'
+    );
+    $("#muinaisjaannos-heading-name").html(
+      featureParser.getFeatureTypeName(feature)
+    );
 
     $("#muinaisjaannos-muinaisjaannosarekisteri-link").attr(
       "href",
@@ -175,23 +168,12 @@ export default function FeatureDetailsPage(
     var laji = trim(feature.attributes.laji);
     $("#muinaisjaannosalue-Laji").html(laji);
 
-    if (laji === "kiinteä muinaisjäännös") {
-      $("#muinaisjaannosalue-heading-image").attr(
-        "src",
-        "images/muinaisjaannos_alue.png"
-      );
-      $("#muinaisjaannosalue-heading-name").html(
-        "Kiinteä muinaisjäännös (alue)"
-      );
-    } else if (laji === "muu kulttuuriperintökohde") {
-      $("#muinaisjaannosalue-heading-image").attr(
-        "src",
-        "images/muu-kulttuuriperintokohde-alue.png"
-      );
-      $("#muinaisjaannosalue-heading-name").html(
-        "Muu kulttuuriperintökohde (alue)"
-      );
-    }
+    $("#muinaisjaannosalue-details-icon").html(
+      '<img src="' + featureParser.getFeatureTypeIconURL(feature) + '">'
+    );
+    $("#muinaisjaannosalue-heading-name").html(
+      featureParser.getFeatureTypeName(feature)
+    );
 
     $("#muinaisjaannosalue-muinaisjaannosarekisteri-link").attr(
       "href",
