@@ -79,7 +79,10 @@ export default function Settings(eventListener) {
 
   this.setSelectedMuinaismuistotLayerIds = function(layerIds) {
     selectedLayerIds = layerIds;
-    eventListener.visibleMuinaismuistotLayersChanged(layerIds);
+    selectedLayerIds.sort();
+    eventListener.visibleMuinaismuistotLayersChanged(
+      this.getSelectedMuinaismuistotLayerIds()
+    );
   };
 
   this.getSelectedBackgroundMapLayerName = function() {
