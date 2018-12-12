@@ -109,7 +109,12 @@ export default function Settings(eventListener) {
   };
 
   this.getMuinaismuistotLayerIds = function() {
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    var layerMap = this.getMuinaismuistotLayerIdMap();
+    return Object.keys(layerMap)
+      .map(function(layerName) {
+        return layerMap[layerName];
+      })
+      .sort();
   };
 
   this.getMuinaismuistotLayerIdMap = function() {
