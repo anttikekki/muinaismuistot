@@ -9,8 +9,10 @@ export default function MaanmittauslaitosWMTS(
 ) {
   var mmlMaastokarttaLayer;
   var mmlTaustakarttaLayer;
+  var mmlOrtokuvaLayer;
   var maastokarttaLayerSource;
   var taustakarttaLayerSource;
+  var ortokuvaLayerSource;
 
   var init = function() {
     loadMMLWmtsCapabilitiesAndAddLayers();
@@ -39,6 +41,11 @@ export default function MaanmittauslaitosWMTS(
         layer: "taustakartta"
       })
     );
+    ortokuvaLayerSource = new WMTSSource(
+      optionsFromCapabilities(capabilities, {
+        layer: "ortokuva"
+      })
+    );
 
     mmlMaastokarttaLayer = new TileLayer({
       title: "Maastokartta",
@@ -50,8 +57,17 @@ export default function MaanmittauslaitosWMTS(
       source: taustakarttaLayerSource,
       visible: true
     });
+    mmlOrtokuvaLayer = new TileLayer({
+      title: "Ortokuva",
+      source: ortokuvaLayerSource,
+      visible: false
+    });
 
-    onLayersCreatedCallbackFn(mmlMaastokarttaLayer, mmlTaustakarttaLayer);
+    onLayersCreatedCallbackFn(
+      mmlMaastokarttaLayer,
+      mmlTaustakarttaLayer,
+      mmlOrtokuvaLayer
+    );
   };
 
   this.getVisibleLayerName = function() {
@@ -59,6 +75,8 @@ export default function MaanmittauslaitosWMTS(
       return "maastokartta";
     } else if (mmlTaustakarttaLayer && mmlTaustakarttaLayer.getVisible()) {
       return "taustakartta";
+    } else if (mmlOrtokuvaLayer && mmlOrtokuvaLayer.getVisible()) {
+      return "ortokuva";
     }
     return "taustakartta";
   };
@@ -67,9 +85,15 @@ export default function MaanmittauslaitosWMTS(
     if (layerName === "taustakartta") {
       mmlMaastokarttaLayer.setVisible(false);
       mmlTaustakarttaLayer.setVisible(true);
+      mmlOrtokuvaLayer.setVisible(false);
     } else if (layerName === "maastokartta") {
       mmlMaastokarttaLayer.setVisible(true);
       mmlTaustakarttaLayer.setVisible(false);
+      mmlOrtokuvaLayer.setVisible(false);
+    } else if (layerName === "ortokuva") {
+      mmlMaastokarttaLayer.setVisible(false);
+      mmlTaustakarttaLayer.setVisible(false);
+      mmlOrtokuvaLayer.setVisible(true);
     }
   };
 

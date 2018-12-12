@@ -50,9 +50,10 @@ export default function MuinaismuistotMap(
 
     maanmittauslaitosWMTS = new MaanmittauslaitosWMTS(
       muinaismuistotSettings,
-      function(mmlMaastokarttaLayer, mmlTaustakarttaLayer) {
+      function(mmlMaastokarttaLayer, mmlTaustakarttaLayer, mmlOrtokuvaLayer) {
         map.getLayers().insertAt(0, mmlMaastokarttaLayer);
         map.getLayers().insertAt(1, mmlTaustakarttaLayer);
+        map.getLayers().insertAt(2, mmlOrtokuvaLayer);
       }
     );
 
@@ -60,7 +61,7 @@ export default function MuinaismuistotMap(
       muinaismuistotSettings,
       eventListeners.showLoadingAnimation,
       function(createdLayer) {
-        map.getLayers().insertAt(2, createdLayer);
+        map.getLayers().insertAt(3, createdLayer);
       }
     );
 
@@ -68,13 +69,13 @@ export default function MuinaismuistotMap(
       muinaismuistotSettings,
       eventListeners.showLoadingAnimation,
       function(createdLayer) {
-        map.getLayers().insertAt(3, createdLayer);
+        map.getLayers().insertAt(4, createdLayer);
       }
     );
 
     positionAndSelectedLocation = new CurrentPositionAndSelectedLocationMarkerLayer(
       function(createdLayer) {
-        map.getLayers().insertAt(4, createdLayer);
+        map.getLayers().insertAt(5, createdLayer);
       }
     );
 
