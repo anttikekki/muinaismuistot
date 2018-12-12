@@ -3,10 +3,12 @@
   "version": "1.1.0",
   "description": "Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa.",
   "scripts": {
-    "build-dist": "webpack --mode=production --progress --optimize-minimize",
-    "build-dist-and-start": "npm run build-dist && http-server ./dist -p 8091 -c-1 -a localhost -o",
-    "build-dev-and-start-dev-server": "npm run build-dev && webpack-dev-server --mode=development --port 8091 --progress --hot --colors --inline --content-base dist",
-    "build-dev": "webpack --mode=development --progress --devtool source-map --output-pathinfo",
+    "start": "http-server ./dist -p 8091 -c-1 -a localhost -o",
+    "build-prod": "webpack --mode=production --progress",
+    "build-prod-and-start": "npm run build-dist && npm run start",
+    "start-webpack-dev-server": "webpack-dev-server --mode=development --port 8091 --progress --hot --colors --inline",
+    "build-dev": "webpack --mode=development --progress --devtool source-map",
+    "build-dev-and-start": "npm run build-dev && npm run start",
     "test": "jest"
   },
   "author": "Antti Kekki",
