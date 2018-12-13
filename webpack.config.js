@@ -7,7 +7,7 @@ module.exports = {
   entry: "./src/js/index.js",
   output: {
     path: __dirname + "/dist",
-    filename: "bundle.js"
+    filename: "[name]-[hash].js"
   },
   module: {
     rules: [
@@ -32,8 +32,10 @@ module.exports = {
       dry: false
     }),
     new HtmlWebpackPlugin({
-      template: "src/index.html",
-      filename: "index.html"
+      template: "src/index.ejs",
+      filename: "index.html",
+      inject: true,
+      hash: true
     }),
     new CopyWebpackPlugin([
       { from: "src/capabilities", to: "capabilities" },
