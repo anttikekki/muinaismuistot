@@ -50,15 +50,15 @@ export default function Settings(eventListener) {
   };
 
   this.getMuseovirastoArcGISWMSExportURL = function() {
-    return "https://d1ni9pwcac9w21.cloudfront.net";
+    return "https://d3u1wj9fwedfoy.cloudfront.net";
   };
 
   this.getMuseovirastoArcGISWMSIndentifyURL = function() {
-    return "https://d2h14icpze3arm.cloudfront.net?";
+    return "https://d3t293l8mhxosa.cloudfront.net?";
   };
 
   this.getMuseovirastoArcGISWMSFindFeaturesURL = function() {
-    return "https://d31x4e4yytlrm0.cloudfront.net?";
+    return "https://d3239kmqvyt2db.cloudfront.net?";
   };
 
   this.getMaanmittauslaitosWMTSCapabilitiesURL = function() {
@@ -79,18 +79,10 @@ export default function Settings(eventListener) {
 
   this.setSelectedMuinaismuistotLayerIds = function(layerIds) {
     selectedLayerIds = layerIds;
-    eventListener.visibleMuinaismuistotLayersChanged(layerIds);
-  };
-
-  this.getSelectedMuinaismuistotLayerSubLayerIds = function() {
-    var subLayerIds = [];
-    var parentLayerIds = self.getParentLayerIds();
-    selectedLayerIds.forEach(function(layerId) {
-      if (parentLayerIds.indexOf(layerId) === -1) {
-        subLayerIds.push(layerId);
-      }
-    });
-    return subLayerIds;
+    selectedLayerIds.sort();
+    eventListener.visibleMuinaismuistotLayersChanged(
+      this.getSelectedMuinaismuistotLayerIds()
+    );
   };
 
   this.getSelectedBackgroundMapLayerName = function() {
@@ -117,90 +109,26 @@ export default function Settings(eventListener) {
   };
 
   this.getMuinaismuistotLayerIds = function() {
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    var layerMap = this.getMuinaismuistotLayerIdMap();
+    return Object.keys(layerMap)
+      .map(function(layerName) {
+        return layerMap[layerName];
+      })
+      .sort();
   };
 
   this.getMuinaismuistotLayerIdMap = function() {
     return {
-      RKY: 0,
-      "RKY alueet": 1,
-      "RKY viivat": 2,
-      "RKY pisteet": 3,
-      Maailmanperintökohteet: 4,
-      "Maailmanperintö alueet": 5,
-      "Maailmanperintö pisteet": 6,
-      Rakennusperintörekisteri: 7,
-      "Rakennetut alueet": 8,
-      Rakennukset: 9,
-      Muinaisjäännösrekisteri: 10,
-      Muinaisjäännösalueet: 11,
-      "Muinaisj.alakohteet": 12,
-      Muinaisjäännökset: 13
+      Muinaisjäännökset_piste: 0,
+      Muinaisjäännökset_alue: 1,
+      Suojellut_rakennukset_piste: 2,
+      Suojellut_rakennukset_alue: 3,
+      RKY_alue: 4,
+      RKY_piste: 5,
+      RKY_viiva: 6,
+      Maailmanperintö_piste: 7,
+      Maailmanperintö_alue: 8
     };
-  };
-
-  this.getParentLayerIds = function() {
-    return [0, 4, 7, 10];
-  };
-
-  this.getMuinaismuistotSubLayerIdsToParentLayerIdMap = function() {
-    return {
-      "0": [1, 2, 3],
-      "4": [5, 6],
-      "7": [8, 9],
-      "10": [11, 12, 13]
-    };
-  };
-
-  this.getMuinaismuistotParentLayerIdToSubLayerIdMap = function() {
-    return {
-      "1": 0,
-      "2": 0,
-      "3": 0,
-      "5": 4,
-      "6": 4,
-      "8": 7,
-      "9": 7,
-      "11": 10,
-      "12": 10,
-      "13": 10
-    };
-  };
-
-  this.getLayerIconURL = function(layerId) {
-    var layerMap = this.getMuinaismuistotLayerIdMap();
-    switch (layerId) {
-      case layerMap["Muinaisjäännökset"]:
-        return "images/muinaisjaannos_kohde.png";
-        break;
-      case layerMap["Muinaisj.alakohteet"]:
-        return "images/muinaisjaannos_alakohde.png";
-        break;
-      case layerMap["Muinaisjäännösalueet"]:
-        return "images/muinaisjaannos_alue.png";
-        break;
-      case layerMap["RKY alueet"]:
-        return "images/rky_alue.png";
-        break;
-      case layerMap["RKY viivat"]:
-        return "images/rky_viiva.png";
-        break;
-      case layerMap["RKY pisteet"]:
-        return "images/rky_piste.png";
-        break;
-      case layerMap["Maailmanperintö alueet"]:
-        return "images/maailmanperinto_alue.png";
-        break;
-      case layerMap["Maailmanperintö pisteet"]:
-        return "images/maailmanperinto_piste.png";
-        break;
-      case layerMap["Rakennetut alueet"]:
-        return "images/rakennusperintorekisteri_alue.png";
-        break;
-      case layerMap["Rakennukset"]:
-        return "images/rakennusperintorekisteri_rakennus.png";
-        break;
-    }
   };
 
   this.getFilterParamsLayerDefinitions = function() {
@@ -268,56 +196,6 @@ export default function Settings(eventListener) {
       var i = selectedLayerIds.indexOf(layerId);
       if (i > -1) {
         selectedLayerIds.splice(i, 1);
-      }
-    }
-
-    if (self.getParentLayerIds().indexOf(layerId) !== -1) {
-      var subLayerIds = self.getMuinaismuistotSubLayerIdsToParentLayerIdMap()[
-        layerId
-      ];
-
-      if (isSelected) {
-        //Add all parent sub layers
-        subLayerIds.forEach(function(subLayerId) {
-          if (selectedLayerIds.indexOf(subLayerId) === -1) {
-            selectedLayerIds.push(subLayerId);
-          }
-        });
-      } else {
-        //Remove all sub layers for parent
-        subLayerIds.forEach(function(subLayerId) {
-          var i = selectedLayerIds.indexOf(subLayerId);
-          if (i > -1) {
-            selectedLayerIds.splice(i, 1);
-          }
-        });
-      }
-    } else {
-      //Sub layer selection changed
-      var parentLayerId = self.getMuinaismuistotParentLayerIdToSubLayerIdMap()[
-        layerId
-      ];
-      var subLayerIds = self.getMuinaismuistotSubLayerIdsToParentLayerIdMap()[
-        parentLayerId
-      ];
-
-      if (isSelected) {
-        //Add parent layer to selection if all sub layers are selected
-        var allSelected = true;
-        subLayerIds.forEach(function(subLayerId) {
-          if (selectedLayerIds.indexOf(subLayerId) === -1) {
-            allSelected = false;
-          }
-        });
-        if (allSelected && selectedLayerIds.indexOf(parentLayerId) === -1) {
-          selectedLayerIds.push(parentLayerId);
-        }
-      } else {
-        //Remove parent layer from selection
-        var i = selectedLayerIds.indexOf(parentLayerId);
-        if (i > -1) {
-          selectedLayerIds.splice(i, 1);
-        }
       }
     }
 

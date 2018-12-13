@@ -44,8 +44,18 @@ export default function AhvenanmaaWMTS(
       source: source,
       visible: true
     });
-
     layer.setOpacity(0.7);
+
+    source.on("tileloadstart", function() {
+      showLoadingAnimationFn(true);
+    });
+    source.on("tileloadend", function() {
+      showLoadingAnimationFn(false);
+    });
+    source.on("tileloaderror", function() {
+      showLoadingAnimationFn(false);
+    });
+
     onLayerCreatedCallbackFn(layer);
   };
 
@@ -326,11 +336,7 @@ export default function AhvenanmaaWMTS(
       clickedAhvenanmaaWMTSTilePixel
     );
 
-    showLoadingAnimationFn(true);
-
-    return $.getJSON(featureInfoUrl).done(function(response) {
-      showLoadingAnimationFn(false);
-    });
+    return $.getJSON(featureInfoUrl);
   };
 
   init();

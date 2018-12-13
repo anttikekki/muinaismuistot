@@ -142,7 +142,7 @@
                         <ul>
                             <li><a href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx">Muinaisjäännösrekisteri</a></li>
                             <li><a href="https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_default.aspx">Rakennusperintörekisteri</a></li>
-                            <li><a href="http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa">Maailmanperintökohteet</a></li>
+                            <li><a href="https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa">Maailmanperintökohteet</a></li>
                             <li><a href="http://www.rky.fi/">Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</a></li>
                         </ul>
 
@@ -174,14 +174,25 @@
                         <p>
                             <h5>Museoviraston muinaisjäännösrekisteri</h5>
 
-                            <img src="images/muinaisjaannos_kohde.png">
-                            <span>Kohde</span>
+                            <p>
+                                <img src="images/muinaisjaannos_kohde.png">
+                                <span>Kiinteä muinaisjäännös</span>
+                            </p>
 
-                            <img src="images/muinaisjaannos_alakohde.png">
-                            <span>Alakohde</span>
+                            <p>
+                                <img src="images/muinaisjaannos_alue.png">
+                                <span>Kiinteä muinaisjäännös (alue)</span>
+                            </p>
 
-                            <img src="images/muinaisjaannos_alue.png">
-                            <span>Alue</span>
+                            <p>
+                                <img src="images/muu_kulttuuriperintokohde_kohde.png">
+                                <span>Muu kulttuuriperintökohde</span>
+                            </p>
+
+                            <p>
+                                <img src="images/muu-kulttuuriperintokohde-alue.png">
+                                <span>Muu kulttuuriperintökohde (alue)</span>
+                            </p>
                         </p>
 
                         <br>
@@ -241,13 +252,33 @@
                     <div class="panel-heading">Tekninen toteutus</div>
                     <div class="panel-body">
 
-                        <p>Museoviraston rekistereistä tietoa haetaan <a href="http://www.paikkatietohakemisto.fi/geonetwork/srv/fin/catalog.search#/metadata/49c9be83-bfb5-4380-870d-7c7323760990">avoimen rajapinnan</a> kautta (<a href="http://www.nba.fi/fi/File/2104/lisenssi-su-sv.pdf">materiaalin lisenssi</a>).</p>
+                        <p>Museoviraston rekistereistä tietoa haetaan <a href="https://www.avoindata.fi/data/fi/dataset/museoviraston-kulttuuriymparistoaineistot-suojellut-kohteet-wms-palvelu">avoimen rajapinnan</a> kautta (<a href="https://creativecommons.fi/lisenssit/">Creative Commons CC By 4.0 -lisenssillä</a>).</p>
 
-                        <p>Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href="http://inspire.regeringen.ax:8080/geoserver/web/">avoimen rajapinnan</a> kautta. Sisältöä hallinnoi <a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">Ålands landskapsregering - Kulturbyrån</a>.</p>
+                        <p>Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href="http://inspire.regeringen.ax:8080/geoserver/gwc/">avoimen rajapinnan</a> kautta. Sisältöä hallinnoi <a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">Ålands landskapsregering - Kulturbyrån</a>.</p>
 
-                        <p>Taustakarttana on <a href="http://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-11">Maanmittauslaitoksen</a> tausta- ja peruskartta (<a href="http://www.maanmittauslaitos.fi/avoindata_lisenssi_versio1_20120501">materiaalin lisenssi</a>).</p>
+                        <p>Taustakarttana on <a href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17">Maanmittauslaitoksen</a> tausta-, ortokuva- ja peruskartta (<a href="https://www.maanmittauslaitos.fi/avoindata-lisenssi-cc40"> Creative Commons Nimeä 4.0 Kansainvälinen -lisenssillä</a>).</p>
 
                         <p>Tämän sivuston tekninen toteutus on <a href="https://github.com/anttikekki/muinaismuistot">avointa lähdekoodia</a>, lisenssinä on <a href="https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE">MIT</a>.</p>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Muutoshistoria</div>
+                    <div class="panel-body">
+
+                            <h5>Joulukuu 2018</h5>
+                            <p>Siirrytty käyttämään Maanmittauslaitoksen uutta <a href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17">karttapalvelua</a>, jonka myötä taustakartan ulkonäkö muuttui selkeämmäksi ja <a href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/tuotekuvaukset/ortokuva">Ortokuvat</a> saatiin käyttöön.</p>
+                            <p>Siirrytty käyttämään Museoviraston uuta <a href="https://www.avoindata.fi/data/fi/dataset/museoviraston-kulttuuriymparistoaineistot-suojellut-kohteet-wms-palvelu">karttapalvelua</a>, jonka myötä saatiin käyttöön ruskeat "Muu kulttuuriperintökohde" -pisteet kartalle.</p>
+
+                            <br>
+
+                            <h5>Marraskuu 2017</h5>
+                            <p>Lisätty kartalle Ahvenanmaan maakuntahallinnon <a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">muinaijäännösten rekisteri</a>.</p>
+
+                            <br>
+
+                            <h5>Lokakuu 2015</h5>
+                            <p>Ensimmäinen versio julkaistu.</p>
                     </div>
                 </div>
 
@@ -282,6 +313,10 @@
                             <label class="btn btn-default">
                                 <input type="radio" id="map-selection-maastokartta" name="selectedMapLayer" autocomplete="off" value="maastokartta"> Maastokartta
                             </label>
+
+                            <label class="btn btn-default">
+                                <input type="radio" id="map-selection-ortokuva" name="selectedMapLayer" autocomplete="off" value="ortokuva"> Ortokuva
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -290,110 +325,89 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Kartalla näkyvät kohteet</div>
                     <div class="panel-body" id="muinaismuistot-visible-layer-selections">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" value="0" id="settings-muinaismuistot-layer-0">
-                            Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
-                          </label>
-                        </div>
+                        <h5>Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</h5>
+                        
                         <div class="checkbox sub-layer-select-checkbox-container">
                           <label>
-                            <input type="checkbox" value="1" id="settings-muinaismuistot-layer-1">
+                            <input type="checkbox" value="4" id="settings-muinaismuistot-layer-4">
                             <img src="images/rky_alue.png"/>
                             Alueet
                           </label>
                         </div>
                         <div class="checkbox sub-layer-select-checkbox-container">
                           <label>
-                            <input type="checkbox" value="2" id="settings-muinaismuistot-layer-2">
+                            <input type="checkbox" value="6" id="settings-muinaismuistot-layer-6">
                             <img src="images/rky_viiva.png"/>
                             Viivat (esim. tie)
                           </label>
                         </div>
                         <div class="checkbox sub-layer-select-checkbox-container">
                           <label>
-                            <input type="checkbox" value="3" id="settings-muinaismuistot-layer-3">
+                            <input type="checkbox" value="5" id="settings-muinaismuistot-layer-5">
                             <img src="images/rky_piste.png"/>
                             Pisteet
                           </label>
                         </div>
 
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" value="4"  id="settings-muinaismuistot-layer-4">
-                            Maailmanperintökohteet
-                          </label>
-                        </div>
+
+                        <h5>Maailmanperintökohteet</h5>
+
                         <div class="checkbox sub-layer-select-checkbox-container">
                           <label>
-                            <input type="checkbox" value="5" id="settings-muinaismuistot-layer-5">
+                            <input type="checkbox" value="8" id="settings-muinaismuistot-layer-8">
                             <img src="images/maailmanperinto_alue.png"/>
                             Alueet
                           </label>
                         </div>
                         <div class="checkbox sub-layer-select-checkbox-container">
                           <label>
-                            <input type="checkbox" value="6" id="settings-muinaismuistot-layer-6">
+                            <input type="checkbox" value="7" id="settings-muinaismuistot-layer-7">
                             <img src="images/maailmanperinto_piste.png"/>
                             Pisteet
                           </label>
                         </div>
 
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" value="7"  id="settings-muinaismuistot-layer-7">
-                            Rakennusperintörekisteri
-                          </label>
-                        </div>
+                    
+                        <h5>Rakennusperintörekisteri</h5>
+                    
                         <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="8" id="settings-muinaismuistot-layer-8">
+                        <label>
+                            <input type="checkbox" value="3" id="settings-muinaismuistot-layer-3">
                             <img src="images/rakennusperintorekisteri_alue.png"/>
                             Rakennetut alueet
-                          </label>
+                        </label>
                         </div>
                         <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="9" id="settings-muinaismuistot-layer-9">
+                        <label>
+                            <input type="checkbox" value="2" id="settings-muinaismuistot-layer-2">
                             <img src="images/rakennusperintorekisteri_rakennus.png"/>
                             Rakennukset
-                          </label>
+                        </label>
                         </div>
 
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" value="10" id="settings-muinaismuistot-layer-10">
-                            Museoviraston muinaisjäännösrekisteri
-                          </label>
-                        </div>
+                    
+                        <h5>Museoviraston muinaisjäännösrekisteri</h5>
+
                         <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="11" id="settings-muinaismuistot-layer-11">
+                        <label>
+                            <input type="checkbox" value="1" id="settings-muinaismuistot-layer-1">
                             <img src="images/muinaisjaannos_alue.png"/>
+                            <img src="images/muu-kulttuuriperintokohde-alue.png"/>
                             Alueet
-                          </label>
+                        </label>
                         </div>
                         <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="12" id="settings-muinaismuistot-layer-12">
-                            <img src="images/muinaisjaannos_alakohde.png"/>
-                            Alakohteet
-                          </label>
-                        </div>
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="13" id="settings-muinaismuistot-layer-13">
+                        <label>
+                            <input type="checkbox" value="0" id="settings-muinaismuistot-layer-0">
                             <img src="images/muinaisjaannos_kohde.png"/>
-                            Kohteet
-                          </label>
+                            <img src="images/muu_kulttuuriperintokohde_kohde.png"/>
+                            Pisteet
+                        </label>
                         </div>
+                        
 
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" value="" checked disabled>
-                            Ahvenamaan muinaisjäännösrekisteri
-                          </label>
-                        </div>
+                        <h5>Ahvenamaan muinaisjäännösrekisteri</h5>
+                        
                         <div class="checkbox sub-layer-select-checkbox-container">
                           <label>
                             <input type="checkbox" value="" checked disabled>
@@ -597,8 +611,8 @@
                     <div class="panel-heading" role="tab" id="muinaisjaannos-heading">
                       <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-section="muinaisjaannos" data-parent="#accordion" href="#muinaisjaannos-collapse" aria-expanded="true" aria-controls="muinaisjaannos-collapse">
-                          <img src="images/muinaisjaannos_kohde.png">
-                          <span>Muinaisjäännös</span>
+                          <span id="muinaisjaannos-details-icon"></span>
+                          <span id="muinaisjaannos-heading-name">Kiinteä muinaisjäännös</span>
                         </a>
                         <a id="muinaisjaannos-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
                       </h4>
@@ -645,8 +659,8 @@
                     <div class="panel-heading" role="tab" id="muinaisjaannosalue-heading">
                       <h4 class="panel-title">
                         <a class="collapsed" role="button" data-toggle="collapse" data-section="muinaisjaannosalue" data-parent="#accordion" href="#muinaisjaannosalue-collapse" aria-expanded="false" aria-controls="muinaisjaannosalue-collapse">
-                          <img src="images/muinaisjaannos_alue.png">
-                          <span>Muinaisjäännösalue</span>
+                          <span id="muinaisjaannosalue-details-icon"></span>
+                          <span id="muinaisjaannosalue-heading-name">Muinaisjäännösalue</span>
                         </a>
                         <a id="muinaisjaannosalue-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
                       </h4>
@@ -657,6 +671,14 @@
                             <div class="form-group">
                                 <label>Kohdenimi</label>
                                 <p id="muinaisjaannosalue-Kohdenimi"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Kunta</label>
+                                <p id="muinaisjaannosalue-Kunta"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Laji</label>
+                                <p id="muinaisjaannosalue-Laji"></p>
                             </div>
 
                             <p>
@@ -682,6 +704,10 @@
                             <div class="form-group">
                                 <label>Kohdenimi</label>
                                 <p id="rky-Kohdenimi"></p>
+                            </div>
+                            <div class="form-group" id="rky-Nimi-container">
+                                <label>Nimi</label>
+                                <p id="rky-Nimi"></p>
                             </div>
 
                             <p>
@@ -738,20 +764,8 @@
                                 <p id="rakennusperintorekisteriAlue-Kunta"></p>
                             </div>
                             <div class="form-group">
-                                <label>Kohdetyyppi</label>
-                                <p id="rakennusperintorekisteriAlue-Kohdetyyppi"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Kulttuurihistoriallinen tyyppi</label>
-                                <p id="rakennusperintorekisteriAlue-Kulttuurihist_tyyppi"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Suojelu</label>
-                                <p id="rakennusperintorekisteriAlue-Suojelu"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Ajoitus</label>
-                                <p id="rakennusperintorekisteriAlue-Ajoitus"></p>
+                                <label>Suojeluryhmä</label>
+                                <p id="rakennusperintorekisteriAlue-Suojeluryhmä"></p>
                             </div>
 
                             <p>
@@ -779,12 +793,16 @@
                                 <p id="rakennusperintorekisteriRakennus-Kohdenimi"></p>
                             </div>
                             <div class="form-group">
-                                <label>Osoite</label>
-                                <p id="rakennusperintorekisteriRakennus-Osoite"></p>
+                                    <label>Rakennusnimi</label>
+                                    <p id="rakennusperintorekisteriRakennus-Rakennusnimi"></p>
+                                </div>
+                            <div class="form-group">
+                                <label>Kunta</label>
+                                <p id="rakennusperintorekisteriRakennus-Kunta"></p>
                             </div>
                             <div class="form-group">
-                                <label>Suojelu</label>
-                                <p id="rakennusperintorekisteriRakennus-Suojelu"></p>
+                                <label>Suojeluryhmä</label>
+                                <p id="rakennusperintorekisteriRakennus-Suojeluryhmä"></p>
                             </div>
 
                             <p>
