@@ -22,12 +22,7 @@ describe("Settings", function() {
         5,
         6,
         7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13
+        8
       ]);
     });
   });
@@ -141,64 +136,24 @@ describe("Settings", function() {
   });
 
   describe(".layerSelectionChanged", function() {
-    it("deselects RKY parent and all sub layers when parameter is parent layer", function() {
+    it("deselects layer", function() {
       var settings = createSettings();
       var layerMap = settings.getMuinaismuistotLayerIdMap();
-      settings.setSelectedMuinaismuistotLayerIds([0, 1, 2, 3]);
+      settings.setSelectedMuinaismuistotLayerIds([4, 5, 6]);
 
-      settings.layerSelectionChanged(layerMap["RKY"], false);
+      settings.layerSelectionChanged(layerMap.RKY_alue, false);
 
-      expect(settings.getSelectedMuinaismuistotLayerIds()).toEqual([]);
+      expect(settings.getSelectedMuinaismuistotLayerIds()).toEqual([5, 6]);
     });
 
-    it("selects RKY parent and all sub layers when parameter is parent layer", function() {
+    it("selects layer", function() {
       var settings = createSettings();
       var layerMap = settings.getMuinaismuistotLayerIdMap();
-      settings.setSelectedMuinaismuistotLayerIds([]);
+      settings.setSelectedMuinaismuistotLayerIds([5]);
 
-      settings.layerSelectionChanged(layerMap["RKY"], true);
+      settings.layerSelectionChanged(layerMap.RKY_alue, true);
 
-      expect(settings.getSelectedMuinaismuistotLayerIds()).toEqual([
-        0,
-        1,
-        2,
-        3
-      ]);
-    });
-
-    it("selects only 'RKY pisteet' sub layer when parameter is 'RKY pisteet' sublayer", function() {
-      var settings = createSettings();
-      var layerMap = settings.getMuinaismuistotLayerIdMap();
-      settings.setSelectedMuinaismuistotLayerIds([]);
-
-      settings.layerSelectionChanged(layerMap["RKY pisteet"], true);
-
-      expect(settings.getSelectedMuinaismuistotLayerIds()).toEqual([3]);
-    });
-
-    it("selects parent RKY layer when parameter is 'RKY pisteet' sublayer and all other sublayers are selected", function() {
-      var settings = createSettings();
-      var layerMap = settings.getMuinaismuistotLayerIdMap();
-      settings.setSelectedMuinaismuistotLayerIds([1, 2]);
-
-      settings.layerSelectionChanged(layerMap["RKY pisteet"], true);
-
-      expect(settings.getSelectedMuinaismuistotLayerIds()).toEqual([
-        1,
-        2,
-        3,
-        0
-      ]);
-    });
-
-    it("deselects parent RKY layer when parameter is 'RKY pisteet' sublayer and all other sublayers are selected", function() {
-      var settings = createSettings();
-      var layerMap = settings.getMuinaismuistotLayerIdMap();
-      settings.setSelectedMuinaismuistotLayerIds([0, 1, 2, 3]);
-
-      settings.layerSelectionChanged(layerMap["RKY pisteet"], false);
-
-      expect(settings.getSelectedMuinaismuistotLayerIds()).toEqual([1, 2]);
+      expect(settings.getSelectedMuinaismuistotLayerIds()).toEqual([4, 5]);
     });
   });
 });
