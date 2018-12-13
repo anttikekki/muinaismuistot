@@ -44,7 +44,6 @@ export default function MuinaismuistotMap(
     map = new Map({
       target: "map",
       view: view,
-      renderer: "canvas",
       controls: new Collection()
     });
 
