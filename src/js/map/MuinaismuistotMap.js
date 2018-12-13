@@ -50,6 +50,7 @@ export default function MuinaismuistotMap(
 
     maanmittauslaitosWMTS = new MaanmittauslaitosWMTS(
       muinaismuistotSettings,
+      eventListeners.showLoadingAnimation,
       function(mmlMaastokarttaLayer, mmlTaustakarttaLayer, mmlOrtokuvaLayer) {
         map.getLayers().insertAt(0, mmlMaastokarttaLayer);
         map.getLayers().insertAt(1, mmlTaustakarttaLayer);

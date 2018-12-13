@@ -44,8 +44,18 @@ export default function AhvenanmaaWMTS(
       source: source,
       visible: true
     });
-
     layer.setOpacity(0.7);
+
+    source.on("tileloadstart", function() {
+      showLoadingAnimationFn(true);
+    });
+    source.on("tileloadend", function() {
+      showLoadingAnimationFn(false);
+    });
+    source.on("tileloaderror", function() {
+      showLoadingAnimationFn(false);
+    });
+
     onLayerCreatedCallbackFn(layer);
   };
 

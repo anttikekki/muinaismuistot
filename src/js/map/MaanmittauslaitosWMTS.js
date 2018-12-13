@@ -5,6 +5,7 @@ import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS";
 
 export default function MaanmittauslaitosWMTS(
   muinaismuistotSettings,
+  showLoadingAnimationFn,
   onLayersCreatedCallbackFn
 ) {
   var mmlMaastokarttaLayer;
@@ -63,11 +64,27 @@ export default function MaanmittauslaitosWMTS(
       visible: false
     });
 
+    updateLoadingAnimationOnLayerSourceTileLoad(maastokarttaLayerSource);
+    updateLoadingAnimationOnLayerSourceTileLoad(taustakarttaLayerSource);
+    updateLoadingAnimationOnLayerSourceTileLoad(ortokuvaLayerSource);
+
     onLayersCreatedCallbackFn(
       mmlMaastokarttaLayer,
       mmlTaustakarttaLayer,
       mmlOrtokuvaLayer
     );
+  };
+
+  var updateLoadingAnimationOnLayerSourceTileLoad = function(source) {
+    source.on("tileloadstart", function() {
+      showLoadingAnimationFn(true);
+    });
+    source.on("tileloadend", function() {
+      showLoadingAnimationFn(false);
+    });
+    source.on("tileloaderror", function() {
+      showLoadingAnimationFn(false);
+    });
   };
 
   this.getVisibleLayerName = function() {
