@@ -21,21 +21,23 @@ export default function MuseovirastoArcGISWMS(
     });
     layer.setOpacity(0.7);
 
-    source.on("tileloadstart", function() {
-      showLoadingAnimationFn(true);
-    });
-    source.on("tileloadend", function() {
-      showLoadingAnimationFn(false);
-    });
-    source.on("tileloaderror", function() {
-      showLoadingAnimationFn(false);
-    });
-
     onLayerCreatedCallbackFn(layer);
   };
 
   var createSource = function() {
-    return new TileArcGISRestSource(getMuinaismuistotLayerSourceParams());
+    var newSource = new TileArcGISRestSource(getMuinaismuistotLayerSourceParams());
+
+    newSource.on("tileloadstart", function() {
+      showLoadingAnimationFn(true);
+    });
+    newSource.on("tileloadend", function() {
+      showLoadingAnimationFn(false);
+    });
+    newSource.on("tileloaderror", function() {
+      showLoadingAnimationFn(false);
+    });
+
+    return newSource
   };
 
   var updateMuinaismuistotLayerSource = function() {
