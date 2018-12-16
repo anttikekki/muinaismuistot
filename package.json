@@ -1,6 +1,6 @@
 {
   "name": "muinaismuistot",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa.",
   "scripts": {
     "start": "http-server ./dist -p 8091 -c-1 -a localhost -o",
