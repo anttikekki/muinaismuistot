@@ -39,7 +39,7 @@ describe("Settings", function() {
       settings.setMuinaisjaannosFilterParameter("tyyppi", ["alusten hylyt"]);
 
       expect(settings.getFilterParamsLayerDefinitions()).toEqual(
-        "13:(tyyppi LIKE '%alusten hylyt%')"
+        "0:(tyyppi LIKE '%alusten hylyt%')"
       );
     });
 
@@ -51,7 +51,7 @@ describe("Settings", function() {
       ]);
 
       expect(settings.getFilterParamsLayerDefinitions()).toEqual(
-        "13:(tyyppi LIKE '%alusten hylyt%' OR tyyppi LIKE '%asuinpaikat%')"
+        "0:(tyyppi LIKE '%alusten hylyt%' OR tyyppi LIKE '%asuinpaikat%')"
       );
     });
 
@@ -62,7 +62,7 @@ describe("Settings", function() {
       ]);
 
       expect(settings.getFilterParamsLayerDefinitions()).toEqual(
-        "13:(ajoitus LIKE '%esihistoriallinen%')"
+        "0:(ajoitus LIKE '%esihistoriallinen%')"
       );
     });
 
@@ -74,7 +74,7 @@ describe("Settings", function() {
       ]);
 
       expect(settings.getFilterParamsLayerDefinitions()).toEqual(
-        "13:(ajoitus LIKE '%esihistoriallinen%' OR ajoitus LIKE '%rautakautinen%')"
+        "0:(ajoitus LIKE '%esihistoriallinen%' OR ajoitus LIKE '%rautakautinen%')"
       );
     });
 
@@ -90,7 +90,7 @@ describe("Settings", function() {
       ]);
 
       expect(settings.getFilterParamsLayerDefinitions()).toEqual(
-        "13:(tyyppi LIKE '%alusten hylyt%' OR tyyppi LIKE '%asuinpaikat%') AND (ajoitus LIKE '%esihistoriallinen%' OR ajoitus LIKE '%rautakautinen%')"
+        "0:(tyyppi LIKE '%alusten hylyt%' OR tyyppi LIKE '%asuinpaikat%') AND (ajoitus LIKE '%esihistoriallinen%' OR ajoitus LIKE '%rautakautinen%')"
       );
     });
 
