@@ -3,8 +3,8 @@ export default function Settings(eventListener) {
   var selectedLayerIds = [];
   var selectedBackgroundMapLayerName = "";
   var filterParameters = {
-    Muinaisjäännökset: {
-      layerId: 13,
+    Muinaisjäännökset_piste: {
+      layerId: 0,
       tyyppi: [],
       ajoitus: []
     }
@@ -104,7 +104,7 @@ export default function Settings(eventListener) {
   };
 
   this.setMuinaisjaannosFilterParameter = function(field, value) {
-    filterParameters["Muinaisjäännökset"][field] = value;
+    filterParameters["Muinaisjäännökset_piste"][field] = value;
     eventListener.filterParametersChanged(filterParameters);
   };
 
@@ -134,7 +134,7 @@ export default function Settings(eventListener) {
   this.getFilterParamsLayerDefinitions = function() {
     var resultArray = [];
     addMuinaisjaannosLayerDefinitionFilterParams(
-      "Muinaisjäännökset",
+      "Muinaisjäännökset_piste",
       resultArray
     );
     return resultArray.join(";");
