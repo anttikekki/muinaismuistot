@@ -37,9 +37,6 @@ module.exports = {
       inject: true,
       hash: true
     }),
-    new CopyWebpackPlugin([
-      { from: "src/capabilities", to: "capabilities" },
-      { from: "src/images", to: "images" }
-    ])
+    new CopyWebpackPlugin([{ from: "src/images", to: "images" }])
   ]
 };
