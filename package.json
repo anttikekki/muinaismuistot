@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "bootstrap": "3.3.7",
-    "jquery": "3.3.1",
+    "bootstrap": "3.4.1",
+    "jquery": "3.4.1",
     "ol": "5.3.3",
     "proj4": "2.5.0"
   },
@@ -39,8 +39,8 @@
     "prettier": "1.15.3",
     "style-loader": "0.23.1",
     "url-loader": "1.1.2",
-    "webpack": "4.27.1",
-    "webpack-cli": "3.1.2",
-    "webpack-dev-server": "3.1.10"
+    "webpack": "4.39.2",
+    "webpack-cli": "3.3.7",
+    "webpack-dev-server": "3.8.0"
   }
 }
