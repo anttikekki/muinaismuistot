@@ -12,83 +12,88 @@ export default function FeatureParser(muinaismuistotSettings) {
   };
 
   this.getFeatureName = function(feature) {
-    var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
-    switch (feature.layerId) {
-      case layerMap.Muinaisjäännökset_piste:
-      case layerMap.Muinaisjäännökset_alue:
-      case layerMap.RKY_alue:
-      case layerMap.RKY_piste:
-      case layerMap.RKY_viiva:
-      case layerMap.Suojellut_rakennukset_piste:
-      case layerMap.Suojellut_rakennukset_alue:
+    switch (feature.layerName) {
+      case "Muinaisjäännökset_piste":
+      case "Muinaisjäännökset_alue":
+      case "RKY_alue":
+      case "RKY_piste":
+      case "RKY_viiva":
+      case "Suojellut_rakennukset_piste":
+      case "Suojellut_rakennukset_alue":
         return feature.attributes.kohdenimi;
-      case layerMap.Maailmanperintö_piste:
-      case layerMap.Maailmanperintö_alue:
+      case "Maailmanperintö_piste":
+      case "Maailmanperintö_alue":
         return feature.attributes.Nimi;
+      case "Fornminnen":
+        return feature.attributes.Namn && feature.attributes.Namn !== "Null"
+          ? feature.attributes.Namn
+          : feature.attributes["Fornlämnings ID"];
     }
   };
 
   this.getFeatureTypeName = function(feature) {
-    var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
-    switch (feature.layerId) {
-      case layerMap.Muinaisjäännökset_piste:
+    switch (feature.layerName) {
+      case "Muinaisjäännökset_piste":
         if (this.isKiinteäMuinaisjäännös(feature)) {
           return "Kiinteä muinaisjäännös";
         } else if (this.isMuuKulttuuriperintökohde(feature)) {
           return "Muu kulttuuriperintökohde";
         }
         break;
-      case layerMap.Muinaisjäännökset_alue:
+      case "Muinaisjäännökset_alue":
         if (this.isKiinteäMuinaisjäännös(feature)) {
           return "Kiinteä muinaisjäännös (alue)";
         } else if (this.isMuuKulttuuriperintökohde(feature)) {
           return "Muu kulttuuriperintökohde (alue)";
         }
         break;
-      case layerMap.RKY_alue:
-      case layerMap.RKY_piste:
-      case layerMap.RKY_viiva:
+      case "RKY_alue":
+      case "RKY_piste":
+      case "RKY_viiva":
         return "Rakennettu kulttuuriympäristö";
-      case layerMap.Maailmanperintö_piste:
-      case layerMap.Maailmanperintö_alue:
+      case "Maailmanperintö_piste":
+      case "Maailmanperintö_alue":
         return "Maailmanperintökohde";
-      case layerMap.Suojellut_rakennukset_piste:
-      case layerMap.Suojellut_rakennukset_alue:
+      case "Suojellut_rakennukset_piste":
+      case "Suojellut_rakennukset_alue":
         return "Rakennusperintökohde";
+      case "Fornminnen":
+        return "Ahvenanmaan muinaisjäännösrekisterin kohde";
     }
   };
 
   this.getFeatureTypeIconURL = function(feature) {
-    var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
-    switch (feature.layerId) {
-      case layerMap.Muinaisjäännökset_piste:
+    switch (feature.layerName) {
+      case "Muinaisjäännökset_piste":
         if (this.isKiinteäMuinaisjäännös(feature)) {
           return "images/muinaisjaannos_kohde.png";
         } else if (this.isMuuKulttuuriperintökohde(feature)) {
           return "images/muu_kulttuuriperintokohde_kohde.png";
         }
         break;
-      case layerMap.Muinaisjäännökset_alue:
+      case "Muinaisjäännökset_alue":
         if (this.isKiinteäMuinaisjäännös(feature)) {
           return "images/muinaisjaannos_alue.png";
         } else if (this.isMuuKulttuuriperintökohde(feature)) {
           return "images/muu-kulttuuriperintokohde-alue.png";
         }
         break;
-      case layerMap.RKY_alue:
+      case "RKY_alue":
         return "images/rky_alue.png";
-      case layerMap.RKY_viiva:
+      case "RKY_viiva":
         return "images/rky_viiva.png";
-      case layerMap.RKY_piste:
+      case "RKY_piste":
         return "images/rky_piste.png";
-      case layerMap.Maailmanperintö_alue:
+      case "Maailmanperintö_alue":
         return "images/maailmanperinto_alue.png";
-      case layerMap.Maailmanperintö_piste:
+      case "Maailmanperintö_piste":
         return "images/maailmanperinto_piste.png";
-      case layerMap.Suojellut_rakennukset_alue:
+      case "Suojellut_rakennukset_alue":
         return "images/rakennusperintorekisteri_alue.png";
-      case layerMap.Suojellut_rakennukset_piste:
+      case "Suojellut_rakennukset_piste":
         return "images/rakennusperintorekisteri_rakennus.png";
+      case "Fornminnen":
+        return "images/ahvenanmaa_muinaisjaannos.png";
     }
   };
 

@@ -72,5 +72,22 @@ export default function AhvenanmaaWMTS(
     );
   };
 
+  this.findFeatures = function(searchText) {
+    var queryoptions = {
+      searchText: searchText,
+      contains: true,
+      searchFields: "Namn , Beskrivning, Topografi",
+      layers: "1",
+      f: "json",
+      returnGeometry: "true",
+      returnZ: "false"
+    };
+
+    return $.getJSON(
+      "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/find",
+      queryoptions
+    );
+  };
+
   init();
 }

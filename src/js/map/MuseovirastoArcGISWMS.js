@@ -94,7 +94,7 @@ export default function MuseovirastoArcGISWMS(
     );
   };
 
-  this.findFeatures = function(searchText, callback) {
+  this.findFeatures = function(searchText) {
     var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
     var selectedLayerIds = muinaismuistotSettings.getSelectedMuinaismuistotLayerIds();
 
@@ -113,15 +113,10 @@ export default function MuseovirastoArcGISWMS(
       returnGeometry: "true",
       returnZ: "false"
     };
-    showLoadingAnimationFn(true);
 
-    $.getJSON(
+    return $.getJSON(
       muinaismuistotSettings.getMuseovirastoArcGISWMSFindFeaturesURL(),
-      queryoptions,
-      function(response) {
-        callback(response.results);
-        showLoadingAnimationFn(false);
-      }
+      queryoptions
     );
   };
 

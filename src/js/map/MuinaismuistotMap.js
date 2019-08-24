@@ -106,7 +106,6 @@ export default function MuinaismuistotMap(
     museovirastoResult
   ) {
     eventListeners.showLoadingAnimation(false);
-    console.log(ahvenanmaaResult, museovirastoResult);
     var ahvennamaaFeatures = ahvenanmaaResult[0].results;
     var museovirastoFeatures = museovirastoResult[0].results;
     var allFeatures = ahvennamaaFeatures.concat(museovirastoFeatures);
@@ -144,7 +143,20 @@ export default function MuinaismuistotMap(
   };
 
   this.searchMuinaismuistoja = function(searchText, callbackFn) {
-    museovirastoArcGISWMS.findFeatures(searchText, callbackFn);
+    eventListeners.showLoadingAnimation(true);
+    var ahvenanmaaQuery = ahvenanmaaWMTS.findFeatures(searchText);
+    var museovirastoQuery = museovirastoArcGISWMS.findFeatures(searchText);
+
+    $.when(ahvenanmaaQuery, museovirastoQuery).done(function(
+      ahvenanmaaResult,
+      museovirastoResult
+    ) {
+      eventListeners.showLoadingAnimation(false);
+      var ahvennamaaFeatures = ahvenanmaaResult[0].results;
+      var museovirastoFeatures = museovirastoResult[0].results;
+      var allFeatures = ahvennamaaFeatures.concat(museovirastoFeatures);
+      callbackFn(allFeatures);
+    });
   };
 
   this.getVisibleMaanmittauslaitosLayerName = function() {
