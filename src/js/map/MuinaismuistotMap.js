@@ -36,7 +36,7 @@ export default function MuinaismuistotMap(
     getProjection("EPSG:3067").setExtent(extent);
 
     view = new View({
-      center: [387685, 6679679],
+      center: [385249.63630000036, 6672695.7579],
       projection: "EPSG:3067",
       zoom: 8
     });
