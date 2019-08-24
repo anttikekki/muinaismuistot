@@ -85,10 +85,10 @@ export default function MuinaismuistotMap(
 
   var loadFeaturesOnClickedCoordinate = function(e) {
     eventListeners.showLoadingAnimation(true);
-    var ahvenanmaaQuery = ahvenanmaaWMTS.getFeatureInfo(
+    var ahvenanmaaQuery = ahvenanmaaWMTS.identifyFeaturesAt(
       e.coordinate,
-      view.getProjection(),
-      view.getZoom()
+      map.getSize(),
+      map.getView().calculateExtent(map.getSize())
     );
     var museovirastoQuery = museovirastoArcGISWMS.identifyFeaturesAt(
       e.coordinate,
@@ -106,7 +106,8 @@ export default function MuinaismuistotMap(
     museovirastoResult
   ) {
     eventListeners.showLoadingAnimation(false);
-    var ahvennamaaFeatures = ahvenanmaaResult[0].features;
+    console.log(ahvenanmaaResult, museovirastoResult);
+    var ahvennamaaFeatures = ahvenanmaaResult[0].results;
     var museovirastoFeatures = museovirastoResult[0].results;
     var allFeatures = ahvennamaaFeatures.concat(museovirastoFeatures);
     if (allFeatures.length > 0) {

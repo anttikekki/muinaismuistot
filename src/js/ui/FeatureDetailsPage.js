@@ -45,7 +45,6 @@ export default function FeatureDetailsPage(
   };
 
   this.setMuinaisjaannosFeatures = function(features) {
-    var layerMap = muinaismuistotSettings.getMuinaismuistotLayerIdMap();
     var sectionVisibilityMap = {
       muinaisjaannos: false,
       muinaisjaannosalue: false,
@@ -57,44 +56,45 @@ export default function FeatureDetailsPage(
     };
 
     features.forEach(function(feature) {
-      switch (feature.layerId) {
-        case layerMap.Muinaisjäännökset_piste:
+      switch (feature.layerName) {
+        case "Fornminnen":
+          showahvenamaaMuinaismuisto(feature);
+          sectionVisibilityMap["ahvenamaaMuinaismuisto"] = true;
+          break;
+        case "Muinaisjäännökset_piste":
           showMuinaisjaannos(feature);
           sectionVisibilityMap["muinaisjaannos"] = true;
           break;
-        case layerMap.Muinaisjäännökset_alue:
+        case "Muinaisjäännökset_alue":
           showMuinaisjaannosAlue(feature);
           sectionVisibilityMap["muinaisjaannosalue"] = true;
           break;
-        case layerMap.RKY_alue:
-        case layerMap.RKY_viiva:
-        case layerMap.RKY_piste:
+        case "RKY_alue":
+        case "RKY_viiva":
+        case "RKY_piste":
           showRky(feature);
           sectionVisibilityMap["rky"] = true;
           break;
-        case layerMap.Maailmanperintö_piste:
-        case layerMap.Maailmanperintö_alue:
+        case "Maailmanperintö_piste":
+        case "Maailmanperintö_alue":
           showMaailmanperintokohde(feature);
           sectionVisibilityMap["maailmanperinto"] = true;
           break;
-        case layerMap.Suojellut_rakennukset_alue:
+        case "Suojellut_rakennukset_alue":
           showRakennusperintorekisteriAlue(feature);
           sectionVisibilityMap["rakennusperintorekisteriAlue"] = true;
           break;
-        case layerMap.Suojellut_rakennukset_piste:
+        case "Suojellut_rakennukset_piste":
           showRakennusperintorekisteriRakennus(feature);
           sectionVisibilityMap["rakennusperintorekisteriRakennus"] = true;
           break;
       }
-
-      var featureId = feature.id ? feature.id : "";
-      if (featureId.startsWith("fornminnen.")) {
-        showahvenamaaMuinaismuisto(feature);
-        sectionVisibilityMap["ahvenamaaMuinaismuisto"] = true;
-      }
-
-      updateSectionsVisibility(sectionVisibilityMap);
     });
+
+    updateSectionsVisibility(sectionVisibilityMap);
+    return Object.values(sectionVisibilityMap).some(
+      sectionVisible => sectionVisible
+    );
   };
 
   var updateSectionsVisibility = function(sectionVisibilityMap) {
@@ -297,25 +297,30 @@ export default function FeatureDetailsPage(
   };
 
   var showahvenamaaMuinaismuisto = function(feature) {
-    $("#ahvenamaaMuinaismuisto-Kunta").html(feature.properties.sn);
-    $("#ahvenamaaMuinaismuisto-Kyla").html(feature.properties.by_);
-    $("#ahvenamaaMuinaismuisto-Kategoria").html(feature.properties.huvudkat);
-    $("#ahvenamaaMuinaismuisto-Ajoitus").html(feature.properties.tid);
-
-    var ajoitusVuodet = featureParser.getTimespanInYearsForTimingName(
-      feature.properties.tid
-    );
-    if (ajoitusVuodet) {
-      $("#ahvenamaaMuinaismuisto-Ajoitus-aikajanne")
-        .removeClass("hidden")
-        .html(ajoitusVuodet);
+    var nimi = feature.attributes.Namn;
+    if (nimi && nimi !== "Null") {
+      $("#ahvenamaaMuinaismuisto-Nimi-container").removeClass("hidden");
+      $("#ahvenamaaMuinaismuisto-Nimi").html(nimi);
     } else {
-      $("#ahvenamaaMuinaismuisto-Ajoitus-aikajanne").addClass("hidden");
+      $("#ahvenamaaMuinaismuisto-Nimi-container").addClass("hidden");
     }
 
-    $("#ahvenamaaMuinaismuisto-Tunniste").html(feature.properties.fornl);
+    $("#ahvenamaaMuinaismuisto-Kunta").html(feature.attributes.Kommun);
+    $("#ahvenamaaMuinaismuisto-Kyla").html(feature.attributes.By);
+
+    var sijainti = feature.attributes.Topografi;
+    if (sijainti && sijainti !== "Null") {
+      $("#ahvenamaaMuinaismuisto-Sijainti-container").removeClass("hidden");
+      $("#ahvenamaaMuinaismuisto-Sijainti").html(sijainti);
+    } else {
+      $("#ahvenamaaMuinaismuisto-Sijainti-container").addClass("hidden");
+    }
+
+    $("#ahvenamaaMuinaismuisto-Tunniste").html(
+      feature.attributes["Fornlämnings ID"]
+    );
     $("#ahvenamaaMuinaismuisto-pdf-link-Tunniste").html(
-      feature.properties.fornl
+      feature.attributes["Fornlämnings ID"]
     );
     $("#ahvenamaaMuinaismuisto-permanent-link").attr(
       "href",
@@ -324,7 +329,7 @@ export default function FeatureDetailsPage(
       )
     );
 
-    var kuvaus = feature.properties.kommentar;
+    var kuvaus = feature.attributes.Beskrivning;
     if (kuvaus && kuvaus.length > 0) {
       $("#ahvenamaaMuinaismuisto-Kuvaus-container").removeClass("hidden");
       $("#ahvenamaaMuinaismuisto-Kuvaus").html(kuvaus);
@@ -334,7 +339,7 @@ export default function FeatureDetailsPage(
 
     $("#ahvenamaaMuinaismuisto-pdf-link").attr(
       "href",
-      generateAhvenanmaaKuntaPdfUrl(feature.properties.fornl)
+      generateAhvenanmaaKuntaPdfUrl(feature.attributes["Fornlämnings ID"])
     );
   };
 

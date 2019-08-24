@@ -25,7 +25,9 @@ export default function MuseovirastoArcGISWMS(
   };
 
   var createSource = function() {
-    var newSource = new TileArcGISRestSource(getMuinaismuistotLayerSourceParams());
+    var newSource = new TileArcGISRestSource(
+      getMuinaismuistotLayerSourceParams()
+    );
 
     newSource.on("tileloadstart", function() {
       showLoadingAnimationFn(true);
@@ -37,7 +39,7 @@ export default function MuseovirastoArcGISWMS(
       showLoadingAnimationFn(false);
     });
 
-    return newSource
+    return newSource;
   };
 
   var updateMuinaismuistotLayerSource = function() {

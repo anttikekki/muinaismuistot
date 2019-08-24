@@ -130,8 +130,11 @@ export default function MuinaismuistotUI(
   };
 
   this.muinaisjaannosFeaturesSelected = function(muinaisjaannosFeatures) {
-    detailsPage.setMuinaisjaannosFeatures(muinaisjaannosFeatures);
-    showPage("detailsPage");
+    if (detailsPage.setMuinaisjaannosFeatures(muinaisjaannosFeatures)) {
+      showPage("detailsPage");
+    } else {
+      hidePage("detailsPage");
+    }
   };
 
   this.visibleMuinaismuistotLayersChanged = function(selectedLayerIds) {

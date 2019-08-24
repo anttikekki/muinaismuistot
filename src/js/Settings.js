@@ -65,10 +65,6 @@ export default function Settings(eventListener) {
     return "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml";
   };
 
-  this.getAhvenanmaaWMTSCapabilitiesURL = function() {
-    return "capabilities/regeringen-wmts-capabilities.xml";
-  };
-
   this.setEventListener = function(listener) {
     eventListener = listener;
   };

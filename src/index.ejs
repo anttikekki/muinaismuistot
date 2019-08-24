@@ -252,9 +252,9 @@
                     <div class="panel-heading">Tekninen toteutus</div>
                     <div class="panel-body">
 
-                        <p>Museoviraston rekistereistä tietoa haetaan <a href="https://www.avoindata.fi/data/fi/dataset/museoviraston-kulttuuriymparistoaineistot-suojellut-kohteet-wms-palvelu">avoimen rajapinnan</a> kautta (<a href="https://creativecommons.fi/lisenssit/">Creative Commons CC By 4.0 -lisenssillä</a>).</p>
+                        <p>Museoviraston rekistereistä tietoa haetaan <a href="https://www.avoindata.fi/data/fi/dataset/museoviraston-kulttuuriymparistoaineistot-suojellut-kohteet-wms-palvelu">avoimen rajapinnan</a> kautta (<a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons CC By 4.0 -lisenssillä</a>).</p>
 
-                        <p>Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href="http://inspire.regeringen.ax:8080/geoserver/gwc/">avoimen rajapinnan</a> kautta. Sisältöä hallinnoi <a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">Ålands landskapsregering - Kulturbyrån</a>.</p>
+                        <p>Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href="https://www.kartor.ax/datasets/fornminnen">avoimen rajapinnan</a> kautta (<a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons CC By 4.0 -lisenssillä</a>).</p>
 
                         <p>Taustakarttana on <a href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17">Maanmittauslaitoksen</a> tausta-, ortokuva- ja peruskartta (<a href="https://www.maanmittauslaitos.fi/avoindata-lisenssi-cc40"> Creative Commons Nimeä 4.0 Kansainvälinen -lisenssillä</a>).</p>
 
@@ -265,6 +265,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Muutoshistoria</div>
                     <div class="panel-body">
+
+                            <h5>Elokuu 2019</h5>
+                            <p>Siirrytty käyttämään Ahvenanmaan maakuntahallinnon uutta <a href="https://www.kartor.ax/datasets/fornminnen">kartor.ax</a> karttapalvelua</p>
+
+                            <br>
 
                             <h5>Heinäkuu 2019</h5>
                             <p>Korjattu Museoviraston muinaisjäännösrekisterin pisteiden filtteröinti ajoituksen ja tyypin perusteella.</p>
@@ -831,6 +836,10 @@
                     <div id="ahvenamaaMuinaismuisto-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="ahvenamaaMuinaismuisto-heading">
                       <div class="panel-body">
                         <form>
+                            <div class="form-group" id="ahvenamaaMuinaismuisto-Nimi-container">
+                                <label>Nimi</label>
+                                <p id="ahvenamaaMuinaismuisto-Nimi"></p>
+                            </div>
                             <div class="form-group">
                                 <label>Kunta</label>
                                 <p id="ahvenamaaMuinaismuisto-Kunta"></p>
@@ -839,20 +848,13 @@
                                 <label>Kylä</label>
                                 <p id="ahvenamaaMuinaismuisto-Kyla"></p>
                             </div>
-                            <div class="form-group">
-                                <label>Kategoria</label>
-                                <p id="ahvenamaaMuinaismuisto-Kategoria"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Ajoitus</label>
-                                <p>
-                                  <span id="ahvenamaaMuinaismuisto-Ajoitus"></span>
-                                  <span class="label label-default" id="ahvenamaaMuinaismuisto-Ajoitus-aikajanne"></span>
-                                </p>
-                            </div>
                             <div class="form-group" id="ahvenamaaMuinaismuisto-Kuvaus-container">
                                 <label>Kuvaus</label>
                                 <p id="ahvenamaaMuinaismuisto-Kuvaus"></p>
+                            </div>
+                            <div class="form-group" id="ahvenamaaMuinaismuisto-Sijainti-container">
+                                <label>Sijainti</label>
+                                <p id="ahvenamaaMuinaismuisto-Sijainti"></p>
                             </div>
                             <div class="form-group">
                                 <label>Tunniste</label>
