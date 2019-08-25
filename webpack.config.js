@@ -4,13 +4,25 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: "./src/js/index.js",
+  entry: "./src/index.ts",
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"]
+  },
   output: {
     path: __dirname + "/dist",
     filename: "[name]-[hash].js"
   },
   module: {
     rules: [
+      {
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "ts-loader"
+          }
+        ]
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,

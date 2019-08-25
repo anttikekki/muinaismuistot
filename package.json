@@ -4,11 +4,9 @@
   "description": "Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa.",
   "scripts": {
     "start": "http-server ./dist -p 8091 -c-1 -a localhost -o",
-    "build-prod": "webpack --mode=production --progress",
-    "build-prod-and-start": "npm run build-prod && npm run start",
-    "start-webpack-dev-server": "webpack-dev-server --mode=development --port 8091 --progress --hot --colors --inline",
-    "build-dev": "webpack --mode=development --progress --devtool source-map",
-    "build-dev-and-start": "npm run build-dev && npm run start",
+    "build:prod": "webpack --mode=production --progress",
+    "build:dev": "webpack --mode=development --progress --devtool source-map",
+    "dev": "webpack-dev-server --mode=development --port 8091 --progress --hot --colors --inline",
     "test": "jest"
   },
   "author": "Antti Kekki",
@@ -22,9 +20,17 @@
     "bootstrap": "3.4.1",
     "jquery": "3.4.1",
     "ol": "5.3.3",
-    "proj4": "2.5.0"
+    "proj4": "2.5.0",
+    "react": "16.9.0",
+    "react-dom": "16.9.0"
   },
   "devDependencies": {
+    "@hanreev/types-ol": "2.0.8",
+    "@types/jquery": "3.3.1",
+    "@types/ol": "file:node_modules/@hanreev/types-ol/ol",
+    "@types/proj4": "2.5.0",
+    "@types/react": "16.9.2",
+    "@types/react-dom": "16.9.0",
     "babel-core": "6.26.3",
     "babel-jest": "23.6.0",
     "babel-loader": "7.1.5",
@@ -38,6 +44,8 @@
     "jest": "23.6.0",
     "prettier": "1.15.3",
     "style-loader": "0.23.1",
+    "ts-loader": "6.0.4",
+    "typescript": "3.5.3",
     "url-loader": "1.1.2",
     "webpack": "4.39.2",
     "webpack-cli": "3.3.7",
