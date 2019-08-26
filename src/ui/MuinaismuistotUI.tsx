@@ -1,9 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import $ from "jquery";
 import { ArgisFeature, MuseovirastoLayerId } from "../data";
 import Settings from "../Settings";
-import { UI } from "./UI";
+import { UI, Page } from "./UI";
 
 export interface EventListeners {
   searchMuinaismuistoja: (
@@ -15,15 +14,9 @@ export interface EventListeners {
   centerToCurrentPositions: () => void;
 }
 
-enum Page {
-  Search = "searchPage",
-  Info = "infoPage",
-  Settings = "settingsPage",
-  Details = "detailsPage"
-}
-
 export default class MuinaismuistotUI {
-  private visiblePageId?: Page;
+  private visiblePage?: Page;
+  private selectedFeatures?: Array<ArgisFeature>;
   private loadingAnimationTimeoutID?: number;
   private loadingAnimationCounter = 0;
   private eventListeners: EventListeners;
@@ -62,30 +55,8 @@ export default class MuinaismuistotUI {
       }
     });
 
-    infoPage = new InfoPage({
-      hidePage: function() {
-        hidePage("infoPage");
-      }
-    });
-
-    $("#map-button-zoom-in").on("click", function() {
-      eventListeners.zoomIn();
-    });
-
-    $("#map-button-zoom-out").on("click", function() {
-      eventListeners.zoomOut();
-    });
-
-    $("#map-button-position").on("click", function() {
-      eventListeners.centerToCurrentPositions();
-    });
-
     $("#map-button-search").on("click", function() {
       showPage("searchPage");
-    });
-
-    $("#map-button-info").on("click", function() {
-      showPage("infoPage");
     });
 
     $("#map-button-settings").on("click", function() {
@@ -97,41 +68,33 @@ export default class MuinaismuistotUI {
   private renderUI = () => {
     ReactDOM.render(
       <UI
+        isLoading={this.loadingAnimationCounter > 0}
+        visiblePage={this.visiblePage}
+        selectedFeatures={this.selectedFeatures}
         onZoomIn={this.eventListeners.zoomIn}
         onZoomOut={this.eventListeners.zoomOut}
         onCenterToCurrentPositions={
           this.eventListeners.centerToCurrentPositions
         }
+        showPage={page => this.showPage(page)}
+        hidePage={() => this.hidePage()}
       />,
       document.getElementById("ui")
     );
   };
 
-  private showPage = function(pageId: Page) {
-    var $page = $("#" + pageId);
-
-    //Hide possible old page
-    if (this.visiblePageId) {
-      this.hidePage(this.visiblePageId);
-    }
-
-    if ($page.hasClass("page-right-hidden")) {
-      $page.removeClass("page-right-hidden").addClass("page-right-visible");
-      this.visiblePageId = pageId;
-    }
+  private showPage = (page: Page) => {
+    this.visiblePage = page;
+    this.renderUI();
   };
 
-  private hidePage = function(pageId: Page) {
-    var $page = $("#" + pageId);
-
-    if ($page.hasClass("page-right-visible")) {
-      $page.removeClass("page-right-visible").addClass("page-right-hidden");
-      this.visiblePageId = null;
-    }
+  private hidePage = () => {
+    this.visiblePage = undefined;
+    this.renderUI();
   };
 
   public showLoadingAnimation = (show: boolean) => {
-    var oldCounterValue = this.loadingAnimationCounter;
+    const oldCounterValue = this.loadingAnimationCounter;
     if (show) {
       this.loadingAnimationCounter++;
     } else {
@@ -139,9 +102,9 @@ export default class MuinaismuistotUI {
     }
 
     if (oldCounterValue === 0 && this.loadingAnimationCounter === 1) {
-      this.loadingAnimationTimeoutID = window.setTimeout(function() {
+      this.loadingAnimationTimeoutID = window.setTimeout(() => {
         if (this.loadingAnimationTimeoutID) {
-          $("#loading-animation").removeClass("hidden");
+          this.renderUI();
         }
       }, 300);
     }
@@ -149,20 +112,16 @@ export default class MuinaismuistotUI {
     if (oldCounterValue === 1 && this.loadingAnimationCounter === 0) {
       window.clearTimeout(this.loadingAnimationTimeoutID);
       this.loadingAnimationTimeoutID = undefined;
-      $("#loading-animation").addClass("hidden");
+      this.renderUI();
     }
   };
 
   public muinaisjaannosFeaturesSelected = (
-    muinaisjaannosFeatures: Array<ArgisFeature>
+    selectedFeatures: Array<ArgisFeature>
   ) => {
-    /*
-    if (this.detailsPage.setMuinaisjaannosFeatures(muinaisjaannosFeatures)) {
-      this.showPage(Page.Details);
-    } else {
-      this.hidePage(Page.Details);
-    }
-    */
+    this.selectedFeatures = selectedFeatures;
+    this.visiblePage = Page.Details;
+    this.renderUI();
   };
 
   public visibleMuinaismuistotLayersChanged = (
