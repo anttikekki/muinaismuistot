@@ -16,6 +16,10 @@ export enum MuseovirastoLayer {
   Maailmanperintö_alue = "Maailmanperintö_alue"
 }
 
+export enum AhvenanmaaLayer {
+  Fornminnen = "Fornminnen"
+}
+
 export type MuseovirastoLayerId = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export const museovirastoLayerIdMap: Record<
@@ -91,6 +95,46 @@ export type MuinaisjaannosAjoitus =
   | "ajoittamaton"
   | "ei määritelty";
 
+export const MuinaisjaannosAjoitusTimespan: Record<
+  MuinaisjaannosAjoitus,
+  string
+> = {
+  moniperiodinen: "",
+  esihistoriallinen: "8600 eaa. - 1200 jaa.",
+  kivikautinen: "8600 – 1500 eaa.",
+  varhaismetallikautinen: "1500 eaa. - 200 jaa.",
+  pronssikautinen: "1700 – 500 eaa.",
+  rautakautinen: "500 eaa. - 1200 jaa.",
+  keskiaikainen: "1200 - 1570 jaa.",
+  historiallinen: "1200 jaa. -",
+  moderni: "1800 jaa -",
+  ajoittamaton: "",
+  "ei määritelty": ""
+};
+
+export type ForminnenAjoitus =
+  | "Stenålder"
+  | "Bronsålder"
+  | "Brons/Ä järnålder"
+  | "Äldre järnålder"
+  | "Yngre järnålder"
+  | "Järnålder"
+  | "Järnålder/Medeltid"
+  | "Medeltida"
+  | "Sentida";
+
+export const ForminnenAjoitusTimespan: Record<ForminnenAjoitus, string> = {
+  Stenålder: "8600–1500 eaa.",
+  Bronsålder: "1700 – 500 eaa.",
+  "Brons/Ä järnålder": "1700 eaa. – 1200 jaa.",
+  "Äldre järnålder": "500 eaa. – 400 jaa.",
+  "Yngre järnålder": "800 – 1200 jaa.",
+  Järnålder: "500 eaa. - 1200 jaa.",
+  "Järnålder/Medeltid": "500 eaa. – 1570 jaa.",
+  Medeltida: "1200 - 1570 jaa.",
+  Sentida: "1570 jaa. -"
+};
+
 export const muinaisjaannosAjoitusAllValues: ReadonlyArray<
   MuinaisjaannosAjoitus
 > = [
@@ -114,12 +158,10 @@ export type MuinaisjaannosLaji =
 export type GeometryTypePoint = "esriGeometryPoint";
 export type GeometryTypePolygon = "esriGeometryPolygon";
 export type GeometryTypePolyline = "esriGeometryPolyline";
-export type GeometryTypeMultiPolygon = "MultiPolygon";
 export type GeometryType =
   | GeometryTypePoint
   | GeometryTypePolygon
-  | GeometryTypePolyline
-  | GeometryTypeMultiPolygon;
+  | GeometryTypePolyline;
 
 interface PointGeometry {
   x: number;
@@ -133,8 +175,6 @@ interface PolygonGeometry {
 interface PolylineGeometry {
   paths: Array<Array<Array<number>>>;
 }
-
-type Geometry = PointGeometry | PolygonGeometry | PolylineGeometry;
 
 export interface MuinaisjaannosPisteArgisFeature {
   layerId: 0;
@@ -299,6 +339,27 @@ export interface MaailmanperintoAlueArgisFeature {
   geometry: PolygonGeometry;
 }
 
+export interface AhvenanmaaForminnenArgisFeature {
+  layerId: 1;
+  layerName: AhvenanmaaLayer.Fornminnen;
+  attributes: {
+    OBJECTID: string; // "1401";
+    "Fornlämnings ID": string; // "Su 12.27";
+    Namn: string; // "Null";
+    Beskrivning: string; // "Null";
+    Kommun: string; // "Sund";
+    By: string; // "Kastelholm";
+    Topografi: string; // "Null";
+    Registrering: string; // "Null";
+    Status: string; // "Fast fornlämning";
+    Shape: string; // "Polygon";
+    "Shape.STArea()": string; // "2581,011841";
+    "Shape.STLength()": string; // "203,802335";
+  };
+  geometryType: GeometryTypePolygon;
+  geometry: PolygonGeometry;
+}
+
 export type ArgisFeature =
   | MuinaisjaannosPisteArgisFeature
   | MuinaisjaannosAlueArgisFeature
@@ -308,7 +369,8 @@ export type ArgisFeature =
   | RKYPisteArgisFeature
   | RKYViivaArgisFeature
   | MaailmanperintoPisteArgisFeature
-  | MaailmanperintoAlueArgisFeature;
+  | MaailmanperintoAlueArgisFeature
+  | AhvenanmaaForminnenArgisFeature;
 
 export interface ArgisIdentifyResult {
   results: Array<ArgisFeature>;
