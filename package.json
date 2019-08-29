@@ -16,8 +16,8 @@
     "url": "git://github.com/anttikekki/muinaismuistot.git"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
     "bootstrap": "3.4.1",
+    "core-js": "3.2.1",
     "jquery": "3.4.1",
     "ol": "5.3.3",
     "proj4": "2.5.0",
@@ -31,10 +31,6 @@
     "@types/proj4": "2.5.0",
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
-    "babel-core": "6.26.3",
-    "babel-jest": "23.6.0",
-    "babel-loader": "7.1.5",
-    "babel-preset-env": "1.7.0",
     "clean-webpack-plugin": "1.0.0",
     "copy-webpack-plugin": "4.6.0",
     "css-loader": "1.0.1",

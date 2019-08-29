@@ -1,4 +1,4 @@
-import "@babel/polyfill";
+import "core-js/stable";
 import $ from "jquery";
 import Settings from "./Settings";
 import MuinaismuistotMap from "./map/MuinaismuistotMap";
