@@ -1,7 +1,7 @@
 import { Coordinate } from "ol/coordinate";
 
-export const createLocationHash = (coordinates: any) => {
-  return "#x=" + coordinates.x + ";y=" + coordinates.y;
+export const createLocationHash = (coordinates: Coordinate) => {
+  return "#x=" + coordinates[0] + ";y=" + coordinates[1];
 };
 
 export const parseCoordinatesFromURL = (): Coordinate | null => {

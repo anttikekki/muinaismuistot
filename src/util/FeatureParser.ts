@@ -5,17 +5,18 @@ import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosAjoitusTimespan
 } from "../data";
+import { Coordinate } from "ol/coordinate";
 
 export const isKiinteäMuinaisjäännös = (
   feature: MuinaisjaannosPisteArgisFeature | MuinaisjaannosAlueArgisFeature
 ): boolean => {
-  return trimTextData(feature.attributes.laji) === "kiinteä muinaisjäännös";
+  return trim(feature.attributes.laji) === "kiinteä muinaisjäännös";
 };
 
 export const isMuuKulttuuriperintökohde = (
   feature: MuinaisjaannosPisteArgisFeature | MuinaisjaannosAlueArgisFeature
 ): boolean => {
-  return trimTextData(feature.attributes.laji) === "muu kulttuuriperintökohde";
+  return trim(feature.attributes.laji) === "muu kulttuuriperintökohde";
 };
 
 export const getFeatureName = (feature: ArgisFeature): string => {
@@ -27,14 +28,14 @@ export const getFeatureName = (feature: ArgisFeature): string => {
     case "RKY_viiva":
     case "Suojellut_rakennukset_piste":
     case "Suojellut_rakennukset_alue":
-      return trimTextData(feature.attributes.kohdenimi);
+      return trim(feature.attributes.kohdenimi);
     case "Maailmanperintö_piste":
     case "Maailmanperintö_alue":
-      return trimTextData(feature.attributes.Nimi);
+      return trim(feature.attributes.Nimi);
     case "Fornminnen":
       return (
-        trimTextData(feature.attributes.Namn) ||
-        trimTextData(feature.attributes["Fornlämnings ID"])
+        trim(feature.attributes.Namn) ||
+        trim(feature.attributes["Fornlämnings ID"])
       );
   }
 };
@@ -105,22 +106,18 @@ export const getFeatureTypeIconURL = (feature: ArgisFeature): string => {
   }
 };
 
-export const getFeatureLocation = (feature: ArgisFeature) => {
+export const getFeatureLocation = (
+  feature: ArgisFeature
+): Coordinate | undefined => {
   switch (feature.geometryType) {
     case "esriGeometryPolygon":
       var point = feature.geometry.rings[0][0];
-      return {
-        x: point[0],
-        y: point[1]
-      };
+      return [point[0], point[1]];
     case "esriGeometryPoint":
-      return feature.geometry;
+      return [feature.geometry.x, feature.geometry.y];
     case "esriGeometryPolyline":
       var point = feature.geometry.paths[0][0];
-      return {
-        x: point[0],
-        y: point[1]
-      };
+      return [point[0], point[1]];
   }
 };
 
@@ -136,7 +133,7 @@ export const getTimespanInYearsForTimingName = (
   return MuinaisjaannosAjoitusTimespan[ajoitus];
 };
 
-export const trimTextData = (value: string | undefined | null): string => {
+export const trim = (value: string | undefined | null): string => {
   if (value == null) {
     //Null and undefined
     return "";
