@@ -1,19 +1,17 @@
 import * as React from "react";
-import { ArgisFeature, MuseovirastoLayer } from "../../../data";
+import { ArgisFeature } from "../../../data";
+import {
+  getFeatureRegisterURL,
+  getFeatureRegisterName
+} from "../../../util/FeatureParser";
 
 interface Props {
   feature: ArgisFeature;
 }
 
 export const MuseovirastoLink: React.FC<Props> = ({ feature }) => {
-  let url: string;
-  let registerName: string;
-  switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjäännökset_piste:
-      url = "https://" + feature.attributes.url;
-      registerName = "Muinaisjäännösrekisteristä";
-      break;
-  }
+  let url = getFeatureRegisterURL(feature);
+  let registerName = getFeatureRegisterName(feature);
   if (!url) {
     return null;
   }

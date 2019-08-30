@@ -20,11 +20,18 @@ export const FeatureCollapsePanel: React.FC<Props> = ({
   children
 }) => {
   const permanentLink = createLocationHash(getFeatureLocation(feature));
+  const onTitleClick = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    onToggleOpen();
+  };
+
   return (
     <div className="panel panel-default">
       <div className="panel-heading" role="tab">
         <h4 className="panel-title">
-          <a role="button" href="" onClick={() => onToggleOpen()}>
+          <a role="button" href="" onClick={onTitleClick}>
             <span>
               <img src={getFeatureTypeIconURL(feature)} />
             </span>

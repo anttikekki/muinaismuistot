@@ -8,6 +8,7 @@ import { ZoomOutButton } from "./component/ZoomOutButton";
 import { CenterToCurrentPositionButton } from "./component/CenterToCurrentPositionButton";
 import { ShowInfoPageButton } from "./component/OpenInfoPageButton";
 import { ArgisFeature } from "../data";
+import { FeatureDetailsPage } from "./page/featureDetailsPage/FeatureDetailsPage";
 
 export enum Page {
   Search = "searchPage",
@@ -64,6 +65,11 @@ export const UI: React.FunctionComponent<Props> = ({
         </button>
       </div>
 
+      <FeatureDetailsPage
+        visible={visiblePage === Page.Details}
+        hidePage={hidePage}
+        features={selectedFeatures}
+      />
       <InfoPage visible={visiblePage === Page.Info} hidePage={hidePage} />
     </div>
   );
