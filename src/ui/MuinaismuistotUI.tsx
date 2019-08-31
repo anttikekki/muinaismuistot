@@ -39,33 +39,17 @@ export default class MuinaismuistotUI {
   public constructor(settings: Settings, eventListeners: EventListeners) {
     this.eventListeners = eventListeners;
     this.renderUI();
-    /*
-
-
-    settingsPage = new SettingsPage(settings, {
-      hidePage: function() {
-        hidePage("settingsPage");
-      }
-    });
-
-    $("#map-button-search").on("click", function() {
-      showPage("searchPage");
-    });
-
-    $("#map-button-settings").on("click", function() {
-      showPage("settingsPage");
-    });
-    */
   }
+
+  private onSearchFeatures = (searchText: string) => {
+    this.eventListeners.searchFeatures(searchText);
+    this.searchResultFeatures = undefined;
+    this.renderUI();
+  };
 
   private renderUI = () => {
     const isLoading = this.loadingAnimationCounter > 0;
-    const {
-      zoomIn,
-      zoomOut,
-      centerToCurrentPositions,
-      searchFeatures
-    } = this.eventListeners;
+    const { zoomIn, zoomOut, centerToCurrentPositions } = this.eventListeners;
 
     ReactDOM.render(
       <>
@@ -98,7 +82,7 @@ export default class MuinaismuistotUI {
         <SearchPage
           visible={this.visiblePage === PageId.Search}
           hidePage={this.hidePage}
-          searchFeatures={searchFeatures}
+          searchFeatures={this.onSearchFeatures}
           searchResultFeatures={this.searchResultFeatures}
         />
         <InfoPage

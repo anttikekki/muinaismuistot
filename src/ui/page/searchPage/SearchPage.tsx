@@ -1,7 +1,14 @@
 import * as React from "react";
 import { ArgisFeature } from "../../../data";
-import { getFeatureID } from "../../../util/FeatureParser";
+import {
+  getFeatureID,
+  getFeatureName,
+  getFeatureTypeName,
+  getFeatureTypeIconURL,
+  getFeatureLocation
+} from "../../../util/FeatureParser";
 import { Page } from "../Page";
+import { createLocationHash } from "../../../util/URLHashHelper";
 
 interface Props {
   visible: boolean;
@@ -10,47 +17,104 @@ interface Props {
   searchResultFeatures?: Array<ArgisFeature>;
 }
 
+const ResultRow: React.FC<{ feature?: ArgisFeature }> = ({ feature }) => {
+  const id = `${feature.layerName}-${getFeatureID(feature)}`;
+  const nimi = getFeatureName(feature);
+  const tyypinNimi = getFeatureTypeName(feature);
+  const iconURL = getFeatureTypeIconURL(feature);
+  const coordinates = getFeatureLocation(feature);
+  const locationHash = createLocationHash(coordinates);
+
+  return (
+    <a
+      key={id}
+      href={locationHash}
+      className="list-group-item search-result-row"
+    >
+      <h4 className="list-group-item-heading">{nimi}</h4>
+      <p className="list-group-item-text">
+        <img src={iconURL} />
+        <span>{tyypinNimi}</span>
+      </p>
+    </a>
+  );
+};
+
+const Results: React.FC<{ features?: Array<ArgisFeature> }> = ({
+  features
+}) => {
+  if (!features) {
+    return null;
+  }
+  return (
+    <>
+      <h5 id="search-result-header">
+        <span>Hakutulokset</span>
+        <small> ({features.length} kpl)</small>
+      </h5>
+
+      <div className="list-group">
+        {features.map(f => (
+          <ResultRow feature={f} />
+        ))}
+      </div>
+    </>
+  );
+};
+
+const ValidationError: React.FC = () => {
+  return (
+    <div className="alert alert-danger" role="alert">
+      Hakusanan pitää olla vähintään kolme merkkiä
+    </div>
+  );
+};
+
 export const SearchPage: React.FC<Props> = ({
   visible,
   hidePage,
   searchFeatures,
   searchResultFeatures
 }) => {
+  const [searchText, setSearchText] = React.useState("");
+  const [showSearchTextError, setShowSearchTextError] = React.useState(false);
+
+  const onSearchClick = (event: React.FormEvent<HTMLFormElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+
+    if (searchText.trim().length < 3) {
+      setShowSearchTextError(true);
+      return;
+    }
+    setShowSearchTextError(false);
+    searchFeatures(searchText);
+  };
+
   return (
     <Page visible={visible} hidePage={hidePage}>
-      <form id="search-form">
-        <div
-          id="search-form-error"
-          className="alert alert-danger hidden"
-          role="alert"
-        >
-          Hakusanan pitää olla vähintään kolme merkkiä
-        </div>
+      <form
+        className={showSearchTextError ? "has-error" : undefined}
+        onSubmit={onSearchClick}
+      >
+        {showSearchTextError && <ValidationError />}
         <div className="input-group">
           <input
             type="text"
-            id="search-text"
             className="form-control"
-            placeholder="Kirjoita nimi tai sen osa"
+            placeholder="Kirjoita kohteen nimi tai sen osa"
+            value={searchText}
+            onChange={e => setSearchText(e.target.value)}
           />
           <span className="input-group-btn">
-            <button
-              id="search-button"
-              className="btn btn-default"
-              type="button"
-            >
+            <button className="btn btn-default" type="submit">
               Hae
             </button>
           </span>
         </div>
       </form>
 
-      <h5 id="search-result-header" className="hidden">
-        Hakutulokset
-        <small id="search-result-count" />
-      </h5>
-
-      <div id="search-results-container" />
+      <Results features={searchResultFeatures} />
     </Page>
   );
 };
