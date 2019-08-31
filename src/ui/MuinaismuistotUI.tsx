@@ -1,14 +1,28 @@
+import "bootstrap/dist/css/bootstrap.css";
+import "../css/muinaismuistot.css";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { ArgisFeature, MuseovirastoLayerId } from "../data";
 import Settings from "../Settings";
-import { UI, PageId } from "./UI";
+import { LoadingAnimation } from "./component/LoadingAnimation";
+import { ZoomInButton } from "./component/ZoomInButton";
+import { ZoomOutButton } from "./component/ZoomOutButton";
+import { CenterToCurrentPositionButton } from "./component/CenterToCurrentPositionButton";
+import { ShowInfoPageButton } from "./component/OpenInfoPageButton";
+import { FeatureDetailsPage } from "./page/featureDetailsPage/FeatureDetailsPage";
+import { SearchPage } from "./page/searchPage/SearchPage";
+import { InfoPage } from "./page/infoPage/InfoPage";
+import { OpenSearchPageButton } from "./component/OpenSearchPageButton";
+
+enum PageId {
+  Search = "searchPage",
+  Info = "infoPage",
+  Settings = "settingsPage",
+  Details = "detailsPage"
+}
 
 export interface EventListeners {
-  searchMuinaismuistoja: (
-    searchText: string,
-    callbackFn: (features: Array<ArgisFeature>) => void
-  ) => void;
+  searchFeatures: (searchText: string) => void;
   zoomIn: () => void;
   zoomOut: () => void;
   centerToCurrentPositions: () => void;
@@ -17,6 +31,7 @@ export interface EventListeners {
 export default class MuinaismuistotUI {
   private visiblePage?: PageId;
   private selectedFeatures?: Array<ArgisFeature>;
+  private searchResultFeatures?: Array<ArgisFeature>;
   private loadingAnimationTimeoutID?: number;
   private loadingAnimationCounter = 0;
   private eventListeners: EventListeners;
@@ -24,34 +39,12 @@ export default class MuinaismuistotUI {
   public constructor(settings: Settings, eventListeners: EventListeners) {
     this.eventListeners = eventListeners;
     this.renderUI();
-    //this.featureParser = new FeatureParser(settings);
     /*
-    detailsPage = new FeatureDetailsPage(
-      featureParser,
-      settings,
-      urlHashHelper,
-      {
-        hidePage: function() {
-          hidePage("detailsPage");
-        }
-      }
-    );
+
 
     settingsPage = new SettingsPage(settings, {
       hidePage: function() {
         hidePage("settingsPage");
-      }
-    });
-
-    searchPage = new SearchPage(featureParser, settings, urlHashHelper, {
-      hidePage: function() {
-        hidePage("searchPage");
-      },
-      searchResultItemClicked: function() {
-        hidePage("searchPage");
-      },
-      searchMuinaismuistoja: function(searchText, callbackFn) {
-        eventListeners.searchMuinaismuistoja(searchText, callbackFn);
       }
     });
 
@@ -66,19 +59,53 @@ export default class MuinaismuistotUI {
   }
 
   private renderUI = () => {
+    const isLoading = this.loadingAnimationCounter > 0;
+    const {
+      zoomIn,
+      zoomOut,
+      centerToCurrentPositions,
+      searchFeatures
+    } = this.eventListeners;
+
     ReactDOM.render(
-      <UI
-        isLoading={this.loadingAnimationCounter > 0}
-        visiblePage={this.visiblePage}
-        selectedFeatures={this.selectedFeatures}
-        onZoomIn={this.eventListeners.zoomIn}
-        onZoomOut={this.eventListeners.zoomOut}
-        onCenterToCurrentPositions={
-          this.eventListeners.centerToCurrentPositions
-        }
-        showPage={page => this.showPage(page)}
-        hidePage={() => this.hidePage()}
-      />,
+      <>
+        <LoadingAnimation visible={isLoading} />
+        <ZoomInButton onZoomIn={zoomIn} />
+        <ZoomOutButton onZoomOut={zoomOut} />
+        <CenterToCurrentPositionButton
+          onCenterToCurrentPositions={centerToCurrentPositions}
+        />
+        <OpenSearchPageButton
+          showSearchPage={() => this.showPage(PageId.Search)}
+        />
+        <ShowInfoPageButton showInfoPage={() => this.showPage(PageId.Info)} />
+
+        <div id="map-button-settings" className="map-button">
+          <button
+            type="button"
+            className="btn btn-primary"
+            title="Kartan asetukset"
+          >
+            <span className="glyphicon glyphicon-cog" aria-hidden="true" />
+          </button>
+        </div>
+
+        <FeatureDetailsPage
+          visible={this.visiblePage === PageId.Details}
+          hidePage={this.hidePage}
+          features={this.selectedFeatures}
+        />
+        <SearchPage
+          visible={this.visiblePage === PageId.Search}
+          hidePage={this.hidePage}
+          searchFeatures={searchFeatures}
+          searchResultFeatures={this.searchResultFeatures}
+        />
+        <InfoPage
+          visible={this.visiblePage === PageId.Info}
+          hidePage={this.hidePage}
+        />
+      </>,
       document.getElementById("ui")
     );
   };
@@ -121,6 +148,11 @@ export default class MuinaismuistotUI {
   ) => {
     this.selectedFeatures = selectedFeatures;
     this.visiblePage = PageId.Details;
+    this.renderUI();
+  };
+
+  public featureSearchReady = (features: Array<ArgisFeature>) => {
+    this.searchResultFeatures = features;
     this.renderUI();
   };
 

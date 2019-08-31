@@ -22,6 +22,7 @@ export interface MapEventListener {
     muinaisjaannosFeatures: Array<ArgisFeature>
   ) => void;
   showLoadingAnimation: (show: boolean) => void;
+  featureSearchReady: (features: Array<ArgisFeature>) => void;
 }
 
 export default class MuinaismuistotMap {
@@ -161,10 +162,7 @@ export default class MuinaismuistotMap {
     this.museovirastoArcGISWMS.updateVisibleLayersFromSettings();
   };
 
-  public searchMuinaismuistoja = (
-    searchText: string,
-    callbackFn: (features: Array<ArgisFeature>) => void
-  ): void => {
+  public searchFeatures = (searchText: string): void => {
     this.eventListeners.showLoadingAnimation(true);
     var ahvenanmaaQuery = this.ahvenanmaaWMTS.findFeatures(searchText);
     var museovirastoQuery = this.museovirastoArcGISWMS.findFeatures(searchText);
@@ -178,7 +176,7 @@ export default class MuinaismuistotMap {
         var ahvennamaaFeatures = ahvenanmaaResult[0].results;
         var museovirastoFeatures = museovirastoResult[0].results;
         var allFeatures = ahvennamaaFeatures.concat(museovirastoFeatures);
-        callbackFn(allFeatures);
+        this.eventListeners.featureSearchReady(allFeatures);
       }
     );
   };

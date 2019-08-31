@@ -30,12 +30,15 @@ export default class Muinaismuistot {
       },
       showLoadingAnimation: show => {
         this.ui.showLoadingAnimation(show);
+      },
+      featureSearchReady: features => {
+        this.ui.featureSearchReady(features);
       }
     });
 
     this.ui = new MuinaismuistotUI(this.settings, {
-      searchMuinaismuistoja: (searchText, callbackFn) => {
-        this.map.searchMuinaismuistoja(searchText, callbackFn);
+      searchFeatures: searchText => {
+        this.map.searchFeatures(searchText);
       },
       zoomIn: () => {
         this.map.zoomIn();
