@@ -8,7 +8,7 @@ interface Props {
 
 export const InfoPage: React.FC<Props> = ({ visible, hidePage }) => {
   return (
-    <Page visible={visible} hidePage={hidePage}>
+    <Page title="Lisätietoja sivustosta" visible={visible} hidePage={hidePage}>
       <div className="panel panel-default">
         <div className="panel-heading">Tietoa sivustosta</div>
         <div className="panel-body">

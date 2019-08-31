@@ -1,344 +1,125 @@
 <!DOCTYPE html>
 <html lang="fi">
-    <head>
-        <meta charset="utf-8">
-        <meta content="IE=edge" http-equiv="X-UA-Compatible">
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-        <title>Muinaismuistot</title>
-        <meta name="description" content="Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa.">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, user-scalable=no, width=device-width"
+    />
+    <title>Muinaismuistot</title>
+    <meta
+      name="description"
+      content="Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa."
+    />
 
-        <meta property="og:title" content="Muinaismuistot"/>
-        <meta property="og:url" content="http://muinaismuistot.info/"/>
-        <meta property="og:type" content="website"/>
-        <meta property="og:image" content="http://muinaismuistot.info/images/favicons/mstile-310x310.png"/>
-        <meta property="og:description" content="Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa."/>
+    <meta property="og:title" content="Muinaismuistot" />
+    <meta property="og:url" content="http://muinaismuistot.info/" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="http://muinaismuistot.info/images/favicons/mstile-310x310.png"
+    />
+    <meta
+      property="og:description"
+      content="Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa."
+    />
 
-        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/favicons/apple-touch-icon-57x57.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicons/apple-touch-icon-114x114.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicons/apple-touch-icon-72x72.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicons/apple-touch-icon-144x144.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="60x60" href="images/favicons/apple-touch-icon-60x60.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/favicons/apple-touch-icon-120x120.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="images/favicons/apple-touch-icon-76x76.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="images/favicons/apple-touch-icon-152x152.png" />
-        <link rel="icon" type="image/png" href="images/favicons/favicon-196x196.png" sizes="196x196" />
-        <link rel="icon" type="image/png" href="images/favicons/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/png" href="images/favicons/favicon-32x32.png" sizes="32x32" />
-        <link rel="icon" type="image/png" href="images/favicons/favicon-16x16.png" sizes="16x16" />
-        <link rel="icon" type="image/png" href="images/favicons/favicon-128.png" sizes="128x128" />
-        <meta name="application-name" content="Muinaismuistot.info"/>
-        <meta name="msapplication-TileColor" content="#FFFFFF" />
-        <meta name="msapplication-TileImage" content="images/favicons/mstile-144x144.png" />
-        <meta name="msapplication-square70x70logo" content="images/favicons/mstile-70x70.png" />
-        <meta name="msapplication-square150x150logo" content="images/favicons/mstile-150x150.png" />
-        <meta name="msapplication-wide310x150logo" content="images/favicons/mstile-310x150.png" />
-        <meta name="msapplication-square310x310logo" content="images/favicons/mstile-310x310.png" />
-
-    </head>
-    <body>
-        <div id="map"></div>
-        <div id="ui"></div>
-
-
-
-
-        
-
-
-
-        <div id="settingsPage" class="container page page-right-hidden">
-            <div class="row pageHeader">
-                <div class="col-xs-3">
-                    <button class="btn btn-primary btn-sm" id="hide-settingsPage-button">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                    </button>
-                </div>
-                <div class="col-xs-9">
-                    <span class="pageHeaderText">Asetukset</span>
-                </div>
-            </div>
-
-            <div class="pageContent">
-
-                
-
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">Kartalla näkyvät kohteet</div>
-                    <div class="panel-body" id="muinaismuistot-visible-layer-selections">
-                        <h5>Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</h5>
-                        
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="4" id="settings-muinaismuistot-layer-4">
-                            <img src="images/rky_alue.png"/>
-                            Alueet
-                          </label>
-                        </div>
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="6" id="settings-muinaismuistot-layer-6">
-                            <img src="images/rky_viiva.png"/>
-                            Viivat (esim. tie)
-                          </label>
-                        </div>
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="5" id="settings-muinaismuistot-layer-5">
-                            <img src="images/rky_piste.png"/>
-                            Pisteet
-                          </label>
-                        </div>
-
-
-                        <h5>Maailmanperintökohteet</h5>
-
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="8" id="settings-muinaismuistot-layer-8">
-                            <img src="images/maailmanperinto_alue.png"/>
-                            Alueet
-                          </label>
-                        </div>
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="7" id="settings-muinaismuistot-layer-7">
-                            <img src="images/maailmanperinto_piste.png"/>
-                            Pisteet
-                          </label>
-                        </div>
-
-                    
-                        <h5>Rakennusperintörekisteri</h5>
-                    
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                        <label>
-                            <input type="checkbox" value="3" id="settings-muinaismuistot-layer-3">
-                            <img src="images/rakennusperintorekisteri_alue.png"/>
-                            Rakennetut alueet
-                        </label>
-                        </div>
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                        <label>
-                            <input type="checkbox" value="2" id="settings-muinaismuistot-layer-2">
-                            <img src="images/rakennusperintorekisteri_rakennus.png"/>
-                            Rakennukset
-                        </label>
-                        </div>
-
-                    
-                        <h5>Museoviraston muinaisjäännösrekisteri</h5>
-
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                        <label>
-                            <input type="checkbox" value="1" id="settings-muinaismuistot-layer-1">
-                            <img src="images/muinaisjaannos_alue.png"/>
-                            <img src="images/muu-kulttuuriperintokohde-alue.png"/>
-                            Alueet
-                        </label>
-                        </div>
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                        <label>
-                            <input type="checkbox" value="0" id="settings-muinaismuistot-layer-0">
-                            <img src="images/muinaisjaannos_kohde.png"/>
-                            <img src="images/muu_kulttuuriperintokohde_kohde.png"/>
-                            Pisteet
-                        </label>
-                        </div>
-                        
-
-                        <h5>Ahvenamaan muinaisjäännösrekisteri</h5>
-                        
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="" checked disabled>
-                            <img src="images/ahvenanmaa_muinaisjaannos.png"/>
-                            Kohde
-                          </label>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="panel panel-default" id="muinaisjaannos-filter-container">
-                    <div class="panel-heading">Rajoita näkyviä Museoviraston muinaisjäännöksiä</div>
-                    <div class="panel-body">
-
-                        <div class="well well-sm">Rajoitus toimii vain Museoviraston muijaisjäännöksien pisteille (<img src="images/muinaisjaannos_kohde.png"/> ja  <img src="images/muu_kulttuuriperintokohde_kohde.png"/>) mutta ei alueille (<img src="images/muinaisjaannos_alue.png"/> ja <img src="images/muu-kulttuuriperintokohde-alue.png"/>). 
-                        Rajaus ei valitettavasti toimi Ahvenanmaan muinaisjäännöksiin.</div>
-
-                        <form>
-
-                            <h5>Tyyppi</h5>
-
-                            <div id="muinaisjaannos-filter-tyyppi-container">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="ei määritelty"> ei määritelty
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="alusten hylyt"> alusten hylyt
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="asuinpaikat"> asuinpaikat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="hautapaikat"> hautapaikat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="kirkkorakenteet"> kirkkorakenteet
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="kivirakenteet"> kivirakenteet
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="kulkuväylät"> kulkuväylät
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="kultti- ja tarinapaikat"> kultti- ja tarinapaikat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="luonnonmuodostumat"> luonnonmuodostumat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="löytöpaikat"> löytöpaikat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="maarakenteet"> maarakenteet
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="muinaisjäännösryhmät"> muinaisjäännösryhmät
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="puolustusvarustukset"> puolustusvarustukset
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="puurakenteet"> puurakenteet
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="raaka-aineen hankintapaikat"> raaka-aineen hankintapaikat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="taide, muistomerkit"> taide, muistomerkit
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="tapahtumapaikat"> tapahtumapaikat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="teollisuuskohteet"> teollisuuskohteet
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="työ- ja valmistuspaikat"> työ- ja valmistuspaikat
-                                    </label>
-                                </div>
-                            </div>
-
-                            <h5>Ajoitus</h5>
-
-                            <div id="muinaisjaannos-filter-ajoitus-container">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="moniperiodinen"> moniperiodinen
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="esihistoriallinen"> esihistoriallinen <span class="label label-default">8600 eaa - 1200 jaa.</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="kivikautinen"> kivikautinen <span class="label label-default">8600 – 1500 eaa.</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="varhaismetallikautinen"> varhaismetallikautinen <span class="label label-default">1500 eaa. - 200 jaa.</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="pronssikautinen"> pronssikautinen <span class="label label-default">1700 – 500 eaa.</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="rautakautinen"> rautakautinen <span class="label label-default">500 eaa. - 1200 jaa.</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="keskiaikainen"> keskiaikainen <span class="label label-default">1200 - 1570 jaa.</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="historiallinen"> historiallinen <span class="label label-default">1200 jaa. -</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="moderni"> moderni <span class="label label-default">1800 jaa -</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="ajoittamaton"> ajoittamaton
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="ei määritelty"> ei määritelty
-                                    </label>
-                                </div>
-                            </div>
-                        </form>
-
-                  </div>
-                </div> <!-- panel -->
-
-            </div> <!-- pageContent -->
-
-        </div>
-
-
-
-
-    </body>
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="57x57"
+      href="images/favicons/apple-touch-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="114x114"
+      href="images/favicons/apple-touch-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="72x72"
+      href="images/favicons/apple-touch-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="144x144"
+      href="images/favicons/apple-touch-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="60x60"
+      href="images/favicons/apple-touch-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="120x120"
+      href="images/favicons/apple-touch-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="76x76"
+      href="images/favicons/apple-touch-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="152x152"
+      href="images/favicons/apple-touch-icon-152x152.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="images/favicons/favicon-196x196.png"
+      sizes="196x196"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="images/favicons/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="images/favicons/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="images/favicons/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="images/favicons/favicon-128.png"
+      sizes="128x128"
+    />
+    <meta name="application-name" content="Muinaismuistot.info" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta
+      name="msapplication-TileImage"
+      content="images/favicons/mstile-144x144.png"
+    />
+    <meta
+      name="msapplication-square70x70logo"
+      content="images/favicons/mstile-70x70.png"
+    />
+    <meta
+      name="msapplication-square150x150logo"
+      content="images/favicons/mstile-150x150.png"
+    />
+    <meta
+      name="msapplication-wide310x150logo"
+      content="images/favicons/mstile-310x150.png"
+    />
+    <meta
+      name="msapplication-square310x310logo"
+      content="images/favicons/mstile-310x310.png"
+    />
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="ui"></div>
+  </body>
 </html>

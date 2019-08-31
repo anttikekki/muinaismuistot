@@ -6,7 +6,10 @@ import {
   ArgisFeature,
   MuseovirastoLayerId,
   Settings,
-  MaanmittauslaitosLayer
+  MaanmittauslaitosLayer,
+  MuseovirastoLayer,
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
 } from "../data";
 import { LoadingAnimation } from "./component/LoadingAnimation";
 import { ZoomInButton } from "./component/ZoomInButton";
@@ -67,6 +70,44 @@ export default class MuinaismuistotUI {
     this.renderUI();
   };
 
+  private onSelectMuseovirastoLayer = (layer: MuseovirastoLayer) => {
+    const selectedLayers = this.settings.selectedMuseovirastoLayers;
+    if (selectedLayers.includes(layer)) {
+      this.settings.selectedMuseovirastoLayers = selectedLayers.filter(
+        l => l !== layer
+      );
+    } else {
+      this.settings.selectedMuseovirastoLayers = [...selectedLayers, layer];
+    }
+    this.renderUI();
+  };
+
+  private onSelectMuinaisjaannosType = (type: MuinaisjaannosTyyppi) => {
+    const selectedTypes = this.settings.selectedMuinaisjaannosTypes;
+    if (selectedTypes.includes(type)) {
+      this.settings.selectedMuinaisjaannosTypes = selectedTypes.filter(
+        t => t !== type
+      );
+    } else {
+      this.settings.selectedMuinaisjaannosTypes = [...selectedTypes, type];
+    }
+    this.renderUI();
+  };
+  private onSelectMuinaisjaannosDating = (dating: MuinaisjaannosAjoitus) => {
+    const selectedDatings = this.settings.selectedMuinaisjaannosDatings;
+    if (selectedDatings.includes(dating)) {
+      this.settings.selectedMuinaisjaannosDatings = selectedDatings.filter(
+        d => d !== dating
+      );
+    } else {
+      this.settings.selectedMuinaisjaannosDatings = [
+        ...selectedDatings,
+        dating
+      ];
+    }
+    this.renderUI();
+  };
+
   private renderUI = () => {
     const isLoading = this.loadingAnimationCounter > 0;
     const { zoomIn, zoomOut, centerToCurrentPositions } = this.eventListeners;
@@ -101,6 +142,9 @@ export default class MuinaismuistotUI {
           hidePage={this.hidePage}
           settings={this.settings}
           onSelectMaanmittauslaitosLayer={this.onSelectMaanmittauslaitosLayer}
+          onSelectMuseovirastoLayer={this.onSelectMuseovirastoLayer}
+          onSelectMuinaisjaannosType={this.onSelectMuinaisjaannosType}
+          onSelectMuinaisjaannosDating={this.onSelectMuinaisjaannosDating}
         />
       </>,
       document.getElementById("ui")

@@ -59,7 +59,7 @@ export const FeatureDetailsPage: React.FC<Props> = ({
     setOpenPanelId(openPanelId === id ? undefined : id);
 
   return (
-    <Page visible={visible} hidePage={hidePage}>
+    <Page title="Valitut kohteet" visible={visible} hidePage={hidePage}>
       <div className="panel-group" role="tablist" aria-multiselectable="true" />
       {features &&
         features.map(feature =>

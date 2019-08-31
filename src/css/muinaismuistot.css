@@ -15,17 +15,6 @@ body,
   top: 0px;
 }
 
-#top-page-info-alert-container {
-  z-index: 20;
-  position: absolute;
-  top: 0px;
-  width: 100%;
-}
-
-#top-page-info-alert a {
-  text-decoration: underline;
-}
-
 #loading-animation {
   z-index: 25;
   position: absolute;

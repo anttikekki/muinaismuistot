@@ -4,7 +4,12 @@ import Settings from "./Settings";
 import MuinaismuistotMap from "./map/MuinaismuistotMap";
 import MuinaismuistotUI from "./ui/MuinaismuistotUI";
 import { parseCoordinatesFromURL } from "./util/URLHashHelper";
-import { MaanmittauslaitosLayer, MuseovirastoLayerId } from "./data";
+import {
+  MaanmittauslaitosLayer,
+  MuseovirastoLayer,
+  MuinaisjaannosTyyppi,
+  MuinaisjaannosAjoitus
+} from "./data";
 
 export default class Muinaismuistot {
   private map: MuinaismuistotMap;
@@ -14,7 +19,9 @@ export default class Muinaismuistot {
   public constructor() {
     const initialSettings = {
       selectedMaanmittauslaitosLayer: MaanmittauslaitosLayer.Taustakartta,
-      selectedMuseovirastoLayers: [] as Array<MuseovirastoLayerId>
+      selectedMuseovirastoLayers: Object.values(MuseovirastoLayer),
+      selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
+      selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus)
     };
 
     this.settings = new Settings({

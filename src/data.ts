@@ -1,6 +1,8 @@
 export interface Settings {
   selectedMaanmittauslaitosLayer: MaanmittauslaitosLayer;
-  selectedMuseovirastoLayers: Array<MuseovirastoLayerId>;
+  selectedMuseovirastoLayers: Array<MuseovirastoLayer>;
+  selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>;
+  selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>;
 }
 
 export enum MaanmittauslaitosLayer {
@@ -42,63 +44,41 @@ export const museovirastoLayerIdMap: Record<
   [MuseovirastoLayer.Maailmanperintö_alue]: 8
 };
 
-export type MuinaisjaannosTyyppi =
-  | "ei määritelty"
-  | "alusten hylyt"
-  | "asuinpaikat"
-  | "hautapaikat"
-  | "kirkkorakenteet"
-  | "kivirakenteet"
-  | "kulkuväylät"
-  | "kultti- ja tarinapaikat"
-  | "luonnonmuodostumat"
-  | "löytöpaikat"
-  | "maarakenteet"
-  | "muinaisjäännösryhmät"
-  | "puolustusvarustukset"
-  | "puurakenteet"
-  | "raaka-aineen hankintapaikat"
-  | "taide, muistomerkit"
-  | "tapahtumapaikat"
-  | "teollisuuskohteet"
-  | "työ- ja valmistuspaikat";
+export enum MuinaisjaannosTyyppi {
+  eiMääritelty = "ei määritelty",
+  alustenHylyt = "alusten hylyt",
+  asuinpaikat = "asuinpaikat",
+  hautapaikat = "hautapaikat",
+  kirkkorakenteet = "kirkkorakenteet",
+  kivirakenteet = "kivirakenteet",
+  kulkuväylät = "kulkuväylät",
+  kulttiJaTarinapaikat = "kultti- ja tarinapaikat",
+  luonnonmuodostumat = "luonnonmuodostumat",
+  löytöpaikat = "löytöpaikat",
+  maarakenteet = "maarakenteet",
+  muinaisjäännösryhmät = "muinaisjäännösryhmät",
+  puolustusvarustukset = "puolustusvarustukset",
+  puurakenteet = "puurakenteet",
+  raakaAineenHankintapaikat = "raaka-aineen hankintapaikat",
+  taideMuistomerkit = "taide, muistomerkit",
+  tapahtumapaikat = "tapahtumapaikat",
+  teollisuuskohteet = "teollisuuskohteet",
+  työJaValmistuspaikat = "työ- ja valmistuspaikat"
+}
 
-export const muinaisjaannosTyyppiAllValues: ReadonlyArray<
-  MuinaisjaannosTyyppi
-> = [
-  "ei määritelty",
-  "alusten hylyt",
-  "asuinpaikat",
-  "hautapaikat",
-  "kirkkorakenteet",
-  "kivirakenteet",
-  "kulkuväylät",
-  "kultti- ja tarinapaikat",
-  "luonnonmuodostumat",
-  "löytöpaikat",
-  "maarakenteet",
-  "muinaisjäännösryhmät",
-  "puolustusvarustukset",
-  "puurakenteet",
-  "raaka-aineen hankintapaikat",
-  "taide, muistomerkit",
-  "tapahtumapaikat",
-  "teollisuuskohteet",
-  "työ- ja valmistuspaikat"
-];
-
-export type MuinaisjaannosAjoitus =
-  | "moniperiodinen"
-  | "esihistoriallinen"
-  | "kivikautinen"
-  | "varhaismetallikautinen"
-  | "pronssikautinen"
-  | "rautakautinen"
-  | "keskiaikainen"
-  | "historiallinen"
-  | "moderni"
-  | "ajoittamaton"
-  | "ei määritelty";
+export enum MuinaisjaannosAjoitus {
+  moniperiodinen = "moniperiodinen",
+  esihistoriallinen = "esihistoriallinen",
+  kivikautinen = "kivikautinen",
+  varhaismetallikautinen = "varhaismetallikautinen",
+  pronssikautinen = "pronssikautinen",
+  rautakautinen = "rautakautinen",
+  keskiaikainen = "keskiaikainen",
+  historiallinen = "historiallinen",
+  moderni = "moderni",
+  ajoittamaton = "ajoittamaton",
+  eiMääritelty = "ei määritelty"
+}
 
 export const MuinaisjaannosAjoitusTimespan: Record<
   MuinaisjaannosAjoitus,
@@ -117,6 +97,9 @@ export const MuinaisjaannosAjoitusTimespan: Record<
   "ei määritelty": ""
 };
 
+/**
+ * @deprecated kartor.ax does not return timing field anymore
+ */
 export type ForminnenAjoitus =
   | "Stenålder"
   | "Bronsålder"
@@ -128,6 +111,9 @@ export type ForminnenAjoitus =
   | "Medeltida"
   | "Sentida";
 
+/**
+ * @deprecated kartor.ax does not return timing field anymore
+ */
 export const ForminnenAjoitusTimespan: Record<ForminnenAjoitus, string> = {
   Stenålder: "8600–1500 eaa.",
   Bronsålder: "1700 – 500 eaa.",
@@ -139,22 +125,6 @@ export const ForminnenAjoitusTimespan: Record<ForminnenAjoitus, string> = {
   Medeltida: "1200 - 1570 jaa.",
   Sentida: "1570 jaa. -"
 };
-
-export const muinaisjaannosAjoitusAllValues: ReadonlyArray<
-  MuinaisjaannosAjoitus
-> = [
-  "moniperiodinen",
-  "esihistoriallinen",
-  "kivikautinen",
-  "varhaismetallikautinen",
-  "pronssikautinen",
-  "rautakautinen",
-  "keskiaikainen",
-  "historiallinen",
-  "moderni",
-  "ajoittamaton",
-  "ei määritelty"
-];
 
 export type MuinaisjaannosLaji =
   | "kiinteä muinaisjäännös"

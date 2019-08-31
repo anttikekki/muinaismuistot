@@ -4,9 +4,7 @@ import {
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus,
-  museovirastoLayerIdMap,
-  muinaisjaannosTyyppiAllValues,
-  muinaisjaannosAjoitusAllValues
+  museovirastoLayerIdMap
 } from "./data";
 
 export interface MuseovirastoLayerFilterParams {
@@ -143,7 +141,7 @@ export default class Settings {
     const tyyppiFilters = this.filterParameters[layer].tyyppi;
     if (
       tyyppiFilters.length > 0 &&
-      tyyppiFilters.length != muinaisjaannosTyyppiAllValues.length
+      tyyppiFilters.length != Object.values(MuinaisjaannosTyyppi).length
     ) {
       const layerDefinition = tyyppiFilters
         .map(tyyppi => "tyyppi LIKE '%" + tyyppi + "%'")
@@ -154,7 +152,7 @@ export default class Settings {
     const ajoitusFilter = this.filterParameters[layer].ajoitus;
     if (
       ajoitusFilter.length > 0 &&
-      ajoitusFilter.length != muinaisjaannosAjoitusAllValues.length
+      ajoitusFilter.length != Object.values(MuinaisjaannosAjoitus).length
     ) {
       var layerDefinition = ajoitusFilter
         .map(ajoitus => "ajoitus LIKE '%" + ajoitus + "%'")

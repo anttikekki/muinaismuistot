@@ -92,7 +92,7 @@ export const SearchPage: React.FC<Props> = ({
   };
 
   return (
-    <Page visible={visible} hidePage={hidePage}>
+    <Page title="Hae kohteita" visible={visible} hidePage={hidePage}>
       <form
         className={showSearchTextError ? "has-error" : undefined}
         onSubmit={onSearchClick}

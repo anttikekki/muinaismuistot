@@ -6,7 +6,9 @@ import {
   MuinaisjaannosAjoitusTimespan,
   MaailmanperintoAlueArgisFeature,
   MaailmanperintoPisteArgisFeature,
-  AhvenanmaaForminnenArgisFeature
+  AhvenanmaaForminnenArgisFeature,
+  MuseovirastoLayer,
+  AhvenanmaaLayer
 } from "../data";
 import { Coordinate } from "ol/coordinate";
 
@@ -106,6 +108,39 @@ export const getFeatureTypeIconURL = (feature: ArgisFeature): string => {
       return "images/rakennusperintorekisteri_rakennus.png";
     case "Fornminnen":
       return "images/ahvenanmaa_muinaisjaannos.png";
+  }
+};
+
+export const getLayerIconURLs = (
+  layer: MuseovirastoLayer | AhvenanmaaLayer
+): Array<string> => {
+  switch (layer) {
+    case "Muinaisjäännökset_piste":
+      return [
+        "images/muinaisjaannos_kohde.png",
+        "images/muu_kulttuuriperintokohde_kohde.png"
+      ];
+    case "Muinaisjäännökset_alue":
+      return [
+        "images/muinaisjaannos_alue.png",
+        "images/muu-kulttuuriperintokohde-alue.png"
+      ];
+    case "RKY_alue":
+      return ["images/rky_alue.png"];
+    case "RKY_viiva":
+      return ["images/rky_viiva.png"];
+    case "RKY_piste":
+      return ["images/rky_piste.png"];
+    case "Maailmanperintö_alue":
+      return ["images/maailmanperinto_alue.png"];
+    case "Maailmanperintö_piste":
+      return ["images/maailmanperinto_piste.png"];
+    case "Suojellut_rakennukset_alue":
+      return ["images/rakennusperintorekisteri_alue.png"];
+    case "Suojellut_rakennukset_piste":
+      return ["images/rakennusperintorekisteri_rakennus.png"];
+    case "Fornminnen":
+      return ["images/ahvenanmaa_muinaisjaannos.png"];
   }
 };
 
