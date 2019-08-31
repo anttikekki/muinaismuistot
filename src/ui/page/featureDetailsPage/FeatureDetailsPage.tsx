@@ -54,6 +54,8 @@ export const FeatureDetailsPage: React.FC<Props> = ({
   features
 }) => {
   const [openPanelId, setOpenPanelId] = React.useState<string>(undefined);
+  const onTogglePanelOpen = (id: string) =>
+    setOpenPanelId(openPanelId === id ? undefined : id);
 
   return (
     <div
@@ -81,7 +83,7 @@ export const FeatureDetailsPage: React.FC<Props> = ({
         />
         {features &&
           features.map(feature =>
-            panelForFeature(feature, setOpenPanelId, openPanelId)
+            panelForFeature(feature, onTogglePanelOpen, openPanelId)
           )}
       </div>
     </div>

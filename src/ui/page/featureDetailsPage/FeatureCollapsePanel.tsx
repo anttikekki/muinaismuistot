@@ -3,7 +3,8 @@ import { ArgisFeature } from "../../../data";
 import {
   getFeatureTypeIconURL,
   getFeatureTypeName,
-  getFeatureLocation
+  getFeatureLocation,
+  getFeatureName
 } from "../../../util/FeatureParser";
 import { createLocationHash } from "../../../util/URLHashHelper";
 
@@ -29,18 +30,21 @@ export const FeatureCollapsePanel: React.FC<Props> = ({
 
   return (
     <div className="panel panel-default">
-      <div className="panel-heading" role="tab">
+      <div className="panel-heading feature-collapse-panel-heading" role="tab">
         <h4 className="panel-title">
           <a role="button" href="" onClick={onTitleClick}>
-            <span>
-              <img src={getFeatureTypeIconURL(feature)} />
-            </span>
-            <span>{getFeatureTypeName(feature)}</span>
+            {getFeatureName(feature)}
           </a>
           <a className="pull-right" href={permanentLink}>
             <span className="glyphicon glyphicon-link" aria-hidden="true" />
           </a>
         </h4>
+        <h6 className="panel-title">
+          <a role="button" href="" onClick={onTitleClick}>
+            <img src={getFeatureTypeIconURL(feature)} />
+            <span>{getFeatureTypeName(feature)}</span>
+          </a>
+        </h6>
       </div>
       <div
         className={`panel-collapse collapse ${isOpen ? "in" : ""}`}
