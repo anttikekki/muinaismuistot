@@ -4,6 +4,7 @@ import Settings from "./Settings";
 import MuinaismuistotMap from "./map/MuinaismuistotMap";
 import MuinaismuistotUI from "./ui/MuinaismuistotUI";
 import { parseCoordinatesFromURL } from "./util/URLHashHelper";
+import { MaanmittauslaitosLayer, MuseovirastoLayerId } from "./data";
 
 export default class Muinaismuistot {
   private map: MuinaismuistotMap;
@@ -11,6 +12,11 @@ export default class Muinaismuistot {
   private ui: MuinaismuistotUI;
 
   public constructor() {
+    const initialSettings = {
+      selectedMaanmittauslaitosLayer: MaanmittauslaitosLayer.Taustakartta,
+      selectedMuseovirastoLayers: [] as Array<MuseovirastoLayerId>
+    };
+
     this.settings = new Settings({
       selectedMapBackgroundLayerChanged: layerName => {
         this.map.setVisibleMaanmittauslaitosLayerName(layerName);
@@ -36,7 +42,7 @@ export default class Muinaismuistot {
       }
     });
 
-    this.ui = new MuinaismuistotUI(this.settings, {
+    this.ui = new MuinaismuistotUI(initialSettings, {
       searchFeatures: searchText => {
         this.map.searchFeatures(searchText);
       },
@@ -48,6 +54,9 @@ export default class Muinaismuistot {
       },
       centerToCurrentPositions: () => {
         this.map.centerToCurrentPositions();
+      },
+      selectedMaanmittauslaitosLayerChanged: layer => {
+        this.map.setVisibleMaanmittauslaitosLayerName(layer);
       }
     });
 

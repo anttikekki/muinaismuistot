@@ -1,11 +1,11 @@
 import * as React from "react";
 
 interface Props {
-  onCenterToCurrentPositions: () => void;
+  onClick: () => void;
 }
 
 export const CenterToCurrentPositionButton: React.FunctionComponent<Props> = ({
-  onCenterToCurrentPositions
+  onClick
 }) => {
   return (
     <div id="map-button-position" className="map-button">
@@ -13,7 +13,7 @@ export const CenterToCurrentPositionButton: React.FunctionComponent<Props> = ({
         type="button"
         className="btn btn-primary"
         title="Keskitä kartta nykyiseen sijaintiisi"
-        onClick={() => onCenterToCurrentPositions()}
+        onClick={onClick}
       >
         <span className="glyphicon glyphicon-screenshot" aria-hidden="true" />
       </button>

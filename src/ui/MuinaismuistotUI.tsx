@@ -2,8 +2,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import "../css/muinaismuistot.css";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { ArgisFeature, MuseovirastoLayerId } from "../data";
-import Settings from "../Settings";
+import {
+  ArgisFeature,
+  MuseovirastoLayerId,
+  Settings,
+  MaanmittauslaitosLayer
+} from "../data";
 import { LoadingAnimation } from "./component/LoadingAnimation";
 import { ZoomInButton } from "./component/ZoomInButton";
 import { ZoomOutButton } from "./component/ZoomOutButton";
@@ -13,6 +17,8 @@ import { FeatureDetailsPage } from "./page/featureDetailsPage/FeatureDetailsPage
 import { SearchPage } from "./page/searchPage/SearchPage";
 import { InfoPage } from "./page/infoPage/InfoPage";
 import { OpenSearchPageButton } from "./component/OpenSearchPageButton";
+import { SettingsPage } from "./page/settingsPage/SettingsPage";
+import { OpenSettingsPage } from "./component/OpenSettingsPage";
 
 enum PageId {
   Search = "searchPage",
@@ -26,9 +32,13 @@ export interface EventListeners {
   zoomIn: () => void;
   zoomOut: () => void;
   centerToCurrentPositions: () => void;
+  selectedMaanmittauslaitosLayerChanged: (
+    layer: MaanmittauslaitosLayer
+  ) => void;
 }
 
 export default class MuinaismuistotUI {
+  private settings: Settings;
   private visiblePage?: PageId;
   private selectedFeatures?: Array<ArgisFeature>;
   private searchResultFeatures?: Array<ArgisFeature>;
@@ -36,7 +46,11 @@ export default class MuinaismuistotUI {
   private loadingAnimationCounter = 0;
   private eventListeners: EventListeners;
 
-  public constructor(settings: Settings, eventListeners: EventListeners) {
+  public constructor(
+    initialSettings: Settings,
+    eventListeners: EventListeners
+  ) {
+    this.settings = initialSettings;
     this.eventListeners = eventListeners;
     this.renderUI();
   }
@@ -47,6 +61,12 @@ export default class MuinaismuistotUI {
     this.renderUI();
   };
 
+  private onSelectMaanmittauslaitosLayer = (layer: MaanmittauslaitosLayer) => {
+    this.settings.selectedMaanmittauslaitosLayer = layer;
+    this.eventListeners.selectedMaanmittauslaitosLayerChanged(layer);
+    this.renderUI();
+  };
+
   private renderUI = () => {
     const isLoading = this.loadingAnimationCounter > 0;
     const { zoomIn, zoomOut, centerToCurrentPositions } = this.eventListeners;
@@ -54,25 +74,12 @@ export default class MuinaismuistotUI {
     ReactDOM.render(
       <>
         <LoadingAnimation visible={isLoading} />
-        <ZoomInButton onZoomIn={zoomIn} />
-        <ZoomOutButton onZoomOut={zoomOut} />
-        <CenterToCurrentPositionButton
-          onCenterToCurrentPositions={centerToCurrentPositions}
-        />
-        <OpenSearchPageButton
-          showSearchPage={() => this.showPage(PageId.Search)}
-        />
-        <ShowInfoPageButton showInfoPage={() => this.showPage(PageId.Info)} />
-
-        <div id="map-button-settings" className="map-button">
-          <button
-            type="button"
-            className="btn btn-primary"
-            title="Kartan asetukset"
-          >
-            <span className="glyphicon glyphicon-cog" aria-hidden="true" />
-          </button>
-        </div>
+        <ZoomInButton onClick={zoomIn} />
+        <ZoomOutButton onClick={zoomOut} />
+        <CenterToCurrentPositionButton onClick={centerToCurrentPositions} />
+        <OpenSearchPageButton onClick={() => this.showPage(PageId.Search)} />
+        <ShowInfoPageButton onClick={() => this.showPage(PageId.Info)} />
+        <OpenSettingsPage onClick={() => this.showPage(PageId.Settings)} />
 
         <FeatureDetailsPage
           visible={this.visiblePage === PageId.Details}
@@ -88,6 +95,12 @@ export default class MuinaismuistotUI {
         <InfoPage
           visible={this.visiblePage === PageId.Info}
           hidePage={this.hidePage}
+        />
+        <SettingsPage
+          visible={this.visiblePage === PageId.Settings}
+          hidePage={this.hidePage}
+          settings={this.settings}
+          onSelectMaanmittauslaitosLayer={this.onSelectMaanmittauslaitosLayer}
         />
       </>,
       document.getElementById("ui")

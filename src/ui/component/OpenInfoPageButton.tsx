@@ -1,11 +1,11 @@
 import * as React from "react";
 
 interface Props {
-  showInfoPage: () => void;
+  onClick: () => void;
 }
 
 export const ShowInfoPageButton: React.FunctionComponent<Props> = ({
-  showInfoPage
+  onClick
 }) => {
   return (
     <div id="map-button-info" className="map-button">
@@ -13,7 +13,7 @@ export const ShowInfoPageButton: React.FunctionComponent<Props> = ({
         type="button"
         className="btn btn-primary"
         title="Ohjeita sivuston käyttöön"
-        onClick={() => showInfoPage()}
+        onClick={onClick}
       >
         <span className="glyphicon glyphicon-info-sign" aria-hidden="true" />
       </button>

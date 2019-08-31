@@ -1,3 +1,8 @@
+export interface Settings {
+  selectedMaanmittauslaitosLayer: MaanmittauslaitosLayer;
+  selectedMuseovirastoLayers: Array<MuseovirastoLayerId>;
+}
+
 export enum MaanmittauslaitosLayer {
   Maastokartta = "maastokartta",
   Taustakartta = "taustakartta",

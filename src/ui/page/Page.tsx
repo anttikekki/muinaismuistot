@@ -24,7 +24,7 @@ export const Page: React.FC<Props> = ({ visible, hidePage, children }) => {
         </button>
       </div>
 
-      <div className="pageContent">{children}</div>
+      <div className="pageContent">{visible && children}</div>
     </div>
   );
 };
