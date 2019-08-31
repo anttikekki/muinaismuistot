@@ -2,7 +2,6 @@ import $ from "jquery";
 import TileLayer from "ol/layer/Tile";
 import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest";
 import { containsCoordinate, Extent } from "ol/extent";
-import Settings from "../Settings";
 import { Coordinate } from "ol/coordinate";
 import { TileSourceEvent } from "ol/source/Tile";
 import { Size } from "ol/size";
@@ -13,16 +12,13 @@ export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void;
 export default class AhvenanmaaWMTS {
   private source: TileArcGISRestSource;
   private layer: TileLayer;
-  private muinaismuistotSettings: Settings;
   private showLoadingAnimationFn: ShowLoadingAnimationFn;
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn;
 
   public constructor(
-    muinaismuistotSettings: Settings,
     showLoadingAnimationFn: ShowLoadingAnimationFn,
     onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
-    this.muinaismuistotSettings = muinaismuistotSettings;
     this.showLoadingAnimationFn = showLoadingAnimationFn;
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn;
     this.addLayer();

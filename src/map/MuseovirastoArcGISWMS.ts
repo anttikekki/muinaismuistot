@@ -1,11 +1,18 @@
 import $ from "jquery";
 import TileLayer from "ol/layer/Tile";
 import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest";
-import Settings from "../Settings";
 import { TileSourceEvent } from "ol/source/Tile";
 import { Coordinate } from "ol/coordinate";
 import { Size } from "ol/size";
 import { Extent } from "ol/extent";
+import {
+  Settings,
+  museovirastoLayerIdMap,
+  MuseovirastoLayer,
+  MuinaisjaannosTyyppi,
+  MuinaisjaannosAjoitus,
+  MuseovirastoLayerId
+} from "../data";
 
 export type ShowLoadingAnimationFn = (show: boolean) => void;
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void;
@@ -13,16 +20,16 @@ export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void;
 export default class MuseovirastoArcGISWMS {
   private source: TileArcGISRestSource;
   private layer: TileLayer;
-  private muinaismuistotSettings: Settings;
+  private settings: Settings;
   private showLoadingAnimationFn: ShowLoadingAnimationFn;
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn;
 
   public constructor(
-    muinaismuistotSettings: Settings,
+    initialSettings: Settings,
     showLoadingAnimationFn: ShowLoadingAnimationFn,
     onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
-    this.muinaismuistotSettings = muinaismuistotSettings;
+    this.settings = initialSettings;
     this.showLoadingAnimationFn = showLoadingAnimationFn;
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn;
     this.addLayer();
@@ -39,9 +46,13 @@ export default class MuseovirastoArcGISWMS {
   };
 
   private createSource = () => {
-    var newSource = new TileArcGISRestSource(
-      this.getMuinaismuistotLayerSourceParams()
-    );
+    var newSource = new TileArcGISRestSource({
+      urls: ["https://d3u1wj9fwedfoy.cloudfront.net"],
+      params: {
+        layers: this.getSourceLayerSelectionSettings(),
+        layerDefs: this.getSourceLayerDefinitionFilterParams()
+      }
+    });
 
     newSource.on("tileloadstart", (evt: TileSourceEvent) => {
       this.showLoadingAnimationFn(true);
@@ -63,29 +74,81 @@ export default class MuseovirastoArcGISWMS {
     }
   };
 
-  private getMuinaismuistotLayerSourceParams = (): Options => {
-    var layerIds = this.muinaismuistotSettings.getSelectedMuinaismuistotLayerIds();
-    var layers = "";
-
-    if (layerIds.length > 0) {
-      layers = "show:" + layerIds.join(",");
-    } else {
-      //Hide all layers
-      layers =
-        "hide:" +
-        this.muinaismuistotSettings.getMuinaismuistotLayerIds().join(",");
+  private getSourceLayerSelectionSettings = (): string | undefined => {
+    const allLayers: Array<MuseovirastoLayer> = Object.values(
+      MuseovirastoLayer
+    );
+    if (allLayers.length === this.settings.selectedMuseovirastoLayers.length) {
+      // All layers are selected. No need to filter.
+      return undefined;
     }
+    const selectedLayerIds = this.toLayerIds(
+      this.settings.selectedMuseovirastoLayers
+    );
 
-    return {
-      urls: [this.muinaismuistotSettings.getMuseovirastoArcGISWMSExportURL()],
-      params: {
-        layers: layers,
-        layerDefs: this.muinaismuistotSettings.getFilterParamsLayerDefinitions()
-      }
-    };
+    if (selectedLayerIds.length > 0) {
+      return "show:" + selectedLayerIds.join(",");
+    } else {
+      // No selected layers. Hide all.
+      return "hide:" + this.toLayerIds(allLayers).join(",");
+    }
   };
 
-  public updateVisibleLayersFromSettings = () => {
+  private getSourceLayerDefinitionFilterParams = () => {
+    const layerDefinitions = [];
+
+    const selectedTypes = this.settings.selectedMuinaisjaannosTypes;
+    if (
+      selectedTypes.length > 0 &&
+      selectedTypes.length != Object.values(MuinaisjaannosTyyppi).length
+    ) {
+      const layerDefinition = selectedTypes
+        .sort()
+        .map(tyyppi => "tyyppi LIKE '%" + tyyppi + "%'")
+        .join(" OR ");
+      layerDefinitions.push("(" + layerDefinition + ")");
+    }
+
+    const selectedDatings = this.settings.selectedMuinaisjaannosDatings;
+    if (
+      selectedDatings.length > 0 &&
+      selectedDatings.length != Object.values(MuinaisjaannosAjoitus).length
+    ) {
+      var layerDefinition = selectedDatings
+        .sort()
+        .map(ajoitus => "ajoitus LIKE '%" + ajoitus + "%'")
+        .join(" OR ");
+      layerDefinitions.push("(" + layerDefinition + ")");
+    }
+
+    if (layerDefinitions.length > 0) {
+      return (
+        museovirastoLayerIdMap[MuseovirastoLayer.Muinaisjäännökset_piste] +
+        ":" +
+        layerDefinitions.join(" AND ")
+      );
+    }
+    return undefined;
+  };
+
+  private toLayerIds = (
+    layers: Array<MuseovirastoLayer>
+  ): Array<MuseovirastoLayerId> => {
+    return layers.map(layer => museovirastoLayerIdMap[layer]).sort();
+  };
+
+  public selectedFeatureLayersChanged = (settings: Settings) => {
+    this.settings = settings;
+    this.updateMuinaismuistotLayerSource();
+  };
+
+  public selectedMuinaisjaannosTypesChanged = (settings: Settings) => {
+    this.settings = settings;
+    this.updateMuinaismuistotLayerSource();
+  };
+
+  public selectedMuinaisjaannosDatingsChanged = (settings: Settings) => {
+    this.settings = settings;
     this.updateMuinaismuistotLayerSource();
   };
 
@@ -102,42 +165,34 @@ export default class MuseovirastoArcGISWMS {
       mapExtent: mapExtent.join(","),
       layers:
         "visible:" +
-        this.muinaismuistotSettings
-          .getSelectedMuinaismuistotLayerIds()
-          .join(","),
+        this.toLayerIds(this.settings.selectedMuseovirastoLayers).join(","),
       f: "json",
       returnGeometry: "true"
     };
 
-    return $.getJSON(
-      this.muinaismuistotSettings.getMuseovirastoArcGISWMSIndentifyURL(),
-      queryoptions
-    );
+    return $.getJSON("https://d3t293l8mhxosa.cloudfront.net?", queryoptions);
   };
 
   public findFeatures = (searchText: string) => {
-    var layerMap = this.muinaismuistotSettings.getMuinaismuistotLayerIdMap();
-    var selectedLayerIds = this.muinaismuistotSettings.getSelectedMuinaismuistotLayerIds();
+    let selectedLayers = this.settings.selectedMuseovirastoLayers;
 
     //Muinaismustot areas always has same name as main point so do not search those
-    var areaIndex = selectedLayerIds.indexOf(layerMap.Muinaisjäännökset_alue);
-    if (areaIndex > -1) {
-      selectedLayerIds.splice(areaIndex, 1);
+    if (selectedLayers.includes(MuseovirastoLayer.Muinaisjäännökset_alue)) {
+      selectedLayers = selectedLayers.filter(
+        l => l !== MuseovirastoLayer.Muinaisjäännökset_alue
+      );
     }
 
     var queryoptions = {
       searchText: searchText,
       contains: true,
       searchFields: "Kohdenimi, Nimi, KOHDENIMI",
-      layers: selectedLayerIds.join(","),
+      layers: this.toLayerIds(selectedLayers).join(","),
       f: "json",
       returnGeometry: "true",
       returnZ: "false"
     };
 
-    return $.getJSON(
-      this.muinaismuistotSettings.getMuseovirastoArcGISWMSFindFeaturesURL(),
-      queryoptions
-    );
+    return $.getJSON("https://d3239kmqvyt2db.cloudfront.net?", queryoptions);
   };
 }

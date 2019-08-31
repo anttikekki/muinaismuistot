@@ -1,6 +1,5 @@
 import "core-js/stable";
 import $ from "jquery";
-import Settings from "./Settings";
 import MuinaismuistotMap from "./map/MuinaismuistotMap";
 import MuinaismuistotUI from "./ui/MuinaismuistotUI";
 import { parseCoordinatesFromURL } from "./util/URLHashHelper";
@@ -8,38 +7,25 @@ import {
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
-  MuinaisjaannosAjoitus
+  MuinaisjaannosAjoitus,
+  Settings
 } from "./data";
 
 export default class Muinaismuistot {
   private map: MuinaismuistotMap;
-  private settings: Settings;
   private ui: MuinaismuistotUI;
 
   public constructor() {
-    const initialSettings = {
+    const initialSettings: Settings = {
       selectedMaanmittauslaitosLayer: MaanmittauslaitosLayer.Taustakartta,
       selectedMuseovirastoLayers: Object.values(MuseovirastoLayer),
       selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
       selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus)
     };
 
-    this.settings = new Settings({
-      selectedMapBackgroundLayerChanged: layerName => {
-        this.map.setVisibleMaanmittauslaitosLayerName(layerName);
-      },
-      visibleMuinaismuistotLayersChanged: selectedLayerIds => {
-        this.map.updateVisibleMuinaismuistotLayersFromSettings();
-        this.ui.visibleMuinaismuistotLayersChanged(selectedLayerIds);
-      },
-      filterParametersChanged: params => {
-        this.map.updateMuinaismuistotFilterParamsFromSettings();
-      }
-    });
-
-    this.map = new MuinaismuistotMap(this.settings, {
-      muinaisjaannosFeaturesSelected: muinaisjaannosFeatures => {
-        this.ui.muinaisjaannosFeaturesSelected(muinaisjaannosFeatures);
+    this.map = new MuinaismuistotMap(initialSettings, {
+      featuresSelected: features => {
+        this.ui.featuresSelected(features);
       },
       showLoadingAnimation: show => {
         this.ui.showLoadingAnimation(show);
@@ -62,8 +48,17 @@ export default class Muinaismuistot {
       centerToCurrentPositions: () => {
         this.map.centerToCurrentPositions();
       },
-      selectedMaanmittauslaitosLayerChanged: layer => {
-        this.map.setVisibleMaanmittauslaitosLayerName(layer);
+      selectedMaanmittauslaitosLayerChanged: settings => {
+        this.map.selectedMaanmittauslaitosLayerChanged(settings);
+      },
+      selectedFeatureLayersChanged: settings => {
+        this.map.selectedFeatureLayersChanged(settings);
+      },
+      selectedMuinaisjaannosTypesChanged: settings => {
+        this.map.selectedMuinaisjaannosTypesChanged(settings);
+      },
+      selectedMuinaisjaannosDatingsChanged: settings => {
+        this.map.selectedMuinaisjaannosDatingsChanged(settings);
       }
     });
 

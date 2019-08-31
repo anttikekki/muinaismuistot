@@ -30,14 +30,23 @@ enum PageId {
   Details = "detailsPage"
 }
 
+const toggleSelection = function<T>(value: T, values: Array<T>) {
+  if (values.includes(value)) {
+    return values.filter(v => v !== value);
+  } else {
+    return [...values, value];
+  }
+};
+
 export interface EventListeners {
   searchFeatures: (searchText: string) => void;
   zoomIn: () => void;
   zoomOut: () => void;
   centerToCurrentPositions: () => void;
-  selectedMaanmittauslaitosLayerChanged: (
-    layer: MaanmittauslaitosLayer
-  ) => void;
+  selectedMaanmittauslaitosLayerChanged: (settings: Settings) => void;
+  selectedFeatureLayersChanged: (settings: Settings) => void;
+  selectedMuinaisjaannosTypesChanged: (settings: Settings) => void;
+  selectedMuinaisjaannosDatingsChanged: (settings: Settings) => void;
 }
 
 export default class MuinaismuistotUI {
@@ -66,45 +75,34 @@ export default class MuinaismuistotUI {
 
   private onSelectMaanmittauslaitosLayer = (layer: MaanmittauslaitosLayer) => {
     this.settings.selectedMaanmittauslaitosLayer = layer;
-    this.eventListeners.selectedMaanmittauslaitosLayerChanged(layer);
+    this.eventListeners.selectedMaanmittauslaitosLayerChanged(this.settings);
     this.renderUI();
   };
 
   private onSelectMuseovirastoLayer = (layer: MuseovirastoLayer) => {
-    const selectedLayers = this.settings.selectedMuseovirastoLayers;
-    if (selectedLayers.includes(layer)) {
-      this.settings.selectedMuseovirastoLayers = selectedLayers.filter(
-        l => l !== layer
-      );
-    } else {
-      this.settings.selectedMuseovirastoLayers = [...selectedLayers, layer];
-    }
+    this.settings.selectedMuseovirastoLayers = toggleSelection(
+      layer,
+      this.settings.selectedMuseovirastoLayers
+    );
+    this.eventListeners.selectedFeatureLayersChanged(this.settings);
     this.renderUI();
   };
 
   private onSelectMuinaisjaannosType = (type: MuinaisjaannosTyyppi) => {
-    const selectedTypes = this.settings.selectedMuinaisjaannosTypes;
-    if (selectedTypes.includes(type)) {
-      this.settings.selectedMuinaisjaannosTypes = selectedTypes.filter(
-        t => t !== type
-      );
-    } else {
-      this.settings.selectedMuinaisjaannosTypes = [...selectedTypes, type];
-    }
+    this.settings.selectedMuinaisjaannosTypes = toggleSelection(
+      type,
+      this.settings.selectedMuinaisjaannosTypes
+    );
+    this.eventListeners.selectedMuinaisjaannosTypesChanged(this.settings);
     this.renderUI();
   };
+
   private onSelectMuinaisjaannosDating = (dating: MuinaisjaannosAjoitus) => {
-    const selectedDatings = this.settings.selectedMuinaisjaannosDatings;
-    if (selectedDatings.includes(dating)) {
-      this.settings.selectedMuinaisjaannosDatings = selectedDatings.filter(
-        d => d !== dating
-      );
-    } else {
-      this.settings.selectedMuinaisjaannosDatings = [
-        ...selectedDatings,
-        dating
-      ];
-    }
+    this.settings.selectedMuinaisjaannosDatings = toggleSelection(
+      dating,
+      this.settings.selectedMuinaisjaannosDatings
+    );
+    this.eventListeners.selectedMuinaisjaannosDatingsChanged(this.settings);
     this.renderUI();
   };
 
@@ -184,9 +182,7 @@ export default class MuinaismuistotUI {
     }
   };
 
-  public muinaisjaannosFeaturesSelected = (
-    selectedFeatures: Array<ArgisFeature>
-  ) => {
+  public featuresSelected = (selectedFeatures: Array<ArgisFeature>) => {
     this.selectedFeatures = selectedFeatures;
     this.visiblePage = PageId.Details;
     this.renderUI();

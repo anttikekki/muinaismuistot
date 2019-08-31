@@ -2,8 +2,7 @@ import $ from "jquery";
 import TileLayer from "ol/layer/Tile";
 import WMTSCapabilities from "ol/format/WMTSCapabilities";
 import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS";
-import Settings from "../Settings";
-import { MaanmittauslaitosLayer } from "../data";
+import { MaanmittauslaitosLayer, Settings } from "../data";
 import { TileSourceEvent } from "ol/source/Tile";
 
 export type ShowLoadingAnimationFn = (show: boolean) => void;
@@ -20,31 +19,30 @@ export default class MaanmittauslaitosWMTS {
   private maastokarttaLayerSource: WMTSSource;
   private taustakarttaLayerSource: WMTSSource;
   private ortokuvaLayerSource: WMTSSource;
-  private muinaismuistotSettings: Settings;
   private showLoadingAnimationFn: ShowLoadingAnimationFn;
   private onLayersCreatedCallbackFn: OnLayersCreatedCallbackFn;
 
   public constructor(
-    muinaismuistotSettings: Settings,
+    settings: Settings,
     showLoadingAnimationFn: ShowLoadingAnimationFn,
     onLayersCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
-    this.muinaismuistotSettings = muinaismuistotSettings;
     this.showLoadingAnimationFn = showLoadingAnimationFn;
     this.onLayersCreatedCallbackFn = onLayersCreatedCallbackFn;
-    this.loadMMLWmtsCapabilitiesAndAddLayers();
+    this.loadMMLWmtsCapabilitiesAndAddLayers(settings);
   }
 
-  private loadMMLWmtsCapabilitiesAndAddLayers = () => {
+  private loadMMLWmtsCapabilitiesAndAddLayers = (settings: Settings) => {
     $.ajax({
-      url: this.muinaismuistotSettings.getMaanmittauslaitosWMTSCapabilitiesURL(),
+      url:
+        "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml",
       success: (response: string) => {
-        this.addWmtsLayers(response);
+        this.addWmtsLayers(response, settings);
       }
     });
   };
 
-  private addWmtsLayers = (WMTSCapabilitiesXml: string) => {
+  private addWmtsLayers = (WMTSCapabilitiesXml: string, settings: Settings) => {
     var parser = new WMTSCapabilities();
     var capabilities = parser.read(WMTSCapabilitiesXml);
 
@@ -64,17 +62,18 @@ export default class MaanmittauslaitosWMTS {
       })
     );
 
+    const selectedLayer = settings.selectedMaanmittauslaitosLayer;
     this.mmlMaastokarttaLayer = new TileLayer({
       source: this.maastokarttaLayerSource,
-      visible: false
+      visible: selectedLayer === MaanmittauslaitosLayer.Maastokartta
     });
     this.mmlTaustakarttaLayer = new TileLayer({
       source: this.taustakarttaLayerSource,
-      visible: true
+      visible: selectedLayer === MaanmittauslaitosLayer.Taustakartta
     });
     this.mmlOrtokuvaLayer = new TileLayer({
       source: this.ortokuvaLayerSource,
-      visible: false
+      visible: selectedLayer === MaanmittauslaitosLayer.Ortokuva
     });
 
     this.updateLoadingAnimationOnLayerSourceTileLoad(
@@ -106,33 +105,14 @@ export default class MaanmittauslaitosWMTS {
     });
   };
 
-  public getVisibleLayerName = (): MaanmittauslaitosLayer => {
-    if (this.mmlMaastokarttaLayer && this.mmlMaastokarttaLayer.getVisible()) {
-      return MaanmittauslaitosLayer.Maastokartta;
-    } else if (
-      this.mmlTaustakarttaLayer &&
-      this.mmlTaustakarttaLayer.getVisible()
-    ) {
-      return MaanmittauslaitosLayer.Taustakartta;
-    } else if (this.mmlOrtokuvaLayer && this.mmlOrtokuvaLayer.getVisible()) {
-      return MaanmittauslaitosLayer.Ortokuva;
-    }
-    return MaanmittauslaitosLayer.Taustakartta;
-  };
-
-  public setVisibleLayerName = function(layerName: MaanmittauslaitosLayer) {
-    if (layerName === MaanmittauslaitosLayer.Taustakartta) {
-      this.mmlMaastokarttaLayer.setVisible(false);
-      this.mmlTaustakarttaLayer.setVisible(true);
-      this.mmlOrtokuvaLayer.setVisible(false);
-    } else if (layerName === MaanmittauslaitosLayer.Maastokartta) {
-      this.mmlMaastokarttaLayer.setVisible(true);
-      this.mmlTaustakarttaLayer.setVisible(false);
-      this.mmlOrtokuvaLayer.setVisible(false);
-    } else if (layerName === MaanmittauslaitosLayer.Ortokuva) {
-      this.mmlMaastokarttaLayer.setVisible(false);
-      this.mmlTaustakarttaLayer.setVisible(false);
-      this.mmlOrtokuvaLayer.setVisible(true);
-    }
+  public selectedMaanmittauslaitosLayerChanged = function(settings: Settings) {
+    const layer = settings.selectedMaanmittauslaitosLayer;
+    this.mmlMaastokarttaLayer.setVisible(
+      layer === MaanmittauslaitosLayer.Maastokartta
+    );
+    this.mmlTaustakarttaLayer.setVisible(
+      layer === MaanmittauslaitosLayer.Taustakartta
+    );
+    this.mmlOrtokuvaLayer.setVisible(layer === MaanmittauslaitosLayer.Ortokuva);
   };
 }
