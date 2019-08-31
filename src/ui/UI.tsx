@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "../css/muinaismuistot.css";
 import * as React from "react";
-import { InfoPage } from "./page/InfoPage";
+import { InfoPage } from "./page/infoPage/InfoPage";
 import { LoadingAnimation } from "./component/LoadingAnimation";
 import { ZoomInButton } from "./component/ZoomInButton";
 import { ZoomOutButton } from "./component/ZoomOutButton";
@@ -10,7 +10,7 @@ import { ShowInfoPageButton } from "./component/OpenInfoPageButton";
 import { ArgisFeature } from "../data";
 import { FeatureDetailsPage } from "./page/featureDetailsPage/FeatureDetailsPage";
 
-export enum Page {
+export enum PageId {
   Search = "searchPage",
   Info = "infoPage",
   Settings = "settingsPage",
@@ -19,12 +19,12 @@ export enum Page {
 
 interface Props {
   isLoading: boolean;
-  visiblePage?: Page;
+  visiblePage?: PageId;
   selectedFeatures?: Array<ArgisFeature>;
   onZoomIn: () => void;
   onZoomOut: () => void;
   onCenterToCurrentPositions: () => void;
-  showPage: (page: Page) => void;
+  showPage: (page: PageId) => void;
   hidePage: () => void;
 }
 
@@ -53,7 +53,7 @@ export const UI: React.FunctionComponent<Props> = ({
         </button>
       </div>
 
-      <ShowInfoPageButton showInfoPage={() => showPage(Page.Info)} />
+      <ShowInfoPageButton showInfoPage={() => showPage(PageId.Info)} />
 
       <div id="map-button-settings" className="map-button">
         <button
@@ -66,11 +66,11 @@ export const UI: React.FunctionComponent<Props> = ({
       </div>
 
       <FeatureDetailsPage
-        visible={visiblePage === Page.Details}
+        visible={visiblePage === PageId.Details}
         hidePage={hidePage}
         features={selectedFeatures}
       />
-      <InfoPage visible={visiblePage === Page.Info} hidePage={hidePage} />
+      <InfoPage visible={visiblePage === PageId.Info} hidePage={hidePage} />
     </div>
   );
 };

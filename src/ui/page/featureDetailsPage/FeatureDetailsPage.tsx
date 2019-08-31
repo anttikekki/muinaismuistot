@@ -7,6 +7,7 @@ import { RKYPanel } from "./RKYPanel";
 import { MaailmanperintokohdePanel } from "./MaailmanperintokohdePanel";
 import { SuojellutRakennuksetPanel } from "./SuojellutRakennuksetPanel";
 import { AhvenanmaaForminnenPanel } from "./AhvenanmaaForminnenPanel";
+import { Page } from "../Page";
 
 interface Props {
   visible: boolean;
@@ -58,34 +59,12 @@ export const FeatureDetailsPage: React.FC<Props> = ({
     setOpenPanelId(openPanelId === id ? undefined : id);
 
   return (
-    <div
-      id="detailsPage"
-      className={`container page ${
-        visible ? "page-right-visible" : "page-right-hidden"
-      }`}
-    >
-      <div className="pageHeader">
-        <button
-          className="btn btn-primary btn-sm"
-          id="hide-detailsPage-button"
-          onClick={hidePage}
-        >
-          <span className="glyphicon glyphicon-remove" aria-hidden="true" />{" "}
-          Sulje
-        </button>
-      </div>
-
-      <div className="pageContent">
-        <div
-          className="panel-group"
-          role="tablist"
-          aria-multiselectable="true"
-        />
-        {features &&
-          features.map(feature =>
-            panelForFeature(feature, onTogglePanelOpen, openPanelId)
-          )}
-      </div>
-    </div>
+    <Page visible={visible} hidePage={hidePage}>
+      <div className="panel-group" role="tablist" aria-multiselectable="true" />
+      {features &&
+        features.map(feature =>
+          panelForFeature(feature, onTogglePanelOpen, openPanelId)
+        )}
+    </Page>
   );
 };

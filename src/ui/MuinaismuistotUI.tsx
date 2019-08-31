@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { ArgisFeature, MuseovirastoLayerId } from "../data";
 import Settings from "../Settings";
-import { UI, Page } from "./UI";
+import { UI, PageId } from "./UI";
 
 export interface EventListeners {
   searchMuinaismuistoja: (
@@ -15,7 +15,7 @@ export interface EventListeners {
 }
 
 export default class MuinaismuistotUI {
-  private visiblePage?: Page;
+  private visiblePage?: PageId;
   private selectedFeatures?: Array<ArgisFeature>;
   private loadingAnimationTimeoutID?: number;
   private loadingAnimationCounter = 0;
@@ -83,7 +83,7 @@ export default class MuinaismuistotUI {
     );
   };
 
-  private showPage = (page: Page) => {
+  private showPage = (page: PageId) => {
     this.visiblePage = page;
     this.renderUI();
   };
@@ -120,7 +120,7 @@ export default class MuinaismuistotUI {
     selectedFeatures: Array<ArgisFeature>
   ) => {
     this.selectedFeatures = selectedFeatures;
-    this.visiblePage = Page.Details;
+    this.visiblePage = PageId.Details;
     this.renderUI();
   };
 
