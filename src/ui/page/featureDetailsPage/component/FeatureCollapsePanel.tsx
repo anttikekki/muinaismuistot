@@ -41,7 +41,10 @@ export const FeatureCollapsePanel: React.FC<Props> = ({
         </h4>
         <h6 className="panel-title">
           <a role="button" href="" onClick={onTitleClick}>
-            <img src={getFeatureTypeIconURL(feature)} />
+            <img
+              className="feature-icon"
+              src={getFeatureTypeIconURL(feature)}
+            />
             <span>{getFeatureTypeName(feature)}</span>
           </a>
         </h6>

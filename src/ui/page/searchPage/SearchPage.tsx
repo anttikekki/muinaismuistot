@@ -28,7 +28,7 @@ const ResultRow: React.FC<{ feature?: ArgisFeature }> = ({ feature }) => {
     <a href={locationHash} className="list-group-item search-result-row">
       <h4 className="list-group-item-heading">{nimi}</h4>
       <p className="list-group-item-text">
-        <img src={iconURL} />
+        <img className="feature-icon" src={iconURL} />
         <span>{tyypinNimi}</span>
       </p>
     </a>

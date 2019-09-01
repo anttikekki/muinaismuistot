@@ -27,7 +27,7 @@ const LayerCheckbox: React.FC<LayerCheckboxProps> = ({
           checked={isSelected}
         />
         {getLayerIconURLs(layer).map((url, index) => (
-          <img key={index} src={url} />
+          <img className="feature-icon" key={index} src={url} />
         ))}
 
         <span>{label}</span>
