@@ -4,12 +4,12 @@ import { containsCoordinate, Extent } from "ol/extent";
 import { Coordinate } from "ol/coordinate";
 import { TileSourceEvent } from "ol/source/Tile";
 import { Size } from "ol/size";
-import { ArgisIdentifyResult, ArgisFindResult } from "../data";
+import { ArgisIdentifyResult, ArgisFindResult } from "../../data";
 
 export type ShowLoadingAnimationFn = (show: boolean) => void;
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void;
 
-export default class AhvenanmaaWMTS {
+export default class AhvenanmaaTileLayer {
   private source: TileArcGISRestSource;
   private layer: TileLayer;
   private showLoadingAnimationFn: ShowLoadingAnimationFn;

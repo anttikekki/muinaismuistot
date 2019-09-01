@@ -13,12 +13,12 @@ import {
   MuseovirastoLayerId,
   ArgisIdentifyResult,
   ArgisFindResult
-} from "../data";
+} from "../../data";
 
 export type ShowLoadingAnimationFn = (show: boolean) => void;
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void;
 
-export default class MuseovirastoArcGISWMS {
+export default class MuseovirastoTileLayer {
   private source: TileArcGISRestSource;
   private layer: TileLayer;
   private settings: Settings;

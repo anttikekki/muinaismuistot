@@ -1,7 +1,7 @@
 import TileLayer from "ol/layer/Tile";
 import WMTSCapabilities from "ol/format/WMTSCapabilities";
 import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS";
-import { MaanmittauslaitosLayer, Settings } from "../data";
+import { MaanmittauslaitosLayer, Settings } from "../../data";
 import { TileSourceEvent } from "ol/source/Tile";
 
 export type ShowLoadingAnimationFn = (show: boolean) => void;
@@ -11,7 +11,7 @@ export type OnLayersCreatedCallbackFn = (
   mmlOrtokuvaLayer: TileLayer
 ) => void;
 
-export default class MaanmittauslaitosWMTS {
+export default class MaanmittauslaitosTileLayer {
   private mmlMaastokarttaLayer: TileLayer;
   private mmlTaustakarttaLayer: TileLayer;
   private mmlOrtokuvaLayer: TileLayer;

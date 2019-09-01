@@ -6,10 +6,10 @@ import { register as registerProj4 } from "ol/proj/proj4";
 import { get as getProjection } from "ol/proj";
 import Collection from "ol/Collection";
 import Geolocation from "ol/Geolocation";
-import MaanmittauslaitosWMTS from "./MaanmittauslaitosWMTS";
-import AhvenanmaaWMTS from "./AhvenanmaaWMTS";
-import MuseovirastoArcGISWMS from "./MuseovirastoArcGISWMS";
-import CurrentPositionAndSelectedLocationMarkerLayer from "./CurrentPositionAndSelectedLocationMarkerLayer";
+import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer";
+import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer";
+import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer";
+import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositionAndSelectedLocationMarkerLayer";
 import { ArgisFeature, Settings } from "../data";
 import MapBrowserEvent from "ol/MapBrowserEvent";
 import { Coordinate } from "ol/coordinate";
@@ -25,9 +25,9 @@ export default class MuinaismuistotMap {
   private map: Map;
   private view: View;
   private geolocation: Geolocation;
-  private maanmittauslaitosWMTS: MaanmittauslaitosWMTS;
-  private museovirastoArcGISWMS: MuseovirastoArcGISWMS;
-  private ahvenanmaaWMTS: AhvenanmaaWMTS;
+  private maanmittauslaitosTileLayer: MaanmittauslaitosTileLayer;
+  private museovirastoTileLayer: MuseovirastoTileLayer;
+  private ahvenanmaaTileLayer: AhvenanmaaTileLayer;
   private positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer;
   private eventListeners: MapEventListener;
 
@@ -63,7 +63,7 @@ export default class MuinaismuistotMap {
       controls: new Collection()
     });
 
-    this.maanmittauslaitosWMTS = new MaanmittauslaitosWMTS(
+    this.maanmittauslaitosTileLayer = new MaanmittauslaitosTileLayer(
       initialSettings,
       eventListeners.showLoadingAnimation,
       (mmlMaastokarttaLayer, mmlTaustakarttaLayer, mmlOrtokuvaLayer) => {
@@ -73,14 +73,14 @@ export default class MuinaismuistotMap {
       }
     );
 
-    this.ahvenanmaaWMTS = new AhvenanmaaWMTS(
+    this.ahvenanmaaTileLayer = new AhvenanmaaTileLayer(
       eventListeners.showLoadingAnimation,
       createdLayer => {
         this.map.getLayers().insertAt(3, createdLayer);
       }
     );
 
-    this.museovirastoArcGISWMS = new MuseovirastoArcGISWMS(
+    this.museovirastoTileLayer = new MuseovirastoTileLayer(
       initialSettings,
       eventListeners.showLoadingAnimation,
       createdLayer => {
@@ -100,12 +100,12 @@ export default class MuinaismuistotMap {
 
   private loadFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
     this.eventListeners.showLoadingAnimation(true);
-    const ahvenanmaaQuery = this.ahvenanmaaWMTS.identifyFeaturesAt(
+    const ahvenanmaaQuery = this.ahvenanmaaTileLayer.identifyFeaturesAt(
       e.coordinate,
       this.map.getSize(),
       this.map.getView().calculateExtent(this.map.getSize())
     );
-    const museovirastoQuery = this.museovirastoArcGISWMS.identifyFeaturesAt(
+    const museovirastoQuery = this.museovirastoTileLayer.identifyFeaturesAt(
       e.coordinate,
       this.map.getSize(),
       this.map.getView().calculateExtent(this.map.getSize())
@@ -145,21 +145,21 @@ export default class MuinaismuistotMap {
   };
 
   public selectedFeatureLayersChanged = (settings: Settings): void => {
-    this.museovirastoArcGISWMS.selectedFeatureLayersChanged(settings);
+    this.museovirastoTileLayer.selectedFeatureLayersChanged(settings);
   };
 
   public selectedMuinaisjaannosTypesChanged = (settings: Settings): void => {
-    this.museovirastoArcGISWMS.selectedMuinaisjaannosTypesChanged(settings);
+    this.museovirastoTileLayer.selectedMuinaisjaannosTypesChanged(settings);
   };
 
   public selectedMuinaisjaannosDatingsChanged = (settings: Settings): void => {
-    this.museovirastoArcGISWMS.selectedMuinaisjaannosDatingsChanged(settings);
+    this.museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged(settings);
   };
 
   public searchFeatures = (searchText: string): void => {
     this.eventListeners.showLoadingAnimation(true);
-    var ahvenanmaaQuery = this.ahvenanmaaWMTS.findFeatures(searchText);
-    var museovirastoQuery = this.museovirastoArcGISWMS.findFeatures(searchText);
+    var ahvenanmaaQuery = this.ahvenanmaaTileLayer.findFeatures(searchText);
+    var museovirastoQuery = this.museovirastoTileLayer.findFeatures(searchText);
 
     Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
       ([ahvenanmaaResult, museovirastoResult]) => {
@@ -173,7 +173,9 @@ export default class MuinaismuistotMap {
   };
 
   public selectedMaanmittauslaitosLayerChanged = (settings: Settings) => {
-    this.maanmittauslaitosWMTS.selectedMaanmittauslaitosLayerChanged(settings);
+    this.maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged(
+      settings
+    );
   };
 
   public setMapLocation = (coordinates: Coordinate) => {
