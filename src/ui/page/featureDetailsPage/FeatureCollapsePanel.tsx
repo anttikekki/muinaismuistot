@@ -5,7 +5,7 @@ import {
   getFeatureTypeName,
   getFeatureLocation,
   getFeatureName
-} from "../../../util/FeatureParser";
+} from "../../../util/featureParser";
 import { createLocationHash } from "../../../util/URLHashHelper";
 
 interface Props {

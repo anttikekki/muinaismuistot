@@ -1,7 +1,7 @@
 import * as React from "react";
 import { MaanmittauslaitosLayer, MuseovirastoLayer } from "../../../../data";
 import { Panel } from "../../../component/Panel";
-import { getLayerIconURLs } from "../../../../util/FeatureParser";
+import { getLayerIconURLs } from "../../../../util/featureParser";
 
 interface LayerCheckboxProps {
   label: string;

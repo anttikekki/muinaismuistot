@@ -4,7 +4,7 @@ import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
 import { TimespanLabel } from "./TimespanLabel";
 import { MuseovirastoLink } from "./MuseovirastoLink";
-import { trim } from "../../../util/FeatureParser";
+import { trim } from "../../../util/featureParser";
 
 interface Props {
   isOpen: boolean;

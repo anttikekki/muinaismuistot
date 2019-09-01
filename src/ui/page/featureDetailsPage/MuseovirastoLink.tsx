@@ -3,7 +3,7 @@ import { ArgisFeature } from "../../../data";
 import {
   getFeatureRegisterURL,
   getFeatureRegisterName
-} from "../../../util/FeatureParser";
+} from "../../../util/featureParser";
 
 interface Props {
   feature: ArgisFeature;

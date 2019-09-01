@@ -1,6 +1,6 @@
 import * as React from "react";
 import { AhvenanmaaForminnenArgisFeature } from "../../../data";
-import { getFeatureRegisterURL } from "../../../util/FeatureParser";
+import { getFeatureRegisterURL } from "../../../util/featureParser";
 
 interface Props {
   feature: AhvenanmaaForminnenArgisFeature;

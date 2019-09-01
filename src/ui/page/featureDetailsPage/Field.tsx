@@ -1,5 +1,5 @@
 import * as React from "react";
-import { trim } from "../../../util/FeatureParser";
+import { trim } from "../../../util/featureParser";
 
 interface Props {
   label: string;

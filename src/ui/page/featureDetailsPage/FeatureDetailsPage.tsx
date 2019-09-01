@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ArgisFeature } from "../../../data";
 import { MuinaisjaannosPistePanel } from "./MuinaisjaannosPistePanel";
-import { getFeatureID } from "../../../util/FeatureParser";
+import { getFeatureID } from "../../../util/featureParser";
 import { MuinaisjaannosAluePanel } from "./MuinaisjaannosAluePanel";
 import { RKYPanel } from "./RKYPanel";
 import { MaailmanperintokohdePanel } from "./MaailmanperintokohdePanel";

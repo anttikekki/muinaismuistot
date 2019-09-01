@@ -6,7 +6,7 @@ import {
   getFeatureTypeName,
   getFeatureTypeIconURL,
   getFeatureLocation
-} from "../../../util/FeatureParser";
+} from "../../../util/featureParser";
 import { Page } from "../Page";
 import { createLocationHash } from "../../../util/URLHashHelper";
 
