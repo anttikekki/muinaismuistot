@@ -18,7 +18,7 @@ interface Props {
 const panelForFeature = (
   feature: ArgisFeature,
   onTogglePanelOpen: (id: string) => void,
-  openPanelId?: string
+  openPanelId: string
 ) => {
   const id = `${feature.layerName}-${getFeatureID(feature)}`;
   const isOpen = openPanelId === id;
@@ -54,9 +54,9 @@ export const FeatureDetailsPage: React.FC<Props> = ({
   hidePage,
   features
 }) => {
-  const [openPanelId, setOpenPanelId] = React.useState<string>(undefined);
+  const [openPanelId, setOpenPanelId] = React.useState("");
   const onTogglePanelOpen = (id: string) =>
-    setOpenPanelId(openPanelId === id ? undefined : id);
+    setOpenPanelId(openPanelId === id ? "" : id);
 
   return (
     <Page title="Valitut kohteet" visible={visible} hidePage={hidePage}>

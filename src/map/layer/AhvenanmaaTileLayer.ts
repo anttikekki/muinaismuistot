@@ -10,8 +10,8 @@ export type ShowLoadingAnimationFn = (show: boolean) => void;
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void;
 
 export default class AhvenanmaaTileLayer {
-  private source: TileArcGISRestSource;
-  private layer: TileLayer;
+  private source?: TileArcGISRestSource;
+  private layer?: TileLayer;
   private showLoadingAnimationFn: ShowLoadingAnimationFn;
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn;
 
@@ -65,7 +65,10 @@ export default class AhvenanmaaTileLayer {
     mapSize: Size,
     mapExtent: Extent
   ): Promise<ArgisIdentifyResult> => {
-    if (!containsCoordinate(this.layer.getExtent(), coordinate)) {
+    if (
+      !this.layer ||
+      !containsCoordinate(this.layer.getExtent(), coordinate)
+    ) {
       return Promise.resolve({ results: [] });
     }
 

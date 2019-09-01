@@ -17,12 +17,12 @@ interface Props {
   searchResultFeatures?: Array<ArgisFeature>;
 }
 
-const ResultRow: React.FC<{ feature?: ArgisFeature }> = ({ feature }) => {
+const ResultRow: React.FC<{ feature: ArgisFeature }> = ({ feature }) => {
   const nimi = getFeatureName(feature);
   const tyypinNimi = getFeatureTypeName(feature);
   const iconURL = getFeatureTypeIconURL(feature);
   const coordinates = getFeatureLocation(feature);
-  const locationHash = createLocationHash(coordinates);
+  const locationHash = coordinates && createLocationHash(coordinates);
 
   return (
     <a href={locationHash} className="list-group-item search-result-row">

@@ -12,12 +12,12 @@ export type OnLayersCreatedCallbackFn = (
 ) => void;
 
 export default class MaanmittauslaitosTileLayer {
-  private mmlMaastokarttaLayer: TileLayer;
-  private mmlTaustakarttaLayer: TileLayer;
-  private mmlOrtokuvaLayer: TileLayer;
-  private maastokarttaLayerSource: WMTSSource;
-  private taustakarttaLayerSource: WMTSSource;
-  private ortokuvaLayerSource: WMTSSource;
+  private mmlMaastokarttaLayer?: TileLayer;
+  private mmlTaustakarttaLayer?: TileLayer;
+  private mmlOrtokuvaLayer?: TileLayer;
+  private maastokarttaLayerSource?: WMTSSource;
+  private taustakarttaLayerSource?: WMTSSource;
+  private ortokuvaLayerSource?: WMTSSource;
   private showLoadingAnimationFn: ShowLoadingAnimationFn;
   private onLayersCreatedCallbackFn: OnLayersCreatedCallbackFn;
 
@@ -104,7 +104,14 @@ export default class MaanmittauslaitosTileLayer {
     });
   };
 
-  public selectedMaanmittauslaitosLayerChanged = function(settings: Settings) {
+  public selectedMaanmittauslaitosLayerChanged = (settings: Settings) => {
+    if (
+      !this.mmlMaastokarttaLayer ||
+      !this.mmlTaustakarttaLayer ||
+      !this.mmlOrtokuvaLayer
+    ) {
+      return;
+    }
     const layer = settings.selectedMaanmittauslaitosLayer;
     this.mmlMaastokarttaLayer.setVisible(
       layer === MaanmittauslaitosLayer.Maastokartta

@@ -19,8 +19,8 @@ export type ShowLoadingAnimationFn = (show: boolean) => void;
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void;
 
 export default class MuseovirastoTileLayer {
-  private source: TileArcGISRestSource;
-  private layer: TileLayer;
+  private source?: TileArcGISRestSource;
+  private layer?: TileLayer;
   private settings: Settings;
   private showLoadingAnimationFn: ShowLoadingAnimationFn;
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn;

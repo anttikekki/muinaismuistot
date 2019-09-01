@@ -20,7 +20,8 @@ export const FeatureCollapsePanel: React.FC<Props> = ({
   feature,
   children
 }) => {
-  const permanentLink = createLocationHash(getFeatureLocation(feature));
+  const coordinates = getFeatureLocation(feature);
+  const permanentLink = coordinates && createLocationHash(coordinates);
   const onTitleClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {

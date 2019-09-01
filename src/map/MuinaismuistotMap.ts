@@ -24,7 +24,7 @@ export interface MapEventListener {
 export default class MuinaismuistotMap {
   private map: Map;
   private view: View;
-  private geolocation: Geolocation;
+  private geolocation?: Geolocation;
   private maanmittauslaitosTileLayer: MaanmittauslaitosTileLayer;
   private museovirastoTileLayer: MuseovirastoTileLayer;
   private ahvenanmaaTileLayer: AhvenanmaaTileLayer;
