@@ -1,874 +1,125 @@
 <!DOCTYPE html>
 <html lang="fi">
-    <head>
-        <meta charset="utf-8">
-        <meta content="IE=edge" http-equiv="X-UA-Compatible">
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-        <title>Muinaismuistot</title>
-        <meta name="description" content="Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa.">
-
-        <meta property="og:title" content="Muinaismuistot"/>
-        <meta property="og:url" content="http://muinaismuistot.info/"/>
-        <meta property="og:type" content="website"/>
-        <meta property="og:image" content="http://muinaismuistot.info/images/favicons/mstile-310x310.png"/>
-        <meta property="og:description" content="Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa."/>
-
-        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/favicons/apple-touch-icon-57x57.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicons/apple-touch-icon-114x114.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicons/apple-touch-icon-72x72.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicons/apple-touch-icon-144x144.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="60x60" href="images/favicons/apple-touch-icon-60x60.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/favicons/apple-touch-icon-120x120.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="images/favicons/apple-touch-icon-76x76.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="images/favicons/apple-touch-icon-152x152.png" />
-        <link rel="icon" type="image/png" href="images/favicons/favicon-196x196.png" sizes="196x196" />
-        <link rel="icon" type="image/png" href="images/favicons/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/png" href="images/favicons/favicon-32x32.png" sizes="32x32" />
-        <link rel="icon" type="image/png" href="images/favicons/favicon-16x16.png" sizes="16x16" />
-        <link rel="icon" type="image/png" href="images/favicons/favicon-128.png" sizes="128x128" />
-        <meta name="application-name" content="Muinaismuistot.info"/>
-        <meta name="msapplication-TileColor" content="#FFFFFF" />
-        <meta name="msapplication-TileImage" content="images/favicons/mstile-144x144.png" />
-        <meta name="msapplication-square70x70logo" content="images/favicons/mstile-70x70.png" />
-        <meta name="msapplication-square150x150logo" content="images/favicons/mstile-150x150.png" />
-        <meta name="msapplication-wide310x150logo" content="images/favicons/mstile-310x150.png" />
-        <meta name="msapplication-square310x310logo" content="images/favicons/mstile-310x310.png" />
-
-    </head>
-    <body>
-        <div id="map"></div>
-
-        <div id="loading-animation" class="hidden">
-            <img src="images/loading.gif">
-        </div>
-
-        <div id="map-button-zoom-in" class="map-button">
-            <button type="button" class="btn btn-primary" title="Lähennä">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            </button>
-        </div>
-
-        <div id="map-button-zoom-out" class="map-button">
-            <button type="button" class="btn btn-primary" title="Loitonna">
-                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-            </button>
-        </div>
-
-        <div id="map-button-position" class="map-button">
-            <button type="button" class="btn btn-primary" title="Keskitä kartta nykyiseen sijaintiisi">
-                <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
-            </button>
-        </div>
-
-        <div id="map-button-search" class="map-button">
-            <button type="button" class="btn btn-primary" title="Hae kohteita">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </button>
-        </div>
-
-        <div id="map-button-info" class="map-button">
-            <button type="button" class="btn btn-primary" title="Ohjeita sivuston käyttöön">
-                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-            </button>
-        </div>
-
-        <div id="map-button-settings" class="map-button">
-            <button type="button" class="btn btn-primary" title="Kartan asetukset">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-            </button>
-        </div>
-
-
-
-        <div id="searchPage" class="container page page-right-hidden">
-            <div class="row pageHeader">
-                <div class="col-xs-3">
-                    <button class="btn btn-primary btn-sm" id="hide-searchPage-button">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                    </button>
-                </div>
-                <div class="col-xs-9">
-                    <span class="pageHeaderText">Hae kohteita</span>
-                </div>
-            </div>
-
-            <div class="pageContent">
-                <form id="search-form">
-                    <div id="search-form-error" class="alert alert-danger hidden" role="alert">Hakusanan pitää olla vähintään kolme merkkiä</div>
-                    <div class="input-group">
-                        <input type="text" id="search-text" class="form-control" placeholder="Kirjoita nimi tai sen osa">
-                        <span class="input-group-btn">
-                            <button id="search-button" class="btn btn-default" type="button">Hae</button>
-                        </span>
-                    </div>
-                </form>
-
-                <h5 id="search-result-header" class="hidden">Hakutulokset<small id="search-result-count"></small></h5>
-
-                <div id="search-results-container">
-
-                </div>
-
-            </div> <!-- pageContent -->
-
-        </div>
-
-
-
-
-        <div id="infoPage" class="container page page-right-hidden">
-            <div class="row pageHeader">
-                <div class="col-xs-3">
-                    <button class="btn btn-primary btn-sm" id="hide-infoPage-button">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                    </button>
-                </div>
-                <div class="col-xs-9">
-                    <span class="pageHeaderText">Ohjeet</span>
-                </div>
-            </div>
-
-            <div class="pageContent">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">Tietoa sivustosta</div>
-                    <div class="panel-body">
-                        <p>Tällä sivustolla näet kartalla seuraavien rekisterien tiedot:</p>
-
-                        <h5>Museovirasto</h5>
-                        <ul>
-                            <li><a href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx">Muinaisjäännösrekisteri</a></li>
-                            <li><a href="https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_default.aspx">Rakennusperintörekisteri</a></li>
-                            <li><a href="https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa">Maailmanperintökohteet</a></li>
-                            <li><a href="http://www.rky.fi/">Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</a></li>
-                        </ul>
-
-                        <h5>Ahvenamaan paikallishallinto</h5>
-                        <ul>
-                            <li><a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">Muinaisjäännösrekisteri</a></li>
-                        </ul>
-
-                        <p>Kaikki näytettävät kohteet ovat avointa dataa ja haettu rekisterin ylläpitäjän tarjoamasta karttapalvelusta.</p>
-
-                        <p>Kohteista saa lisätietoikkunan näkyviin klikkaamalla kohdetta kartalla. Tästä näkymästä on myös linkki kohteen lisätietoihin rekisterin ylläpitäjän sivustolla. Kohteen otsikon vieressä olevasta kuvakkeesta (<span class="glyphicon glyphicon-link" aria-hidden="true"></span>) saa talteen pysyvän linkin kohteen sijaintiin kartalla.</p>
-
-                        <h5>Paikannus</h5>
-                        <p>Kartta keskitetään oletuksena nykyiseen sijaintiisi jos annat selaimelle luvan luovuttaa se tieto. Keskityksen nykyiseen sijaintiin voi suorittaa myös myöhemmin <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span> painikkeesta.</p>
-
-                        <h5>Haku</h5>
-                        <p>Museoviraston rekisterien kohteita pystyy hakemaan nimen perusteella hakunäkymässä (<span class="glyphicon glyphicon-search" aria-hidden="true"></span>). Hakutuloksen klikkaaminen keskittää kartan kohteeseen ja lisää siihen paikkamerkin <img src="images/map-pin-small.png"/>.</p>
-
-                        <h5>Asetukset</h5>
-                        <p>Pohjakartan voi vaihtaa taustakartan ja maastokartan välillä asetuksista (<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>). Samasta näkymästä voi piilottaa Museoviraston rekisterien kohteita tyypin ja muinaisjäännöksiä myös ajoituksen mukaan jos haluaa tarkastella esimerkiksi pelkästään muinaisjäännöksiä rautakaudelta.</p>
-
-                        <p>Palautetta sivustosta otetaan mielellään vastaan osoitteeseen <a href="mailto:antti.kekki@gmail.com">antti.kekki@gmail.com</a></p>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">Karttasymbolit</div>
-                    <div class="panel-body">
-                        <p>
-                            <h5>Museoviraston muinaisjäännösrekisteri</h5>
-
-                            <p>
-                                <img src="images/muinaisjaannos_kohde.png">
-                                <span>Kiinteä muinaisjäännös</span>
-                            </p>
-
-                            <p>
-                                <img src="images/muinaisjaannos_alue.png">
-                                <span>Kiinteä muinaisjäännös (alue)</span>
-                            </p>
-
-                            <p>
-                                <img src="images/muu_kulttuuriperintokohde_kohde.png">
-                                <span>Muu kulttuuriperintökohde</span>
-                            </p>
-
-                            <p>
-                                <img src="images/muu-kulttuuriperintokohde-alue.png">
-                                <span>Muu kulttuuriperintökohde (alue)</span>
-                            </p>
-                        </p>
-
-                        <br>
-
-                        <p>
-                            <h5>Ahvenanmaan muinaisjäännösrekisteri</h5>
-
-                            <img src="images/ahvenanmaa_muinaisjaannos.png">
-                            <span>Kohde</span>
-                        </p>
-
-                        <br>
-
-                        <p>
-                            <h5>Rakennusperintörekisteri</h5>
-
-                            <img src="images/rakennusperintorekisteri_rakennus.png">
-                            <span>Rakennus</span>
-
-                            <img src="images/rakennusperintorekisteri_alue.png">
-                            <span>Alue</span>
-                        </p>
-
-                        <br>
-
-                        <p>
-                            <h5>Maailmanperintökohteet</h5>
-
-                            <img src="images/maailmanperinto_piste.png">
-                            <span>Kohde</span>
-
-                            <img src="images/maailmanperinto_alue.png">
-                            <span>Alue</span>
-
-                            <img src="images/maailmanperinto_suoja_alue.png">
-                            <span>Suoja-alue</span>
-                        </p>
-
-                        <br>
-
-                        <p>
-                            <h5>Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</h5>
-
-                            <img src="images/rky_piste.png">
-                            <span>Kohde</span>
-
-                            <img src="images/rky_viiva.png">
-                            <span>Viiva (esim. tie)</span>
-
-                            <img src="images/rky_alue.png">
-                            <span>Alue</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">Tekninen toteutus</div>
-                    <div class="panel-body">
-
-                        <p>Museoviraston rekistereistä tietoa haetaan <a href="https://www.avoindata.fi/data/fi/dataset/museoviraston-kulttuuriymparistoaineistot-suojellut-kohteet-wms-palvelu">avoimen rajapinnan</a> kautta (<a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons CC By 4.0 -lisenssillä</a>).</p>
-
-                        <p>Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href="https://www.kartor.ax/datasets/fornminnen">avoimen rajapinnan</a> kautta (<a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons CC By 4.0 -lisenssillä</a>).</p>
-
-                        <p>Taustakarttana on <a href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17">Maanmittauslaitoksen</a> tausta-, ortokuva- ja peruskartta (<a href="https://www.maanmittauslaitos.fi/avoindata-lisenssi-cc40"> Creative Commons Nimeä 4.0 Kansainvälinen -lisenssillä</a>).</p>
-
-                        <p>Tämän sivuston tekninen toteutus on <a href="https://github.com/anttikekki/muinaismuistot">avointa lähdekoodia</a>, lisenssinä on <a href="https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE">MIT</a>.</p>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">Muutoshistoria</div>
-                    <div class="panel-body">
-
-                            <h5>Elokuu 2019</h5>
-                            <p>Siirrytty käyttämään Ahvenanmaan maakuntahallinnon uutta <a href="https://www.kartor.ax/datasets/fornminnen">kartor.ax</a> karttapalvelua. Samalla kohteiden haku alkoi toimimaan myös Ahvenanmaan kohteille.</p>
-
-                            <br>
-
-                            <h5>Heinäkuu 2019</h5>
-                            <p>Korjattu Museoviraston muinaisjäännösrekisterin pisteiden filtteröinti ajoituksen ja tyypin perusteella.</p>
-
-                            <br>
-
-                            <h5>Joulukuu 2018</h5>
-                            <p>Siirrytty käyttämään Maanmittauslaitoksen uutta <a href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17">karttapalvelua</a>, jonka myötä taustakartan ulkonäkö muuttui selkeämmäksi ja <a href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/tuotekuvaukset/ortokuva">Ortokuvat</a> saatiin käyttöön.</p>
-                            <p>Siirrytty käyttämään Museoviraston uuta <a href="https://www.avoindata.fi/data/fi/dataset/museoviraston-kulttuuriymparistoaineistot-suojellut-kohteet-wms-palvelu">karttapalvelua</a>, jonka myötä saatiin käyttöön ruskeat "Muu kulttuuriperintökohde" -pisteet kartalle.</p>
-
-                            <br>
-
-                            <h5>Marraskuu 2017</h5>
-                            <p>Lisätty kartalle Ahvenanmaan maakuntahallinnon <a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">muinaijäännösten rekisteri</a>.</p>
-
-                            <br>
-
-                            <h5>Lokakuu 2015</h5>
-                            <p>Ensimmäinen versio julkaistu.</p>
-                    </div>
-                </div>
-
-            </div> <!-- pageContent -->
-
-        </div>
-
-
-
-        <div id="settingsPage" class="container page page-right-hidden">
-            <div class="row pageHeader">
-                <div class="col-xs-3">
-                    <button class="btn btn-primary btn-sm" id="hide-settingsPage-button">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                    </button>
-                </div>
-                <div class="col-xs-9">
-                    <span class="pageHeaderText">Asetukset</span>
-                </div>
-            </div>
-
-            <div class="pageContent">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">Karttapohja</div>
-                    <div class="panel-body">
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default active">
-                                <input type="radio" id="map-selection-taustakartta" name="selectedMapLayer"autocomplete="off" value="taustakartta" checked> Taustakartta
-                            </label>
-
-                            <label class="btn btn-default">
-                                <input type="radio" id="map-selection-maastokartta" name="selectedMapLayer" autocomplete="off" value="maastokartta"> Maastokartta
-                            </label>
-
-                            <label class="btn btn-default">
-                                <input type="radio" id="map-selection-ortokuva" name="selectedMapLayer" autocomplete="off" value="ortokuva"> Ortokuva
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">Kartalla näkyvät kohteet</div>
-                    <div class="panel-body" id="muinaismuistot-visible-layer-selections">
-                        <h5>Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</h5>
-                        
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="4" id="settings-muinaismuistot-layer-4">
-                            <img src="images/rky_alue.png"/>
-                            Alueet
-                          </label>
-                        </div>
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="6" id="settings-muinaismuistot-layer-6">
-                            <img src="images/rky_viiva.png"/>
-                            Viivat (esim. tie)
-                          </label>
-                        </div>
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="5" id="settings-muinaismuistot-layer-5">
-                            <img src="images/rky_piste.png"/>
-                            Pisteet
-                          </label>
-                        </div>
-
-
-                        <h5>Maailmanperintökohteet</h5>
-
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="8" id="settings-muinaismuistot-layer-8">
-                            <img src="images/maailmanperinto_alue.png"/>
-                            Alueet
-                          </label>
-                        </div>
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="7" id="settings-muinaismuistot-layer-7">
-                            <img src="images/maailmanperinto_piste.png"/>
-                            Pisteet
-                          </label>
-                        </div>
-
-                    
-                        <h5>Rakennusperintörekisteri</h5>
-                    
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                        <label>
-                            <input type="checkbox" value="3" id="settings-muinaismuistot-layer-3">
-                            <img src="images/rakennusperintorekisteri_alue.png"/>
-                            Rakennetut alueet
-                        </label>
-                        </div>
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                        <label>
-                            <input type="checkbox" value="2" id="settings-muinaismuistot-layer-2">
-                            <img src="images/rakennusperintorekisteri_rakennus.png"/>
-                            Rakennukset
-                        </label>
-                        </div>
-
-                    
-                        <h5>Museoviraston muinaisjäännösrekisteri</h5>
-
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                        <label>
-                            <input type="checkbox" value="1" id="settings-muinaismuistot-layer-1">
-                            <img src="images/muinaisjaannos_alue.png"/>
-                            <img src="images/muu-kulttuuriperintokohde-alue.png"/>
-                            Alueet
-                        </label>
-                        </div>
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                        <label>
-                            <input type="checkbox" value="0" id="settings-muinaismuistot-layer-0">
-                            <img src="images/muinaisjaannos_kohde.png"/>
-                            <img src="images/muu_kulttuuriperintokohde_kohde.png"/>
-                            Pisteet
-                        </label>
-                        </div>
-                        
-
-                        <h5>Ahvenamaan muinaisjäännösrekisteri</h5>
-                        
-                        <div class="checkbox sub-layer-select-checkbox-container">
-                          <label>
-                            <input type="checkbox" value="" checked disabled>
-                            <img src="images/ahvenanmaa_muinaisjaannos.png"/>
-                            Kohde
-                          </label>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="panel panel-default" id="muinaisjaannos-filter-container">
-                    <div class="panel-heading">Rajoita näkyviä Museoviraston muinaisjäännöksiä</div>
-                    <div class="panel-body">
-
-                        <div class="well well-sm">Rajoitus toimii vain Museoviraston muijaisjäännöksien pisteille (<img src="images/muinaisjaannos_kohde.png"/> ja  <img src="images/muu_kulttuuriperintokohde_kohde.png"/>) mutta ei alueille (<img src="images/muinaisjaannos_alue.png"/> ja <img src="images/muu-kulttuuriperintokohde-alue.png"/>). 
-                        Rajaus ei valitettavasti toimi Ahvenanmaan muinaisjäännöksiin.</div>
-
-                        <form>
-
-                            <h5>Tyyppi</h5>
-
-                            <div id="muinaisjaannos-filter-tyyppi-container">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="ei määritelty"> ei määritelty
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="alusten hylyt"> alusten hylyt
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="asuinpaikat"> asuinpaikat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="hautapaikat"> hautapaikat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="kirkkorakenteet"> kirkkorakenteet
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="kivirakenteet"> kivirakenteet
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="kulkuväylät"> kulkuväylät
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="kultti- ja tarinapaikat"> kultti- ja tarinapaikat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="luonnonmuodostumat"> luonnonmuodostumat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="löytöpaikat"> löytöpaikat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="maarakenteet"> maarakenteet
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="muinaisjäännösryhmät"> muinaisjäännösryhmät
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="puolustusvarustukset"> puolustusvarustukset
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="puurakenteet"> puurakenteet
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="raaka-aineen hankintapaikat"> raaka-aineen hankintapaikat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="taide, muistomerkit"> taide, muistomerkit
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="tapahtumapaikat"> tapahtumapaikat
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="teollisuuskohteet"> teollisuuskohteet
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="työ- ja valmistuspaikat"> työ- ja valmistuspaikat
-                                    </label>
-                                </div>
-                            </div>
-
-                            <h5>Ajoitus</h5>
-
-                            <div id="muinaisjaannos-filter-ajoitus-container">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="moniperiodinen"> moniperiodinen
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="esihistoriallinen"> esihistoriallinen <span class="label label-default">8600 eaa - 1200 jaa.</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="kivikautinen"> kivikautinen <span class="label label-default">8600 – 1500 eaa.</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="varhaismetallikautinen"> varhaismetallikautinen <span class="label label-default">1500 eaa. - 200 jaa.</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="pronssikautinen"> pronssikautinen <span class="label label-default">1700 – 500 eaa.</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="rautakautinen"> rautakautinen <span class="label label-default">500 eaa. - 1200 jaa.</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="keskiaikainen"> keskiaikainen <span class="label label-default">1200 - 1570 jaa.</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="historiallinen"> historiallinen <span class="label label-default">1200 jaa. -</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="moderni"> moderni <span class="label label-default">1800 jaa -</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="ajoittamaton"> ajoittamaton
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="ei määritelty"> ei määritelty
-                                    </label>
-                                </div>
-                            </div>
-                        </form>
-
-                  </div>
-                </div> <!-- panel -->
-
-            </div> <!-- pageContent -->
-
-        </div>
-
-
-
-        <div id="detailsPage" class="container page page-right-hidden">
-            <div class="pageHeader">
-                <button class="btn btn-primary btn-sm" id="hide-detailsPage-button">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Sulje
-                </button>
-            </div>
-
-            <div class="pageContent">
-
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                  <div class="panel panel-default" id="muinaisjaannos-collapse-container">
-                    <div class="panel-heading" role="tab" id="muinaisjaannos-heading">
-                      <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-section="muinaisjaannos" data-parent="#accordion" href="#muinaisjaannos-collapse" aria-expanded="true" aria-controls="muinaisjaannos-collapse">
-                          <span id="muinaisjaannos-details-icon"></span>
-                          <span id="muinaisjaannos-heading-name">Kiinteä muinaisjäännös</span>
-                        </a>
-                        <a id="muinaisjaannos-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
-                      </h4>
-                    </div>
-                    <div id="muinaisjaannos-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="muinaisjaannos-heading">
-                      <div class="panel-body">
-                        <form>
-                            <div class="form-group">
-                                <label>Kohdenimi</label>
-                                <p id="muinaisjaannos-Kohdenimi"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Kunta</label>
-                                <p id="muinaisjaannos-Kunta"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Ajoitus</label>
-                                <p>
-                                  <span id="muinaisjaannos-Ajoitus"></span>
-                                  <span class="label label-default" id="muinaisjaannos-Ajoitus-aikajanne"></span>
-                                </p>
-                            </div>
-                            <div class="form-group">
-                                <label>Tyyppi</label>
-                                <p id="muinaisjaannos-Tyyppi"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Alatyyppi</label>
-                                <p id="muinaisjaannos-Alatyyppi"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Laji</label>
-                                <p id="muinaisjaannos-Laji"></p>
-                            </div>
-
-                            <p>
-                                Lisää tietoa kohteesta Museoviraston <a href="" target="_blank" id="muinaisjaannos-muinaisjaannosarekisteri-link">Muinaisjäännösrekisteristä</a>.
-                            </p>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="panel panel-default" id="muinaisjaannosalue-collapse-container">
-                    <div class="panel-heading" role="tab" id="muinaisjaannosalue-heading">
-                      <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-section="muinaisjaannosalue" data-parent="#accordion" href="#muinaisjaannosalue-collapse" aria-expanded="false" aria-controls="muinaisjaannosalue-collapse">
-                          <span id="muinaisjaannosalue-details-icon"></span>
-                          <span id="muinaisjaannosalue-heading-name">Muinaisjäännösalue</span>
-                        </a>
-                        <a id="muinaisjaannosalue-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
-                      </h4>
-                    </div>
-                    <div id="muinaisjaannosalue-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="muinaisjaannosalue-heading">
-                      <div class="panel-body">
-                        <form>
-                            <div class="form-group">
-                                <label>Kohdenimi</label>
-                                <p id="muinaisjaannosalue-Kohdenimi"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Kunta</label>
-                                <p id="muinaisjaannosalue-Kunta"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Laji</label>
-                                <p id="muinaisjaannosalue-Laji"></p>
-                            </div>
-
-                            <p>
-                                Lisää tietoa kohteesta Museoviraston <a href="" target="_blank" id="muinaisjaannosalue-muinaisjaannosarekisteri-link">Muinaisjäännösrekisteristä</a>.
-                            </p>
-                        </form>
-                      </div>
-                    </div>
-                </div>
-                <div class="panel panel-default" id="rky-collapse-container">
-                    <div class="panel-heading" role="tab" id="rky-heading">
-                      <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-section="rky" data-parent="#accordion" href="#rky-collapse" aria-expanded="false" aria-controls="rky-collapse">
-                          <span id="rky-details-icon"></span>
-                          <span>Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</span>
-                        </a>
-                        <a id="rky-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
-                      </h4>
-                    </div>
-                    <div id="rky-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="rky-heading">
-                      <div class="panel-body">
-                        <form>
-                            <div class="form-group">
-                                <label>Kohdenimi</label>
-                                <p id="rky-Kohdenimi"></p>
-                            </div>
-                            <div class="form-group" id="rky-Nimi-container">
-                                <label>Nimi</label>
-                                <p id="rky-Nimi"></p>
-                            </div>
-
-                            <p>
-                                Lisää tietoa kohteesta <a href="" target="_blank" id="rky-link">rky.fi rekisteristä</a>.
-                            </p>
-                        </form>
-                      </div>
-                    </div>
-                </div>
-                <div class="panel panel-default" id="maailmanperinto-collapse-container">
-                    <div class="panel-heading" role="tab" id="maailmanperinto-heading">
-                      <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-section="maailmanperinto" data-parent="#accordion" href="#maailmanperinto-collapse" aria-expanded="false" aria-controls="maailmanperinto-collapse">
-                          <span id="maailmanperinto-details-icon"></span>
-                          <span>Maailmanperintökohde</span>
-                        </a>
-                        <a id="maailmanperinto-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
-                      </h4>
-                    </div>
-                    <div id="maailmanperinto-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="maailmanperinto-heading">
-                      <div class="panel-body">
-                        <form>
-                            <div class="form-group">
-                                <label>Kohdenimi</label>
-                                <p id="maailmanperinto-Kohdenimi"></p>
-                            </div>
-
-                            <p>
-                                Lisää tietoa kohteesta <a href="" target="_blank" id="maailmanperinto-link">Museoviraston sivuilta</a>.
-                            </p>
-                        </form>
-                      </div>
-                    </div>
-                </div>
-                <div class="panel panel-default" id="rakennusperintorekisteriAlue-collapse-container">
-                    <div class="panel-heading" role="tab" id="rakennusperintorekisteriAlue-heading">
-                      <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-section="rakennusperintorekisteriAlue" data-parent="#accordion" href="#rakennusperintorekisteriAlue-collapse" aria-expanded="false" aria-controls="rakennusperintorekisteriAlue-collapse">
-                          <img src="images/rakennusperintorekisteri_alue.png">
-                          <span>Rakennusperintörekisterin alue</span>
-                        </a>
-                        <a id="rakennusperintorekisteriAlue-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
-                      </h4>
-                    </div>
-                    <div id="rakennusperintorekisteriAlue-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="rakennusperintorekisteriAlue-heading">
-                      <div class="panel-body">
-                        <form>
-                            <div class="form-group">
-                                <label>Kohdenimi</label>
-                                <p id="rakennusperintorekisteriAlue-Kohdenimi"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Kunta</label>
-                                <p id="rakennusperintorekisteriAlue-Kunta"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Suojeluryhmä</label>
-                                <p id="rakennusperintorekisteriAlue-Suojeluryhmä"></p>
-                            </div>
-
-                            <p>
-                                Lisää tietoa kohteesta Museoviraston <a href="" target="_blank" id="rakennusperintorekisteriAlue-link">rakennusperintörekisteristä</a>.
-                            </p>
-                        </form>
-                      </div>
-                    </div>
-                </div>
-                <div class="panel panel-default" id="rakennusperintorekisteriRakennus-collapse-container">
-                    <div class="panel-heading" role="tab" id="rakennusperintorekisteriRakennus-heading">
-                      <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-section="rakennusperintorekisteriRakennus" data-parent="#accordion" href="#rakennusperintorekisteriRakennus-collapse" aria-expanded="false" aria-controls="rakennusperintorekisteriRakennus-collapse">
-                          <img src="images/rakennusperintorekisteri_rakennus.png">
-                          <span>Rakennusperintörekisterin rakennus</span>
-                        </a>
-                        <a id="rakennusperintorekisteriRakennus-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
-                      </h4>
-                    </div>
-                    <div id="rakennusperintorekisteriRakennus-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="rakennusperintorekisteriRakennus-heading">
-                      <div class="panel-body">
-                        <form>
-                            <div class="form-group">
-                                <label>Kohdenimi</label>
-                                <p id="rakennusperintorekisteriRakennus-Kohdenimi"></p>
-                            </div>
-                            <div class="form-group">
-                                    <label>Rakennusnimi</label>
-                                    <p id="rakennusperintorekisteriRakennus-Rakennusnimi"></p>
-                                </div>
-                            <div class="form-group">
-                                <label>Kunta</label>
-                                <p id="rakennusperintorekisteriRakennus-Kunta"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Suojeluryhmä</label>
-                                <p id="rakennusperintorekisteriRakennus-Suojeluryhmä"></p>
-                            </div>
-
-                            <p>
-                                Lisää tietoa kohteesta Museoviraston <a href="" target="_blank" id="rakennusperintorekisteriRakennus-link">rakennusperintörekisteristä</a>.
-                            </p>
-                        </form>
-                      </div>
-                    </div>
-                </div>
-                <div class="panel panel-default" id="ahvenamaaMuinaismuisto-collapse-container">
-                    <div class="panel-heading" role="tab" id="ahvenamaaMuinaismuisto-heading">
-                      <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-section="ahvenamaaMuinaismuisto" data-parent="#accordion" href="#ahvenamaaMuinaismuisto-collapse" aria-expanded="false" aria-controls="ahvenamaaMuinaismuisto-collapse">
-                          <img src="images/ahvenanmaa_muinaisjaannos.png">
-                          <span>Ahvenanmaan muinaisjäännös</span>
-                        </a>
-                        <a id="ahvenamaaMuinaismuisto-permanent-link" class="pull-right" href=""><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
-                      </h4>
-                    </div>
-                    <div id="ahvenamaaMuinaismuisto-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="ahvenamaaMuinaismuisto-heading">
-                      <div class="panel-body">
-                        <form>
-                            <div class="form-group" id="ahvenamaaMuinaismuisto-Nimi-container">
-                                <label>Nimi</label>
-                                <p id="ahvenamaaMuinaismuisto-Nimi"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Kunta</label>
-                                <p id="ahvenamaaMuinaismuisto-Kunta"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Kylä</label>
-                                <p id="ahvenamaaMuinaismuisto-Kyla"></p>
-                            </div>
-                            <div class="form-group" id="ahvenamaaMuinaismuisto-Kuvaus-container">
-                                <label>Kuvaus</label>
-                                <p id="ahvenamaaMuinaismuisto-Kuvaus"></p>
-                            </div>
-                            <div class="form-group" id="ahvenamaaMuinaismuisto-Sijainti-container">
-                                <label>Sijainti</label>
-                                <p id="ahvenamaaMuinaismuisto-Sijainti"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Tunniste</label>
-                                <p id="ahvenamaaMuinaismuisto-Tunniste"></p>
-                            </div>
-
-                            <p>
-                                Lisää tietoa kohteesta löytyy <a href="" target="_blank" id="ahvenamaaMuinaismuisto-pdf-link">kuntakohtaisesta Pdf-tiedostosta</a>, josta voit etsiä kohteen tunnisteella <span class="label label-default" id="ahvenamaaMuinaismuisto-pdf-link-Tunniste"></span>.
-                            </p>
-                        </form>
-                      </div>
-                    </div>
-                </div>
-
-            </div> <!-- pageContent -->
-
-        </div>
-
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, user-scalable=no, width=device-width"
+    />
+    <title>Muinaismuistot</title>
+    <meta
+      name="description"
+      content="Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa."
+    />
+
+    <meta property="og:title" content="Muinaismuistot" />
+    <meta property="og:url" content="http://muinaismuistot.info/" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="http://muinaismuistot.info/images/favicons/mstile-310x310.png"
+    />
+    <meta
+      property="og:description"
+      content="Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa."
+    />
+
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="57x57"
+      href="images/favicons/apple-touch-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="114x114"
+      href="images/favicons/apple-touch-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="72x72"
+      href="images/favicons/apple-touch-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="144x144"
+      href="images/favicons/apple-touch-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="60x60"
+      href="images/favicons/apple-touch-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="120x120"
+      href="images/favicons/apple-touch-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="76x76"
+      href="images/favicons/apple-touch-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="152x152"
+      href="images/favicons/apple-touch-icon-152x152.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="images/favicons/favicon-196x196.png"
+      sizes="196x196"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="images/favicons/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="images/favicons/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="images/favicons/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="images/favicons/favicon-128.png"
+      sizes="128x128"
+    />
+    <meta name="application-name" content="Muinaismuistot.info" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta
+      name="msapplication-TileImage"
+      content="images/favicons/mstile-144x144.png"
+    />
+    <meta
+      name="msapplication-square70x70logo"
+      content="images/favicons/mstile-70x70.png"
+    />
+    <meta
+      name="msapplication-square150x150logo"
+      content="images/favicons/mstile-150x150.png"
+    />
+    <meta
+      name="msapplication-wide310x150logo"
+      content="images/favicons/mstile-310x150.png"
+    />
+    <meta
+      name="msapplication-square310x310logo"
+      content="images/favicons/mstile-310x310.png"
+    />
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="ui"></div>
+  </body>
 </html>

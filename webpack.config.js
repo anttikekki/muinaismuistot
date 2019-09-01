@@ -1,10 +1,13 @@
 const webpack = require("webpack");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: "./src/js/index.js",
+  entry: "./src/index.ts",
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"]
+  },
   output: {
     path: __dirname + "/dist",
     filename: "[name]-[hash].js"
@@ -12,9 +15,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        use: [
+          {
+            loader: "ts-loader"
+          }
+        ]
       },
       {
         test: /\.css$/,
@@ -27,10 +34,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(["dist"], {
-      verbose: true,
-      dry: false
-    }),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "src/index.ejs",
       filename: "index.html",
