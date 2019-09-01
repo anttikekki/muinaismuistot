@@ -1,4 +1,6 @@
 import "core-js/stable";
+import "whatwg-fetch";
+
 import MuinaismuistotMap from "./map/MuinaismuistotMap";
 import MuinaismuistotUI from "./ui/MuinaismuistotUI";
 import { parseCoordinatesFromURL } from "./util/URLHashHelper";
