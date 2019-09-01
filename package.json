@@ -21,6 +21,7 @@
     "proj4": "2.5.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",
+    "tslib": "1.10.0",
     "whatwg-fetch": "3.0.0"
   },
   "devDependencies": {
