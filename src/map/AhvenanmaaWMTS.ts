@@ -1,10 +1,10 @@
-import $ from "jquery";
 import TileLayer from "ol/layer/Tile";
 import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest";
 import { containsCoordinate, Extent } from "ol/extent";
 import { Coordinate } from "ol/coordinate";
 import { TileSourceEvent } from "ol/source/Tile";
 import { Size } from "ol/size";
+import { ArgisIdentifyResult, ArgisFindResult } from "../data";
 
 export type ShowLoadingAnimationFn = (show: boolean) => void;
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void;
@@ -64,43 +64,50 @@ export default class AhvenanmaaWMTS {
     coordinate: Coordinate,
     mapSize: Size,
     mapExtent: Extent
-  ) => {
+  ): Promise<ArgisIdentifyResult> => {
     if (!containsCoordinate(this.layer.getExtent(), coordinate)) {
-      // Returns resolved Promise with data that mimicks JQuery Ajax response
-      return $.Deferred().resolveWith(null, [{ results: [] }, {}]);
+      return Promise.resolve({ results: [] });
     }
 
-    var queryoptions = {
+    const urlParams = new URLSearchParams({
       geometry: coordinate.join(","),
       geometryType: "esriGeometryPoint",
-      tolerance: 10,
+      tolerance: "10",
       imageDisplay: mapSize.join(",") + ",96",
       mapExtent: mapExtent.join(","),
       layers: "visible:1",
       f: "json",
       returnGeometry: "true"
-    };
+    });
 
-    return $.getJSON(
-      "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/identify",
-      queryoptions
+    const url = new URL(
+      "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/identify"
+    );
+    url.search = String(urlParams);
+
+    return fetch(String(url)).then(
+      response => response.json() as Promise<ArgisIdentifyResult>
     );
   };
 
-  public findFeatures = (searchText: string) => {
-    var queryoptions = {
+  public findFeatures = (searchText: string): Promise<ArgisFindResult> => {
+    const urlParams = new URLSearchParams({
       searchText: searchText,
-      contains: true,
+      contains: "true",
       searchFields: "Namn , Beskrivning, Topografi",
       layers: "1",
       f: "json",
       returnGeometry: "true",
       returnZ: "false"
-    };
+    });
 
-    return $.getJSON(
-      "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/find",
-      queryoptions
+    const url = new URL(
+      "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/find"
+    );
+    url.search = String(urlParams);
+
+    return fetch(String(url)).then(
+      response => response.json() as Promise<ArgisFindResult>
     );
   };
 }

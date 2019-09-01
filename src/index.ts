@@ -1,5 +1,4 @@
 import "core-js/stable";
-import $ from "jquery";
 import MuinaismuistotMap from "./map/MuinaismuistotMap";
 import MuinaismuistotUI from "./ui/MuinaismuistotUI";
 import { parseCoordinatesFromURL } from "./util/URLHashHelper";
@@ -86,6 +85,4 @@ export default class Muinaismuistot {
   };
 }
 
-$(document).ready(() => {
-  new Muinaismuistot();
-});
+new Muinaismuistot();

@@ -1,4 +1,3 @@
-import $ from "jquery";
 import TileLayer from "ol/layer/Tile";
 import WMTSCapabilities from "ol/format/WMTSCapabilities";
 import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS";
@@ -33,13 +32,13 @@ export default class MaanmittauslaitosWMTS {
   }
 
   private loadMMLWmtsCapabilitiesAndAddLayers = (settings: Settings) => {
-    $.ajax({
-      url:
-        "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml",
-      success: (response: string) => {
-        this.addWmtsLayers(response, settings);
-      }
-    });
+    fetch(
+      "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml"
+    )
+      .then(response => response.text())
+      .then(WMTSCapabilitiesXml =>
+        this.addWmtsLayers(WMTSCapabilitiesXml, settings)
+      );
   };
 
   private addWmtsLayers = (WMTSCapabilitiesXml: string, settings: Settings) => {

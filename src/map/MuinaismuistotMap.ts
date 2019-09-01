@@ -1,5 +1,4 @@
 import "ol/ol.css";
-import $ from "jquery";
 import proj4 from "proj4";
 import Map from "ol/Map";
 import View from "ol/View";
@@ -11,7 +10,7 @@ import MaanmittauslaitosWMTS from "./MaanmittauslaitosWMTS";
 import AhvenanmaaWMTS from "./AhvenanmaaWMTS";
 import MuseovirastoArcGISWMS from "./MuseovirastoArcGISWMS";
 import CurrentPositionAndSelectedLocationMarkerLayer from "./CurrentPositionAndSelectedLocationMarkerLayer";
-import { ArgisFeature, MaanmittauslaitosLayer, Settings } from "../data";
+import { ArgisFeature, Settings } from "../data";
 import MapBrowserEvent from "ol/MapBrowserEvent";
 import { Coordinate } from "ol/coordinate";
 import { Extent } from "ol/extent";
@@ -112,22 +111,17 @@ export default class MuinaismuistotMap {
       this.map.getView().calculateExtent(this.map.getSize())
     );
 
-    $.when(ahvenanmaaQuery, museovirastoQuery).done(
-      this.resolveFeaturesFromHttpResponseAndFireEventlistener
+    Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
+      ([ahvenanmaaResult, museovirastoResult]) => {
+        this.eventListeners.showLoadingAnimation(false);
+        const allFeatures = ahvenanmaaResult.results.concat(
+          museovirastoResult.results
+        );
+        if (allFeatures.length > 0) {
+          this.eventListeners.featuresSelected(allFeatures);
+        }
+      }
     );
-  };
-
-  private resolveFeaturesFromHttpResponseAndFireEventlistener = (
-    ahvenanmaaResult: Array<{ results: Array<ArgisFeature> }>,
-    museovirastoResult: Array<{ results: Array<ArgisFeature> }>
-  ) => {
-    this.eventListeners.showLoadingAnimation(false);
-    var ahvennamaaFeatures = ahvenanmaaResult[0].results;
-    var museovirastoFeatures = museovirastoResult[0].results;
-    var allFeatures = ahvennamaaFeatures.concat(museovirastoFeatures);
-    if (allFeatures.length > 0) {
-      this.eventListeners.featuresSelected(allFeatures);
-    }
   };
 
   private initGeolocation = () => {
@@ -167,15 +161,12 @@ export default class MuinaismuistotMap {
     var ahvenanmaaQuery = this.ahvenanmaaWMTS.findFeatures(searchText);
     var museovirastoQuery = this.museovirastoArcGISWMS.findFeatures(searchText);
 
-    $.when(ahvenanmaaQuery, museovirastoQuery).done(
-      (
-        ahvenanmaaResult: Array<{ results: Array<ArgisFeature> }>,
-        museovirastoResult: Array<{ results: Array<ArgisFeature> }>
-      ) => {
+    Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
+      ([ahvenanmaaResult, museovirastoResult]) => {
         this.eventListeners.showLoadingAnimation(false);
-        var ahvennamaaFeatures = ahvenanmaaResult[0].results;
-        var museovirastoFeatures = museovirastoResult[0].results;
-        var allFeatures = ahvennamaaFeatures.concat(museovirastoFeatures);
+        var allFeatures = ahvenanmaaResult.results.concat(
+          museovirastoResult.results
+        );
         this.eventListeners.featureSearchReady(allFeatures);
       }
     );

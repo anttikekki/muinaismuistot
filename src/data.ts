@@ -350,3 +350,7 @@ export type ArgisFeature =
 export interface ArgisIdentifyResult {
   results: Array<ArgisFeature>;
 }
+
+export interface ArgisFindResult {
+  results: Array<ArgisFeature>;
+}

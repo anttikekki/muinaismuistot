@@ -18,7 +18,6 @@ interface Props {
 }
 
 const ResultRow: React.FC<{ feature?: ArgisFeature }> = ({ feature }) => {
-  const id = `${feature.layerName}-${getFeatureID(feature)}`;
   const nimi = getFeatureName(feature);
   const tyypinNimi = getFeatureTypeName(feature);
   const iconURL = getFeatureTypeIconURL(feature);
@@ -26,11 +25,7 @@ const ResultRow: React.FC<{ feature?: ArgisFeature }> = ({ feature }) => {
   const locationHash = createLocationHash(coordinates);
 
   return (
-    <a
-      key={id}
-      href={locationHash}
-      className="list-group-item search-result-row"
-    >
+    <a href={locationHash} className="list-group-item search-result-row">
       <h4 className="list-group-item-heading">{nimi}</h4>
       <p className="list-group-item-text">
         <img src={iconURL} />
@@ -55,7 +50,7 @@ const Results: React.FC<{ features?: Array<ArgisFeature> }> = ({
 
       <div className="list-group">
         {features.map(f => (
-          <ResultRow feature={f} />
+          <ResultRow key={`${f.layerName}-${getFeatureID(f)}`} feature={f} />
         ))}
       </div>
     </>

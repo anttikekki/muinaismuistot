@@ -1,4 +1,3 @@
-import $ from "jquery";
 import TileLayer from "ol/layer/Tile";
 import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest";
 import { TileSourceEvent } from "ol/source/Tile";
@@ -11,7 +10,9 @@ import {
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus,
-  MuseovirastoLayerId
+  MuseovirastoLayerId,
+  ArgisIdentifyResult,
+  ArgisFindResult
 } from "../data";
 
 export type ShowLoadingAnimationFn = (show: boolean) => void;
@@ -156,11 +157,11 @@ export default class MuseovirastoArcGISWMS {
     coordinate: Coordinate,
     mapSize: Size,
     mapExtent: Extent
-  ) => {
-    var queryoptions = {
+  ): Promise<ArgisIdentifyResult> => {
+    const urlParams = new URLSearchParams({
       geometry: coordinate.join(","),
       geometryType: "esriGeometryPoint",
-      tolerance: 10,
+      tolerance: "10",
       imageDisplay: mapSize.join(",") + ",96",
       mapExtent: mapExtent.join(","),
       layers:
@@ -168,12 +169,17 @@ export default class MuseovirastoArcGISWMS {
         this.toLayerIds(this.settings.selectedMuseovirastoLayers).join(","),
       f: "json",
       returnGeometry: "true"
-    };
+    });
 
-    return $.getJSON("https://d3t293l8mhxosa.cloudfront.net?", queryoptions);
+    const url = new URL("https://d3t293l8mhxosa.cloudfront.net");
+    url.search = String(urlParams);
+
+    return fetch(String(url)).then(
+      response => response.json() as Promise<ArgisIdentifyResult>
+    );
   };
 
-  public findFeatures = (searchText: string) => {
+  public findFeatures = (searchText: string): Promise<ArgisFindResult> => {
     let selectedLayers = this.settings.selectedMuseovirastoLayers;
 
     //Muinaismustot areas always has same name as main point so do not search those
@@ -183,16 +189,21 @@ export default class MuseovirastoArcGISWMS {
       );
     }
 
-    var queryoptions = {
+    const urlParams = new URLSearchParams({
       searchText: searchText,
-      contains: true,
+      contains: "true",
       searchFields: "Kohdenimi, Nimi, KOHDENIMI",
       layers: this.toLayerIds(selectedLayers).join(","),
       f: "json",
       returnGeometry: "true",
       returnZ: "false"
-    };
+    });
 
-    return $.getJSON("https://d3239kmqvyt2db.cloudfront.net?", queryoptions);
+    const url = new URL("https://d3239kmqvyt2db.cloudfront.net");
+    url.search = String(urlParams);
+
+    return fetch(String(url)).then(
+      response => response.json() as Promise<ArgisFindResult>
+    );
   };
 }
