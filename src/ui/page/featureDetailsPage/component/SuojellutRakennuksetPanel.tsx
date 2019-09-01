@@ -1,18 +1,22 @@
 import * as React from "react";
-import { MuinaisjaannosPisteArgisFeature } from "../../../data";
+import {
+  SuojellutRakennuksetPisteArgisFeature,
+  SuojellutRakennuksetAlueArgisFeature,
+  MuseovirastoLayer
+} from "../../../../data";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
-import { TimespanLabel } from "./TimespanLabel";
 import { MuseovirastoLink } from "./MuseovirastoLink";
-import { trim } from "../../../util/featureParser";
 
 interface Props {
   isOpen: boolean;
   onToggleOpen: () => void;
-  feature: MuinaisjaannosPisteArgisFeature;
+  feature:
+    | SuojellutRakennuksetPisteArgisFeature
+    | SuojellutRakennuksetAlueArgisFeature;
 }
 
-export const MuinaisjaannosPistePanel: React.FC<Props> = ({
+export const SuojellutRakennuksetPanel: React.FC<Props> = ({
   isOpen,
   onToggleOpen,
   feature
@@ -25,16 +29,11 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
     >
       <form>
         <Field label="Kohdenimi" value={feature.attributes.kohdenimi} />
+        {feature.layerName == MuseovirastoLayer.Suojellut_rakennukset_piste && (
+          <Field label="Rakennusnimi" value={feature.attributes.rakennusnimi} />
+        )}
         <Field label="Kunta" value={feature.attributes.kunta} />
-        <Field label="Ajoitus">
-          <p>
-            <span>{trim(feature.attributes.ajoitus)}</span>
-            <TimespanLabel feature={feature} />
-          </p>
-        </Field>
-        <Field label="Tyyppi" value={feature.attributes.tyyppi} />
-        <Field label="Alatyyppi" value={feature.attributes.alatyyppi} />
-        <Field label="Laji" value={feature.attributes.laji} />
+        <Field label="Suojeluryhmä" value={feature.attributes.suojeluryhmä} />
         <MuseovirastoLink feature={feature} />
       </form>
     </FeatureCollapsePanel>

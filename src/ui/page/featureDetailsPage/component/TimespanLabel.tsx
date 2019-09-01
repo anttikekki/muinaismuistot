@@ -1,6 +1,6 @@
 import * as React from "react";
-import { MuinaisjaannosPisteArgisFeature } from "../../../data";
-import { getTimespanInYearsForTimingName } from "../../../util/featureParser";
+import { MuinaisjaannosPisteArgisFeature } from "../../../../data";
+import { getTimespanInYearsForTimingName } from "../../../../util/featureParser";
 
 interface Props {
   feature: MuinaisjaannosPisteArgisFeature;

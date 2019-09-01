@@ -3,8 +3,10 @@ import {
   RKYPisteArgisFeature,
   RKYAlueArgisFeature,
   RKYViivaArgisFeature,
-  MuseovirastoLayer
-} from "../../../data";
+  MuseovirastoLayer,
+  MaailmanperintoPisteArgisFeature,
+  MaailmanperintoAlueArgisFeature
+} from "../../../../data";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
 import { MuseovirastoLink } from "./MuseovirastoLink";
@@ -12,10 +14,10 @@ import { MuseovirastoLink } from "./MuseovirastoLink";
 interface Props {
   isOpen: boolean;
   onToggleOpen: () => void;
-  feature: RKYPisteArgisFeature | RKYAlueArgisFeature | RKYViivaArgisFeature;
+  feature: MaailmanperintoPisteArgisFeature | MaailmanperintoAlueArgisFeature;
 }
 
-export const RKYPanel: React.FC<Props> = ({
+export const MaailmanperintokohdePanel: React.FC<Props> = ({
   isOpen,
   onToggleOpen,
   feature
@@ -27,10 +29,7 @@ export const RKYPanel: React.FC<Props> = ({
       feature={feature}
     >
       <form>
-        <Field label="Kohdenimi" value={feature.attributes.kohdenimi} />
-        {feature.layerName === MuseovirastoLayer.RKY_alue && (
-          <Field label="Nimi" value={feature.attributes.nimi} />
-        )}
+        <Field label="Kohdenimi" value={feature.attributes.Nimi} />
         <MuseovirastoLink feature={feature} />
       </form>
     </FeatureCollapsePanel>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AhvenanmaaForminnenArgisFeature } from "../../../data";
+import { AhvenanmaaForminnenArgisFeature } from "../../../../data";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
 import { AhvenanmaaRegeringenLink } from "./AhvenanmaaRegeringenLink";

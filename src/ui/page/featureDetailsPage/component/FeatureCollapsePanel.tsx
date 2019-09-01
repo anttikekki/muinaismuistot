@@ -1,12 +1,12 @@
 import * as React from "react";
-import { ArgisFeature } from "../../../data";
+import { ArgisFeature } from "../../../../data";
 import {
   getFeatureTypeIconURL,
   getFeatureTypeName,
   getFeatureLocation,
   getFeatureName
-} from "../../../util/featureParser";
-import { createLocationHash } from "../../../util/URLHashHelper";
+} from "../../../../util/featureParser";
+import { createLocationHash } from "../../../../util/URLHashHelper";
 
 interface Props {
   isOpen: boolean;

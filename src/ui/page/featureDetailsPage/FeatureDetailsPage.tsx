@@ -1,12 +1,12 @@
 import * as React from "react";
 import { ArgisFeature } from "../../../data";
-import { MuinaisjaannosPistePanel } from "./MuinaisjaannosPistePanel";
+import { MuinaisjaannosPistePanel } from "./component/MuinaisjaannosPistePanel";
 import { getFeatureID } from "../../../util/featureParser";
-import { MuinaisjaannosAluePanel } from "./MuinaisjaannosAluePanel";
-import { RKYPanel } from "./RKYPanel";
-import { MaailmanperintokohdePanel } from "./MaailmanperintokohdePanel";
-import { SuojellutRakennuksetPanel } from "./SuojellutRakennuksetPanel";
-import { AhvenanmaaForminnenPanel } from "./AhvenanmaaForminnenPanel";
+import { MuinaisjaannosAluePanel } from "./component/MuinaisjaannosAluePanel";
+import { RKYPanel } from "./component/RKYPanel";
+import { MaailmanperintokohdePanel } from "./component/MaailmanperintokohdePanel";
+import { SuojellutRakennuksetPanel } from "./component/SuojellutRakennuksetPanel";
+import { AhvenanmaaForminnenPanel } from "./component/AhvenanmaaForminnenPanel";
 import { Page } from "../Page";
 
 interface Props {

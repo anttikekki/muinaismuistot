@@ -1,5 +1,10 @@
 import * as React from "react";
-import { MuinaisjaannosAlueArgisFeature } from "../../../data";
+import {
+  RKYPisteArgisFeature,
+  RKYAlueArgisFeature,
+  RKYViivaArgisFeature,
+  MuseovirastoLayer
+} from "../../../../data";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
 import { MuseovirastoLink } from "./MuseovirastoLink";
@@ -7,10 +12,10 @@ import { MuseovirastoLink } from "./MuseovirastoLink";
 interface Props {
   isOpen: boolean;
   onToggleOpen: () => void;
-  feature: MuinaisjaannosAlueArgisFeature;
+  feature: RKYPisteArgisFeature | RKYAlueArgisFeature | RKYViivaArgisFeature;
 }
 
-export const MuinaisjaannosAluePanel: React.FC<Props> = ({
+export const RKYPanel: React.FC<Props> = ({
   isOpen,
   onToggleOpen,
   feature
@@ -23,8 +28,9 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
     >
       <form>
         <Field label="Kohdenimi" value={feature.attributes.kohdenimi} />
-        <Field label="Kunta" value={feature.attributes.kunta} />
-        <Field label="Laji" value={feature.attributes.laji} />
+        {feature.layerName === MuseovirastoLayer.RKY_alue && (
+          <Field label="Nimi" value={feature.attributes.nimi} />
+        )}
         <MuseovirastoLink feature={feature} />
       </form>
     </FeatureCollapsePanel>
