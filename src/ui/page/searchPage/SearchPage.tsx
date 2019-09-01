@@ -10,14 +10,12 @@ import {
 import { Page } from "../Page";
 import { createLocationHash } from "../../../util/URLHashHelper";
 
-interface Props {
-  visible: boolean;
+interface ResultRowProps {
   hidePage: () => void;
-  searchFeatures: (searchText: string) => void;
-  searchResultFeatures?: Array<ArgisFeature>;
+  feature: ArgisFeature;
 }
 
-const ResultRow: React.FC<{ feature: ArgisFeature }> = ({ feature }) => {
+const ResultRow: React.FC<ResultRowProps> = ({ hidePage, feature }) => {
   const nimi = getFeatureName(feature);
   const tyypinNimi = getFeatureTypeName(feature);
   const iconURL = getFeatureTypeIconURL(feature);
@@ -25,7 +23,11 @@ const ResultRow: React.FC<{ feature: ArgisFeature }> = ({ feature }) => {
   const locationHash = coordinates && createLocationHash(coordinates);
 
   return (
-    <a href={locationHash} className="list-group-item search-result-row">
+    <a
+      href={locationHash}
+      className="list-group-item search-result-row"
+      onClick={hidePage}
+    >
       <h4 className="list-group-item-heading">{nimi}</h4>
       <p className="list-group-item-text">
         <img className="feature-icon" src={iconURL} />
@@ -35,9 +37,12 @@ const ResultRow: React.FC<{ feature: ArgisFeature }> = ({ feature }) => {
   );
 };
 
-const Results: React.FC<{ features?: Array<ArgisFeature> }> = ({
-  features
-}) => {
+interface ResultsProps {
+  hidePage: () => void;
+  features?: Array<ArgisFeature>;
+}
+
+const Results: React.FC<ResultsProps> = ({ hidePage, features }) => {
   if (!features) {
     return null;
   }
@@ -50,7 +55,11 @@ const Results: React.FC<{ features?: Array<ArgisFeature> }> = ({
 
       <div className="list-group">
         {features.map(f => (
-          <ResultRow key={`${f.layerName}-${getFeatureID(f)}`} feature={f} />
+          <ResultRow
+            key={`${f.layerName}-${getFeatureID(f)}`}
+            feature={f}
+            hidePage={hidePage}
+          />
         ))}
       </div>
     </>
@@ -64,6 +73,13 @@ const ValidationError: React.FC = () => {
     </div>
   );
 };
+
+interface Props {
+  visible: boolean;
+  hidePage: () => void;
+  searchFeatures: (searchText: string) => void;
+  searchResultFeatures?: Array<ArgisFeature>;
+}
 
 export const SearchPage: React.FC<Props> = ({
   visible,
@@ -109,7 +125,7 @@ export const SearchPage: React.FC<Props> = ({
         </div>
       </form>
 
-      <Results features={searchResultFeatures} />
+      <Results features={searchResultFeatures} hidePage={hidePage} />
     </Page>
   );
 };
