@@ -117,9 +117,7 @@ export default class MuinaismuistotMap {
         const allFeatures = ahvenanmaaResult.results.concat(
           museovirastoResult.results
         );
-        if (allFeatures.length > 0) {
-          this.eventListeners.featuresSelected(allFeatures);
-        }
+        this.eventListeners.featuresSelected(allFeatures);
       }
     );
   };

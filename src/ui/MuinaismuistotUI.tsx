@@ -4,7 +4,6 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {
   ArgisFeature,
-  MuseovirastoLayerId,
   Settings,
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
@@ -183,6 +182,9 @@ export default class MuinaismuistotUI {
   };
 
   public featuresSelected = (selectedFeatures: Array<ArgisFeature>) => {
+    if (selectedFeatures.length === 0) {
+      return;
+    }
     this.selectedFeatures = selectedFeatures;
     this.visiblePage = PageId.Details;
     this.renderUI();
@@ -191,11 +193,5 @@ export default class MuinaismuistotUI {
   public featureSearchReady = (features: Array<ArgisFeature>) => {
     this.searchResultFeatures = features;
     this.renderUI();
-  };
-
-  public visibleMuinaismuistotLayersChanged = (
-    selectedLayerIds: Array<MuseovirastoLayerId>
-  ) => {
-    //this.settingsPage.setVisibleMuinaismuistotLayers(selectedLayerIds);
   };
 }
