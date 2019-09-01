@@ -3,7 +3,6 @@
   "version": "1.2.4",
   "description": "Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa.",
   "scripts": {
-    "start": "http-server ./dist -p 8091 -c-1 -a localhost -o",
     "build:prod": "webpack --mode=production --progress",
     "build:dev": "webpack --mode=development --progress --devtool source-map",
     "dev": "webpack-dev-server --mode=development --port 8091 --progress --hot --colors --inline",
@@ -35,9 +34,7 @@
     "css-loader": "1.0.1",
     "file-loader": "2.0.0",
     "html-webpack-plugin": "3.2.0",
-    "http-server": "0.11.1",
     "jest": "23.6.0",
-    "prettier": "1.15.3",
     "style-loader": "0.23.1",
     "ts-loader": "6.0.4",
     "typescript": "3.5.3",
