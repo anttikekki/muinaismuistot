@@ -1,5 +1,5 @@
 const webpack = require("webpack");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
@@ -34,10 +34,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(["dist"], {
-      verbose: true,
-      dry: false
-    }),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "src/index.ejs",
       filename: "index.html",
