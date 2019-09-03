@@ -79,6 +79,7 @@ body,
 .pageContent {
   height: 90%;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .page-right-visible {
