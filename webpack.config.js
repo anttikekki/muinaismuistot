@@ -32,8 +32,12 @@ module.exports = {
         use: [{ loader: "style-loader" }, { loader: "css-loader" }]
       },
       {
-        test: /\.(woff2?|ttf|eot|svg)$/,
-        loader: "url-loader"
+        test: [/\.svg$/, /\.woff2?$/, /\.ttf$/, /\.eot$/],
+        loader: "file-loader",
+        options: {
+          name: "[name].[ext]",
+          outputPath: "fonts"
+        }
       }
     ]
   },
