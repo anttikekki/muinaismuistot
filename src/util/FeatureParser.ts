@@ -277,13 +277,11 @@ export const getFeatureLocation = (
 ): Coordinate | undefined => {
   switch (feature.geometryType) {
     case "esriGeometryPolygon":
-      const point = feature.geometry.rings[0][0];
-      return [point[0], point[1]];
+      return feature.geometry.rings[0][0];
     case "esriGeometryPoint":
       return [feature.geometry.x, feature.geometry.y];
     case "esriGeometryPolyline":
-      const point = feature.geometry.paths[0][0];
-      return [point[0], point[1]];
+      return feature.geometry.paths[0][0];
   }
 };
 
