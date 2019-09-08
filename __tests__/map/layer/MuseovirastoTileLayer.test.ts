@@ -1,11 +1,13 @@
-import MuseovirastoTileLayer from "../../../map/layer/MuseovirastoTileLayer";
+import MuseovirastoTileLayer from "../../../src/map/layer/MuseovirastoTileLayer";
 import {
   Settings,
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus
-} from "../../../data";
+} from "../../../src/data";
+
+jest.setTimeout(30000);
 
 const mapSize = [1680, 445];
 const mapExtent = [
@@ -53,7 +55,7 @@ describe("MuseovirastoTileLayer", () => {
 
       const result = await museovirasto.findFeatures("rainiola");
 
-      expect(result).toMatchInlineSnapshot();
+      expect(result).toMatchSnapshot();
     });
   });
 });

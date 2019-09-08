@@ -1,5 +1,5 @@
 import "core-js/stable";
-import "whatwg-fetch";
+import "cross-fetch/polyfill";
 
 import MuinaismuistotMap from "./map/MuinaismuistotMap";
 import MuinaismuistotUI from "./ui/MuinaismuistotUI";
@@ -63,7 +63,7 @@ export default class Muinaismuistot {
       }
     });
 
-    window.onhashchange = location => {
+    window.onhashchange = () => {
       this.setMapLocationFromURLHash();
     };
 
