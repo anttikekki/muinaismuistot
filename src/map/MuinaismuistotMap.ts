@@ -14,6 +14,7 @@ import { ArgisFeature, Settings } from "../data";
 import MapBrowserEvent from "ol/MapBrowserEvent";
 import { Coordinate } from "ol/coordinate";
 import { Extent } from "ol/extent";
+import { ObjectEvent } from "ol/Object";
 
 export interface MapEventListener {
   featuresSelected: (features: Array<ArgisFeature>) => void;
@@ -125,14 +126,21 @@ export default class MuinaismuistotMap {
   private initGeolocation = () => {
     this.geolocation = new Geolocation({
       projection: this.view.getProjection(),
-      tracking: true
+      tracking: true,
+      trackingOptions: {
+        enableHighAccuracy: true
+      }
     });
 
-    this.geolocation.once("change:position", this.geolocationChanged);
+    this.geolocation.once("change:position", this.centerToCurrentPositions);
+    this.geolocation.on("change:position", this.geolocationChanged);
   };
 
   private geolocationChanged = () => {
-    this.centerToCurrentPositions();
+    if (this.geolocation && this.geolocation.getPosition()) {
+      const position = this.geolocation.getPosition();
+      this.positionAndSelectedLocation.addCurrentPositionMarker(position);
+    }
   };
 
   private zoom = (zoomChange: number) => {
@@ -156,13 +164,15 @@ export default class MuinaismuistotMap {
 
   public searchFeatures = (searchText: string): void => {
     this.eventListeners.showLoadingAnimation(true);
-    var ahvenanmaaQuery = this.ahvenanmaaTileLayer.findFeatures(searchText);
-    var museovirastoQuery = this.museovirastoTileLayer.findFeatures(searchText);
+    const ahvenanmaaQuery = this.ahvenanmaaTileLayer.findFeatures(searchText);
+    const museovirastoQuery = this.museovirastoTileLayer.findFeatures(
+      searchText
+    );
 
     Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
       ([ahvenanmaaResult, museovirastoResult]) => {
         this.eventListeners.showLoadingAnimation(false);
-        var allFeatures = ahvenanmaaResult.results.concat(
+        const allFeatures = ahvenanmaaResult.results.concat(
           museovirastoResult.results
         );
         this.eventListeners.featureSearchReady(allFeatures);
@@ -182,9 +192,8 @@ export default class MuinaismuistotMap {
 
   public centerToCurrentPositions = () => {
     if (this.geolocation && this.geolocation.getPosition()) {
-      var position = this.geolocation.getPosition();
+      const position = this.geolocation.getPosition();
       this.view.setCenter(position);
-      this.positionAndSelectedLocation.addCurrentPositionMarker(position);
     } else {
       this.initGeolocation();
     }
