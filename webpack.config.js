@@ -33,13 +33,16 @@ module.exports = {
       }
     ]
   },
+  optimization: {
+    splitChunks: {
+      chunks: "all"
+    }
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "src/index.ejs",
-      filename: "index.html",
-      inject: true,
-      hash: true
+      filename: "index.html"
     }),
     new CopyWebpackPlugin([{ from: "src/images", to: "images" }])
   ]
