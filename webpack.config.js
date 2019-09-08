@@ -2,6 +2,10 @@ const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+
+const SHOW_BUNDLE_ANALYZER = process.env.SHOW_BUNDLE_ANALYZER !== undefined;
 
 module.exports = {
   entry: "./src/index.ts",
@@ -44,6 +48,7 @@ module.exports = {
       template: "src/index.ejs",
       filename: "index.html"
     }),
-    new CopyWebpackPlugin([{ from: "src/images", to: "images" }])
+    new CopyWebpackPlugin([{ from: "src/images", to: "images" }]),
+    ...(SHOW_BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : [])
   ]
 };

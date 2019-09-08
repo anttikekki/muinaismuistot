@@ -6,7 +6,8 @@
     "build:prod": "webpack --mode=production --progress",
     "build:dev": "webpack --mode=development --progress --devtool source-map",
     "dev": "webpack-dev-server --mode=development --port 8091 --progress --hot --colors --inline",
-    "test": "jest"
+    "test": "jest",
+    "profile-size": "NODE_ENV=production SHOW_BUNDLE_ANALYZER=true webpack --progress"
   },
   "author": "Antti Kekki",
   "license": "MIT",
@@ -42,6 +43,7 @@
     "typescript": "3.5.3",
     "url-loader": "2.1.0",
     "webpack": "4.39.3",
+    "webpack-bundle-analyzer": "3.4.1",
     "webpack-cli": "3.3.7",
     "webpack-dev-server": "3.8.0"
   },
