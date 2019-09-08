@@ -33,10 +33,10 @@ export default class CurrentPositionAndSelectedLocationMarkerLayer {
       return;
     }
 
-    var fill = new Fill({
+    const fill = new Fill({
       color: "rgba(0, 0, 255, 1.0)"
     });
-    var stroke = new Stroke({
+    const stroke = new Stroke({
       color: "rgba(255, 255, 255, 1.0)",
       width: 3
     });

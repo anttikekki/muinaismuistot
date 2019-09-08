@@ -45,7 +45,7 @@ export default class AhvenanmaaTileLayer {
         layers: "show:1"
       }
     };
-    var newSource = new TileArcGISRestSource(options);
+    const newSource = new TileArcGISRestSource(options);
 
     newSource.on("tileloadstart", (evt: TileSourceEvent) => {
       this.showLoadingAnimationFn(true);

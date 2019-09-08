@@ -47,7 +47,7 @@ export default class MuseovirastoTileLayer {
   };
 
   private createSource = () => {
-    var newSource = new TileArcGISRestSource({
+    const newSource = new TileArcGISRestSource({
       urls: ["https://d3u1wj9fwedfoy.cloudfront.net"],
       params: {
         layers: this.getSourceLayerSelectionSettings(),
@@ -115,7 +115,7 @@ export default class MuseovirastoTileLayer {
       selectedDatings.length > 0 &&
       selectedDatings.length != Object.values(MuinaisjaannosAjoitus).length
     ) {
-      var layerDefinition = selectedDatings
+      const layerDefinition = selectedDatings
         .sort()
         .map(ajoitus => "ajoitus LIKE '%" + ajoitus + "%'")
         .join(" OR ");

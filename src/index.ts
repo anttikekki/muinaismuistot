@@ -79,7 +79,7 @@ export default class Muinaismuistot {
   };
 
   private setMapLocationFromURLHash = () => {
-    var coordinates = parseCoordinatesFromURL();
+    const coordinates = parseCoordinatesFromURL();
     if (coordinates) {
       this.map.setMapLocation(coordinates);
       this.map.showSelectedLocationMarker(coordinates);

@@ -42,8 +42,8 @@ export default class MaanmittauslaitosTileLayer {
   };
 
   private addWmtsLayers = (WMTSCapabilitiesXml: string, settings: Settings) => {
-    var parser = new WMTSCapabilities();
-    var capabilities = parser.read(WMTSCapabilitiesXml);
+    const parser = new WMTSCapabilities();
+    const capabilities = parser.read(WMTSCapabilitiesXml);
 
     this.maastokarttaLayerSource = new WMTSSource(
       optionsFromCapabilities(capabilities, {

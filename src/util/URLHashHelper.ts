@@ -5,7 +5,7 @@ export const createLocationHash = (coordinates: Coordinate) => {
 };
 
 export const parseCoordinatesFromURL = (): Coordinate | null => {
-  var coordinateArray = window.location.hash
+  const coordinateArray = window.location.hash
     .replace("#", "")
     .replace("x=", "")
     .replace("y=", "")
