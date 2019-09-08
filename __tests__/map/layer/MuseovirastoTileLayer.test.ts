@@ -36,10 +36,10 @@ const createMuseovirastoTileLayer = () => {
 describe("MuseovirastoTileLayer", () => {
   describe(".identifyFeaturesAt", () => {
     it("fetch features by map coordinate from ArcGIS identify service", async () => {
-      const museovirasto = createMuseovirastoTileLayer();
+      const layer = createMuseovirastoTileLayer();
       const coordinate = [385509.6344703298, 6675069.324962223];
 
-      const result = await museovirasto.identifyFeaturesAt(
+      const result = await layer.identifyFeaturesAt(
         coordinate,
         mapSize,
         mapExtent
@@ -51,11 +51,21 @@ describe("MuseovirastoTileLayer", () => {
 
   describe(".findFeatures", () => {
     it("fetch features from ArcGIS find service with name", async () => {
-      const museovirasto = createMuseovirastoTileLayer();
+      const layer = createMuseovirastoTileLayer();
 
-      const result = await museovirasto.findFeatures("rainiola");
+      const result = await layer.findFeatures("rainiola");
 
       expect(result).toMatchSnapshot();
+    });
+  });
+
+  describe("getDataLatestUpdateDate", () => {
+    test("solves Museovirasto data latest update date", async () => {
+      const layer = createMuseovirastoTileLayer();
+
+      const result = await layer.getDataLatestUpdateDate();
+
+      expect(result).toMatchInlineSnapshot(`2019-09-07T01:15:00.000Z`);
     });
   });
 });

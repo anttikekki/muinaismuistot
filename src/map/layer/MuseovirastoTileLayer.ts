@@ -1,5 +1,5 @@
 import TileLayer from "ol/layer/Tile";
-import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest";
+import TileArcGISRestSource from "ol/source/TileArcGISRest";
 import { TileSourceEvent } from "ol/source/Tile";
 import { Coordinate } from "ol/coordinate";
 import { Size } from "ol/size";
@@ -205,5 +205,32 @@ export default class MuseovirastoTileLayer {
     return fetch(String(url)).then(
       response => response.json() as Promise<ArgisFindResult>
     );
+  };
+
+  // http://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml
+  // https://www.avoindata.fi/data/fi/dataset/museoviraston-paikkatietojen-tiedostolataus
+  public getDataLatestUpdateDate = (): Promise<Date> => {
+    return fetch("https://dkfgv6jxivsxz.cloudfront.net/MV_inspire_atom.xml")
+      .then(response => response.text())
+      .then(str => new DOMParser().parseFromString(str, "text/xml"))
+      .then(this.parseSuunnitteluaineistoUpdatedDate);
+  };
+
+  private parseSuunnitteluaineistoUpdatedDate = (
+    doc: Document
+  ): Promise<Date> => {
+    const date = doc
+      .evaluate(
+        "//id[text() = 'http://paikkatieto.nba.fi/aineistot/suunnitteluaineisto']/../updated/text()",
+        doc,
+        null,
+        0 // All elements
+      )
+      .iterateNext();
+
+    if (date && date.nodeValue) {
+      return Promise.resolve(new Date(date.nodeValue));
+    }
+    return Promise.reject(new Error("updated date not found"));
   };
 }
