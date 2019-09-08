@@ -90,12 +90,17 @@ body,
   right: 0px;
 }
 
-.page-right-hidden {
+.page-right-closing {
   -webkit-transition: right 0.5s ease;
   -moz-transition: right 0.5s ease;
   -o-transition: right 0.5s ease;
   transition: right 0.5s ease;
   right: -100%;
+}
+
+.page-right-hidden {
+  right: -100%;
+  width: 0px;
 }
 
 @media (min-width: 768px) {
@@ -109,7 +114,7 @@ body,
   .page {
     width: 400px;
   }
-  .page-right-hidden {
+  .page-right-closing {
     right: -400px;
   }
 }

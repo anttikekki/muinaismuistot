@@ -6,13 +6,13 @@ import {
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus
 } from "../../../data";
-import { Page } from "../Page";
+import { Page, PageVisibility } from "../Page";
 import { MMLMapLayerSelectionPanel } from "./component/MMLMapLayerSelectionPanel";
 import { FeatureLayerSelectionPanel } from "./component/FeatureLayerSelectionPanel";
 import { FeatureLayerFilterPanel } from "./component/FeatureLayerFilterPanel";
 
 interface Props {
-  visible: boolean;
+  visibility: PageVisibility;
   hidePage: () => void;
   settings: Settings;
   onSelectMaanmittauslaitosLayer: (layer: MaanmittauslaitosLayer) => void;
@@ -22,7 +22,7 @@ interface Props {
 }
 
 export const SettingsPage: React.FC<Props> = ({
-  visible,
+  visibility,
   hidePage,
   settings,
   onSelectMaanmittauslaitosLayer,
@@ -31,7 +31,7 @@ export const SettingsPage: React.FC<Props> = ({
   onSelectMuinaisjaannosDating
 }) => {
   return (
-    <Page title="Asetukset" visible={visible} hidePage={hidePage}>
+    <Page title="Asetukset" visibility={visibility} hidePage={hidePage}>
       <MMLMapLayerSelectionPanel
         selectedLayer={settings.selectedMaanmittauslaitosLayer}
         onSelectLayer={onSelectMaanmittauslaitosLayer}

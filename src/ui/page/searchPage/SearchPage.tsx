@@ -7,7 +7,7 @@ import {
   getFeatureTypeIconURL,
   getFeatureLocation
 } from "../../../util/featureParser";
-import { Page } from "../Page";
+import { Page, PageVisibility } from "../Page";
 import { createLocationHash } from "../../../util/URLHashHelper";
 
 interface ResultRowProps {
@@ -75,14 +75,14 @@ const ValidationError: React.FC = () => {
 };
 
 interface Props {
-  visible: boolean;
+  visibility: PageVisibility;
   hidePage: () => void;
   searchFeatures: (searchText: string) => void;
   searchResultFeatures?: Array<ArgisFeature>;
 }
 
 export const SearchPage: React.FC<Props> = ({
-  visible,
+  visibility,
   hidePage,
   searchFeatures,
   searchResultFeatures
@@ -103,7 +103,7 @@ export const SearchPage: React.FC<Props> = ({
   };
 
   return (
-    <Page title="Hae kohteita" visible={visible} hidePage={hidePage}>
+    <Page title="Hae kohteita" visibility={visibility} hidePage={hidePage}>
       <form
         className={showSearchTextError ? "has-error" : undefined}
         onSubmit={onSearchClick}

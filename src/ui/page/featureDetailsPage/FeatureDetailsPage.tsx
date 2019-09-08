@@ -7,10 +7,10 @@ import { RKYPanel } from "./component/RKYPanel";
 import { MaailmanperintokohdePanel } from "./component/MaailmanperintokohdePanel";
 import { SuojellutRakennuksetPanel } from "./component/SuojellutRakennuksetPanel";
 import { AhvenanmaaForminnenPanel } from "./component/AhvenanmaaForminnenPanel";
-import { Page } from "../Page";
+import { Page, PageVisibility } from "../Page";
 
 interface Props {
-  visible: boolean;
+  visibility: PageVisibility;
   hidePage: () => void;
   features?: Array<ArgisFeature>;
 }
@@ -50,7 +50,7 @@ const panelForFeature = (
 };
 
 export const FeatureDetailsPage: React.FC<Props> = ({
-  visible,
+  visibility,
   hidePage,
   features
 }) => {
@@ -59,7 +59,7 @@ export const FeatureDetailsPage: React.FC<Props> = ({
     setOpenPanelId(openPanelId === id ? "" : id);
 
   return (
-    <Page title="Valitut kohteet" visible={visible} hidePage={hidePage}>
+    <Page title="Valitut kohteet" visibility={visibility} hidePage={hidePage}>
       <div className="panel-group" role="tablist" aria-multiselectable="true" />
       {features &&
         features.map(feature =>

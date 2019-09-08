@@ -1,18 +1,22 @@
 import * as React from "react";
-import { Page } from "../Page";
+import { Page, PageVisibility } from "../Page";
 import { SiteInfoPanel } from "./component/SiteInfoPanel";
 import { MapSymbolPanel } from "./component/MapSymbolPanel";
 import { DataAndLicencesPanel } from "./component/DataAndLicencesPanel";
 import { VersionHistoryPanel } from "./component/VersionHistoryPanel";
 
 interface Props {
-  visible: boolean;
+  visibility: PageVisibility;
   hidePage: () => void;
 }
 
-export const InfoPage: React.FC<Props> = ({ visible, hidePage }) => {
+export const InfoPage: React.FC<Props> = ({ visibility, hidePage }) => {
   return (
-    <Page title="Lisätietoja sivustosta" visible={visible} hidePage={hidePage}>
+    <Page
+      title="Lisätietoja sivustosta"
+      visibility={visibility}
+      hidePage={hidePage}
+    >
       <SiteInfoPanel />
       <MapSymbolPanel />
       <DataAndLicencesPanel />

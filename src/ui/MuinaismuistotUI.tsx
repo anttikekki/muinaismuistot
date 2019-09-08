@@ -21,6 +21,7 @@ import { InfoPage } from "./page/infoPage/InfoPage";
 import { OpenSearchPageButton } from "./component/OpenSearchPageButton";
 import { SettingsPage } from "./page/settingsPage/SettingsPage";
 import { OpenSettingsPage } from "./component/OpenSettingsPage";
+import { PageVisibility } from "./page/Page";
 
 enum PageId {
   Search = "searchPage",
@@ -53,6 +54,7 @@ export default class MuinaismuistotUI {
   private visiblePage?: PageId;
   private selectedFeatures?: Array<ArgisFeature>;
   private searchResultFeatures?: Array<ArgisFeature>;
+  private pageClosingAnimationTimeoutID: Partial<Record<PageId, number>> = {};
   private loadingAnimationTimeoutID?: number;
   private loadingAnimationCounter = 0;
   private eventListeners: EventListeners;
@@ -120,22 +122,22 @@ export default class MuinaismuistotUI {
         <OpenSettingsPage onClick={() => this.showPage(PageId.Settings)} />
 
         <FeatureDetailsPage
-          visible={this.visiblePage === PageId.Details}
+          visibility={this.getPageVisibility(PageId.Details)}
           hidePage={this.hidePage}
           features={this.selectedFeatures}
         />
         <SearchPage
-          visible={this.visiblePage === PageId.Search}
+          visibility={this.getPageVisibility(PageId.Search)}
           hidePage={this.hidePage}
           searchFeatures={this.onSearchFeatures}
           searchResultFeatures={this.searchResultFeatures}
         />
         <InfoPage
-          visible={this.visiblePage === PageId.Info}
+          visibility={this.getPageVisibility(PageId.Info)}
           hidePage={this.hidePage}
         />
         <SettingsPage
-          visible={this.visiblePage === PageId.Settings}
+          visibility={this.getPageVisibility(PageId.Settings)}
           hidePage={this.hidePage}
           settings={this.settings}
           onSelectMaanmittauslaitosLayer={this.onSelectMaanmittauslaitosLayer}
@@ -148,14 +150,46 @@ export default class MuinaismuistotUI {
     );
   };
 
+  private getPageVisibility = (page: PageId): PageVisibility => {
+    if (this.visiblePage === page) {
+      return PageVisibility.Visible;
+    }
+    if (this.pageClosingAnimationTimeoutID[page]) {
+      return PageVisibility.Closing;
+    }
+    return PageVisibility.Hidden;
+  };
+
   private showPage = (page: PageId) => {
+    if (this.visiblePage === page) {
+      return;
+    }
+    this.abortClosingPage(page);
     this.visiblePage = page;
     this.renderUI();
   };
 
   private hidePage = () => {
+    if (this.visiblePage) {
+      this.startClosingPage(this.visiblePage);
+    }
+
     this.visiblePage = undefined;
     this.renderUI();
+  };
+
+  private startClosingPage = (page: PageId) => {
+    this.pageClosingAnimationTimeoutID[page] = window.setTimeout(() => {
+      this.pageClosingAnimationTimeoutID[page] = undefined;
+      this.renderUI();
+    }, 500);
+  };
+
+  private abortClosingPage = (page: PageId) => {
+    if (this.pageClosingAnimationTimeoutID[page]) {
+      window.clearTimeout(this.pageClosingAnimationTimeoutID[page]);
+      this.pageClosingAnimationTimeoutID[page] = undefined;
+    }
   };
 
   public showLoadingAnimation = (show: boolean) => {
