@@ -1,17 +1,10 @@
-import MuseovirastoTileLayer from "../../../src/map/layer/MuseovirastoTileLayer";
-import {
-  Settings,
-  MaanmittauslaitosLayer,
-  MuseovirastoLayer,
-  MuinaisjaannosTyyppi,
-  MuinaisjaannosAjoitus
-} from "../../../src/data";
 import AhvenanmaaTileLayer from "../../../src/map/layer/AhvenanmaaTileLayer";
+import { Extent } from "ol/extent";
 
 jest.setTimeout(30000);
 
 const mapSize = [1680, 445];
-const mapExtent = [
+const mapExtent: Extent = [
   365537.11965882167,
   6671977.1335827755,
   408118.1157036613,

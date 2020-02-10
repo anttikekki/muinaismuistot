@@ -6,11 +6,12 @@ import {
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus
 } from "../../../src/data";
+import { Extent } from "ol/extent";
 
 jest.setTimeout(30000);
 
 const mapSize = [1680, 445];
-const mapExtent = [
+const mapExtent: Extent = [
   365537.11965882167,
   6671977.1335827755,
   408118.1157036613,
@@ -65,7 +66,7 @@ describe("MuseovirastoTileLayer", () => {
 
       const result = await layer.getDataLatestUpdateDate();
 
-      expect(result).toMatchInlineSnapshot(`2019-09-07T01:15:00.000Z`);
+      expect(result).toMatchInlineSnapshot(`2020-02-10T02:15:01.000Z`);
     });
   });
 });

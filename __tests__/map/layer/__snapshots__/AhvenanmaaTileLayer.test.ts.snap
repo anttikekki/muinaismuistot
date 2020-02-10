@@ -10,7 +10,7 @@ Object {
         "Fornlämnings ID": "Su 12.23",
         "Kommun": "Sund",
         "Namn": "Null",
-        "OBJECTID": "1411",
+        "OBJECTID": "1413",
         "Registrering": "11.6.2013",
         "Shape": "Polygon",
         "Shape.STArea()": "62395,687561",
@@ -158,128 +158,12 @@ Object {
   "results": Array [
     Object {
       "attributes": Object {
-        "Beskrivning": "På backkrönet N om gravfältet finns lämningar efter sentida bebyggelse. 
-",
-        "By": "Kastelholm",
-        "Fornlämnings ID": "Su 12.10",
-        "Kommun": "Sund",
-        "Namn": "Null",
-        "OBJECTID": "1701",
-        "Registrering": "Null",
-        "Shape": "Polygon",
-        "Shape.STArea()": "4488,563416",
-        "Shape.STLength()": "259,003103",
-        "Status": "Fast fornlämning",
-        "Topografi": "Beläget 300 m VSV om Kastelholms slott, på strandsluttningen ner mot Slottssundet, i en igenväxande beteshage.",
-      },
-      "displayFieldName": "Fornlämnings ID",
-      "geometry": Object {
-        "rings": Array [
-          Array [
-            Array [
-              116963.14900000021,
-              6697375.9561,
-            ],
-            Array [
-              116928.11620000005,
-              6697372.6434,
-            ],
-            Array [
-              116919.72860000003,
-              6697373.015699999,
-            ],
-            Array [
-              116917.13690000027,
-              6697374.432600001,
-            ],
-            Array [
-              116915.52529999986,
-              6697377.1603,
-            ],
-            Array [
-              116914.44000000041,
-              6697387.5294,
-            ],
-            Array [
-              116921.14140000008,
-              6697400.2719,
-            ],
-            Array [
-              116920.1632000003,
-              6697427.4728,
-            ],
-            Array [
-              116920.4729000004,
-              6697429.6591,
-            ],
-            Array [
-              116921.40639999975,
-              6697431.085999999,
-            ],
-            Array [
-              116923.16949999984,
-              6697432.3477,
-            ],
-            Array [
-              116947.68250000011,
-              6697440.7936,
-            ],
-            Array [
-              116970.5016999999,
-              6697454.703299999,
-            ],
-            Array [
-              116972.96729999967,
-              6697455.117000001,
-            ],
-            Array [
-              116974.99340000004,
-              6697454.418400001,
-            ],
-            Array [
-              116977.57529999968,
-              6697452.2118,
-            ],
-            Array [
-              116987.89859999996,
-              6697437.1208999995,
-            ],
-            Array [
-              116990.6211000001,
-              6697426.4321,
-            ],
-            Array [
-              116988.78830000013,
-              6697412.5788,
-            ],
-            Array [
-              116979.7379999999,
-              6697386.6647,
-            ],
-            Array [
-              116963.14900000021,
-              6697375.9561,
-            ],
-          ],
-        ],
-        "spatialReference": Object {
-          "latestWkid": 3067,
-          "wkid": 102139,
-        },
-      },
-      "geometryType": "esriGeometryPolygon",
-      "layerId": 1,
-      "layerName": "Fornminnen",
-      "value": "Su 12.10",
-    },
-    Object {
-      "attributes": Object {
         "Beskrivning": "Null",
         "By": "Kastelholm",
         "Fornlämnings ID": "Su 12.27",
         "Kommun": "Sund",
         "Namn": "Null",
-        "OBJECTID": "1401",
+        "OBJECTID": "1402",
         "Registrering": "Null",
         "Shape": "Polygon",
         "Shape.STArea()": "2581,011841",
@@ -335,7 +219,7 @@ Object {
         "Fornlämnings ID": "Su 12.21",
         "Kommun": "Sund",
         "Namn": "Null",
-        "OBJECTID": "1407",
+        "OBJECTID": "1405",
         "Registrering": "11.6.2013",
         "Shape": "Polygon",
         "Shape.STArea()": "213,247925",
@@ -1810,7 +1694,7 @@ Object {
         "Fornlämnings ID": "Su 12.23",
         "Kommun": "Sund",
         "Namn": "Null",
-        "OBJECTID": "1411",
+        "OBJECTID": "1413",
         "Registrering": "11.6.2013",
         "Shape": "Polygon",
         "Shape.STArea()": "62395,687561",
@@ -1947,6 +1831,122 @@ Object {
       "layerId": 1,
       "layerName": "Fornminnen",
       "value": "Su 12.23",
+    },
+    Object {
+      "attributes": Object {
+        "Beskrivning": "På backkrönet N om gravfältet finns lämningar efter sentida bebyggelse. 
+",
+        "By": "Kastelholm",
+        "Fornlämnings ID": "Su 12.10",
+        "Kommun": "Sund",
+        "Namn": "Null",
+        "OBJECTID": "1701",
+        "Registrering": "Null",
+        "Shape": "Polygon",
+        "Shape.STArea()": "4488,563416",
+        "Shape.STLength()": "259,003103",
+        "Status": "Fast fornlämning",
+        "Topografi": "Beläget 300 m VSV om Kastelholms slott, på strandsluttningen ner mot Slottssundet, i en igenväxande beteshage.",
+      },
+      "displayFieldName": "Fornlämnings ID",
+      "geometry": Object {
+        "rings": Array [
+          Array [
+            Array [
+              116963.14900000021,
+              6697375.9561,
+            ],
+            Array [
+              116928.11620000005,
+              6697372.6434,
+            ],
+            Array [
+              116919.72860000003,
+              6697373.015699999,
+            ],
+            Array [
+              116917.13690000027,
+              6697374.432600001,
+            ],
+            Array [
+              116915.52529999986,
+              6697377.1603,
+            ],
+            Array [
+              116914.44000000041,
+              6697387.5294,
+            ],
+            Array [
+              116921.14140000008,
+              6697400.2719,
+            ],
+            Array [
+              116920.1632000003,
+              6697427.4728,
+            ],
+            Array [
+              116920.4729000004,
+              6697429.6591,
+            ],
+            Array [
+              116921.40639999975,
+              6697431.085999999,
+            ],
+            Array [
+              116923.16949999984,
+              6697432.3477,
+            ],
+            Array [
+              116947.68250000011,
+              6697440.7936,
+            ],
+            Array [
+              116970.5016999999,
+              6697454.703299999,
+            ],
+            Array [
+              116972.96729999967,
+              6697455.117000001,
+            ],
+            Array [
+              116974.99340000004,
+              6697454.418400001,
+            ],
+            Array [
+              116977.57529999968,
+              6697452.2118,
+            ],
+            Array [
+              116987.89859999996,
+              6697437.1208999995,
+            ],
+            Array [
+              116990.6211000001,
+              6697426.4321,
+            ],
+            Array [
+              116988.78830000013,
+              6697412.5788,
+            ],
+            Array [
+              116979.7379999999,
+              6697386.6647,
+            ],
+            Array [
+              116963.14900000021,
+              6697375.9561,
+            ],
+          ],
+        ],
+        "spatialReference": Object {
+          "latestWkid": 3067,
+          "wkid": 102139,
+        },
+      },
+      "geometryType": "esriGeometryPolygon",
+      "layerId": 1,
+      "layerName": "Fornminnen",
+      "value": "Su 12.10",
     },
   ],
 }
