@@ -10,16 +10,16 @@ import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer";
 import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer";
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer";
 import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositionAndSelectedLocationMarkerLayer";
-import { ArgisFeature, Settings } from "../data";
+import { ArgisFeature, Settings, DataLatestUpdateDates } from "../data";
 import MapBrowserEvent from "ol/MapBrowserEvent";
 import { Coordinate } from "ol/coordinate";
 import { Extent } from "ol/extent";
-import { ObjectEvent } from "ol/Object";
 
 export interface MapEventListener {
   featuresSelected: (features: Array<ArgisFeature>) => void;
   showLoadingAnimation: (show: boolean) => void;
   featureSearchReady: (features: Array<ArgisFeature>) => void;
+  dataLatestUpdateDatesReady: (dates: DataLatestUpdateDates) => void;
 }
 
 export default class MuinaismuistotMap {
@@ -211,5 +211,24 @@ export default class MuinaismuistotMap {
 
   public zoomOut = () => {
     this.zoom(-1);
+  };
+
+  public fetchDataLatestUpdateDates = () => {
+    Promise.all([
+      this.museovirastoTileLayer.getDataLatestUpdateDate(),
+      this.ahvenanmaaTileLayer.getDataLatestUpdateDate()
+    ])
+      .then(([ahvenanmaaResult, museovirastoResult]) => {
+        this.eventListeners.dataLatestUpdateDatesReady({
+          museovirasto: museovirastoResult,
+          ahvenanmaa: ahvenanmaaResult
+        });
+      })
+      .catch(() =>
+        this.eventListeners.dataLatestUpdateDatesReady({
+          museovirasto: null,
+          ahvenanmaa: null
+        })
+      );
   };
 }

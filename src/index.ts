@@ -9,7 +9,8 @@ import {
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus,
-  Settings
+  Settings,
+  DataLatestUpdateDates
 } from "./data";
 
 export default class Muinaismuistot {
@@ -33,6 +34,9 @@ export default class Muinaismuistot {
       },
       featureSearchReady: features => {
         this.ui.featureSearchReady(features);
+      },
+      dataLatestUpdateDatesReady: (dates: DataLatestUpdateDates) => {
+        this.ui.dataLatestUpdateDatesReady(dates);
       }
     });
 
@@ -60,6 +64,9 @@ export default class Muinaismuistot {
       },
       selectedMuinaisjaannosDatingsChanged: settings => {
         this.map.selectedMuinaisjaannosDatingsChanged(settings);
+      },
+      fetchDataLatestUpdateDates: () => {
+        this.map.fetchDataLatestUpdateDates();
       }
     });
 

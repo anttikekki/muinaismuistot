@@ -8,7 +8,8 @@ import {
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
   MuinaisjaannosAjoitus,
-  MuinaisjaannosTyyppi
+  MuinaisjaannosTyyppi,
+  DataLatestUpdateDates
 } from "../data";
 import { LoadingAnimation } from "./component/LoadingAnimation";
 import { ZoomInButton } from "./component/ZoomInButton";
@@ -47,6 +48,7 @@ export interface EventListeners {
   selectedFeatureLayersChanged: (settings: Settings) => void;
   selectedMuinaisjaannosTypesChanged: (settings: Settings) => void;
   selectedMuinaisjaannosDatingsChanged: (settings: Settings) => void;
+  fetchDataLatestUpdateDates: () => void;
 }
 
 export default class MuinaismuistotUI {
@@ -54,6 +56,7 @@ export default class MuinaismuistotUI {
   private visiblePage?: PageId;
   private selectedFeatures?: Array<ArgisFeature>;
   private searchResultFeatures?: Array<ArgisFeature>;
+  private dataLatestUpdateDates?: DataLatestUpdateDates;
   private pageClosingAnimationTimeoutID: Partial<Record<PageId, number>> = {};
   private loadingAnimationTimeoutID?: number;
   private loadingAnimationCounter = 0;
@@ -135,6 +138,7 @@ export default class MuinaismuistotUI {
         <InfoPage
           visibility={this.getPageVisibility(PageId.Info)}
           hidePage={this.hidePage}
+          dataLatestUpdateDates={this.dataLatestUpdateDates}
         />
         <SettingsPage
           visibility={this.getPageVisibility(PageId.Settings)}
@@ -166,6 +170,11 @@ export default class MuinaismuistotUI {
     }
     this.abortClosingPage(page);
     this.visiblePage = page;
+
+    if (page === PageId.Info) {
+      this.eventListeners.fetchDataLatestUpdateDates();
+    }
+
     this.renderUI();
   };
 
@@ -226,6 +235,11 @@ export default class MuinaismuistotUI {
 
   public featureSearchReady = (features: Array<ArgisFeature>) => {
     this.searchResultFeatures = features;
+    this.renderUI();
+  };
+
+  public dataLatestUpdateDatesReady = (dates: DataLatestUpdateDates) => {
+    this.dataLatestUpdateDates = dates;
     this.renderUI();
   };
 }

@@ -14,6 +14,7 @@ export default class AhvenanmaaTileLayer {
   private layer?: TileLayer;
   private showLoadingAnimationFn: ShowLoadingAnimationFn;
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn;
+  private dataLatestUpdateDate?: Date;
 
   public constructor(
     showLoadingAnimationFn: ShowLoadingAnimationFn,
@@ -112,5 +113,32 @@ export default class AhvenanmaaTileLayer {
     return fetch(String(url)).then(
       response => response.json() as Promise<ArgisFindResult>
     );
+  };
+
+  // URL is from https://www.kartor.ax/datasets/fornminnen
+  public getDataLatestUpdateDate = (): Promise<Date> => {
+    if (this.dataLatestUpdateDate) {
+      return Promise.resolve(this.dataLatestUpdateDate);
+    }
+
+    return fetch(
+      "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Afornminnen"
+    )
+      .then(response => response.json())
+      .then(this.parseUpdatedDate);
+  };
+
+  private parseUpdatedDate = (doc: any): Promise<Date> => {
+    const data = doc?.data;
+    const date =
+      Array.isArray(data) && data.length > 0
+        ? data[0]?.attributes?.modified
+        : undefined;
+
+    if (date) {
+      this.dataLatestUpdateDate = new Date(date);
+      return Promise.resolve(this.dataLatestUpdateDate);
+    }
+    return Promise.reject(new Error("Ahvenanmaan updated date not found"));
   };
 }

@@ -24,6 +24,7 @@ export default class MuseovirastoTileLayer {
   private settings: Settings;
   private showLoadingAnimationFn: ShowLoadingAnimationFn;
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn;
+  private dataLatestUpdateDate?: Date;
 
   public constructor(
     initialSettings: Settings,
@@ -210,6 +211,10 @@ export default class MuseovirastoTileLayer {
   // http://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml
   // https://www.avoindata.fi/data/fi/dataset/museoviraston-paikkatietojen-tiedostolataus
   public getDataLatestUpdateDate = (): Promise<Date> => {
+    if (this.dataLatestUpdateDate) {
+      return Promise.resolve(this.dataLatestUpdateDate);
+    }
+
     return fetch("https://dkfgv6jxivsxz.cloudfront.net/MV_inspire_atom.xml")
       .then(response => response.text())
       .then(str => new DOMParser().parseFromString(str, "text/xml"))
@@ -219,18 +224,22 @@ export default class MuseovirastoTileLayer {
   private parseSuunnitteluaineistoUpdatedDate = (
     doc: Document
   ): Promise<Date> => {
-    const date = doc
-      .evaluate(
-        "//id[text() = 'http://paikkatieto.nba.fi/aineistot/suunnitteluaineisto']/../updated/text()",
-        doc,
-        null,
-        0 // All elements
-      )
-      .iterateNext();
+    let date: string | null | undefined;
 
-    if (date && date.nodeValue) {
-      return Promise.resolve(new Date(date.nodeValue));
+    // IE 11 does not support Document.evaluate() XPath so we need to use query selectors
+    doc.querySelectorAll("entry").forEach((value: Element) => {
+      if (
+        value.querySelector("id")?.textContent ===
+        "http://paikkatieto.nba.fi/aineistot/suunnitteluaineisto"
+      ) {
+        date = value.querySelector("updated")?.textContent;
+      }
+    });
+
+    if (date) {
+      this.dataLatestUpdateDate = new Date(date);
+      return Promise.resolve(this.dataLatestUpdateDate);
     }
-    return Promise.reject(new Error("updated date not found"));
+    return Promise.reject(new Error("Museovirasto updated date not found"));
   };
 }

@@ -45,4 +45,14 @@ describe("AhvenanmaaTileLayer", () => {
       expect(result).toMatchSnapshot();
     });
   });
+
+  describe("getDataLatestUpdateDate", () => {
+    test("solves Museovirasto data latest update date", async () => {
+      const layer = createAhvenanmaaTileLayerTileLayer();
+
+      const result = await layer.getDataLatestUpdateDate();
+
+      expect(result).toMatchInlineSnapshot(`2019-12-13T04:08:58.883Z`);
+    });
+  });
 });

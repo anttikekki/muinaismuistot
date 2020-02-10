@@ -354,3 +354,8 @@ export interface ArgisIdentifyResult {
 export interface ArgisFindResult {
   results: Array<ArgisFeature>;
 }
+
+export interface DataLatestUpdateDates {
+  museovirasto: Date | null;
+  ahvenanmaa: Date | null;
+}
