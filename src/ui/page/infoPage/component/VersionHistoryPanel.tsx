@@ -4,6 +4,15 @@ import { Panel } from "../../../component/Panel";
 export const VersionHistoryPanel: React.FC = () => {
   return (
     <Panel title="Tietoa sivustosta">
+      <h5>Helmikuu 2020</h5>
+      <p>
+        Lisätty kartta-aineistojen viimeisin päivitysaika näkyviin "Lisätietoja
+        sivustosta" -sivulle.
+      </p>
+      <p>Paikannus päivittää nyt automaattisesti omaa sijaintia kartalla.</p>
+
+      <br />
+
       <h5>Elokuu 2019</h5>
       <p>
         Siirrytty käyttämään Ahvenanmaan maakuntahallinnon uutta{" "}
