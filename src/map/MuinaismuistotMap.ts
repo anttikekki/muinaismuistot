@@ -95,8 +95,7 @@ export default class MuinaismuistotMap {
       }
     );
 
-    // Fires also on double click but "singleclick" has 250 ms delay so it is too annoying to be used
-    this.map.on("click", this.loadFeaturesOnClickedCoordinate);
+    this.map.on("singleclick", this.loadFeaturesOnClickedCoordinate);
   }
 
   private loadFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
