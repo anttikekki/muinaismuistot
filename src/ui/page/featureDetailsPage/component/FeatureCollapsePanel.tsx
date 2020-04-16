@@ -1,23 +1,25 @@
 import * as React from "react";
-import { ArgisFeature } from "../../../../data";
+import { ArgisFeature } from "../../../../common/types";
 import {
   getFeatureTypeIconURL,
   getFeatureTypeName,
   getFeatureLocation,
   getFeatureName
-} from "../../../../util/featureParser";
-import { createLocationHash } from "../../../../util/URLHashHelper";
+} from "../../../../common/util/featureParser";
+import { createLocationHash } from "../../../../common/util/URLHashHelper";
 
 interface Props {
   isOpen: boolean;
   onToggleOpen: () => void;
   feature: ArgisFeature;
+  has3dModels?: boolean;
 }
 
 export const FeatureCollapsePanel: React.FC<Props> = ({
   isOpen,
   onToggleOpen,
   feature,
+  has3dModels,
   children
 }) => {
   const coordinates = getFeatureLocation(feature);
@@ -44,7 +46,7 @@ export const FeatureCollapsePanel: React.FC<Props> = ({
           <a role="button" href="" onClick={onTitleClick}>
             <img
               className="feature-icon"
-              src={getFeatureTypeIconURL(feature)}
+              src={getFeatureTypeIconURL(feature, has3dModels)}
             />
             <span>{getFeatureTypeName(feature)}</span>
           </a>

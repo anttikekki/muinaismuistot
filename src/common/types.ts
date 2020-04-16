@@ -358,4 +358,22 @@ export interface ArgisFindResult {
 export interface DataLatestUpdateDates {
   museovirasto: Date | null;
   ahvenanmaa: Date | null;
+  models: Date | null;
+}
+
+export interface Model {
+  registryItem: {
+    name: string;
+    id: number;
+    type: MuseovirastoLayer | AhvenanmaaLayer;
+    url: string;
+  };
+  model: {
+    name: string;
+    url: string;
+  };
+  author: string;
+  licence: string;
+  licenceUrl: string;
+  createdDate: string;
 }

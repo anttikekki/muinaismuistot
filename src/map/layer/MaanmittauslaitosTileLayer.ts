@@ -1,7 +1,7 @@
 import TileLayer from "ol/layer/Tile";
 import WMTSCapabilities from "ol/format/WMTSCapabilities";
 import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS";
-import { MaanmittauslaitosLayer, Settings } from "../../data";
+import { MaanmittauslaitosLayer, Settings } from "../../common/types";
 import { TileSourceEvent } from "ol/source/Tile";
 
 export type ShowLoadingAnimationFn = (show: boolean) => void;

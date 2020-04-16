@@ -112,10 +112,28 @@ body,
 
 @media (min-width: 992px) {
   .page {
-    width: 400px;
+    width: 500px;
   }
   .page-right-closing {
-    right: -400px;
+    right: -500px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page {
+    width: 600px;
+  }
+  .page-right-closing {
+    right: -600px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .page {
+    width: 700px;
+  }
+  .page-right-closing {
+    right: -700px;
   }
 }
 

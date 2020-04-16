@@ -87,14 +87,6 @@ export const MapSymbolPanel: React.FC = () => {
           <img className="feature-icon" src="images/maailmanperinto_alue.png" />
           <span>Alue</span>
         </p>
-
-        <p>
-          <img
-            className="feature-icon"
-            src="images/maailmanperinto_suoja_alue.png"
-          />
-          <span>Suoja-alue</span>
-        </p>
       </div>
 
       <br />
@@ -115,6 +107,23 @@ export const MapSymbolPanel: React.FC = () => {
         <p>
           <img className="feature-icon" src="images/rky_alue.png" />
           <span>Alue</span>
+        </p>
+      </div>
+
+      <br />
+
+      <div>
+        <h5>
+          3D-mallit (
+          <a href="./3d/" target="_blank">
+            lisätietoa
+          </a>
+          )
+        </h5>
+
+        <p>
+          <img className="feature-icon" src="images/3d_malli.png" />
+          <span>Kohde sisältää 3D-malleja</span>
         </p>
       </div>
     </Panel>

@@ -52,6 +52,20 @@ export const SiteInfoPanel: React.FC = () => {
         talteen pysyvän linkin kohteen sijaintiin kartalla.
       </p>
 
+      <h5>3D-mallit</h5>
+      <p>
+        Joillekin kohteille on saataville myös 3D-malleja{" "}
+        <a href="./3d/" target="_blank">
+          tietokannasta
+        </a>
+        , joka listaa harrastajien sekä virallisen toimijoiden (museot,
+        Museovirasto, Ahvenanmaan paikallioshallinto) tekemiä 3D-mallinnuksia{" "}
+        <a href="https://sketchfab.com" target="_blank">
+          Sketchfab
+        </a>{" "}
+        -palvelusta.
+      </p>
+
       <h5>Paikannus</h5>
       <p>
         Kartta keskitetään oletuksena nykyiseen sijaintiisi jos annat selaimelle

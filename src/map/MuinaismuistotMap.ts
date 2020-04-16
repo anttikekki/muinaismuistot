@@ -10,13 +10,24 @@ import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer";
 import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer";
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer";
 import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositionAndSelectedLocationMarkerLayer";
-import { ArgisFeature, Settings, DataLatestUpdateDates } from "../data";
+import {
+  ArgisFeature,
+  Settings,
+  DataLatestUpdateDates,
+  Model
+} from "../common/types";
 import MapBrowserEvent from "ol/MapBrowserEvent";
 import { Coordinate } from "ol/coordinate";
 import { Extent } from "ol/extent";
+import ModelsLayer from "./layer/ModelsLayer";
+import Layer from "ol/layer/Layer";
+import Source from "ol/source/Source";
 
 export interface MapEventListener {
-  featuresSelected: (features: Array<ArgisFeature>) => void;
+  featuresSelected: (
+    features: Array<ArgisFeature>,
+    models: Array<Model>
+  ) => void;
   showLoadingAnimation: (show: boolean) => void;
   featureSearchReady: (features: Array<ArgisFeature>) => void;
   dataLatestUpdateDatesReady: (dates: DataLatestUpdateDates) => void;
@@ -30,6 +41,7 @@ export default class MuinaismuistotMap {
   private museovirastoTileLayer: MuseovirastoTileLayer;
   private ahvenanmaaTileLayer: AhvenanmaaTileLayer;
   private positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer;
+  private modelsLayer: ModelsLayer;
   private eventListeners: MapEventListener;
 
   public constructor(
@@ -95,6 +107,10 @@ export default class MuinaismuistotMap {
       }
     );
 
+    this.modelsLayer = new ModelsLayer(createdLayer => {
+      this.map.getLayers().insertAt(6, createdLayer);
+    });
+
     this.map.on("singleclick", this.loadFeaturesOnClickedCoordinate);
   }
 
@@ -105,11 +121,20 @@ export default class MuinaismuistotMap {
       this.map.getSize(),
       this.map.getView().calculateExtent(this.map.getSize())
     );
+
     const museovirastoQuery = this.museovirastoTileLayer.identifyFeaturesAt(
       e.coordinate,
       this.map.getSize(),
       this.map.getView().calculateExtent(this.map.getSize())
     );
+
+    const modelsResult: Array<Model> = this.map
+      .getFeaturesAtPixel(e.pixel, {
+        layerFilter: (layer: Layer<Source>) =>
+          layer === this.modelsLayer.getLayer(),
+        hitTolerance: 10
+      })
+      .map(feature => feature.getProperties() as Model);
 
     Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
       ([ahvenanmaaResult, museovirastoResult]) => {
@@ -117,7 +142,7 @@ export default class MuinaismuistotMap {
         const allFeatures = ahvenanmaaResult.results.concat(
           museovirastoResult.results
         );
-        this.eventListeners.featuresSelected(allFeatures);
+        this.eventListeners.featuresSelected(allFeatures, modelsResult);
       }
     );
   };
@@ -215,18 +240,21 @@ export default class MuinaismuistotMap {
   public fetchDataLatestUpdateDates = () => {
     Promise.all([
       this.museovirastoTileLayer.getDataLatestUpdateDate(),
-      this.ahvenanmaaTileLayer.getDataLatestUpdateDate()
+      this.ahvenanmaaTileLayer.getDataLatestUpdateDate(),
+      this.modelsLayer.getDataLatestUpdateDate()
     ])
-      .then(([ahvenanmaaResult, museovirastoResult]) => {
+      .then(([ahvenanmaaResult, museovirastoResult, modelsResult]) => {
         this.eventListeners.dataLatestUpdateDatesReady({
           museovirasto: museovirastoResult,
-          ahvenanmaa: ahvenanmaaResult
+          ahvenanmaa: ahvenanmaaResult,
+          models: modelsResult
         });
       })
       .catch(() =>
         this.eventListeners.dataLatestUpdateDatesReady({
           museovirasto: null,
-          ahvenanmaa: null
+          ahvenanmaa: null,
+          models: null
         })
       );
   };

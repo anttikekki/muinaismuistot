@@ -1,27 +1,34 @@
 import * as React from "react";
-import { MuinaisjaannosPisteArgisFeature } from "../../../../data";
+import {
+  MuinaisjaannosPisteArgisFeature,
+  Model
+} from "../../../../common/types";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
 import { TimespanLabel } from "./TimespanLabel";
 import { MuseovirastoLink } from "./MuseovirastoLink";
-import { trim } from "../../../../util/featureParser";
+import { trim } from "../../../../common/util/featureParser";
+import { EmbeddedModels } from "./EmbeddedModels";
 
 interface Props {
   isOpen: boolean;
   onToggleOpen: () => void;
   feature: MuinaisjaannosPisteArgisFeature;
+  models?: Array<Model>;
 }
 
 export const MuinaisjaannosPistePanel: React.FC<Props> = ({
   isOpen,
   onToggleOpen,
-  feature
+  feature,
+  models = []
 }) => {
   return (
     <FeatureCollapsePanel
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
       feature={feature}
+      has3dModels={models.length > 0}
     >
       <form>
         <Field label="Kohdenimi" value={feature.attributes.kohdenimi} />
@@ -36,6 +43,12 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         <Field label="Alatyyppi" value={feature.attributes.alatyyppi} />
         <Field label="Laji" value={feature.attributes.laji} />
         <MuseovirastoLink feature={feature} />
+        {isOpen && (
+          <>
+            <br />
+            <EmbeddedModels models={models} />
+          </>
+        )}
       </form>
     </FeatureCollapsePanel>
   );

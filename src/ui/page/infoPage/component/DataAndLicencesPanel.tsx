@@ -42,6 +42,13 @@ export const DataAndLicencesPanel: React.FC = () => {
       </p>
 
       <p>
+        3D-mallit ovat avoimesta <a href="./3d/">tietokannasta</a>, joka listaa
+        harrastajien sekä virallisen toimijoiden (museot, Museovirasto,
+        Ahvenanmaan paikallioshallinto) tekemiä 3D-mallinnuksia. Mallien
+        lisenssit on listattu tietokannassa mallikohtaisesti.
+      </p>
+
+      <p>
         Tämän sivuston tekninen toteutus on{" "}
         <a href="https://github.com/anttikekki/muinaismuistot">
           avointa lähdekoodia

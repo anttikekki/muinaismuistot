@@ -13,7 +13,7 @@ import {
   MuseovirastoLayerId,
   ArgisIdentifyResult,
   ArgisFindResult
-} from "../../data";
+} from "../../common/types";
 
 export type ShowLoadingAnimationFn = (show: boolean) => void;
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void;

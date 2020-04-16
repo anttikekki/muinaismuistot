@@ -9,8 +9,9 @@ import {
   MuseovirastoLayer,
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi,
-  DataLatestUpdateDates
-} from "../data";
+  DataLatestUpdateDates,
+  Model
+} from "../common/types";
 import { LoadingAnimation } from "./component/LoadingAnimation";
 import { ZoomInButton } from "./component/ZoomInButton";
 import { ZoomOutButton } from "./component/ZoomOutButton";
@@ -55,6 +56,7 @@ export default class MuinaismuistotUI {
   private settings: Settings;
   private visiblePage?: PageId;
   private selectedFeatures?: Array<ArgisFeature>;
+  private selectedModels?: Array<Model>;
   private searchResultFeatures?: Array<ArgisFeature>;
   private dataLatestUpdateDates?: DataLatestUpdateDates;
   private pageClosingAnimationTimeoutID: Partial<Record<PageId, number>> = {};
@@ -128,6 +130,7 @@ export default class MuinaismuistotUI {
           visibility={this.getPageVisibility(PageId.Details)}
           hidePage={this.hidePage}
           features={this.selectedFeatures}
+          models={this.selectedModels}
         />
         <SearchPage
           visibility={this.getPageVisibility(PageId.Search)}
@@ -224,11 +227,15 @@ export default class MuinaismuistotUI {
     }
   };
 
-  public featuresSelected = (selectedFeatures: Array<ArgisFeature>) => {
+  public featuresSelected = (
+    selectedFeatures: Array<ArgisFeature>,
+    models: Array<Model>
+  ) => {
     if (selectedFeatures.length === 0) {
       return;
     }
     this.selectedFeatures = selectedFeatures;
+    this.selectedModels = models;
     this.visiblePage = PageId.Details;
     this.renderUI();
   };

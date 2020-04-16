@@ -5,7 +5,7 @@ import {
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus
-} from "../../../data";
+} from "../../../common/types";
 import { Page, PageVisibility } from "../Page";
 import { MMLMapLayerSelectionPanel } from "./component/MMLMapLayerSelectionPanel";
 import { FeatureLayerSelectionPanel } from "./component/FeatureLayerSelectionPanel";

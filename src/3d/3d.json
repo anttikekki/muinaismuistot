@@ -1,0 +1,1207 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "EPSG",
+    "properties": {
+      "code": 3067
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [378539.30869999994, 6678216.5079]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
+          "id": 1000007796,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796"
+        },
+        "model": {
+          "name": "Suojahuone ja tuliasema jossa on katto paikallaan",
+          "url": "https://sketchfab.com/models/f306ea3be4084f22b6898aee11438cce"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [378539.30869999994, 6678216.5079]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
+          "id": 1000007796,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796"
+        },
+        "model": {
+          "name": "Suojahuone ja valonheitinasema",
+          "url": "https://sketchfab.com/models/ad1fbf24ad844d45879f0a374996141a"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [378539.30869999994, 6678216.5079]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
+          "id": 1000007796,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796"
+        },
+        "model": {
+          "name": "Kaksi suojahuonetta",
+          "url": "https://sketchfab.com/models/ea1cf40fd6464f42ad769dd9dcd2eeee"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [378539.30869999994, 6678216.5079]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
+          "id": 1000007796,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796"
+        },
+        "model": {
+          "name": "Suojahuone ja konekivääriasema",
+          "url": "https://sketchfab.com/models/fe714cab449248cf93b9895c4bd0e4db"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [378539.30869999994, 6678216.5079]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
+          "id": 1000007796,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796"
+        },
+        "model": {
+          "name": "Suojahuone",
+          "url": "https://sketchfab.com/models/843f795bfc924998a1ce60e9fb88cbce"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [377754.6376, 6676079.364399999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXXI:4 (Laajalahti)",
+          "id": 1000007809,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007809"
+        },
+        "model": {
+          "name": "Suojahuone ja konekivääriasema",
+          "url": "https://sketchfab.com/models/c7dcf569037b48dca7db120ac38f6b28"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [377768.6303000003, 6676387.241]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXXI:2 (Laajalahti)",
+          "id": 1000007807,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007807"
+        },
+        "model": {
+          "name": "Suojahuone",
+          "url": "https://sketchfab.com/models/c886dd5f6022466c870f70275f7724d5"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [378981.13709999993, 6678599.353700001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVIII:8 (Vallikallio)",
+          "id": 1000007751,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007751"
+        },
+        "model": {
+          "name": "Ehjä suojahuone ja ehjä C-tyypin tähystysasema",
+          "url": "https://sketchfab.com/models/eda9a95cabdb481b86b8c6e1dc0ae4c4"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [379023.1211000001, 6678355.4562]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVIII:9 (Vallikallio)",
+          "id": 1000007752,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007752"
+        },
+        "model": {
+          "name": "Suojahuone",
+          "url": "https://sketchfab.com/models/a9bf9b4ad747473b85f2d5abdafc97e9"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [379023.1211000001, 6678355.4562]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVIII:9 (Vallikallio)",
+          "id": 1000007752,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007752"
+        },
+        "model": {
+          "name": "Suojahuone",
+          "url": "https://sketchfab.com/models/23a0f95a626046aa885af67950da1df6"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [380140.66810000036, 6678344.4637]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVIII:19 (Mäkkylä)",
+          "id": 1000007767,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767"
+        },
+        "model": {
+          "name": "Suuri tuliasema neljälle kiväärille ja yhdelle konekiväärille",
+          "url": "https://sketchfab.com/models/efc73486f6d1474b92f6b6a7b71cc690"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [380140.66810000036, 6678344.4637]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVIII:19 (Mäkkylä)",
+          "id": 1000007767,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767"
+        },
+        "model": {
+          "name": "Luolan (45 m²) sisäänkäynti",
+          "url": "https://sketchfab.com/models/94f47ec1fb54419089fd783f30cfeec5"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [380140.66810000036, 6678344.4637]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVIII:19 (Mäkkylä)",
+          "id": 1000007767,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767"
+        },
+        "model": {
+          "name": "Luolan (45 m²) sisäänkäynti",
+          "url": "https://sketchfab.com/models/c29e368809b6443e820e0ef7919d2000"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [380140.66810000036, 6678344.4637]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVIII:19 (Mäkkylä)",
+          "id": 1000007767,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767"
+        },
+        "model": {
+          "name": "Luolan (60 m²) sisäänkäynti",
+          "url": "https://sketchfab.com/models/230b951d32df49d08558c5f1005eebba"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [380140.66810000036, 6678344.4637]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVIII:19 (Mäkkylä)",
+          "id": 1000007767,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767"
+        },
+        "model": {
+          "name": "E-tyypin kivääriasema",
+          "url": "https://sketchfab.com/models/468df6dd17f14354bf3445900e2bb3be"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383438.8542999998, 6679562.0879]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIII:4 (Kannelmäki)",
+          "id": 1000013836,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836"
+        },
+        "model": {
+          "name": "1 ehjä suojahuone ja 1 konekivääriasema",
+          "url": "https://sketchfab.com/models/78b3867723cb45a283f5f7f05172387a"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383438.8542999998, 6679562.0879]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIII:4 (Kannelmäki)",
+          "id": 1000013836,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836"
+        },
+        "model": {
+          "name": "1 ehjä suojahuone, 1 konekivääriasema ja 1 tähystysasema",
+          "url": "https://sketchfab.com/models/3f0c17174f88426dbb4e4becbad7f29b"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383438.8542999998, 6679562.0879]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIII:4 (Kannelmäki)",
+          "id": 1000013836,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836"
+        },
+        "model": {
+          "name": "1 suojahuone, 2 konekivääriasemaa ja 1 tähystysasema",
+          "url": "https://sketchfab.com/models/42c6c455da7b4ee8adfcf0a7995bad1c"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383438.8542999998, 6679562.0879]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIII:4 (Kannelmäki)",
+          "id": 1000013836,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836"
+        },
+        "model": {
+          "name": "1 suojahuone, 1 konekivääriasema ja 2 tähystysasemaa",
+          "url": "https://sketchfab.com/models/68adae4232bf4e59b2eb008fa4a294ab"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [384485.5147000002, 6680829.4734000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVIII:2 (Paloheinä)",
+          "id": 1000013727,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727"
+        },
+        "model": {
+          "name": "1 iso suojahuone, 1 konekivääriasema ja 1 portaat juoksuhautaan",
+          "url": "https://sketchfab.com/models/9a26cedb21ed4c96863dec87b25c964d"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [393050.42640000023, 6681151.0282000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta IV:9 (Jakomäki)",
+          "id": 1000011242,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011242"
+        },
+        "model": {
+          "name": "Koko tukikohta: 3 suojahuonetta, 1 konekivääriasema ja 1 tarkkailuasema",
+          "url": "https://sketchfab.com/models/c5be8d0383404429a216335a023ee0d2"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [393611.2366000004, 6680996.470799999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta IV:5 (Jakomäki)",
+          "id": 1000011231,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011231"
+        },
+        "model": {
+          "name": "3 suojahuonetta, 1 kovekivääriasema ja 2 tarkkailuasemaa",
+          "url": "https://sketchfab.com/models/10f05143df6d473a9cc379f8bec6ed5b"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [393465.2993000001, 6680875.5111]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta IV:6 (Jakomäki)",
+          "id": 1000011233,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011233"
+        },
+        "model": {
+          "name": "Luola (170 m²)",
+          "url": "https://sketchfab.com/models/0cf87db1e9924acdb385054eb8913c96"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [393401.32359999977, 6680757.5613]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta IV:tie (Kivikko, Jakomäki)",
+          "id": 1000011259,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011259"
+        },
+        "model": {
+          "name": "Tykkitie",
+          "url": "https://sketchfab.com/models/2fae8757f66b4b0982270566efb900d9"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [392172.82550000027, 6678863.3135]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta VIII:1 (Kivikko)",
+          "id": 1000011949,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011949"
+        },
+        "model": {
+          "name": "2 konekivääriasemaa ja suojahuone",
+          "url": "https://sketchfab.com/models/38ab448d77124df0a9915710c1b7eaf8"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [393603.24060000014, 6680376.7183]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta IV:1 (Kivikko)",
+          "id": 1000011228,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011228"
+        },
+        "model": {
+          "name": "Luola (110 m²)",
+          "url": "https://sketchfab.com/models/473693e11a884d68bccbe88941804821"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [393148.42370000016, 6680933.489499999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta IV:7 (Jakomäki)",
+          "id": 1000011234,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011234"
+        },
+        "model": {
+          "name": "2 konekivääriasemaa ja 2 suojahuonetta",
+          "url": "https://sketchfab.com/models/e53a988e913d4de89acca88085923382"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [384586.8859000001, 6679137.650699999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXII:12 (Pirkkola)",
+          "id": 1000013820,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013820"
+        },
+        "model": {
+          "name": "Kovekivääriasema",
+          "url": "https://sketchfab.com/models/6522e2d0f7834205823da93bdbce0285"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [393155.45770000014, 6680517.1086]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta IV:10 (Kivikko)",
+          "id": 1000011245,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000011245"
+        },
+        "model": {
+          "name": "Syvä juoksuhauta",
+          "url": "https://sketchfab.com/models/bd9110f1a2174eef9c4b1ee02111b4bd"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [393155.45770000014, 6680517.1086]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta IV:10 (Kivikko)",
+          "id": 1000011245,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000011245"
+        },
+        "model": {
+          "name": "Ristin muotoinen luola (130 m²)",
+          "url": "https://sketchfab.com/models/7e889d3ac18b4229b72553973586444c"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [393155.45770000014, 6680517.1086]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta IV:10 (Kivikko)",
+          "id": 1000011245,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000011245"
+        },
+        "model": {
+          "name": "Kääntyvän suorakaiteen muotoinen luola (60 m²)",
+          "url": "https://sketchfab.com/models/73be43fb4a4e42a6a726f6ba7fd30273"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [391322.93450000044, 6680097.016000001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tykkipatteri 72 (Tattariharju)",
+          "id": 1000013411,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013411"
+        },
+        "model": {
+          "name": "Suojahuone",
+          "url": "https://sketchfab.com/models/7a17904419684a509422e655c8bad15f"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [393155.45770000014, 6680517.1086]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta IV:10 (Kivikko)",
+          "id": 1000011245,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000011245"
+        },
+        "model": {
+          "name": "Hevosenkengän muotoinen luola (110 m²)",
+          "url": "https://sketchfab.com/models/678c927cbff94ab785e290839921aeef"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [385216.86290000007, 6680828.1866]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVII:12 (Paloheinä)",
+          "id": 1000013709,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013709"
+        },
+        "model": {
+          "name": "Valtaosa tukikohdasta",
+          "url": "https://sketchfab.com/models/23a1f49cc05b4df4ab4564550f700ecc"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [389621.78390000015, 6679677.6841]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta X:5 (Pihlajamäki)",
+          "id": 1000013418,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013418"
+        },
+        "model": {
+          "name": "Porrastettu juoksuhauta, suojahuone, konekivääriasema ja tähystysasema",
+          "url": "https://sketchfab.com/models/213ea22ada674d609e7b21cb1af30bc2"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383924.08160000015, 6679799.1598000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIII:2 (Maununneva)",
+          "id": 1000013825,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013825"
+        },
+        "model": {
+          "name": "Suojahuone",
+          "url": "https://sketchfab.com/models/f2e9ec22010d4aab8daec9ff0d1b3f88"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383924.08160000015, 6679799.1598000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIII:2 (Maununneva)",
+          "id": 1000013825,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013825"
+        },
+        "model": {
+          "name": "Suojahuone",
+          "url": "https://sketchfab.com/models/7a215bbc250c406db7169387ab28a0b4"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [385553.35259999987, 6679494.613399999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXII:3 (Maunula)",
+          "id": 1000013775,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013775"
+        },
+        "model": {
+          "name": "Valtaisa tukikohdasta",
+          "url": "https://sketchfab.com/models/34d127b172f34b60aa3ef06ffea41ed0"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [386030.8219999997, 6680321.0846]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVII:13 (Länsi-Pakila)",
+          "id": 1000013711,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013711"
+        },
+        "model": {
+          "name": "B-tyypin tähystysasema",
+          "url": "https://sketchfab.com/models/2de182b3af11492c9d9d199434d5df0e"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [386030.8219999997, 6680321.0846]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVII:13 (Länsi-Pakila)",
+          "id": 1000013711,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013711"
+        },
+        "model": {
+          "name": "B-tyypin tähystysasema",
+          "url": "https://sketchfab.com/models/5b77844a7c164c08ad6d940671e0dfdd"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [381188.27830000035, 6677948.962300001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXXV:11 (Pajamäki)",
+          "id": 1000013916,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013916"
+        },
+        "model": {
+          "name": "Juoksuhauta",
+          "url": "https://sketchfab.com/models/bcbf2ce1ec9b48af822dd7aa72ce4ac5"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [384485.5147000002, 6680829.4734000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVIII:2 (Paloheinä)",
+          "id": 1000013727,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013727"
+        },
+        "model": {
+          "name": "Juoksuhauta",
+          "url": "https://sketchfab.com/models/5a177eb9d5eb42dd829fbaade10cc4bb"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [384485.5147000002, 6680829.4734000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVIII:2 (Paloheinä)",
+          "id": 1000013727,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013727"
+        },
+        "model": {
+          "name": "Juoksuhauta",
+          "url": "https://sketchfab.com/models/b0dc37b27fa6496ab5569ec719745f2f"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [384485.5147000002, 6680829.4734000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVIII:2 (Paloheinä)",
+          "id": 1000013727,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013727"
+        },
+        "model": {
+          "name": "Sisäänkäynti suojahuoneeseen",
+          "url": "https://sketchfab.com/models/28ece33992774838938d878b6c844074"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [384485.5147000002, 6680829.4734000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVIII:2 (Paloheinä)",
+          "id": 1000013727,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013727"
+        },
+        "model": {
+          "name": "Tähystysasema",
+          "url": "https://sketchfab.com/models/a9a78d82a0ca4993bf8d5fcde45950d7"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [384485.5147000002, 6680829.4734000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVIII:2 (Paloheinä)",
+          "id": 1000013727,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013727"
+        },
+        "model": {
+          "name": "Portaat juoksuhautaan",
+          "url": "https://sketchfab.com/models/004fd5fa33134535987777832e48b9fb"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [401789.9467000002, 6681774.1965]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Massängen",
+          "id": 753010010,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.753010010"
+        },
+        "model": {
+          "name": "Pronssikautinen hautaröykkiö",
+          "url": "https://sketchfab.com/models/f1f4c310a8614c9ca9f0be8412da055d"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [227957.13520000037, 6821358.268300001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Liikistö",
+          "id": 886010004,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.886010004"
+        },
+        "model": {
+          "name": "Keskiaikaisen kirkon kivijalan rauniot",
+          "url": "https://sketchfab.com/models/09f2cf267e954c958828325067bcc36a"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [235753.01640000008, 6819393.0933]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Rieskaronmäki",
+          "id": 531010035,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.531010035"
+        },
+        "model": {
+          "name": "Pronssikautinen hautaröykkiö",
+          "url": "https://sketchfab.com/models/0e80727d8cd44c21802ab3de1a09b85a"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [235753.01640000008, 6819393.0933]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Rieskaronmäki",
+          "id": 531010035,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.531010035"
+        },
+        "model": {
+          "name": "Pronssikautinen hautaröykkiö",
+          "url": "https://sketchfab.com/models/80f9043ee5ca487ebd7f979b54397c1e"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [386608.9659000002, 6679748.932600001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXI:6 (Patola)",
+          "id": 1000013764,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013764"
+        },
+        "model": {
+          "name": "Juoksuhauta",
+          "url": "https://sketchfab.com/models/0be31261086a49d782dc120785bc355c"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [386608.9659000002, 6679748.932600001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXI:6 (Patola)",
+          "id": 1000013764,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013764"
+        },
+        "model": {
+          "name": "Suojahuoneen sisäänkäynti",
+          "url": "https://sketchfab.com/models/44010fb045204c3a8f84bad493c6025d"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-03-11"
+      }
+    }
+  ]
+}

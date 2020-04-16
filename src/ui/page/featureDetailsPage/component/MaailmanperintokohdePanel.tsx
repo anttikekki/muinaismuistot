@@ -6,7 +6,7 @@ import {
   MuseovirastoLayer,
   MaailmanperintoPisteArgisFeature,
   MaailmanperintoAlueArgisFeature
-} from "../../../../data";
+} from "../../../../common/types";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
 import { MuseovirastoLink } from "./MuseovirastoLink";

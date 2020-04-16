@@ -5,7 +5,7 @@ import {
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus
-} from "../../../src/data";
+} from "../../../src/common/types";
 import { Extent } from "ol/extent";
 
 jest.setTimeout(30000);

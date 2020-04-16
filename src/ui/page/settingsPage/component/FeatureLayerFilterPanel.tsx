@@ -1,5 +1,8 @@
 import * as React from "react";
-import { MuinaisjaannosTyyppi, MuinaisjaannosAjoitus } from "../../../../data";
+import {
+  MuinaisjaannosTyyppi,
+  MuinaisjaannosAjoitus
+} from "../../../../common/types";
 import { Panel } from "../../../component/Panel";
 
 interface TypeCheckboxProps {

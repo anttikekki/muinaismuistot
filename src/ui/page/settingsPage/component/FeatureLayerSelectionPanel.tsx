@@ -1,7 +1,10 @@
 import * as React from "react";
-import { MaanmittauslaitosLayer, MuseovirastoLayer } from "../../../../data";
+import {
+  MaanmittauslaitosLayer,
+  MuseovirastoLayer,
+} from "../../../../common/types";
 import { Panel } from "../../../component/Panel";
-import { getLayerIconURLs } from "../../../../util/featureParser";
+import { getLayerIconURLs } from "../../../../common/util/featureParser";
 
 interface LayerCheckboxProps {
   label: string;
@@ -14,7 +17,7 @@ const LayerCheckbox: React.FC<LayerCheckboxProps> = ({
   label,
   layer,
   selectedLayers,
-  onSelectLayer
+  onSelectLayer,
 }) => {
   const isSelected = selectedLayers.includes(layer);
 
@@ -43,7 +46,7 @@ interface Props {
 
 export const FeatureLayerSelectionPanel: React.FC<Props> = ({
   selectedLayers,
-  onSelectLayer
+  onSelectLayer,
 }) => {
   const commonProps = { selectedLayers, onSelectLayer };
 
@@ -104,12 +107,24 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
         />
 
         <h5>Ahvenamaan muinaisjäännösrekisteri</h5>
-
         <div className="checkbox sub-layer-select-checkbox-container">
           <label>
             <input type="checkbox" value="" checked disabled />
-            <img src="images/ahvenanmaa_muinaisjaannos.png" />
-            Kohde
+            <img src="images/ahvenanmaa_muinaisjaannos.png" /> Kohde
+          </label>
+        </div>
+
+        <h5>
+          3D-mallit (
+          <a href="./3d/" target="_blank">
+            lisätietoa
+          </a>
+          )
+        </h5>
+        <div className="checkbox sub-layer-select-checkbox-container">
+          <label>
+            <input type="checkbox" value="" checked disabled />
+            <img src="images/3d_malli.png" /> 3D-mallit
           </label>
         </div>
       </form>

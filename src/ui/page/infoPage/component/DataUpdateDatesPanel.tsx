@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Panel } from "../../../component/Panel";
-import { DataLatestUpdateDates } from "../../../../data";
+import { DataLatestUpdateDates } from "../../../../common/types";
 
 const UpdatedDate: React.FC<{ date: Date | null | undefined }> = ({ date }) => {
   if (date === undefined) {
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const DataUpdateDatesPanel: React.FC<Props> = ({
-  dataLatestUpdateDates
+  dataLatestUpdateDates,
 }) => {
   return (
     <Panel title="Aineisto päivitetty viimeksi">
@@ -26,6 +26,15 @@ export const DataUpdateDatesPanel: React.FC<Props> = ({
 
       <h5>Ahvenamaan paikallishallinnon aineistot</h5>
       <UpdatedDate date={dataLatestUpdateDates?.ahvenanmaa} />
+
+      <h5>
+        3D-mallit (
+        <a href="./3d/" target="_blank">
+          lisätietoa
+        </a>
+        )
+      </h5>
+      <UpdatedDate date={dataLatestUpdateDates?.models} />
     </Panel>
   );
 };

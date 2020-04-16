@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MaanmittauslaitosLayer } from "../../../../data";
+import { MaanmittauslaitosLayer } from "../../../../common/types";
 import { Panel } from "../../../component/Panel";
 
 interface LayerButtonProps {

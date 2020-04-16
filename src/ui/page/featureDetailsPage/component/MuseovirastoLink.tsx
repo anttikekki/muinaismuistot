@@ -1,9 +1,9 @@
 import * as React from "react";
-import { ArgisFeature } from "../../../../data";
+import { ArgisFeature } from "../../../../common/types";
 import {
   getFeatureRegisterURL,
   getFeatureRegisterName
-} from "../../../../util/featureParser";
+} from "../../../../common/util/featureParser";
 
 interface Props {
   feature: ArgisFeature;

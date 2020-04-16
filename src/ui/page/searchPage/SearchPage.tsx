@@ -1,14 +1,14 @@
 import * as React from "react";
-import { ArgisFeature } from "../../../data";
+import { ArgisFeature } from "../../../common/types";
 import {
   getFeatureID,
   getFeatureName,
   getFeatureTypeName,
   getFeatureTypeIconURL,
   getFeatureLocation
-} from "../../../util/featureParser";
+} from "../../../common/util/featureParser";
 import { Page, PageVisibility } from "../Page";
-import { createLocationHash } from "../../../util/URLHashHelper";
+import { createLocationHash } from "../../../common/util/URLHashHelper";
 
 interface ResultRowProps {
   hidePage: () => void;

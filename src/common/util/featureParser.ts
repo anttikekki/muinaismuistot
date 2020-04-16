@@ -8,9 +8,9 @@ import {
   MaailmanperintoPisteArgisFeature,
   AhvenanmaaForminnenArgisFeature,
   MuseovirastoLayer,
-  AhvenanmaaLayer
-} from "../data";
-import { Coordinate } from "ol/coordinate";
+  AhvenanmaaLayer,
+  Model
+} from "../types";
 
 export const isKiinteäMuinaisjäännös = (
   feature: MuinaisjaannosPisteArgisFeature | MuinaisjaannosAlueArgisFeature
@@ -81,11 +81,15 @@ export const getFeatureTypeName = (
 };
 
 export const getFeatureTypeIconURL = (
-  feature: ArgisFeature
+  feature: ArgisFeature,
+  has3dModels: boolean = false
 ): string | undefined => {
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjäännökset_piste:
       if (isKiinteäMuinaisjäännös(feature)) {
+        if (has3dModels) {
+          return "images/muinaisjaannos_kohde_3d.png";
+        }
         return "images/muinaisjaannos_kohde.png";
       } else if (isMuuKulttuuriperintökohde(feature)) {
         return "images/muu_kulttuuriperintokohde_kohde.png";
@@ -166,6 +170,24 @@ export const getFeatureID = (feature: ArgisFeature): string => {
     case AhvenanmaaLayer.Fornminnen:
       return feature.attributes.OBJECTID;
   }
+};
+
+export const getModelsForFeature = (
+  feature: ArgisFeature,
+  models?: Array<Model>
+): Array<Model> => {
+  let featureId: string | undefined;
+  switch (feature.layerName) {
+    case MuseovirastoLayer.Muinaisjäännökset_piste:
+    case MuseovirastoLayer.Muinaisjäännökset_alue:
+      featureId = feature.attributes.mjtunnus;
+  }
+
+  return models
+    ? models
+        .filter(model => model.registryItem.type === feature.layerName)
+        .filter(model => model.registryItem.id.toString() === featureId)
+    : [];
 };
 
 const getMaailmanperintoUrl = (
@@ -272,9 +294,31 @@ export const getFeatureRegisterName = (feature: ArgisFeature): string => {
   }
 };
 
+export const getLayerRegisterName = (
+  layer: MuseovirastoLayer | AhvenanmaaLayer
+): string => {
+  switch (layer) {
+    case MuseovirastoLayer.Muinaisjäännökset_piste:
+    case MuseovirastoLayer.Muinaisjäännökset_alue:
+      return "Muinaisjäännösrekisteri";
+    case MuseovirastoLayer.RKY_alue:
+    case MuseovirastoLayer.RKY_viiva:
+    case MuseovirastoLayer.RKY_piste:
+      return "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt";
+    case MuseovirastoLayer.Maailmanperintö_alue:
+    case MuseovirastoLayer.Maailmanperintö_piste:
+      return "Maailmanperintökohteet";
+    case MuseovirastoLayer.Suojellut_rakennukset_alue:
+    case MuseovirastoLayer.Suojellut_rakennukset_piste:
+      return "Rakennusperintörekisteri";
+    case AhvenanmaaLayer.Fornminnen:
+      return "Ahvenamaan muinaisjäännösrekisteri";
+  }
+};
+
 export const getFeatureLocation = (
   feature: ArgisFeature
-): Coordinate | undefined => {
+): number[] | undefined => {
   switch (feature.geometryType) {
     case "esriGeometryPolygon":
       return feature.geometry.rings[0][0];

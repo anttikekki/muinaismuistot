@@ -4,6 +4,17 @@ import { Panel } from "../../../component/Panel";
 export const VersionHistoryPanel: React.FC = () => {
   return (
     <Panel title="Tietoa sivustosta">
+      <h5>Huhtikuu 2020</h5>
+      <p>
+        Lisätty 3D-mallien{" "}
+        <a href="./3d/" target="_blank">
+          tietokanta
+        </a>{" "}
+        ja karttaan <img src="images/3d_malli.png" /> korostus kohteille, joille
+        löytyy 3D-malleja.
+      </p>
+
+      <br />
       <h5>Helmikuu 2020</h5>
       <p>
         Lisätty kartta-aineistojen viimeisin päivitysaika näkyviin "Lisätietoja

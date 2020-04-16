@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MuinaisjaannosAlueArgisFeature } from "../../../../data";
+import { MuinaisjaannosAlueArgisFeature } from "../../../../common/types";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
 import { MuseovirastoLink } from "./MuseovirastoLink";

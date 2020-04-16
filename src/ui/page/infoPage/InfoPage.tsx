@@ -5,7 +5,7 @@ import { MapSymbolPanel } from "./component/MapSymbolPanel";
 import { DataAndLicencesPanel } from "./component/DataAndLicencesPanel";
 import { VersionHistoryPanel } from "./component/VersionHistoryPanel";
 import { DataUpdateDatesPanel } from "./component/DataUpdateDatesPanel";
-import { DataLatestUpdateDates } from "../../../data";
+import { DataLatestUpdateDates } from "../../../common/types";
 
 interface Props {
   visibility: PageVisibility;

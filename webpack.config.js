@@ -8,7 +8,10 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 const SHOW_BUNDLE_ANALYZER = process.env.SHOW_BUNDLE_ANALYZER !== undefined;
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: {
+    app: "./src/index.ts",
+    models: "./src/3d/index.tsx"
+  },
   resolve: {
     extensions: [".tsx", ".ts", ".js"]
   },
@@ -49,10 +52,19 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
+      chunks: ["app", "app~models", "vendors~app~models", "vendors~app"],
       template: "src/index.ejs",
       filename: "index.html"
     }),
-    new CopyWebpackPlugin([{ from: "src/images", to: "images" }]),
+    new HtmlWebpackPlugin({
+      chunks: ["models", "app~models", "vendors~app~models"],
+      template: "src/3d/index.ejs",
+      filename: "3d/index.html"
+    }),
+    new CopyWebpackPlugin([
+      { from: "src/images", to: "images" },
+      { from: "src/3d/3d.json", to: "3d" }
+    ]),
     ...(SHOW_BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : [])
   ]
 };

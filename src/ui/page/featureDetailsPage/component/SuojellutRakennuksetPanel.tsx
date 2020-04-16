@@ -3,7 +3,7 @@ import {
   SuojellutRakennuksetPisteArgisFeature,
   SuojellutRakennuksetAlueArgisFeature,
   MuseovirastoLayer
-} from "../../../../data";
+} from "../../../../common/types";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
 import { MuseovirastoLink } from "./MuseovirastoLink";

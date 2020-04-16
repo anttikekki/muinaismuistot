@@ -3,7 +3,7 @@ import "cross-fetch/polyfill";
 
 import MuinaismuistotMap from "./map/MuinaismuistotMap";
 import MuinaismuistotUI from "./ui/MuinaismuistotUI";
-import { parseCoordinatesFromURL } from "./util/URLHashHelper";
+import { parseCoordinatesFromURL } from "./common/util/URLHashHelper";
 import {
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
@@ -11,7 +11,7 @@ import {
   MuinaisjaannosAjoitus,
   Settings,
   DataLatestUpdateDates
-} from "./data";
+} from "./common/types";
 
 export default class Muinaismuistot {
   private map: MuinaismuistotMap;
@@ -26,8 +26,8 @@ export default class Muinaismuistot {
     };
 
     this.map = new MuinaismuistotMap(initialSettings, {
-      featuresSelected: features => {
-        this.ui.featuresSelected(features);
+      featuresSelected: (features, models) => {
+        this.ui.featuresSelected(features, models);
       },
       showLoadingAnimation: show => {
         this.ui.showLoadingAnimation(show);
