@@ -13,9 +13,10 @@ ReactDOM.render(
         <h1>Kulttuuriperinnön 3D-mallien tietokanta</h1>
 
         <p>
-          Tämä tietokanta yrittää kerätä arkeologisesta kulttuuriperinnöstä ja
-          rakennetuista kulttuuriympäristöistä tehtyjä 3D-malleja yhteen
-          paikkaan helposti käytettävänä paikkatietoaineistona.
+          Tämä tietokanta yrittää kerätä Suomen arkeologisesta
+          kulttuuriperinnöstä ja rakennetuista kulttuuriympäristöistä tehtyjä
+          3D-malleja yhteen paikkaan helposti käytettävänä
+          paikkatietoaineistona.
         </p>
       </div>
     </div>
@@ -301,6 +302,14 @@ ReactDOM.render(
           </tr>
           <tr>
             <td>
+              <code>properties.registryItem.municipality</code>
+            </td>
+            <td>Kohteen kunta</td>
+            <td>Helsinki</td>
+            <td>Merkkijono</td>
+          </tr>
+          <tr>
+            <td>
               <code>properties.model.name</code>
             </td>
             <td>
@@ -389,7 +398,8 @@ ReactDOM.render(
           "name": "Tukikohta IV:10 (Kivikko)",
           "id": 1000011245,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Syvä juoksuhauta",

@@ -9,7 +9,7 @@ import {
   AhvenanmaaForminnenArgisFeature,
   MuseovirastoLayer,
   AhvenanmaaLayer,
-  Model
+  Model,
 } from "../types";
 
 export const isKiinteäMuinaisjäännös = (
@@ -84,15 +84,13 @@ export const getFeatureTypeIconURL = (
   feature: ArgisFeature,
   has3dModels: boolean = false
 ): string | undefined => {
+  const modelSuffix = has3dModels ? "_3d" : "";
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjäännökset_piste:
       if (isKiinteäMuinaisjäännös(feature)) {
-        if (has3dModels) {
-          return "images/muinaisjaannos_kohde_3d.png";
-        }
-        return "images/muinaisjaannos_kohde.png";
+        return `images/muinaisjaannos_kohde${modelSuffix}.png`;
       } else if (isMuuKulttuuriperintökohde(feature)) {
-        return "images/muu_kulttuuriperintokohde_kohde.png";
+        return `images/muu_kulttuuriperintokohde_kohde${modelSuffix}.png`;
       }
       break;
     case MuseovirastoLayer.Muinaisjäännökset_alue:
@@ -130,12 +128,12 @@ export const getLayerIconURLs = (
     case MuseovirastoLayer.Muinaisjäännökset_piste:
       return [
         "images/muinaisjaannos_kohde.png",
-        "images/muu_kulttuuriperintokohde_kohde.png"
+        "images/muu_kulttuuriperintokohde_kohde.png",
       ];
     case MuseovirastoLayer.Muinaisjäännökset_alue:
       return [
         "images/muinaisjaannos_alue.png",
-        "images/muu-kulttuuriperintokohde-alue.png"
+        "images/muu-kulttuuriperintokohde-alue.png",
       ];
     case MuseovirastoLayer.RKY_alue:
       return ["images/rky_alue.png"];
@@ -185,8 +183,8 @@ export const getModelsForFeature = (
 
   return models
     ? models
-        .filter(model => model.registryItem.type === feature.layerName)
-        .filter(model => model.registryItem.id.toString() === featureId)
+        .filter((model) => model.registryItem.type === feature.layerName)
+        .filter((model) => model.registryItem.id.toString() === featureId)
     : [];
 };
 

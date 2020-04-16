@@ -8,7 +8,7 @@ export interface Settings {
 export enum MaanmittauslaitosLayer {
   Maastokartta = "maastokartta",
   Taustakartta = "taustakartta",
-  Ortokuva = "ortokuva"
+  Ortokuva = "ortokuva",
 }
 
 export enum MuseovirastoLayer {
@@ -20,11 +20,11 @@ export enum MuseovirastoLayer {
   RKY_piste = "RKY_piste",
   RKY_viiva = "RKY_viiva",
   Maailmanperintö_piste = "Maailmanperintö_piste",
-  Maailmanperintö_alue = "Maailmanperintö_alue"
+  Maailmanperintö_alue = "Maailmanperintö_alue",
 }
 
 export enum AhvenanmaaLayer {
-  Fornminnen = "Fornminnen"
+  Fornminnen = "Fornminnen",
 }
 
 export type MuseovirastoLayerId = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -41,7 +41,7 @@ export const museovirastoLayerIdMap: Record<
   [MuseovirastoLayer.RKY_piste]: 5,
   [MuseovirastoLayer.RKY_viiva]: 6,
   [MuseovirastoLayer.Maailmanperintö_piste]: 7,
-  [MuseovirastoLayer.Maailmanperintö_alue]: 8
+  [MuseovirastoLayer.Maailmanperintö_alue]: 8,
 };
 
 export enum MuinaisjaannosTyyppi {
@@ -63,7 +63,7 @@ export enum MuinaisjaannosTyyppi {
   taideMuistomerkit = "taide, muistomerkit",
   tapahtumapaikat = "tapahtumapaikat",
   teollisuuskohteet = "teollisuuskohteet",
-  työJaValmistuspaikat = "työ- ja valmistuspaikat"
+  työJaValmistuspaikat = "työ- ja valmistuspaikat",
 }
 
 export enum MuinaisjaannosAjoitus {
@@ -77,7 +77,7 @@ export enum MuinaisjaannosAjoitus {
   historiallinen = "historiallinen",
   moderni = "moderni",
   ajoittamaton = "ajoittamaton",
-  eiMääritelty = "ei määritelty"
+  eiMääritelty = "ei määritelty",
 }
 
 export const MuinaisjaannosAjoitusTimespan: Record<
@@ -94,7 +94,7 @@ export const MuinaisjaannosAjoitusTimespan: Record<
   historiallinen: "1200 jaa. -",
   moderni: "1800 jaa -",
   ajoittamaton: "",
-  "ei määritelty": ""
+  "ei määritelty": "",
 };
 
 /**
@@ -123,7 +123,7 @@ export const ForminnenAjoitusTimespan: Record<ForminnenAjoitus, string> = {
   Järnålder: "500 eaa. - 1200 jaa.",
   "Järnålder/Medeltid": "500 eaa. – 1570 jaa.",
   Medeltida: "1200 - 1570 jaa.",
-  Sentida: "1570 jaa. -"
+  Sentida: "1570 jaa. -",
 };
 
 export type MuinaisjaannosLaji =
@@ -367,6 +367,7 @@ export interface Model {
     id: number;
     type: MuseovirastoLayer | AhvenanmaaLayer;
     url: string;
+    municipality: string;
   };
   model: {
     name: string;

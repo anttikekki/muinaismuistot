@@ -32,6 +32,7 @@ export const ModelsTable: React.FC = () => {
         <tr>
           <th>#</th>
           <th>Kohde</th>
+          <th>Kunta</th>
           <th>Rekisteri</th>
           <th>Mallin nimi</th>
           <th>Lisätty</th>
@@ -48,6 +49,7 @@ export const ModelsTable: React.FC = () => {
                 {properties.registryItem.name}
               </a>
             </td>
+            <td>{properties.registryItem.municipality}</td>
             <td>{getLayerRegisterName(properties.registryItem.type)}</td>
             <td>
               <a href={properties.model.url} target="_blank">
@@ -57,9 +59,13 @@ export const ModelsTable: React.FC = () => {
             <td>{new Date(properties.createdDate).toLocaleDateString("fi")}</td>
             <td>{properties.author}</td>
             <td>
-              <a href={properties.licenceUrl} target="_blank">
-                {properties.licence}
-              </a>
+              {properties.licenceUrl ? (
+                <a href={properties.licenceUrl} target="_blank">
+                  {properties.licence}
+                </a>
+              ) : (
+                properties.licence
+              )}
             </td>
           </tr>
         ))}
