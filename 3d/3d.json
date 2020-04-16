@@ -11,6 +11,318 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [263120.88570000045, 6643525.866]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Keulakuvahylky",
+          "id": 1513,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1513",
+          "municipality": "Kemiönsaari"
+        },
+        "model": {
+          "name": "Keulakuvahylky - The Bowfigure Wreck",
+          "url": "https://sketchfab.com/models/2b09cf57f299426882e0695c4fe21686"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [270585.9201999996, 6636986.535800001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kaapelihylky",
+          "id": 1392,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1392",
+          "municipality": "Hanko"
+        },
+        "model": {
+          "name": "Kaapelihylky - The Cable Wreck",
+          "url": "https://sketchfab.com/models/9beec2c9db804a178271953c580bf9df"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [270585.9201999996, 6636986.535800001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kaapelihylky",
+          "id": 1392,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1392",
+          "municipality": "Hanko"
+        },
+        "model": {
+          "name": "Kaapelihylky - The Cable Wreck",
+          "url": "https://sketchfab.com/models/e99a11e9cedc40f9ab926489c401b0b1"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [502392, 6700463]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Vassaaren väylä",
+          "id": 1000036650,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000036650",
+          "municipality": "Kotka"
+        },
+        "model": {
+          "name": "Vassaaren väylä",
+          "url": "https://sketchfab.com/models/40987e2bacb6465fbfbc504b2d5e0c9e"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [540848.6153999995, 6757810.2544]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Jurvalanselkä 1",
+          "id": 2628,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.2628",
+          "municipality": "Luumäki"
+        },
+        "model": {
+          "name": "Jurvalanselkä 1",
+          "url": "https://sketchfab.com/models/80527b074ef34033bdc024555458ea6d"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [308411.7122999998, 6637692.4504]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Jussarö 1",
+          "id": 1441,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1441",
+          "municipality": "Raasepori"
+        },
+        "model": {
+          "name": "Jussarö 1",
+          "url": "https://sketchfab.com/models/2eff186336f64282afd08d97e8e5213c"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [498816, 6699516]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tykkisluuppi",
+          "id": 1116,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1116",
+          "municipality": "Kotka"
+        },
+        "model": {
+          "name": "Tykkisluuppi",
+          "url": "https://sketchfab.com/models/03361b9a7a3b465bb6a710db0c236e87"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [497585.30819999985, 6699416.5623]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "St.Nikolai",
+          "id": 1108,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1108",
+          "municipality": "Kotka"
+        },
+        "model": {
+          "name": "St.Nikolai",
+          "url": "https://sketchfab.com/models/1b22412deb9e4375806274a097c0c4f8"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [498794, 6699529]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Jollahylky",
+          "id": 1114,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1114",
+          "municipality": "Kotka"
+        },
+        "model": {
+          "name": "ns. Jolla-hylky",
+          "url": "https://sketchfab.com/models/0276e899ef364624a4428805b84965b4"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [427780, 7211050]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Hahtiperän hylky",
+          "id": 1000036870,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000036870",
+          "municipality": "Oulu"
+        },
+        "model": {
+          "name": "Hahtiperä hylyn kappale",
+          "url": "https://sketchfab.com/models/fbf0c7743fcc4f448b0e55293fdfa389"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [427780, 7211050]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Hahtiperän hylky",
+          "id": 1000036870,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000036870",
+          "municipality": "Oulu"
+        },
+        "model": {
+          "name": "Hahtiperä",
+          "url": "https://sketchfab.com/models/5ac7a95863804bf69b1a1b2d811315ac"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [270664, 6636915]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kobben koillinen",
+          "id": 1000034225,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000034225",
+          "municipality": "Hanko"
+        },
+        "model": {
+          "name": "Kobben hylynosa",
+          "url": "https://sketchfab.com/models/07f822a8e26e456781cbc41dfa5d00fa"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [498615.8934000004, 6699029.723999999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Lehmäsaaren luoteiskärki",
+          "id": 1128,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1128",
+          "municipality": "Kotka"
+        },
+        "model": {
+          "name": "Lehmäsaaren luoteiskärjen hylky",
+          "url": "https://sketchfab.com/models/861a6d8e969a4080adedc7e8a0f22ea3"
+        },
+        "author": "Museovirasto",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2020-04-16"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [378539.30869999994, 6678216.5079]
       },
       "properties": {
@@ -18,7 +330,8 @@
           "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
           "id": 1000007796,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Suojahuone ja tuliasema jossa on katto paikallaan",
@@ -41,7 +354,8 @@
           "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
           "id": 1000007796,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Suojahuone ja valonheitinasema",
@@ -64,7 +378,8 @@
           "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
           "id": 1000007796,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Kaksi suojahuonetta",
@@ -87,7 +402,8 @@
           "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
           "id": 1000007796,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Suojahuone ja konekivääriasema",
@@ -110,7 +426,8 @@
           "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
           "id": 1000007796,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Suojahuone",
@@ -133,7 +450,8 @@
           "name": "Tukikohta XXXI:4 (Laajalahti)",
           "id": 1000007809,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007809"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007809",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Suojahuone ja konekivääriasema",
@@ -156,7 +474,8 @@
           "name": "Tukikohta XXXI:2 (Laajalahti)",
           "id": 1000007807,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007807"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007807",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Suojahuone",
@@ -179,7 +498,8 @@
           "name": "Tukikohta XXVIII:8 (Vallikallio)",
           "id": 1000007751,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007751"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007751",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Ehjä suojahuone ja ehjä C-tyypin tähystysasema",
@@ -202,7 +522,8 @@
           "name": "Tukikohta XXVIII:9 (Vallikallio)",
           "id": 1000007752,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007752"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007752",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Suojahuone",
@@ -225,7 +546,8 @@
           "name": "Tukikohta XXVIII:9 (Vallikallio)",
           "id": 1000007752,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007752"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007752",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Suojahuone",
@@ -248,7 +570,8 @@
           "name": "Tukikohta XXVIII:19 (Mäkkylä)",
           "id": 1000007767,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Suuri tuliasema neljälle kiväärille ja yhdelle konekiväärille",
@@ -271,7 +594,8 @@
           "name": "Tukikohta XXVIII:19 (Mäkkylä)",
           "id": 1000007767,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Luolan (45 m²) sisäänkäynti",
@@ -294,7 +618,8 @@
           "name": "Tukikohta XXVIII:19 (Mäkkylä)",
           "id": 1000007767,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Luolan (45 m²) sisäänkäynti",
@@ -317,7 +642,8 @@
           "name": "Tukikohta XXVIII:19 (Mäkkylä)",
           "id": 1000007767,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "Luolan (60 m²) sisäänkäynti",
@@ -340,7 +666,8 @@
           "name": "Tukikohta XXVIII:19 (Mäkkylä)",
           "id": 1000007767,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767",
+          "municipality": "Espoo"
         },
         "model": {
           "name": "E-tyypin kivääriasema",
@@ -363,7 +690,8 @@
           "name": "Tukikohta XXIII:4 (Kannelmäki)",
           "id": 1000013836,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "1 ehjä suojahuone ja 1 konekivääriasema",
@@ -386,7 +714,8 @@
           "name": "Tukikohta XXIII:4 (Kannelmäki)",
           "id": 1000013836,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "1 ehjä suojahuone, 1 konekivääriasema ja 1 tähystysasema",
@@ -409,7 +738,8 @@
           "name": "Tukikohta XXIII:4 (Kannelmäki)",
           "id": 1000013836,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "1 suojahuone, 2 konekivääriasemaa ja 1 tähystysasema",
@@ -432,7 +762,8 @@
           "name": "Tukikohta XXIII:4 (Kannelmäki)",
           "id": 1000013836,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "1 suojahuone, 1 konekivääriasema ja 2 tähystysasemaa",
@@ -455,7 +786,8 @@
           "name": "Tukikohta XVIII:2 (Paloheinä)",
           "id": 1000013727,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "1 iso suojahuone, 1 konekivääriasema ja 1 portaat juoksuhautaan",
@@ -478,7 +810,8 @@
           "name": "Tukikohta IV:9 (Jakomäki)",
           "id": 1000011242,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011242"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011242",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Koko tukikohta: 3 suojahuonetta, 1 konekivääriasema ja 1 tarkkailuasema",
@@ -501,7 +834,8 @@
           "name": "Tukikohta IV:5 (Jakomäki)",
           "id": 1000011231,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011231"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011231",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "3 suojahuonetta, 1 kovekivääriasema ja 2 tarkkailuasemaa",
@@ -524,7 +858,8 @@
           "name": "Tukikohta IV:6 (Jakomäki)",
           "id": 1000011233,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011233"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011233",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Luola (170 m²)",
@@ -547,7 +882,8 @@
           "name": "Tukikohta IV:tie (Kivikko, Jakomäki)",
           "id": 1000011259,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011259"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011259",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Tykkitie",
@@ -570,7 +906,8 @@
           "name": "Tukikohta VIII:1 (Kivikko)",
           "id": 1000011949,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011949"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011949",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "2 konekivääriasemaa ja suojahuone",
@@ -593,7 +930,8 @@
           "name": "Tukikohta IV:1 (Kivikko)",
           "id": 1000011228,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011228"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011228",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Luola (110 m²)",
@@ -616,7 +954,8 @@
           "name": "Tukikohta IV:7 (Jakomäki)",
           "id": 1000011234,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011234"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011234",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "2 konekivääriasemaa ja 2 suojahuonetta",
@@ -639,7 +978,8 @@
           "name": "Tukikohta XXII:12 (Pirkkola)",
           "id": 1000013820,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013820"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013820",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Kovekivääriasema",
@@ -662,7 +1002,8 @@
           "name": "Tukikohta IV:10 (Kivikko)",
           "id": 1000011245,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000011245"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Syvä juoksuhauta",
@@ -685,7 +1026,8 @@
           "name": "Tukikohta IV:10 (Kivikko)",
           "id": 1000011245,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000011245"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Ristin muotoinen luola (130 m²)",
@@ -708,7 +1050,8 @@
           "name": "Tukikohta IV:10 (Kivikko)",
           "id": 1000011245,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000011245"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Kääntyvän suorakaiteen muotoinen luola (60 m²)",
@@ -731,7 +1074,8 @@
           "name": "Tykkipatteri 72 (Tattariharju)",
           "id": 1000013411,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013411"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013411",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Suojahuone",
@@ -754,7 +1098,8 @@
           "name": "Tukikohta IV:10 (Kivikko)",
           "id": 1000011245,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000011245"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Hevosenkengän muotoinen luola (110 m²)",
@@ -777,7 +1122,8 @@
           "name": "Tukikohta XVII:12 (Paloheinä)",
           "id": 1000013709,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013709"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013709",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Valtaosa tukikohdasta",
@@ -800,7 +1146,8 @@
           "name": "Tukikohta X:5 (Pihlajamäki)",
           "id": 1000013418,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013418"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013418",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Porrastettu juoksuhauta, suojahuone, konekivääriasema ja tähystysasema",
@@ -823,7 +1170,8 @@
           "name": "Tukikohta XXIII:2 (Maununneva)",
           "id": 1000013825,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013825"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013825",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Suojahuone",
@@ -846,7 +1194,8 @@
           "name": "Tukikohta XXIII:2 (Maununneva)",
           "id": 1000013825,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013825"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013825",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Suojahuone",
@@ -869,7 +1218,8 @@
           "name": "Tukikohta XXII:3 (Maunula)",
           "id": 1000013775,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013775"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013775",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Valtaisa tukikohdasta",
@@ -892,7 +1242,8 @@
           "name": "Tukikohta XVII:13 (Länsi-Pakila)",
           "id": 1000013711,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013711"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013711",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "B-tyypin tähystysasema",
@@ -915,7 +1266,8 @@
           "name": "Tukikohta XVII:13 (Länsi-Pakila)",
           "id": 1000013711,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013711"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013711",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "B-tyypin tähystysasema",
@@ -938,7 +1290,8 @@
           "name": "Tukikohta XXXV:11 (Pajamäki)",
           "id": 1000013916,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013916"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013916",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Juoksuhauta",
@@ -961,7 +1314,8 @@
           "name": "Tukikohta XVIII:2 (Paloheinä)",
           "id": 1000013727,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013727"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Juoksuhauta",
@@ -984,7 +1338,8 @@
           "name": "Tukikohta XVIII:2 (Paloheinä)",
           "id": 1000013727,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013727"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Juoksuhauta",
@@ -1007,7 +1362,8 @@
           "name": "Tukikohta XVIII:2 (Paloheinä)",
           "id": 1000013727,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013727"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Sisäänkäynti suojahuoneeseen",
@@ -1030,7 +1386,8 @@
           "name": "Tukikohta XVIII:2 (Paloheinä)",
           "id": 1000013727,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013727"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Tähystysasema",
@@ -1053,7 +1410,8 @@
           "name": "Tukikohta XVIII:2 (Paloheinä)",
           "id": 1000013727,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013727"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Portaat juoksuhautaan",
@@ -1076,7 +1434,8 @@
           "name": "Massängen",
           "id": 753010010,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.753010010"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.753010010",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Pronssikautinen hautaröykkiö",
@@ -1099,7 +1458,8 @@
           "name": "Liikistö",
           "id": 886010004,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.886010004"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.886010004",
+          "municipality": "Ulvila"
         },
         "model": {
           "name": "Keskiaikaisen kirkon kivijalan rauniot",
@@ -1122,7 +1482,8 @@
           "name": "Rieskaronmäki",
           "id": 531010035,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.531010035"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.531010035",
+          "municipality": "Nakkila"
         },
         "model": {
           "name": "Pronssikautinen hautaröykkiö",
@@ -1145,7 +1506,8 @@
           "name": "Rieskaronmäki",
           "id": 531010035,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.531010035"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.531010035",
+          "municipality": "Nakkila"
         },
         "model": {
           "name": "Pronssikautinen hautaröykkiö",
@@ -1168,7 +1530,8 @@
           "name": "Tukikohta XXI:6 (Patola)",
           "id": 1000013764,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013764"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013764",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Juoksuhauta",
@@ -1191,7 +1554,8 @@
           "name": "Tukikohta XXI:6 (Patola)",
           "id": 1000013764,
           "type": "Muinaisjäännökset_piste",
-          "url": "https://www.registryItem.fi/to.aspx?id=112.1000013764"
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013764",
+          "municipality": "Helsinki"
         },
         "model": {
           "name": "Suojahuoneen sisäänkäynti",
