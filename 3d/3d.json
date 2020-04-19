@@ -11,6 +11,605 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [250108.9665000001, 6742254.096100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuhankuono",
+          "id": 1000008975,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000008975",
+          "municipality": "Masku"
+        },
+        "model": {
+          "name": "Kuhankuono",
+          "url": "https://sketchfab.com/models/e673447dca794d05be9c6f00d1e4f930"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [250843.50519999955, 6705396.947899999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuusiston piispanlinna",
+          "id": 202010036,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.202010036",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Huone 2",
+          "url": "https://sketchfab.com/models/8ee9da2d54fe492d9c01acbf6ff31622"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [250843.50519999955, 6705396.947899999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuusiston piispanlinna",
+          "id": 202010036,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.202010036",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Huone 1",
+          "url": "https://sketchfab.com/models/2f55bdd43c5c442b939e83cfd1c3fd18"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [250843.50519999955, 6705396.947899999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuusiston piispanlinna",
+          "id": 202010036,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.202010036",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Kuusiston piispanlinnan rauniot",
+          "url": "https://sketchfab.com/models/82f4d3974f0a43a9be1a63a08c3b44b0"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [243989, 6712762]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Wiltsunkivi",
+          "id": 1000020321,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https:/www.kyppi.fi/to.aspx?id=112.1000020321",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Kuppikivi",
+          "url": "https://sketchfab.com/models/6ef7ac80b6ab4d5283cd01c07eb7c6e8"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [243989, 6712762]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Wiltsunkivi",
+          "id": 1000020321,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https:/www.kyppi.fi/to.aspx?id=112.1000020321",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Kuppikivi / Uhrikivi",
+          "url": "https://sketchfab.com/models/dc211487fda44329917069c2346740c7"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [244073.18800000008, 6712865.913699999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Ravattula Ristimäki",
+          "id": 202010026,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https:/www.kyppi.fi/to.aspx?id=112.202010026",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Ravattula Ristimäki",
+          "url": "https://sketchfab.com/models/db1acfe4607c4159909141edcd46e17c"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [253773.7600999996, 6689602.598200001],
+            [253669.32180000003, 6689576.4922],
+            [253284.52759999968, 6689705.668099999],
+            [252906.61230000015, 6689527.016899999],
+            [252658.47520000022, 6689514.887700001],
+            [252513.52269999962, 6689584.8649],
+            [252442.11730000004, 6689877.4442],
+            [252873.16229999997, 6690183.4738],
+            [252819.29690000042, 6690396.4868],
+            [252866.75329999998, 6690501.348999999],
+            [253296.8914999999, 6690787.192],
+            [253450.80730000045, 6690781.7037],
+            [253532.7017000001, 6690535.146500001],
+            [253689.36390000023, 6690457.1807],
+            [253778.35709999967, 6690477.5777],
+            [253812.41390000004, 6690485.386499999],
+            [253862.76539999992, 6690480.9475],
+            [253868.81020000018, 6690418.7283],
+            [253835.50380000006, 6690398.7415],
+            [253807.28529999964, 6690381.814300001],
+            [253678.47149999999, 6690304.527000001],
+            [253640.52249999996, 6690261.904100001],
+            [253618.93420000002, 6690198.744899999],
+            [253634.9241000004, 6690115.599300001],
+            [253793.64099999983, 6689749.5131],
+            [253773.7600999996, 6689602.598200001]
+          ]
+        ]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Karunan kartano ympäristöineen",
+          "id": 140,
+          "type": "RKY_alue",
+          "url": "http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=140",
+          "municipality": "Sauvo"
+        },
+        "model": {
+          "name": "Karunan kirkko",
+          "url": "https://sketchfab.com/models/d79d30e39182482f8655b01ea77879d5"
+        },
+        "author": "Lassi Kaukonen",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [245240.1754999999, 6713526.029200001],
+            [245376.46019999962, 6713652.968],
+            [245577.96339999977, 6713968.6647],
+            [245633.04760000017, 6714098.9725],
+            [245659.91309999954, 6714242.7179000005],
+            [245669.31340000033, 6714300.4881],
+            [245714.98869999964, 6714421.397399999],
+            [245780.81799999997, 6714488.566299999],
+            [245834.5502000004, 6714532.898800001],
+            [245350.62789999973, 6714711.175799999],
+            [245383.88460000046, 6714753.5187],
+            [246064.27080000006, 6715089.824200001],
+            [247320.1769000003, 6715488.002],
+            [247812.0055999998, 6715687.280099999],
+            [248159.07359999977, 6715511.122099999],
+            [248177.07679999992, 6715150.544299999],
+            [247741.6024000002, 6715056.5582],
+            [247642.50030000042, 6714855.3423999995],
+            [247194.54949999973, 6714717.8838],
+            [246895.12040000036, 6714811.1062],
+            [246625.8733000001, 6714746.5261],
+            [246570.7648, 6714534.7323],
+            [246024.6447999999, 6713984.6942],
+            [245634.4512, 6713745.893300001],
+            [245487.61060000025, 6713759.3102],
+            [245247.5477, 6713520.5701],
+            [245240.1754999999, 6713526.029200001]
+          ]
+        ]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Liedon Vanhalinna",
+          "id": 1779,
+          "type": "RKY_alue",
+          "url": "http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=1779",
+          "municipality": "Lieto"
+        },
+        "model": {
+          "name": "Vanhalinnan kartanon navetta",
+          "url": "https://sketchfab.com/models/8eb70a32133b487c8e5da250dfd458c6"
+        },
+        "author": "Lassi Kaukonen",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [240402.7525000004, 6711115.367799999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Turun Tuomiokirkko",
+          "id": 200528,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200528",
+          "municipality": "Turku"
+        },
+        "model": {
+          "name": "Turun Tuomiokirkko",
+          "url": "https://sketchfab.com/models/b8efc1d35d8446bb9c1ede58af960fba"
+        },
+        "author": "Lassi Kaukonen",
+        "licence": "Copyright (C) Lassi Kaukonen",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [241377.52699999977, 6713381.8639]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Maarian kirkko",
+          "id": 200534,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200534",
+          "municipality": "Turku"
+        },
+        "model": {
+          "name": "Maarian kirkko",
+          "url": "https://sketchfab.com/models/9cd5726a2c374c19b0c42312dc55a3d7"
+        },
+        "author": "Lassi Kaukonen",
+        "licence": "Copyright (C) Lassi Kaukonen",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [250686, 6708114]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Pukkila",
+          "id": 1000024487,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https:/www.kyppi.fi/to.aspx?id=112.1000024487",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Pukkilan kartano",
+          "url": "https://sketchfab.com/models/f519cf4fc37d41459be54bd649891180"
+        },
+        "author": "Lassi Kaukonen",
+        "licence": "Copyright (C) Lassi Kaukonen",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [237471.84169999976, 6709414.266899999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Turun linna",
+          "id": 200284,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200284",
+          "municipality": "Turku"
+        },
+        "model": {
+          "name": "Turun linna",
+          "url": "https://sketchfab.com/models/702f89fcc2a64c318841c134504d5cfa"
+        },
+        "author": "Lassi Kaukonen",
+        "licence": "Copyright (C) Lassi Kaukonen",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [250260.8864000002, 6716668.663000001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Liedon kirkko",
+          "id": 200474,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200474",
+          "municipality": "Lieto"
+        },
+        "model": {
+          "name": "Liedon kirkko",
+          "url": "https://sketchfab.com/models/3ee3f39ed68548c0b0d28a5c5709dfac"
+        },
+        "author": "Lassi Kaukonen",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [238699.72800000012, 6710827.1391]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Mikaelinkirkko",
+          "id": 200532,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200532",
+          "municipality": "Turku"
+        },
+        "model": {
+          "name": "Mikaelinkirkko",
+          "url": "https://sketchfab.com/models/336e237f3bf54274abde34503d60b5ed"
+        },
+        "author": "Lassi Kaukonen",
+        "licence": "Copyright (C) Lassi Kaukonen",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [250353.3476999998, 6704985.8069]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuusiston kartano",
+          "id": 200082,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200082",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Kuusiston kartano",
+          "url": "https://sketchfab.com/models/3bc33d098397429db28f91c3c7e81947"
+        },
+        "author": "Lassi Kaukonen",
+        "licence": "Copyright (C) Lassi Kaukonen",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [250843.50519999955, 6705396.947899999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuusiston piispanlinna",
+          "id": 202010036,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.202010036",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Kuusiston linnan rauniot",
+          "url": "https://sketchfab.com/models/ffd58522485845d083326a56ff5d03b4"
+        },
+        "author": "Lassi Kaukonen",
+        "licence": "Copyright (C) Lassi Kaukonen",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [253400.60300000012, 6707235.2543]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Piikkiön kirkko",
+          "id": 200504,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200504",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Piikkiön kirkko",
+          "url": "https://sketchfab.com/models/5427075fbcb24192bb72652b4c20d5d4"
+        },
+        "author": "Lassi Kaukonen",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [116179.91060000006, 6702449.6776],
+            [116186.79839999974, 6702421.8038],
+            [116192.27720000036, 6702398.4416000005],
+            [116178.25289999973, 6702394.145500001],
+            [116164.73080000002, 6702388.564200001],
+            [116141.00019999966, 6702420.4737],
+            [116177.6492999997, 6702421.4646000005],
+            [116170.51279999968, 6702450.9421999995],
+            [116179.91060000006, 6702449.6776]
+          ]
+        ]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sa 14.9",
+          "id": 1131,
+          "type": "Fornminnen",
+          "url": "https://aland.maps.arcgis.com/apps/webappviewer/index.html?id=9d7cc07ab4004f0ca620038c4fd416ca&marker=116165.49136584083%2C6702394.208363676%2C102139%2C%2C%2C&markertemplate=%7B%22title%22%3A%22Sa%2014.9%22%2C%22x%22%3A116165.49136584083%2C%22y%22%3A6702394.208363676%2C%22wkid%22%3A102139%2C%22isIncludeShareUrl%22%3Atrue%7D&level=13",
+          "municipality": "Saltvik"
+        },
+        "model": {
+          "name": "Excavations at Saltvik 2014",
+          "url": "https://sketchfab.com/models/b058e98041284279820423807b0b36e4"
+        },
+        "author": "Daniel Löwenborg",
+        "licence": "Copyright (C) Daniel Löwenborg",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [116179.91060000006, 6702449.6776],
+            [116186.79839999974, 6702421.8038],
+            [116192.27720000036, 6702398.4416000005],
+            [116178.25289999973, 6702394.145500001],
+            [116164.73080000002, 6702388.564200001],
+            [116141.00019999966, 6702420.4737],
+            [116177.6492999997, 6702421.4646000005],
+            [116170.51279999968, 6702450.9421999995],
+            [116179.91060000006, 6702449.6776]
+          ]
+        ]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sa 14.9",
+          "id": 1131,
+          "type": "Fornminnen",
+          "url": "https://aland.maps.arcgis.com/apps/webappviewer/index.html?id=9d7cc07ab4004f0ca620038c4fd416ca&marker=116165.49136584083%2C6702394.208363676%2C102139%2C%2C%2C&markertemplate=%7B%22title%22%3A%22Sa%2014.9%22%2C%22x%22%3A116165.49136584083%2C%22y%22%3A6702394.208363676%2C%22wkid%22%3A102139%2C%22isIncludeShareUrl%22%3Atrue%7D&level=13",
+          "municipality": "Saltvik"
+        },
+        "model": {
+          "name": "Feature 211",
+          "url": "https://sketchfab.com/models/109481a5d0284f8baef2fdb309abf98d"
+        },
+        "author": "Kristin Ilves",
+        "licence": "Copyright (C) Kristin Ilves",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [116179.91060000006, 6702449.6776],
+            [116186.79839999974, 6702421.8038],
+            [116192.27720000036, 6702398.4416000005],
+            [116178.25289999973, 6702394.145500001],
+            [116164.73080000002, 6702388.564200001],
+            [116141.00019999966, 6702420.4737],
+            [116177.6492999997, 6702421.4646000005],
+            [116170.51279999968, 6702450.9421999995],
+            [116179.91060000006, 6702449.6776]
+          ]
+        ]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sa 14.9",
+          "id": 1131,
+          "type": "Fornminnen",
+          "url": "https://aland.maps.arcgis.com/apps/webappviewer/index.html?id=9d7cc07ab4004f0ca620038c4fd416ca&marker=116165.49136584083%2C6702394.208363676%2C102139%2C%2C%2C&markertemplate=%7B%22title%22%3A%22Sa%2014.9%22%2C%22x%22%3A116165.49136584083%2C%22y%22%3A6702394.208363676%2C%22wkid%22%3A102139%2C%22isIncludeShareUrl%22%3Atrue%7D&level=13",
+          "municipality": "Saltvik"
+        },
+        "model": {
+          "name": "Feature 9",
+          "url": "https://sketchfab.com/models/343b4c761a6a4677aa93762105fdfe40"
+        },
+        "author": "Kristin Ilves",
+        "licence": "Copyright (C) Kristin Ilves",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [263120.88570000045, 6643525.866]
       },
       "properties": {
