@@ -10,7 +10,8 @@ export const VersionHistoryPanel: React.FC = () => {
         <a href="./3d/" target="_blank">
           tietokanta
         </a>{" "}
-        ja karttaan <img src="images/3d_malli.png" /> korostus kohteille, joille
+        ja karttaan <img src="images/3d_malli_circle.png" />
+        <img src="images/3d_malli_square.png" /> korostus kohteille, joille
         löytyy 3D-malleja.
       </p>
 

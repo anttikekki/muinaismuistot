@@ -124,7 +124,8 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
         <div className="checkbox sub-layer-select-checkbox-container">
           <label>
             <input type="checkbox" value="" checked disabled />
-            <img src="images/3d_malli.png" /> 3D-mallit
+            <img src="images/3d_malli_circle.png" />
+            <img src="images/3d_malli_square.png" /> 3D-mallit
           </label>
         </div>
       </form>

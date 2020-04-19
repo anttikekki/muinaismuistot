@@ -3,28 +3,33 @@ import {
   RKYPisteArgisFeature,
   RKYAlueArgisFeature,
   RKYViivaArgisFeature,
-  MuseovirastoLayer
+  MuseovirastoLayer,
+  Model,
 } from "../../../../common/types";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
 import { MuseovirastoLink } from "./MuseovirastoLink";
+import { EmbeddedModels } from "./EmbeddedModels";
 
 interface Props {
   isOpen: boolean;
   onToggleOpen: () => void;
   feature: RKYPisteArgisFeature | RKYAlueArgisFeature | RKYViivaArgisFeature;
+  models?: Array<Model>;
 }
 
 export const RKYPanel: React.FC<Props> = ({
   isOpen,
   onToggleOpen,
-  feature
+  feature,
+  models = [],
 }) => {
   return (
     <FeatureCollapsePanel
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
       feature={feature}
+      has3dModels={models.length > 0}
     >
       <form>
         <Field label="Kohdenimi" value={feature.attributes.kohdenimi} />
@@ -32,6 +37,12 @@ export const RKYPanel: React.FC<Props> = ({
           <Field label="Nimi" value={feature.attributes.nimi} />
         )}
         <MuseovirastoLink feature={feature} />
+        {isOpen && (
+          <>
+            <br />
+            <EmbeddedModels models={models} />
+          </>
+        )}
       </form>
     </FeatureCollapsePanel>
   );

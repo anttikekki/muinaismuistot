@@ -122,7 +122,8 @@ export const MapSymbolPanel: React.FC = () => {
         </h5>
 
         <p>
-          <img className="feature-icon" src="images/3d_malli.png" />
+          <img className="feature-icon" src="images/3d_malli_circle.png" />
+          <img className="feature-icon" src="images/3d_malli_square.png" />
           <span>Kohde sisältää 3D-malleja</span>
         </p>
       </div>

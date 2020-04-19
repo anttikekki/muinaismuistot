@@ -96,23 +96,23 @@ export const getFeatureTypeIconURL = (
       break;
     case MuseovirastoLayer.Muinaisjäännökset_alue:
       if (isKiinteäMuinaisjäännös(feature)) {
-        return "images/muinaisjaannos_alue.png";
+        return `images/muinaisjaannos_alue${modelSuffix}.png`;
       } else if (isMuuKulttuuriperintökohde(feature)) {
-        return "images/muu-kulttuuriperintokohde-alue.png";
+        return `images/muu-kulttuuriperintokohde-alue${modelSuffix}.png`;
       }
       break;
     case MuseovirastoLayer.RKY_alue:
-      return "images/rky_alue.png";
+      return `images/rky_alue${modelSuffix}.png`;
     case MuseovirastoLayer.RKY_viiva:
-      return "images/rky_viiva.png";
+      return `images/rky_viiva${modelSuffix}.png`;
     case MuseovirastoLayer.RKY_piste:
       return `images/rky_piste${modelSuffix}.png`;
     case MuseovirastoLayer.Maailmanperintö_alue:
-      return "images/maailmanperinto_alue.png";
+      return `images/maailmanperinto_alue${modelSuffix}.png`;
     case MuseovirastoLayer.Maailmanperintö_piste:
       return `images/maailmanperinto_piste${modelSuffix}.png`;
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
-      return "images/rakennusperintorekisteri_alue.png";
+      return `images/rakennusperintorekisteri_alue${modelSuffix}.png`;
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
       return `images/rakennusperintorekisteri_rakennus${modelSuffix}.png`;
     case AhvenanmaaLayer.Fornminnen:
@@ -178,8 +178,14 @@ export const getModelsForFeature = (
   let featureId: string | undefined;
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjäännökset_piste:
-    case MuseovirastoLayer.Muinaisjäännökset_alue:
       featureId = feature.attributes.mjtunnus;
+      break;
+    case MuseovirastoLayer.Suojellut_rakennukset_piste:
+      featureId = feature.attributes.kohdeID;
+      break;
+    case MuseovirastoLayer.RKY_alue:
+      featureId = feature.attributes.ID;
+      break;
     case AhvenanmaaLayer.Fornminnen:
       featureId = feature.attributes.OBJECTID;
   }

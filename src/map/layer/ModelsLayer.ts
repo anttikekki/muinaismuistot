@@ -2,9 +2,10 @@ import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import Stroke from "ol/style/Stroke";
 import Circle from "ol/style/Circle";
+import RegularShape from "ol/style/RegularShape";
 import Style from "ol/style/Style";
 import GeoJSON from "ol/format/GeoJSON";
-import { GeoJSONResponse } from "../../common/types";
+import { GeoJSONResponse, Model, MuseovirastoLayer } from "../../common/types";
 import { FeatureLike } from "ol/Feature";
 import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser";
 
@@ -13,7 +14,8 @@ export type OnLayersCreatedCallbackFn = (layer: VectorLayer) => void;
 export default class ModelsLayer {
   private layer?: VectorLayer;
   private source?: VectorSource;
-  private stylePoint: Style;
+  private stylePointCircle: Style;
+  private stylePointSquare: Style;
   private stylePolygon: Style;
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn;
   private dataLatestUpdateDate?: Date;
@@ -21,13 +23,24 @@ export default class ModelsLayer {
   public constructor(onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn) {
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn;
 
-    this.stylePoint = new Style({
+    this.stylePointCircle = new Style({
       image: new Circle({
         stroke: new Stroke({
           color: "black",
           width: 2,
         }),
         radius: 7,
+      }),
+    });
+    this.stylePointSquare = new Style({
+      image: new RegularShape({
+        stroke: new Stroke({
+          color: "black",
+          width: 2,
+        }),
+        points: 4,
+        radius: 7,
+        angle: Math.PI / 4,
       }),
     });
     this.stylePolygon = new Style({
@@ -56,11 +69,23 @@ export default class ModelsLayer {
       style: (feature: FeatureLike) => {
         switch (feature.getGeometry().getType()) {
           case "Point":
-            return this.stylePoint;
+            const properties = feature.getProperties() as Model;
+            if (
+              properties.registryItem.type ===
+              MuseovirastoLayer.Muinaisjäännökset_piste
+            ) {
+              return this.stylePointCircle;
+            }
+            if (
+              properties.registryItem.type ===
+              MuseovirastoLayer.Suojellut_rakennukset_piste
+            ) {
+              return this.stylePointSquare;
+            }
           case "Polygon":
             return this.stylePolygon;
           default:
-            return this.stylePoint;
+            return this.stylePointCircle;
         }
       },
     });

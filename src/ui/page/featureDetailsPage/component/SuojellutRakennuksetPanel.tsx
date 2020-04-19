@@ -2,11 +2,13 @@ import * as React from "react";
 import {
   SuojellutRakennuksetPisteArgisFeature,
   SuojellutRakennuksetAlueArgisFeature,
-  MuseovirastoLayer
+  MuseovirastoLayer,
+  Model,
 } from "../../../../common/types";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
 import { MuseovirastoLink } from "./MuseovirastoLink";
+import { EmbeddedModels } from "./EmbeddedModels";
 
 interface Props {
   isOpen: boolean;
@@ -14,18 +16,21 @@ interface Props {
   feature:
     | SuojellutRakennuksetPisteArgisFeature
     | SuojellutRakennuksetAlueArgisFeature;
+  models?: Array<Model>;
 }
 
 export const SuojellutRakennuksetPanel: React.FC<Props> = ({
   isOpen,
   onToggleOpen,
-  feature
+  feature,
+  models = [],
 }) => {
   return (
     <FeatureCollapsePanel
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
       feature={feature}
+      has3dModels={models.length > 0}
     >
       <form>
         <Field label="Kohdenimi" value={feature.attributes.kohdenimi} />
@@ -35,6 +40,12 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
         <Field label="Kunta" value={feature.attributes.kunta} />
         <Field label="Suojeluryhmä" value={feature.attributes.suojeluryhmä} />
         <MuseovirastoLink feature={feature} />
+        {isOpen && (
+          <>
+            <br />
+            <EmbeddedModels models={models} />
+          </>
+        )}
       </form>
     </FeatureCollapsePanel>
   );
