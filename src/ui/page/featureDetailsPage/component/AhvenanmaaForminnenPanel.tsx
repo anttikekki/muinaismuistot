@@ -1,25 +1,32 @@
 import * as React from "react";
-import { AhvenanmaaForminnenArgisFeature } from "../../../../common/types";
+import {
+  AhvenanmaaForminnenArgisFeature,
+  Model,
+} from "../../../../common/types";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
 import { AhvenanmaaRegeringenLink } from "./AhvenanmaaRegeringenLink";
+import { EmbeddedModels } from "./EmbeddedModels";
 
 interface Props {
   isOpen: boolean;
   onToggleOpen: () => void;
   feature: AhvenanmaaForminnenArgisFeature;
+  models?: Array<Model>;
 }
 
 export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
   isOpen,
   onToggleOpen,
-  feature
+  feature,
+  models = [],
 }) => {
   return (
     <FeatureCollapsePanel
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
       feature={feature}
+      has3dModels={models.length > 0}
     >
       <form>
         <Field label="Nimi" value={feature.attributes.Namn} />
@@ -30,6 +37,13 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
         <Field label="Tunniste" value={feature.attributes["Fornlämnings ID"]} />
 
         <AhvenanmaaRegeringenLink feature={feature} />
+
+        {isOpen && (
+          <>
+            <br />
+            <EmbeddedModels models={models} />
+          </>
+        )}
       </form>
     </FeatureCollapsePanel>
   );

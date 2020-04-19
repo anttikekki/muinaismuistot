@@ -1,23 +1,9 @@
 import * as React from "react";
-import { Model } from "../../common/types";
+import { GeoJSONResponse, GeoJSONFeature } from "../../common/types";
 import { getLayerRegisterName } from "../../common/util/featureParser";
 
-type Feature = {
-  type: "Feature";
-  geometry: {
-    type: "Point";
-    coordinates: Array<number>;
-  };
-  properties: Model;
-};
-
-type GeoJSONResponse = {
-  type: "FeatureCollection";
-  features: Array<Feature>;
-};
-
 export const ModelsTable: React.FC = () => {
-  const [features, setFeatures] = React.useState<Array<Feature>>([]);
+  const [features, setFeatures] = React.useState<Array<GeoJSONFeature>>([]);
 
   React.useEffect(() => {
     fetch("3d.json")

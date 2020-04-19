@@ -154,7 +154,7 @@ ReactDOM.render(
               geometrian tyyppi
             </td>
             <td>
-              Tällä hetkellä aina <code>Point</code>
+              <code>Point</code> tai <code>Polygon</code>
             </td>
             <td>Merkkijono</td>
           </tr>
@@ -184,7 +184,23 @@ ReactDOM.render(
   },`}</code>
             </td>
             <td>
+              <b>Point</b>
+              <br />
               <code>[393155.45770000014, 6680517.1086]</code>
+              <br />
+              <br />
+
+              <b>Polygon</b>
+              <br />
+              <code>
+                {`[
+          [
+            [116179.91060000006, 6702449.6776],
+            [116186.79839999974, 6702421.8038],
+            [116179.91060000006, 6702449.6776]
+          ]
+        ]`}
+              </code>
             </td>
             <td>Taulukko numeroita</td>
           </tr>

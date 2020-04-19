@@ -10,6 +10,114 @@
     {
       "type": "Feature",
       "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [116179.91060000006, 6702449.6776],
+            [116186.79839999974, 6702421.8038],
+            [116192.27720000036, 6702398.4416000005],
+            [116178.25289999973, 6702394.145500001],
+            [116164.73080000002, 6702388.564200001],
+            [116141.00019999966, 6702420.4737],
+            [116177.6492999997, 6702421.4646000005],
+            [116170.51279999968, 6702450.9421999995],
+            [116179.91060000006, 6702449.6776]
+          ]
+        ]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sa 14.9",
+          "id": 1131,
+          "type": "Fornminnen",
+          "url": "https://aland.maps.arcgis.com/apps/webappviewer/index.html?id=9d7cc07ab4004f0ca620038c4fd416ca&marker=116165.49136584083%2C6702394.208363676%2C102139%2C%2C%2C&markertemplate=%7B%22title%22%3A%22Sa%2014.9%22%2C%22x%22%3A116165.49136584083%2C%22y%22%3A6702394.208363676%2C%22wkid%22%3A102139%2C%22isIncludeShareUrl%22%3Atrue%7D&level=13",
+          "municipality": "Saltvik"
+        },
+        "model": {
+          "name": "Excavations at Saltvik 2014",
+          "url": "https://sketchfab.com/models/b058e98041284279820423807b0b36e4"
+        },
+        "author": "Daniel Löwenborg",
+        "licence": "Copyright (C) Daniel Löwenborg",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [116179.91060000006, 6702449.6776],
+            [116186.79839999974, 6702421.8038],
+            [116192.27720000036, 6702398.4416000005],
+            [116178.25289999973, 6702394.145500001],
+            [116164.73080000002, 6702388.564200001],
+            [116141.00019999966, 6702420.4737],
+            [116177.6492999997, 6702421.4646000005],
+            [116170.51279999968, 6702450.9421999995],
+            [116179.91060000006, 6702449.6776]
+          ]
+        ]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sa 14.9",
+          "id": 1131,
+          "type": "Fornminnen",
+          "url": "https://aland.maps.arcgis.com/apps/webappviewer/index.html?id=9d7cc07ab4004f0ca620038c4fd416ca&marker=116165.49136584083%2C6702394.208363676%2C102139%2C%2C%2C&markertemplate=%7B%22title%22%3A%22Sa%2014.9%22%2C%22x%22%3A116165.49136584083%2C%22y%22%3A6702394.208363676%2C%22wkid%22%3A102139%2C%22isIncludeShareUrl%22%3Atrue%7D&level=13",
+          "municipality": "Saltvik"
+        },
+        "model": {
+          "name": "Feature 211",
+          "url": "https://sketchfab.com/models/109481a5d0284f8baef2fdb309abf98d"
+        },
+        "author": "Kristin Ilves",
+        "licence": "Copyright (C) Kristin Ilves",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [116179.91060000006, 6702449.6776],
+            [116186.79839999974, 6702421.8038],
+            [116192.27720000036, 6702398.4416000005],
+            [116178.25289999973, 6702394.145500001],
+            [116164.73080000002, 6702388.564200001],
+            [116141.00019999966, 6702420.4737],
+            [116177.6492999997, 6702421.4646000005],
+            [116170.51279999968, 6702450.9421999995],
+            [116179.91060000006, 6702449.6776]
+          ]
+        ]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sa 14.9",
+          "id": 1131,
+          "type": "Fornminnen",
+          "url": "https://aland.maps.arcgis.com/apps/webappviewer/index.html?id=9d7cc07ab4004f0ca620038c4fd416ca&marker=116165.49136584083%2C6702394.208363676%2C102139%2C%2C%2C&markertemplate=%7B%22title%22%3A%22Sa%2014.9%22%2C%22x%22%3A116165.49136584083%2C%22y%22%3A6702394.208363676%2C%22wkid%22%3A102139%2C%22isIncludeShareUrl%22%3Atrue%7D&level=13",
+          "municipality": "Saltvik"
+        },
+        "model": {
+          "name": "Feature 9",
+          "url": "https://sketchfab.com/models/343b4c761a6a4677aa93762105fdfe40"
+        },
+        "author": "Kristin Ilves",
+        "licence": "Copyright (C) Kristin Ilves",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
         "type": "Point",
         "coordinates": [263120.88570000045, 6643525.866]
       },

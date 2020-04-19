@@ -105,17 +105,17 @@ export const getFeatureTypeIconURL = (
     case MuseovirastoLayer.RKY_viiva:
       return "images/rky_viiva.png";
     case MuseovirastoLayer.RKY_piste:
-      return "images/rky_piste.png";
+      return `images/rky_piste${modelSuffix}.png`;
     case MuseovirastoLayer.Maailmanperintö_alue:
       return "images/maailmanperinto_alue.png";
     case MuseovirastoLayer.Maailmanperintö_piste:
-      return "images/maailmanperinto_piste.png";
+      return `images/maailmanperinto_piste${modelSuffix}.png`;
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
       return "images/rakennusperintorekisteri_alue.png";
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
-      return "images/rakennusperintorekisteri_rakennus.png";
+      return `images/rakennusperintorekisteri_rakennus${modelSuffix}.png`;
     case AhvenanmaaLayer.Fornminnen:
-      return "images/ahvenanmaa_muinaisjaannos.png";
+      return `images/ahvenanmaa_muinaisjaannos${modelSuffix}.png`;
     default:
       return undefined;
   }
@@ -179,6 +179,8 @@ export const getModelsForFeature = (
     case MuseovirastoLayer.Muinaisjäännökset_piste:
     case MuseovirastoLayer.Muinaisjäännökset_alue:
       featureId = feature.attributes.mjtunnus;
+    case AhvenanmaaLayer.Fornminnen:
+      featureId = feature.attributes.OBJECTID;
   }
 
   return models

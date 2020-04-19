@@ -1,45 +1,39 @@
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
-import Fill from "ol/style/Fill";
 import Stroke from "ol/style/Stroke";
 import Circle from "ol/style/Circle";
 import Style from "ol/style/Style";
 import GeoJSON from "ol/format/GeoJSON";
-import { Model } from "../../common/types";
-
-type GeoJSONResponse = {
-  type: "FeatureCollection";
-  features: Array<{
-    type: "Feature";
-    geometry: {
-      type: "Point";
-      coordinates: Array<number>;
-    };
-    properties: Model;
-  }>;
-};
+import { GeoJSONResponse } from "../../common/types";
+import { FeatureLike } from "ol/Feature";
 
 export type OnLayersCreatedCallbackFn = (layer: VectorLayer) => void;
 
 export default class ModelsLayer {
   private layer?: VectorLayer;
   private source?: VectorSource;
-  private style: Style;
+  private stylePoint: Style;
+  private stylePolygon: Style;
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn;
   private dataLatestUpdateDate?: Date;
 
   public constructor(onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn) {
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn;
 
-    this.style = new Style({
+    this.stylePoint = new Style({
       image: new Circle({
-        //fill:  new Fill({color: "rgba(0, 0, 255, 1.0)"}),
         stroke: new Stroke({
           color: "black",
-          width: 2
+          width: 2,
         }),
-        radius: 7
-      })
+        radius: 7,
+      }),
+    });
+    this.stylePolygon = new Style({
+      stroke: new Stroke({
+        color: "black",
+        width: 4,
+      }),
     });
 
     this.fetchGeoJson().then(this.addFeaturesToLayer);
@@ -54,11 +48,20 @@ export default class ModelsLayer {
 
   private addFeaturesToLayer = (geojsonObject: GeoJSONResponse) => {
     this.source = new VectorSource({
-      features: new GeoJSON().readFeatures(geojsonObject)
+      features: new GeoJSON().readFeatures(geojsonObject),
     });
     this.layer = new VectorLayer({
       source: this.source,
-      style: this.style
+      style: (feature: FeatureLike) => {
+        switch (feature.getGeometry().getType()) {
+          case "Point":
+            return this.stylePoint;
+          case "Polygon":
+            return this.stylePolygon;
+          default:
+            return this.stylePoint;
+        }
+      },
     });
     this.onLayerCreatedCallbackFn(this.layer);
   };
@@ -71,7 +74,7 @@ export default class ModelsLayer {
     }
     const data = await this.fetchGeoJson();
 
-    let dates = data.features.map(feature =>
+    let dates = data.features.map((feature) =>
       new Date(feature.properties.createdDate).getTime()
     );
     dates = Array.from(new Set(dates)); // Make unique

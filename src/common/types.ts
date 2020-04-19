@@ -378,3 +378,24 @@ export interface Model {
   licenceUrl: string;
   createdDate: string;
 }
+
+type GeoJSONPointGeometry = {
+  type: "Point";
+  coordinates: Array<number>;
+};
+
+type GeoJSONPolygonGeometry = {
+  type: "Polygon";
+  coordinates: Array<Array<number>>;
+};
+
+export type GeoJSONFeature = {
+  type: "Feature";
+  geometry: GeoJSONPointGeometry | GeoJSONPolygonGeometry;
+  properties: Model;
+};
+
+export type GeoJSONResponse = {
+  type: "FeatureCollection";
+  features: Array<GeoJSONFeature>;
+};
