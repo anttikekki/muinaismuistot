@@ -6,6 +6,7 @@ import { Download } from "./Download";
 import { ModelsTable } from "./ModelsTable";
 import { GeoJSONFeature, GeoJSONResponse } from "../../common/types";
 import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser";
+import { DatabaseIntro } from "./DatabaseIntro";
 
 export const Content: React.FC = () => {
   const [models, setModels] = React.useState<Array<GeoJSONFeature>>([]);
@@ -46,35 +47,7 @@ export const Content: React.FC = () => {
       </div>
       <div className="container">
         <TableOfContent />
-
-        <h2 id="Tietokannan-tarkoitus">Tietokannan tarkoitus</h2>
-        <p>
-          Museot, Museovirasto, Ahvenanmaan paikallishallinto ja harrastajat
-          ovat julkaisseet 3D-malleja arkeologisista- ja
-          rakennusperintökohteista <a href="https://sketchfab.com">Sketchfab</a>
-          -sivustolla mutta niitä on vaikea löytää ja listata. Lisäksi ne eivät
-          linkity helposti Museoviraston ja Ahvenanmaan paikallishallinnon
-          rekistereihin tai niistä koostettuihin avoimiin
-          paikkatietoaineistoihin joten malleja ei saa mitenkään helposti
-          kartalle. Tämä tietokanta yrittää korjata tämän ongelman.
-        </p>
-
-        <p>
-          Tässä tietokannassa Sketchfab-palvelussa oleva 3D-malli linkitetään
-          Museoviraston ja Ahvenanmaan paikallishallinnon rekisterien kohteisiin
-          ja sijaintiin kartalla. Tällöin tämän linkityksen avulla pystyy
-          vastaamaan seuraaviin kysymyksiin:
-        </p>
-        <ol>
-          <li>
-            Onko rekisterin kohteella julkisesti saatavilla olevia 3D-malleja?
-          </li>
-          <li>
-            Mitä rekisterin kohdetta Sketchfabissa oleva 3D-malli esittää?
-          </li>
-          <li>Missä sijainnissa kartalla 3D-mallin esittämä kohde on?</li>
-        </ol>
-
+        <DatabaseIntro />
         <Registers />
         <DatabaseStructure />
         <Download />
@@ -93,24 +66,6 @@ export const Content: React.FC = () => {
           yhteydeotot ja kyselyt samaan osoitteeseen.
         </p>
 
-        <h2 id="listaus">Aineston listaus</h2>
-        <p>
-          Tässä listattu koko tietokannan sisältö. Kaikki tämän taulukon tiedot
-          löytyvät suoraan tietokannasta. Kohteen nimi on linkki suoraan
-          Museoviraston ja Ahvenanmaan paikallishallinnon rekisteriin. Mallin
-          nimi on linkki 3D-malliin{" "}
-          <a href="https://sketchfab.com" target="_blank">
-            Sketchfab
-          </a>
-          -sivustolla.
-        </p>
-        <p>
-          Tämän aineston näkee kartalla{" "}
-          <a href="https://muinaismuistot.info" target="_blank">
-            muinaismuistot.info
-          </a>{" "}
-          -sivustolta.
-        </p>
         <ModelsTable models={models} />
       </div>
     </>
