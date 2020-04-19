@@ -5,7 +5,7 @@ import {
   getFeatureName,
   getFeatureTypeName,
   getFeatureTypeIconURL,
-  getFeatureLocation
+  getFeatureLocation,
 } from "../../../common/util/featureParser";
 import { Page, PageVisibility } from "../Page";
 import { createLocationHash } from "../../../common/util/URLHashHelper";
@@ -54,7 +54,7 @@ const Results: React.FC<ResultsProps> = ({ hidePage, features }) => {
       </h5>
 
       <div className="list-group">
-        {features.map(f => (
+        {features.map((f) => (
           <ResultRow
             key={`${f.layerName}-${getFeatureID(f)}`}
             feature={f}
@@ -85,10 +85,17 @@ export const SearchPage: React.FC<Props> = ({
   visibility,
   hidePage,
   searchFeatures,
-  searchResultFeatures
+  searchResultFeatures,
 }) => {
   const [searchText, setSearchText] = React.useState("");
   const [showSearchTextError, setShowSearchTextError] = React.useState(false);
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
+
+  React.useEffect(() => {
+    if (visibility === PageVisibility.Visible) {
+      setTimeout(() => inputRef.current?.focus(), 500);
+    }
+  }, [visibility]);
 
   const onSearchClick = (event: React.FormEvent<HTMLFormElement>) => {
     event.stopPropagation();
@@ -112,10 +119,11 @@ export const SearchPage: React.FC<Props> = ({
         <div className="input-group">
           <input
             type="text"
+            ref={inputRef}
             className="form-control"
             placeholder="Kirjoita kohteen nimi tai sen osa"
             value={searchText}
-            onChange={e => setSearchText(e.target.value)}
+            onChange={(e) => setSearchText(e.target.value)}
           />
           <span className="input-group-btn">
             <button className="btn btn-default" type="submit">
