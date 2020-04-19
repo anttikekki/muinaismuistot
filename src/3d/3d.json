@@ -10,6 +10,174 @@
     {
       "type": "Feature",
       "geometry": {
+        "type": "Point",
+        "coordinates": [250108.9665000001, 6742254.096100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuhankuono",
+          "id": 1000008975,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000008975",
+          "municipality": "Masku"
+        },
+        "model": {
+          "name": "Kuhankuono",
+          "url": "https://sketchfab.com/models/e673447dca794d05be9c6f00d1e4f930"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [250843.50519999955, 6705396.947899999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuusiston piispanlinna",
+          "id": 202010036,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.202010036",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Huone 2",
+          "url": "https://sketchfab.com/models/8ee9da2d54fe492d9c01acbf6ff31622"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [250843.50519999955, 6705396.947899999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuusiston piispanlinna",
+          "id": 202010036,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.202010036",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Huone 1",
+          "url": "https://sketchfab.com/models/2f55bdd43c5c442b939e83cfd1c3fd18"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [250843.50519999955, 6705396.947899999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuusiston piispanlinna",
+          "id": 202010036,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.202010036",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Kuusiston piispanlinnan rauniot",
+          "url": "https://sketchfab.com/models/82f4d3974f0a43a9be1a63a08c3b44b0"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [243989, 6712762]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Wiltsunkivi",
+          "id": 1000020321,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https:/www.kyppi.fi/to.aspx?id=112.1000020321",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Kuppikivi",
+          "url": "https://sketchfab.com/models/6ef7ac80b6ab4d5283cd01c07eb7c6e8"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [243989, 6712762]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Wiltsunkivi",
+          "id": 1000020321,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https:/www.kyppi.fi/to.aspx?id=112.1000020321",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Kuppikivi / Uhrikivi",
+          "url": "https://sketchfab.com/models/dc211487fda44329917069c2346740c7"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [244073.18800000008, 6712865.913699999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Ravattula Ristimäki",
+          "id": 202010026,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https:/www.kyppi.fi/to.aspx?id=112.202010026",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Ravattula Ristimäki",
+          "url": "https://sketchfab.com/models/db1acfe4607c4159909141edcd46e17c"
+        },
+        "author": "Nimimerkki jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-19"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
