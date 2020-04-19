@@ -6,6 +6,7 @@ import Style from "ol/style/Style";
 import GeoJSON from "ol/format/GeoJSON";
 import { GeoJSONResponse } from "../../common/types";
 import { FeatureLike } from "ol/Feature";
+import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser";
 
 export type OnLayersCreatedCallbackFn = (layer: VectorLayer) => void;
 
@@ -73,11 +74,6 @@ export default class ModelsLayer {
       return Promise.resolve(this.dataLatestUpdateDate);
     }
     const data = await this.fetchGeoJson();
-
-    let dates = data.features.map((feature) =>
-      new Date(feature.properties.createdDate).getTime()
-    );
-    dates = Array.from(new Set(dates)); // Make unique
-    return new Date(Math.max.apply(null, dates));
+    return getGeoJSONDataLatestUpdateDate(data.features);
   };
 }

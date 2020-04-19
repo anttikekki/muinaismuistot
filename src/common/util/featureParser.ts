@@ -10,6 +10,7 @@ import {
   MuseovirastoLayer,
   AhvenanmaaLayer,
   Model,
+  GeoJSONFeature,
 } from "../types";
 
 export const isKiinteäMuinaisjäännös = (
@@ -357,4 +358,14 @@ export const trim = (value: string | undefined | null): string => {
     value = value.substring(0, value.length - 1).trim();
   }
   return value;
+};
+
+export const getGeoJSONDataLatestUpdateDate = (
+  features: Array<GeoJSONFeature>
+): Date => {
+  let dates = features.map((feature) =>
+    new Date(feature.properties.createdDate).getTime()
+  );
+  dates = Array.from(new Set(dates)); // Make unique
+  return new Date(Math.max.apply(null, dates));
 };

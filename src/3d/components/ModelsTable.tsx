@@ -2,16 +2,11 @@ import * as React from "react";
 import { GeoJSONResponse, GeoJSONFeature } from "../../common/types";
 import { getLayerRegisterName } from "../../common/util/featureParser";
 
-export const ModelsTable: React.FC = () => {
-  const [features, setFeatures] = React.useState<Array<GeoJSONFeature>>([]);
+interface Props {
+  models: Array<GeoJSONFeature>;
+}
 
-  React.useEffect(() => {
-    fetch("3d.json")
-      .then((response) => response.json())
-      .then((data) => data as GeoJSONResponse)
-      .then((data) => setFeatures(data.features));
-  }, []);
-
+export const ModelsTable: React.FC<Props> = ({ models }) => {
   return (
     <table className="table table-striped">
       <thead>
@@ -27,7 +22,7 @@ export const ModelsTable: React.FC = () => {
         </tr>
       </thead>
       <tbody>
-        {features.map(({ properties }, i) => (
+        {models.map(({ properties }, i) => (
           <tr key={i}>
             <td>{i + 1}</td>
             <td>
