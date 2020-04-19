@@ -7,6 +7,60 @@ interface Props {
 }
 
 export const ModelsTable: React.FC<Props> = ({ models }) => {
+  const [sortedModels, setSortedModels] = React.useState<Array<GeoJSONFeature>>(
+    []
+  );
+  const [sortColumn, setSortColumn] = React.useState<string>("Lisätty");
+  const [sortDirection, setSortDirection] = React.useState<"asc" | "desc">(
+    "desc"
+  );
+
+  React.useEffect(() => setSortedModels(models), [models]);
+
+  const onSortClick = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    newSortColumn: string,
+    compareFn: (a: GeoJSONFeature, b: GeoJSONFeature) => number
+  ) => {
+    event.preventDefault();
+
+    let newSortDirection = sortDirection;
+    if (newSortColumn === sortColumn) {
+      newSortDirection = sortDirection === "asc" ? "desc" : "asc";
+    } else {
+      setSortColumn(newSortColumn);
+      newSortDirection = "asc";
+    }
+    setSortDirection(newSortDirection);
+
+    let sortResult = [...sortedModels].sort(compareFn);
+    sortResult =
+      newSortDirection === "desc" ? sortResult.reverse() : sortResult;
+    setSortedModels(sortResult);
+  };
+
+  const ColumnHeader: React.FC<{
+    name: string;
+    valueFn: (v: GeoJSONFeature) => string;
+  }> = ({ name, valueFn }) => {
+    return (
+      <th>
+        <a
+          href={`#${name}`}
+          onClick={(e) =>
+            onSortClick(e, name, (a, b) => valueFn(a).localeCompare(valueFn(b)))
+          }
+          style={{ whiteSpace: "nowrap" }}
+        >
+          <span>{name} </span>
+          {name === sortColumn && (
+            <img src={`../images/${sortDirection}.png`} />
+          )}
+        </a>
+      </th>
+    );
+  };
+
   return (
     <>
       <h2 id="listaus">Aineston listaus</h2>
@@ -32,17 +86,38 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
         <thead>
           <tr>
             <th>#</th>
-            <th>Kohde</th>
-            <th>Kunta</th>
-            <th>Rekisteri</th>
-            <th>Mallin nimi</th>
-            <th>Lisätty</th>
-            <th>Tekijä/Jukaisija</th>
-            <th>Lisenssi</th>
+            <ColumnHeader
+              name="Kohde"
+              valueFn={(v) => v.properties.registryItem.name}
+            />
+            <ColumnHeader
+              name="Kunta"
+              valueFn={(v) => v.properties.registryItem.municipality}
+            />
+            <ColumnHeader
+              name="Rekisteri"
+              valueFn={(v) => v.properties.registryItem.type}
+            />
+            <ColumnHeader
+              name="Mallin nimi"
+              valueFn={(v) => v.properties.model.name}
+            />
+            <ColumnHeader
+              name="Lisätty"
+              valueFn={(v) => v.properties.createdDate}
+            />
+            <ColumnHeader
+              name="Tekijä/Jukaisija"
+              valueFn={(v) => v.properties.author}
+            />
+            <ColumnHeader
+              name="Lisenssi"
+              valueFn={(v) => v.properties.licence}
+            />
           </tr>
         </thead>
         <tbody>
-          {models.map(({ properties }, i) => (
+          {sortedModels.map(({ properties }, i) => (
             <tr key={i}>
               <td>{i + 1}</td>
               <td>
