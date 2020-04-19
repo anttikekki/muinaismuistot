@@ -381,12 +381,12 @@ export interface Model {
 
 type GeoJSONPointGeometry = {
   type: "Point";
-  coordinates: Array<number>;
+  coordinates: [number, number];
 };
 
 type GeoJSONPolygonGeometry = {
   type: "Polygon";
-  coordinates: Array<Array<number>>;
+  coordinates: Array<Array<[number, number]>>;
 };
 
 export type GeoJSONFeature = {

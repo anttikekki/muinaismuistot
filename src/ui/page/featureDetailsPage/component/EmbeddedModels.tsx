@@ -50,25 +50,23 @@ export const Info: React.FC = () => {
             <img src="images/sketchfab-fullscreen.png" /> painikkeesta tai
             painamalla näppäimistöltä <kbd>f</kbd> painiketta.
           </p>
-          <p>
-            Mallin ohjaus:
-            <ul>
-              <li>
-                <b>Kääntäminen:</b> pidä vasen hiirenpainike pohjaan painettuna
-                ja liikuta hiirtä. Kosketusnäytöillä pidä sormi painettuna ja
-                liikuta sormea.
-              </li>
-              <li>
-                <b>Suurennus ja pienennys:</b> käytä hiiren rullaa.
-                Kosketusnäytöillä käytä kahden sormen nipistyselettä.
-              </li>
-              <li>
-                <b>Kohdistuksen siirtäminen:</b> pidä oikea hiirenpainike
-                pohjaan painettuna ja liikuta hiirtä. Kosketusnäytöillä pidä
-                kaksi sormea painettuna ja liikuta sormia.
-              </li>
-            </ul>
-          </p>
+          <p>Mallin ohjaus:</p>
+          <ul>
+            <li>
+              <b>Kääntäminen:</b> pidä vasen hiirenpainike pohjaan painettuna ja
+              liikuta hiirtä. Kosketusnäytöillä pidä sormi painettuna ja liikuta
+              sormea.
+            </li>
+            <li>
+              <b>Suurennus ja pienennys:</b> käytä hiiren rullaa.
+              Kosketusnäytöillä käytä kahden sormen nipistyselettä.
+            </li>
+            <li>
+              <b>Kohdistuksen siirtäminen:</b> pidä oikea hiirenpainike pohjaan
+              painettuna ja liikuta hiirtä. Kosketusnäytöillä pidä kaksi sormea
+              painettuna ja liikuta sormia.
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -87,7 +85,7 @@ export const EmbeddedModels: React.FC<Props> = ({ models = [] }) => {
       <Info />
 
       {models.map((model) => (
-        <div className="form-group">
+        <div className="form-group" key={model.model.url}>
           <label>{model.model.name}</label>
           <iframe
             title={model.model.name}

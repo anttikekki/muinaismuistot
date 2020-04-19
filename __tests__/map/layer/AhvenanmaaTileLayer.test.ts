@@ -1,14 +1,15 @@
 import AhvenanmaaTileLayer from "../../../src/map/layer/AhvenanmaaTileLayer";
 import { Extent } from "ol/extent";
+import { Size } from "ol/size";
 
 jest.setTimeout(30000);
 
-const mapSize = [1680, 445];
+const mapSize: Size = [1680, 445];
 const mapExtent: Extent = [
   365537.11965882167,
   6671977.1335827755,
   408118.1157036613,
-  6683256.028368463
+  6683256.028368463,
 ];
 
 const createAhvenanmaaTileLayerTileLayer = () => {
