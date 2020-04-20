@@ -197,6 +197,10 @@ export const getModelsForFeature = (
       break;
     case AhvenanmaaLayer.Fornminnen:
       featureId = feature.attributes.OBJECTID;
+      break;
+    case AhvenanmaaLayer.MaritimtKulturarv:
+      featureId = feature.attributes.OBJECTID;
+      break;
   }
 
   return models

@@ -82,6 +82,7 @@ export default class ModelsLayer {
             ) {
               return this.stylePointSquare;
             }
+            return this.stylePointCircle;
           case "Polygon":
             return this.stylePolygon;
           default:

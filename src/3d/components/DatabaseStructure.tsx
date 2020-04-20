@@ -110,47 +110,74 @@ export const DatabaseStructure: React.FC = () => {
               Museoviraston aineistot:
               <ul>
                 <li>
-                  <a href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/0">
+                  <a
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/0"
+                    target="_blank"
+                  >
                     Muinaisjäännökset_piste
                   </a>
                 </li>
                 <li>
-                  <a href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/1">
+                  <a
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/1"
+                    target="_blank"
+                  >
                     Muinaisjäännökset_alue
                   </a>
                 </li>
                 <li>
-                  <a href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/2">
+                  <a
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/2"
+                    target="_blank"
+                  >
                     Suojellut_rakennukset_piste
                   </a>
                 </li>
                 <li>
-                  <a href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/3">
+                  <a
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/3"
+                    target="_blank"
+                  >
                     Suojellut_rakennukset_alue
                   </a>
                 </li>
                 <li>
-                  <a href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/4">
+                  <a
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/4"
+                    target="_blank"
+                  >
                     RKY_alue
                   </a>
                 </li>
                 <li>
-                  <a href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/5">
+                  <a
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/5"
+                    target="_blank"
+                  >
                     RKY_piste
                   </a>
                 </li>
                 <li>
-                  <a href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/6">
+                  <a
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/6"
+                    target="_blank"
+                  >
                     RKY_viiva
                   </a>
                 </li>
                 <li>
-                  <a href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/7">
+                  <a
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/7"
+                    target="_blank"
+                  >
                     Maailmanperintö_piste
                   </a>
                 </li>
                 <li>
-                  <a href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/8">
+                  <a
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/8"
+                    target="_blank"
+                  >
                     Maailmanperintö_alue
                   </a>
                 </li>
@@ -159,8 +186,19 @@ export const DatabaseStructure: React.FC = () => {
               Ahvenanmaan paikallishallinnon aineisto:
               <ul>
                 <li>
-                  <a href="https://www.kartor.ax/datasets/fornminnen">
+                  <a
+                    href="https://www.kartor.ax/datasets/fornminnen"
+                    target="_blank"
+                  >
                     Fornminnen
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.kartor.ax/datasets/maritimt-kulturarv-vrak"
+                    target="_blank"
+                  >
+                    Maritimt kulturarv; Vrak
                   </a>
                 </li>
               </ul>

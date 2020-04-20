@@ -49,6 +49,14 @@ export const Registers: React.FC = () => {
             Muinaisjäännösrekisteri
           </a>
         </li>
+        <li>
+          <a
+            href="https://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/marinarkeologi"
+            target="_blank"
+          >
+            Merellisen kulttuuriperinnön rekisteri
+          </a>
+        </li>
       </ul>
     </>
   );
