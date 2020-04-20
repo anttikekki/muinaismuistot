@@ -11,6 +11,30 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [222408.79669999983, 6732120.600400001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Mietoisten kirkko",
+          "id": 200485,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200485",
+          "municipality": "Turku"
+        },
+        "model": {
+          "name": "Mietoisten kirkko",
+          "url": "https://sketchfab.com/models/0527febe92b243b78bd9c399fc0a7656"
+        },
+        "author": "Lassi Kaukonen",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [250108.9665000001, 6742254.096100001]
       },
       "properties": {
