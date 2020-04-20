@@ -9,22 +9,31 @@ export const SiteInfoPanel: React.FC = () => {
       <h5>Museovirasto</h5>
       <ul>
         <li>
-          <a href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx">
+          <a
+            href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx"
+            target="_blank"
+          >
             Muinaisjäännösrekisteri
           </a>
         </li>
         <li>
-          <a href="https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_default.aspx">
+          <a
+            href="https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_default.aspx"
+            target="_blank"
+          >
             Rakennusperintörekisteri
           </a>
         </li>
         <li>
-          <a href="https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa">
+          <a
+            href="https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa"
+            target="_blank"
+          >
             Maailmanperintökohteet
           </a>
         </li>
         <li>
-          <a href="http://www.rky.fi/">
+          <a href="http://www.rky.fi/" target="_blank">
             Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
           </a>
         </li>
@@ -33,8 +42,19 @@ export const SiteInfoPanel: React.FC = () => {
       <h5>Ahvenamaan paikallishallinto</h5>
       <ul>
         <li>
-          <a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">
+          <a
+            href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret"
+            target="_blank"
+          >
             Muinaisjäännösrekisteri
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/marinarkeologi"
+            target="_blank"
+          >
+            Merellisen kulttuuriperinnön rekisteri
           </a>
         </li>
       </ul>

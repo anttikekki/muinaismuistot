@@ -4,7 +4,13 @@ import { containsCoordinate, Extent } from "ol/extent";
 import { Coordinate } from "ol/coordinate";
 import { TileSourceEvent } from "ol/source/Tile";
 import { Size } from "ol/size";
-import { ArgisIdentifyResult, ArgisFindResult } from "../../common/types";
+import {
+  ArgisIdentifyResult,
+  ArgisFindResult,
+  AhvenanmaaLayerId,
+  getAhvenanmaaLayerId,
+  AhvenanmaaLayer,
+} from "../../common/types";
 
 export type ShowLoadingAnimationFn = (show: boolean) => void;
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void;
@@ -14,7 +20,9 @@ export default class AhvenanmaaTileLayer {
   private layer?: TileLayer;
   private showLoadingAnimationFn: ShowLoadingAnimationFn;
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn;
-  private dataLatestUpdateDate?: Date;
+  private forminnenDataLatestUpdateDate?: Date;
+  private maritimtKulturarvDataLatestUpdateDate?: Date;
+  private visibleLayerIds: ReadonlyArray<AhvenanmaaLayerId>;
 
   public constructor(
     showLoadingAnimationFn: ShowLoadingAnimationFn,
@@ -22,6 +30,10 @@ export default class AhvenanmaaTileLayer {
   ) {
     this.showLoadingAnimationFn = showLoadingAnimationFn;
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn;
+    this.visibleLayerIds = [
+      getAhvenanmaaLayerId(AhvenanmaaLayer.Fornminnen),
+      getAhvenanmaaLayerId(AhvenanmaaLayer.MaritimtKulturarv),
+    ];
     this.addLayer();
   }
 
@@ -30,7 +42,7 @@ export default class AhvenanmaaTileLayer {
     this.layer = new TileLayer({
       source: this.source,
       // Extent from EPSG:3067 https://kartor.regeringen.ax/arcgis/services/Kulturarv/Fornminnen/MapServer/WMSServer?request=GetCapabilities&service=WMS
-      extent: [65741.9087, 6606901.2261, 180921.4173, 6747168.5691]
+      extent: [65741.9087, 6606901.2261, 180921.4173, 6747168.5691],
     });
     this.layer.setOpacity(0.7);
 
@@ -40,11 +52,11 @@ export default class AhvenanmaaTileLayer {
   private createSource = () => {
     const options: Options = {
       urls: [
-        "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/export"
+        "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/export",
       ],
       params: {
-        layers: "show:1"
-      }
+        layers: `show:${this.visibleLayerIds.join(",")}`,
+      },
     };
     const newSource = new TileArcGISRestSource(options);
 
@@ -79,9 +91,9 @@ export default class AhvenanmaaTileLayer {
       tolerance: "10",
       imageDisplay: mapSize.join(",") + ",96",
       mapExtent: mapExtent.join(","),
-      layers: "visible:1",
+      layers: `visible:${this.visibleLayerIds.join(",")}`,
       f: "json",
-      returnGeometry: "true"
+      returnGeometry: "true",
     });
 
     const url = new URL(
@@ -90,7 +102,7 @@ export default class AhvenanmaaTileLayer {
     url.search = String(urlParams);
 
     return fetch(String(url)).then(
-      response => response.json() as Promise<ArgisIdentifyResult>
+      (response) => response.json() as Promise<ArgisIdentifyResult>
     );
   };
 
@@ -99,10 +111,10 @@ export default class AhvenanmaaTileLayer {
       searchText: searchText,
       contains: "true",
       searchFields: "Namn , Beskrivning, Topografi",
-      layers: "1",
+      layers: this.visibleLayerIds.join(","),
       f: "json",
       returnGeometry: "true",
-      returnZ: "false"
+      returnZ: "false",
     });
 
     const url = new URL(
@@ -111,21 +123,42 @@ export default class AhvenanmaaTileLayer {
     url.search = String(urlParams);
 
     return fetch(String(url)).then(
-      response => response.json() as Promise<ArgisFindResult>
+      (response) => response.json() as Promise<ArgisFindResult>
     );
   };
 
-  // URL is from https://www.kartor.ax/datasets/fornminnen
-  public getDataLatestUpdateDate = (): Promise<Date> => {
-    if (this.dataLatestUpdateDate) {
-      return Promise.resolve(this.dataLatestUpdateDate);
+  // Fetch URL is from https://www.kartor.ax/datasets/fornminnen
+  public getForminnenDataLatestUpdateDate = (): Promise<Date> => {
+    if (this.forminnenDataLatestUpdateDate) {
+      return Promise.resolve(this.forminnenDataLatestUpdateDate);
     }
 
     return fetch(
       "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Afornminnen"
     )
-      .then(response => response.json())
-      .then(this.parseUpdatedDate);
+      .then((response) => response.json())
+      .then(this.parseUpdatedDate)
+      .then((date) => {
+        this.forminnenDataLatestUpdateDate = date;
+        return date;
+      });
+  };
+
+  // Fetch URL is from https://www.kartor.ax/datasets/maritimt-kulturarv-vrak
+  public getMaritimtKulturarvDataLatestUpdateDate = (): Promise<Date> => {
+    if (this.maritimtKulturarvDataLatestUpdateDate) {
+      return Promise.resolve(this.maritimtKulturarvDataLatestUpdateDate);
+    }
+
+    return fetch(
+      "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Amaritimt-kulturarv-vrak"
+    )
+      .then((response) => response.json())
+      .then(this.parseUpdatedDate)
+      .then((date) => {
+        this.maritimtKulturarvDataLatestUpdateDate = date;
+        return date;
+      });
   };
 
   private parseUpdatedDate = (doc: any): Promise<Date> => {
@@ -136,8 +169,7 @@ export default class AhvenanmaaTileLayer {
         : undefined;
 
     if (date) {
-      this.dataLatestUpdateDate = new Date(date);
-      return Promise.resolve(this.dataLatestUpdateDate);
+      return Promise.resolve(new Date(date));
     }
     return Promise.reject(new Error("Ahvenanmaan updated date not found"));
   };

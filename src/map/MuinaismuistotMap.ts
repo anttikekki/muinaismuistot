@@ -14,7 +14,7 @@ import {
   ArgisFeature,
   Settings,
   DataLatestUpdateDates,
-  Model
+  Model,
 } from "../common/types";
 import MapBrowserEvent from "ol/MapBrowserEvent";
 import { Coordinate } from "ol/coordinate";
@@ -60,20 +60,20 @@ export default class MuinaismuistotMap {
       50199.4814,
       6582464.0358,
       761274.6247,
-      7799839.8902
+      7799839.8902,
     ];
     getProjection("EPSG:3067").setExtent(extent);
 
     this.view = new View({
       center: [385249.63630000036, 6672695.7579],
       projection: "EPSG:3067",
-      zoom: 8
+      zoom: 8,
     });
 
     this.map = new Map({
       target: "map",
       view: this.view,
-      controls: new Collection()
+      controls: new Collection(),
     });
 
     this.maanmittauslaitosTileLayer = new MaanmittauslaitosTileLayer(
@@ -88,7 +88,7 @@ export default class MuinaismuistotMap {
 
     this.ahvenanmaaTileLayer = new AhvenanmaaTileLayer(
       eventListeners.showLoadingAnimation,
-      createdLayer => {
+      (createdLayer) => {
         this.map.getLayers().insertAt(3, createdLayer);
       }
     );
@@ -96,18 +96,18 @@ export default class MuinaismuistotMap {
     this.museovirastoTileLayer = new MuseovirastoTileLayer(
       initialSettings,
       eventListeners.showLoadingAnimation,
-      createdLayer => {
+      (createdLayer) => {
         this.map.getLayers().insertAt(4, createdLayer);
       }
     );
 
     this.positionAndSelectedLocation = new CurrentPositionAndSelectedLocationMarkerLayer(
-      createdLayer => {
+      (createdLayer) => {
         this.map.getLayers().insertAt(5, createdLayer);
       }
     );
 
-    this.modelsLayer = new ModelsLayer(createdLayer => {
+    this.modelsLayer = new ModelsLayer((createdLayer) => {
       this.map.getLayers().insertAt(6, createdLayer);
     });
 
@@ -132,9 +132,9 @@ export default class MuinaismuistotMap {
       .getFeaturesAtPixel(e.pixel, {
         layerFilter: (layer: Layer<Source>) =>
           layer === this.modelsLayer.getLayer(),
-        hitTolerance: 10
+        hitTolerance: 10,
       })
-      .map(feature => feature.getProperties() as Model);
+      .map((feature) => feature.getProperties() as Model);
 
     Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
       ([ahvenanmaaResult, museovirastoResult]) => {
@@ -152,8 +152,8 @@ export default class MuinaismuistotMap {
       projection: this.view.getProjection(),
       tracking: true,
       trackingOptions: {
-        enableHighAccuracy: true
-      }
+        enableHighAccuracy: true,
+      },
     });
 
     this.geolocation.once("change:position", this.centerToCurrentPositions);
@@ -170,7 +170,7 @@ export default class MuinaismuistotMap {
   private zoom = (zoomChange: number) => {
     this.view.animate({
       zoom: this.view.getZoom() + zoomChange,
-      duration: 250
+      duration: 250,
     });
   };
 
@@ -240,21 +240,31 @@ export default class MuinaismuistotMap {
   public fetchDataLatestUpdateDates = () => {
     Promise.all([
       this.museovirastoTileLayer.getDataLatestUpdateDate(),
-      this.ahvenanmaaTileLayer.getDataLatestUpdateDate(),
-      this.modelsLayer.getDataLatestUpdateDate()
+      this.ahvenanmaaTileLayer.getForminnenDataLatestUpdateDate(),
+      this.ahvenanmaaTileLayer.getMaritimtKulturarvDataLatestUpdateDate(),
+      this.modelsLayer.getDataLatestUpdateDate(),
     ])
-      .then(([ahvenanmaaResult, museovirastoResult, modelsResult]) => {
-        this.eventListeners.dataLatestUpdateDatesReady({
-          museovirasto: museovirastoResult,
-          ahvenanmaa: ahvenanmaaResult,
-          models: modelsResult
-        });
-      })
+      .then(
+        ([
+          museovirastoResult,
+          ahvenanmaaForminnenResult,
+          ahvenanmaaMaritimtKulturarvResult,
+          modelsResult,
+        ]) => {
+          this.eventListeners.dataLatestUpdateDatesReady({
+            museovirasto: museovirastoResult,
+            ahvenanmaaForminnen: ahvenanmaaForminnenResult,
+            ahvenanmaaMaritimtKulturarv: ahvenanmaaMaritimtKulturarvResult,
+            models: modelsResult,
+          });
+        }
+      )
       .catch(() =>
         this.eventListeners.dataLatestUpdateDatesReady({
           museovirasto: null,
-          ahvenanmaa: null,
-          models: null
+          ahvenanmaaForminnen: null,
+          ahvenanmaaMaritimtKulturarv: null,
+          models: null,
         })
       );
   };

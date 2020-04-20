@@ -1,9 +1,14 @@
 import * as React from "react";
-import { ArgisFeature, Model } from "../../../common/types";
+import {
+  ArgisFeature,
+  Model,
+  MuseovirastoLayer,
+  AhvenanmaaLayer,
+} from "../../../common/types";
 import { MuinaisjaannosPistePanel } from "./component/MuinaisjaannosPistePanel";
 import {
   getFeatureID,
-  getModelsForFeature
+  getModelsForFeature,
 } from "../../../common/util/featureParser";
 import { MuinaisjaannosAluePanel } from "./component/MuinaisjaannosAluePanel";
 import { RKYPanel } from "./component/RKYPanel";
@@ -11,6 +16,7 @@ import { MaailmanperintokohdePanel } from "./component/MaailmanperintokohdePanel
 import { SuojellutRakennuksetPanel } from "./component/SuojellutRakennuksetPanel";
 import { AhvenanmaaForminnenPanel } from "./component/AhvenanmaaForminnenPanel";
 import { Page, PageVisibility } from "../Page";
+import { AhvenanmaaMaritimtKulturarvPanel } from "./component/AhvenanmaaMaritimtKulturarvPanel";
 
 interface Props {
   visibility: PageVisibility;
@@ -32,33 +38,35 @@ const PanelForFeature: React.FC<PanelForFeatureProps> = ({
   id,
   onTogglePanelOpen,
   openPanelId,
-  models
+  models,
 }) => {
   const isOpen = openPanelId === id;
   const onToggleOpen = () => onTogglePanelOpen(id);
   const params = {
     isOpen: isOpen,
     onToggleOpen: onToggleOpen,
-    models: getModelsForFeature(feature, models)
+    models: getModelsForFeature(feature, models),
   };
 
   switch (feature.layerName) {
-    case "Muinaisjäännökset_piste":
+    case MuseovirastoLayer.Muinaisjäännökset_piste:
       return <MuinaisjaannosPistePanel feature={feature} {...params} />;
-    case "Muinaisjäännökset_alue":
+    case MuseovirastoLayer.Muinaisjäännökset_alue:
       return <MuinaisjaannosAluePanel feature={feature} {...params} />;
-    case "RKY_alue":
-    case "RKY_viiva":
-    case "RKY_piste":
+    case MuseovirastoLayer.RKY_alue:
+    case MuseovirastoLayer.RKY_viiva:
+    case MuseovirastoLayer.RKY_piste:
       return <RKYPanel feature={feature} {...params} />;
-    case "Maailmanperintö_alue":
-    case "Maailmanperintö_piste":
+    case MuseovirastoLayer.Maailmanperintö_alue:
+    case MuseovirastoLayer.Maailmanperintö_piste:
       return <MaailmanperintokohdePanel feature={feature} {...params} />;
-    case "Suojellut_rakennukset_alue":
-    case "Suojellut_rakennukset_piste":
+    case MuseovirastoLayer.Suojellut_rakennukset_alue:
+    case MuseovirastoLayer.Suojellut_rakennukset_piste:
       return <SuojellutRakennuksetPanel feature={feature} {...params} />;
-    case "Fornminnen":
+    case AhvenanmaaLayer.Fornminnen:
       return <AhvenanmaaForminnenPanel feature={feature} {...params} />;
+    case AhvenanmaaLayer.MaritimtKulturarv:
+      return <AhvenanmaaMaritimtKulturarvPanel feature={feature} {...params} />;
   }
   return null;
 };
@@ -70,7 +78,7 @@ export const FeatureDetailsPage: React.FC<Props> = ({
   visibility,
   hidePage,
   features,
-  models
+  models,
 }) => {
   const [openPanelId, setOpenPanelId] = React.useState("");
   const onTogglePanelOpen = (id: string) =>
@@ -80,7 +88,7 @@ export const FeatureDetailsPage: React.FC<Props> = ({
     <Page title="Valitut kohteet" visibility={visibility} hidePage={hidePage}>
       <div className="panel-group" role="tablist" aria-multiselectable="true" />
       {features &&
-        features.map(feature => (
+        features.map((feature) => (
           <PanelForFeature
             key={getPanelId(feature)}
             id={getPanelId(feature)}

@@ -114,6 +114,14 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
           </label>
         </div>
 
+        <h5>Ahvenamaan merellisen kulttuuriperinnön rekisteri</h5>
+        <div className="checkbox sub-layer-select-checkbox-container">
+          <label>
+            <input type="checkbox" value="" checked disabled />
+            <img src="images/ahvenanmaa_hylky.png" /> Kohde
+          </label>
+        </div>
+
         <h5>
           3D-mallit (
           <a href="./3d/" target="_blank">

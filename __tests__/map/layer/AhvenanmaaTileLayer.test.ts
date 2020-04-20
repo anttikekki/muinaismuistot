@@ -47,11 +47,21 @@ describe("AhvenanmaaTileLayer", () => {
     });
   });
 
-  describe("getDataLatestUpdateDate", () => {
-    test("solves Museovirasto data latest update date", async () => {
+  describe("getForminnenDataLatestUpdateDate", () => {
+    test("solves Ahvenanmaa data latest update date", async () => {
       const layer = createAhvenanmaaTileLayerTileLayer();
 
-      const result = await layer.getDataLatestUpdateDate();
+      const result = await layer.getForminnenDataLatestUpdateDate();
+
+      expect(result).toMatchInlineSnapshot(`2019-12-13T04:08:58.883Z`);
+    });
+  });
+
+  describe("getMaritimtKulturarvDataLatestUpdateDate", () => {
+    test("solves Ahvenanmaa data latest update date", async () => {
+      const layer = createAhvenanmaaTileLayerTileLayer();
+
+      const result = await layer.getMaritimtKulturarvDataLatestUpdateDate();
 
       expect(result).toMatchInlineSnapshot(`2019-12-13T04:08:58.883Z`);
     });

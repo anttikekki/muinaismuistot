@@ -49,6 +49,16 @@ export const MapSymbolPanel: React.FC = () => {
       </div>
 
       <br />
+      <div>
+        <h5>Ahvenanmaan merellisen kulttuuriperinnön rekisteri</h5>
+
+        <p>
+          <img className="feature-icon" src="images/ahvenanmaa_hylky.png" />
+          <span>Kohde</span>
+        </p>
+      </div>
+
+      <br />
 
       <div>
         <h5>Rakennusperintörekisteri</h5>

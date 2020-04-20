@@ -43,6 +43,8 @@ export const getFeatureName = (feature: ArgisFeature): string => {
         trim(feature.attributes.Namn) ||
         trim(feature.attributes["Fornlämnings ID"])
       );
+    case AhvenanmaaLayer.MaritimtKulturarv:
+      return trim(feature.attributes.Namn) || trim(feature.attributes.FornID);
   }
 };
 
@@ -76,6 +78,8 @@ export const getFeatureTypeName = (
       return "Rakennusperintökohde";
     case AhvenanmaaLayer.Fornminnen:
       return "Ahvenanmaan muinaisjäännösrekisterin kohde";
+    case AhvenanmaaLayer.MaritimtKulturarv:
+      return "Ahvenamaan merellisen kulttuuriperintörekisterin kohde";
     default:
       return undefined;
   }
@@ -117,6 +121,8 @@ export const getFeatureTypeIconURL = (
       return `images/rakennusperintorekisteri_rakennus${modelSuffix}.png`;
     case AhvenanmaaLayer.Fornminnen:
       return `images/ahvenanmaa_muinaisjaannos${modelSuffix}.png`;
+    case AhvenanmaaLayer.MaritimtKulturarv:
+      return `images/ahvenanmaa_hylky${modelSuffix}.png`;
     default:
       return undefined;
   }
@@ -152,6 +158,8 @@ export const getLayerIconURLs = (
       return ["images/rakennusperintorekisteri_rakennus.png"];
     case AhvenanmaaLayer.Fornminnen:
       return ["images/ahvenanmaa_muinaisjaannos.png"];
+    case AhvenanmaaLayer.MaritimtKulturarv:
+      return ["images/ahvenanmaa_hylky.png"];
   }
 };
 
@@ -167,6 +175,7 @@ export const getFeatureID = (feature: ArgisFeature): string => {
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
     case AhvenanmaaLayer.Fornminnen:
+    case AhvenanmaaLayer.MaritimtKulturarv:
       return feature.attributes.OBJECTID;
   }
 };
@@ -298,6 +307,8 @@ export const getFeatureRegisterName = (feature: ArgisFeature): string => {
       return "rakennusperintörekisteristä";
     case AhvenanmaaLayer.Fornminnen:
       return "Ahvenamaan muinaisjäännösrekisteri";
+    case AhvenanmaaLayer.MaritimtKulturarv:
+      return "Ahvenamaan merellinen kulttuuriperintörekisteri";
   }
 };
 
@@ -320,6 +331,8 @@ export const getLayerRegisterName = (
       return "Rakennusperintörekisteri";
     case AhvenanmaaLayer.Fornminnen:
       return "Ahvenamaan muinaisjäännösrekisteri";
+    case AhvenanmaaLayer.MaritimtKulturarv:
+      return "Ahvenamaan merellinen kulttuuriperintörekisteri";
   }
 };
 

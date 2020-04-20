@@ -24,8 +24,11 @@ export const DataUpdateDatesPanel: React.FC<Props> = ({
       <h5>Museoviraston aineistot</h5>
       <UpdatedDate date={dataLatestUpdateDates?.museovirasto} />
 
-      <h5>Ahvenamaan paikallishallinnon aineistot</h5>
-      <UpdatedDate date={dataLatestUpdateDates?.ahvenanmaa} />
+      <h5>Ahvenamaan muinaisjäännösrekisteri</h5>
+      <UpdatedDate date={dataLatestUpdateDates?.ahvenanmaaForminnen} />
+
+      <h5>Ahvenamaan merellisen kulttuuriperinnön rekisteri</h5>
+      <UpdatedDate date={dataLatestUpdateDates?.ahvenanmaaMaritimtKulturarv} />
 
       <h5>
         3D-mallit (

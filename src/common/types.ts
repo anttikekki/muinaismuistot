@@ -25,6 +25,7 @@ export enum MuseovirastoLayer {
 
 export enum AhvenanmaaLayer {
   Fornminnen = "Fornminnen",
+  MaritimtKulturarv = "Maritimt kulturarv; Vrak",
 }
 
 export type MuseovirastoLayerId = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -42,6 +43,19 @@ export const museovirastoLayerIdMap: Record<
   [MuseovirastoLayer.RKY_viiva]: 6,
   [MuseovirastoLayer.Maailmanperintö_piste]: 7,
   [MuseovirastoLayer.Maailmanperintö_alue]: 8,
+};
+
+export type AhvenanmaaLayerId = 1 | 5;
+
+export const getAhvenanmaaLayerId = (
+  layer: AhvenanmaaLayer
+): AhvenanmaaLayerId => {
+  switch (layer) {
+    case AhvenanmaaLayer.Fornminnen:
+      return 1;
+    case AhvenanmaaLayer.MaritimtKulturarv:
+      return 5;
+  }
 };
 
 export enum MuinaisjaannosTyyppi {
@@ -144,11 +158,11 @@ interface PointGeometry {
 }
 
 interface PolygonGeometry {
-  rings: Array<Array<Array<number>>>;
+  rings: Array<Array<[number, number]>>;
 }
 
 interface PolylineGeometry {
-  paths: Array<Array<Array<number>>>;
+  paths: Array<Array<[number, number]>>;
 }
 
 export interface MuinaisjaannosPisteArgisFeature {
@@ -335,6 +349,25 @@ export interface AhvenanmaaForminnenArgisFeature {
   geometry: PolygonGeometry;
 }
 
+export interface AhvenanmaaMaritimtKulturarvArgisFeature {
+  layerId: 5;
+  layerName: AhvenanmaaLayer.MaritimtKulturarv;
+  attributes: {
+    OBJECTID: string; //"482"
+    FornID: string; //"M1 Ha 443.2";
+    Namn: string; //"Okänt";
+    Beskrivning: string; //"Träfartyg, ev. en jakt. Vraket är beläget längst inne i vikbotten i den sk. Jakthamnen. Vraket mycket sönderbrutet av is- och sjögång. Enligt uppgift skall det röra sig om en slopad postjakt.";
+    Kommun: string; //"Hammarland";
+    By: string; //"Signildskär och Märket";
+    Precision: string; //"1:20 000";
+    Lagrum: string; //"2§ 1 mom Landskapslagen (2007:19) om skydd av det maritima kulturarvet";
+    SHAPE: string; //"Polygon";
+  };
+
+  geometryType: GeometryTypePolygon;
+  geometry: PolygonGeometry;
+}
+
 export type ArgisFeature =
   | MuinaisjaannosPisteArgisFeature
   | MuinaisjaannosAlueArgisFeature
@@ -345,7 +378,8 @@ export type ArgisFeature =
   | RKYViivaArgisFeature
   | MaailmanperintoPisteArgisFeature
   | MaailmanperintoAlueArgisFeature
-  | AhvenanmaaForminnenArgisFeature;
+  | AhvenanmaaForminnenArgisFeature
+  | AhvenanmaaMaritimtKulturarvArgisFeature;
 
 export interface ArgisIdentifyResult {
   results: Array<ArgisFeature>;
@@ -357,7 +391,8 @@ export interface ArgisFindResult {
 
 export interface DataLatestUpdateDates {
   museovirasto: Date | null;
-  ahvenanmaa: Date | null;
+  ahvenanmaaForminnen: Date | null;
+  ahvenanmaaMaritimtKulturarv: Date | null;
   models: Date | null;
 }
 
