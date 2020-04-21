@@ -8,6 +8,7 @@ import GeoJSON from "ol/format/GeoJSON";
 import { GeoJSONResponse, Model, MuseovirastoLayer } from "../../common/types";
 import { FeatureLike } from "ol/Feature";
 import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser";
+import Fill from "ol/style/Fill";
 
 export type OnLayersCreatedCallbackFn = (layer: VectorLayer) => void;
 
@@ -47,6 +48,13 @@ export default class ModelsLayer {
       stroke: new Stroke({
         color: "black",
         width: 4,
+      }),
+      fill: new Fill({
+        /**
+         * Polygon feature transparent fill is required or this layers getFeaturesAtPixel() wont find
+         * polygon features if center of the feature is clicked. Fill fixes this.
+         */
+        color: "rgba(255, 255, 255, 0.01)",
       }),
     });
 
