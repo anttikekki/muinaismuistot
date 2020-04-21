@@ -409,6 +409,7 @@ export interface Model {
     url: string;
   };
   author: string;
+  authorUrl: string;
   licence: string;
   licenceUrl: string;
   createdDate: string;

@@ -66,12 +66,12 @@ export const DatabaseStructure: React.FC = () => {
             <td>
               <b>Point</b>
               <br />
-              <code>[393155.45770000014, 6680517.1086]</code>
+              esim. <code>[393155.45770000014, 6680517.1086]</code>
               <br />
               <br />
-
               <b>Polygon</b>
               <br />
+              esim.{" "}
               <code>
                 {`[
         [
@@ -92,7 +92,9 @@ export const DatabaseStructure: React.FC = () => {
               Kohteen nimi Museoviraston tai Ahvenanmaan paikallishallinnon
               rekisterissä
             </td>
-            <td>Tukikohta IV:10 (Kivikko)</td>
+            <td>
+              esim. <code>Tukikohta IV:10 (Kivikko)</code>
+            </td>
             <td>Merkkijono</td>
           </tr>
           <tr>
@@ -213,7 +215,9 @@ export const DatabaseStructure: React.FC = () => {
               Kohteen id Museoviraston tai Ahvenanmaan paikallishallinnon
               rekisterissä
             </td>
-            <td>1000011245</td>
+            <td>
+              esim. <code>1000011245</code>
+            </td>
             <td>Numero</td>
           </tr>
           <tr>
@@ -225,6 +229,7 @@ export const DatabaseStructure: React.FC = () => {
               paikallishallinnon rekisterissä
             </td>
             <td>
+              esim.{" "}
               <a
                 href="https://www.kyppi.fi/to.aspx?id=112.100001124"
                 target="_blank"
@@ -232,14 +237,20 @@ export const DatabaseStructure: React.FC = () => {
                 https://www.kyppi.fi/to.aspx?id=112.100001124
               </a>
             </td>
-            <td>Merkkijono</td>
+            <td>
+              <a href="https://en.wikipedia.org/wiki/URL" target="_blank">
+                URL
+              </a>
+            </td>
           </tr>
           <tr>
             <td>
               <code>properties.registryItem.municipality</code>
             </td>
             <td>Kohteen kunta</td>
-            <td>Helsinki</td>
+            <td>
+              esim. <code>Helsinki</code>
+            </td>
             <td>Merkkijono</td>
           </tr>
           <tr>
@@ -250,7 +261,9 @@ export const DatabaseStructure: React.FC = () => {
               3D-mallin nimi. Tämä tulisi olla tässä suomeksi vaikka mallin nimi
               olisi Sketchfabissa englanniksi.
             </td>
-            <td>Syvä juoksuhauta</td>
+            <td>
+              esim. <code>Syvä juoksuhauta</code>
+            </td>
             <td>Merkkijono</td>
           </tr>
           <tr>
@@ -259,6 +272,7 @@ export const DatabaseStructure: React.FC = () => {
             </td>
             <td>3D-mallin osoite Sketchfab-palvelussa.</td>
             <td>
+              esim.{" "}
               <a
                 href="https://sketchfab.com/models/bd9110f1a2174eef9c4b1ee02111b4bd"
                 target="_blank"
@@ -266,22 +280,47 @@ export const DatabaseStructure: React.FC = () => {
                 https://sketchfab.com/models/bd9110f1a2174eef9c4b1ee02111b4bd
               </a>
             </td>
-            <td>Merkkijono</td>
+            <td>
+              <a href="https://en.wikipedia.org/wiki/URL" target="_blank">
+                URL
+              </a>
+            </td>
           </tr>
           <tr>
             <td>
               <code>properties.author</code>
             </td>
             <td>3D-mallin tekijän nimi.</td>
-            <td></td>
+            <td>
+              esim. <code>Museovirasto</code>
+            </td>
             <td>Merkkijono</td>
+          </tr>
+          <tr>
+            <td>
+              <code>properties.authorUrl</code>
+            </td>
+            <td>3D-mallin tekijän profiili Sketchfab-palvelussa.</td>
+            <td>
+              esim.{" "}
+              <a href="https://sketchfab.com/MuseovirastoMeriarkeologia">
+                https://sketchfab.com/MuseovirastoMeriarkeologia
+              </a>
+            </td>
+            <td>
+              <a href="https://en.wikipedia.org/wiki/URL" target="_blank">
+                URL
+              </a>
+            </td>
           </tr>
           <tr>
             <td>
               <code>properties.licence</code>
             </td>
             <td>3D-mallin lisenssin nimi.</td>
-            <td>CC BY 4.0</td>
+            <td>
+              esim. <code>CC BY 4.0</code>
+            </td>
             <td>Merkkijono</td>
           </tr>
           <tr>
@@ -290,6 +329,7 @@ export const DatabaseStructure: React.FC = () => {
             </td>
             <td>Osoite 3D-mallin lisenssiin.</td>
             <td>
+              esim.{" "}
               <a
                 href="https://creativecommons.org/licenses/by/4.0/deed.fi"
                 target="_blank"
@@ -297,7 +337,11 @@ export const DatabaseStructure: React.FC = () => {
                 https://creativecommons.org/licenses/by/4.0/deed.fi
               </a>
             </td>
-            <td>Merkkijono</td>
+            <td>
+              <a href="https://en.wikipedia.org/wiki/URL" target="_blank">
+                URL
+              </a>
+            </td>
           </tr>
           <tr>
             <td>
@@ -308,7 +352,9 @@ export const DatabaseStructure: React.FC = () => {
               perusteella voi etsiä uusimman päivämäärän eli päivän jolloin
               tietokantaa on viiemksi päivitetty.
             </td>
-            <td>2020-03-11</td>
+            <td>
+              esim. <code>2020-03-11</code>
+            </td>
             <td>
               <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">
                 ISO 8601
@@ -340,6 +386,7 @@ export const DatabaseStructure: React.FC = () => {
         "url": "https://sketchfab.com/models/bd9110f1a2174eef9c4b1ee02111b4bd"
       },
       "author": "Antti Kekki",
+      "authorUrl": "https://sketchfab.com/antti.kekki",
       "licence": "CC BY 4.0",
       "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
       "createdDate": "2020-03-11"

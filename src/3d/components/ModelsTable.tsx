@@ -141,7 +141,7 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
           {sortedModels.map((feature, i) => {
             const { properties } = feature;
             return (
-              <tr key={i}>
+              <tr key={properties.model.url}>
                 <td>{i + 1}</td>
                 <td>
                   <a href={properties.registryItem.url} target="_blank">
@@ -170,7 +170,11 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
                 <td>
                   {new Date(properties.createdDate).toLocaleDateString("fi")}
                 </td>
-                <td>{properties.author}</td>
+                <td>
+                  <a href={properties.authorUrl} target="_blank">
+                    {properties.author}
+                  </a>
+                </td>
                 <td>
                   {properties.licenceUrl ? (
                     <a href={properties.licenceUrl} target="_blank">
