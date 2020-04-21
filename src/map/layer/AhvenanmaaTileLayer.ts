@@ -10,6 +10,7 @@ import {
   AhvenanmaaLayerId,
   getAhvenanmaaLayerId,
   AhvenanmaaLayer,
+  Settings,
 } from "../../common/types";
 
 export type ShowLoadingAnimationFn = (show: boolean) => void;
@@ -18,22 +19,20 @@ export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void;
 export default class AhvenanmaaTileLayer {
   private source?: TileArcGISRestSource;
   private layer?: TileLayer;
+  private settings: Settings;
   private showLoadingAnimationFn: ShowLoadingAnimationFn;
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn;
   private forminnenDataLatestUpdateDate?: Date;
   private maritimtKulturarvDataLatestUpdateDate?: Date;
-  private visibleLayerIds: ReadonlyArray<AhvenanmaaLayerId>;
 
   public constructor(
+    initialSettings: Settings,
     showLoadingAnimationFn: ShowLoadingAnimationFn,
     onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
+    this.settings = initialSettings;
     this.showLoadingAnimationFn = showLoadingAnimationFn;
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn;
-    this.visibleLayerIds = [
-      getAhvenanmaaLayerId(AhvenanmaaLayer.Fornminnen),
-      getAhvenanmaaLayerId(AhvenanmaaLayer.MaritimtKulturarv),
-    ];
     this.addLayer();
   }
 
@@ -49,13 +48,33 @@ export default class AhvenanmaaTileLayer {
     this.onLayerCreatedCallbackFn(this.layer);
   };
 
+  private toLayerIds = (
+    layers: Array<AhvenanmaaLayer>
+  ): Array<AhvenanmaaLayerId> => {
+    return layers.map(getAhvenanmaaLayerId).sort();
+  };
+
+  private getSourceLayersParams = (): string => {
+    if (this.settings.selectedAhvenanmaaLayers.length > 0) {
+      return (
+        "show:" +
+        this.toLayerIds(this.settings.selectedAhvenanmaaLayers).join(",")
+      );
+    } else {
+      // No selected layers. Hide all.
+      return (
+        "hide:" + this.toLayerIds(Object.values(AhvenanmaaLayer)).join(",")
+      );
+    }
+  };
+
   private createSource = () => {
     const options: Options = {
       urls: [
         "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/export",
       ],
       params: {
-        layers: `show:${this.visibleLayerIds.join(",")}`,
+        layers: this.getSourceLayersParams(),
       },
     };
     const newSource = new TileArcGISRestSource(options);
@@ -71,6 +90,18 @@ export default class AhvenanmaaTileLayer {
     });
 
     return newSource;
+  };
+
+  private updateLayerSource = () => {
+    if (this.layer) {
+      this.source = this.createSource();
+      this.layer.setSource(this.source);
+    }
+  };
+
+  public selectedFeatureLayersChanged = (settings: Settings) => {
+    this.settings = settings;
+    this.updateLayerSource();
   };
 
   public identifyFeaturesAt = (
@@ -91,7 +122,9 @@ export default class AhvenanmaaTileLayer {
       tolerance: "10",
       imageDisplay: mapSize.join(",") + ",96",
       mapExtent: mapExtent.join(","),
-      layers: `visible:${this.visibleLayerIds.join(",")}`,
+      layers: `visible:${this.toLayerIds(
+        this.settings.selectedAhvenanmaaLayers
+      ).join(",")}`,
       f: "json",
       returnGeometry: "true",
     });
@@ -111,7 +144,7 @@ export default class AhvenanmaaTileLayer {
       searchText: searchText,
       contains: "true",
       searchFields: "Namn , Beskrivning, Topografi",
-      layers: this.visibleLayerIds.join(","),
+      layers: this.toLayerIds(this.settings.selectedAhvenanmaaLayers).join(","),
       f: "json",
       returnGeometry: "true",
       returnZ: "false",

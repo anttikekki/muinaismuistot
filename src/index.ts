@@ -10,7 +10,9 @@ import {
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus,
   Settings,
-  DataLatestUpdateDates
+  DataLatestUpdateDates,
+  AhvenanmaaLayer,
+  LayerGroup,
 } from "./common/types";
 
 export default class Muinaismuistot {
@@ -22,26 +24,27 @@ export default class Muinaismuistot {
       selectedMaanmittauslaitosLayer: MaanmittauslaitosLayer.Taustakartta,
       selectedMuseovirastoLayers: Object.values(MuseovirastoLayer),
       selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
-      selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus)
+      selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
+      selectedAhvenanmaaLayers: Object.values(AhvenanmaaLayer),
     };
 
     this.map = new MuinaismuistotMap(initialSettings, {
       featuresSelected: (features, models) => {
         this.ui.featuresSelected(features, models);
       },
-      showLoadingAnimation: show => {
+      showLoadingAnimation: (show) => {
         this.ui.showLoadingAnimation(show);
       },
-      featureSearchReady: features => {
+      featureSearchReady: (features) => {
         this.ui.featureSearchReady(features);
       },
       dataLatestUpdateDatesReady: (dates: DataLatestUpdateDates) => {
         this.ui.dataLatestUpdateDatesReady(dates);
-      }
+      },
     });
 
     this.ui = new MuinaismuistotUI(initialSettings, {
-      searchFeatures: searchText => {
+      searchFeatures: (searchText) => {
         this.map.searchFeatures(searchText);
       },
       zoomIn: () => {
@@ -53,21 +56,24 @@ export default class Muinaismuistot {
       centerToCurrentPositions: () => {
         this.map.centerToCurrentPositions();
       },
-      selectedMaanmittauslaitosLayerChanged: settings => {
+      selectedMaanmittauslaitosLayerChanged: (settings) => {
         this.map.selectedMaanmittauslaitosLayerChanged(settings);
       },
-      selectedFeatureLayersChanged: settings => {
-        this.map.selectedFeatureLayersChanged(settings);
+      selectedFeatureLayersChanged: (
+        settings,
+        changedLayerGroup: LayerGroup
+      ) => {
+        this.map.selectedFeatureLayersChanged(settings, changedLayerGroup);
       },
-      selectedMuinaisjaannosTypesChanged: settings => {
+      selectedMuinaisjaannosTypesChanged: (settings) => {
         this.map.selectedMuinaisjaannosTypesChanged(settings);
       },
-      selectedMuinaisjaannosDatingsChanged: settings => {
+      selectedMuinaisjaannosDatingsChanged: (settings) => {
         this.map.selectedMuinaisjaannosDatingsChanged(settings);
       },
       fetchDataLatestUpdateDates: () => {
         this.map.fetchDataLatestUpdateDates();
-      }
+      },
     });
 
     window.onhashchange = () => {

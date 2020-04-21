@@ -4,7 +4,8 @@ import {
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
-  MuinaisjaannosAjoitus
+  MuinaisjaannosAjoitus,
+  AhvenanmaaLayer,
 } from "../../../common/types";
 import { Page, PageVisibility } from "../Page";
 import { MMLMapLayerSelectionPanel } from "./component/MMLMapLayerSelectionPanel";
@@ -17,6 +18,7 @@ interface Props {
   settings: Settings;
   onSelectMaanmittauslaitosLayer: (layer: MaanmittauslaitosLayer) => void;
   onSelectMuseovirastoLayer: (layer: MuseovirastoLayer) => void;
+  onSelectAhvenanmaaLayer: (layer: AhvenanmaaLayer) => void;
   onSelectMuinaisjaannosType: (type: MuinaisjaannosTyyppi) => void;
   onSelectMuinaisjaannosDating: (dating: MuinaisjaannosAjoitus) => void;
 }
@@ -27,8 +29,9 @@ export const SettingsPage: React.FC<Props> = ({
   settings,
   onSelectMaanmittauslaitosLayer,
   onSelectMuseovirastoLayer,
+  onSelectAhvenanmaaLayer,
   onSelectMuinaisjaannosType,
-  onSelectMuinaisjaannosDating
+  onSelectMuinaisjaannosDating,
 }) => {
   return (
     <Page title="Asetukset" visibility={visibility} hidePage={hidePage}>
@@ -37,8 +40,10 @@ export const SettingsPage: React.FC<Props> = ({
         onSelectLayer={onSelectMaanmittauslaitosLayer}
       />
       <FeatureLayerSelectionPanel
-        selectedLayers={settings.selectedMuseovirastoLayers}
-        onSelectLayer={onSelectMuseovirastoLayer}
+        selectedMuseovirastoLayers={settings.selectedMuseovirastoLayers}
+        selectedAhvenanmaaLayers={settings.selectedAhvenanmaaLayers}
+        onSelectMuseovirastoLayer={onSelectMuseovirastoLayer}
+        onSelectAhvenanmaaLayer={onSelectAhvenanmaaLayer}
       />
       <FeatureLayerFilterPanel
         selectedMuinaisjaannosTypes={settings.selectedMuinaisjaannosTypes}

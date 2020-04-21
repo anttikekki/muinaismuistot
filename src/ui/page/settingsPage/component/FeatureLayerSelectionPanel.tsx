@@ -1,24 +1,23 @@
 import * as React from "react";
 import {
-  MaanmittauslaitosLayer,
   MuseovirastoLayer,
+  FeatureLayer,
+  AhvenanmaaLayer,
 } from "../../../../common/types";
 import { Panel } from "../../../component/Panel";
 import { getLayerIconURLs } from "../../../../common/util/featureParser";
 
-interface LayerCheckboxProps {
+interface LayerCheckboxProps<T extends FeatureLayer> {
   label: string;
-  layer: MuseovirastoLayer;
-  selectedLayers: Array<MuseovirastoLayer>;
-  onSelectLayer: (layer: MuseovirastoLayer) => void;
+  layer: T;
+  selectedLayers: Array<T>;
+  onSelectLayer: (layer: T) => void;
 }
 
-const LayerCheckbox: React.FC<LayerCheckboxProps> = ({
-  label,
-  layer,
-  selectedLayers,
-  onSelectLayer,
-}) => {
+const LayerCheckbox = <T extends FeatureLayer>(
+  props: LayerCheckboxProps<T>
+) => {
+  const { label, layer, selectedLayers, onSelectLayer } = props;
   const isSelected = selectedLayers.includes(layer);
 
   return (
@@ -40,16 +39,18 @@ const LayerCheckbox: React.FC<LayerCheckboxProps> = ({
 };
 
 interface Props {
-  selectedLayers: Array<MuseovirastoLayer>;
-  onSelectLayer: (layer: MuseovirastoLayer) => void;
+  selectedMuseovirastoLayers: Array<MuseovirastoLayer>;
+  selectedAhvenanmaaLayers: Array<AhvenanmaaLayer>;
+  onSelectMuseovirastoLayer: (layer: MuseovirastoLayer) => void;
+  onSelectAhvenanmaaLayer: (layer: AhvenanmaaLayer) => void;
 }
 
 export const FeatureLayerSelectionPanel: React.FC<Props> = ({
-  selectedLayers,
-  onSelectLayer,
+  selectedMuseovirastoLayers,
+  selectedAhvenanmaaLayers,
+  onSelectMuseovirastoLayer,
+  onSelectAhvenanmaaLayer,
 }) => {
-  const commonProps = { selectedLayers, onSelectLayer };
-
   return (
     <Panel title={"Kartalla näkyvät kohteet"}>
       <form>
@@ -57,70 +58,79 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
         <LayerCheckbox
           label="Alueet"
           layer={MuseovirastoLayer.RKY_alue}
-          {...commonProps}
+          selectedLayers={selectedMuseovirastoLayers}
+          onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
           label="Viivat (esim. tie)"
           layer={MuseovirastoLayer.RKY_viiva}
-          {...commonProps}
+          selectedLayers={selectedMuseovirastoLayers}
+          onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
           label="Pisteet"
           layer={MuseovirastoLayer.RKY_piste}
-          {...commonProps}
+          selectedLayers={selectedMuseovirastoLayers}
+          onSelectLayer={onSelectMuseovirastoLayer}
         />
 
         <h5>Maailmanperintökohteet</h5>
         <LayerCheckbox
           label="Alueet"
           layer={MuseovirastoLayer.Maailmanperintö_alue}
-          {...commonProps}
+          selectedLayers={selectedMuseovirastoLayers}
+          onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
           label="Pisteet"
           layer={MuseovirastoLayer.Maailmanperintö_piste}
-          {...commonProps}
+          selectedLayers={selectedMuseovirastoLayers}
+          onSelectLayer={onSelectMuseovirastoLayer}
         />
 
         <h5>Rakennusperintörekisteri</h5>
         <LayerCheckbox
           label="Rakennetut alueet"
           layer={MuseovirastoLayer.Suojellut_rakennukset_alue}
-          {...commonProps}
+          selectedLayers={selectedMuseovirastoLayers}
+          onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
           label="Rakennukset"
           layer={MuseovirastoLayer.Suojellut_rakennukset_piste}
-          {...commonProps}
+          selectedLayers={selectedMuseovirastoLayers}
+          onSelectLayer={onSelectMuseovirastoLayer}
         />
 
         <h5>Museoviraston muinaisjäännösrekisteri</h5>
         <LayerCheckbox
           label="Alueet"
           layer={MuseovirastoLayer.Muinaisjäännökset_alue}
-          {...commonProps}
+          selectedLayers={selectedMuseovirastoLayers}
+          onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
           label="Pisteet"
           layer={MuseovirastoLayer.Muinaisjäännökset_piste}
-          {...commonProps}
+          selectedLayers={selectedMuseovirastoLayers}
+          onSelectLayer={onSelectMuseovirastoLayer}
         />
 
         <h5>Ahvenamaan muinaisjäännösrekisteri</h5>
-        <div className="checkbox sub-layer-select-checkbox-container">
-          <label>
-            <input type="checkbox" value="" checked disabled />
-            <img src="images/ahvenanmaa_muinaisjaannos.png" /> Kohde
-          </label>
-        </div>
+        <LayerCheckbox
+          label="Kohde"
+          layer={AhvenanmaaLayer.Fornminnen}
+          selectedLayers={selectedAhvenanmaaLayers}
+          onSelectLayer={onSelectAhvenanmaaLayer}
+        />
 
         <h5>Ahvenamaan merellisen kulttuuriperinnön rekisteri</h5>
-        <div className="checkbox sub-layer-select-checkbox-container">
-          <label>
-            <input type="checkbox" value="" checked disabled />
-            <img src="images/ahvenanmaa_hylky.png" /> Kohde
-          </label>
-        </div>
+        <LayerCheckbox
+          label="Kohde"
+          layer={AhvenanmaaLayer.MaritimtKulturarv}
+          selectedLayers={selectedAhvenanmaaLayers}
+          onSelectLayer={onSelectAhvenanmaaLayer}
+        />
 
         <h5>
           3D-mallit (

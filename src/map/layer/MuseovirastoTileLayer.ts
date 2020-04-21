@@ -12,7 +12,7 @@ import {
   MuinaisjaannosAjoitus,
   MuseovirastoLayerId,
   ArgisIdentifyResult,
-  ArgisFindResult
+  ArgisFindResult,
 } from "../../common/types";
 
 export type ShowLoadingAnimationFn = (show: boolean) => void;
@@ -40,7 +40,7 @@ export default class MuseovirastoTileLayer {
   private addLayer = () => {
     this.source = this.createSource();
     this.layer = new TileLayer({
-      source: this.source
+      source: this.source,
     });
     this.layer.setOpacity(0.7);
 
@@ -52,8 +52,8 @@ export default class MuseovirastoTileLayer {
       urls: ["https://d3u1wj9fwedfoy.cloudfront.net"],
       params: {
         layers: this.getSourceLayerSelectionSettings(),
-        layerDefs: this.getSourceLayerDefinitionFilterParams()
-      }
+        layerDefs: this.getSourceLayerDefinitionFilterParams(),
+      },
     });
 
     newSource.on("tileloadstart", (evt: TileSourceEvent) => {
@@ -69,7 +69,7 @@ export default class MuseovirastoTileLayer {
     return newSource;
   };
 
-  private updateMuinaismuistotLayerSource = () => {
+  private updateLayerSource = () => {
     if (this.layer) {
       this.source = this.createSource();
       this.layer.setSource(this.source);
@@ -106,7 +106,7 @@ export default class MuseovirastoTileLayer {
     ) {
       const layerDefinition = selectedTypes
         .sort()
-        .map(tyyppi => "tyyppi LIKE '%" + tyyppi + "%'")
+        .map((tyyppi) => "tyyppi LIKE '%" + tyyppi + "%'")
         .join(" OR ");
       layerDefinitions.push("(" + layerDefinition + ")");
     }
@@ -118,7 +118,7 @@ export default class MuseovirastoTileLayer {
     ) {
       const layerDefinition = selectedDatings
         .sort()
-        .map(ajoitus => "ajoitus LIKE '%" + ajoitus + "%'")
+        .map((ajoitus) => "ajoitus LIKE '%" + ajoitus + "%'")
         .join(" OR ");
       layerDefinitions.push("(" + layerDefinition + ")");
     }
@@ -136,22 +136,22 @@ export default class MuseovirastoTileLayer {
   private toLayerIds = (
     layers: Array<MuseovirastoLayer>
   ): Array<MuseovirastoLayerId> => {
-    return layers.map(layer => museovirastoLayerIdMap[layer]).sort();
+    return layers.map((layer) => museovirastoLayerIdMap[layer]).sort();
   };
 
   public selectedFeatureLayersChanged = (settings: Settings) => {
     this.settings = settings;
-    this.updateMuinaismuistotLayerSource();
+    this.updateLayerSource();
   };
 
   public selectedMuinaisjaannosTypesChanged = (settings: Settings) => {
     this.settings = settings;
-    this.updateMuinaismuistotLayerSource();
+    this.updateLayerSource();
   };
 
   public selectedMuinaisjaannosDatingsChanged = (settings: Settings) => {
     this.settings = settings;
-    this.updateMuinaismuistotLayerSource();
+    this.updateLayerSource();
   };
 
   public identifyFeaturesAt = (
@@ -169,14 +169,14 @@ export default class MuseovirastoTileLayer {
         "visible:" +
         this.toLayerIds(this.settings.selectedMuseovirastoLayers).join(","),
       f: "json",
-      returnGeometry: "true"
+      returnGeometry: "true",
     });
 
     const url = new URL("https://d3t293l8mhxosa.cloudfront.net");
     url.search = String(urlParams);
 
     return fetch(String(url)).then(
-      response => response.json() as Promise<ArgisIdentifyResult>
+      (response) => response.json() as Promise<ArgisIdentifyResult>
     );
   };
 
@@ -186,7 +186,7 @@ export default class MuseovirastoTileLayer {
     //Muinaismustot areas always has same name as main point so do not search those
     if (selectedLayers.includes(MuseovirastoLayer.Muinaisjäännökset_alue)) {
       selectedLayers = selectedLayers.filter(
-        l => l !== MuseovirastoLayer.Muinaisjäännökset_alue
+        (l) => l !== MuseovirastoLayer.Muinaisjäännökset_alue
       );
     }
 
@@ -197,14 +197,14 @@ export default class MuseovirastoTileLayer {
       layers: this.toLayerIds(selectedLayers).join(","),
       f: "json",
       returnGeometry: "true",
-      returnZ: "false"
+      returnZ: "false",
     });
 
     const url = new URL("https://d3239kmqvyt2db.cloudfront.net");
     url.search = String(urlParams);
 
     return fetch(String(url)).then(
-      response => response.json() as Promise<ArgisFindResult>
+      (response) => response.json() as Promise<ArgisFindResult>
     );
   };
 
@@ -216,8 +216,8 @@ export default class MuseovirastoTileLayer {
     }
 
     return fetch("https://dkfgv6jxivsxz.cloudfront.net/MV_inspire_atom.xml")
-      .then(response => response.text())
-      .then(str => new DOMParser().parseFromString(str, "text/xml"))
+      .then((response) => response.text())
+      .then((str) => new DOMParser().parseFromString(str, "text/xml"))
       .then(this.parseSuunnitteluaineistoUpdatedDate);
   };
 

@@ -10,7 +10,9 @@ import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi,
   DataLatestUpdateDates,
-  Model
+  Model,
+  AhvenanmaaLayer,
+  LayerGroup,
 } from "../common/types";
 import { LoadingAnimation } from "./component/LoadingAnimation";
 import { ZoomInButton } from "./component/ZoomInButton";
@@ -29,12 +31,12 @@ enum PageId {
   Search = "searchPage",
   Info = "infoPage",
   Settings = "settingsPage",
-  Details = "detailsPage"
+  Details = "detailsPage",
 }
 
-const toggleSelection = function<T>(value: T, values: Array<T>) {
+const toggleSelection = function <T>(value: T, values: Array<T>) {
   if (values.includes(value)) {
-    return values.filter(v => v !== value);
+    return values.filter((v) => v !== value);
   } else {
     return [...values, value];
   }
@@ -46,7 +48,10 @@ export interface EventListeners {
   zoomOut: () => void;
   centerToCurrentPositions: () => void;
   selectedMaanmittauslaitosLayerChanged: (settings: Settings) => void;
-  selectedFeatureLayersChanged: (settings: Settings) => void;
+  selectedFeatureLayersChanged: (
+    settings: Settings,
+    changedLayerGroup: LayerGroup
+  ) => void;
   selectedMuinaisjaannosTypesChanged: (settings: Settings) => void;
   selectedMuinaisjaannosDatingsChanged: (settings: Settings) => void;
   fetchDataLatestUpdateDates: () => void;
@@ -80,34 +85,61 @@ export default class MuinaismuistotUI {
   };
 
   private onSelectMaanmittauslaitosLayer = (layer: MaanmittauslaitosLayer) => {
-    this.settings.selectedMaanmittauslaitosLayer = layer;
+    this.settings = { ...this.settings, selectedMaanmittauslaitosLayer: layer };
     this.eventListeners.selectedMaanmittauslaitosLayerChanged(this.settings);
     this.renderUI();
   };
 
   private onSelectMuseovirastoLayer = (layer: MuseovirastoLayer) => {
-    this.settings.selectedMuseovirastoLayers = toggleSelection(
-      layer,
-      this.settings.selectedMuseovirastoLayers
+    this.settings = {
+      ...this.settings,
+      selectedMuseovirastoLayers: toggleSelection(
+        layer,
+        this.settings.selectedMuseovirastoLayers
+      ),
+    };
+    this.eventListeners.selectedFeatureLayersChanged(
+      this.settings,
+      LayerGroup.Museovirasto
     );
-    this.eventListeners.selectedFeatureLayersChanged(this.settings);
+    this.renderUI();
+  };
+
+  private onSelectAhvenanmaaLayer = (layer: AhvenanmaaLayer) => {
+    this.settings = {
+      ...this.settings,
+      selectedAhvenanmaaLayers: toggleSelection(
+        layer,
+        this.settings.selectedAhvenanmaaLayers
+      ),
+    };
+    this.eventListeners.selectedFeatureLayersChanged(
+      this.settings,
+      LayerGroup.Ahvenanmaa
+    );
     this.renderUI();
   };
 
   private onSelectMuinaisjaannosType = (type: MuinaisjaannosTyyppi) => {
-    this.settings.selectedMuinaisjaannosTypes = toggleSelection(
-      type,
-      this.settings.selectedMuinaisjaannosTypes
-    );
+    this.settings = {
+      ...this.settings,
+      selectedMuinaisjaannosTypes: toggleSelection(
+        type,
+        this.settings.selectedMuinaisjaannosTypes
+      ),
+    };
     this.eventListeners.selectedMuinaisjaannosTypesChanged(this.settings);
     this.renderUI();
   };
 
   private onSelectMuinaisjaannosDating = (dating: MuinaisjaannosAjoitus) => {
-    this.settings.selectedMuinaisjaannosDatings = toggleSelection(
-      dating,
-      this.settings.selectedMuinaisjaannosDatings
-    );
+    this.settings = {
+      ...this.settings,
+      selectedMuinaisjaannosDatings: toggleSelection(
+        dating,
+        this.settings.selectedMuinaisjaannosDatings
+      ),
+    };
     this.eventListeners.selectedMuinaisjaannosDatingsChanged(this.settings);
     this.renderUI();
   };
@@ -149,6 +181,7 @@ export default class MuinaismuistotUI {
           settings={this.settings}
           onSelectMaanmittauslaitosLayer={this.onSelectMaanmittauslaitosLayer}
           onSelectMuseovirastoLayer={this.onSelectMuseovirastoLayer}
+          onSelectAhvenanmaaLayer={this.onSelectAhvenanmaaLayer}
           onSelectMuinaisjaannosType={this.onSelectMuinaisjaannosType}
           onSelectMuinaisjaannosDating={this.onSelectMuinaisjaannosDating}
         />

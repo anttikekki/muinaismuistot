@@ -1,6 +1,7 @@
 import AhvenanmaaTileLayer from "../../../src/map/layer/AhvenanmaaTileLayer";
 import { Extent } from "ol/extent";
 import { Size } from "ol/size";
+import { initialSettings } from "../testSettings";
 
 jest.setTimeout(30000);
 
@@ -16,6 +17,7 @@ const createAhvenanmaaTileLayerTileLayer = () => {
   const showLoadingAnimationFn = jest.fn();
   const onLayerCreatedCallbackFn = jest.fn();
   return new AhvenanmaaTileLayer(
+    initialSettings,
     showLoadingAnimationFn,
     onLayerCreatedCallbackFn
   );

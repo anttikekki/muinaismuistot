@@ -15,6 +15,7 @@ import {
   Settings,
   DataLatestUpdateDates,
   Model,
+  LayerGroup,
 } from "../common/types";
 import MapBrowserEvent from "ol/MapBrowserEvent";
 import { Coordinate } from "ol/coordinate";
@@ -87,6 +88,7 @@ export default class MuinaismuistotMap {
     );
 
     this.ahvenanmaaTileLayer = new AhvenanmaaTileLayer(
+      initialSettings,
       eventListeners.showLoadingAnimation,
       (createdLayer) => {
         this.map.getLayers().insertAt(3, createdLayer);
@@ -174,8 +176,18 @@ export default class MuinaismuistotMap {
     });
   };
 
-  public selectedFeatureLayersChanged = (settings: Settings): void => {
-    this.museovirastoTileLayer.selectedFeatureLayersChanged(settings);
+  public selectedFeatureLayersChanged = (
+    settings: Settings,
+    changedLayerGroup: LayerGroup
+  ): void => {
+    switch (changedLayerGroup) {
+      case LayerGroup.Museovirasto:
+        this.museovirastoTileLayer.selectedFeatureLayersChanged(settings);
+        break;
+      case LayerGroup.Ahvenanmaa:
+        this.ahvenanmaaTileLayer.selectedFeatureLayersChanged(settings);
+        break;
+    }
   };
 
   public selectedMuinaisjaannosTypesChanged = (settings: Settings): void => {

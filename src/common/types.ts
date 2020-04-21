@@ -3,6 +3,13 @@ export interface Settings {
   selectedMuseovirastoLayers: Array<MuseovirastoLayer>;
   selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>;
   selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>;
+  selectedAhvenanmaaLayers: Array<AhvenanmaaLayer>;
+}
+
+export enum LayerGroup {
+  Maanmittauslaitos = "Maanmittauslaitos",
+  Museovirasto = "Museovirasto",
+  Ahvenanmaa = "Ahvenanmaa",
 }
 
 export enum MaanmittauslaitosLayer {
@@ -27,6 +34,8 @@ export enum AhvenanmaaLayer {
   Fornminnen = "Fornminnen",
   MaritimtKulturarv = "Maritimt kulturarv; Vrak",
 }
+
+export type FeatureLayer = MuseovirastoLayer | AhvenanmaaLayer;
 
 export type MuseovirastoLayerId = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 

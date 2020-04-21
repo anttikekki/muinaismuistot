@@ -5,9 +5,11 @@ import {
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus,
+  AhvenanmaaLayer,
 } from "../../../src/common/types";
 import { Extent } from "ol/extent";
 import { Size } from "ol/size";
+import { initialSettings } from "../testSettings";
 
 jest.setTimeout(30000);
 
@@ -22,12 +24,6 @@ const mapExtent: Extent = [
 const createMuseovirastoTileLayer = () => {
   const showLoadingAnimationFn = jest.fn();
   const onLayerCreatedCallbackFn = jest.fn();
-  const initialSettings: Settings = {
-    selectedMaanmittauslaitosLayer: MaanmittauslaitosLayer.Taustakartta,
-    selectedMuseovirastoLayers: Object.values(MuseovirastoLayer),
-    selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
-    selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
-  };
   return new MuseovirastoTileLayer(
     initialSettings,
     showLoadingAnimationFn,
