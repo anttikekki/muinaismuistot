@@ -353,6 +353,17 @@ export const getFeatureLocation = (
   }
 };
 
+export const getGeoJSONFeatureLocation = (
+  feature: GeoJSONFeature
+): number[] => {
+  switch (feature.geometry.type) {
+    case "Point":
+      return feature.geometry.coordinates;
+    case "Polygon":
+      return feature.geometry.coordinates[0][0];
+  }
+};
+
 /**
  * Resolves timespan in years for timing name.
  *

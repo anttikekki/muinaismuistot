@@ -1,6 +1,10 @@
 import * as React from "react";
-import { GeoJSONResponse, GeoJSONFeature } from "../../common/types";
-import { getLayerRegisterName } from "../../common/util/featureParser";
+import { GeoJSONFeature } from "../../common/types";
+import {
+  getLayerRegisterName,
+  getGeoJSONFeatureLocation,
+} from "../../common/util/featureParser";
+import { createLocationHash } from "../../common/util/URLHashHelper";
 
 interface Props {
   models: Array<GeoJSONFeature>;
@@ -66,20 +70,36 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
       <h2 id="listaus">Aineston listaus</h2>
       <p>
         Tässä listattu koko tietokannan sisältö. Kaikki tämän taulukon tiedot
-        löytyvät suoraan tietokannasta. Kohteen nimi on linkki suoraan
-        Museoviraston ja Ahvenanmaan paikallishallinnon rekisteriin. Mallin nimi
-        on linkki 3D-malliin{" "}
-        <a href="https://sketchfab.com" target="_blank">
-          Sketchfab
-        </a>
-        -sivustolla.
+        löytyvät suoraan tietokannasta. Rivejä voi järjestää klikkaamalla
+        sarakkeen otsikkoa.
       </p>
+      <ul>
+        <li>
+          Kohteen nimi on linkki suoraan Museoviraston tai Ahvenanmaan
+          paikallishallinnon <a href="#rekisterit">rekisteriin</a>.
+        </li>
+        <li>
+          Kohteen nimem perässä on linkki kohteeseen{" "}
+          <a href="https://muinaismuistot.info" target="_blank">
+            muinaismuistot.info
+          </a>{" "}
+          -sivuston kartalla.
+        </li>
+        <li>
+          Mallin nimi on linkki 3D-malliin{" "}
+          <a href="https://sketchfab.com" target="_blank">
+            Sketchfab
+          </a>
+          -sivustolla.
+        </li>
+      </ul>
       <p>
-        Tämän aineston näkee kartalla{" "}
+        Tämän aineston näkee kokonaisuudessaan kartalla{" "}
         <a href="https://muinaismuistot.info" target="_blank">
           muinaismuistot.info
         </a>{" "}
-        -sivustolta.
+        -sivustolta. Kohteet joissa on 3D-malleja on merkitty tummalla
+        kehyksellä.
       </p>
 
       <table className="table table-striped">
@@ -90,6 +110,7 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
               name="Kohde"
               valueFn={(v) => v.properties.registryItem.name}
             />
+            <tr></tr>
             <ColumnHeader
               name="Kunta"
               valueFn={(v) => v.properties.registryItem.municipality}
@@ -117,36 +138,51 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
           </tr>
         </thead>
         <tbody>
-          {sortedModels.map(({ properties }, i) => (
-            <tr key={i}>
-              <td>{i + 1}</td>
-              <td>
-                <a href={properties.registryItem.url} target="_blank">
-                  {properties.registryItem.name}
-                </a>
-              </td>
-              <td>{properties.registryItem.municipality}</td>
-              <td>{getLayerRegisterName(properties.registryItem.type)}</td>
-              <td>
-                <a href={properties.model.url} target="_blank">
-                  {properties.model.name}
-                </a>
-              </td>
-              <td>
-                {new Date(properties.createdDate).toLocaleDateString("fi")}
-              </td>
-              <td>{properties.author}</td>
-              <td>
-                {properties.licenceUrl ? (
-                  <a href={properties.licenceUrl} target="_blank">
-                    {properties.licence}
+          {sortedModels.map((feature, i) => {
+            const { properties } = feature;
+            return (
+              <tr key={i}>
+                <td>{i + 1}</td>
+                <td>
+                  <a href={properties.registryItem.url} target="_blank">
+                    {properties.registryItem.name}
                   </a>
-                ) : (
-                  properties.licence
-                )}
-              </td>
-            </tr>
-          ))}
+                </td>
+                <td>
+                  [
+                  <a
+                    href={`../${createLocationHash(
+                      getGeoJSONFeatureLocation(feature)
+                    )}`}
+                    target="_blank"
+                  >
+                    kartta
+                  </a>
+                  ]
+                </td>
+                <td>{properties.registryItem.municipality}</td>
+                <td>{getLayerRegisterName(properties.registryItem.type)}</td>
+                <td>
+                  <a href={properties.model.url} target="_blank">
+                    {properties.model.name}
+                  </a>
+                </td>
+                <td>
+                  {new Date(properties.createdDate).toLocaleDateString("fi")}
+                </td>
+                <td>{properties.author}</td>
+                <td>
+                  {properties.licenceUrl ? (
+                    <a href={properties.licenceUrl} target="_blank">
+                      {properties.licence}
+                    </a>
+                  ) : (
+                    properties.licence
+                  )}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </>
