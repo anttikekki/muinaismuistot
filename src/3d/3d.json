@@ -11,6 +11,78 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [386825.40330000035, 6681665.238399999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVI:4 (Tuomarinkartano)",
+          "id": 1000013619,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013619",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "2 konekivääriasemaa",
+          "url": "https://sketchfab.com/models/280ca074b7834d3eb3abc97941d51f5c"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-21"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [387476.36899999995, 6681647.1657]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XV:1 (Tuomarinkartano)",
+          "id": 1000013609,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013609",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "1 suojahuone, 1 ehjä konekivääriasema ja 1 ehjä tähystysasema",
+          "url": "https://sketchfab.com/models/e15ebe29fccc48bf9137c4854b5a76d7"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-21"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [387476.36899999995, 6681647.1657]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XV:1 (Tuomarinkartano)",
+          "id": 1000013609,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013609",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "B-tyypin ehjä tähystysasema",
+          "url": "https://sketchfab.com/models/4b1e0849143e4599a49c450147bd33b7"
+        },
+        "author": "Antti Kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-21"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [239921.23720000032, 6637022.359200001]
       },
       "properties": {
