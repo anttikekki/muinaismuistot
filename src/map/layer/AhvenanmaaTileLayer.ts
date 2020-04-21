@@ -70,9 +70,7 @@ export default class AhvenanmaaTileLayer {
 
   private createSource = () => {
     const options: Options = {
-      urls: [
-        "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/export",
-      ],
+      urls: [this.settings.ahvenanmaa.url.export],
       params: {
         layers: this.getSourceLayersParams(),
       },
@@ -129,9 +127,7 @@ export default class AhvenanmaaTileLayer {
       returnGeometry: "true",
     });
 
-    const url = new URL(
-      "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/identify"
-    );
+    const url = new URL(this.settings.ahvenanmaa.url.identify);
     url.search = String(urlParams);
 
     return fetch(String(url)).then(
@@ -150,9 +146,7 @@ export default class AhvenanmaaTileLayer {
       returnZ: "false",
     });
 
-    const url = new URL(
-      "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/find"
-    );
+    const url = new URL(this.settings.ahvenanmaa.url.find);
     url.search = String(urlParams);
 
     return fetch(String(url)).then(
@@ -166,9 +160,7 @@ export default class AhvenanmaaTileLayer {
       return Promise.resolve(this.forminnenDataLatestUpdateDate);
     }
 
-    return fetch(
-      "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Afornminnen"
-    )
+    return fetch(this.settings.ahvenanmaa.url.forminnenUpdateDate)
       .then((response) => response.json())
       .then(this.parseUpdatedDate)
       .then((date) => {
@@ -183,9 +175,7 @@ export default class AhvenanmaaTileLayer {
       return Promise.resolve(this.maritimtKulturarvDataLatestUpdateDate);
     }
 
-    return fetch(
-      "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Amaritimt-kulturarv-vrak"
-    )
+    return fetch(this.settings.ahvenanmaa.url.maritimtKulturarvUpdateDate)
       .then((response) => response.json())
       .then(this.parseUpdatedDate)
       .then((date) => {

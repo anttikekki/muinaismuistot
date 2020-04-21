@@ -9,7 +9,7 @@ import {
 } from "../../../src/common/types";
 import { Extent } from "ol/extent";
 import { Size } from "ol/size";
-import { initialSettings } from "../testSettings";
+import { initialSettings } from "../../../src";
 
 jest.setTimeout(30000);
 

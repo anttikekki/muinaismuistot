@@ -49,7 +49,7 @@ export default class MuseovirastoTileLayer {
 
   private createSource = () => {
     const newSource = new TileArcGISRestSource({
-      urls: ["https://d3u1wj9fwedfoy.cloudfront.net"],
+      urls: [this.settings.museovirasto.url.export],
       params: {
         layers: this.getSourceLayerSelectionSettings(),
         layerDefs: this.getSourceLayerDefinitionFilterParams(),
@@ -172,7 +172,7 @@ export default class MuseovirastoTileLayer {
       returnGeometry: "true",
     });
 
-    const url = new URL("https://d3t293l8mhxosa.cloudfront.net");
+    const url = new URL(this.settings.museovirasto.url.identify);
     url.search = String(urlParams);
 
     return fetch(String(url)).then(
@@ -200,7 +200,7 @@ export default class MuseovirastoTileLayer {
       returnZ: "false",
     });
 
-    const url = new URL("https://d3239kmqvyt2db.cloudfront.net");
+    const url = new URL(this.settings.museovirasto.url.find);
     url.search = String(urlParams);
 
     return fetch(String(url)).then(
@@ -215,7 +215,7 @@ export default class MuseovirastoTileLayer {
       return Promise.resolve(this.dataLatestUpdateDate);
     }
 
-    return fetch("https://dkfgv6jxivsxz.cloudfront.net/MV_inspire_atom.xml")
+    return fetch(this.settings.museovirasto.url.updateDate)
       .then((response) => response.text())
       .then((str) => new DOMParser().parseFromString(str, "text/xml"))
       .then(this.parseSuunnitteluaineistoUpdatedDate);

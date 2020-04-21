@@ -4,6 +4,28 @@ export interface Settings {
   selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>;
   selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>;
   selectedAhvenanmaaLayers: Array<AhvenanmaaLayer>;
+  maanmittauslaitos: {
+    url: {
+      WMTSCapabilities: string;
+    };
+  };
+  museovirasto: {
+    url: {
+      export: string;
+      identify: string;
+      find: string;
+      updateDate: string;
+    };
+  };
+  ahvenanmaa: {
+    url: {
+      export: string;
+      identify: string;
+      find: string;
+      forminnenUpdateDate: string;
+      maritimtKulturarvUpdateDate: string;
+    };
+  };
 }
 
 export enum LayerGroup {

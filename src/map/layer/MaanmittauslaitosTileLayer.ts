@@ -12,6 +12,7 @@ export type OnLayersCreatedCallbackFn = (
 ) => void;
 
 export default class MaanmittauslaitosTileLayer {
+  private settings: Settings;
   private mmlMaastokarttaLayer?: TileLayer;
   private mmlTaustakarttaLayer?: TileLayer;
   private mmlOrtokuvaLayer?: TileLayer;
@@ -26,17 +27,16 @@ export default class MaanmittauslaitosTileLayer {
     showLoadingAnimationFn: ShowLoadingAnimationFn,
     onLayersCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
+    this.settings = settings;
     this.showLoadingAnimationFn = showLoadingAnimationFn;
     this.onLayersCreatedCallbackFn = onLayersCreatedCallbackFn;
     this.loadMMLWmtsCapabilitiesAndAddLayers(settings);
   }
 
   private loadMMLWmtsCapabilitiesAndAddLayers = (settings: Settings) => {
-    fetch(
-      "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml"
-    )
-      .then(response => response.text())
-      .then(WMTSCapabilitiesXml =>
+    fetch(this.settings.maanmittauslaitos.url.WMTSCapabilities)
+      .then((response) => response.text())
+      .then((WMTSCapabilitiesXml) =>
         this.addWmtsLayers(WMTSCapabilitiesXml, settings)
       );
   };
@@ -47,32 +47,32 @@ export default class MaanmittauslaitosTileLayer {
 
     this.maastokarttaLayerSource = new WMTSSource(
       optionsFromCapabilities(capabilities, {
-        layer: MaanmittauslaitosLayer.Maastokartta
+        layer: MaanmittauslaitosLayer.Maastokartta,
       })
     );
     this.taustakarttaLayerSource = new WMTSSource(
       optionsFromCapabilities(capabilities, {
-        layer: MaanmittauslaitosLayer.Taustakartta
+        layer: MaanmittauslaitosLayer.Taustakartta,
       })
     );
     this.ortokuvaLayerSource = new WMTSSource(
       optionsFromCapabilities(capabilities, {
-        layer: MaanmittauslaitosLayer.Ortokuva
+        layer: MaanmittauslaitosLayer.Ortokuva,
       })
     );
 
     const selectedLayer = settings.selectedMaanmittauslaitosLayer;
     this.mmlMaastokarttaLayer = new TileLayer({
       source: this.maastokarttaLayerSource,
-      visible: selectedLayer === MaanmittauslaitosLayer.Maastokartta
+      visible: selectedLayer === MaanmittauslaitosLayer.Maastokartta,
     });
     this.mmlTaustakarttaLayer = new TileLayer({
       source: this.taustakarttaLayerSource,
-      visible: selectedLayer === MaanmittauslaitosLayer.Taustakartta
+      visible: selectedLayer === MaanmittauslaitosLayer.Taustakartta,
     });
     this.mmlOrtokuvaLayer = new TileLayer({
       source: this.ortokuvaLayerSource,
-      visible: selectedLayer === MaanmittauslaitosLayer.Ortokuva
+      visible: selectedLayer === MaanmittauslaitosLayer.Ortokuva,
     });
 
     this.updateLoadingAnimationOnLayerSourceTileLoad(

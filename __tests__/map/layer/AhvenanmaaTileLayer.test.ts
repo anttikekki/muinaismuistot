@@ -1,7 +1,7 @@
 import AhvenanmaaTileLayer from "../../../src/map/layer/AhvenanmaaTileLayer";
 import { Extent } from "ol/extent";
 import { Size } from "ol/size";
-import { initialSettings } from "../testSettings";
+import { initialSettings } from "../../../src";
 
 jest.setTimeout(30000);
 

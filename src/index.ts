@@ -15,19 +15,47 @@ import {
   LayerGroup,
 } from "./common/types";
 
+export const initialSettings: Settings = {
+  selectedMaanmittauslaitosLayer: MaanmittauslaitosLayer.Taustakartta,
+  selectedMuseovirastoLayers: Object.values(MuseovirastoLayer),
+  selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
+  selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
+  selectedAhvenanmaaLayers: Object.values(AhvenanmaaLayer),
+  maanmittauslaitos: {
+    url: {
+      WMTSCapabilities:
+        "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml",
+    },
+  },
+  museovirasto: {
+    url: {
+      export: "https://d3u1wj9fwedfoy.cloudfront.net",
+      identify: "https://d3t293l8mhxosa.cloudfront.net",
+      find: "https://d3239kmqvyt2db.cloudfront.net",
+      updateDate: "https://dkfgv6jxivsxz.cloudfront.net/MV_inspire_atom.xml",
+    },
+  },
+  ahvenanmaa: {
+    url: {
+      export:
+        "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/export",
+      identify:
+        "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/identify",
+      find:
+        "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/find",
+      forminnenUpdateDate:
+        "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Afornminnen",
+      maritimtKulturarvUpdateDate:
+        "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Amaritimt-kulturarv-vrak",
+    },
+  },
+};
+
 export default class Muinaismuistot {
   private map: MuinaismuistotMap;
   private ui: MuinaismuistotUI;
 
   public constructor() {
-    const initialSettings: Settings = {
-      selectedMaanmittauslaitosLayer: MaanmittauslaitosLayer.Taustakartta,
-      selectedMuseovirastoLayers: Object.values(MuseovirastoLayer),
-      selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
-      selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
-      selectedAhvenanmaaLayers: Object.values(AhvenanmaaLayer),
-    };
-
     this.map = new MuinaismuistotMap(initialSettings, {
       featuresSelected: (features, models) => {
         this.ui.featuresSelected(features, models);
