@@ -5,7 +5,12 @@ import Circle from "ol/style/Circle";
 import RegularShape from "ol/style/RegularShape";
 import Style from "ol/style/Style";
 import GeoJSON from "ol/format/GeoJSON";
-import { GeoJSONResponse, Model, MuseovirastoLayer } from "../../common/types";
+import {
+  GeoJSONResponse,
+  Model,
+  MuseovirastoLayer,
+  Settings,
+} from "../../common/types";
 import { FeatureLike } from "ol/Feature";
 import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser";
 import Fill from "ol/style/Fill";
@@ -13,6 +18,7 @@ import Fill from "ol/style/Fill";
 export type OnLayersCreatedCallbackFn = (layer: VectorLayer) => void;
 
 export default class ModelsLayer {
+  private settings: Settings;
   private layer?: VectorLayer;
   private source?: VectorSource;
   private stylePointCircle: Style;
@@ -21,7 +27,11 @@ export default class ModelsLayer {
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn;
   private dataLatestUpdateDate?: Date;
 
-  public constructor(onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn) {
+  public constructor(
+    settings: Settings,
+    onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
+  ) {
+    this.settings = settings;
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn;
 
     this.stylePointCircle = new Style({
@@ -62,7 +72,7 @@ export default class ModelsLayer {
   }
 
   private fetchGeoJson = async (): Promise<GeoJSONResponse> => {
-    const response = await fetch("./3d/3d.json");
+    const response = await fetch(this.settings.models.url.geojson);
     const data = await response.json();
 
     return data as GeoJSONResponse;
@@ -99,6 +109,11 @@ export default class ModelsLayer {
       },
     });
     this.onLayerCreatedCallbackFn(this.layer);
+  };
+
+  public selectedFeatureLayersChanged = (settings: Settings) => {
+    this.settings = settings;
+    this.layer?.setVisible(settings.models.selectedLayers.length > 0);
   };
 
   public getLayer = (): VectorLayer | undefined => this.layer;

@@ -61,7 +61,7 @@ export default class MaanmittauslaitosTileLayer {
       })
     );
 
-    const selectedLayer = settings.selectedMaanmittauslaitosLayer;
+    const selectedLayer = settings.maanmittauslaitos.selectedLayer;
     this.mmlMaastokarttaLayer = new TileLayer({
       source: this.maastokarttaLayerSource,
       visible: selectedLayer === MaanmittauslaitosLayer.Maastokartta,
@@ -112,7 +112,7 @@ export default class MaanmittauslaitosTileLayer {
     ) {
       return;
     }
-    const layer = settings.selectedMaanmittauslaitosLayer;
+    const layer = settings.maanmittauslaitos.selectedLayer;
     this.mmlMaastokarttaLayer.setVisible(
       layer === MaanmittauslaitosLayer.Maastokartta
     );

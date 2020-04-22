@@ -13,21 +13,21 @@ import {
   DataLatestUpdateDates,
   AhvenanmaaLayer,
   LayerGroup,
+  ModelLayer,
 } from "./common/types";
 
 export const initialSettings: Settings = {
-  selectedMaanmittauslaitosLayer: MaanmittauslaitosLayer.Taustakartta,
-  selectedMuseovirastoLayers: Object.values(MuseovirastoLayer),
-  selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
-  selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
-  selectedAhvenanmaaLayers: Object.values(AhvenanmaaLayer),
   maanmittauslaitos: {
+    selectedLayer: MaanmittauslaitosLayer.Taustakartta,
     url: {
       WMTSCapabilities:
         "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml",
     },
   },
   museovirasto: {
+    selectedLayers: Object.values(MuseovirastoLayer),
+    selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
+    selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
     url: {
       export: "https://d3u1wj9fwedfoy.cloudfront.net",
       identify: "https://d3t293l8mhxosa.cloudfront.net",
@@ -36,6 +36,7 @@ export const initialSettings: Settings = {
     },
   },
   ahvenanmaa: {
+    selectedLayers: Object.values(AhvenanmaaLayer),
     url: {
       export:
         "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/export",
@@ -47,6 +48,12 @@ export const initialSettings: Settings = {
         "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Afornminnen",
       maritimtKulturarvUpdateDate:
         "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Amaritimt-kulturarv-vrak",
+    },
+  },
+  models: {
+    selectedLayers: Object.values(ModelLayer),
+    url: {
+      geojson: "./3d/3d.json",
     },
   },
 };

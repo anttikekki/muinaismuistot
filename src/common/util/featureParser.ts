@@ -11,6 +11,8 @@ import {
   AhvenanmaaLayer,
   Model,
   GeoJSONFeature,
+  FeatureLayer,
+  ModelLayer,
 } from "../types";
 
 export const isKiinteäMuinaisjäännös = (
@@ -128,9 +130,7 @@ export const getFeatureTypeIconURL = (
   }
 };
 
-export const getLayerIconURLs = (
-  layer: MuseovirastoLayer | AhvenanmaaLayer
-): Array<string> => {
+export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
   switch (layer) {
     case MuseovirastoLayer.Muinaisjäännökset_piste:
       return [
@@ -160,6 +160,8 @@ export const getLayerIconURLs = (
       return ["images/ahvenanmaa_muinaisjaannos.png"];
     case AhvenanmaaLayer.MaritimtKulturarv:
       return ["images/ahvenanmaa_hylky.png"];
+    case ModelLayer.ModelLayer:
+      return ["images/3d_malli_circle.png", "images/3d_malli_square.png"];
   }
 };
 

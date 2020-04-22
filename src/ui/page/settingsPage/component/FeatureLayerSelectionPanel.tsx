@@ -3,6 +3,7 @@ import {
   MuseovirastoLayer,
   FeatureLayer,
   AhvenanmaaLayer,
+  ModelLayer,
 } from "../../../../common/types";
 import { Panel } from "../../../component/Panel";
 import { getLayerIconURLs } from "../../../../common/util/featureParser";
@@ -41,15 +42,19 @@ const LayerCheckbox = <T extends FeatureLayer>(
 interface Props {
   selectedMuseovirastoLayers: Array<MuseovirastoLayer>;
   selectedAhvenanmaaLayers: Array<AhvenanmaaLayer>;
+  selectedModelLayers: Array<ModelLayer>;
   onSelectMuseovirastoLayer: (layer: MuseovirastoLayer) => void;
   onSelectAhvenanmaaLayer: (layer: AhvenanmaaLayer) => void;
+  onSelectModelLayer: (layer: ModelLayer) => void;
 }
 
 export const FeatureLayerSelectionPanel: React.FC<Props> = ({
   selectedMuseovirastoLayers,
   selectedAhvenanmaaLayers,
+  selectedModelLayers,
   onSelectMuseovirastoLayer,
   onSelectAhvenanmaaLayer,
+  onSelectModelLayer,
 }) => {
   return (
     <Panel title={"Kartalla näkyvät kohteet"}>
@@ -139,13 +144,12 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
           </a>
           )
         </h5>
-        <div className="checkbox sub-layer-select-checkbox-container">
-          <label>
-            <input type="checkbox" value="" checked disabled />
-            <img src="images/3d_malli_circle.png" />
-            <img src="images/3d_malli_square.png" /> 3D-mallit
-          </label>
-        </div>
+        <LayerCheckbox
+          label="3D-mallit"
+          layer={ModelLayer.ModelLayer}
+          selectedLayers={selectedModelLayers}
+          onSelectLayer={onSelectModelLayer}
+        />
       </form>
     </Panel>
   );

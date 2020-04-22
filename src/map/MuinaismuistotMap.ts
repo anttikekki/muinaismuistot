@@ -109,7 +109,7 @@ export default class MuinaismuistotMap {
       }
     );
 
-    this.modelsLayer = new ModelsLayer((createdLayer) => {
+    this.modelsLayer = new ModelsLayer(initialSettings, (createdLayer) => {
       this.map.getLayers().insertAt(6, createdLayer);
     });
 
@@ -186,6 +186,9 @@ export default class MuinaismuistotMap {
         break;
       case LayerGroup.Ahvenanmaa:
         this.ahvenanmaaTileLayer.selectedFeatureLayersChanged(settings);
+        break;
+      case LayerGroup.Models:
+        this.modelsLayer.selectedFeatureLayersChanged(settings);
         break;
     }
   };

@@ -6,6 +6,7 @@ import {
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus,
   AhvenanmaaLayer,
+  ModelLayer,
 } from "../../../common/types";
 import { Page, PageVisibility } from "../Page";
 import { MMLMapLayerSelectionPanel } from "./component/MMLMapLayerSelectionPanel";
@@ -19,6 +20,7 @@ interface Props {
   onSelectMaanmittauslaitosLayer: (layer: MaanmittauslaitosLayer) => void;
   onSelectMuseovirastoLayer: (layer: MuseovirastoLayer) => void;
   onSelectAhvenanmaaLayer: (layer: AhvenanmaaLayer) => void;
+  onSelectModelLayer: (layer: ModelLayer) => void;
   onSelectMuinaisjaannosType: (type: MuinaisjaannosTyyppi) => void;
   onSelectMuinaisjaannosDating: (dating: MuinaisjaannosAjoitus) => void;
 }
@@ -30,24 +32,31 @@ export const SettingsPage: React.FC<Props> = ({
   onSelectMaanmittauslaitosLayer,
   onSelectMuseovirastoLayer,
   onSelectAhvenanmaaLayer,
+  onSelectModelLayer,
   onSelectMuinaisjaannosType,
   onSelectMuinaisjaannosDating,
 }) => {
   return (
     <Page title="Asetukset" visibility={visibility} hidePage={hidePage}>
       <MMLMapLayerSelectionPanel
-        selectedLayer={settings.selectedMaanmittauslaitosLayer}
+        selectedLayer={settings.maanmittauslaitos.selectedLayer}
         onSelectLayer={onSelectMaanmittauslaitosLayer}
       />
       <FeatureLayerSelectionPanel
-        selectedMuseovirastoLayers={settings.selectedMuseovirastoLayers}
-        selectedAhvenanmaaLayers={settings.selectedAhvenanmaaLayers}
+        selectedMuseovirastoLayers={settings.museovirasto.selectedLayers}
+        selectedAhvenanmaaLayers={settings.ahvenanmaa.selectedLayers}
+        selectedModelLayers={settings.models.selectedLayers}
         onSelectMuseovirastoLayer={onSelectMuseovirastoLayer}
         onSelectAhvenanmaaLayer={onSelectAhvenanmaaLayer}
+        onSelectModelLayer={onSelectModelLayer}
       />
       <FeatureLayerFilterPanel
-        selectedMuinaisjaannosTypes={settings.selectedMuinaisjaannosTypes}
-        selectedMuinaisjaannosDatings={settings.selectedMuinaisjaannosDatings}
+        selectedMuinaisjaannosTypes={
+          settings.museovirasto.selectedMuinaisjaannosTypes
+        }
+        selectedMuinaisjaannosDatings={
+          settings.museovirasto.selectedMuinaisjaannosDatings
+        }
         onSelectMuinaisjaannosType={onSelectMuinaisjaannosType}
         onSelectMuinaisjaannosDating={onSelectMuinaisjaannosDating}
       />

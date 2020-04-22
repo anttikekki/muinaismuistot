@@ -80,12 +80,12 @@ export default class MuseovirastoTileLayer {
     const allLayers: Array<MuseovirastoLayer> = Object.values(
       MuseovirastoLayer
     );
-    if (allLayers.length === this.settings.selectedMuseovirastoLayers.length) {
+    if (allLayers.length === this.settings.museovirasto.selectedLayers.length) {
       // All layers are selected. No need to filter.
       return undefined;
     }
     const selectedLayerIds = this.toLayerIds(
-      this.settings.selectedMuseovirastoLayers
+      this.settings.museovirasto.selectedLayers
     );
 
     if (selectedLayerIds.length > 0) {
@@ -99,7 +99,8 @@ export default class MuseovirastoTileLayer {
   private getSourceLayerDefinitionFilterParams = () => {
     const layerDefinitions = [];
 
-    const selectedTypes = this.settings.selectedMuinaisjaannosTypes;
+    const selectedTypes = this.settings.museovirasto
+      .selectedMuinaisjaannosTypes;
     if (
       selectedTypes.length > 0 &&
       selectedTypes.length != Object.values(MuinaisjaannosTyyppi).length
@@ -111,7 +112,8 @@ export default class MuseovirastoTileLayer {
       layerDefinitions.push("(" + layerDefinition + ")");
     }
 
-    const selectedDatings = this.settings.selectedMuinaisjaannosDatings;
+    const selectedDatings = this.settings.museovirasto
+      .selectedMuinaisjaannosDatings;
     if (
       selectedDatings.length > 0 &&
       selectedDatings.length != Object.values(MuinaisjaannosAjoitus).length
@@ -167,7 +169,7 @@ export default class MuseovirastoTileLayer {
       mapExtent: mapExtent.join(","),
       layers:
         "visible:" +
-        this.toLayerIds(this.settings.selectedMuseovirastoLayers).join(","),
+        this.toLayerIds(this.settings.museovirasto.selectedLayers).join(","),
       f: "json",
       returnGeometry: "true",
     });
@@ -181,7 +183,7 @@ export default class MuseovirastoTileLayer {
   };
 
   public findFeatures = (searchText: string): Promise<ArgisFindResult> => {
-    let selectedLayers = this.settings.selectedMuseovirastoLayers;
+    let selectedLayers = this.settings.museovirasto.selectedLayers;
 
     //Muinaismustot areas always has same name as main point so do not search those
     if (selectedLayers.includes(MuseovirastoLayer.Muinaisjäännökset_alue)) {

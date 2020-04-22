@@ -1,15 +1,14 @@
 export interface Settings {
-  selectedMaanmittauslaitosLayer: MaanmittauslaitosLayer;
-  selectedMuseovirastoLayers: Array<MuseovirastoLayer>;
-  selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>;
-  selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>;
-  selectedAhvenanmaaLayers: Array<AhvenanmaaLayer>;
   maanmittauslaitos: {
+    selectedLayer: MaanmittauslaitosLayer;
     url: {
       WMTSCapabilities: string;
     };
   };
   museovirasto: {
+    selectedLayers: Array<MuseovirastoLayer>;
+    selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>;
+    selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>;
     url: {
       export: string;
       identify: string;
@@ -18,6 +17,7 @@ export interface Settings {
     };
   };
   ahvenanmaa: {
+    selectedLayers: Array<AhvenanmaaLayer>;
     url: {
       export: string;
       identify: string;
@@ -26,12 +26,19 @@ export interface Settings {
       maritimtKulturarvUpdateDate: string;
     };
   };
+  models: {
+    selectedLayers: Array<ModelLayer>;
+    url: {
+      geojson: string;
+    };
+  };
 }
 
 export enum LayerGroup {
   Maanmittauslaitos = "Maanmittauslaitos",
   Museovirasto = "Museovirasto",
   Ahvenanmaa = "Ahvenanmaa",
+  Models = "Models",
 }
 
 export enum MaanmittauslaitosLayer {
@@ -57,7 +64,11 @@ export enum AhvenanmaaLayer {
   MaritimtKulturarv = "Maritimt kulturarv; Vrak",
 }
 
-export type FeatureLayer = MuseovirastoLayer | AhvenanmaaLayer;
+export enum ModelLayer {
+  ModelLayer = "ModelLayer",
+}
+
+export type FeatureLayer = MuseovirastoLayer | AhvenanmaaLayer | ModelLayer;
 
 export type MuseovirastoLayerId = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 

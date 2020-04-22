@@ -55,10 +55,10 @@ export default class AhvenanmaaTileLayer {
   };
 
   private getSourceLayersParams = (): string => {
-    if (this.settings.selectedAhvenanmaaLayers.length > 0) {
+    if (this.settings.ahvenanmaa.selectedLayers.length > 0) {
       return (
         "show:" +
-        this.toLayerIds(this.settings.selectedAhvenanmaaLayers).join(",")
+        this.toLayerIds(this.settings.ahvenanmaa.selectedLayers).join(",")
       );
     } else {
       // No selected layers. Hide all.
@@ -121,7 +121,7 @@ export default class AhvenanmaaTileLayer {
       imageDisplay: mapSize.join(",") + ",96",
       mapExtent: mapExtent.join(","),
       layers: `visible:${this.toLayerIds(
-        this.settings.selectedAhvenanmaaLayers
+        this.settings.ahvenanmaa.selectedLayers
       ).join(",")}`,
       f: "json",
       returnGeometry: "true",
@@ -140,7 +140,9 @@ export default class AhvenanmaaTileLayer {
       searchText: searchText,
       contains: "true",
       searchFields: "Namn , Beskrivning, Topografi",
-      layers: this.toLayerIds(this.settings.selectedAhvenanmaaLayers).join(","),
+      layers: this.toLayerIds(this.settings.ahvenanmaa.selectedLayers).join(
+        ","
+      ),
       f: "json",
       returnGeometry: "true",
       returnZ: "false",
