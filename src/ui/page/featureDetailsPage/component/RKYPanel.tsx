@@ -37,12 +37,7 @@ export const RKYPanel: React.FC<Props> = ({
           <Field label="Nimi" value={feature.attributes.nimi} />
         )}
         <MuseovirastoLink feature={feature} />
-        {isOpen && (
-          <>
-            <br />
-            <EmbeddedModels models={models} />
-          </>
-        )}
+        {isOpen && <EmbeddedModels models={models} />}
       </form>
     </FeatureCollapsePanel>
   );

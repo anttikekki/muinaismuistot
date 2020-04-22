@@ -1,7 +1,7 @@
 import * as React from "react";
 import {
   MuinaisjaannosPisteArgisFeature,
-  Model
+  Model,
 } from "../../../../common/types";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
@@ -21,7 +21,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
   isOpen,
   onToggleOpen,
   feature,
-  models = []
+  models = [],
 }) => {
   return (
     <FeatureCollapsePanel
@@ -43,12 +43,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         <Field label="Alatyyppi" value={feature.attributes.alatyyppi} />
         <Field label="Laji" value={feature.attributes.laji} />
         <MuseovirastoLink feature={feature} />
-        {isOpen && (
-          <>
-            <br />
-            <EmbeddedModels models={models} />
-          </>
-        )}
+        {isOpen && <EmbeddedModels models={models} />}
       </form>
     </FeatureCollapsePanel>
   );

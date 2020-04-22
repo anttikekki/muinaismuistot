@@ -40,12 +40,7 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
         <Field label="Kunta" value={feature.attributes.kunta} />
         <Field label="Suojeluryhmä" value={feature.attributes.suojeluryhmä} />
         <MuseovirastoLink feature={feature} />
-        {isOpen && (
-          <>
-            <br />
-            <EmbeddedModels models={models} />
-          </>
-        )}
+        {isOpen && <EmbeddedModels models={models} />}
       </form>
     </FeatureCollapsePanel>
   );

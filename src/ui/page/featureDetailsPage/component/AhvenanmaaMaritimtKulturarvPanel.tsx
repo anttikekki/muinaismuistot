@@ -36,12 +36,7 @@ export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
         <Field label="Tunniste" value={feature.attributes.FornID} />
         <Field label="Laki" value={feature.attributes.Lagrum} />
 
-        {isOpen && (
-          <>
-            <br />
-            <EmbeddedModels models={models} />
-          </>
-        )}
+        {isOpen && <EmbeddedModels models={models} />}
       </form>
     </FeatureCollapsePanel>
   );

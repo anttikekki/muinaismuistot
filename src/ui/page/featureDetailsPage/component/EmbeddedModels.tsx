@@ -80,6 +80,7 @@ export const EmbeddedModels: React.FC<Props> = ({ models = [] }) => {
 
   return (
     <>
+      <br />
       <h4>Kohteen 3D-mallit</h4>
 
       <Info />

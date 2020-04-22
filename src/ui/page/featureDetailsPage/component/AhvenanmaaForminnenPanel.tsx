@@ -38,12 +38,7 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
 
         <AhvenanmaaRegeringenLink feature={feature} />
 
-        {isOpen && (
-          <>
-            <br />
-            <EmbeddedModels models={models} />
-          </>
-        )}
+        {isOpen && <EmbeddedModels models={models} />}
       </form>
     </FeatureCollapsePanel>
   );
