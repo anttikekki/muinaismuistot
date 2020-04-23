@@ -11,6 +11,56 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [247137.91619999986, 6702734.9089]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuusiston kirkko",
+          "id": 200533,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "www.kyppi.fi/to.aspx?id=130.200533",
+          "municipality": "Kaarina"
+        },
+        "model": {
+          "name": "Kuusiston kirkko",
+          "url": "https://sketchfab.com/models/1f082eec098f4ada9bf281fdcd7686ea"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-23"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [313205.70019999985, 6655214.4322]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Raaseporin linna",
+          "id": 835500006,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.835500006",
+          "municipality": "Raasepori"
+        },
+        "model": {
+          "name": "Raaseporin linnanrauniot",
+          "url": "https://sketchfab.com/models/7558eb02311e4762aed782ee17f374ea"
+        },
+        "author": "Nimimerkki jasu",
+        "authorUrl": "https://sketchfab.com/jasu",
+        "licence": "Copyright (C) jasu",
+        "licenceUrl": "",
+        "createdDate": "2020-04-23"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [386825.40330000035, 6681665.238399999]
       },
       "properties": {
