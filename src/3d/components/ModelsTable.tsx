@@ -110,7 +110,7 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
               name="Kohde"
               valueFn={(v) => v.properties.registryItem.name}
             />
-            <tr></tr>
+            <th></th>
             <ColumnHeader
               name="Kunta"
               valueFn={(v) => v.properties.registryItem.municipality}
