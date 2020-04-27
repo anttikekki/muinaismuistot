@@ -11,6 +11,375 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [394945.70519999973, 6680610.624299999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta III:9 (Rajakylä)",
+          "id": 1000007726,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007726",
+          "municipality": "Vantaa"
+        },
+        "model": {
+          "name": "110 m² U:n muotoisen luolan sisäänkäynti",
+          "url": "https://sketchfab.com/models/8556015cee984ef9893fa15acd9abc04"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [394945.70519999973, 6680610.624299999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta III:9 (Rajakylä)",
+          "id": 1000007726,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007726",
+          "municipality": "Vantaa"
+        },
+        "model": {
+          "name": "Katettu juoksuhauta",
+          "url": "https://sketchfab.com/models/e1783d5c8d994ad0bea9ebd42ce69ffa"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [394945.70519999973, 6680610.624299999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta III:9 (Rajakylä)",
+          "id": 1000007726,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007726",
+          "municipality": "Vantaa"
+        },
+        "model": {
+          "name": "Tunneli kallion sisässä olevaan suojahuoneeseen",
+          "url": "https://sketchfab.com/models/45b296fe3b714568ad23b204dffe28e6"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [394945.70519999973, 6680610.624299999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta III:9 (Rajakylä)",
+          "id": 1000007726,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007726",
+          "municipality": "Vantaa"
+        },
+        "model": {
+          "name": "Tunneli kallion sisässä olevaan suojahuoneeseen",
+          "url": "https://sketchfab.com/models/c6cf831941f64b3880b3b4343459a21f"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [394945.70519999973, 6680610.624299999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta III:9 (Rajakylä)",
+          "id": 1000007726,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007726",
+          "municipality": "Vantaa"
+        },
+        "model": {
+          "name": "Tarkkailuasema ja juoksuhautaa",
+          "url": "https://sketchfab.com/models/9277552635344e7e8b55990b4bfd4931"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [379155.06350000016, 6678606.3533]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVIII:5 (Vallikallio)",
+          "id": 1000007748,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007748",
+          "municipality": "Espoo"
+        },
+        "model": {
+          "name": "Valonheitinasema",
+          "url": "https://sketchfab.com/models/71baea2858784f68bffb2ed6bdeb1219"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [396179.2101999996, 6679749.979699999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta II:1 (Länsimäki)",
+          "id": 1000007646,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007646",
+          "municipality": "Vantaa"
+        },
+        "model": {
+          "name": "Kahden huoneen suojahuone ilman kattoa",
+          "url": "https://sketchfab.com/models/b2fd3fdcec27429c899d5361064e047c"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [395722.3914000001, 6679886.923699999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta II:8 (Länsimäki)",
+          "id": 1000007692,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007692",
+          "municipality": "Vantaa"
+        },
+        "model": {
+          "name": "Suojahuone",
+          "url": "https://sketchfab.com/models/b9b815e9f7454da490fb9e584b66f258"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [395858.3344999999, 6679894.922900001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta II:7 (Länsimäki)",
+          "id": 1000007677,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007677",
+          "municipality": "Vantaa"
+        },
+        "model": {
+          "name": "Piikkilankaesteen tolppien jäännökset",
+          "url": "https://sketchfab.com/models/d755848cfbb740b69c921bbc4303ee9b"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [395858.3344999999, 6679894.922900001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta II:7 (Länsimäki)",
+          "id": 1000007677,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007677",
+          "municipality": "Vantaa"
+        },
+        "model": {
+          "name": "Kahden huoneen ehjä suojahuone",
+          "url": "https://sketchfab.com/models/f7a8f552ad884fe880b0c1783eacf6fe"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [393931.1102999998, 6680852.5274]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta IV:3 (Rajakylä)",
+          "id": 1000007733,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007733",
+          "municipality": "Vantaa"
+        },
+        "model": {
+          "name": "Katettu konekivääriasema",
+          "url": "https://sketchfab.com/models/5dc43cbebde14f6ba9fbcf9916e1fd45"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [389777.6375000002, 6679316.207699999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta X:8 (Pihlajamäki)",
+          "id": 1000013421,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013421",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Suojahuone",
+          "url": "https://sketchfab.com/models/79865cc7fd854795912ad3548a834d47"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [237951.7759999996, 6701673.6918],
+            [237587.6891999999, 6701564.6088],
+            [237400.4003999997, 6701673.089199999],
+            [237296.44020000007, 6701695.834799999],
+            [237305.2291000001, 6702009.8408],
+            [237255.48599999957, 6702372.268200001],
+            [237349.01449999958, 6702416.751],
+            [237518.13609999977, 6702454.3254],
+            [237578.7137000002, 6702283.1051],
+            [237662.97360000014, 6702298.6029],
+            [237743.95139999967, 6702314.410599999],
+            [237804.58609999996, 6702288.985300001],
+            [237890.60280000046, 6702214.8585],
+            [237946.52099999972, 6702102.888],
+            [237917.66889999993, 6701821.826199999],
+            [237951.7759999996, 6701673.6918]
+          ]
+        ]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Brinkhallin kartano",
+          "id": 612,
+          "type": "RKY_alue",
+          "url": "http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=612",
+          "municipality": "Turku"
+        },
+        "model": {
+          "name": "Brinkhallin kartano",
+          "url": "https://sketchfab.com/models/8ccdf9103a62400987e4e5dfdad3e37e"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "Copyright (C) Lassi Kaukonen",
+        "licenceUrl": "",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [216866.5571999997, 6726127.869899999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Louhisaaren kartano",
+          "id": 200265,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200265",
+          "municipality": "Masku"
+        },
+        "model": {
+          "name": "Louhisaaren kartano",
+          "url": "https://sketchfab.com/models/79a42fdf84bb4f739bca9da1c86f668f"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-04-27"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [247137.91619999986, 6702734.9089]
       },
       "properties": {
@@ -18,7 +387,7 @@
           "name": "Kuusiston kirkko",
           "id": 200533,
           "type": "Suojellut_rakennukset_piste",
-          "url": "www.kyppi.fi/to.aspx?id=130.200533",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200533",
           "municipality": "Kaarina"
         },
         "model": {
