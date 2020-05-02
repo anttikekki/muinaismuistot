@@ -24,7 +24,7 @@ export const DatabaseStructure: React.FC = () => {
         <tbody>
           <tr>
             <td>
-              <code>properties.geometry.type</code>
+              <code>geometry.type</code>
             </td>
             <td>
               Kohteen{" "}
@@ -40,7 +40,7 @@ export const DatabaseStructure: React.FC = () => {
           </tr>
           <tr>
             <td>
-              <code>properties.geometry.coordinates</code>
+              <code>geometry.coordinates</code>
             </td>
             <td>
               Kohteen koordinaatit{" "}
