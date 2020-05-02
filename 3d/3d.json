@@ -11,6 +11,81 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [392890.8108999999, 6677342.849400001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tykkipatteri 65 (Myllypuro)",
+          "id": 1000011940,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011940",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Neljä tykkiasemaa",
+          "url": "https://sketchfab.com/models/ee5c905855f14e3b916e3e7a52f3eae2"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-02"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [387468.8770000003, 6681269.8945]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XV:2 (Tuomarinkartano)",
+          "id": 1000013611,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013611",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Konekivääriasema ja kaksi traverssia",
+          "url": "https://sketchfab.com/models/0f7ac00aa7554079b7d9d0fa7c49b805"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-02"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [387468.8770000003, 6681269.8945]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XV:2 (Tuomarinkartano)",
+          "id": 1000013611,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013611",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Kaksi konekivääriasemaa",
+          "url": "https://sketchfab.com/models/75e432e022bc474f96234ca6ec7798ed"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-02"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [394945.70519999973, 6680610.624299999]
       },
       "properties": {
