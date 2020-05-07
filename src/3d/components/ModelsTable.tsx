@@ -79,7 +79,7 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
           paikallishallinnon <a href="#rekisterit">rekisteriin</a>.
         </li>
         <li>
-          Kohteen nimem perässä on linkki kohteeseen{" "}
+          Kohteen nimen perässä on linkki kohteeseen{" "}
           <a href="https://muinaismuistot.info" target="_blank">
             muinaismuistot.info
           </a>{" "}

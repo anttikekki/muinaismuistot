@@ -11,6 +11,156 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [382989.9367000004, 6678894.051100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIV:7 (Lassila)",
+          "id": 1000013859,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013859",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "2 konekivääriasemaa, ehjä suojahuone ja tähystysasema",
+          "url": "https://sketchfab.com/models/5752565bc0fa418e927a7e4175132a2c"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [382922.9846999999, 6679100.3100000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIV:4 (Lassila)",
+          "id": 1000013856,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013856",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Betoninen sivutuliasema (kaponieeri)",
+          "url": "https://sketchfab.com/models/faa122584adb4b7b82f82ef98c8bedbe"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [382922.9846999999, 6679100.3100000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIV:4 (Lassila)",
+          "id": 1000013856,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013856",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Suljettu ehjä suojahuone",
+          "url": "https://sketchfab.com/models/f15ba09e50084416b457dbb3b5c2db4a"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383132.21779999975, 6679004.5472]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIV:5 (Pohjois-Haaga)",
+          "id": 1000013857,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013857",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Ehjä suojahuone",
+          "url": "https://sketchfab.com/models/c315aa97bb824f95bb8a228de382e086"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383668.9082000004, 6678933.0603]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIII:7 (Pohjois-Haaga)",
+          "id": 1000013840,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013840",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Kaksi ehjää suojahuonetta ja konekivääriasema",
+          "url": "https://sketchfab.com/models/70b3bb42d5eb41899a3bd4e64d0b0b8c"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383668.9082000004, 6678933.0603]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIII:7 (Pohjois-Haaga)",
+          "id": 1000013840,
+          "type": "Muinaisjäännökset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013840",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Tähystysasema ja keskeneräinen suojahuone",
+          "url": "https://sketchfab.com/models/8d7b6f0ab5334d5fa40975fa1dd4eb5e"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [392890.8108999999, 6677342.849400001]
       },
       "properties": {
