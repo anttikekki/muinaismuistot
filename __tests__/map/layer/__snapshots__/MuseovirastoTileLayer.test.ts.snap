@@ -38,7 +38,7 @@ Object {
       },
       "geometryType": "esriGeometryPoint",
       "layerId": 0,
-      "layerName": "Muinaisjäännökset_piste",
+      "layerName": "Muinaisjaannokset_piste",
       "value": "Rainiola 3. ryhmä",
     },
     Object {
@@ -76,7 +76,7 @@ Object {
       },
       "geometryType": "esriGeometryPoint",
       "layerId": 0,
-      "layerName": "Muinaisjäännökset_piste",
+      "layerName": "Muinaisjaannokset_piste",
       "value": "Rainiola 5. ryhmä",
     },
     Object {
@@ -114,7 +114,7 @@ Object {
       },
       "geometryType": "esriGeometryPoint",
       "layerId": 0,
-      "layerName": "Muinaisjäännökset_piste",
+      "layerName": "Muinaisjaannokset_piste",
       "value": "Rainiola 4. ryhmä",
     },
     Object {
@@ -152,7 +152,7 @@ Object {
       },
       "geometryType": "esriGeometryPoint",
       "layerId": 0,
-      "layerName": "Muinaisjäännökset_piste",
+      "layerName": "Muinaisjaannokset_piste",
       "value": "Rainiola 1. ryhmä",
     },
     Object {
@@ -190,7 +190,7 @@ Object {
       },
       "geometryType": "esriGeometryPoint",
       "layerId": 0,
-      "layerName": "Muinaisjäännökset_piste",
+      "layerName": "Muinaisjaannokset_piste",
       "value": "Rainiola 2. ryhmä",
     },
   ],
@@ -234,7 +234,7 @@ Object {
       },
       "geometryType": "esriGeometryPoint",
       "layerId": 0,
-      "layerName": "Muinaisjäännökset_piste",
+      "layerName": "Muinaisjaannokset_piste",
       "value": "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000013921_P29025",
     },
     Object {
@@ -286,7 +286,7 @@ Object {
       },
       "geometryType": "esriGeometryPolygon",
       "layerId": 1,
-      "layerName": "Muinaisjäännökset_alue",
+      "layerName": "Muinaisjaannokset_alue",
       "value": "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000013921_A198218",
     },
     Object {

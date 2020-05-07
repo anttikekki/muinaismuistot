@@ -3,7 +3,7 @@ import { Panel } from "../../../component/Panel";
 
 export const DataAndLicencesPanel: React.FC = () => {
   return (
-    <Panel title="Tietoa sivustosta">
+    <Panel title="Avoin data, lisenssit ja lähdekoodi">
       <p>
         Museoviraston rekistereistä tietoa haetaan{" "}
         <a href="https://www.avoindata.fi/data/fi/dataset/museoviraston-kulttuuriymparistoaineistot-suojellut-kohteet-wms-palvelu">

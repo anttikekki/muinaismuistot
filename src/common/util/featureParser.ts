@@ -29,16 +29,16 @@ export const isMuuKulttuuriperintökohde = (
 
 export const getFeatureName = (feature: ArgisFeature): string => {
   switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjäännökset_piste:
-    case MuseovirastoLayer.Muinaisjäännökset_alue:
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_alue:
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_piste:
     case MuseovirastoLayer.RKY_viiva:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
       return trim(feature.attributes.kohdenimi);
-    case MuseovirastoLayer.Maailmanperintö_piste:
-    case MuseovirastoLayer.Maailmanperintö_alue:
+    case MuseovirastoLayer.Maailmanperinto_piste:
+    case MuseovirastoLayer.Maailmanperinto_alue:
       return trim(feature.attributes.Nimi);
     case AhvenanmaaLayer.Fornminnen:
       return (
@@ -54,14 +54,14 @@ export const getFeatureTypeName = (
   feature: ArgisFeature
 ): string | undefined => {
   switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjäännökset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
       if (isKiinteäMuinaisjäännös(feature)) {
         return "Kiinteä muinaisjäännös";
       } else if (isMuuKulttuuriperintökohde(feature)) {
         return "Muu kulttuuriperintökohde";
       }
       break;
-    case MuseovirastoLayer.Muinaisjäännökset_alue:
+    case MuseovirastoLayer.Muinaisjaannokset_alue:
       if (isKiinteäMuinaisjäännös(feature)) {
         return "Kiinteä muinaisjäännös (alue)";
       } else if (isMuuKulttuuriperintökohde(feature)) {
@@ -72,8 +72,8 @@ export const getFeatureTypeName = (
     case MuseovirastoLayer.RKY_piste:
     case MuseovirastoLayer.RKY_viiva:
       return "Rakennettu kulttuuriympäristö";
-    case MuseovirastoLayer.Maailmanperintö_piste:
-    case MuseovirastoLayer.Maailmanperintö_alue:
+    case MuseovirastoLayer.Maailmanperinto_piste:
+    case MuseovirastoLayer.Maailmanperinto_alue:
       return "Maailmanperintökohde";
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
@@ -93,14 +93,14 @@ export const getFeatureTypeIconURL = (
 ): string | undefined => {
   const modelSuffix = has3dModels ? "_3d" : "";
   switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjäännökset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
       if (isKiinteäMuinaisjäännös(feature)) {
         return `images/muinaisjaannos_kohde${modelSuffix}.png`;
       } else if (isMuuKulttuuriperintökohde(feature)) {
         return `images/muu_kulttuuriperintokohde_kohde${modelSuffix}.png`;
       }
       break;
-    case MuseovirastoLayer.Muinaisjäännökset_alue:
+    case MuseovirastoLayer.Muinaisjaannokset_alue:
       if (isKiinteäMuinaisjäännös(feature)) {
         return `images/muinaisjaannos_alue${modelSuffix}.png`;
       } else if (isMuuKulttuuriperintökohde(feature)) {
@@ -113,9 +113,9 @@ export const getFeatureTypeIconURL = (
       return `images/rky_viiva${modelSuffix}.png`;
     case MuseovirastoLayer.RKY_piste:
       return `images/rky_piste${modelSuffix}.png`;
-    case MuseovirastoLayer.Maailmanperintö_alue:
+    case MuseovirastoLayer.Maailmanperinto_alue:
       return `images/maailmanperinto_alue${modelSuffix}.png`;
-    case MuseovirastoLayer.Maailmanperintö_piste:
+    case MuseovirastoLayer.Maailmanperinto_piste:
       return `images/maailmanperinto_piste${modelSuffix}.png`;
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
       return `images/rakennusperintorekisteri_alue${modelSuffix}.png`;
@@ -132,12 +132,12 @@ export const getFeatureTypeIconURL = (
 
 export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
   switch (layer) {
-    case MuseovirastoLayer.Muinaisjäännökset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
       return [
         "images/muinaisjaannos_kohde.png",
         "images/muu_kulttuuriperintokohde_kohde.png",
       ];
-    case MuseovirastoLayer.Muinaisjäännökset_alue:
+    case MuseovirastoLayer.Muinaisjaannokset_alue:
       return [
         "images/muinaisjaannos_alue.png",
         "images/muu-kulttuuriperintokohde-alue.png",
@@ -148,9 +148,9 @@ export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
       return ["images/rky_viiva.png"];
     case MuseovirastoLayer.RKY_piste:
       return ["images/rky_piste.png"];
-    case MuseovirastoLayer.Maailmanperintö_alue:
+    case MuseovirastoLayer.Maailmanperinto_alue:
       return ["images/maailmanperinto_alue.png"];
-    case MuseovirastoLayer.Maailmanperintö_piste:
+    case MuseovirastoLayer.Maailmanperinto_piste:
       return ["images/maailmanperinto_piste.png"];
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
       return ["images/rakennusperintorekisteri_alue.png"];
@@ -167,13 +167,13 @@ export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
 
 export const getFeatureID = (feature: ArgisFeature): string => {
   switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjäännökset_piste:
-    case MuseovirastoLayer.Muinaisjäännökset_alue:
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_alue:
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_viiva:
     case MuseovirastoLayer.RKY_piste:
-    case MuseovirastoLayer.Maailmanperintö_alue:
-    case MuseovirastoLayer.Maailmanperintö_piste:
+    case MuseovirastoLayer.Maailmanperinto_alue:
+    case MuseovirastoLayer.Maailmanperinto_piste:
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
     case AhvenanmaaLayer.Fornminnen:
@@ -188,7 +188,7 @@ export const getModelsForFeature = (
 ): Array<Model> => {
   let featureId: string | undefined;
   switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjäännökset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
       featureId = feature.attributes.mjtunnus;
       break;
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
@@ -279,8 +279,8 @@ export const getFeatureRegisterURL = (
   feature: ArgisFeature
 ): string | undefined => {
   switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjäännökset_piste:
-    case MuseovirastoLayer.Muinaisjäännökset_alue:
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
       return "https://" + feature.attributes.url;
@@ -288,8 +288,8 @@ export const getFeatureRegisterURL = (
     case MuseovirastoLayer.RKY_viiva:
     case MuseovirastoLayer.RKY_piste:
       return feature.attributes.url;
-    case MuseovirastoLayer.Maailmanperintö_alue:
-    case MuseovirastoLayer.Maailmanperintö_piste:
+    case MuseovirastoLayer.Maailmanperinto_alue:
+    case MuseovirastoLayer.Maailmanperinto_piste:
       return getMaailmanperintoUrl(feature);
     case AhvenanmaaLayer.Fornminnen:
       return generateAhvenanmaaKuntaPdfUrl(feature);
@@ -298,15 +298,15 @@ export const getFeatureRegisterURL = (
 
 export const getFeatureRegisterName = (feature: ArgisFeature): string => {
   switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjäännökset_piste:
-    case MuseovirastoLayer.Muinaisjäännökset_alue:
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_alue:
       return "Muinaisjäännösrekisteristä";
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_viiva:
     case MuseovirastoLayer.RKY_piste:
       return "rky.fi rekisteristä";
-    case MuseovirastoLayer.Maailmanperintö_alue:
-    case MuseovirastoLayer.Maailmanperintö_piste:
+    case MuseovirastoLayer.Maailmanperinto_alue:
+    case MuseovirastoLayer.Maailmanperinto_piste:
       return "Museoviraston sivuilta";
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
@@ -322,15 +322,15 @@ export const getLayerRegisterName = (
   layer: MuseovirastoLayer | AhvenanmaaLayer
 ): string => {
   switch (layer) {
-    case MuseovirastoLayer.Muinaisjäännökset_piste:
-    case MuseovirastoLayer.Muinaisjäännökset_alue:
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_alue:
       return "Muinaisjäännösrekisteri";
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_viiva:
     case MuseovirastoLayer.RKY_piste:
       return "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt";
-    case MuseovirastoLayer.Maailmanperintö_alue:
-    case MuseovirastoLayer.Maailmanperintö_piste:
+    case MuseovirastoLayer.Maailmanperinto_alue:
+    case MuseovirastoLayer.Maailmanperinto_piste:
       return "Maailmanperintökohteet";
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:

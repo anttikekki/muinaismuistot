@@ -127,7 +127,7 @@ export default class MuseovirastoTileLayer {
 
     if (layerDefinitions.length > 0) {
       return (
-        museovirastoLayerIdMap[MuseovirastoLayer.Muinaisjäännökset_piste] +
+        museovirastoLayerIdMap[MuseovirastoLayer.Muinaisjaannokset_piste] +
         ":" +
         layerDefinitions.join(" AND ")
       );
@@ -186,9 +186,9 @@ export default class MuseovirastoTileLayer {
     let selectedLayers = this.settings.museovirasto.selectedLayers;
 
     //Muinaismustot areas always has same name as main point so do not search those
-    if (selectedLayers.includes(MuseovirastoLayer.Muinaisjäännökset_alue)) {
+    if (selectedLayers.includes(MuseovirastoLayer.Muinaisjaannokset_alue)) {
       selectedLayers = selectedLayers.filter(
-        (l) => l !== MuseovirastoLayer.Muinaisjäännökset_alue
+        (l) => l !== MuseovirastoLayer.Muinaisjaannokset_alue
       );
     }
 

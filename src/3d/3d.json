@@ -17,7 +17,7 @@
         "registryItem": {
           "name": "Tukikohta XXIV:7 (Lassila)",
           "id": 1000013859,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013859",
           "municipality": "Helsinki"
         },
@@ -42,7 +42,7 @@
         "registryItem": {
           "name": "Tukikohta XXIV:4 (Lassila)",
           "id": 1000013856,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013856",
           "municipality": "Helsinki"
         },
@@ -67,7 +67,7 @@
         "registryItem": {
           "name": "Tukikohta XXIV:4 (Lassila)",
           "id": 1000013856,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013856",
           "municipality": "Helsinki"
         },
@@ -92,7 +92,7 @@
         "registryItem": {
           "name": "Tukikohta XXIV:5 (Pohjois-Haaga)",
           "id": 1000013857,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013857",
           "municipality": "Helsinki"
         },
@@ -117,7 +117,7 @@
         "registryItem": {
           "name": "Tukikohta XXIII:7 (Pohjois-Haaga)",
           "id": 1000013840,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013840",
           "municipality": "Helsinki"
         },
@@ -142,7 +142,7 @@
         "registryItem": {
           "name": "Tukikohta XXIII:7 (Pohjois-Haaga)",
           "id": 1000013840,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013840",
           "municipality": "Helsinki"
         },
@@ -167,7 +167,7 @@
         "registryItem": {
           "name": "Tykkipatteri 65 (Myllypuro)",
           "id": 1000011940,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000011940",
           "municipality": "Helsinki"
         },
@@ -192,7 +192,7 @@
         "registryItem": {
           "name": "Tukikohta XV:2 (Tuomarinkartano)",
           "id": 1000013611,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013611",
           "municipality": "Helsinki"
         },
@@ -217,7 +217,7 @@
         "registryItem": {
           "name": "Tukikohta XV:2 (Tuomarinkartano)",
           "id": 1000013611,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013611",
           "municipality": "Helsinki"
         },
@@ -242,7 +242,7 @@
         "registryItem": {
           "name": "Tukikohta III:9 (Rajakylä)",
           "id": 1000007726,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007726",
           "municipality": "Vantaa"
         },
@@ -267,7 +267,7 @@
         "registryItem": {
           "name": "Tukikohta III:9 (Rajakylä)",
           "id": 1000007726,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007726",
           "municipality": "Vantaa"
         },
@@ -292,7 +292,7 @@
         "registryItem": {
           "name": "Tukikohta III:9 (Rajakylä)",
           "id": 1000007726,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007726",
           "municipality": "Vantaa"
         },
@@ -317,7 +317,7 @@
         "registryItem": {
           "name": "Tukikohta III:9 (Rajakylä)",
           "id": 1000007726,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007726",
           "municipality": "Vantaa"
         },
@@ -342,7 +342,7 @@
         "registryItem": {
           "name": "Tukikohta III:9 (Rajakylä)",
           "id": 1000007726,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007726",
           "municipality": "Vantaa"
         },
@@ -367,7 +367,7 @@
         "registryItem": {
           "name": "Tukikohta XXVIII:5 (Vallikallio)",
           "id": 1000007748,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007748",
           "municipality": "Espoo"
         },
@@ -392,7 +392,7 @@
         "registryItem": {
           "name": "Tukikohta II:1 (Länsimäki)",
           "id": 1000007646,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007646",
           "municipality": "Vantaa"
         },
@@ -417,7 +417,7 @@
         "registryItem": {
           "name": "Tukikohta II:8 (Länsimäki)",
           "id": 1000007692,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007692",
           "municipality": "Vantaa"
         },
@@ -442,7 +442,7 @@
         "registryItem": {
           "name": "Tukikohta II:7 (Länsimäki)",
           "id": 1000007677,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007677",
           "municipality": "Vantaa"
         },
@@ -467,7 +467,7 @@
         "registryItem": {
           "name": "Tukikohta II:7 (Länsimäki)",
           "id": 1000007677,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007677",
           "municipality": "Vantaa"
         },
@@ -492,7 +492,7 @@
         "registryItem": {
           "name": "Tukikohta IV:3 (Rajakylä)",
           "id": 1000007733,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007733",
           "municipality": "Vantaa"
         },
@@ -517,7 +517,7 @@
         "registryItem": {
           "name": "Tukikohta X:8 (Pihlajamäki)",
           "id": 1000013421,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013421",
           "municipality": "Helsinki"
         },
@@ -636,7 +636,7 @@
         "registryItem": {
           "name": "Raaseporin linna",
           "id": 835500006,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.835500006",
           "municipality": "Raasepori"
         },
@@ -661,7 +661,7 @@
         "registryItem": {
           "name": "Tukikohta XVI:4 (Tuomarinkartano)",
           "id": 1000013619,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013619",
           "municipality": "Helsinki"
         },
@@ -686,7 +686,7 @@
         "registryItem": {
           "name": "Tukikohta XV:1 (Tuomarinkartano)",
           "id": 1000013609,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013609",
           "municipality": "Helsinki"
         },
@@ -711,7 +711,7 @@
         "registryItem": {
           "name": "Tukikohta XV:1 (Tuomarinkartano)",
           "id": 1000013609,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013609",
           "municipality": "Helsinki"
         },
@@ -736,7 +736,7 @@
         "registryItem": {
           "name": "Schiller",
           "id": 1515,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1515",
           "municipality": "Kemiönsaari"
         },
@@ -1339,7 +1339,7 @@
         "registryItem": {
           "name": "Kuhankuono",
           "id": 1000008975,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000008975",
           "municipality": "Masku"
         },
@@ -1364,7 +1364,7 @@
         "registryItem": {
           "name": "Kuusiston piispanlinna",
           "id": 202010036,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.202010036",
           "municipality": "Kaarina"
         },
@@ -1389,7 +1389,7 @@
         "registryItem": {
           "name": "Kuusiston piispanlinna",
           "id": 202010036,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.202010036",
           "municipality": "Kaarina"
         },
@@ -1414,7 +1414,7 @@
         "registryItem": {
           "name": "Kuusiston piispanlinna",
           "id": 202010036,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.202010036",
           "municipality": "Kaarina"
         },
@@ -1439,7 +1439,7 @@
         "registryItem": {
           "name": "Wiltsunkivi",
           "id": 1000020321,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https:/www.kyppi.fi/to.aspx?id=112.1000020321",
           "municipality": "Kaarina"
         },
@@ -1464,7 +1464,7 @@
         "registryItem": {
           "name": "Wiltsunkivi",
           "id": 1000020321,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https:/www.kyppi.fi/to.aspx?id=112.1000020321",
           "municipality": "Kaarina"
         },
@@ -1489,7 +1489,7 @@
         "registryItem": {
           "name": "Ravattula Ristimäki",
           "id": 202010026,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https:/www.kyppi.fi/to.aspx?id=112.202010026",
           "municipality": "Kaarina"
         },
@@ -1673,7 +1673,7 @@
         "registryItem": {
           "name": "Pukkila",
           "id": 1000024487,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https:/www.kyppi.fi/to.aspx?id=112.1000024487",
           "municipality": "Kaarina"
         },
@@ -1798,7 +1798,7 @@
         "registryItem": {
           "name": "Kuusiston piispanlinna",
           "id": 202010036,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.202010036",
           "municipality": "Kaarina"
         },
@@ -1959,7 +1959,7 @@
         "registryItem": {
           "name": "Keulakuvahylky",
           "id": 1513,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1513",
           "municipality": "Kemiönsaari"
         },
@@ -1984,7 +1984,7 @@
         "registryItem": {
           "name": "Kaapelihylky",
           "id": 1392,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1392",
           "municipality": "Hanko"
         },
@@ -2009,7 +2009,7 @@
         "registryItem": {
           "name": "Kaapelihylky",
           "id": 1392,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1392",
           "municipality": "Hanko"
         },
@@ -2034,7 +2034,7 @@
         "registryItem": {
           "name": "Vassaaren väylä",
           "id": 1000036650,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000036650",
           "municipality": "Kotka"
         },
@@ -2059,7 +2059,7 @@
         "registryItem": {
           "name": "Jurvalanselkä 1",
           "id": 2628,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.2628",
           "municipality": "Luumäki"
         },
@@ -2084,7 +2084,7 @@
         "registryItem": {
           "name": "Jussarö 1",
           "id": 1441,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1441",
           "municipality": "Raasepori"
         },
@@ -2109,7 +2109,7 @@
         "registryItem": {
           "name": "Tykkisluuppi",
           "id": 1116,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1116",
           "municipality": "Kotka"
         },
@@ -2134,7 +2134,7 @@
         "registryItem": {
           "name": "St.Nikolai",
           "id": 1108,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1108",
           "municipality": "Kotka"
         },
@@ -2159,7 +2159,7 @@
         "registryItem": {
           "name": "Jollahylky",
           "id": 1114,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1114",
           "municipality": "Kotka"
         },
@@ -2184,7 +2184,7 @@
         "registryItem": {
           "name": "Hahtiperän hylky",
           "id": 1000036870,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000036870",
           "municipality": "Oulu"
         },
@@ -2209,7 +2209,7 @@
         "registryItem": {
           "name": "Hahtiperän hylky",
           "id": 1000036870,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000036870",
           "municipality": "Oulu"
         },
@@ -2234,7 +2234,7 @@
         "registryItem": {
           "name": "Kobben koillinen",
           "id": 1000034225,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000034225",
           "municipality": "Hanko"
         },
@@ -2259,7 +2259,7 @@
         "registryItem": {
           "name": "Lehmäsaaren luoteiskärki",
           "id": 1128,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1128",
           "municipality": "Kotka"
         },
@@ -2284,7 +2284,7 @@
         "registryItem": {
           "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
           "id": 1000007796,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796",
           "municipality": "Espoo"
         },
@@ -2309,7 +2309,7 @@
         "registryItem": {
           "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
           "id": 1000007796,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796",
           "municipality": "Espoo"
         },
@@ -2334,7 +2334,7 @@
         "registryItem": {
           "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
           "id": 1000007796,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796",
           "municipality": "Espoo"
         },
@@ -2359,7 +2359,7 @@
         "registryItem": {
           "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
           "id": 1000007796,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796",
           "municipality": "Espoo"
         },
@@ -2384,7 +2384,7 @@
         "registryItem": {
           "name": "Tukikohta XXIX:3 (Pohjois-Leppävaara)",
           "id": 1000007796,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007796",
           "municipality": "Espoo"
         },
@@ -2409,7 +2409,7 @@
         "registryItem": {
           "name": "Tukikohta XXXI:4 (Laajalahti)",
           "id": 1000007809,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007809",
           "municipality": "Espoo"
         },
@@ -2434,7 +2434,7 @@
         "registryItem": {
           "name": "Tukikohta XXXI:2 (Laajalahti)",
           "id": 1000007807,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007807",
           "municipality": "Espoo"
         },
@@ -2459,7 +2459,7 @@
         "registryItem": {
           "name": "Tukikohta XXVIII:8 (Vallikallio)",
           "id": 1000007751,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007751",
           "municipality": "Espoo"
         },
@@ -2484,7 +2484,7 @@
         "registryItem": {
           "name": "Tukikohta XXVIII:9 (Vallikallio)",
           "id": 1000007752,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007752",
           "municipality": "Espoo"
         },
@@ -2509,7 +2509,7 @@
         "registryItem": {
           "name": "Tukikohta XXVIII:9 (Vallikallio)",
           "id": 1000007752,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007752",
           "municipality": "Espoo"
         },
@@ -2534,7 +2534,7 @@
         "registryItem": {
           "name": "Tukikohta XXVIII:19 (Mäkkylä)",
           "id": 1000007767,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767",
           "municipality": "Espoo"
         },
@@ -2559,7 +2559,7 @@
         "registryItem": {
           "name": "Tukikohta XXVIII:19 (Mäkkylä)",
           "id": 1000007767,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767",
           "municipality": "Espoo"
         },
@@ -2584,7 +2584,7 @@
         "registryItem": {
           "name": "Tukikohta XXVIII:19 (Mäkkylä)",
           "id": 1000007767,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767",
           "municipality": "Espoo"
         },
@@ -2609,7 +2609,7 @@
         "registryItem": {
           "name": "Tukikohta XXVIII:19 (Mäkkylä)",
           "id": 1000007767,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767",
           "municipality": "Espoo"
         },
@@ -2634,7 +2634,7 @@
         "registryItem": {
           "name": "Tukikohta XXVIII:19 (Mäkkylä)",
           "id": 1000007767,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000007767",
           "municipality": "Espoo"
         },
@@ -2659,7 +2659,7 @@
         "registryItem": {
           "name": "Tukikohta XXIII:4 (Kannelmäki)",
           "id": 1000013836,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836",
           "municipality": "Helsinki"
         },
@@ -2684,7 +2684,7 @@
         "registryItem": {
           "name": "Tukikohta XXIII:4 (Kannelmäki)",
           "id": 1000013836,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836",
           "municipality": "Helsinki"
         },
@@ -2709,7 +2709,7 @@
         "registryItem": {
           "name": "Tukikohta XXIII:4 (Kannelmäki)",
           "id": 1000013836,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836",
           "municipality": "Helsinki"
         },
@@ -2734,7 +2734,7 @@
         "registryItem": {
           "name": "Tukikohta XXIII:4 (Kannelmäki)",
           "id": 1000013836,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013836",
           "municipality": "Helsinki"
         },
@@ -2759,7 +2759,7 @@
         "registryItem": {
           "name": "Tukikohta XVIII:2 (Paloheinä)",
           "id": 1000013727,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727",
           "municipality": "Helsinki"
         },
@@ -2784,7 +2784,7 @@
         "registryItem": {
           "name": "Tukikohta IV:9 (Jakomäki)",
           "id": 1000011242,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000011242",
           "municipality": "Helsinki"
         },
@@ -2809,7 +2809,7 @@
         "registryItem": {
           "name": "Tukikohta IV:5 (Jakomäki)",
           "id": 1000011231,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000011231",
           "municipality": "Helsinki"
         },
@@ -2834,7 +2834,7 @@
         "registryItem": {
           "name": "Tukikohta IV:6 (Jakomäki)",
           "id": 1000011233,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000011233",
           "municipality": "Helsinki"
         },
@@ -2859,7 +2859,7 @@
         "registryItem": {
           "name": "Tukikohta IV:tie (Kivikko, Jakomäki)",
           "id": 1000011259,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000011259",
           "municipality": "Helsinki"
         },
@@ -2884,7 +2884,7 @@
         "registryItem": {
           "name": "Tukikohta VIII:1 (Kivikko)",
           "id": 1000011949,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000011949",
           "municipality": "Helsinki"
         },
@@ -2909,7 +2909,7 @@
         "registryItem": {
           "name": "Tukikohta IV:1 (Kivikko)",
           "id": 1000011228,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000011228",
           "municipality": "Helsinki"
         },
@@ -2934,7 +2934,7 @@
         "registryItem": {
           "name": "Tukikohta IV:7 (Jakomäki)",
           "id": 1000011234,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000011234",
           "municipality": "Helsinki"
         },
@@ -2959,7 +2959,7 @@
         "registryItem": {
           "name": "Tukikohta XXII:12 (Pirkkola)",
           "id": 1000013820,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013820",
           "municipality": "Helsinki"
         },
@@ -2984,7 +2984,7 @@
         "registryItem": {
           "name": "Tukikohta IV:10 (Kivikko)",
           "id": 1000011245,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245",
           "municipality": "Helsinki"
         },
@@ -3009,7 +3009,7 @@
         "registryItem": {
           "name": "Tukikohta IV:10 (Kivikko)",
           "id": 1000011245,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245",
           "municipality": "Helsinki"
         },
@@ -3034,7 +3034,7 @@
         "registryItem": {
           "name": "Tukikohta IV:10 (Kivikko)",
           "id": 1000011245,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245",
           "municipality": "Helsinki"
         },
@@ -3059,7 +3059,7 @@
         "registryItem": {
           "name": "Tykkipatteri 72 (Tattariharju)",
           "id": 1000013411,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013411",
           "municipality": "Helsinki"
         },
@@ -3084,7 +3084,7 @@
         "registryItem": {
           "name": "Tukikohta IV:10 (Kivikko)",
           "id": 1000011245,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245",
           "municipality": "Helsinki"
         },
@@ -3109,7 +3109,7 @@
         "registryItem": {
           "name": "Tukikohta XVII:12 (Paloheinä)",
           "id": 1000013709,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013709",
           "municipality": "Helsinki"
         },
@@ -3134,7 +3134,7 @@
         "registryItem": {
           "name": "Tukikohta X:5 (Pihlajamäki)",
           "id": 1000013418,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013418",
           "municipality": "Helsinki"
         },
@@ -3159,7 +3159,7 @@
         "registryItem": {
           "name": "Tukikohta XXIII:2 (Maununneva)",
           "id": 1000013825,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013825",
           "municipality": "Helsinki"
         },
@@ -3184,7 +3184,7 @@
         "registryItem": {
           "name": "Tukikohta XXIII:2 (Maununneva)",
           "id": 1000013825,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013825",
           "municipality": "Helsinki"
         },
@@ -3209,7 +3209,7 @@
         "registryItem": {
           "name": "Tukikohta XXII:3 (Maunula)",
           "id": 1000013775,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013775",
           "municipality": "Helsinki"
         },
@@ -3234,7 +3234,7 @@
         "registryItem": {
           "name": "Tukikohta XVII:13 (Länsi-Pakila)",
           "id": 1000013711,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013711",
           "municipality": "Helsinki"
         },
@@ -3259,7 +3259,7 @@
         "registryItem": {
           "name": "Tukikohta XVII:13 (Länsi-Pakila)",
           "id": 1000013711,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013711",
           "municipality": "Helsinki"
         },
@@ -3284,7 +3284,7 @@
         "registryItem": {
           "name": "Tukikohta XXXV:11 (Pajamäki)",
           "id": 1000013916,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013916",
           "municipality": "Helsinki"
         },
@@ -3309,7 +3309,7 @@
         "registryItem": {
           "name": "Tukikohta XVIII:2 (Paloheinä)",
           "id": 1000013727,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727",
           "municipality": "Helsinki"
         },
@@ -3334,7 +3334,7 @@
         "registryItem": {
           "name": "Tukikohta XVIII:2 (Paloheinä)",
           "id": 1000013727,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727",
           "municipality": "Helsinki"
         },
@@ -3359,7 +3359,7 @@
         "registryItem": {
           "name": "Tukikohta XVIII:2 (Paloheinä)",
           "id": 1000013727,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727",
           "municipality": "Helsinki"
         },
@@ -3384,7 +3384,7 @@
         "registryItem": {
           "name": "Tukikohta XVIII:2 (Paloheinä)",
           "id": 1000013727,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727",
           "municipality": "Helsinki"
         },
@@ -3409,7 +3409,7 @@
         "registryItem": {
           "name": "Tukikohta XVIII:2 (Paloheinä)",
           "id": 1000013727,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013727",
           "municipality": "Helsinki"
         },
@@ -3434,7 +3434,7 @@
         "registryItem": {
           "name": "Massängen",
           "id": 753010010,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.753010010",
           "municipality": "Helsinki"
         },
@@ -3459,7 +3459,7 @@
         "registryItem": {
           "name": "Liikistö",
           "id": 886010004,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.886010004",
           "municipality": "Ulvila"
         },
@@ -3484,7 +3484,7 @@
         "registryItem": {
           "name": "Rieskaronmäki",
           "id": 531010035,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.531010035",
           "municipality": "Nakkila"
         },
@@ -3509,7 +3509,7 @@
         "registryItem": {
           "name": "Rieskaronmäki",
           "id": 531010035,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.531010035",
           "municipality": "Nakkila"
         },
@@ -3534,7 +3534,7 @@
         "registryItem": {
           "name": "Tukikohta XXI:6 (Patola)",
           "id": 1000013764,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013764",
           "municipality": "Helsinki"
         },
@@ -3559,7 +3559,7 @@
         "registryItem": {
           "name": "Tukikohta XXI:6 (Patola)",
           "id": 1000013764,
-          "type": "Muinaisjäännökset_piste",
+          "type": "Muinaisjaannokset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=112.1000013764",
           "municipality": "Helsinki"
         },

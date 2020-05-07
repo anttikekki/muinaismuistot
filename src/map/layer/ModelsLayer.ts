@@ -90,7 +90,7 @@ export default class ModelsLayer {
             const properties = feature.getProperties() as Model;
             if (
               properties.registryItem.type ===
-              MuseovirastoLayer.Muinaisjäännökset_piste
+              MuseovirastoLayer.Muinaisjaannokset_piste
             ) {
               return this.stylePointCircle;
             }

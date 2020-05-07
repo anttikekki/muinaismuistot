@@ -113,18 +113,18 @@ export const DatabaseStructure: React.FC = () => {
               <ul>
                 <li>
                   <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/0"
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/9"
                     target="_blank"
                   >
-                    Muinaisjäännökset_piste
+                    Muinaisjaannokset_piste
                   </a>
                 </li>
                 <li>
                   <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/1"
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/10"
                     target="_blank"
                   >
-                    Muinaisjäännökset_alue
+                    Muinaisjaannokset_alue
                   </a>
                 </li>
                 <li>
@@ -169,18 +169,18 @@ export const DatabaseStructure: React.FC = () => {
                 </li>
                 <li>
                   <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/7"
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/11"
                     target="_blank"
                   >
-                    Maailmanperintö_piste
+                    Maailmanperinto_piste
                   </a>
                 </li>
                 <li>
                   <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/8"
+                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/12"
                     target="_blank"
                   >
-                    Maailmanperintö_alue
+                    Maailmanperinto_alue
                   </a>
                 </li>
               </ul>
@@ -377,7 +377,7 @@ export const DatabaseStructure: React.FC = () => {
       "registryItem": {
         "name": "Tukikohta IV:10 (Kivikko)",
         "id": 1000011245,
-        "type": "Muinaisjäännökset_piste",
+        "type": "Muinaisjaannokset_piste",
         "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245",
         "municipality": "Helsinki"
       },

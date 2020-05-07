@@ -49,16 +49,16 @@ const PanelForFeature: React.FC<PanelForFeatureProps> = ({
   };
 
   switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjäännökset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
       return <MuinaisjaannosPistePanel feature={feature} {...params} />;
-    case MuseovirastoLayer.Muinaisjäännökset_alue:
+    case MuseovirastoLayer.Muinaisjaannokset_alue:
       return <MuinaisjaannosAluePanel feature={feature} {...params} />;
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_viiva:
     case MuseovirastoLayer.RKY_piste:
       return <RKYPanel feature={feature} {...params} />;
-    case MuseovirastoLayer.Maailmanperintö_alue:
-    case MuseovirastoLayer.Maailmanperintö_piste:
+    case MuseovirastoLayer.Maailmanperinto_alue:
+    case MuseovirastoLayer.Maailmanperinto_piste:
       return <MaailmanperintokohdePanel feature={feature} {...params} />;
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:

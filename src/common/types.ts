@@ -48,15 +48,15 @@ export enum MaanmittauslaitosLayer {
 }
 
 export enum MuseovirastoLayer {
-  Muinaisjäännökset_piste = "Muinaisjäännökset_piste",
-  Muinaisjäännökset_alue = "Muinaisjäännökset_alue",
+  Muinaisjaannokset_piste = "Muinaisjaannokset_piste",
+  Muinaisjaannokset_alue = "Muinaisjaannokset_alue",
   Suojellut_rakennukset_piste = "Suojellut_rakennukset_piste",
   Suojellut_rakennukset_alue = "Suojellut_rakennukset_alue",
   RKY_alue = "RKY_alue",
   RKY_piste = "RKY_piste",
   RKY_viiva = "RKY_viiva",
-  Maailmanperintö_piste = "Maailmanperintö_piste",
-  Maailmanperintö_alue = "Maailmanperintö_alue",
+  Maailmanperinto_piste = "Maailmanperinto_piste",
+  Maailmanperinto_alue = "Maailmanperinto_alue",
 }
 
 export enum AhvenanmaaLayer {
@@ -70,21 +70,21 @@ export enum ModelLayer {
 
 export type FeatureLayer = MuseovirastoLayer | AhvenanmaaLayer | ModelLayer;
 
-export type MuseovirastoLayerId = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type MuseovirastoLayerId = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export const museovirastoLayerIdMap: Record<
   MuseovirastoLayer,
   MuseovirastoLayerId
 > = {
-  [MuseovirastoLayer.Muinaisjäännökset_piste]: 0,
-  [MuseovirastoLayer.Muinaisjäännökset_alue]: 1,
+  [MuseovirastoLayer.Muinaisjaannokset_piste]: 9,
+  [MuseovirastoLayer.Muinaisjaannokset_alue]: 10,
   [MuseovirastoLayer.Suojellut_rakennukset_piste]: 2,
   [MuseovirastoLayer.Suojellut_rakennukset_alue]: 3,
   [MuseovirastoLayer.RKY_alue]: 4,
   [MuseovirastoLayer.RKY_piste]: 5,
   [MuseovirastoLayer.RKY_viiva]: 6,
-  [MuseovirastoLayer.Maailmanperintö_piste]: 7,
-  [MuseovirastoLayer.Maailmanperintö_alue]: 8,
+  [MuseovirastoLayer.Maailmanperinto_piste]: 11,
+  [MuseovirastoLayer.Maailmanperinto_alue]: 12,
 };
 
 export type AhvenanmaaLayerId = 1 | 5;
@@ -208,8 +208,8 @@ interface PolylineGeometry {
 }
 
 export interface MuinaisjaannosPisteArgisFeature {
-  layerId: 0;
-  layerName: MuseovirastoLayer.Muinaisjäännökset_piste;
+  layerId: 9;
+  layerName: MuseovirastoLayer.Muinaisjaannokset_piste;
   attributes: {
     OBJECTID: string; // "38962";
     mjtunnus: string; // "1279";
@@ -236,8 +236,8 @@ export interface MuinaisjaannosPisteArgisFeature {
 }
 
 export interface MuinaisjaannosAlueArgisFeature {
-  layerId: 1;
-  layerName: MuseovirastoLayer.Muinaisjäännökset_alue;
+  layerId: 10;
+  layerName: MuseovirastoLayer.Muinaisjaannokset_alue;
   attributes: {
     OBJECTID: string; // "9190";
     mjtunnus: string; // "1000007642";
@@ -344,8 +344,8 @@ export interface RKYViivaArgisFeature {
 }
 
 export interface MaailmanperintoPisteArgisFeature {
-  layerId: 7;
-  layerName: MuseovirastoLayer.Maailmanperintö_piste;
+  layerId: 11;
+  layerName: MuseovirastoLayer.Maailmanperinto_piste;
   attributes: {
     Shape: string; // "Point";
     OBJECTID: string; // "2";
@@ -357,8 +357,8 @@ export interface MaailmanperintoPisteArgisFeature {
 }
 
 export interface MaailmanperintoAlueArgisFeature {
-  layerId: 8;
-  layerName: MuseovirastoLayer.Maailmanperintö_alue;
+  layerId: 12;
+  layerName: MuseovirastoLayer.Maailmanperinto_alue;
   attributes: {
     Shape: string; // "Polygon";
     OBJECTID: string; // "429";

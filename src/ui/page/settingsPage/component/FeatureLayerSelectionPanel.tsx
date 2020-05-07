@@ -82,13 +82,13 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
         <h5>Maailmanperintökohteet</h5>
         <LayerCheckbox
           label="Alueet"
-          layer={MuseovirastoLayer.Maailmanperintö_alue}
+          layer={MuseovirastoLayer.Maailmanperinto_alue}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
           label="Pisteet"
-          layer={MuseovirastoLayer.Maailmanperintö_piste}
+          layer={MuseovirastoLayer.Maailmanperinto_piste}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
         />
@@ -110,13 +110,13 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
         <h5>Museoviraston muinaisjäännösrekisteri</h5>
         <LayerCheckbox
           label="Alueet"
-          layer={MuseovirastoLayer.Muinaisjäännökset_alue}
+          layer={MuseovirastoLayer.Muinaisjaannokset_alue}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
           label="Pisteet"
-          layer={MuseovirastoLayer.Muinaisjäännökset_piste}
+          layer={MuseovirastoLayer.Muinaisjaannokset_piste}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
         />

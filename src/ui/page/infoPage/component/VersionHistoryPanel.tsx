@@ -3,7 +3,21 @@ import { Panel } from "../../../component/Panel";
 
 export const VersionHistoryPanel: React.FC = () => {
   return (
-    <Panel title="Tietoa sivustosta">
+    <Panel title="Versiohistoria">
+      <h5>Toukokuu 2020</h5>
+      <p>
+        Päivitetty Museoviraston{" "}
+        <a
+          href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer"
+          target="_blank"
+        >
+          paikkatietoaineiston
+        </a>{" "}
+        WMS-karttatasojen nimet koska niistä poistuivat ääkköset.
+      </p>
+
+      <br />
+
       <h5>Huhtikuu 2020</h5>
       <p>
         Lisätty 3D-mallien{" "}
@@ -60,7 +74,7 @@ export const VersionHistoryPanel: React.FC = () => {
         saatiin käyttöön.
       </p>
       <p>
-        Siirrytty käyttämään Museoviraston uuta{" "}
+        Siirrytty käyttämään Museoviraston uutta{" "}
         <a href="https://www.avoindata.fi/data/fi/dataset/museoviraston-kulttuuriymparistoaineistot-suojellut-kohteet-wms-palvelu">
           karttapalvelua
         </a>
