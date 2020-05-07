@@ -138,7 +138,9 @@ export default class MuseovirastoTileLayer {
   private toLayerIds = (
     layers: Array<MuseovirastoLayer>
   ): Array<MuseovirastoLayerId> => {
-    return layers.map((layer) => museovirastoLayerIdMap[layer]).sort();
+    return layers
+      .map((layer) => museovirastoLayerIdMap[layer])
+      .sort((a, b) => a - b);
   };
 
   public selectedFeatureLayersChanged = (settings: Settings) => {

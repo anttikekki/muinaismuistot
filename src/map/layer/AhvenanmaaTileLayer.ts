@@ -51,7 +51,7 @@ export default class AhvenanmaaTileLayer {
   private toLayerIds = (
     layers: Array<AhvenanmaaLayer>
   ): Array<AhvenanmaaLayerId> => {
-    return layers.map(getAhvenanmaaLayerId).sort();
+    return layers.map(getAhvenanmaaLayerId).sort((a, b) => a - b);
   };
 
   private getSourceLayersParams = (): string => {
