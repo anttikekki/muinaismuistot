@@ -10,6 +10,44 @@
     {
       "type": "Feature",
       "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [246379.7209999999, 6693755.036499999],
+            [246468.7067999998, 6693600.793500001],
+            [246289.78149999958, 6693347.956],
+            [246122.2536000004, 6692878.646],
+            [246130.78199999966, 6692505.770199999],
+            [245574.07070000004, 6692607.449899999],
+            [245147.16980000027, 6693018.3871],
+            [245161.60730000027, 6693335.3225],
+            [245482.48220000044, 6693786.046599999],
+            [246379.7209999999, 6693755.036499999]
+          ]
+        ]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuitian kartanolinna",
+          "id": 113,
+          "type": "RKY_alue",
+          "url": "http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=113",
+          "municipality": "Parainen"
+        },
+        "model": {
+          "name": "Kuitian kartanolinna",
+          "url": "https://sketchfab.com/models/7d1711185bf046658547941d525dc56b"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-13"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
         "type": "Point",
         "coordinates": [382989.9367000004, 6678894.051100001]
       },
