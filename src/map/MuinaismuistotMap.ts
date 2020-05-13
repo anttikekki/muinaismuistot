@@ -69,6 +69,7 @@ export default class MuinaismuistotMap {
       center: [385249.63630000036, 6672695.7579],
       projection: "EPSG:3067",
       zoom: 8,
+      enableRotation: false,
     });
 
     this.map = new Map({
