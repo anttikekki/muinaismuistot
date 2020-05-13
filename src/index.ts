@@ -29,9 +29,16 @@ export const initialSettings: Settings = {
     selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
     selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
     url: {
-      export: "https://d3u1wj9fwedfoy.cloudfront.net",
-      identify: "https://d3t293l8mhxosa.cloudfront.net",
-      find: "https://d3239kmqvyt2db.cloudfront.net",
+      export:
+        "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/export",
+      identify:
+        "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/identify",
+      find:
+        "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/find",
+      /**
+       * Custom reverse proxy is required to add Cross origin policy headers to the request so
+       * that browser can fetch the XML file from https://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml
+       */
       updateDate: "https://dkfgv6jxivsxz.cloudfront.net/MV_inspire_atom.xml",
     },
   },
