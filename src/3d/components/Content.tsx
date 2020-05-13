@@ -52,7 +52,7 @@ export const Content: React.FC = () => {
         <DatabaseStructure />
         <Download />
 
-        <h2 id="lisenssit">3D-mallien lisenssit</h2>
+        <h2 id="lisenssit">Lisenssit</h2>
         <p>
           Tekijä on määritellyt Sketchfab-palvelussa mallille käyttölisenssin.
           Tämä tieto on mukana tietokannassa.

@@ -21,7 +21,7 @@ export const TableOfContent: React.FC = () => {
           <a href="#lataus">Aineiston lataus</a>
         </li>
         <li>
-          <a href="#lisenssit">3D-mallien lisenssit</a>
+          <a href="#lisenssit">Lisenssit</a>
         </li>
         <li>
           <a href="#yllapito">Ylläpito</a>
