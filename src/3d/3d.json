@@ -13,6 +13,291 @@
         "type": "Polygon",
         "coordinates": [
           [
+            [260355.57129999995, 6705068.0896000005],
+            [259012.96779999975, 6705633.6656],
+            [259030.87420000043, 6706519.123299999],
+            [259555.0689000003, 6706751.435900001],
+            [259714.7081000004, 6706662.292099999],
+            [260838.5714999996, 6706255.147700001],
+            [260355.57129999995, 6705068.0896000005]
+          ]
+        ]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Wiksbergin kartano",
+          "id": 112,
+          "type": "RKY_alue",
+          "url": "http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=112",
+          "municipality": "Paimio"
+        },
+        "model": {
+          "name": "Pyhän Jaakobin kirkko",
+          "url": "https://sketchfab.com/models/1035940ca5d2487ca0d3e08a133e974a"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [206058.38019999955, 6726855.1094]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Muntinsalmi",
+          "id": 1000011746,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011746",
+          "municipality": "Taivassalo"
+        },
+        "model": {
+          "name": "Muntinsalmen silta",
+          "url": "https://sketchfab.com/models/865910d6ed4b4ab5af79e00020f0a50b"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [382000.9160000002, 6679634.9592]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Aurinkokallio 1",
+          "id": 1000011474,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011474",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Hautaröykkiö",
+          "url": "https://sketchfab.com/models/57c9987561da48a08fa976d9a963b064"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383785.2878999999, 6680296.767999999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVIII:10 (Maununneva)",
+          "id": 1000013737,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013737",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Graffiteilla koristeltu juoksuhauta",
+          "url": "https://sketchfab.com/models/00105e95aaed40c583d0cc89fd56af50"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383785.2878999999, 6680296.767999999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVIII:10 (Maununneva)",
+          "id": 1000013737,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013737",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Valonheitinasema",
+          "url": "https://sketchfab.com/models/1bc416c92e82440982d743418423696b"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383785.2878999999, 6680296.767999999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XVIII:10 (Maununneva)",
+          "id": 1000013737,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013737",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "120 m² luola",
+          "url": "https://sketchfab.com/models/f4c63af4614c471889e0a29ded0fc7db"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [382214.2687999997, 6679735.5326000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XX:4 (Kannelmäki)",
+          "id": 1000013751,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013751",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Konekivääriasema ja juoksuhautaa",
+          "url": "https://sketchfab.com/models/fdb29811613e43f5963079b45fab5716"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [382576.2687999997, 6679801.4076000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XX:3 (Kannelmäki)",
+          "id": 1000013750,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013750",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Konekivääriasema, suojahuone ja juoksuhautaa",
+          "url": "https://sketchfab.com/models/4047e9b376924542b28ede7f972e46ba"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [382086.7687999997, 6679610.1576000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XX:6 (Kannelmäki)",
+          "id": 1000013753,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013753",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Ehkä suojahuone, kaksi tähystysasemaa, holvikattoinen juoksuhauta",
+          "url": "https://sketchfab.com/models/b1b26292187b40caa1a962607d1003d2"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [399002.0979000004, 6674553.0847]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Skatanniemen tykkipatteri",
+          "id": 1000007645,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007645",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Tykkipatteri (itäinen osa)",
+          "url": "https://sketchfab.com/models/ddc3da70ed754438bf7fed94875cba0b"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [399002.0979000004, 6674553.0847]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Skatanniemen tykkipatteri",
+          "id": 1000007645,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007645",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Tykkipatteri (läntinen osa)",
+          "url": "https://sketchfab.com/models/804d000ad0ce45ec90901d959bae441a"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-05-29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
             [246379.7209999999, 6693755.036499999],
             [246468.7067999998, 6693600.793500001],
             [246289.78149999958, 6693347.956],
