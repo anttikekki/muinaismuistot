@@ -70,21 +70,21 @@ export enum ModelLayer {
 
 export type FeatureLayer = MuseovirastoLayer | AhvenanmaaLayer | ModelLayer;
 
-export type MuseovirastoLayerId = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+export type MuseovirastoLayerId = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export const museovirastoLayerIdMap: Record<
   MuseovirastoLayer,
   MuseovirastoLayerId
 > = {
-  [MuseovirastoLayer.Muinaisjaannokset_piste]: 9,
-  [MuseovirastoLayer.Muinaisjaannokset_alue]: 10,
+  [MuseovirastoLayer.Muinaisjaannokset_piste]: 7,
+  [MuseovirastoLayer.Muinaisjaannokset_alue]: 8,
   [MuseovirastoLayer.Suojellut_rakennukset_piste]: 2,
   [MuseovirastoLayer.Suojellut_rakennukset_alue]: 3,
   [MuseovirastoLayer.RKY_alue]: 4,
   [MuseovirastoLayer.RKY_piste]: 5,
   [MuseovirastoLayer.RKY_viiva]: 6,
-  [MuseovirastoLayer.Maailmanperinto_piste]: 11,
-  [MuseovirastoLayer.Maailmanperinto_alue]: 12,
+  [MuseovirastoLayer.Maailmanperinto_piste]: 9,
+  [MuseovirastoLayer.Maailmanperinto_alue]: 10,
 };
 
 export type AhvenanmaaLayerId = 1 | 5;
