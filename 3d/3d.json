@@ -10,6 +10,322 @@
     {
       "type": "Feature",
       "geometry": {
+        "type": "Point",
+        "coordinates": [263171.59499999974, 6709816.581800001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Paimion kirkko",
+          "id": 200497,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200497",
+          "municipality": "Paimio"
+        },
+        "model": {
+          "name": "Paimion kirkko",
+          "url": "https://sketchfab.com/models/58f038daad5f433db88f8f8a963d86cd"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "Copyright (C) Lassi Kaukonen",
+        "licenceUrl": "",
+        "createdDate": "2020-06-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [247119.5530000003, 6726158.9242]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Paattisen kirkko",
+          "id": 200496,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200496",
+          "municipality": "Turku"
+        },
+        "model": {
+          "name": "Paattisen kirkko",
+          "url": "https://sketchfab.com/models/94b91b8c12b9404b866f581658384a47"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "Copyright (C) Lassi Kaukonen",
+        "licenceUrl": "",
+        "createdDate": "2020-06-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [235123.96700000018, 6715070.0677000005]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Raision kirkko",
+          "id": 200513,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200513",
+          "municipality": "Raisio"
+        },
+        "model": {
+          "name": "Raision kirkko",
+          "url": "https://sketchfab.com/models/92cf1e2566314f86beca3131bf9789fa"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "Copyright (C) Lassi Kaukonen",
+        "licenceUrl": "",
+        "createdDate": "2020-06-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [385507.3437000001, 6711935.988399999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Nukarinkoski",
+          "id": 543000002,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.543000002",
+          "municipality": "Nurmijärvi"
+        },
+        "model": {
+          "name": "Maakuoppa jossa kylmämuurausta",
+          "url": "https://sketchfab.com/models/065bdf2abae04f58bc77eadc15ce555e"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-06-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [458004.99060000014, 6702905.5812],
+            [457996.7357000001, 6702989.9266],
+            [457988.4894000003, 6703001.8544],
+            [458009.5747999996, 6703061.4443],
+            [458039.8300000001, 6703083.4507],
+            [458056.3304000003, 6703131.1324000005],
+            [458052.66889999993, 6703163.2169],
+            [458015.9896999998, 6703185.2129],
+            [458011.61060000025, 6703255.1108],
+            [457979.2440999998, 6703286.465299999],
+            [457914.2226, 6703299.822699999],
+            [457848.2034999998, 6703278.7359],
+            [457820.6366999997, 6703198.1797],
+            [457772.12409999967, 6703201.119000001],
+            [457616.2374999998, 6703239.3116999995],
+            [457615.47030000016, 6703299.7412],
+            [457566.72640000004, 6703403.433],
+            [457584.2165000001, 6703439.9668000005],
+            [457498.4720999999, 6703489.977700001],
+            [457410.93900000025, 6703368.508300001],
+            [457387.75930000003, 6703296.240700001],
+            [457377.8479000004, 6703176.9712000005],
+            [457365.9325000001, 6703089.8662],
+            [457387.93379999977, 6702995.432700001],
+            [457468.36000000034, 6702836.5506],
+            [457372.9846000001, 6702751.774700001],
+            [457309.4057, 6702878.942399999],
+            [457305.16700000037, 6702910.7269],
+            [457350.216, 6702942.481699999],
+            [457326.9855000004, 6703106.813100001],
+            [457279.7511999998, 6703108.2027],
+            [457222.9012000002, 6703229.2215],
+            [457148.3554999996, 6703184.5189],
+            [457057.8710000003, 6702951.4188],
+            [456988.5943999998, 6702970.9749],
+            [457084.45550000016, 6703228.310900001],
+            [457252.2410000004, 6703286.071799999],
+            [457287.99629999977, 6703330.994200001],
+            [457292.9769000001, 6703362.9287],
+            [457330.17530000024, 6703430.0174],
+            [457385.04580000043, 6703395.3036],
+            [457488.6423000004, 6703546.238],
+            [457595.81879999954, 6703465.862400001],
+            [457617.7456, 6703448.6854],
+            [457766.6057000002, 6703567.545600001],
+            [457872.04229999986, 6703474.032400001],
+            [457978.0889999997, 6703407.804300001],
+            [457991.90139999986, 6703414.5932],
+            [458025.4634999996, 6703416.912900001],
+            [458052.79200000037, 6703302.232899999],
+            [458194.4952999996, 6703233.135500001],
+            [458305.176, 6703238.9651],
+            [458465.2355000004, 6703166.938200001],
+            [458542.7664000001, 6703153.041099999],
+            [458645.7701000003, 6703138.0041000005],
+            [458624.94020000007, 6703121.8068],
+            [458491.84619999956, 6703141.4728],
+            [458291.6359000001, 6703220.168299999],
+            [458218.7309999997, 6703215.538699999],
+            [458231.4715999998, 6703186.603800001],
+            [458334.30229999963, 6703128.2743],
+            [458330.98759999964, 6703035.010500001],
+            [458004.99060000014, 6702905.5812]
+          ]
+        ]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Loviisan maalinnoitus",
+          "id": 1517,
+          "type": "RKY_alue",
+          "url": "http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=1517",
+          "municipality": "Loviisa"
+        },
+        "model": {
+          "name": "Bastion Rosén huone",
+          "url": "https://sketchfab.com/models/f654423049834e2ea52929f5f18608cd"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-06-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [380266.6141999997, 6678847.267200001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVII:13 (Mäkkylä)",
+          "id": 1000007743,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007743",
+          "municipality": "Espoo"
+        },
+        "model": {
+          "name": "Ehjä suojahuone",
+          "url": "https://sketchfab.com/models/4844cabfa7634b129fa3b15cc40c2972"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-06-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [380250, 6679396]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVII:este1 (Konala)",
+          "id": 1000030874,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000030874",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Tuliasema piikkilankaesteen maavallissa",
+          "url": "https://sketchfab.com/models/4ca60ca907794cd5aa1528a172aaae5f"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-06-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [380032.7121000001, 6678606.3577]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVIII:18a (Mäkkylä)",
+          "id": 1000007766,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007766",
+          "municipality": "Espoo"
+        },
+        "model": {
+          "name": "E-tyypin tuliasema kahdeksalle kiväärimiehelle",
+          "url": "https://sketchfab.com/models/812d36d6fc83488297bba58ac10047af"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-06-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [379602.8826000001, 6678191.5275]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVIII:23 (Puustellinmäki)",
+          "id": 1000007771,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007771",
+          "municipality": "Espoo"
+        },
+        "model": {
+          "name": "E-tyypin tuliasema neljälle kiväärimiehelle",
+          "url": "https://sketchfab.com/models/f7c56db55f3c4995a54e16f95c7a4d42"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-06-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [381076.82469999976, 6678854.858899999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXXV:4 (Reimarla)",
+          "id": 1000013909,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013909",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "48 m² luola",
+          "url": "https://sketchfab.com/models/9dc6e33187a94100bfe60cd53ad6a01a"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-06-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
@@ -232,7 +548,7 @@
           "municipality": "Helsinki"
         },
         "model": {
-          "name": "Ehkä suojahuone, kaksi tähystysasemaa, holvikattoinen juoksuhauta",
+          "name": "Ehjä suojahuone, kaksi tähystysasemaa, holvikattoinen juoksuhauta",
           "url": "https://sketchfab.com/models/b1b26292187b40caa1a962607d1003d2"
         },
         "author": "Antti Kekki",
