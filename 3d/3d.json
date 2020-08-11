@@ -11,6 +11,231 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [240688.11760000046, 6694192.827400001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Paraisten kirkko",
+          "id": 200498,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200498",
+          "municipality": "Parainen"
+        },
+        "model": {
+          "name": "Paraisten kirkko",
+          "url": "https://sketchfab.com/models/6e04542fa4664a9e9fc0eb4618d3de57"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "Copyright (C) Lassi Kaukonen",
+        "licenceUrl": "",
+        "createdDate": "2020-08-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [377350.8244000003, 6671000.4026]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXXIV:14 (Westend)",
+          "id": 1000008023,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000008023",
+          "municipality": "Espoo"
+        },
+        "model": {
+          "name": "34 m² luola",
+          "url": "https://sketchfab.com/models/7bfdf222db9740dd9534d0774d8e5974"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-08-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [379130, 6676560]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXXVI:2 (Ruukinranta)",
+          "id": 1000008118,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000008118",
+          "municipality": "Espoo"
+        },
+        "model": {
+          "name": "D-tyypin tuliasema",
+          "url": "https://sketchfab.com/models/166790a640974c55b4293915096261b4"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-08-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [379243.0384999998, 6676656.141799999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXXVI:1 (Ruukinranta)",
+          "id": 1000008112,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000008112",
+          "municipality": "Espoo"
+        },
+        "model": {
+          "name": "D-tyypin tuliasema",
+          "url": "https://sketchfab.com/models/b413588573374c5f89283fdaec6e2255"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-08-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [345017.8080000002, 6674748.7412]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Krejansberget",
+          "id": 755010007,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.755010007",
+          "municipality": "Siuntio"
+        },
+        "model": {
+          "name": "Röykkiö 4 (D)",
+          "url": "https://sketchfab.com/models/23fb80ac783645e6b3cd19f77eb1a273"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-08-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [345017.8080000002, 6674748.7412]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Krejansberget",
+          "id": 755010007,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.755010007",
+          "municipality": "Siuntio"
+        },
+        "model": {
+          "name": "Röykkiö 3 (C)",
+          "url": "https://sketchfab.com/models/2796eb1dd23b42afae534e4e42a9b956"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-08-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [344873.86039999966, 6675766.324200001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Ekeberga",
+          "id": 755010009,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.755010009",
+          "municipality": "Siuntio"
+        },
+        "model": {
+          "name": "Röykkiö",
+          "url": "https://sketchfab.com/models/05b89b4df1664bb4aa8353ff01caebd1"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-08-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [357310.86620000005, 6675020.6855999995]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Juusjärvi",
+          "id": 257010029,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.257010029",
+          "municipality": "Kirkkonummi"
+        },
+        "model": {
+          "name": "Kalliomaalaus",
+          "url": "https://sketchfab.com/models/5c80da74c6fa4f31a40aba57b018c821"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-08-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [362564, 6674656]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Vitträsk",
+          "id": 257010057,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.257010057",
+          "municipality": "Kirkkonummi"
+        },
+        "model": {
+          "name": "Kalliomaalaus",
+          "url": "https://sketchfab.com/models/e08ad7a21b904b71a77f18082d621d4c"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-08-11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [263171.59499999974, 6709816.581800001]
       },
       "properties": {
