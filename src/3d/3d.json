@@ -11,6 +11,31 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [231440.6331000002, 6724301.5458]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Maskun kirkko",
+          "id": 200480,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200480",
+          "municipality": "Masku"
+        },
+        "model": {
+          "name": "Maskun kirkko",
+          "url": "https://sketchfab.com/models/fbafc85b7ef349c1b0629ea3c292cce6"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [391626.3865, 6677906.158600001]
       },
       "properties": {
