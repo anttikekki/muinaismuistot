@@ -11,6 +11,331 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [231440.6331000002, 6724301.5458]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Maskun kirkko",
+          "id": 200480,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200480",
+          "municipality": "Masku"
+        },
+        "model": {
+          "name": "Maskun kirkko",
+          "url": "https://sketchfab.com/models/fbafc85b7ef349c1b0629ea3c292cce6"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [391626.3865, 6677906.158600001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta VIII:6 (Viikki)",
+          "id": 1000011957,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011957",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Luolan sisäänkäynti",
+          "url": "https://sketchfab.com/models/21ae1b608d434e7f9da465621b758197"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [391556.0815000003, 6677580.832800001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta VIII:7 ja 8 (Viikki)",
+          "id": 1000011958,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011958",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Kaksi luolan sisäänkäyntiä",
+          "url": "https://sketchfab.com/models/2b79dc32aa664907b1defc98f3e74a6a"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [390750.73390000034, 6679082.6764]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XIV:1 (Latokartano)",
+          "id": 1000013603,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013603",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Konekivääripesäke",
+          "url": "https://sketchfab.com/models/1bebb3f003ae41f286ae5c3d82c12505"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [393080.4589999998, 6678678.4001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta VII:1 (Kurkimäki)",
+          "id": 1000011944,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011944",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Konekivääripesäke ja suojahuone",
+          "url": "https://sketchfab.com/models/6b9d8097e79e46a785d7d2f11e4a8e76"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [394548.87289999984, 6678780.3597]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta VI:2 (Kontula)",
+          "id": 1000011868,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000011868",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Luolan sisäänkäynti",
+          "url": "https://sketchfab.com/models/909710883f2c494c9cf4480c921be67e"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [397158.8214999996, 6679101.2469999995]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta I:13 (Mustavuori)",
+          "id": 1000007633,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007633",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Luolan (180 m²) itäinen sisäänkäynti",
+          "url": "https://sketchfab.com/models/37d4ddb4e93d4288a67a40018bcdfe1e"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [397158.8214999996, 6679101.2469999995]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta I:13 (Mustavuori)",
+          "id": 1000007633,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007633",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Luolan (180 m²) läntinen sisäänkäynti",
+          "url": "https://sketchfab.com/models/40efb36864e14e6ab6362d5f70064e56"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [396981.8877999997, 6679328.1568]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta I:20 (Mustavuori)",
+          "id": 1000007641,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007641",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Hevosenkengän muotoinen luola (keskeneräinen)",
+          "url": "https://sketchfab.com/models/8ccfb6f380cc40c1b08b375d48929e24"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [390307.0971999997, 6681249.2948]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XI:2 (Ala-Malmi)",
+          "id": 1000013430,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013430",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Tarkkailuasema ja suojahuone",
+          "url": "https://sketchfab.com/models/55c139922a8a41d1980f38837c050e9d"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [390307.0971999997, 6681249.2948]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XI:2 (Ala-Malmi)",
+          "id": 1000013430,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013430",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Juoksuhauta",
+          "url": "https://sketchfab.com/models/5101eedf3b5b4ab3afacd8033e28e715"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [390307.0971999997, 6681249.2948]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XI:2 (Ala-Malmi)",
+          "id": 1000013430,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013430",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Luolan sisäänkäynti",
+          "url": "https://sketchfab.com/models/c6a17ad20b444e8ba33679cfa5e18257"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [390307.0971999997, 6681249.2948]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XI:2 (Ala-Malmi)",
+          "id": 1000013430,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013430",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Tunneli ja juoksuhautaa",
+          "url": "https://sketchfab.com/models/734bf110eb544d2fae0e557292c3101d"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-09-14"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [240688.11760000046, 6694192.827400001]
       },
       "properties": {
@@ -1508,9 +1833,9 @@
           "name": "Raaseporin linnanrauniot",
           "url": "https://sketchfab.com/models/7558eb02311e4762aed782ee17f374ea"
         },
-        "author": "Nimimerkki jasu",
+        "author": "Jaani Viljanen",
         "authorUrl": "https://sketchfab.com/jasu",
-        "licence": "Copyright (C) jasu",
+        "licence": "Copyright (C) Jaani Viljanen",
         "licenceUrl": "",
         "createdDate": "2020-04-23"
       }
@@ -2211,9 +2536,9 @@
           "name": "Kuhankuono",
           "url": "https://sketchfab.com/models/e673447dca794d05be9c6f00d1e4f930"
         },
-        "author": "Nimimerkki jasu",
+        "author": "Jaani Viljanen",
         "authorUrl": "https://sketchfab.com/jasu",
-        "licence": "Copyright (C) jasu",
+        "licence": "Copyright (C) Jaani Viljanen",
         "licenceUrl": "",
         "createdDate": "2020-04-19"
       }
@@ -2236,9 +2561,9 @@
           "name": "Huone 2",
           "url": "https://sketchfab.com/models/8ee9da2d54fe492d9c01acbf6ff31622"
         },
-        "author": "Nimimerkki jasu",
+        "author": "Jaani Viljanen",
         "authorUrl": "https://sketchfab.com/jasu",
-        "licence": "Copyright (C) jasu",
+        "licence": "Copyright (C) Jaani Viljanen",
         "licenceUrl": "",
         "createdDate": "2020-04-19"
       }
@@ -2261,9 +2586,9 @@
           "name": "Huone 1",
           "url": "https://sketchfab.com/models/2f55bdd43c5c442b939e83cfd1c3fd18"
         },
-        "author": "Nimimerkki jasu",
+        "author": "Jaani Viljanen",
         "authorUrl": "https://sketchfab.com/jasu",
-        "licence": "Copyright (C) jasu",
+        "licence": "Copyright (C) Jaani Viljanen",
         "licenceUrl": "",
         "createdDate": "2020-04-19"
       }
@@ -2286,9 +2611,9 @@
           "name": "Kuusiston piispanlinnan rauniot",
           "url": "https://sketchfab.com/models/82f4d3974f0a43a9be1a63a08c3b44b0"
         },
-        "author": "Nimimerkki jasu",
+        "author": "Jaani Viljanen",
         "authorUrl": "https://sketchfab.com/jasu",
-        "licence": "Copyright (C) jasu",
+        "licence": "Copyright (C) Jaani Viljanen",
         "licenceUrl": "",
         "createdDate": "2020-04-19"
       }
@@ -2311,9 +2636,9 @@
           "name": "Kuppikivi",
           "url": "https://sketchfab.com/models/6ef7ac80b6ab4d5283cd01c07eb7c6e8"
         },
-        "author": "Nimimerkki jasu",
+        "author": "Jaani Viljanen",
         "authorUrl": "https://sketchfab.com/jasu",
-        "licence": "Copyright (C) jasu",
+        "licence": "Copyright (C) Jaani Viljanen",
         "licenceUrl": "",
         "createdDate": "2020-04-19"
       }
@@ -2336,9 +2661,9 @@
           "name": "Kuppikivi / Uhrikivi",
           "url": "https://sketchfab.com/models/dc211487fda44329917069c2346740c7"
         },
-        "author": "Nimimerkki jasu",
+        "author": "Jaani Viljanen",
         "authorUrl": "https://sketchfab.com/jasu",
-        "licence": "Copyright (C) jasu",
+        "licence": "Copyright (C) Jaani Viljanen",
         "licenceUrl": "",
         "createdDate": "2020-04-19"
       }
@@ -2361,9 +2686,9 @@
           "name": "Ravattula Ristimäki",
           "url": "https://sketchfab.com/models/db1acfe4607c4159909141edcd46e17c"
         },
-        "author": "Nimimerkki jasu",
+        "author": "Jaani Viljanen",
         "authorUrl": "https://sketchfab.com/jasu",
-        "licence": "Copyright (C) jasu",
+        "licence": "Copyright (C) Jaani Viljanen",
         "licenceUrl": "",
         "createdDate": "2020-04-19"
       }
