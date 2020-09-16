@@ -10,14 +10,14 @@ const SHOW_BUNDLE_ANALYZER = process.env.SHOW_BUNDLE_ANALYZER !== undefined;
 module.exports = {
   entry: {
     app: "./src/index.ts",
-    models: "./src/3d/index.tsx"
+    models: "./src/3d/index.tsx",
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"]
+    extensions: [".tsx", ".ts", ".js"],
   },
   output: {
     path: __dirname + "/dist",
-    filename: "[name]-[hash].js"
+    filename: "[name]-[hash].js",
   },
   module: {
     rules: [
@@ -26,45 +26,47 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "ts-loader"
-          }
-        ]
+            loader: "ts-loader",
+          },
+        ],
       },
       {
         test: /\.css$/,
-        use: [{ loader: "style-loader" }, { loader: "css-loader" }]
+        use: [{ loader: "style-loader" }, { loader: "css-loader" }],
       },
       {
         test: [/\.svg$/, /\.woff2?$/, /\.ttf$/, /\.eot$/],
         loader: "file-loader",
         options: {
           name: "[name].[ext]",
-          outputPath: "fonts"
-        }
-      }
-    ]
+          outputPath: "fonts",
+        },
+      },
+    ],
   },
   optimization: {
     splitChunks: {
-      chunks: "all"
-    }
+      chunks: "all",
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       chunks: ["app", "app~models", "vendors~app~models", "vendors~app"],
       template: "src/index.ejs",
-      filename: "index.html"
+      filename: "index.html",
     }),
     new HtmlWebpackPlugin({
       chunks: ["models", "app~models", "vendors~app~models"],
       template: "src/3d/index.ejs",
-      filename: "3d/index.html"
+      filename: "3d/index.html",
     }),
-    new CopyWebpackPlugin([
-      { from: "src/images", to: "images" },
-      { from: "src/3d/3d.json", to: "3d" }
-    ]),
-    ...(SHOW_BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : [])
-  ]
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "src/images", to: "images" },
+        { from: "src/3d/3d.json", to: "3d" },
+      ],
+    }),
+    ...(SHOW_BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : []),
+  ],
 };
