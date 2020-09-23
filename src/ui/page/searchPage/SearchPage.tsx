@@ -117,8 +117,8 @@ export const SearchPage: React.FC<Props> = ({
       >
         {showSearchTextError && <ValidationError />}
         <span id="helpBlock" className="help-block">
-          Voit hakea kohteen nimellä (esim. "Turun linna") tai rekisterin
-          tunnuksella (esim. "200284")
+          Voit hakea kohteen nimellä (esim. Turun linna) tai rekisterin
+          tunnuksella (esim. 200284)
         </span>
         <div className="input-group">
           <input
