@@ -1,0 +1,389 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "EPSG",
+    "properties": {
+      "code": 3067
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [270449.9776999997, 6636848.589]
+      },
+      "properties": {
+        "id": 78010001,
+        "number": 1,
+        "name": "Hauensuolen kalliopiirrosalue",
+        "municipality": "Hanko",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [383771, 6674108]
+      },
+      "properties": {
+        "id": 91010019,
+        "number": 2,
+        "name": "Meilahden Humallahden pronssikautinen hautaröykkiö",
+        "municipality": "Helsinki",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [312923.77969999984, 6661251.9957]
+      },
+      "properties": {
+        "id": 220010017,
+        "number": 3,
+        "name": "Brobackan muinaisjäännösalue",
+        "municipality": "Raasepori",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [321608.22699999996, 6672830.3956]
+      },
+      "properties": {
+        "id": 220010088,
+        "number": 4,
+        "name": "Junkarsborgin keskiaikaine linnoitus",
+        "municipality": "Raasepori",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [315331, 6664000]
+      },
+      "properties": {
+        "id": 220010058,
+        "number": 5,
+        "name": "Kroggårdsmalmenin rautakautinen tarhakalmisto",
+        "municipality": "Raasepori",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [357310.86620000005, 6675020.6855999995]
+      },
+      "properties": {
+        "id": 257010029,
+        "number": 6,
+        "name": "Juusjärven kalliomaalaus",
+        "municipality": "Kirkkonummi",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [354318, 6662988]
+      },
+      "properties": {
+        "id": 257010026,
+        "number": 7,
+        "name": "Kasabergetin pronssikauden hautaröykkiöt ja vartiotulipaikka",
+        "municipality": "Kirkkonummi",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [362564, 6674656]
+      },
+      "properties": {
+        "id": 257010057,
+        "number": 8,
+        "name": "Vitträskin kalliomaalaus",
+        "municipality": "Kirkkonummi",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [307832.8110999996, 6663785.961200001]
+      },
+      "properties": {
+        "id": 606010027,
+        "number": 9,
+        "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
+        "municipality": "Pohja",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [307847.80680000037, 6663894.9124]
+      },
+      "properties": {
+        "id": 606010028,
+        "number": 9,
+        "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
+        "municipality": "Pohja",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [308210.65490000043, 6664158.808599999]
+      },
+      "properties": {
+        "id": 606010029,
+        "number": 9,
+        "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
+        "municipality": "Pohja",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [308373.59279999975, 6664231.776799999]
+      },
+      "properties": {
+        "id": 606010030,
+        "number": 9,
+        "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
+        "municipality": "Pohja",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [308357.60140000004, 6664532.6547]
+      },
+      "properties": {
+        "id": 606010031,
+        "number": 9,
+        "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
+        "municipality": "Pohja",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [308796.4187000003, 6664272.7619]
+      },
+      "properties": {
+        "id": 606010032,
+        "number": 9,
+        "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
+        "municipality": "Pohja",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [309061.3158999998, 6664390.7228]
+      },
+      "properties": {
+        "id": 606010033,
+        "number": 9,
+        "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
+        "municipality": "Pohja",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [309215.25270000007, 6664453.6927000005]
+      },
+      "properties": {
+        "id": 606010034,
+        "number": 9,
+        "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
+        "municipality": "Pohja",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [309641.0843000002, 6664574.6439]
+      },
+      "properties": {
+        "id": 606010035,
+        "number": 9,
+        "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
+        "municipality": "Pohja",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [310047.9210000001, 6664486.6811999995]
+      },
+      "properties": {
+        "id": 606010036,
+        "number": 9,
+        "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
+        "municipality": "Pohja",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [345017.8080000002, 6674748.7412]
+      },
+      "properties": {
+        "id": 755010007,
+        "number": 10,
+        "name": "Skällbergetin linnavuori, Krejansbergetin pronssikautiset hautaröykkiöt ja Ekebergan rautakautinen kalmisto",
+        "municipality": "Siuntio",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [344873.86039999966, 6675766.324200001]
+      },
+      "properties": {
+        "id": 755010009,
+        "number": 10,
+        "name": "Skällbergetin linnavuori, Krejansbergetin pronssikautiset hautaröykkiöt ja Ekebergan rautakautinen kalmisto",
+        "municipality": "Siuntio",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [344780.9090999998, 6674357.897600001]
+      },
+      "properties": {
+        "id": 755010014,
+        "number": 10,
+        "name": "Skällbergetin linnavuori, Krejansbergetin pronssikautiset hautaröykkiöt ja Ekebergan rautakautinen kalmisto",
+        "municipality": "Siuntio",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [313006.75430000015, 6659125.8541]
+      },
+      "properties": {
+        "id": 835010092,
+        "number": 11,
+        "name": "Snappertunan Rullarsbölen Kasbergetin pronssikautiset hautaröykkiöt",
+        "municipality": "Tammisaari",
+        "region": "Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [422531.44600000046, 6713291.612299999]
+      },
+      "properties": {
+        "id": 18010051,
+        "number": 12,
+        "name": "Korpinkallion kivikautinen kvartsilouhos",
+        "municipality": "Askola",
+        "region": "Itä-Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [423641.04669999983, 6704085.3244]
+      },
+      "properties": {
+        "id": 613010013,
+        "number": 13,
+        "name": "Henttalan kivikautinen asuinpaikka",
+        "municipality": "Porvoo",
+        "region": "Itä-Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [425460.3471999997, 6696728.2993]
+      },
+      "properties": {
+        "id": 612010025,
+        "number": 14,
+        "name": "Isolinnanmäen muinaislinna ja Pikkulinnanmäen rautakautinen kalmisto",
+        "municipality": "Porvoo",
+        "region": "Itä-Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [417125, 6673326]
+      },
+      "properties": {
+        "id": 613010036,
+        "number": 15,
+        "name": "Rågskärin jatulintarhat",
+        "municipality": "Porvoo",
+        "region": "Itä-Uusimaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [407099.7910000002, 6685145.868100001]
+      },
+      "properties": {
+        "id": 753010020,
+        "number": 16,
+        "name": "Sibbesborgin muinaislinna",
+        "municipality": "Sipoo",
+        "region": "Itä-Uusimaa"
+      }
+    }
+  ]
+}
