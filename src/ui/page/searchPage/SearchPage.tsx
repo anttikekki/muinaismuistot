@@ -116,6 +116,10 @@ export const SearchPage: React.FC<Props> = ({
         onSubmit={onSearchClick}
       >
         {showSearchTextError && <ValidationError />}
+        <span id="helpBlock" className="help-block">
+          Voit hakea kohteen nimellä (esim. "Turun linna") tai rekisterin
+          tunnuksella (esim. "200284")
+        </span>
         <div className="input-group">
           <input
             type="text"
@@ -123,6 +127,7 @@ export const SearchPage: React.FC<Props> = ({
             className="form-control"
             placeholder="Kirjoita kohteen nimi tai sen osa"
             value={searchText}
+            aria-describedby="helpBlock"
             onChange={(e) => setSearchText(e.target.value)}
           />
           <span className="input-group-btn">

@@ -194,10 +194,18 @@ export default class MuseovirastoTileLayer {
       );
     }
 
+    let searchFields = "Kohdenimi, Nimi, KOHDENIMI";
+    let contains = "true";
+    if (!isNaN(parseInt(searchText))) {
+      // Search text is number, search by id
+      searchFields = "mjtunnus, kohdeID, ID";
+      contains = "false";
+    }
+
     const urlParams = new URLSearchParams({
-      searchText: searchText,
-      contains: "true",
-      searchFields: "Kohdenimi, Nimi, KOHDENIMI",
+      searchText,
+      contains,
+      searchFields,
       layers: this.toLayerIds(selectedLayers).join(","),
       f: "json",
       returnGeometry: "true",
