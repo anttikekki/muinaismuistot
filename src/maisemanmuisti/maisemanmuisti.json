@@ -384,6 +384,258 @@
         "municipality": "Sipoo",
         "region": "Itä-Uusimaa"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [247425.17420000024, 6646477.6041]
+      },
+      "properties": {
+        "id": 40010027,
+        "number": 17,
+        "name": "Hiittisten Kyrksundetin rautakautinen ja keskiaikainen muinaisjäännösalue",
+        "municipality": "Dragsfjärd",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [282565.78000000026, 6701225.786900001]
+      },
+      "properties": {
+        "id": 73010021,
+        "number": 18,
+        "name": "Rikalan muinaislinna sekä rautakautiset asuinpaikat ja kalmistot",
+        "municipality": "Halikko",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [283168.534, 6701699.597999999]
+      },
+      "properties": {
+        "id": 73010022,
+        "number": 18,
+        "name": "Rikalan muinaislinna sekä rautakautiset asuinpaikat ja kalmistot",
+        "municipality": "Halikko",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [182376, 6689518]
+      },
+      "properties": {
+        "id": 101010001,
+        "number": 19,
+        "name": "Furunabbin rautakautinen röykkiökalmisto",
+        "municipality": "Houtskari",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [198465.85230000038, 6644666.0711]
+      },
+      "properties": {
+        "id": 279010011,
+        "number": 20,
+        "name": "Jurmon latomukset",
+        "municipality": "Korppoo",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [209196.93420000002, 6764575.982899999]
+      },
+      "properties": {
+        "id": 400010252,
+        "number": 21,
+        "name": "Untamalan muinaisjäännösalue",
+        "municipality": "Laitila",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [211141.1880999999, 6757802.7115]
+      },
+      "properties": {
+        "id": 400010150,
+        "number": 22,
+        "name": "Vainionmäen rautakautinen polttokalmisto",
+        "municipality": "Laitila",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [251038.3389999997, 6722437.1041]
+      },
+      "properties": {
+        "id": 423010015,
+        "number": 23,
+        "name": "Kukkarkosken kivikautinen asuinpaikka ja kalmisto",
+        "municipality": "Lieto",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [246316.26999999955, 6715312.9419]
+      },
+      "properties": {
+        "id": 423010010,
+        "number": 24,
+        "name": "Ristipellon myöhäisrautakautinen ruumiskalmisto",
+        "municipality": "Lieto",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [246073.36950000003, 6714531.255799999]
+      },
+      "properties": {
+        "id": 423010001,
+        "number": 25,
+        "name": "Vanhalinnan muinaislinna, rautakautinen asuinpaikka ja kalmisto",
+        "municipality": "Lieto",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [246325.2745000003, 6714649.206700001]
+      },
+      "properties": {
+        "id": 423010002,
+        "number": 25,
+        "name": "Vanhalinnan muinaislinna, rautakautinen asuinpaikka ja kalmisto",
+        "municipality": "Lieto",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [285216.8304000003, 6677638.2699]
+      },
+      "properties": {
+        "id": 586010072,
+        "number": 26,
+        "name": "Tiikkinummen ja Karpinmäen muinaisjäännösalue",
+        "municipality": "Perniö",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [285383.76860000007, 6677570.3024]
+      },
+      "properties": {
+        "id": 586010073,
+        "number": 26,
+        "name": "Tiikkinummen ja Karpinmäen muinaisjäännösalue",
+        "municipality": "Perniö",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [285938.5389999999, 6677455.3551]
+      },
+      "properties": {
+        "id": 586010074,
+        "number": 26,
+        "name": "Tiikkinummen ja Karpinmäen muinaisjäännösalue",
+        "municipality": "Perniö",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [285659.6562999999, 6677247.4297]
+      },
+      "properties": {
+        "id": 586010075,
+        "number": 26,
+        "name": "Tiikkinummen ja Karpinmäen muinaisjäännösalue",
+        "municipality": "Perniö",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [285586.68759999983, 6677200.4475]
+      },
+      "properties": {
+        "id": 586010076,
+        "number": 26,
+        "name": "Tiikkinummen ja Karpinmäen muinaisjäännösalue",
+        "municipality": "Perniö",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [285497, 6676894]
+      },
+      "properties": {
+        "id": 586010077,
+        "number": 26,
+        "name": "Tiikkinummen ja Karpinmäen muinaisjäännösalue",
+        "municipality": "Perniö",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [251027.4171000002, 6707298.190300001]
+      },
+      "properties": {
+        "id": 602010030,
+        "number": 27,
+        "name": "Rungon Koskenhaan rautakautinen kalmistoalue",
+        "municipality": "Piikkiö",
+        "region": "Varsinais-Suomi"
+      }
     }
   ]
 }
