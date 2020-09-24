@@ -636,6 +636,636 @@
         "municipality": "Piikkiö",
         "region": "Varsinais-Suomi"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [287368.84410000034, 6702709.214199999]
+      },
+      "properties": {
+        "id": 734010025,
+        "number": 28,
+        "name": "Ketohaan varhaismetallikautinen ja rautakautinen asuinpaikka- ja kalmistoalue",
+        "municipality": "Salo",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [284149, 6697739]
+      },
+      "properties": {
+        "id": 734010012,
+        "number": 29,
+        "name": "Tampaltanmäen, Viitamäen ja Ilmusmäen hiidenkiukaat",
+        "municipality": "Salo",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [284204.1431, 6696976.5]
+      },
+      "properties": {
+        "id": 734010013,
+        "number": 29,
+        "name": "Tampaltanmäen, Viitamäen ja Ilmusmäen hiidenkiukaat",
+        "municipality": "Salo",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [288914.2419999996, 6698107.068]
+      },
+      "properties": {
+        "id": 734010014,
+        "number": 29,
+        "name": "Tampaltanmäen, Viitamäen ja Ilmusmäen hiidenkiukaat",
+        "municipality": "Salo",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [241048.40199999977, 6712629.999399999]
+      },
+      "properties": {
+        "id": 853010001,
+        "number": 30,
+        "name": "Koroisten piispanlinnan, kirkon ja kastarin perustukset",
+        "municipality": "Turku",
+        "region": "Varsinais-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [239675.61560000014, 6782031.1138]
+      },
+      "properties": {
+        "id": 50010019,
+        "number": 31,
+        "name": "Harolan rautakautinen röykkiöalue",
+        "municipality": "Eura",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [238330.1372999996, 6786836.1776]
+      },
+      "properties": {
+        "id": 50010027,
+        "number": 32,
+        "name": "Käräjämäen rautakautinen kalmistoalue",
+        "municipality": "Eura",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [238596.03729999997, 6785033.9001]
+      },
+      "properties": {
+        "id": 50010032,
+        "number": 33,
+        "name": "Luistarin muinaisjäännösalue",
+        "municipality": "Eura",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [210644.19539999962, 6799010.166200001]
+      },
+      "properties": {
+        "id": 51010006,
+        "number": 34,
+        "name": "Liinmaan linnan keskiaikainen linnanraunio",
+        "municipality": "Eurajoki",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [233148.12420000043, 6806723.169100001]
+      },
+      "properties": {
+        "id": 79010001,
+        "number": 35,
+        "name": "Kaunismäen pronssikautinen röykkiökalmisto",
+        "municipality": "Harjavalta",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [241504.78199999966, 6804084.2634]
+      },
+      "properties": {
+        "id": 79010016,
+        "number": 36,
+        "name": "Matinharjun pronssikautiset hautaröykkiöt",
+        "municipality": "Harjavalta",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [230507.2285000002, 6797572.8368999995]
+      },
+      "properties": {
+        "id": 262010026,
+        "number": 37,
+        "name": "Kuninkaanhauta - Suomen suurin pronssikautinen hautaröykkiö",
+        "municipality": "Kiukainen",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [249874.42669999972, 6802569.913699999]
+      },
+      "properties": {
+        "id": 271010036,
+        "number": 38,
+        "name": "Orjapaadenkallion pronssikautinen hautaröykkiö",
+        "municipality": "Kokemäki",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [252027.56740000006, 6800975.5691]
+      },
+      "properties": {
+        "id": 271010013,
+        "number": 39,
+        "name": "Kokemäkijokivarren rautakautinen ja keskiaikainen muinaisjäännösalue",
+        "municipality": "Kokemäki",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [252176.50509999972, 6800519.748500001]
+      },
+      "properties": {
+        "id": 271010014,
+        "number": 39,
+        "name": "Kokemäkijokivarren rautakautinen ja keskiaikainen muinaisjäännösalue",
+        "municipality": "Kokemäki",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [251638, 6801615]
+      },
+      "properties": {
+        "id": 271010015,
+        "number": 39,
+        "name": "Kokemäkijokivarren rautakautinen ja keskiaikainen muinaisjäännösalue",
+        "municipality": "Kokemäki",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [251829.64680000022, 6800230.866799999]
+      },
+      "properties": {
+        "id": 271010019,
+        "number": 39,
+        "name": "Kokemäkijokivarren rautakautinen ja keskiaikainen muinaisjäännösalue",
+        "municipality": "Kokemäki",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [248501.04069999978, 6788200.679499999]
+      },
+      "properties": {
+        "id": 319010019,
+        "number": 40,
+        "name": "Kirkonkarin keskiaikainen kappelin paikka",
+        "municipality": "Köyliö",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [249130.80150000006, 6786204.487300001]
+      },
+      "properties": {
+        "id": 319010017,
+        "number": 41,
+        "name": "Vanhankartanon rautakautiset ruumiskalmistot",
+        "municipality": "Köyliö",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "id": 406010010,
+        "number": 42,
+        "name": "Sammallahdenmäen pronssikautinen hautaröykkiöalue",
+        "municipality": "Lappi",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [235753.01640000008, 6819393.0933]
+      },
+      "properties": {
+        "id": 531010035,
+        "number": 43,
+        "name": "Rieskaronmäen pronssikautiset hautaröykkiöt ja kolme rakennuksen jäännöstä",
+        "municipality": "Nakkila",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [235274.2276999997, 6816161.388999999]
+      },
+      "properties": {
+        "id": 531010027,
+        "number": 44,
+        "name": "Viikkalan Selkäkankaan pronssikautiset hautaröykkiöt",
+        "municipality": "Nakkila",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [208981.7209999999, 6830012.708000001]
+      },
+      "properties": {
+        "id": 609010001,
+        "number": 45,
+        "name": "Linjaharjun rautakautinen röykkiökalmisto",
+        "municipality": "Pori",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [210258.42129999958, 6783892.2337]
+      },
+      "properties": {
+        "id": 684010036,
+        "number": 46,
+        "name": "Kylmäkorvenkallion pronssikautiset hautaröykkiöt, muut kiviröykkiöt ja kivipöydät",
+        "municipality": "Rauma",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [210082.4913999997, 6783727.2914]
+      },
+      "properties": {
+        "id": 684010037,
+        "number": 46,
+        "name": "Kylmäkorvenkallion pronssikautiset hautaröykkiöt, muut kiviröykkiöt ja kivipöydät",
+        "municipality": "Rauma",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [207765.43479999993, 6780061.753199998]
+      },
+      "properties": {
+        "id": 684010047,
+        "number": 47,
+        "name": "Salissuonmäen vanhemman rautakauden hautaröykkiöt",
+        "municipality": "Rauma",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [227957.13520000037, 6821358.268300001]
+      },
+      "properties": {
+        "id": 886010004,
+        "number": 48,
+        "name": "Liikistön keskiaikaisen kirkon ja hautausmaan paikka",
+        "municipality": "Ulvila",
+        "region": "Satakunta"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [357109.426, 6782795.359099999]
+      },
+      "properties": {
+        "id": 82010033,
+        "number": 49,
+        "name": "Anttilan rautakautinen miekanhiontakivi",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [356227.76580000017, 6785387.306299999]
+      },
+      "properties": {
+        "id": 82010036,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [356451.68740000017, 6784366.724100001]
+      },
+      "properties": {
+        "id": 82010037,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [355962.87789999973, 6785059.441799998]
+      },
+      "properties": {
+        "id": 82010038,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [355827.9286000002, 6784965.477499999]
+      },
+      "properties": {
+        "id": 82010039,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [355967.8799999999, 6784959.4791]
+      },
+      "properties": {
+        "id": 82010040,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [355935.892, 6784920.4958]
+      },
+      "properties": {
+        "id": 82010041,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [355910.90139999986, 6784811.544500001]
+      },
+      "properties": {
+        "id": 82010042,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [355855.9184999997, 6784694.5845]
+      },
+      "properties": {
+        "id": 82010043,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [355724.9768000003, 6784670.598000001]
+      },
+      "properties": {
+        "id": 82010044,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [355384.1085000001, 6785536.2467]
+      },
+      "properties": {
+        "id": 82010045,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [355635.00150000025, 6785995.068399999]
+      },
+      "properties": {
+        "id": 82010046,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [355886.9079, 6785814.140900001]
+      },
+      "properties": {
+        "id": 82010048,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [353894.7145999996, 6784714.572000001]
+      },
+      "properties": {
+        "id": 82010049,
+        "number": 50,
+        "name": "Retulansaaren muinaisjäännösalue",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [353763.80200000014, 6776612.824200001]
+      },
+      "properties": {
+        "id": 82010019,
+        "number": 51,
+        "name": "Tenholan linnavuori",
+        "municipality": "Hattula",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [359518.42140000034, 6790121.421799999]
+      },
+      "properties": {
+        "id": 83010004,
+        "number": 52,
+        "name": "Kalomäen rautakautinen muinaisjäännösalue",
+        "municipality": "Hauho",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [363151.07739999983, 6765903.1724]
+      },
+      "properties": {
+        "id": 109010023,
+        "number": 53,
+        "name": "Varikonniemen hopea-aarteen löytöpaikka ja rautakautinen/varhaiskeskiaikainen asuinpaikka",
+        "municipality": "Hämeenlinna",
+        "region": "Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [369030.7812999999, 6751571.962099999]
+      },
+      "properties": {
+        "id": 165010040,
+        "number": 54,
+        "name": "Hakoisten keskiaikainen linnavuori, rautakautinen kalmisto- ja asuinpaikka-alue",
+        "municipality": "Janakkala",
+        "region": "Häme"
+      }
     }
   ]
 }
