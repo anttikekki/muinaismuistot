@@ -1266,6 +1266,118 @@
         "municipality": "Janakkala",
         "region": "Häme"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [415307.08189999964, 6769967.7805]
+      },
+      "properties": {
+        "id": 98010008,
+        "number": 55,
+        "name": "Kapatuosian linnavuori",
+        "municipality": "Hollola",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [416107.7993999999, 6761885.035499999]
+      },
+      "properties": {
+        "id": 98010014,
+        "number": 56,
+        "name": "Kirkailanmäen myöhäisrautakautinen ja varhaiskeskiaikainen ruumiskalmisto",
+        "municipality": "Hollola",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [422271.3415999999, 6757233.9407]
+      },
+      "properties": {
+        "id": 398010014,
+        "number": 57,
+        "name": "Nostavan-Luhdanjoen kivikautiset asuinpaikat",
+        "municipality": "Lahti-Hollola",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [422251.3543999996, 6756774.1204]
+      },
+      "properties": {
+        "id": 398010015,
+        "number": 57,
+        "name": "Nostavan-Luhdanjoen kivikautiset asuinpaikat",
+        "municipality": "Lahti-Hollola",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [421861.5064000003, 6757563.8016]
+      },
+      "properties": {
+        "id": 98010031,
+        "number": 57,
+        "name": "Nostavan-Luhdanjoen kivikautiset asuinpaikat",
+        "municipality": "Lahti-Hollola",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [421571.6205000002, 6756954.046]
+      },
+      "properties": {
+        "id": 98010032,
+        "number": 57,
+        "name": "Nostavan-Luhdanjoen kivikautiset asuinpaikat",
+        "municipality": "Lahti-Hollola",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [421381.70749999955, 6756244.328199999]
+      },
+      "properties": {
+        "id": 98010033,
+        "number": 57,
+        "name": "Nostavan-Luhdanjoen kivikautiset asuinpaikat",
+        "municipality": "Lahti-Hollola",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [420921.89740000013, 6755044.813999999]
+      },
+      "properties": {
+        "id": 98010034,
+        "number": 57,
+        "name": "Nostavan-Luhdanjoen kivikautiset asuinpaikat",
+        "municipality": "Lahti-Hollola",
+        "region": "Päijät-Häme"
+      }
     }
   ]
 }
