@@ -6,6 +6,7 @@ import {
   getFeatureTypeName,
   getFeatureTypeIconURL,
   getFeatureLocation,
+  getFeatureMunicipality,
 } from "../../../common/util/featureParser";
 import { Page, PageVisibility } from "../Page";
 import { createLocationHash } from "../../../common/util/URLHashHelper";
@@ -17,6 +18,7 @@ interface ResultRowProps {
 
 const ResultRow: React.FC<ResultRowProps> = ({ hidePage, feature }) => {
   const nimi = getFeatureName(feature);
+  const municipality = getFeatureMunicipality(feature);
   const tyypinNimi = getFeatureTypeName(feature);
   const iconURL = getFeatureTypeIconURL(feature);
   const coordinates = getFeatureLocation(feature);
@@ -31,7 +33,10 @@ const ResultRow: React.FC<ResultRowProps> = ({ hidePage, feature }) => {
       <h4 className="list-group-item-heading">{nimi}</h4>
       <p className="list-group-item-text">
         <img className="feature-icon" src={iconURL} />
-        <span>{tyypinNimi}</span>
+        <span>
+          {tyypinNimi}
+          {municipality && `, ${municipality}`}
+        </span>
       </p>
     </a>
   );

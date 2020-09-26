@@ -342,6 +342,23 @@ export const getLayerRegisterName = (
   }
 };
 
+export const getFeatureMunicipality = (
+  feature: ArgisFeature
+): string | undefined => {
+  switch (feature.layerName) {
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_alue:
+    case MuseovirastoLayer.Suojellut_rakennukset_alue:
+    case MuseovirastoLayer.Suojellut_rakennukset_piste:
+      return feature.attributes.kunta;
+    case AhvenanmaaLayer.Fornminnen:
+    case AhvenanmaaLayer.MaritimtKulturarv:
+      return feature.attributes.Kommun;
+    default:
+      return undefined;
+  }
+};
+
 export const getFeatureLocation = (
   feature: ArgisFeature
 ): number[] | undefined => {
