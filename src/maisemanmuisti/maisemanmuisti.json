@@ -1378,6 +1378,622 @@
         "municipality": "Lahti-Hollola",
         "region": "Päijät-Häme"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [415460.81769999955, 6814269.9615]
+      },
+      "properties": {
+        "id": 576010009,
+        "number": 58,
+        "name": "Linnasaaren muinaislinna",
+        "municipality": "Padasjoki",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428948.3865, 6817159.860599998]
+      },
+      "properties": {
+        "id": 781010003,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428838.42540000007, 6817699.646499999]
+      },
+      "properties": {
+        "id": 781010004,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428268.6508999998, 6817729.628800001]
+      },
+      "properties": {
+        "id": 781010005,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428378.60919999983, 6817809.595400002]
+      },
+      "properties": {
+        "id": 781010006,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428298.64269999973, 6817919.5559]
+      },
+      "properties": {
+        "id": 781010007,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428358.61950000003, 6817899.559700001]
+      },
+      "properties": {
+        "id": 781010008,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428368.61319999956, 6818109.4833]
+      },
+      "properties": {
+        "id": 781010009,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428228.67080000043, 6818019.518300001]
+      },
+      "properties": {
+        "id": 781010010,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428038.7457999997, 6818069.4888]
+      },
+      "properties": {
+        "id": 781010011,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428228.66980000027, 6818239.430199999]
+      },
+      "properties": {
+        "id": 781010012,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428333, 6818251]
+      },
+      "properties": {
+        "id": 781010013,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428538.54030000046, 6818079.489300001]
+      },
+      "properties": {
+        "id": 781010014,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428598.51630000025, 6818219.4353]
+      },
+      "properties": {
+        "id": 781010015,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428568.53160000034, 6818359.380899999]
+      },
+      "properties": {
+        "id": 781010016,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428578.5253999997, 6818549.298099998]
+      },
+      "properties": {
+        "id": 781010017,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428878.40919999965, 6818479.3314]
+      },
+      "properties": {
+        "id": 781010018,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [429068.32359999977, 6818929.1543000005]
+      },
+      "properties": {
+        "id": 781010019,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [429259.7324999999, 6818975.4388]
+      },
+      "properties": {
+        "id": 781010020,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [429270, 6819120]
+      },
+      "properties": {
+        "id": 781010021,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [429238.2580000004, 6819149.0669]
+      },
+      "properties": {
+        "id": 781010022,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [429358.2110000001, 6819219.0353000015]
+      },
+      "properties": {
+        "id": 781010023,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [429678.0828999998, 6819448.947000001]
+      },
+      "properties": {
+        "id": 781010024,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428758.46219999995, 6817059.9070999995]
+      },
+      "properties": {
+        "id": 781010078,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428328.6275000004, 6817739.6272]
+      },
+      "properties": {
+        "id": 781010079,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [429258.25090000033, 6818369.382300001]
+      },
+      "properties": {
+        "id": 781010080,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [429548.13709999993, 6818919.1581999995]
+      },
+      "properties": {
+        "id": 781010082,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428838.42679999955, 6817399.7685]
+      },
+      "properties": {
+        "id": 781010110,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428018.7587000001, 6817549.698899999]
+      },
+      "properties": {
+        "id": 781010111,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [428258.6556000002, 6817859.576200001]
+      },
+      "properties": {
+        "id": 781010112,
+        "number": 59,
+        "name": "Kirkonseudun rautakautinen asutusalue",
+        "municipality": "Sysmä",
+        "region": "Päijät-Häme"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [346267.63430000003, 6816503.7542]
+      },
+      "properties": {
+        "id": 211010003,
+        "number": 60,
+        "name": "Sarsan esihistorialliset asuinpaikat",
+        "municipality": "Kangasala",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [346617, 6816311]
+      },
+      "properties": {
+        "id": 211010004,
+        "number": 60,
+        "name": "Sarsan esihistorialliset asuinpaikat",
+        "municipality": "Kangasala",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [347062.31159999967, 6816376.809700001]
+      },
+      "properties": {
+        "id": 211010005,
+        "number": 60,
+        "name": "Sarsan esihistorialliset asuinpaikat",
+        "municipality": "Kangasala",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [346524.5248999996, 6816421.789500002]
+      },
+      "properties": {
+        "id": 211010006,
+        "number": 60,
+        "name": "Sarsan esihistorialliset asuinpaikat",
+        "municipality": "Kangasala",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [346130, 6816310]
+      },
+      "properties": {
+        "id": 211010007,
+        "number": 60,
+        "name": "Sarsan esihistorialliset asuinpaikat",
+        "municipality": "Kangasala",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [323280.9441999998, 6800256.182599999]
+      },
+      "properties": {
+        "id": 418010001,
+        "number": 61,
+        "name": "Päiväniemen rautakautinen röykkiökalmisto",
+        "municipality": "Lempäälä",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [353871, 6805587]
+      },
+      "properties": {
+        "id": 635010007,
+        "number": 62,
+        "name": "Hyllin rautakautinen röykkiöalue",
+        "municipality": "Pälkäne",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [326114.6939000003, 6825769.940099999]
+      },
+      "properties": {
+        "id": 837010003,
+        "number": 63,
+        "name": "Reuharinniemen kaksi lapinrauniota ja asuinpaikka",
+        "municipality": "Tampere",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [341403.7368999999, 6783196.1272]
+      },
+      "properties": {
+        "id": 908010029,
+        "number": 64,
+        "name": "Jutikkalan muinaisjäännösalue",
+        "municipality": "Valkeakoski",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [341504.6933000004, 6783441.025199998]
+      },
+      "properties": {
+        "id": 908010030,
+        "number": 64,
+        "name": "Jutikkalan muinaisjäännösalue",
+        "municipality": "Valkeakoski",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [340923.9305999996, 6783428.024799999]
+      },
+      "properties": {
+        "id": 908010038,
+        "number": 64,
+        "name": "Jutikkalan muinaisjäännösalue",
+        "municipality": "Valkeakoski",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [341075.8729999997, 6783241.107900001]
+      },
+      "properties": {
+        "id": 908010040,
+        "number": 64,
+        "name": "Jutikkalan muinaisjäännösalue",
+        "municipality": "Valkeakoski",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [341049.8794999998, 6783342.0603]
+      },
+      "properties": {
+        "id": 908010045,
+        "number": 64,
+        "name": "Jutikkalan muinaisjäännösalue",
+        "municipality": "Valkeakoski",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [341872.5257000001, 6789269.688000001]
+      },
+      "properties": {
+        "id": 908010001,
+        "number": 65,
+        "name": "Rapolan muinaisjäännösalue ja kulttuuriympäristö",
+        "municipality": "Valkeakoski",
+        "region": "Pirkanmaa"
+      }
     }
   ]
 }
