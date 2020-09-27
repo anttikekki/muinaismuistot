@@ -10,7 +10,7 @@ import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi,
   DataLatestUpdateDates,
-  Model,
+  ModelFeatureProperties,
   AhvenanmaaLayer,
   LayerGroup,
   ModelLayer,
@@ -62,7 +62,7 @@ export default class MuinaismuistotUI {
   private settings: Settings;
   private visiblePage?: PageId;
   private selectedFeatures?: Array<ArgisFeature>;
-  private selectedModels?: Array<Model>;
+  private selectedModels?: Array<ModelFeatureProperties>;
   private searchResultFeatures?: Array<ArgisFeature>;
   private dataLatestUpdateDates?: DataLatestUpdateDates;
   private pageClosingAnimationTimeoutID: Partial<Record<PageId, number>> = {};
@@ -300,7 +300,7 @@ export default class MuinaismuistotUI {
 
   public featuresSelected = (
     selectedFeatures: Array<ArgisFeature>,
-    models: Array<Model>
+    models: Array<ModelFeatureProperties>
   ) => {
     if (selectedFeatures.length === 0) {
       return;

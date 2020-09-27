@@ -65,6 +65,10 @@ module.exports = {
       patterns: [
         { from: "src/images", to: "images" },
         { from: "src/3d/3d.json", to: "3d" },
+        {
+          from: "src/maisemanmuisti/maisemanmuisti.json",
+          to: "maisemanmuisti",
+        },
       ],
     }),
     ...(SHOW_BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : []),

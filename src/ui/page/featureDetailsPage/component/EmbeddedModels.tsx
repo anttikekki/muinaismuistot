@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Model } from "../../../../common/types";
+import { ModelFeatureProperties } from "../../../../common/types";
 
 interface Props {
-  models?: Array<Model>;
+  models?: Array<ModelFeatureProperties>;
 }
 
 export const Info: React.FC = () => {

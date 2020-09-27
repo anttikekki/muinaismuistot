@@ -14,7 +14,7 @@ import {
   ArgisFeature,
   Settings,
   DataLatestUpdateDates,
-  Model,
+  ModelFeatureProperties,
   LayerGroup,
 } from "../common/types";
 import MapBrowserEvent from "ol/MapBrowserEvent";
@@ -23,11 +23,12 @@ import { Extent } from "ol/extent";
 import ModelsLayer from "./layer/ModelsLayer";
 import Layer from "ol/layer/Layer";
 import Source from "ol/source/Source";
+import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer";
 
 export interface MapEventListener {
   featuresSelected: (
     features: Array<ArgisFeature>,
-    models: Array<Model>
+    models: Array<ModelFeatureProperties>
   ) => void;
   showLoadingAnimation: (show: boolean) => void;
   featureSearchReady: (features: Array<ArgisFeature>) => void;
@@ -43,6 +44,7 @@ export default class MuinaismuistotMap {
   private ahvenanmaaTileLayer: AhvenanmaaTileLayer;
   private positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer;
   private modelsLayer: ModelsLayer;
+  private maisemanMuistiLayer: MaisemanMuistiLayer;
   private eventListeners: MapEventListener;
 
   public constructor(
@@ -114,6 +116,13 @@ export default class MuinaismuistotMap {
       this.map.getLayers().insertAt(6, createdLayer);
     });
 
+    this.maisemanMuistiLayer = new MaisemanMuistiLayer(
+      initialSettings,
+      (createdLayer) => {
+        this.map.getLayers().insertAt(7, createdLayer);
+      }
+    );
+
     this.map.on("singleclick", this.loadFeaturesOnClickedCoordinate);
   }
 
@@ -131,13 +140,13 @@ export default class MuinaismuistotMap {
       this.map.getView().calculateExtent(this.map.getSize())
     );
 
-    const modelsResult: Array<Model> = this.map
+    const modelsResult: Array<ModelFeatureProperties> = this.map
       .getFeaturesAtPixel(e.pixel, {
         layerFilter: (layer: Layer<Source>) =>
           layer === this.modelsLayer.getLayer(),
         hitTolerance: 10,
       })
-      .map((feature) => feature.getProperties() as Model);
+      .map((feature) => feature.getProperties() as ModelFeatureProperties);
 
     Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
       ([ahvenanmaaResult, museovirastoResult]) => {

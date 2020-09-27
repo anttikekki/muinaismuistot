@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-  Model,
+  ModelFeatureProperties,
   AhvenanmaaMaritimtKulturarvArgisFeature,
 } from "../../../../common/types";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
@@ -11,7 +11,7 @@ interface Props {
   isOpen: boolean;
   onToggleOpen: () => void;
   feature: AhvenanmaaMaritimtKulturarvArgisFeature;
-  models?: Array<Model>;
+  models?: Array<ModelFeatureProperties>;
 }
 
 export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({

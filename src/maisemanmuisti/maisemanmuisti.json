@@ -1994,6 +1994,314 @@
         "municipality": "Valkeakoski",
         "region": "Pirkanmaa"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [277798.1911000004, 6806854.322000001]
+      },
+      "properties": {
+        "id": 912010016,
+        "number": 66,
+        "name": "Kaukolan ja Liekosaaren rautakautiset kalmistot",
+        "municipality": "Vammala",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [278586.8691999996, 6807635.010699999]
+      },
+      "properties": {
+        "id": 912010018,
+        "number": 66,
+        "name": "Kaukolan ja Liekosaaren rautakautiset kalmistot",
+        "municipality": "Vammala",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [312589.2196000004, 6804659.360800002]
+      },
+      "properties": {
+        "id": 922010009,
+        "number": 67,
+        "name": "Laukon muinaisjäännösalue",
+        "municipality": "Vesilahti",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [313372.90770000033, 6804714.344900001]
+      },
+      "properties": {
+        "id": 922010010,
+        "number": 67,
+        "name": "Laukon muinaisjäännösalue",
+        "municipality": "Vesilahti",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [314095.61730000004, 6804750.331900001]
+      },
+      "properties": {
+        "id": 922010011,
+        "number": 67,
+        "name": "Laukon muinaisjäännösalue",
+        "municipality": "Vesilahti",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [331927.05869999994, 6894382.395799998]
+      },
+      "properties": {
+        "id": 936010002,
+        "number": 68,
+        "name": "Oraniemen varhaismetallikautiset lapinrauniot",
+        "municipality": "Virrat",
+        "region": "Pirkanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [490014.21190000046, 6729355.4759]
+      },
+      "properties": {
+        "id": 754010011,
+        "number": 69,
+        "name": "Ankkapurhan kivikautinen asuinpaikka",
+        "municipality": "Anjalankoski",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [456307.5614, 6776876.1908]
+      },
+      "properties": {
+        "id": 142010042,
+        "number": 70,
+        "name": "Konniveden Haukkavuoren kalliomaalaus",
+        "municipality": "Iitti",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [470160.04530000035, 6763820.51]
+      },
+      "properties": {
+        "id": 142010044,
+        "number": 71,
+        "name": "Hiidensalmen varhaismetallikautiset lapinrauniot",
+        "municipality": "Iitti",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [477958.8256999999, 6781834.298999999]
+      },
+      "properties": {
+        "id": 163010005,
+        "number": 72,
+        "name": "Pukkisaaren muinaisjäännökset",
+        "municipality": "Jaala",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [498260.98890000023, 6708633.854]
+      },
+      "properties": {
+        "id": 285010002,
+        "number": 73,
+        "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
+        "municipality": "Kotka",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [499135, 6708813]
+      },
+      "properties": {
+        "id": 285010003,
+        "number": 73,
+        "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
+        "municipality": "Kotka",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [499310.56740000006, 6708783.802999999]
+      },
+      "properties": {
+        "id": 285010004,
+        "number": 73,
+        "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
+        "municipality": "Kotka",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [499372, 6708746]
+      },
+      "properties": {
+        "id": 285010005,
+        "number": 73,
+        "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
+        "municipality": "Kotka",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [499469, 6708670]
+      },
+      "properties": {
+        "id": 285010006,
+        "number": 73,
+        "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
+        "municipality": "Kotka",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [499477, 6708987]
+      },
+      "properties": {
+        "id": 285010007,
+        "number": 73,
+        "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
+        "municipality": "Kotka",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [499722, 6708958]
+      },
+      "properties": {
+        "id": 285010008,
+        "number": 73,
+        "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
+        "municipality": "Kotka",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [488910, 6716864]
+      },
+      "properties": {
+        "id": 285010017,
+        "number": 74,
+        "name": "Kymin Niskasuon kivikautinen asuinpaikka",
+        "municipality": "Kotka",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [531107.6534000002, 6732778.294]
+      },
+      "properties": {
+        "id": 489010022,
+        "number": 75,
+        "name": "Mustasuon jatulintarha",
+        "municipality": "Miehikkälä",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [487686, 6691798]
+      },
+      "properties": {
+        "id": 624010003,
+        "number": 76,
+        "name": "Kaunissaaren ryssänuunit",
+        "municipality": "Pyhtää",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [478009.26659999974, 6682594.238700001]
+      },
+      "properties": {
+        "id": 624010001,
+        "number": 77,
+        "name": "Mustaviirin jatulintarha",
+        "municipality": "Pyhtää",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [477254.4791000001, 6702943.0416]
+      },
+      "properties": {
+        "id": 624010021,
+        "number": 78,
+        "name": "Strukankallioiden rautakautinen hautaröykkiöalue",
+        "municipality": "Pyhtää",
+        "region": "Kymenlaakso"
+      }
     }
   ]
 }

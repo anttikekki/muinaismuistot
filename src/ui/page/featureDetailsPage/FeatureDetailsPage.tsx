@@ -1,7 +1,7 @@
 import * as React from "react";
 import {
   ArgisFeature,
-  Model,
+  ModelFeatureProperties,
   MuseovirastoLayer,
   AhvenanmaaLayer,
 } from "../../../common/types";
@@ -22,7 +22,7 @@ interface Props {
   visibility: PageVisibility;
   hidePage: () => void;
   features?: Array<ArgisFeature>;
-  models?: Array<Model>;
+  models?: Array<ModelFeatureProperties>;
 }
 
 interface PanelForFeatureProps {
@@ -30,7 +30,7 @@ interface PanelForFeatureProps {
   id: string;
   onTogglePanelOpen: (id: string) => void;
   openPanelId: string;
-  models?: Array<Model>;
+  models?: Array<ModelFeatureProperties>;
 }
 
 const PanelForFeature: React.FC<PanelForFeatureProps> = ({

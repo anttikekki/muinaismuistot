@@ -32,6 +32,12 @@ export interface Settings {
       geojson: string;
     };
   };
+  maisemanMuisti: {
+    selectedLayers: Array<MaisemanMuistiLayer>;
+    url: {
+      geojson: string;
+    };
+  };
 }
 
 export enum LayerGroup {
@@ -68,7 +74,15 @@ export enum ModelLayer {
   ModelLayer = "ModelLayer",
 }
 
-export type FeatureLayer = MuseovirastoLayer | AhvenanmaaLayer | ModelLayer;
+export enum MaisemanMuistiLayer {
+  MaisemanMuisti = "MaisemanMuisti",
+}
+
+export type FeatureLayer =
+  | MuseovirastoLayer
+  | AhvenanmaaLayer
+  | ModelLayer
+  | MaisemanMuistiLayer;
 
 export type MuseovirastoLayerId = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
@@ -438,7 +452,7 @@ export interface DataLatestUpdateDates {
   models: Date | null;
 }
 
-export interface Model {
+export interface ModelFeatureProperties {
   registryItem: {
     name: string;
     id: number;
@@ -457,6 +471,14 @@ export interface Model {
   createdDate: string;
 }
 
+export interface MaisemanMuistiFeatureProperties {
+  id: number;
+  number: number;
+  name: string;
+  municipality: string;
+  region: string;
+}
+
 type GeoJSONPointGeometry = {
   type: "Point";
   coordinates: [number, number];
@@ -467,13 +489,13 @@ type GeoJSONPolygonGeometry = {
   coordinates: Array<Array<[number, number]>>;
 };
 
-export type GeoJSONFeature = {
+export type GeoJSONFeature<PROPERTIES> = {
   type: "Feature";
   geometry: GeoJSONPointGeometry | GeoJSONPolygonGeometry;
-  properties: Model;
+  properties: PROPERTIES;
 };
 
-export type GeoJSONResponse = {
+export type GeoJSONResponse<PROPERTIES> = {
   type: "FeatureCollection";
-  features: Array<GeoJSONFeature>;
+  features: Array<GeoJSONFeature<PROPERTIES>>;
 };

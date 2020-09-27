@@ -9,10 +9,12 @@ import {
   AhvenanmaaForminnenArgisFeature,
   MuseovirastoLayer,
   AhvenanmaaLayer,
-  Model,
+  ModelFeatureProperties,
   GeoJSONFeature,
   FeatureLayer,
   ModelLayer,
+  MaisemanMuistiLayer,
+  MaisemanMuistiFeatureProperties,
 } from "../types";
 
 export const isKiinteäMuinaisjäännös = (
@@ -162,6 +164,8 @@ export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
       return ["images/ahvenanmaa_hylky.png"];
     case ModelLayer.ModelLayer:
       return ["images/3d_malli_circle.png", "images/3d_malli_square.png"];
+    case MaisemanMuistiLayer.MaisemanMuisti:
+      return ["images/muinaisjaannos_kohde.png"]; // TODO use real icon
   }
 };
 
@@ -184,8 +188,8 @@ export const getFeatureID = (feature: ArgisFeature): string => {
 
 export const getModelsForFeature = (
   feature: ArgisFeature,
-  models?: Array<Model>
-): Array<Model> => {
+  models?: Array<ModelFeatureProperties>
+): Array<ModelFeatureProperties> => {
   let featureId: string | undefined;
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
@@ -373,7 +377,9 @@ export const getFeatureLocation = (
 };
 
 export const getGeoJSONFeatureLocation = (
-  feature: GeoJSONFeature
+  feature: GeoJSONFeature<
+    ModelFeatureProperties | MaisemanMuistiFeatureProperties
+  >
 ): number[] => {
   switch (feature.geometry.type) {
     case "Point":
@@ -414,7 +420,7 @@ export const trim = (value: string | undefined | null): string => {
 };
 
 export const getGeoJSONDataLatestUpdateDate = (
-  features: Array<GeoJSONFeature>
+  features: Array<GeoJSONFeature<ModelFeatureProperties>>
 ): Date => {
   let dates = features.map((feature) =>
     new Date(feature.properties.createdDate).getTime()

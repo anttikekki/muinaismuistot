@@ -1,5 +1,5 @@
 import * as React from "react";
-import { GeoJSONFeature } from "../../common/types";
+import { GeoJSONFeature, ModelFeatureProperties } from "../../common/types";
 import {
   getLayerRegisterName,
   getGeoJSONFeatureLocation,
@@ -7,13 +7,13 @@ import {
 import { createLocationHash } from "../../common/util/URLHashHelper";
 
 interface Props {
-  models: Array<GeoJSONFeature>;
+  models: Array<GeoJSONFeature<ModelFeatureProperties>>;
 }
 
 export const ModelsTable: React.FC<Props> = ({ models }) => {
-  const [sortedModels, setSortedModels] = React.useState<Array<GeoJSONFeature>>(
-    []
-  );
+  const [sortedModels, setSortedModels] = React.useState<
+    Array<GeoJSONFeature<ModelFeatureProperties>>
+  >([]);
   const [sortColumn, setSortColumn] = React.useState<string>("Lisätty");
   const [sortDirection, setSortDirection] = React.useState<"asc" | "desc">(
     "desc"
@@ -24,7 +24,10 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
   const onSortClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     newSortColumn: string,
-    compareFn: (a: GeoJSONFeature, b: GeoJSONFeature) => number
+    compareFn: (
+      a: GeoJSONFeature<ModelFeatureProperties>,
+      b: GeoJSONFeature<ModelFeatureProperties>
+    ) => number
   ) => {
     event.preventDefault();
 
@@ -45,7 +48,7 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
 
   const ColumnHeader: React.FC<{
     name: string;
-    valueFn: (v: GeoJSONFeature) => string;
+    valueFn: (v: GeoJSONFeature<ModelFeatureProperties>) => string;
   }> = ({ name, valueFn }) => {
     return (
       <th>

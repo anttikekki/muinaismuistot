@@ -7,7 +7,7 @@ import Style from "ol/style/Style";
 import GeoJSON from "ol/format/GeoJSON";
 import {
   GeoJSONResponse,
-  Model,
+  ModelFeatureProperties,
   MuseovirastoLayer,
   Settings,
 } from "../../common/types";
@@ -71,14 +71,18 @@ export default class ModelsLayer {
     this.fetchGeoJson().then(this.addFeaturesToLayer);
   }
 
-  private fetchGeoJson = async (): Promise<GeoJSONResponse> => {
+  private fetchGeoJson = async (): Promise<
+    GeoJSONResponse<ModelFeatureProperties>
+  > => {
     const response = await fetch(this.settings.models.url.geojson);
     const data = await response.json();
 
-    return data as GeoJSONResponse;
+    return data as GeoJSONResponse<ModelFeatureProperties>;
   };
 
-  private addFeaturesToLayer = (geojsonObject: GeoJSONResponse) => {
+  private addFeaturesToLayer = (
+    geojsonObject: GeoJSONResponse<ModelFeatureProperties>
+  ) => {
     this.source = new VectorSource({
       features: new GeoJSON().readFeatures(geojsonObject),
     });
@@ -87,7 +91,7 @@ export default class ModelsLayer {
       style: (feature: FeatureLike) => {
         switch (feature.getGeometry().getType()) {
           case "Point":
-            const properties = feature.getProperties() as Model;
+            const properties = feature.getProperties() as ModelFeatureProperties;
             if (
               properties.registryItem.type ===
               MuseovirastoLayer.Muinaisjaannokset_piste

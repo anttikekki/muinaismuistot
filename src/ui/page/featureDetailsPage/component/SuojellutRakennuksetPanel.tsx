@@ -3,7 +3,7 @@ import {
   SuojellutRakennuksetPisteArgisFeature,
   SuojellutRakennuksetAlueArgisFeature,
   MuseovirastoLayer,
-  Model,
+  ModelFeatureProperties,
 } from "../../../../common/types";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
@@ -16,7 +16,7 @@ interface Props {
   feature:
     | SuojellutRakennuksetPisteArgisFeature
     | SuojellutRakennuksetAlueArgisFeature;
-  models?: Array<Model>;
+  models?: Array<ModelFeatureProperties>;
 }
 
 export const SuojellutRakennuksetPanel: React.FC<Props> = ({

@@ -4,7 +4,7 @@ import {
   RKYAlueArgisFeature,
   RKYViivaArgisFeature,
   MuseovirastoLayer,
-  Model,
+  ModelFeatureProperties,
 } from "../../../../common/types";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
@@ -15,7 +15,7 @@ interface Props {
   isOpen: boolean;
   onToggleOpen: () => void;
   feature: RKYPisteArgisFeature | RKYAlueArgisFeature | RKYViivaArgisFeature;
-  models?: Array<Model>;
+  models?: Array<ModelFeatureProperties>;
 }
 
 export const RKYPanel: React.FC<Props> = ({

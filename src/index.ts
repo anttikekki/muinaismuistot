@@ -14,6 +14,7 @@ import {
   AhvenanmaaLayer,
   LayerGroup,
   ModelLayer,
+  MaisemanMuistiLayer,
 } from "./common/types";
 
 export const initialSettings: Settings = {
@@ -61,6 +62,12 @@ export const initialSettings: Settings = {
     selectedLayers: Object.values(ModelLayer),
     url: {
       geojson: "./3d/3d.json",
+    },
+  },
+  maisemanMuisti: {
+    selectedLayers: Object.values(MaisemanMuistiLayer),
+    url: {
+      geojson: "./maisemanmuisti/maisemanmuisti.json",
     },
   },
 };

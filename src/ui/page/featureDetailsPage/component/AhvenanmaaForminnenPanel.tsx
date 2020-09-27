@@ -1,7 +1,7 @@
 import * as React from "react";
 import {
   AhvenanmaaForminnenArgisFeature,
-  Model,
+  ModelFeatureProperties,
 } from "../../../../common/types";
 import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
 import { Field } from "./Field";
@@ -12,7 +12,7 @@ interface Props {
   isOpen: boolean;
   onToggleOpen: () => void;
   feature: AhvenanmaaForminnenArgisFeature;
-  models?: Array<Model>;
+  models?: Array<ModelFeatureProperties>;
 }
 
 export const AhvenanmaaForminnenPanel: React.FC<Props> = ({

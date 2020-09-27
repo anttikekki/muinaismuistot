@@ -4,18 +4,24 @@ import { DatabaseStructure } from "./DatabaseStructure";
 import { Registers } from "./Registers";
 import { Download } from "./Download";
 import { ModelsTable } from "./ModelsTable";
-import { GeoJSONFeature, GeoJSONResponse } from "../../common/types";
+import {
+  GeoJSONFeature,
+  GeoJSONResponse,
+  ModelFeatureProperties,
+} from "../../common/types";
 import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser";
 import { DatabaseIntro } from "./DatabaseIntro";
 
 export const Content: React.FC = () => {
-  const [models, setModels] = React.useState<Array<GeoJSONFeature>>([]);
+  const [models, setModels] = React.useState<
+    Array<GeoJSONFeature<ModelFeatureProperties>>
+  >([]);
   const [latestUpdateDate, setLatestUpdateDate] = React.useState<Date>();
 
   React.useEffect(() => {
     fetch("3d.json")
       .then((response) => response.json())
-      .then((data) => data as GeoJSONResponse)
+      .then((data) => data as GeoJSONResponse<ModelFeatureProperties>)
       .then((data) => setModels(data.features));
   }, []);
 
