@@ -22,7 +22,7 @@ export default class CurrentPositionAndSelectedLocationMarkerLayer {
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn;
     this.source = new VectorSource({});
     this.layer = new VectorLayer({
-      source: this.source
+      source: this.source,
     });
     this.onLayerCreatedCallbackFn(this.layer);
   }
@@ -34,25 +34,25 @@ export default class CurrentPositionAndSelectedLocationMarkerLayer {
     }
 
     const fill = new Fill({
-      color: "rgba(0, 0, 255, 1.0)"
+      color: "rgba(0, 0, 255, 1.0)",
     });
     const stroke = new Stroke({
       color: "rgba(255, 255, 255, 1.0)",
-      width: 3
+      width: 3,
     });
 
     this.currentPositionFeature = new Feature({
-      geometry: new Point(coordinates)
+      geometry: new Point(coordinates),
     });
     this.currentPositionFeature.setStyle(
       new Style({
         image: new Circle({
           fill: fill,
           stroke: stroke,
-          radius: 7
+          radius: 7,
         }),
         fill: fill,
-        stroke: stroke
+        stroke: stroke,
       })
     );
     this.source.addFeature(this.currentPositionFeature);
@@ -65,13 +65,14 @@ export default class CurrentPositionAndSelectedLocationMarkerLayer {
     }
 
     this.selectedLocationFeature = new Feature({
-      geometry: new Point(coordinates)
+      geometry: new Point(coordinates),
     });
     this.selectedLocationFeature.setStyle(
       new Style({
         image: new Icon({
-          src: "images/map-pin.png"
-        })
+          src: "images/map-pin.png",
+          anchor: [0.5, 1.0],
+        }),
       })
     );
     this.source.addFeature(this.selectedLocationFeature);
