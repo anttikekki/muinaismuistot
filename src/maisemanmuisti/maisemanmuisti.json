@@ -2302,6 +2302,692 @@
         "municipality": "Pyhtää",
         "region": "Kymenlaakso"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [476594.7440999998, 6702931.0505]
+      },
+      "properties": {
+        "id": 624010022,
+        "number": 78,
+        "name": "Strukankallioiden rautakautinen hautaröykkiöalue",
+        "municipality": "Pyhtää",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [480391.1485000001, 6769922.472999999]
+      },
+      "properties": {
+        "id": 909010001,
+        "number": 79,
+        "name": "Verlan kalliomaalaus",
+        "municipality": "Valkeala",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [521851.55480000004, 6696648.7893]
+      },
+      "properties": {
+        "id": 917010059,
+        "number": 80,
+        "name": "Tammion Västärin rautakautiset hautaröykkiöt",
+        "municipality": "Vehkalahti",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [523390.8995000003, 6703735.945]
+      },
+      "properties": {
+        "id": 935010039,
+        "number": 81,
+        "name": "Vähä-Harvajanniemen pronssikautiset hautaröykkiöt",
+        "municipality": "Virolahti",
+        "region": "Kymenlaakso"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [562744.7801999999, 6760803.148]
+      },
+      "properties": {
+        "id": 405010012,
+        "number": 82,
+        "name": "Kauskilan Kappelinmäen rautakautinen ja keskiaikainen kalmisto",
+        "municipality": "Lappeenranta",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [542472.9177999999, 6767050.5397]
+      },
+      "properties": {
+        "id": 416010004,
+        "number": 83,
+        "name": "Ruominkapian kalliomaalaus",
+        "municipality": "Lemi",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [520202, 6765232]
+      },
+      "properties": {
+        "id": 441010003,
+        "number": 84,
+        "name": "Kalaniemi 2:n kalliomaalaus",
+        "municipality": "Luumäki",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [628193.1065999996, 6832624.501600001]
+      },
+      "properties": {
+        "id": 580010055,
+        "number": 85,
+        "name": "Romanonkankaan pyyntikuopat",
+        "municipality": "Parikkala",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [636127, 6821398]
+      },
+      "properties": {
+        "id": 580010023,
+        "number": 86,
+        "name": "Silvun kuppikivi",
+        "municipality": "Parikkala",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [617925, 6818994]
+      },
+      "properties": {
+        "id": 689010010,
+        "number": 87,
+        "name": "Haukkavuoren historiallinen rajamerkki",
+        "municipality": "Rautjärvi",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [587251.7608000003, 6794013.882100001]
+      },
+      "properties": {
+        "id": 700010016,
+        "number": 88,
+        "name": "Kolmiköytisvuoren kalliomaalaus",
+        "municipality": "Ruokolahti",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [577128.8139000004, 6800187.353700001]
+      },
+      "properties": {
+        "id": 700010013,
+        "number": 89,
+        "name": "Niemenkainalosaaren varhaismetallikautinen lapinraunio",
+        "municipality": "Ruokolahti",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [647798.1591999996, 6843179.337299999]
+      },
+      "properties": {
+        "id": 728010008,
+        "number": 90,
+        "name": "Kokkosenmäen kuppikivi",
+        "municipality": "Saari",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [530797.5268000001, 6787112.410599999]
+      },
+      "properties": {
+        "id": 739010009,
+        "number": 91,
+        "name": "Rovastinojan kivikautinen asuinpaikka ja asumuspainanteet",
+        "municipality": "Savitaipale",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [560065.7954000002, 6775537.204]
+      },
+      "properties": {
+        "id": 831010018,
+        "number": 92,
+        "name": "Kuivaketveleen linnavuori",
+        "municipality": "Taipalsaari",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [559506.0136000002, 6777936.234300001]
+      },
+      "properties": {
+        "id": 831010006,
+        "number": 93,
+        "name": "Vaaterannan kivikautinen kalmisto ja asuinpaikka",
+        "municipality": "Taipalsaari",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [656764.4945999999, 6855364.463199999]
+      },
+      "properties": {
+        "id": 891010003,
+        "number": 94,
+        "name": "Papinniemen ortodoksikylä",
+        "municipality": "Uukuniemi",
+        "region": "Etelä-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [587831, 6926457]
+      },
+      "properties": {
+        "id": 90010016,
+        "number": 95,
+        "name": "Hoikansaaren, Syrjäsaaren ja Linjasaaren varhaismetallikautiset lapinrauniot",
+        "municipality": "Heinävesi",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [588036, 6926015]
+      },
+      "properties": {
+        "id": 90010017,
+        "number": 95,
+        "name": "Hoikansaaren, Syrjäsaaren ja Linjasaaren varhaismetallikautiset lapinrauniot",
+        "municipality": "Heinävesi",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [586990.3134000003, 6926984.327399999]
+      },
+      "properties": {
+        "id": 90010018,
+        "number": 95,
+        "name": "Hoikansaaren, Syrjäsaaren ja Linjasaaren varhaismetallikautiset lapinrauniot",
+        "municipality": "Heinävesi",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [590792.8461999996, 6910802.855999999]
+      },
+      "properties": {
+        "id": 90010003,
+        "number": 96,
+        "name": "Vierunvuoren kalliomaalaus",
+        "municipality": "Heinävesi",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [471341.16110000014, 6855424.6488999985]
+      },
+      "properties": {
+        "id": 97010004,
+        "number": 97,
+        "name": "Hahlavuoren kalliomaalaus",
+        "municipality": "Hirvensalmi",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [528977.9749999996, 6852955.893599998]
+      },
+      "properties": {
+        "id": 178010004,
+        "number": 98,
+        "name": "Kappelinpellon keskiaikainen hautausmaa",
+        "municipality": "Juva",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [549124, 6829750]
+      },
+      "properties": {
+        "id": 178010003,
+        "number": 99,
+        "name": "Sarkavuoren ja Sarkaslammen kalliomaalaukset",
+        "municipality": "Juva",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [549269.9100000001, 6829355.481199998]
+      },
+      "properties": {
+        "id": 178010142,
+        "number": 99,
+        "name": "Sarkavuoren ja Sarkaslammen kalliomaalaukset",
+        "municipality": "Juva",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [607004, 6869980]
+      },
+      "properties": {
+        "id": 246010033,
+        "number": 100,
+        "name": "Hattukallion kuppikivi",
+        "municipality": "Kerimäki",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [629484.3759000003, 6881237.9263]
+      },
+      "properties": {
+        "id": 246010105,
+        "number": 101,
+        "name": "Martinniemen kivikautiset ja varhaismetallikautiset asuinpaikat sekä varhaismetallikautinen lapinraunio",
+        "municipality": "Kerimäki",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [629309.4479999999, 6881109.9778]
+      },
+      "properties": {
+        "id": 246010110,
+        "number": 101,
+        "name": "Martinniemen kivikautiset ja varhaismetallikautiset asuinpaikat sekä varhaismetallikautinen lapinraunio",
+        "municipality": "Kerimäki",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [516623.04810000025, 6829895.125999998]
+      },
+      "properties": {
+        "id": 492010008,
+        "number": 102,
+        "name": "Otralan linnavuori",
+        "municipality": "Mikkeli",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [514184.00710000005, 6834633.202500001]
+      },
+      "properties": {
+        "id": 491010007,
+        "number": 103,
+        "name": "Tuukkalan ja Latokallion myöhäisrautakautiset kalmistot ja Moisionpellon rautakautinen asuinpaikka",
+        "municipality": "Mikkeli",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [514473.8925999999, 6835382.9036]
+      },
+      "properties": {
+        "id": 491010012,
+        "number": 103,
+        "name": "Tuukkalan ja Latokallion myöhäisrautakautiset kalmistot ja Moisionpellon rautakautinen asuinpaikka",
+        "municipality": "Mikkeli",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [514493.8761, 6835311.670699999]
+      },
+      "properties": {
+        "id": 491010031,
+        "number": 103,
+        "name": "Tuukkalan ja Latokallion myöhäisrautakautiset kalmistot ja Moisionpellon rautakautinen asuinpaikka",
+        "municipality": "Mikkeli",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [502288.50179999974, 6904455.049600001]
+      },
+      "properties": {
+        "id": 594010001,
+        "number": 104,
+        "name": "Naarajärven kivi- ja varhaismetallikautinen asuinpaikka",
+        "municipality": "Pieksämäki",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [616440.7618000004, 6851209.9673999995]
+      },
+      "properties": {
+        "id": 618010050,
+        "number": 105,
+        "name": "Paaslahden kivikautinen asuinpaikka",
+        "municipality": "Punkaharju",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [557266.7366000004, 6817780.177900001]
+      },
+      "properties": {
+        "id": 623010013,
+        "number": 106,
+        "name": "Kärmelahden kivikautinen asuinpaikka",
+        "municipality": "Puumala",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [575229.2392999995, 6878835.670499999]
+      },
+      "properties": {
+        "id": 681010003,
+        "number": 107,
+        "name": "Ketveleenlahden varhaismetallikautiset lapinrauniot",
+        "municipality": "Rantasalmi",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [529018.1376999998, 6812382.2322]
+      },
+      "properties": {
+        "id": 696010003,
+        "number": 108,
+        "name": "Astuvansalmen ja Uittamonsalmen kalliomaalaukset",
+        "municipality": "Ristiina",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [519931.7856999999, 6813791.620999999]
+      },
+      "properties": {
+        "id": 696010006,
+        "number": 108,
+        "name": "Astuvansalmen ja Uittamonsalmen kalliomaalaukset",
+        "municipality": "Ristiina",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [519451.9483000003, 6819819.1884]
+      },
+      "properties": {
+        "id": 696010023,
+        "number": 109,
+        "name": "Kitulansuon varhaismetallikautinen asuinpaikka ja lspinrauniot sekä Kotilahden mahdollinen rautakautinen uhripaikka",
+        "municipality": "Ristiina",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [519531.9241000004, 6819529.309099998]
+      },
+      "properties": {
+        "id": 696010024,
+        "number": 109,
+        "name": "Kitulansuon varhaismetallikautinen asuinpaikka ja lspinrauniot sekä Kotilahden mahdollinen rautakautinen uhripaikka",
+        "municipality": "Ristiina",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [519561.9084000001, 6819479.3279]
+      },
+      "properties": {
+        "id": 696010025,
+        "number": 109,
+        "name": "Kitulansuon varhaismetallikautinen asuinpaikka ja lspinrauniot sekä Kotilahden mahdollinen rautakautinen uhripaikka",
+        "municipality": "Ristiina",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [519641.8746999996, 6819429.346900001]
+      },
+      "properties": {
+        "id": 696010026,
+        "number": 109,
+        "name": "Kitulansuon varhaismetallikautinen asuinpaikka ja lspinrauniot sekä Kotilahden mahdollinen rautakautinen uhripaikka",
+        "municipality": "Ristiina",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [519791.82189999986, 6819129.469700001]
+      },
+      "properties": {
+        "id": 696010027,
+        "number": 109,
+        "name": "Kitulansuon varhaismetallikautinen asuinpaikka ja lspinrauniot sekä Kotilahden mahdollinen rautakautinen uhripaikka",
+        "municipality": "Ristiina",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [591306.7794000003, 6875348.1435]
+      },
+      "properties": {
+        "id": 740010006,
+        "number": 110,
+        "name": "Juvolan ja Valkkilan kuppikivet",
+        "municipality": "Savonlinna",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [591355.7599999998, 6875196.200199999]
+      },
+      "properties": {
+        "id": 1000002424,
+        "number": 110,
+        "name": "Juvolan ja Valkkilan kuppikivet",
+        "municipality": "Savonlinna",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [599946.3513000002, 6864505.545200001]
+      },
+      "properties": {
+        "id": 1000002408,
+        "number": 111,
+        "name": "Tynkkylänjoen Kylmäniemen esihistorialliset asuinpaikat",
+        "municipality": "Savonlinna",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [599931.0444, 6864351.6336]
+      },
+      "properties": {
+        "id": 1000002451,
+        "number": 111,
+        "name": "Tynkkylänjoen Kylmäniemen esihistorialliset asuinpaikat",
+        "municipality": "Savonlinna",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [586412.8246999998, 6857389.3561]
+      },
+      "properties": {
+        "id": 740010140,
+        "number": 112,
+        "name": "Rapakon kalliomaalaus",
+        "municipality": "Savonlinna",
+        "region": "Etelä-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [569661.6205000002, 6847388.304200001]
+      },
+      "properties": {
+        "id": 768010009,
+        "number": 113,
+        "name": "Pisamalahden linnavuori",
+        "municipality": "Sulkava",
+        "region": "Etelä-Savo"
+      }
     }
   ]
 }
