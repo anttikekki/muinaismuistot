@@ -3730,6 +3730,510 @@
         "municipality": "Kristiinankaupunki",
         "region": "Pohjanmaa"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [244342, 6983897]
+      },
+      "properties": {
+        "id": 399010042,
+        "number": 144,
+        "name": "Alatalon/Jätinhaudanmaan pronssikautinen röykkiökalmisto",
+        "municipality": "Laihia",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [236754.90240000002, 6986091.171]
+      },
+      "properties": {
+        "id": 399010108,
+        "number": 145,
+        "name": "Viirikallion varhaismetallikautinen muinaisjäännösalue",
+        "municipality": "Laihia",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [222612.59520000033, 6983322.2228999995]
+      },
+      "properties": {
+        "id": 475010001,
+        "number": 146,
+        "name": "Storsjön rautakautiset muinaisjäännösalueet",
+        "municipality": "Maalahti",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [222500.63690000027, 6984342.816300001]
+      },
+      "properties": {
+        "id": 475010002,
+        "number": 146,
+        "name": "Storsjön rautakautiset muinaisjäännösalueet",
+        "municipality": "Maalahti",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [221663.96449999977, 6985369.3959]
+      },
+      "properties": {
+        "id": 475010004,
+        "number": 146,
+        "name": "Storsjön rautakautiset muinaisjäännösalueet",
+        "municipality": "Maalahti",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [222334.69489999954, 6985856.204500001]
+      },
+      "properties": {
+        "id": 475010005,
+        "number": 146,
+        "name": "Storsjön rautakautiset muinaisjäännösalueet",
+        "municipality": "Maalahti",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [187406.60840000026, 7013338.0386000015]
+      },
+      "properties": {
+        "id": 475010035,
+        "number": 147,
+        "name": "Storskärin jatulintarhat ja kivirakenteet",
+        "municipality": "Maalahti",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [220950.31410000008, 6970660.300700001]
+      },
+      "properties": {
+        "id": 605010006,
+        "number": 148,
+        "name": "Storstenrösbackenin pronssikautinen hautaröykkiöalue",
+        "municipality": "Maalahti",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [221037.28299999982, 6968942.9912]
+      },
+      "properties": {
+        "id": 605010005,
+        "number": 149,
+        "name": "Småstenrösbackenin pronssikautiset hautaröykkiöt",
+        "municipality": "Närpiö",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [288863.7176999999, 7055476.509100001]
+      },
+      "properties": {
+        "id": 599010016,
+        "number": 150,
+        "name": "Hundbackenin/Myllykankaan kivikautinen asuinpaikka",
+        "municipality": "Pedersöre",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [308470.87090000045, 7048309.459399998]
+      },
+      "properties": {
+        "id": 990010008,
+        "number": 151,
+        "name": "Svedjebackenin jätinkirkko",
+        "municipality": "Pedersöre",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [282195.48199999984, 7032454.730999999]
+      },
+      "properties": {
+        "id": 166010001,
+        "number": 152,
+        "name": "Asplandetin-Lövesmossenin pronssikautinen hautaröykkiöalue",
+        "municipality": "Uusikaarlepyy",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [281965.5675999997, 7033052.4868]
+      },
+      "properties": {
+        "id": 166010003,
+        "number": 152,
+        "name": "Asplandetin-Lövesmossenin pronssikautinen hautaröykkiöalue",
+        "municipality": "Uusikaarlepyy",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [281834.62990000006, 7031976.922200002]
+      },
+      "properties": {
+        "id": 166010014,
+        "number": 152,
+        "name": "Asplandetin-Lövesmossenin pronssikautinen hautaröykkiöalue",
+        "municipality": "Uusikaarlepyy",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [282152.4957999997, 7032816.588300001]
+      },
+      "properties": {
+        "id": 1000002918,
+        "number": 152,
+        "name": "Asplandetin-Lövesmossenin pronssikautinen hautaröykkiöalue",
+        "municipality": "Uusikaarlepyy",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [267035.6317999996, 7014964.694200002]
+      },
+      "properties": {
+        "id": 944010083,
+        "number": 153,
+        "name": "Vitmossenin varhaismetallikautinen asuinpaikka ja röykkiöt",
+        "municipality": "Vöyri",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [335181.1239, 7053042.659000002]
+      },
+      "properties": {
+        "id": 236010002,
+        "number": 154,
+        "name": "Kankaan kivikautinen asuinpaikka ja kalmistoalue",
+        "municipality": "Kaustinen",
+        "region": "Keski-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [324572.1749, 7112242.836800002]
+      },
+      "properties": {
+        "id": 429010002,
+        "number": 155,
+        "name": "Ohtakarin jatulintarha",
+        "municipality": "Lohtaja",
+        "region": "Keski-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [415993.38740000036, 7125366.866900001]
+      },
+      "properties": {
+        "id": 71010001,
+        "number": 156,
+        "name": "Autiokorpi ja Perttulankangas - historiallisen ajan asutus- ja viljelysjäänteitä",
+        "municipality": "Haapavesi",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [417246.55900000036, 7228485.4147000015]
+      },
+      "properties": {
+        "id": 84010005,
+        "number": 157,
+        "name": "Isoniemen jatulintarha",
+        "municipality": "Haukipudas",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [439496, 7234850]
+      },
+      "properties": {
+        "id": 84010001,
+        "number": 158,
+        "name": "Rajakankaan jätinkirkko, röykkiö ja kivikautinen asuinpaikka",
+        "municipality": "Haukipudas",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [398565, 7252587]
+      },
+      "properties": {
+        "id": 139010003,
+        "number": 159,
+        "name": "Krunnien jatulintarhat ja muita historiallisen ajan kivilatomuksia",
+        "municipality": "Ii",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [406763.6908999998, 7255726.437600002]
+      },
+      "properties": {
+        "id": 139010059,
+        "number": 159,
+        "name": "Krunnien jatulintarhat ja muita historiallisen ajan kivilatomuksia",
+        "municipality": "Ii",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [406819.6688000001, 7255443.546799999]
+      },
+      "properties": {
+        "id": 139010060,
+        "number": 159,
+        "name": "Krunnien jatulintarhat ja muita historiallisen ajan kivilatomuksia",
+        "municipality": "Ii",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [427392.43209999986, 7245285.6954]
+      },
+      "properties": {
+        "id": 139010031,
+        "number": 160,
+        "name": "Rautatiesillan kivipöytä",
+        "municipality": "Ii",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [359931.9364, 7120825.503600001]
+      },
+      "properties": {
+        "id": 208010028,
+        "number": 161,
+        "name": "Vuorenmaan pitkä kivilatomus",
+        "municipality": "Kalajoki",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [377206.9494000003, 7135224.7806]
+      },
+      "properties": {
+        "id": 483010001,
+        "number": 162,
+        "name": "Ilvessalonmäen kivikautinen röykkiö",
+        "municipality": "Merijärvi",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [430631, 7205250]
+      },
+      "properties": {
+        "id": 564010022,
+        "number": 163,
+        "name": "Kaakkurin Välikankaan rautakautinen kalmisto",
+        "municipality": "Oulu",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [447219.57689999975, 7205983.552700002]
+      },
+      "properties": {
+        "id": 567010002,
+        "number": 164,
+        "name": "Kudelmakankaan röykkiöryhmä",
+        "municipality": "Oulunsalo",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [390631.4408, 7169360.097399998]
+      },
+      "properties": {
+        "id": 582010001,
+        "number": 165,
+        "name": "Kastellinlinna - jätinkirkko",
+        "municipality": "Raahe",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [368456.3830000004, 7159353.0473]
+      },
+      "properties": {
+        "id": 1000007810,
+        "number": 166,
+        "name": "Hanhikiven historiallinen rajamerkki",
+        "municipality": "Pyhäjoki",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [366707.1486999998, 7141145.361299999]
+      },
+      "properties": {
+        "id": 625010001,
+        "number": 167,
+        "name": "Varekankaan varhaismetallikautinen röykkiöryhmä",
+        "municipality": "Pyhäjoki",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [398894.0728000002, 7185111.7973]
+      },
+      "properties": {
+        "id": 748010001,
+        "number": 168,
+        "name": "Papinkankaan pyyntikuoppakohde",
+        "municipality": "Siikajoki",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [394489.8819000004, 7171589.2139]
+      },
+      "properties": {
+        "id": 748010012,
+        "number": 169,
+        "name": "Miilukankaan kivikautinen asuinpaikka",
+        "municipality": "Siikajoki, Raahe",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [394318.9537000004, 7171357.313499998]
+      },
+      "properties": {
+        "id": 582010033,
+        "number": 169,
+        "name": "Miilukankaan kivikautinen asuinpaikka",
+        "municipality": "Siikajoki, Raahe",
+        "region": "Pohjois-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [451287.9188000001, 7212500.945900001]
+      },
+      "properties": {
+        "id": 973010051,
+        "number": 170,
+        "name": "Rekikylän kivikautinen asumuspainannealue",
+        "municipality": "Oulu",
+        "region": "Pohjois-Pohjanmaa"
+      }
     }
   ]
 }
