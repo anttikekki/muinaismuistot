@@ -2988,6 +2988,748 @@
         "municipality": "Sulkava",
         "region": "Etelä-Savo"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [701584.0389999999, 6952013.688000001]
+      },
+      "properties": {
+        "id": 146010021,
+        "number": 114,
+        "name": "Havukkakallion muinaislinna",
+        "municipality": "Ilomantsi",
+        "region": "Pohjois-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [639596.2904000003, 6885069.4208]
+      },
+      "properties": {
+        "id": 248010004,
+        "number": 115,
+        "name": "Pirunpöytä - ajoittamaton kuppikivi",
+        "municipality": "Kesälahti",
+        "region": "Pohjois-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [639909.2511, 6864382.752900001]
+      },
+      "properties": {
+        "id": 248010002,
+        "number": 116,
+        "name": "Sirnihtan kivikautinen ja varhaismetallikautinen asuinpaikka",
+        "municipality": "Kesälahti",
+        "region": "Pohjois-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [639215.4101, 6892185.550700001]
+      },
+      "properties": {
+        "id": 260010037,
+        "number": 117,
+        "name": "Kalliolahden varhaismetallikautinen lapinraunio",
+        "municipality": "Kitee",
+        "region": "Pohjois-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [624575.6207999997, 7074818.920400001]
+      },
+      "properties": {
+        "id": 541010012,
+        "number": 118,
+        "name": "Kalmoniemen ortodoksikalmisto ja kivikautinen asuinpaikka",
+        "municipality": "Nurmes",
+        "region": "Pohjois-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [606772.2471000003, 6952443.147999998]
+      },
+      "properties": {
+        "id": 309010017,
+        "number": 119,
+        "name": "Lintutornin kivikautinen asuinpaikka",
+        "municipality": "Outokumpu",
+        "region": "Pohjois-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [607046.1213999996, 6956604.475400001]
+      },
+      "properties": {
+        "id": 309010002,
+        "number": 120,
+        "name": "Sätöksen kivikautinen asuinpaikka",
+        "municipality": "Outokumpu",
+        "region": "Pohjois-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [653936.4008999998, 6912338.491700001]
+      },
+      "properties": {
+        "id": 707010045,
+        "number": 121,
+        "name": "Vihin kivikautinen asuinpaikka",
+        "municipality": "Rääkkylä",
+        "region": "Pohjois-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [657351.0438000001, 6908413.0887]
+      },
+      "properties": {
+        "id": 848010011,
+        "number": 122,
+        "name": "Piilolahden kivikautinen asuinpaikka",
+        "municipality": "Tohmajärvi",
+        "region": "Pohjois-Karjala"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [483605.46949999966, 7047947.2399]
+      },
+      "properties": {
+        "id": 263010031,
+        "number": 123,
+        "name": "Paljakan kuppikallio",
+        "municipality": "Kiuruvesi",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [541272.5138999997, 6979395.041999999]
+      },
+      "properties": {
+        "id": 297010010,
+        "number": 124,
+        "name": "Kuusikkolahdenniemen varhaismetallikautiset lapinrauniot",
+        "municipality": "Kuopio",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [544751.1692000004, 6964061.228599999]
+      },
+      "properties": {
+        "id": 297010020,
+        "number": 125,
+        "name": "Kuopion Hukkasen ja Vehmersalmen Korkea-Varpasen ja Lamminniemen varhaismetallikautiset lapinrauniot",
+        "municipality": "Kuopio ja Vehmersalmi",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [545570.8486000001, 6963081.631999999]
+      },
+      "properties": {
+        "id": 919010003,
+        "number": 125,
+        "name": "Kuopion Hukkasen ja Vehmersalmen Korkea-Varpasen ja Lamminniemen varhaismetallikautiset lapinrauniot",
+        "municipality": "Kuopio ja Vehmersalmi",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [546560.4468, 6964191.182999998]
+      },
+      "properties": {
+        "id": 919010005,
+        "number": 125,
+        "name": "Kuopion Hukkasen ja Vehmersalmen Korkea-Varpasen ja Lamminniemen varhaismetallikautiset lapinrauniot",
+        "municipality": "Kuopio ja Vehmersalmi",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [519371, 6992256]
+      },
+      "properties": {
+        "id": 476010003,
+        "number": 126,
+        "name": "Metelinkallion varhaismetallikautiset lapinrauniot",
+        "municipality": "Maaninka",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [566662.1738, 7010212.734000001]
+      },
+      "properties": {
+        "id": 534010018,
+        "number": 127,
+        "name": "Pisan historiallinen rajamerkki",
+        "municipality": "Nilsiä",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [480077.0645000003, 7000716.229200002]
+      },
+      "properties": {
+        "id": 595010037,
+        "number": 128,
+        "name": "Kemilän varhaismetallikautinen lapinraunio",
+        "municipality": "Pielavesi",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [482146.24480000045, 6996987.743700001]
+      },
+      "properties": {
+        "id": 595010006,
+        "number": 129,
+        "name": "Meijerinkankaan kivi- ja varhaismetallikautinen asuinpaikka",
+        "municipality": "Pielavesi",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [470571.02979999967, 6962201.692899998]
+      },
+      "properties": {
+        "id": 921010001,
+        "number": 130,
+        "name": "Itäsaaren, Korpisen ja Iso- ja Pieni-Runkkuu -saarten varhaismetallikautiset lapinrauniot",
+        "municipality": "Vesanto",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [469681.3810999999, 6964750.657400001]
+      },
+      "properties": {
+        "id": 921010003,
+        "number": 130,
+        "name": "Itäsaaren, Korpisen ja Iso- ja Pieni-Runkkuu -saarten varhaismetallikautiset lapinrauniot",
+        "municipality": "Vesanto",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [471160.78670000006, 6963960.98]
+      },
+      "properties": {
+        "id": 921010004,
+        "number": 130,
+        "name": "Itäsaaren, Korpisen ja Iso- ja Pieni-Runkkuu -saarten varhaismetallikautiset lapinrauniot",
+        "municipality": "Vesanto",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [470820.92569999956, 6963631.115899999]
+      },
+      "properties": {
+        "id": 921010005,
+        "number": 130,
+        "name": "Itäsaaren, Korpisen ja Iso- ja Pieni-Runkkuu -saarten varhaismetallikautiset lapinrauniot",
+        "municipality": "Vesanto",
+        "region": "Pohjois-Savo"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [445311.4241000004, 6905054.5814]
+      },
+      "properties": {
+        "id": 180010006,
+        "number": 131,
+        "name": "Pyhäsaaren ja Oksasaaren varhaismetallikautiset lapinrauniot",
+        "municipality": "Jyväskylä",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [444391.7971999999, 6903985.002999999]
+      },
+      "properties": {
+        "id": 180010003,
+        "number": 131,
+        "name": "Pyhäsaaren ja Oksasaaren varhaismetallikautiset lapinrauniot",
+        "municipality": "Jyväskylä",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [403938.2285000002, 6866017.1033000015]
+      },
+      "properties": {
+        "id": 183010001,
+        "number": 132,
+        "name": "Linnasenmäen muinaislinna",
+        "municipality": "Jämsä",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [434206.9877000004, 6880852.271000002]
+      },
+      "properties": {
+        "id": 277010036,
+        "number": 133,
+        "name": "Tarvaannenän ja Koukunkallion varhaismetallikautiset lapinrauniot",
+        "municipality": "Jyväskylä",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [434566.85030000005, 6880271.503199998]
+      },
+      "properties": {
+        "id": 277010037,
+        "number": 133,
+        "name": "Tarvaannenän ja Koukunkallion varhaismetallikautiset lapinrauniot",
+        "municipality": "Jyväskylä",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [404350.20359999966, 6834415.810699999]
+      },
+      "properties": {
+        "id": 291010007,
+        "number": 134,
+        "name": "Päijälän linnavuori",
+        "municipality": "Kuhmoinen",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [451748.78309999965, 6917729.5101]
+      },
+      "properties": {
+        "id": 410010020,
+        "number": 135,
+        "name": "Hartikan kivikautinen asuinpaikka ja kalmistoalue",
+        "municipality": "Laukaa",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [448190.1974999998, 6921098.1314]
+      },
+      "properties": {
+        "id": 410010004,
+        "number": 136,
+        "name": "Saraakallion kalliomaalaukset",
+        "municipality": "Laukaa",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [417958.90830000024, 7037349.268100001]
+      },
+      "properties": {
+        "id": 601010046,
+        "number": 137,
+        "name": "Peukaloiskankaan muinaisjäännösalue",
+        "municipality": "Pihtipudas",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [417893.9386999998, 7037252.3046]
+      },
+      "properties": {
+        "id": 601010071,
+        "number": 137,
+        "name": "Peukaloiskankaan muinaisjäännösalue",
+        "municipality": "Pihtipudas",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [417835.95749999955, 7037295.2870000005]
+      },
+      "properties": {
+        "id": 601010072,
+        "number": 137,
+        "name": "Peukaloiskankaan muinaisjäännösalue",
+        "municipality": "Pihtipudas",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [417811.96949999966, 7037032.3924]
+      },
+      "properties": {
+        "id": 601010073,
+        "number": 137,
+        "name": "Peukaloiskankaan muinaisjäännösalue",
+        "municipality": "Pihtipudas",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [417841.9522000002, 7037435.232799999]
+      },
+      "properties": {
+        "id": 601010074,
+        "number": 137,
+        "name": "Peukaloiskankaan muinaisjäännösalue",
+        "municipality": "Pihtipudas",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [417774.9779000003, 7037546.1833]
+      },
+      "properties": {
+        "id": 601010075,
+        "number": 137,
+        "name": "Peukaloiskankaan muinaisjäännösalue",
+        "municipality": "Pihtipudas",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [414273.7324999999, 6948837.847100001]
+      },
+      "properties": {
+        "id": 729010026,
+        "number": 138,
+        "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
+        "municipality": "Saarijärvi",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [414845, 6948725]
+      },
+      "properties": {
+        "id": 729010027,
+        "number": 138,
+        "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
+        "municipality": "Saarijärvi",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [415548.2159000002, 6948421.014400002]
+      },
+      "properties": {
+        "id": 729010028,
+        "number": 138,
+        "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
+        "municipality": "Saarijärvi",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [414886.47809999995, 6950150.322099999]
+      },
+      "properties": {
+        "id": 729010030,
+        "number": 138,
+        "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
+        "municipality": "Saarijärvi",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [414419.6662999997, 6949875.427900001]
+      },
+      "properties": {
+        "id": 729010032,
+        "number": 138,
+        "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
+        "municipality": "Saarijärvi",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [414216.7505999999, 6949541.554900002]
+      },
+      "properties": {
+        "id": 729010033,
+        "number": 138,
+        "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
+        "municipality": "Saarijärvi",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [414026.8267000001, 6949329.640900001]
+      },
+      "properties": {
+        "id": 729010034,
+        "number": 138,
+        "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
+        "municipality": "Saarijärvi",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [415334.3013000004, 6948608.941]
+      },
+      "properties": {
+        "id": 729010055,
+        "number": 138,
+        "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
+        "municipality": "Saarijärvi",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [414438.6623999998, 6949823.446899999]
+      },
+      "properties": {
+        "id": 729010056,
+        "number": 138,
+        "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
+        "municipality": "Saarijärvi",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [415069.3015999999, 6949325.999400001]
+      },
+      "properties": {
+        "id": 729010058,
+        "number": 138,
+        "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
+        "municipality": "Saarijärvi",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [414906.4693, 6949719.4868]
+      },
+      "properties": {
+        "id": 729010062,
+        "number": 138,
+        "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
+        "municipality": "Saarijärvi",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [451873.51099999994, 6972662.4059999995]
+      },
+      "properties": {
+        "id": 992010015,
+        "number": 139,
+        "name": "Pyhänsalon varhaismetallikautiset lapinrauniot",
+        "municipality": "Äänekoski",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [450968.87820000015, 6972087.632199999]
+      },
+      "properties": {
+        "id": 992010016,
+        "number": 139,
+        "name": "Pyhänsalon varhaismetallikautiset lapinrauniot",
+        "municipality": "Äänekoski",
+        "region": "Keski-Suomi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [333693.9621000001, 6989186.305799998]
+      },
+      "properties": {
+        "id": 5010002,
+        "number": 140,
+        "name": "Heikinkankaan ja Rasin kivikautinen asuinpaikka-alue",
+        "municipality": "Alajärvi",
+        "region": "Etelä-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [267095.8278999999, 6959792.850200001]
+      },
+      "properties": {
+        "id": 145010014,
+        "number": 141,
+        "name": "Honkalanmäen kivikautinen asuinpaikka",
+        "municipality": "Ilmajoki",
+        "region": "Etelä-Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [267547.5376000004, 6988147.467099998]
+      },
+      "properties": {
+        "id": 152010020,
+        "number": 142,
+        "name": "Leväluhdan rautakautinen suokalmisto",
+        "municipality": "Isokyrö",
+        "region": "Pohjanmaa"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [223471.50989999995, 6919337.916700002]
+      },
+      "properties": {
+        "id": 409010050,
+        "number": 143,
+        "name": "Susiluolan/Varggrottanin paleoliittinen luola-asuinpaikka",
+        "municipality": "Kristiinankaupunki",
+        "region": "Pohjanmaa"
+      }
     }
   ]
 }
