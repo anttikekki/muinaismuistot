@@ -4234,6 +4234,832 @@
         "municipality": "Oulu",
         "region": "Pohjois-Pohjanmaa"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [571139.8095000004, 7176055.978399999]
+      },
+      "properties": {
+        "id": 105010016,
+        "number": 171,
+        "name": "Koppeloniemen ja Vonkan esihistorialliset asuinpaikat",
+        "municipality": "Hyrynsalmi",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [571259.7664000001, 7174896.450300001]
+      },
+      "properties": {
+        "id": 105010018,
+        "number": 171,
+        "name": "Koppeloniemen ja Vonkan esihistorialliset asuinpaikat",
+        "municipality": "Hyrynsalmi",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [571179.7927000001, 7174636.555100001]
+      },
+      "properties": {
+        "id": 105010019,
+        "number": 171,
+        "name": "Koppeloniemen ja Vonkan esihistorialliset asuinpaikat",
+        "municipality": "Hyrynsalmi",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [574779.3318999996, 7178633.952]
+      },
+      "properties": {
+        "id": 105010013,
+        "number": 172,
+        "name": "Likosuon rautahytti",
+        "municipality": "Hyrynsalmi",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [523009.35830000043, 7120898.0298000015]
+      },
+      "properties": {
+        "id": 205010014,
+        "number": 173,
+        "name": "Myllyniemen pyyntikuoppaketju ja maakumpu",
+        "municipality": "Kajaani",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [522979.37310000043, 7121217.894200001]
+      },
+      "properties": {
+        "id": 205010006,
+        "number": 173,
+        "name": "Myllyniemen pyyntikuoppaketju ja maakumpu",
+        "municipality": "Kajaani",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [596981, 7110376]
+      },
+      "properties": {
+        "id": 290010052,
+        "number": 174,
+        "name": "Pajasaaren esihistoriallinen asuinpaikka ja historiallisen ajan raudanvalmistuspaikka",
+        "municipality": "Kuhmo",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [652230.2802999998, 7135607.5287999995]
+      },
+      "properties": {
+        "id": 290010023,
+        "number": 175,
+        "name": "Saunaniemen ja Iso-Palosen esihistorialliset asuinpaikka- ja pyyntikuoppakohteet",
+        "municipality": "Kuhmo",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [651517.5658999998, 7135652.5086]
+      },
+      "properties": {
+        "id": 290010024,
+        "number": 175,
+        "name": "Saunaniemen ja Iso-Palosen esihistorialliset asuinpaikka- ja pyyntikuoppakohteet",
+        "municipality": "Kuhmo",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [622481, 7114661]
+      },
+      "properties": {
+        "id": 290010029,
+        "number": 176,
+        "name": "Sylväjänniemen esihistoriallinen asuinpaikka",
+        "municipality": "Kuhmo",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [623093, 7114840]
+      },
+      "properties": {
+        "id": 290010030,
+        "number": 176,
+        "name": "Sylväjänniemen esihistoriallinen asuinpaikka",
+        "municipality": "Kuhmo",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [566921.7054000003, 7113731.060899999]
+      },
+      "properties": {
+        "id": 765010010,
+        "number": 177,
+        "name": "Kiikarusniemen ja Ammonsaaren esihistorialliset asuinpaikat",
+        "municipality": "Sotkamo",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [566241.9814999998, 7113601.111200001]
+      },
+      "properties": {
+        "id": 765010062,
+        "number": 177,
+        "name": "Kiikarusniemen ja Ammonsaaren esihistorialliset asuinpaikat",
+        "municipality": "Sotkamo",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [614403.2128999997, 7234017.7775]
+      },
+      "properties": {
+        "id": 777010025,
+        "number": 178,
+        "name": "Kalmosärkän esihistoriallinen asuinpaikka",
+        "municipality": "Suomussalmi",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [635804.7363999998, 7185673.307700001]
+      },
+      "properties": {
+        "id": 777010290,
+        "number": 179,
+        "name": "Keräsensalmen pyyntikuoppakohde",
+        "municipality": "Suomussalmi",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [592248.25, 7196454.829700001]
+      },
+      "properties": {
+        "id": 777010109,
+        "number": 180,
+        "name": "Vanhan Kirkkosaaren kivikautinen asuinpaikka",
+        "municipality": "Suomussalmi",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [606466, 7267726]
+      },
+      "properties": {
+        "id": 777010100,
+        "number": 181,
+        "name": "Värikallion kalliomaalaus",
+        "municipality": "Suomussalmi",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [500948.07710000034, 7170048.180100001]
+      },
+      "properties": {
+        "id": 785010050,
+        "number": 182,
+        "name": "Lapinsalmen lapinpato",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [506585.9006000003, 7141769.573899999]
+      },
+      "properties": {
+        "id": 785010051,
+        "number": 183,
+        "name": "Manamansalon Martinkannan pyyntikuoppakohde, Vanha hautausmaa ja Muinaiskirkon kivikautinen asuinpaikka",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [506662.8476999998, 7143394.8017]
+      },
+      "properties": {
+        "id": 785010052,
+        "number": 183,
+        "name": "Manamansalon Martinkannan pyyntikuoppakohde, Vanha hautausmaa ja Muinaiskirkon kivikautinen asuinpaikka",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [506795.80989999976, 7143308.9575]
+      },
+      "properties": {
+        "id": 785010041,
+        "number": 183,
+        "name": "Manamansalon Martinkannan pyyntikuoppakohde, Vanha hautausmaa ja Muinaiskirkon kivikautinen asuinpaikka",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [489002.92920000013, 7155214.104699999]
+      },
+      "properties": {
+        "id": 785010006,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [489392.7739000004, 7155064.1719]
+      },
+      "properties": {
+        "id": 785010007,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [489862.5848000003, 7154904.231199998]
+      },
+      "properties": {
+        "id": 785010008,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [489952.5454000002, 7154984.1976]
+      },
+      "properties": {
+        "id": 785010009,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [489952.54480000027, 7155164.126400001]
+      },
+      "properties": {
+        "id": 785010010,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [490042.5133999996, 7155354.053800002]
+      },
+      "properties": {
+        "id": 785010011,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [489932.5530000003, 7155903.8281]
+      },
+      "properties": {
+        "id": 785010012,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [489532.7133999998, 7156103.7522]
+      },
+      "properties": {
+        "id": 785010013,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [489070.5, 7156697.625]
+      },
+      "properties": {
+        "id": 785010014,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [488663.06230000034, 7156653.524]
+      },
+      "properties": {
+        "id": 785010015,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [489832.5937000001, 7154454.419199999]
+      },
+      "properties": {
+        "id": 785010016,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [489862.5872999998, 7154154.531199999]
+      },
+      "properties": {
+        "id": 785010017,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [490032.5147000002, 7154004.5978000015]
+      },
+      "properties": {
+        "id": 785010018,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [489992.53589999955, 7153964.614599999]
+      },
+      "properties": {
+        "id": 785010019,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [490382.38019999955, 7153954.617600001]
+      },
+      "properties": {
+        "id": 785010020,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [489872.58019999973, 7154694.317699999]
+      },
+      "properties": {
+        "id": 785010021,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [490182.4606999997, 7153954.616999999]
+      },
+      "properties": {
+        "id": 785010022,
+        "number": 184,
+        "name": "Nimisjärven esihistorialliset asuinpaikat",
+        "municipality": "Vaala",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [501235, 7127688]
+      },
+      "properties": {
+        "id": 940010011,
+        "number": 185,
+        "name": "Jataharjunnokan varhaismetallikautinen lapinraunio",
+        "municipality": "Vuolijoki",
+        "region": "Kainuu"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [362582.6783999996, 7590968.6063]
+      },
+      "properties": {
+        "id": 47010007,
+        "number": 186,
+        "name": "Jyppyrän pyyntikuopat",
+        "municipality": "Enontekiö",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [307676.7153000003, 7604613.037700001]
+      },
+      "properties": {
+        "id": 47010010,
+        "number": 187,
+        "name": "Markkinan esihistoriallisen ja historiallisen ajan muinaisjäännösalue",
+        "municipality": "Enontekiö",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [360548.4606999997, 7613011.750999998]
+      },
+      "properties": {
+        "id": 47010001,
+        "number": 188,
+        "name": "Näkkälän seitakivi",
+        "municipality": "Enontekiö",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [503585.91000000015, 7642208.227000002]
+      },
+      "properties": {
+        "id": 148010046,
+        "number": 189,
+        "name": "Nukkumajoen saamelainen talvikylä",
+        "municipality": "Inari",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [461795.7418999998, 7623571.663400002]
+      },
+      "properties": {
+        "id": 148010704,
+        "number": 190,
+        "name": "Seärihjoen-Härkäjärven pyyntikuoppaketju",
+        "municipality": "Inari",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [462702.3799999999, 7624245.397999998]
+      },
+      "properties": {
+        "id": 148010705,
+        "number": 190,
+        "name": "Seärihjoen-Härkäjärven pyyntikuoppaketju",
+        "municipality": "Inari",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [463649.99899999984, 7624920.122699998]
+      },
+      "properties": {
+        "id": 148010710,
+        "number": 190,
+        "name": "Seärihjoen-Härkäjärven pyyntikuoppaketju",
+        "municipality": "Inari",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [462572.43200000003, 7624175.420000002]
+      },
+      "properties": {
+        "id": 148010784,
+        "number": 190,
+        "name": "Seärihjoen-Härkäjärven pyyntikuoppaketju",
+        "municipality": "Inari",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [463232.1666000001, 7624615.244800001]
+      },
+      "properties": {
+        "id": 148010785,
+        "number": 190,
+        "name": "Seärihjoen-Härkäjärven pyyntikuoppaketju",
+        "municipality": "Inari",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [451146.9785000002, 7656342.468600001]
+      },
+      "properties": {
+        "id": 148010370,
+        "number": 191,
+        "name": "Siuttavaaran myöhäisrautakautiset kivilatomukset",
+        "municipality": "Inari",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [511602.67310000025, 7647526.103599999]
+      },
+      "properties": {
+        "id": 148010053,
+        "number": 192,
+        "name": "Ukonsaaren uhripaikka",
+        "municipality": "Inari",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [525967.4045000002, 7387910.594900001]
+      },
+      "properties": {
+        "id": 320010043,
+        "number": 193,
+        "name": "Ämmänvaaran palvontapaikka. kivikautinen asuinpaikka ja kvartsilouhos",
+        "municipality": "Kemijärvi",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [386271.81120000035, 7298629.135000002]
+      },
+      "properties": {
+        "id": 241010037,
+        "number": 194,
+        "name": "Valmarinniemen keskiaikaisten kirkkojen paikka ja kalmisto",
+        "municipality": "Keminmaa",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [411429, 7509006]
+      },
+      "properties": {
+        "id": 261010053,
+        "number": 195,
+        "name": "Kurjenpolven historiallisen ajan kalmisto",
+        "municipality": "Kittilä",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [440220.5131999999, 7568440.796300001]
+      },
+      "properties": {
+        "id": 261010041,
+        "number": 196,
+        "name": "Taatsin seita ja Taatsinkirkko",
+        "municipality": "Kittilä",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [363746.37689999957, 7503606.7161]
+      },
+      "properties": {
+        "id": 498010010,
+        "number": 197,
+        "name": "Pakasaivon palvontapaikka, 'Lapin helvetti' ja Kirkkopahdan seitakivi",
+        "municipality": "Muonio",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [486633.43180000037, 7306293.320500001]
+      },
+      "properties": {
+        "id": 683010108,
+        "number": 198,
+        "name": "Luiminkajärven kesähautasaaret - Palosaari ja Kalliosaari",
+        "municipality": "Ranua",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [487333.16029999964, 7304064.218899999]
+      },
+      "properties": {
+        "id": 683010083,
+        "number": 198,
+        "name": "Luiminkajärven kesähautasaaret - Palosaari ja Kalliosaari",
+        "municipality": "Ranua",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [430585.9763000002, 7304443.919300001]
+      },
+      "properties": {
+        "id": 751010040,
+        "number": 199,
+        "name": "Tainiaron kivikautinen asuinpaikka ja kalmisto",
+        "municipality": "Simo",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [527920, 7501490]
+      },
+      "properties": {
+        "id": 758010035,
+        "number": 200,
+        "name": "Kyläselän talvikylä",
+        "municipality": "Sodankylä",
+        "region": "Lappi"
+      }
     }
   ]
 }
