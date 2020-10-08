@@ -40,6 +40,7 @@
     "file-loader": "6.1.0",
     "html-webpack-plugin": "4.4.1",
     "jest": "26.4.2",
+    "node-json-minify": "1.0.0",
     "prettier": "2.1.2",
     "style-loader": "1.2.1",
     "ts-jest": "26.3.0",
