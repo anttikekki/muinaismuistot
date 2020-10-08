@@ -5060,6 +5060,174 @@
         "municipality": "Sodankylä",
         "region": "Lappi"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [396832.4621000001, 7336107.098099999]
+      },
+      "properties": {
+        "id": 845010026,
+        "number": 201,
+        "name": "Törmävaaran kivikautinen asuinpaikka-alue",
+        "municipality": "Tervola",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [396607.5513000004, 7336218.0583]
+      },
+      "properties": {
+        "id": 845010030,
+        "number": 201,
+        "name": "Törmävaaran kivikautinen asuinpaikka-alue",
+        "municipality": "Tervola",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [396503.59640000015, 7336123.0945000015]
+      },
+      "properties": {
+        "id": 845010040,
+        "number": 201,
+        "name": "Törmävaaran kivikautinen asuinpaikka-alue",
+        "municipality": "Tervola",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [396714.5126, 7336153.079799999]
+      },
+      "properties": {
+        "id": 845010041,
+        "number": 201,
+        "name": "Törmävaaran kivikautinen asuinpaikka-alue",
+        "municipality": "Tervola",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [396808.47279999964, 7336229.0469]
+      },
+      "properties": {
+        "id": 845010042,
+        "number": 201,
+        "name": "Törmävaaran kivikautinen asuinpaikka-alue",
+        "municipality": "Tervola",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [396294.6755999997, 7336153.078699999]
+      },
+      "properties": {
+        "id": 845010047,
+        "number": 201,
+        "name": "Törmävaaran kivikautinen asuinpaikka-alue",
+        "municipality": "Tervola",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [394707.3186999997, 7335829.200599998]
+      },
+      "properties": {
+        "id": 845010048,
+        "number": 201,
+        "name": "Törmävaaran kivikautinen asuinpaikka-alue",
+        "municipality": "Tervola",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [395261.0948999999, 7335882.1829]
+      },
+      "properties": {
+        "id": 845010050,
+        "number": 201,
+        "name": "Törmävaaran kivikautinen asuinpaikka-alue",
+        "municipality": "Tervola",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [375110.40299999993, 7288304.703000002]
+      },
+      "properties": {
+        "id": 851010117,
+        "number": 202,
+        "name": "Iso-Huiturin Piispankivi",
+        "municipality": "Tornio",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [378973.7270999998, 7303632.0995000005]
+      },
+      "properties": {
+        "id": 851010002,
+        "number": 203,
+        "name": "Rakanmäen rautakautinen muinaisjäännösalue",
+        "municipality": "Tornio",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [526816.3854, 7774035.2139]
+      },
+      "properties": {
+        "id": 890010001,
+        "number": 204,
+        "name": "Ala-Jalven kivi- ja vathaismetallikautinen asuinpaikka",
+        "municipality": "Utsjoki",
+        "region": "Lappi"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [518839.6026999997, 7768197.558400001]
+      },
+      "properties": {
+        "id": 890010065,
+        "number": 205,
+        "name": "Välimaan museotila",
+        "municipality": "Utsjoki",
+        "region": "Lappi"
+      }
     }
   ]
 }
