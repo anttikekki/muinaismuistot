@@ -63,6 +63,31 @@ export const Content: React.FC = () => {
           Tekijä on määritellyt Sketchfab-palvelussa mallille käyttölisenssin.
           Tämä tieto on mukana tietokannassa.
         </p>
+        <p>
+          Itse tämä 3D-mallien tietokanta on{" "}
+          <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">
+            Creative Commons CC By 4.0
+          </a>{" "}
+          -lisenssillä.
+        </p>
+        <p>
+          Kohteiden tunnus{" "}
+          <a
+            href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx"
+            target="_blank"
+          >
+            Muinaisjäännösrekisterissä
+          </a>
+          , koordinaatit ja kunta ovat Museoviraston{" "}
+          <a href="https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot">
+            avoimesta paikkatietoaineistosta
+          </a>{" "}
+          (julkaistu{" "}
+          <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">
+            Creative Commons CC By 4.0
+          </a>{" "}
+          -lisenssillä)
+        </p>
 
         <h2 id="yllapito">Ylläpito</h2>
         <p>

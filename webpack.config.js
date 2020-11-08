@@ -12,6 +12,7 @@ module.exports = {
   entry: {
     app: "./src/index.ts",
     models: "./src/3d/index.tsx",
+    maisemanmuisti: "./src/maisemanmuisti/index.tsx",
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
@@ -53,14 +54,32 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      chunks: ["app", "app~models", "vendors~app~models", "vendors~app"],
+      chunks: [
+        "app",
+        "app~maisemanmuisti~models",
+        "vendors~app~maisemanmuisti~models",
+        "vendors~app",
+      ],
       template: "src/index.ejs",
       filename: "index.html",
     }),
     new HtmlWebpackPlugin({
-      chunks: ["models", "app~models", "vendors~app~models"],
+      chunks: [
+        "models",
+        "app~maisemanmuisti~models",
+        "vendors~app~maisemanmuisti~models",
+      ],
       template: "src/3d/index.ejs",
       filename: "3d/index.html",
+    }),
+    new HtmlWebpackPlugin({
+      chunks: [
+        "maisemanmuisti",
+        "app~maisemanmuisti~models",
+        "vendors~app~maisemanmuisti~models",
+      ],
+      template: "src/maisemanmuisti/index.ejs",
+      filename: "maisemanmuisti/index.html",
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -79,6 +98,7 @@ module.exports = {
             return JSONMinifyPlugin(content.toString());
           },
         },
+        { from: "src/maisemanmuisti/images", to: "maisemanmuisti/images" },
       ],
     }),
     ...(SHOW_BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : []),
