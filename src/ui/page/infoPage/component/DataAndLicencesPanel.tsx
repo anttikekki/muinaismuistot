@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Panel } from "../../../component/Panel";
+import * as React from "react"
+import { Panel } from "../../../component/Panel"
 
 export const DataAndLicencesPanel: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ export const DataAndLicencesPanel: React.FC = () => {
         <a href="https://www.avoindata.fi/data/fi/dataset/museoviraston-kulttuuriymparistoaineistot-suojellut-kohteet-wms-palvelu">
           avoimen rajapinnan
         </a>{" "}
-        kautta (
+        kautta (paikkatietoaineisto on julkaistu{" "}
         <a href="https://creativecommons.org/licenses/by/4.0/">
           Creative Commons CC By 4.0 -lisenssillä
         </a>
@@ -21,7 +21,7 @@ export const DataAndLicencesPanel: React.FC = () => {
         <a href="https://www.kartor.ax/datasets/fornminnen">
           avoimen rajapinnan
         </a>{" "}
-        kautta (
+        kautta (paikkatietoaineisto on julkaistu{" "}
         <a href="https://creativecommons.org/licenses/by/4.0/">
           Creative Commons CC By 4.0 -lisenssillä
         </a>
@@ -33,12 +33,18 @@ export const DataAndLicencesPanel: React.FC = () => {
         <a href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17">
           Maanmittauslaitoksen
         </a>{" "}
-        tausta-, ortokuva- ja peruskartta (
+        tausta-, ortokuva- ja peruskartta (paikkatietoaineisto on julkaistu{" "}
         <a href="https://www.maanmittauslaitos.fi/avoindata-lisenssi-cc40">
-          {" "}
           Creative Commons Nimeä 4.0 Kansainvälinen -lisenssillä
         </a>
         ).
+      </p>
+
+      <p>
+        Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset
+        -kirjan paikkatieto on <a href="./maisemanmuisti/">tietokannasta</a>,
+        johon on koottu kirjan listaamat 205 kohdetta. Kirjan sisällön
+        tekijanoikeus on Museovirastolla.
       </p>
 
       <p>
@@ -60,5 +66,5 @@ export const DataAndLicencesPanel: React.FC = () => {
         .
       </p>
     </Panel>
-  );
-};
+  )
+}

@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Panel } from "../../../component/Panel";
+import * as React from "react"
+import { Panel } from "../../../component/Panel"
 
 export const VersionHistoryPanel: React.FC = () => {
   return (
@@ -12,6 +12,15 @@ export const VersionHistoryPanel: React.FC = () => {
         </a>{" "}
         -kirjan paikkatietoaineisto kartalle{" "}
         <img src="images/maiseman-muisti.png" /> korostuksella.
+      </p>
+      <p>
+        Karttatasojen näkyvyyksien asetukset päivitetään nyt selaimen
+        osoitepalkkiin jolloin sivun lataaminen uudelleen palauttaa samat
+        asetukset.
+      </p>
+      <p>
+        Hakukenttä hyväksyy nyt myös kohteen tunnuksen Museoviraston
+        rekistereissä.
       </p>
 
       <br />
@@ -109,5 +118,5 @@ export const VersionHistoryPanel: React.FC = () => {
       <h5>Lokakuu 2015</h5>
       <p>Ensimmäinen versio julkaistu.</p>
     </Panel>
-  );
-};
+  )
+}

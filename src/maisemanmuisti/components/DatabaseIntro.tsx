@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 
 export const DatabaseIntro: React.FC = () => {
   return (
@@ -18,7 +18,7 @@ export const DatabaseIntro: React.FC = () => {
       <p>
         Tämä aineisto on valtava apu harrastelijalle, jonka on vaikea löytää
         Museoviraston paikkatietoaineiston tuhansista kohteista näitä
-        alueellisesti merkittäviä ja vaikuttabia kohteita. Tämä kirka on
+        alueellisesti merkittäviä ja vaikuttavia kohteita. Tämä kirja on
         kuitenkin nykyisin jo aika vaikeasti saatavilla eikä aineistoa löydy
         digitaalisesti mistään.
       </p>
@@ -27,5 +27,5 @@ export const DatabaseIntro: React.FC = () => {
         helposti kaikkien saataville.
       </p>
     </>
-  );
-};
+  )
+}

@@ -83,9 +83,9 @@ export const Content: React.FC = () => {
 
         <h2 id="lisenssit">Lisenssit</h2>
         <p>
-          Kirjan sisältö on Museoviraston ja tekijöiden omistama. Tällä sivulla
-          lainataan kirja sisällöstä kohdeluettelo (205 kpl), kohteen maakunta
-          ja kohteiden nimet.
+          Kirjan sisältö on Museoviraston ja sen tekijöiden tekijänoikeuden
+          alaista materiaalia. Tällä sivulla lainataan kirja sisällöstä
+          kohdeluettelo (205 kpl), kohteen maakunta ja kohteiden nimet.
         </p>
         <p>
           Kohteiden tunnus{" "}

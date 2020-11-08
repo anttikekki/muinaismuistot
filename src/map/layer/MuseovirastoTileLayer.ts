@@ -161,15 +161,18 @@ export default class MuseovirastoTileLayer {
     mapSize: Size,
     mapExtent: Extent
   ): Promise<ArgisIdentifyResult> => {
+    const visibleLayerIds =
+      this.settings.museovirasto.selectedLayers.length > 0
+        ? this.toLayerIds(this.settings.museovirasto.selectedLayers)
+        : [-1]
+
     const urlParams = new URLSearchParams({
       geometry: coordinate.join(","),
       geometryType: "esriGeometryPoint",
       tolerance: "10",
       imageDisplay: mapSize.join(",") + ",96",
       mapExtent: mapExtent.join(","),
-      layers:
-        "visible:" +
-        this.toLayerIds(this.settings.museovirasto.selectedLayers).join(","),
+      layers: "visible:" + visibleLayerIds.join(","),
       f: "json",
       returnGeometry: "true"
     })
