@@ -14,7 +14,9 @@ import {
   AhvenanmaaLayer,
   LayerGroup,
   ModelLayer,
-  MaisemanMuistiLayer
+  MaisemanMuistiLayer,
+  GeoJSONFeature,
+  MaisemanMuistiFeatureProperties
 } from "../common/types"
 import { LoadingAnimation } from "./component/LoadingAnimation"
 import { ZoomInButton } from "./component/ZoomInButton"
@@ -64,6 +66,9 @@ export default class MuinaismuistotUI {
   private visiblePage?: PageId
   private selectedFeatures?: Array<ArgisFeature>
   private selectedModels?: Array<ModelFeatureProperties>
+  private selectedMaisemanMuistiFeatures?: Array<
+    GeoJSONFeature<MaisemanMuistiFeatureProperties>
+  >
   private searchResultFeatures?: Array<ArgisFeature>
   private dataLatestUpdateDates?: DataLatestUpdateDates
   private pageClosingAnimationTimeoutID: Partial<Record<PageId, number>> = {}
@@ -219,6 +224,7 @@ export default class MuinaismuistotUI {
           hidePage={this.hidePage}
           features={this.selectedFeatures}
           models={this.selectedModels}
+          maisemanMuistiFeatures={this.selectedMaisemanMuistiFeatures}
         />
         <SearchPage
           visibility={this.getPageVisibility(PageId.Search)}
@@ -320,13 +326,17 @@ export default class MuinaismuistotUI {
 
   public featuresSelected = (
     selectedFeatures: Array<ArgisFeature>,
-    models: Array<ModelFeatureProperties>
+    models: Array<ModelFeatureProperties>,
+    maisemanMuistiFeatures: Array<
+      GeoJSONFeature<MaisemanMuistiFeatureProperties>
+    >
   ) => {
-    if (selectedFeatures.length === 0) {
+    if (selectedFeatures.length === 0 && maisemanMuistiFeatures.length === 0) {
       return
     }
     this.selectedFeatures = selectedFeatures
     this.selectedModels = models
+    this.selectedMaisemanMuistiFeatures = maisemanMuistiFeatures
     this.visiblePage = PageId.Details
     this.renderUI()
   }

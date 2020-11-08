@@ -53,11 +53,16 @@ export const getFeatureName = (feature: ArgisFeature): string => {
 }
 
 export const getFeatureTypeName = (
-  feature: ArgisFeature
+  feature: ArgisFeature,
+  has3dModels: boolean = false,
+  hasMaisemanMuistiFeatures: boolean = false
 ): string | undefined => {
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
       if (isKiinteäMuinaisjäännös(feature)) {
+        if (hasMaisemanMuistiFeatures) {
+          return "Kiinteä muinaisjäännös, Valtakunnallisesti merkittävä muinaisjäännös"
+        }
         return "Kiinteä muinaisjäännös"
       } else if (isMuuKulttuuriperintökohde(feature)) {
         return "Muu kulttuuriperintökohde"
@@ -91,12 +96,16 @@ export const getFeatureTypeName = (
 
 export const getFeatureTypeIconURL = (
   feature: ArgisFeature,
-  has3dModels: boolean = false
+  has3dModels: boolean = false,
+  hasMaisemanMuistiFeatures: boolean = false
 ): string | undefined => {
   const modelSuffix = has3dModels ? "_3d" : ""
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
       if (isKiinteäMuinaisjäännös(feature)) {
+        if (hasMaisemanMuistiFeatures) {
+          return `images/maiseman-muisti${modelSuffix}.png`
+        }
         return `images/muinaisjaannos_kohde${modelSuffix}.png`
       } else if (isMuuKulttuuriperintökohde(feature)) {
         return `images/muu_kulttuuriperintokohde_kohde${modelSuffix}.png`
@@ -209,10 +218,31 @@ export const getModelsForFeature = (
       break
   }
 
-  return models
+  return models && featureId
     ? models
         .filter((model) => model.registryItem.type === feature.layerName)
         .filter((model) => model.registryItem.id.toString() === featureId)
+    : []
+}
+
+export const getMaisemanMuistiFeaturesForArgisFeature = (
+  feature: ArgisFeature,
+  maisemanMuistiFeatures?: Array<
+    GeoJSONFeature<MaisemanMuistiFeatureProperties>
+  >
+): Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>> => {
+  let featureId: string | undefined
+  switch (feature.layerName) {
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
+      featureId = feature.attributes.mjtunnus
+      break
+  }
+
+  return maisemanMuistiFeatures && featureId
+    ? maisemanMuistiFeatures.filter(
+        (maisemanMuistiFeature) =>
+          maisemanMuistiFeature.properties.id.toString() === featureId
+      )
     : []
 }
 

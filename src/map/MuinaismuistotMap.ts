@@ -15,7 +15,9 @@ import {
   Settings,
   DataLatestUpdateDates,
   ModelFeatureProperties,
-  LayerGroup
+  LayerGroup,
+  GeoJSONFeature,
+  MaisemanMuistiFeatureProperties
 } from "../common/types"
 import MapBrowserEvent from "ol/MapBrowserEvent"
 import { Coordinate } from "ol/coordinate"
@@ -28,7 +30,10 @@ import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
 export interface MapEventListener {
   featuresSelected: (
     features: Array<ArgisFeature>,
-    models: Array<ModelFeatureProperties>
+    models: Array<ModelFeatureProperties>,
+    maisemanMuistiFeatures: Array<
+      GeoJSONFeature<MaisemanMuistiFeatureProperties>
+    >
   ) => void
   showLoadingAnimation: (show: boolean) => void
   featureSearchReady: (features: Array<ArgisFeature>) => void
@@ -143,13 +148,41 @@ export default class MuinaismuistotMap {
       })
       .map((feature) => feature.getProperties() as ModelFeatureProperties)
 
+    const maisemanMuistiResult: Array<GeoJSONFeature<
+      MaisemanMuistiFeatureProperties
+    >> = this.map
+      .getFeaturesAtPixel(e.pixel, {
+        layerFilter: (layer: Layer<Source>) =>
+          layer === this.maisemanMuistiLayer.getLayer(),
+        hitTolerance: 10
+      })
+      .map((feature) => {
+        return {
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [
+              feature.getGeometry().getExtent()[0],
+              feature.getGeometry().getExtent()[1]
+            ]
+          },
+          properties: {
+            ...(feature.getProperties() as MaisemanMuistiFeatureProperties)
+          }
+        }
+      })
+
     Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
       ([ahvenanmaaResult, museovirastoResult]) => {
         this.eventListeners.showLoadingAnimation(false)
         const allFeatures = ahvenanmaaResult.results.concat(
           museovirastoResult.results
         )
-        this.eventListeners.featuresSelected(allFeatures, modelsResult)
+        this.eventListeners.featuresSelected(
+          allFeatures,
+          modelsResult,
+          maisemanMuistiResult
+        )
       }
     )
   }

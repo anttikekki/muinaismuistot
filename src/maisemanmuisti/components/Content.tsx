@@ -1,26 +1,26 @@
-import * as React from "react";
-import { TableOfContent } from "./TableOfContent";
-import { DatabaseStructure } from "./DatabaseStructure";
-import { Download } from "./Download";
-import { FeatureTable } from "./FeatureTable";
+import * as React from "react"
+import { TableOfContent } from "./TableOfContent"
+import { DatabaseStructure } from "./DatabaseStructure"
+import { Download } from "./Download"
+import { FeatureTable } from "./FeatureTable"
 import {
   GeoJSONFeature,
   GeoJSONResponse,
-  MaisemanMuistiFeatureProperties,
-} from "../../common/types";
-import { DatabaseIntro } from "./DatabaseIntro";
+  MaisemanMuistiFeatureProperties
+} from "../../common/types"
+import { DatabaseIntro } from "./DatabaseIntro"
 
 export const Content: React.FC = () => {
   const [features, setFeatures] = React.useState<
     Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
-  >([]);
+  >([])
 
   React.useEffect(() => {
     fetch("maisemanmuisti.json")
       .then((response) => response.json())
       .then((data) => data as GeoJSONResponse<MaisemanMuistiFeatureProperties>)
-      .then((data) => setFeatures(data.features));
-  }, []);
+      .then((data) => setFeatures(data.features))
+  }, [])
 
   return (
     <>
@@ -33,8 +33,8 @@ export const Content: React.FC = () => {
 
           <p>
             Tälle sivulle on koostettu Museoviraston vuonna 2001 julkaiseman
-            kirjan peruteella paikkatietoaineisto, joka mahdollistaa kohteiden
-            näyttämisen karttasovelluksessa.
+            kirjan perusteella paikkatietoaineisto, joka mahdollistaa kohteiden
+            näyttämisen karttasovelluksissa.
           </p>
         </div>
       </div>
@@ -101,5 +101,5 @@ export const Content: React.FC = () => {
         <FeatureTable features={features} />
       </div>
     </>
-  );
-};
+  )
+}
