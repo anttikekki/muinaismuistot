@@ -1,8 +1,11 @@
 import { parse, stringify, StringifiableRecord } from "query-string"
 import {
+  AhvenanmaaLayer,
   MaanmittauslaitosLayer,
   MaisemanMuistiLayer,
   ModelLayer,
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi,
   MuseovirastoLayer,
   Settings
 } from "../types"
@@ -44,6 +47,9 @@ interface URLSettings {
   zoom?: number
   mmlLayer?: string
   museovirastoLayer?: string | Array<string>
+  muinaisjaannosTypes?: string | Array<string>
+  muinaisjaannosDatings?: string | Array<string>
+  ahvenanmaaLayer?: string | Array<string>
   modelsVisible?: boolean
   maisemanMuistiLayerVisible?: boolean
 }
@@ -70,7 +76,7 @@ export const updateSettingsToURL = (
     urlSettings.mmlLayer = currentSettings.maanmittauslaitos.selectedLayer
   }
 
-  // Museovirasto layer
+  // Museovirasto layers
   if (
     initialSettings.museovirasto.selectedLayers.every((v) =>
       currentSettings.museovirasto.selectedLayers.includes(v)
@@ -84,6 +90,57 @@ export const updateSettingsToURL = (
     urlSettings.museovirastoLayer =
       currentSettings.museovirasto.selectedLayers.length > 0
         ? currentSettings.museovirasto.selectedLayers
+        : [EMPTY_SELECTION]
+  }
+
+  // Museovirasto muinaisjaannos types
+  if (
+    initialSettings.museovirasto.selectedMuinaisjaannosTypes.every((v) =>
+      currentSettings.museovirasto.selectedMuinaisjaannosTypes.includes(v)
+    )
+  ) {
+    oldUrlSettings = {
+      ...oldUrlSettings,
+      muinaisjaannosTypes: undefined
+    }
+  } else {
+    urlSettings.muinaisjaannosTypes =
+      currentSettings.museovirasto.selectedMuinaisjaannosTypes.length > 0
+        ? currentSettings.museovirasto.selectedMuinaisjaannosTypes
+        : [EMPTY_SELECTION]
+  }
+
+  // Museovirasto muinaisjaannos datings
+  if (
+    initialSettings.museovirasto.selectedMuinaisjaannosDatings.every((v) =>
+      currentSettings.museovirasto.selectedMuinaisjaannosDatings.includes(v)
+    )
+  ) {
+    oldUrlSettings = {
+      ...oldUrlSettings,
+      muinaisjaannosDatings: undefined
+    }
+  } else {
+    urlSettings.muinaisjaannosDatings =
+      currentSettings.museovirasto.selectedMuinaisjaannosDatings.length > 0
+        ? currentSettings.museovirasto.selectedMuinaisjaannosDatings
+        : [EMPTY_SELECTION]
+  }
+
+  // Ahvenanmaa layers
+  if (
+    initialSettings.ahvenanmaa.selectedLayers.every((v) =>
+      currentSettings.ahvenanmaa.selectedLayers.includes(v)
+    )
+  ) {
+    oldUrlSettings = {
+      ...oldUrlSettings,
+      ahvenanmaaLayer: undefined
+    }
+  } else {
+    urlSettings.ahvenanmaaLayer =
+      currentSettings.ahvenanmaa.selectedLayers.length > 0
+        ? currentSettings.ahvenanmaa.selectedLayers
         : [EMPTY_SELECTION]
   }
 
@@ -178,6 +235,113 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
           selectedLayers: UrlSettings.museovirastoLayer as Array<
             MuseovirastoLayer
           >
+        }
+      }
+    }
+  }
+
+  // Museovirasto muinaisjaannos types
+  if (UrlSettings.muinaisjaannosTypes) {
+    const allTypes = Object.values(MuinaisjaannosTyyppi)
+    if (
+      typeof UrlSettings.muinaisjaannosTypes === "string" &&
+      (allTypes.some((v) => v === UrlSettings.muinaisjaannosTypes) ||
+        UrlSettings.muinaisjaannosTypes === EMPTY_SELECTION)
+    ) {
+      newSettings = {
+        ...newSettings,
+        museovirasto: {
+          ...newSettings.museovirasto,
+          selectedMuinaisjaannosTypes:
+            UrlSettings.muinaisjaannosTypes === EMPTY_SELECTION
+              ? []
+              : [UrlSettings.muinaisjaannosTypes as MuinaisjaannosTyyppi]
+        }
+      }
+    }
+    if (
+      Array.isArray(UrlSettings.muinaisjaannosTypes) &&
+      UrlSettings.muinaisjaannosTypes.every((v) =>
+        allTypes.some((l) => l === v)
+      )
+    ) {
+      newSettings = {
+        ...newSettings,
+        museovirasto: {
+          ...newSettings.museovirasto,
+          selectedMuinaisjaannosTypes: UrlSettings.muinaisjaannosTypes as Array<
+            MuinaisjaannosTyyppi
+          >
+        }
+      }
+    }
+  }
+
+  // Museovirasto muinaisjaannos datings
+  if (UrlSettings.muinaisjaannosDatings) {
+    const allDatings = Object.values(MuinaisjaannosAjoitus)
+    if (
+      typeof UrlSettings.muinaisjaannosDatings === "string" &&
+      (allDatings.some((v) => v === UrlSettings.muinaisjaannosDatings) ||
+        UrlSettings.muinaisjaannosDatings === EMPTY_SELECTION)
+    ) {
+      newSettings = {
+        ...newSettings,
+        museovirasto: {
+          ...newSettings.museovirasto,
+          selectedMuinaisjaannosDatings:
+            UrlSettings.muinaisjaannosDatings === EMPTY_SELECTION
+              ? []
+              : [UrlSettings.muinaisjaannosDatings as MuinaisjaannosAjoitus]
+        }
+      }
+    }
+    if (
+      Array.isArray(UrlSettings.muinaisjaannosDatings) &&
+      UrlSettings.muinaisjaannosDatings.every((v) =>
+        allDatings.some((l) => l === v)
+      )
+    ) {
+      newSettings = {
+        ...newSettings,
+        museovirasto: {
+          ...newSettings.museovirasto,
+          selectedMuinaisjaannosDatings: UrlSettings.muinaisjaannosDatings as Array<
+            MuinaisjaannosAjoitus
+          >
+        }
+      }
+    }
+  }
+
+  // Ahvenanmaa layers
+  if (UrlSettings.ahvenanmaaLayer) {
+    const allLayers = Object.values(AhvenanmaaLayer)
+    if (
+      typeof UrlSettings.ahvenanmaaLayer === "string" &&
+      (allLayers.some((v) => v === UrlSettings.ahvenanmaaLayer) ||
+        UrlSettings.ahvenanmaaLayer === EMPTY_SELECTION)
+    ) {
+      newSettings = {
+        ...newSettings,
+        ahvenanmaa: {
+          ...newSettings.ahvenanmaa,
+          selectedLayers:
+            UrlSettings.ahvenanmaaLayer === EMPTY_SELECTION
+              ? []
+              : [UrlSettings.ahvenanmaaLayer as AhvenanmaaLayer]
+        }
+      }
+    }
+    if (
+      Array.isArray(UrlSettings.ahvenanmaaLayer) &&
+      UrlSettings.ahvenanmaaLayer.every((v) => allLayers.some((l) => l === v))
+    ) {
+      newSettings = {
+        ...newSettings,
+        ahvenanmaa: {
+          ...newSettings.ahvenanmaa,
+          selectedLayers: UrlSettings.ahvenanmaaLayer as Array<AhvenanmaaLayer>
         }
       }
     }
