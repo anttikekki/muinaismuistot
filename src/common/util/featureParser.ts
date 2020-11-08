@@ -380,7 +380,7 @@ export const getGeoJSONFeatureLocation = (
   feature: GeoJSONFeature<
     ModelFeatureProperties | MaisemanMuistiFeatureProperties
   >
-): number[] => {
+): [number, number] => {
   switch (feature.geometry.type) {
     case "Point":
       return feature.geometry.coordinates;

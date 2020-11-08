@@ -3,34 +3,128 @@ import {
   GeoJSONFeature,
   MaisemanMuistiFeatureProperties,
 } from "../../common/types";
-import {
-  getLayerRegisterName,
-  getGeoJSONFeatureLocation,
-} from "../../common/util/featureParser";
 import { createLocationHash } from "../../common/util/URLHashHelper";
+
+interface SubFeature {
+  id: number;
+  coordinates: [number, number];
+}
+
+interface GroupedFeature {
+  number: number;
+  name: string;
+  municipality: string;
+  region: string;
+  subFeatures: Array<SubFeature>;
+}
 
 interface Props {
   features: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>;
 }
 
+const groupFeatures = (
+  features: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
+): Array<GroupedFeature> => {
+  const result = new Map<number, GroupedFeature>();
+
+  features.forEach((f) => {
+    const { id, municipality, name, number, region } = f.properties;
+
+    const subFeature: SubFeature = {
+      id,
+      coordinates:
+        f.geometry.type === "Point"
+          ? f.geometry.coordinates
+          : f.geometry.coordinates[0][0],
+    };
+
+    if (result.has(number)) {
+      result.get(number)?.subFeatures.push(subFeature);
+    } else {
+      result.set(number, {
+        number,
+        name,
+        municipality,
+        region,
+        subFeatures: [subFeature],
+      });
+    }
+  });
+
+  return Array.from(result, (pair) => pair[1]);
+};
+
+const NameColumn: React.FC<{ feature: GroupedFeature }> = ({ feature }) => {
+  if (feature.subFeatures.length === 1) {
+    return (
+      <td>
+        <a
+          href={`https://www.kyppi.fi/to.aspx?id=112.${feature.subFeatures[0].id}`}
+          target="_blank"
+        >
+          {feature.name}
+        </a>
+      </td>
+    );
+  }
+  return (
+    <td>
+      <p>{feature.name}</p>
+      {feature.subFeatures.map((subFeature, index) => (
+        <p>
+          <a
+            href={`https://www.kyppi.fi/to.aspx?id=112.${subFeature.id}`}
+            target="_blank"
+          >
+            {`Kohde #${index + 1}`}
+          </a>{" "}
+          [
+          <a
+            href={`../${createLocationHash(subFeature.coordinates)}`}
+            target="_blank"
+          >
+            kartta
+          </a>
+          ]
+        </p>
+      ))}
+    </td>
+  );
+};
+
+const MapColumn: React.FC<{ feature: GroupedFeature }> = ({ feature }) => {
+  if (feature.subFeatures.length > 1) {
+    return <td></td>;
+  }
+  return (
+    <td>
+      [
+      <a
+        href={`../${createLocationHash(feature.subFeatures[0].coordinates)}`}
+        target="_blank"
+      >
+        kartta
+      </a>
+      ]
+    </td>
+  );
+};
+
 export const FeatureTable: React.FC<Props> = ({ features }) => {
   const [sortedFeatures, setSortedFeatures] = React.useState<
-    Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
+    Array<GroupedFeature>
   >([]);
   const [sortColumn, setSortColumn] = React.useState<string>("Lisätty");
   const [sortDirection, setSortDirection] = React.useState<"asc" | "desc">(
     "desc"
   );
 
-  React.useEffect(() => setSortedFeatures(features), [features]);
+  React.useEffect(() => setSortedFeatures(groupFeatures(features)), [features]);
 
   const onSortClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     newSortColumn: string,
-    compareFn: (
-      a: GeoJSONFeature<MaisemanMuistiFeatureProperties>,
-      b: GeoJSONFeature<MaisemanMuistiFeatureProperties>
-    ) => number
+    compareFn: (a: GroupedFeature, b: GroupedFeature) => number
   ) => {
     event.preventDefault();
 
@@ -51,7 +145,7 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
 
   const StringColumnHeader: React.FC<{
     name: string;
-    valueFn: (v: GeoJSONFeature<MaisemanMuistiFeatureProperties>) => string;
+    valueFn: (v: GroupedFeature) => string;
   }> = ({ name, valueFn }) => {
     return (
       <th>
@@ -73,7 +167,7 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
 
   const NumberColumnHeader: React.FC<{
     name: string;
-    valueFn: (v: GeoJSONFeature<MaisemanMuistiFeatureProperties>) => number;
+    valueFn: (v: GroupedFeature) => number;
   }> = ({ name, valueFn }) => {
     return (
       <th>
@@ -106,8 +200,15 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
       </p>
       <ul>
         <li>
-          Kohteen nimi on linkki suoraan Museoviraston tai Ahvenanmaan
-          paikallishallinnon <a href="#rekisterit">rekisteriin</a>.
+          Kohteen nimi on linkki suoraan Museoviraston{" "}
+          <a
+            href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx"
+            target="_blank"
+          >
+            Muinaisjäännösrekisteriin
+          </a>{" "}
+          paitsi kohteissa jotka koostuvat monesta muinaisjäännöksessä. Näissä
+          linkki on alakohteen numero.
         </li>
         <li>
           Kohteen nimen perässä on linkki kohteeseen{" "}
@@ -128,34 +229,23 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
       <table className="table table-striped">
         <thead>
           <tr>
-            <NumberColumnHeader
-              name="Numero"
-              valueFn={(v) => v.properties.number}
-            />
-
-            <StringColumnHeader
-              name="Nimi"
-              valueFn={(v) => v.properties.name}
-            />
-            <StringColumnHeader
-              name="Kunta"
-              valueFn={(v) => v.properties.municipality}
-            />
-            <StringColumnHeader
-              name="Maakunta"
-              valueFn={(v) => v.properties.region}
-            />
+            <NumberColumnHeader name="Numero" valueFn={(v) => v.number} />
+            <StringColumnHeader name="Nimi" valueFn={(v) => v.name} />
+            <th></th>
+            <StringColumnHeader name="Kunta" valueFn={(v) => v.municipality} />
+            <StringColumnHeader name="Maakunta" valueFn={(v) => v.region} />
           </tr>
         </thead>
         <tbody>
           {sortedFeatures.map((feature, i) => {
-            const { properties } = feature;
+            const { number, municipality, region } = feature;
             return (
-              <tr key={properties.id}>
-                <td>{properties.number}</td>
-                <td>{properties.name}</td>
-                <td>{properties.municipality}</td>
-                <td>{properties.region}</td>
+              <tr key={number}>
+                <td>{number}</td>
+                <NameColumn feature={feature} />
+                <MapColumn feature={feature} />
+                <td>{municipality}</td>
+                <td>{region}</td>
               </tr>
             );
           })}
