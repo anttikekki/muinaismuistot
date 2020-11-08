@@ -75,8 +75,10 @@ export const initialSettings: Settings = {
 export default class Muinaismuistot {
   private map: MuinaismuistotMap
   private ui: MuinaismuistotUI
+  private settings: Settings
 
   public constructor() {
+    this.settings = initialSettings
     this.map = new MuinaismuistotMap(initialSettings, {
       featuresSelected: (features, models, maisemanMuistiFeatures) => {
         this.ui.featuresSelected(features, models, maisemanMuistiFeatures)
@@ -106,18 +108,22 @@ export default class Muinaismuistot {
         this.map.centerToCurrentPositions()
       },
       selectedMaanmittauslaitosLayerChanged: (settings) => {
+        this.settings = settings
         this.map.selectedMaanmittauslaitosLayerChanged(settings)
       },
       selectedFeatureLayersChanged: (
         settings,
         changedLayerGroup: LayerGroup
       ) => {
+        this.settings = settings
         this.map.selectedFeatureLayersChanged(settings, changedLayerGroup)
       },
       selectedMuinaisjaannosTypesChanged: (settings) => {
+        this.settings = settings
         this.map.selectedMuinaisjaannosTypesChanged(settings)
       },
       selectedMuinaisjaannosDatingsChanged: (settings) => {
+        this.settings = settings
         this.map.selectedMuinaisjaannosDatingsChanged(settings)
       },
       fetchDataLatestUpdateDates: () => {
