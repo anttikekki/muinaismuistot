@@ -9,7 +9,8 @@ import {
   getFeatureTypeName,
   getFeatureLocation,
   getFeatureName,
-  getGeoJSONFeatureLocation
+  getGeoJSONFeatureLocation,
+  getTypeIconURL
 } from "../../../../common/util/featureParser"
 import { createLocationHash } from "../../../../common/util/URLHashHelper"
 
@@ -127,9 +128,7 @@ export const MaisemanMuistiFeatureCollapsePanel: React.FC<MaisemanMuistiFeatureC
   const coordinates = getGeoJSONFeatureLocation(feature)
   const permanentLink = coordinates && createLocationHash(coordinates)
   const featureName = feature.properties.name
-  const featureTypeIconURL = `images/maiseman-muisti${
-    has3dModels ? "_3d" : ""
-  }.png`
+  const featureTypeIconURL = getTypeIconURL("maiseman-muisti", has3dModels)
   const featureTypeName =
     "Kiinteä muinaisjäännös, Valtakunnallisesti merkittävä muinaisjäännös"
 

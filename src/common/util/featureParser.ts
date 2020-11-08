@@ -94,48 +94,52 @@ export const getFeatureTypeName = (
   }
 }
 
+export const getTypeIconURL = (
+  imageName: string,
+  has3dModels: boolean = false
+) => `images/${imageName}${has3dModels ? "_3d" : ""}.png`
+
 export const getFeatureTypeIconURL = (
   feature: ArgisFeature,
   has3dModels: boolean = false,
   hasMaisemanMuistiFeatures: boolean = false
 ): string | undefined => {
-  const modelSuffix = has3dModels ? "_3d" : ""
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
       if (isKiinteäMuinaisjäännös(feature)) {
         if (hasMaisemanMuistiFeatures) {
-          return `images/maiseman-muisti${modelSuffix}.png`
+          return getTypeIconURL("maiseman-muisti", has3dModels)
         }
-        return `images/muinaisjaannos_kohde${modelSuffix}.png`
+        return getTypeIconURL("muinaisjaannos_kohde", has3dModels)
       } else if (isMuuKulttuuriperintökohde(feature)) {
-        return `images/muu_kulttuuriperintokohde_kohde${modelSuffix}.png`
+        return getTypeIconURL("muu_kulttuuriperintokohde_kohde", has3dModels)
       }
       break
     case MuseovirastoLayer.Muinaisjaannokset_alue:
       if (isKiinteäMuinaisjäännös(feature)) {
-        return `images/muinaisjaannos_alue${modelSuffix}.png`
+        return getTypeIconURL("muinaisjaannos_alue", has3dModels)
       } else if (isMuuKulttuuriperintökohde(feature)) {
-        return `images/muu-kulttuuriperintokohde-alue${modelSuffix}.png`
+        return getTypeIconURL("muu-kulttuuriperintokohde-alue", has3dModels)
       }
       break
     case MuseovirastoLayer.RKY_alue:
-      return `images/rky_alue${modelSuffix}.png`
+      return getTypeIconURL("rky_alue", has3dModels)
     case MuseovirastoLayer.RKY_viiva:
-      return `images/rky_viiva${modelSuffix}.png`
+      return getTypeIconURL("rky_viiva", has3dModels)
     case MuseovirastoLayer.RKY_piste:
-      return `images/rky_piste${modelSuffix}.png`
+      return getTypeIconURL("rky_piste", has3dModels)
     case MuseovirastoLayer.Maailmanperinto_alue:
-      return `images/maailmanperinto_alue${modelSuffix}.png`
+      return getTypeIconURL("maailmanperinto_alue", has3dModels)
     case MuseovirastoLayer.Maailmanperinto_piste:
-      return `images/maailmanperinto_piste${modelSuffix}.png`
+      return getTypeIconURL("maailmanperinto_piste", has3dModels)
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
-      return `images/rakennusperintorekisteri_alue${modelSuffix}.png`
+      return getTypeIconURL("rakennusperintorekisteri_alue", has3dModels)
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
-      return `images/rakennusperintorekisteri_rakennus${modelSuffix}.png`
+      return getTypeIconURL("rakennusperintorekisteri_rakennus", has3dModels)
     case AhvenanmaaLayer.Fornminnen:
-      return `images/ahvenanmaa_muinaisjaannos${modelSuffix}.png`
+      return getTypeIconURL("ahvenanmaa_muinaisjaannos", has3dModels)
     case AhvenanmaaLayer.MaritimtKulturarv:
-      return `images/ahvenanmaa_hylky${modelSuffix}.png`
+      return getTypeIconURL("ahvenanmaa_hylky", has3dModels)
     default:
       return undefined
   }
@@ -195,7 +199,7 @@ export const getFeatureID = (feature: ArgisFeature): string => {
   }
 }
 
-export const getModelsForFeature = (
+export const getModelsForArgisFeature = (
   feature: ArgisFeature,
   models?: Array<ModelFeatureProperties>
 ): Array<ModelFeatureProperties> => {
@@ -222,6 +226,21 @@ export const getModelsForFeature = (
     ? models
         .filter((model) => model.registryItem.type === feature.layerName)
         .filter((model) => model.registryItem.id.toString() === featureId)
+    : []
+}
+
+export const getModelsForMaisemanMuistiFeature = (
+  feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>,
+  models?: Array<ModelFeatureProperties>
+): Array<ModelFeatureProperties> => {
+  return models
+    ? models
+        .filter(
+          (model) =>
+            model.registryItem.type ===
+            MuseovirastoLayer.Muinaisjaannokset_piste
+        )
+        .filter((model) => model.registryItem.id === feature.properties.id)
     : []
 }
 

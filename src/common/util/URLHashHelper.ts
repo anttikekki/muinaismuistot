@@ -141,9 +141,6 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   // Museovirasto layers
   if (UrlSettings.museovirastoLayer) {
     const allLayers = Object.values(MuseovirastoLayer)
-    console.log(UrlSettings.museovirastoLayer)
-    console.log(typeof UrlSettings.museovirastoLayer)
-    console.log(typeof UrlSettings.museovirastoLayer === "string")
     if (
       typeof UrlSettings.museovirastoLayer === "string" &&
       (allLayers.some((v) => v === UrlSettings.museovirastoLayer) ||

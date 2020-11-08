@@ -11,7 +11,8 @@ import { MuinaisjaannosPistePanel } from "./component/MuinaisjaannosPistePanel"
 import {
   getFeatureID,
   getMaisemanMuistiFeaturesForArgisFeature,
-  getModelsForFeature
+  getModelsForArgisFeature,
+  getModelsForMaisemanMuistiFeature
 } from "../../../common/util/featureParser"
 import { MuinaisjaannosAluePanel } from "./component/MuinaisjaannosAluePanel"
 import { RKYPanel } from "./component/RKYPanel"
@@ -20,7 +21,6 @@ import { SuojellutRakennuksetPanel } from "./component/SuojellutRakennuksetPanel
 import { AhvenanmaaForminnenPanel } from "./component/AhvenanmaaForminnenPanel"
 import { Page, PageVisibility } from "../Page"
 import { AhvenanmaaMaritimtKulturarvPanel } from "./component/AhvenanmaaMaritimtKulturarvPanel"
-import { MaisemanMuistiFeatureCollapsePanel } from "./component/FeatureCollapsePanel"
 import { MaisemanMuistiPanel } from "./component/MaisemanMuistiPanel"
 
 interface PanelForFeatureProps {
@@ -43,7 +43,7 @@ const PanelForArgisFeature: React.FC<PanelForFeatureProps> = ({
   const params = {
     isOpen,
     onToggleOpen,
-    models: getModelsForFeature(feature, models),
+    models: getModelsForArgisFeature(feature, models),
     maisemanMuistiFeatures: getMaisemanMuistiFeaturesForArgisFeature(
       feature,
       maisemanMuistiFeatures
@@ -73,9 +73,6 @@ const PanelForArgisFeature: React.FC<PanelForFeatureProps> = ({
   return null
 }
 
-const getPanelId = (feature: ArgisFeature): string =>
-  `${feature.layerName}-${getFeatureID(feature)}`
-
 interface FeatureDetailsPageProps {
   visibility: PageVisibility
   hidePage: () => void
@@ -100,28 +97,43 @@ export const FeatureDetailsPage: React.FC<FeatureDetailsPageProps> = ({
   return (
     <Page title="Valitut kohteet" visibility={visibility} hidePage={hidePage}>
       <div className="panel-group" role="tablist" aria-multiselectable="true" />
-      {features.map((feature) => (
-        <PanelForArgisFeature
-          key={getPanelId(feature)}
-          isOpen={openPanelId === getPanelId(feature)}
-          onToggleOpen={() => onTogglePanelOpen(getPanelId(feature))}
-          feature={feature}
-          models={models}
-          maisemanMuistiFeatures={maisemanMuistiFeatures}
-        />
-      ))}
-      {features.length === 0 &&
-        maisemanMuistiFeatures.length > 0 &&
-        maisemanMuistiFeatures.map((feature) => (
-          <MaisemanMuistiPanel
-            key={feature.properties.id}
-            isOpen={openPanelId === feature.properties.id.toString()}
-            onToggleOpen={() =>
-              onTogglePanelOpen(feature.properties.id.toString())
-            }
+      {features.map((feature) => {
+        const panelId = `${feature.layerName}-${getFeatureID(feature)}`
+        return (
+          <PanelForArgisFeature
+            key={panelId}
+            isOpen={openPanelId === panelId}
+            onToggleOpen={() => onTogglePanelOpen(panelId)}
             feature={feature}
+            models={models}
+            maisemanMuistiFeatures={maisemanMuistiFeatures}
           />
-        ))}
+        )
+      })}
+      {maisemanMuistiFeatures.map((feature) => {
+        // Do not show Maiseman uisti feature if there is feature rendered above for it
+        if (
+          features.some(
+            (argisFeature) =>
+              argisFeature.layerName ===
+                MuseovirastoLayer.Muinaisjaannokset_piste &&
+              getFeatureID(argisFeature) === feature.properties.id.toString()
+          )
+        ) {
+          return null
+        }
+
+        const panelId = `maisemanMuisti-${feature.properties.id.toString()}`
+        return (
+          <MaisemanMuistiPanel
+            key={panelId}
+            isOpen={openPanelId === panelId}
+            onToggleOpen={() => onTogglePanelOpen(panelId)}
+            feature={feature}
+            models={getModelsForMaisemanMuistiFeature(feature, models)}
+          />
+        )
+      })}
     </Page>
   )
 }
