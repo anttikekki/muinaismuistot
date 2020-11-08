@@ -1,33 +1,33 @@
-import * as React from "react";
-import { TableOfContent } from "./TableOfContent";
-import { DatabaseStructure } from "./DatabaseStructure";
-import { Registers } from "./Registers";
-import { Download } from "./Download";
-import { ModelsTable } from "./ModelsTable";
+import * as React from "react"
+import { TableOfContent } from "./TableOfContent"
+import { DatabaseStructure } from "./DatabaseStructure"
+import { Registers } from "./Registers"
+import { Download } from "./Download"
+import { ModelsTable } from "./ModelsTable"
 import {
   GeoJSONFeature,
   GeoJSONResponse,
-  ModelFeatureProperties,
-} from "../../common/types";
-import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser";
-import { DatabaseIntro } from "./DatabaseIntro";
+  ModelFeatureProperties
+} from "../../common/types"
+import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser"
+import { DatabaseIntro } from "./DatabaseIntro"
 
 export const Content: React.FC = () => {
   const [models, setModels] = React.useState<
     Array<GeoJSONFeature<ModelFeatureProperties>>
-  >([]);
-  const [latestUpdateDate, setLatestUpdateDate] = React.useState<Date>();
+  >([])
+  const [latestUpdateDate, setLatestUpdateDate] = React.useState<Date>()
 
   React.useEffect(() => {
     fetch("3d.json")
       .then((response) => response.json())
       .then((data) => data as GeoJSONResponse<ModelFeatureProperties>)
-      .then((data) => setModels(data.features));
-  }, []);
+      .then((data) => setModels(data.features))
+  }, [])
 
   React.useEffect(() => {
-    setLatestUpdateDate(getGeoJSONDataLatestUpdateDate(models));
-  }, [models]);
+    setLatestUpdateDate(getGeoJSONDataLatestUpdateDate(models))
+  }, [models])
 
   return (
     <>
@@ -48,6 +48,17 @@ export const Content: React.FC = () => {
             <br />
             <b>3D-malleja tietokannassa:</b> <span>{models.length} kpl</span>
             <br />
+          </p>
+
+          <p>
+            <a
+              href="/#zoom=5"
+              target="_blank"
+              className="btn btn-primary btn-lg active"
+              role="button"
+            >
+              Näytä kartalla
+            </a>
           </p>
         </div>
       </div>
@@ -100,5 +111,5 @@ export const Content: React.FC = () => {
         <ModelsTable models={models} />
       </div>
     </>
-  );
-};
+  )
+}

@@ -22,6 +22,7 @@ import {
 } from "./common/types"
 
 export const initialSettings: Settings = {
+  initialMapZoom: 8,
   maanmittauslaitos: {
     selectedLayer: MaanmittauslaitosLayer.Taustakartta,
     url: {

@@ -36,6 +36,17 @@ export const Content: React.FC = () => {
             kirjan perusteella paikkatietoaineisto, joka mahdollistaa kohteiden
             näyttämisen karttasovelluksissa.
           </p>
+
+          <p>
+            <a
+              href="/#museovirastoLayer=none&zoom=3"
+              target="_blank"
+              className="btn btn-primary btn-lg active"
+              role="button"
+            >
+              Näytä kartalla
+            </a>
+          </p>
         </div>
       </div>
       <div className="container">

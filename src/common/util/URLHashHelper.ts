@@ -10,6 +10,7 @@ import {
 const parseURLParams = () => {
   const hash = window.location.hash.replace(";", "&") // Old format used ";" as separator
   return parse(hash, {
+    parseNumbers: true,
     parseBooleans: true,
     arrayFormat: "comma"
   })
@@ -40,6 +41,7 @@ export const parseCoordinatesFromURL = (): [number, number] | null => {
 }
 
 interface URLSettings {
+  zoom?: number
   mmlLayer?: string
   museovirastoLayer?: string | Array<string>
   modelsVisible?: boolean
@@ -121,6 +123,14 @@ export const updateSettingsToURL = (
 export const getSettingsFromURL = (settings: Settings): Settings => {
   let newSettings = settings
   const UrlSettings = parseURLParams() as URLSettings
+
+  // Map initial zoom
+  if (UrlSettings.zoom !== undefined) {
+    newSettings = {
+      ...newSettings,
+      initialMapZoom: UrlSettings.zoom
+    }
+  }
 
   // MML
   if (

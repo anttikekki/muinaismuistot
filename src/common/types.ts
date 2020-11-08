@@ -1,4 +1,5 @@
 export interface Settings {
+  initialMapZoom: number
   maanmittauslaitos: {
     selectedLayer: MaanmittauslaitosLayer
     url: {

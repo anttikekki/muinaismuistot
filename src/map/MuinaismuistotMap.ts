@@ -70,7 +70,7 @@ export default class MuinaismuistotMap {
     this.view = new View({
       center: [385249.63630000036, 6672695.7579],
       projection: "EPSG:3067",
-      zoom: 8,
+      zoom: initialSettings.initialMapZoom,
       enableRotation: false
     })
 
