@@ -395,7 +395,7 @@ export const getFeatureMunicipality = (
 
 export const getFeatureLocation = (
   feature: ArgisFeature
-): number[] | undefined => {
+): [number, number] | undefined => {
   switch (feature.geometryType) {
     case "esriGeometryPolygon":
       return feature.geometry.rings[0][0]

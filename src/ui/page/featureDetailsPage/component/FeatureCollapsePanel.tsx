@@ -1,31 +1,36 @@
 import * as React from "react"
-import { ArgisFeature } from "../../../../common/types"
+import {
+  ArgisFeature,
+  GeoJSONFeature,
+  MaisemanMuistiFeatureProperties
+} from "../../../../common/types"
 import {
   getFeatureTypeIconURL,
   getFeatureTypeName,
   getFeatureLocation,
-  getFeatureName
+  getFeatureName,
+  getGeoJSONFeatureLocation
 } from "../../../../common/util/featureParser"
 import { createLocationHash } from "../../../../common/util/URLHashHelper"
 
-interface Props {
+interface FeatureCollapsePanelProps {
   isOpen: boolean
   onToggleOpen: () => void
-  feature: ArgisFeature
-  has3dModels?: boolean
-  hasMaisemanMuistiFeatures?: boolean
+  permanentLink: string | undefined
+  featureName: string
+  featureTypeIconURL: string | undefined
+  featureTypeName: string | undefined
 }
 
-export const FeatureCollapsePanel: React.FC<Props> = ({
+const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
   isOpen,
   onToggleOpen,
-  feature,
-  has3dModels,
-  hasMaisemanMuistiFeatures,
+  permanentLink,
+  featureName,
+  featureTypeIconURL,
+  featureTypeName,
   children
 }) => {
-  const coordinates = getFeatureLocation(feature)
-  const permanentLink = coordinates && createLocationHash(coordinates)
   const onTitleClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
@@ -38,7 +43,7 @@ export const FeatureCollapsePanel: React.FC<Props> = ({
       <div className="panel-heading feature-collapse-panel-heading" role="tab">
         <h4 className="panel-title">
           <a role="button" href="" onClick={onTitleClick}>
-            {getFeatureName(feature)}
+            {featureName}
           </a>
           <a className="pull-right" href={permanentLink}>
             <span className="glyphicon glyphicon-link" aria-hidden="true" />
@@ -46,21 +51,8 @@ export const FeatureCollapsePanel: React.FC<Props> = ({
         </h4>
         <h6 className="panel-title">
           <a role="button" href="" onClick={onTitleClick}>
-            <img
-              className="feature-icon"
-              src={getFeatureTypeIconURL(
-                feature,
-                has3dModels,
-                hasMaisemanMuistiFeatures
-              )}
-            />
-            <span>
-              {getFeatureTypeName(
-                feature,
-                has3dModels,
-                hasMaisemanMuistiFeatures
-              )}
-            </span>
+            <img className="feature-icon" src={featureTypeIconURL} />
+            <span>{featureTypeName}</span>
           </a>
         </h6>
       </div>
@@ -71,5 +63,86 @@ export const FeatureCollapsePanel: React.FC<Props> = ({
         <div className="panel-body">{children}</div>
       </div>
     </div>
+  )
+}
+
+interface ArgisFeatureCollapsePanelProps {
+  isOpen: boolean
+  onToggleOpen: () => void
+  feature: ArgisFeature
+  has3dModels?: boolean
+  hasMaisemanMuistiFeatures?: boolean
+}
+
+export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps> = ({
+  isOpen,
+  onToggleOpen,
+  feature,
+  has3dModels,
+  hasMaisemanMuistiFeatures,
+  children
+}) => {
+  const coordinates = getFeatureLocation(feature)
+  const permanentLink = coordinates && createLocationHash(coordinates)
+  const featureName = getFeatureName(feature)
+  const featureTypeIconURL = getFeatureTypeIconURL(
+    feature,
+    has3dModels,
+    hasMaisemanMuistiFeatures
+  )
+  const featureTypeName = getFeatureTypeName(
+    feature,
+    has3dModels,
+    hasMaisemanMuistiFeatures
+  )
+
+  return (
+    <FeatureCollapsePanel
+      isOpen={isOpen}
+      onToggleOpen={onToggleOpen}
+      permanentLink={permanentLink}
+      featureName={featureName}
+      featureTypeIconURL={featureTypeIconURL}
+      featureTypeName={featureTypeName}
+    >
+      {children}
+    </FeatureCollapsePanel>
+  )
+}
+
+interface MaisemanMuistiFeatureCollapsePanelProps {
+  isOpen: boolean
+  onToggleOpen: () => void
+  feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>
+  has3dModels?: boolean
+}
+
+export const MaisemanMuistiFeatureCollapsePanel: React.FC<MaisemanMuistiFeatureCollapsePanelProps> = ({
+  isOpen,
+  onToggleOpen,
+  feature,
+  has3dModels,
+  children
+}) => {
+  const coordinates = getGeoJSONFeatureLocation(feature)
+  const permanentLink = coordinates && createLocationHash(coordinates)
+  const featureName = feature.properties.name
+  const featureTypeIconURL = `images/maiseman-muisti${
+    has3dModels ? "_3d" : ""
+  }.png`
+  const featureTypeName =
+    "Kiinteä muinaisjäännös, Valtakunnallisesti merkittävä muinaisjäännös"
+
+  return (
+    <FeatureCollapsePanel
+      isOpen={isOpen}
+      onToggleOpen={onToggleOpen}
+      permanentLink={permanentLink}
+      featureName={featureName}
+      featureTypeIconURL={featureTypeIconURL}
+      featureTypeName={featureTypeName}
+    >
+      {children}
+    </FeatureCollapsePanel>
   )
 }

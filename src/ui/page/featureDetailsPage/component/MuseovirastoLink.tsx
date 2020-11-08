@@ -5,17 +5,15 @@ import {
   getFeatureRegisterName
 } from "../../../../common/util/featureParser"
 
-interface Props {
-  feature: ArgisFeature
+interface MuseovirastoLinkDirectProps {
+  url: string
+  registerName: string
 }
 
-export const MuseovirastoLink: React.FC<Props> = ({ feature }) => {
-  let url = getFeatureRegisterURL(feature)
-  let registerName = getFeatureRegisterName(feature)
-  if (!url) {
-    return null
-  }
-
+export const MuseovirastoLinkDirect: React.FC<MuseovirastoLinkDirectProps> = ({
+  url,
+  registerName
+}) => {
   return (
     <p className="well">
       Lisää tietoa kohteesta Museoviraston{" "}
@@ -25,4 +23,20 @@ export const MuseovirastoLink: React.FC<Props> = ({ feature }) => {
       .
     </p>
   )
+}
+
+interface MuseovirastoLinkProps {
+  feature: ArgisFeature
+}
+
+export const MuseovirastoLink: React.FC<MuseovirastoLinkProps> = ({
+  feature
+}) => {
+  const url = getFeatureRegisterURL(feature)
+  const registerName = getFeatureRegisterName(feature)
+  if (!url) {
+    return null
+  }
+
+  return <MuseovirastoLinkDirect url={url} registerName={registerName} />
 }

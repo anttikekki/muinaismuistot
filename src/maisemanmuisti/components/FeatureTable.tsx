@@ -1,58 +1,58 @@
-import * as React from "react";
+import * as React from "react"
 import {
   GeoJSONFeature,
-  MaisemanMuistiFeatureProperties,
-} from "../../common/types";
-import { createLocationHash } from "../../common/util/URLHashHelper";
+  MaisemanMuistiFeatureProperties
+} from "../../common/types"
+import { createLocationHash } from "../../common/util/URLHashHelper"
 
 interface SubFeature {
-  id: number;
-  coordinates: [number, number];
+  id: number
+  coordinates: [number, number]
 }
 
 interface GroupedFeature {
-  number: number;
-  name: string;
-  municipality: string;
-  region: string;
-  subFeatures: Array<SubFeature>;
+  number: number
+  name: string
+  municipality: string
+  region: string
+  subFeatures: Array<SubFeature>
 }
 
 interface Props {
-  features: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>;
+  features: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
 }
 
 const groupFeatures = (
   features: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
 ): Array<GroupedFeature> => {
-  const result = new Map<number, GroupedFeature>();
+  const result = new Map<number, GroupedFeature>()
 
   features.forEach((f) => {
-    const { id, municipality, name, number, region } = f.properties;
+    const { id, municipality, name, number, region } = f.properties
 
     const subFeature: SubFeature = {
       id,
       coordinates:
         f.geometry.type === "Point"
           ? f.geometry.coordinates
-          : f.geometry.coordinates[0][0],
-    };
+          : f.geometry.coordinates[0][0]
+    }
 
     if (result.has(number)) {
-      result.get(number)?.subFeatures.push(subFeature);
+      result.get(number)?.subFeatures.push(subFeature)
     } else {
       result.set(number, {
         number,
         name,
         municipality,
         region,
-        subFeatures: [subFeature],
-      });
+        subFeatures: [subFeature]
+      })
     }
-  });
+  })
 
-  return Array.from(result, (pair) => pair[1]);
-};
+  return Array.from(result, (pair) => pair[1])
+}
 
 const NameColumn: React.FC<{ feature: GroupedFeature }> = ({ feature }) => {
   if (feature.subFeatures.length === 1) {
@@ -65,7 +65,7 @@ const NameColumn: React.FC<{ feature: GroupedFeature }> = ({ feature }) => {
           {feature.name}
         </a>
       </td>
-    );
+    )
   }
   return (
     <td>
@@ -89,12 +89,12 @@ const NameColumn: React.FC<{ feature: GroupedFeature }> = ({ feature }) => {
         </p>
       ))}
     </td>
-  );
-};
+  )
+}
 
 const MapColumn: React.FC<{ feature: GroupedFeature }> = ({ feature }) => {
   if (feature.subFeatures.length > 1) {
-    return <td></td>;
+    return <td></td>
   }
   return (
     <td>
@@ -107,45 +107,44 @@ const MapColumn: React.FC<{ feature: GroupedFeature }> = ({ feature }) => {
       </a>
       ]
     </td>
-  );
-};
+  )
+}
 
 export const FeatureTable: React.FC<Props> = ({ features }) => {
   const [sortedFeatures, setSortedFeatures] = React.useState<
     Array<GroupedFeature>
-  >([]);
-  const [sortColumn, setSortColumn] = React.useState<string>("Lisätty");
+  >([])
+  const [sortColumn, setSortColumn] = React.useState<string>("Lisätty")
   const [sortDirection, setSortDirection] = React.useState<"asc" | "desc">(
     "desc"
-  );
+  )
 
-  React.useEffect(() => setSortedFeatures(groupFeatures(features)), [features]);
+  React.useEffect(() => setSortedFeatures(groupFeatures(features)), [features])
 
   const onSortClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     newSortColumn: string,
     compareFn: (a: GroupedFeature, b: GroupedFeature) => number
   ) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    let newSortDirection = sortDirection;
+    let newSortDirection = sortDirection
     if (newSortColumn === sortColumn) {
-      newSortDirection = sortDirection === "asc" ? "desc" : "asc";
+      newSortDirection = sortDirection === "asc" ? "desc" : "asc"
     } else {
-      setSortColumn(newSortColumn);
-      newSortDirection = "asc";
+      setSortColumn(newSortColumn)
+      newSortDirection = "asc"
     }
-    setSortDirection(newSortDirection);
+    setSortDirection(newSortDirection)
 
-    let sortResult = [...sortedFeatures].sort(compareFn);
-    sortResult =
-      newSortDirection === "desc" ? sortResult.reverse() : sortResult;
-    setSortedFeatures(sortResult);
-  };
+    let sortResult = [...sortedFeatures].sort(compareFn)
+    sortResult = newSortDirection === "desc" ? sortResult.reverse() : sortResult
+    setSortedFeatures(sortResult)
+  }
 
   const StringColumnHeader: React.FC<{
-    name: string;
-    valueFn: (v: GroupedFeature) => string;
+    name: string
+    valueFn: (v: GroupedFeature) => string
   }> = ({ name, valueFn }) => {
     return (
       <th>
@@ -162,12 +161,12 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
           )}
         </a>
       </th>
-    );
-  };
+    )
+  }
 
   const NumberColumnHeader: React.FC<{
-    name: string;
-    valueFn: (v: GroupedFeature) => number;
+    name: string
+    valueFn: (v: GroupedFeature) => number
   }> = ({ name, valueFn }) => {
     return (
       <th>
@@ -184,8 +183,8 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
           )}
         </a>
       </th>
-    );
-  };
+    )
+  }
 
   return (
     <>
@@ -223,7 +222,7 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
         <a href="https://muinaismuistot.info" target="_blank">
           muinaismuistot.info
         </a>{" "}
-        -sivustolta.
+        -sivustolta. Kohteet on merkitty punaisella tähdellä.
       </p>
 
       <table className="table table-striped">
@@ -238,7 +237,7 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
         </thead>
         <tbody>
           {sortedFeatures.map((feature, i) => {
-            const { number, municipality, region } = feature;
+            const { number, municipality, region } = feature
             return (
               <tr key={number}>
                 <td>{number}</td>
@@ -247,10 +246,10 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
                 <td>{municipality}</td>
                 <td>{region}</td>
               </tr>
-            );
+            )
           })}
         </tbody>
       </table>
     </>
-  );
-};
+  )
+}

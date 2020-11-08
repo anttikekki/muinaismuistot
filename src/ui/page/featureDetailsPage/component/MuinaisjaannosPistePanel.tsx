@@ -5,12 +5,13 @@ import {
   GeoJSONFeature,
   MaisemanMuistiFeatureProperties
 } from "../../../../common/types"
-import { FeatureCollapsePanel } from "./FeatureCollapsePanel"
+import { ArgisFeatureCollapsePanel } from "./FeatureCollapsePanel"
 import { Field } from "./Field"
 import { TimespanLabel } from "./TimespanLabel"
 import { MuseovirastoLink } from "./MuseovirastoLink"
 import { trim } from "../../../../common/util/featureParser"
 import { EmbeddedModels } from "./EmbeddedModels"
+import { MaisemanMuistiField } from "./MaisemanMuistiField"
 
 interface Props {
   isOpen: boolean
@@ -30,7 +31,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
   maisemanMuistiFeatures = []
 }) => {
   return (
-    <FeatureCollapsePanel
+    <ArgisFeatureCollapsePanel
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
       feature={feature}
@@ -50,27 +51,12 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         <Field label="Alatyyppi" value={feature.attributes.alatyyppi} />
         <Field label="Laji" value={feature.attributes.laji} />
 
-        {maisemanMuistiFeatures.length > 0 && (
-          <div className="form-group">
-            <label>
-              Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset
-              (
-              <a href="./maisemanmuisti/" target="_blank">
-                lisätietoa
-              </a>
-              )
-            </label>
-            <p>
-              <img className="feature-icon" src="images/maiseman-muisti.png" />
-              <span>Kohde on valtakunnallisesti merkittävä muinaisjäännös</span>
-            </p>
-          </div>
-        )}
+        {maisemanMuistiFeatures.length > 0 && <MaisemanMuistiField />}
 
         <MuseovirastoLink feature={feature} />
 
         {isOpen && <EmbeddedModels models={models} />}
       </form>
-    </FeatureCollapsePanel>
+    </ArgisFeatureCollapsePanel>
   )
 }

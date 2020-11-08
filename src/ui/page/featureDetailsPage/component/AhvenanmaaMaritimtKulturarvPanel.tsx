@@ -1,27 +1,27 @@
-import * as React from "react";
+import * as React from "react"
 import {
   ModelFeatureProperties,
-  AhvenanmaaMaritimtKulturarvArgisFeature,
-} from "../../../../common/types";
-import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
-import { Field } from "./Field";
-import { EmbeddedModels } from "./EmbeddedModels";
+  AhvenanmaaMaritimtKulturarvArgisFeature
+} from "../../../../common/types"
+import { ArgisFeatureCollapsePanel } from "./FeatureCollapsePanel"
+import { Field } from "./Field"
+import { EmbeddedModels } from "./EmbeddedModels"
 
 interface Props {
-  isOpen: boolean;
-  onToggleOpen: () => void;
-  feature: AhvenanmaaMaritimtKulturarvArgisFeature;
-  models?: Array<ModelFeatureProperties>;
+  isOpen: boolean
+  onToggleOpen: () => void
+  feature: AhvenanmaaMaritimtKulturarvArgisFeature
+  models?: Array<ModelFeatureProperties>
 }
 
 export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
   isOpen,
   onToggleOpen,
   feature,
-  models = [],
+  models = []
 }) => {
   return (
-    <FeatureCollapsePanel
+    <ArgisFeatureCollapsePanel
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
       feature={feature}
@@ -38,6 +38,6 @@ export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
 
         {isOpen && <EmbeddedModels models={models} />}
       </form>
-    </FeatureCollapsePanel>
-  );
-};
+    </ArgisFeatureCollapsePanel>
+  )
+}

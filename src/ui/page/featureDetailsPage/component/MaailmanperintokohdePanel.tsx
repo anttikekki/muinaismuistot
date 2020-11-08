@@ -1,20 +1,16 @@
-import * as React from "react";
+import * as React from "react"
 import {
-  RKYPisteArgisFeature,
-  RKYAlueArgisFeature,
-  RKYViivaArgisFeature,
-  MuseovirastoLayer,
   MaailmanperintoPisteArgisFeature,
   MaailmanperintoAlueArgisFeature
-} from "../../../../common/types";
-import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
-import { Field } from "./Field";
-import { MuseovirastoLink } from "./MuseovirastoLink";
+} from "../../../../common/types"
+import { ArgisFeatureCollapsePanel } from "./FeatureCollapsePanel"
+import { Field } from "./Field"
+import { MuseovirastoLink } from "./MuseovirastoLink"
 
 interface Props {
-  isOpen: boolean;
-  onToggleOpen: () => void;
-  feature: MaailmanperintoPisteArgisFeature | MaailmanperintoAlueArgisFeature;
+  isOpen: boolean
+  onToggleOpen: () => void
+  feature: MaailmanperintoPisteArgisFeature | MaailmanperintoAlueArgisFeature
 }
 
 export const MaailmanperintokohdePanel: React.FC<Props> = ({
@@ -23,7 +19,7 @@ export const MaailmanperintokohdePanel: React.FC<Props> = ({
   feature
 }) => {
   return (
-    <FeatureCollapsePanel
+    <ArgisFeatureCollapsePanel
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
       feature={feature}
@@ -32,6 +28,6 @@ export const MaailmanperintokohdePanel: React.FC<Props> = ({
         <Field label="Kohdenimi" value={feature.attributes.Nimi} />
         <MuseovirastoLink feature={feature} />
       </form>
-    </FeatureCollapsePanel>
-  );
-};
+    </ArgisFeatureCollapsePanel>
+  )
+}

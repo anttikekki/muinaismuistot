@@ -1,13 +1,13 @@
-import * as React from "react";
-import { MuinaisjaannosAlueArgisFeature } from "../../../../common/types";
-import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
-import { Field } from "./Field";
-import { MuseovirastoLink } from "./MuseovirastoLink";
+import * as React from "react"
+import { MuinaisjaannosAlueArgisFeature } from "../../../../common/types"
+import { ArgisFeatureCollapsePanel } from "./FeatureCollapsePanel"
+import { Field } from "./Field"
+import { MuseovirastoLink } from "./MuseovirastoLink"
 
 interface Props {
-  isOpen: boolean;
-  onToggleOpen: () => void;
-  feature: MuinaisjaannosAlueArgisFeature;
+  isOpen: boolean
+  onToggleOpen: () => void
+  feature: MuinaisjaannosAlueArgisFeature
 }
 
 export const MuinaisjaannosAluePanel: React.FC<Props> = ({
@@ -16,7 +16,7 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
   feature
 }) => {
   return (
-    <FeatureCollapsePanel
+    <ArgisFeatureCollapsePanel
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
       feature={feature}
@@ -27,6 +27,6 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
         <Field label="Laji" value={feature.attributes.laji} />
         <MuseovirastoLink feature={feature} />
       </form>
-    </FeatureCollapsePanel>
-  );
-};
+    </ArgisFeatureCollapsePanel>
+  )
+}

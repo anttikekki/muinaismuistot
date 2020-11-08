@@ -20,41 +20,29 @@ import { SuojellutRakennuksetPanel } from "./component/SuojellutRakennuksetPanel
 import { AhvenanmaaForminnenPanel } from "./component/AhvenanmaaForminnenPanel"
 import { Page, PageVisibility } from "../Page"
 import { AhvenanmaaMaritimtKulturarvPanel } from "./component/AhvenanmaaMaritimtKulturarvPanel"
-
-interface Props {
-  visibility: PageVisibility
-  hidePage: () => void
-  features?: Array<ArgisFeature>
-  models?: Array<ModelFeatureProperties>
-  maisemanMuistiFeatures?: Array<
-    GeoJSONFeature<MaisemanMuistiFeatureProperties>
-  >
-}
+import { MaisemanMuistiFeatureCollapsePanel } from "./component/FeatureCollapsePanel"
+import { MaisemanMuistiPanel } from "./component/MaisemanMuistiPanel"
 
 interface PanelForFeatureProps {
   feature: ArgisFeature
-  id: string
-  onTogglePanelOpen: (id: string) => void
-  openPanelId: string
+  isOpen: boolean
+  onToggleOpen: () => void
   models?: Array<ModelFeatureProperties>
   maisemanMuistiFeatures?: Array<
     GeoJSONFeature<MaisemanMuistiFeatureProperties>
   >
 }
 
-const PanelForFeature: React.FC<PanelForFeatureProps> = ({
+const PanelForArgisFeature: React.FC<PanelForFeatureProps> = ({
   feature,
-  id,
-  onTogglePanelOpen,
-  openPanelId,
+  isOpen,
+  onToggleOpen,
   models,
   maisemanMuistiFeatures
 }) => {
-  const isOpen = openPanelId === id
-  const onToggleOpen = () => onTogglePanelOpen(id)
   const params = {
-    isOpen: isOpen,
-    onToggleOpen: onToggleOpen,
+    isOpen,
+    onToggleOpen,
     models: getModelsForFeature(feature, models),
     maisemanMuistiFeatures: getMaisemanMuistiFeaturesForArgisFeature(
       feature,
@@ -88,12 +76,22 @@ const PanelForFeature: React.FC<PanelForFeatureProps> = ({
 const getPanelId = (feature: ArgisFeature): string =>
   `${feature.layerName}-${getFeatureID(feature)}`
 
-export const FeatureDetailsPage: React.FC<Props> = ({
+interface FeatureDetailsPageProps {
+  visibility: PageVisibility
+  hidePage: () => void
+  features?: Array<ArgisFeature>
+  models?: Array<ModelFeatureProperties>
+  maisemanMuistiFeatures?: Array<
+    GeoJSONFeature<MaisemanMuistiFeatureProperties>
+  >
+}
+
+export const FeatureDetailsPage: React.FC<FeatureDetailsPageProps> = ({
   visibility,
   hidePage,
-  features,
-  models,
-  maisemanMuistiFeatures
+  features = [],
+  models = [],
+  maisemanMuistiFeatures = []
 }) => {
   const [openPanelId, setOpenPanelId] = React.useState("")
   const onTogglePanelOpen = (id: string) =>
@@ -102,16 +100,26 @@ export const FeatureDetailsPage: React.FC<Props> = ({
   return (
     <Page title="Valitut kohteet" visibility={visibility} hidePage={hidePage}>
       <div className="panel-group" role="tablist" aria-multiselectable="true" />
-      {features &&
-        features.map((feature) => (
-          <PanelForFeature
-            key={getPanelId(feature)}
-            id={getPanelId(feature)}
+      {features.map((feature) => (
+        <PanelForArgisFeature
+          key={getPanelId(feature)}
+          isOpen={openPanelId === getPanelId(feature)}
+          onToggleOpen={() => onTogglePanelOpen(getPanelId(feature))}
+          feature={feature}
+          models={models}
+          maisemanMuistiFeatures={maisemanMuistiFeatures}
+        />
+      ))}
+      {features.length === 0 &&
+        maisemanMuistiFeatures.length > 0 &&
+        maisemanMuistiFeatures.map((feature) => (
+          <MaisemanMuistiPanel
+            key={feature.properties.id}
+            isOpen={openPanelId === feature.properties.id.toString()}
+            onToggleOpen={() =>
+              onTogglePanelOpen(feature.properties.id.toString())
+            }
             feature={feature}
-            onTogglePanelOpen={onTogglePanelOpen}
-            openPanelId={openPanelId}
-            models={models}
-            maisemanMuistiFeatures={maisemanMuistiFeatures}
           />
         ))}
     </Page>

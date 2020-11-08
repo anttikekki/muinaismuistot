@@ -1,32 +1,32 @@
-import * as React from "react";
+import * as React from "react"
 import {
   SuojellutRakennuksetPisteArgisFeature,
   SuojellutRakennuksetAlueArgisFeature,
   MuseovirastoLayer,
-  ModelFeatureProperties,
-} from "../../../../common/types";
-import { FeatureCollapsePanel } from "./FeatureCollapsePanel";
-import { Field } from "./Field";
-import { MuseovirastoLink } from "./MuseovirastoLink";
-import { EmbeddedModels } from "./EmbeddedModels";
+  ModelFeatureProperties
+} from "../../../../common/types"
+import { ArgisFeatureCollapsePanel } from "./FeatureCollapsePanel"
+import { Field } from "./Field"
+import { MuseovirastoLink } from "./MuseovirastoLink"
+import { EmbeddedModels } from "./EmbeddedModels"
 
 interface Props {
-  isOpen: boolean;
-  onToggleOpen: () => void;
+  isOpen: boolean
+  onToggleOpen: () => void
   feature:
     | SuojellutRakennuksetPisteArgisFeature
-    | SuojellutRakennuksetAlueArgisFeature;
-  models?: Array<ModelFeatureProperties>;
+    | SuojellutRakennuksetAlueArgisFeature
+  models?: Array<ModelFeatureProperties>
 }
 
 export const SuojellutRakennuksetPanel: React.FC<Props> = ({
   isOpen,
   onToggleOpen,
   feature,
-  models = [],
+  models = []
 }) => {
   return (
-    <FeatureCollapsePanel
+    <ArgisFeatureCollapsePanel
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
       feature={feature}
@@ -42,6 +42,6 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
         <MuseovirastoLink feature={feature} />
         {isOpen && <EmbeddedModels models={models} />}
       </form>
-    </FeatureCollapsePanel>
-  );
-};
+    </ArgisFeatureCollapsePanel>
+  )
+}
