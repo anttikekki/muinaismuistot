@@ -350,4 +350,9 @@ export default class MuinaismuistotUI {
     this.dataLatestUpdateDates = dates
     this.renderUI()
   }
+
+  public updateSettings = (settings: Settings) => {
+    this.settings = settings
+    this.renderUI()
+  }
 }

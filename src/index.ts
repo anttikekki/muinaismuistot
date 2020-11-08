@@ -3,7 +3,11 @@ import "cross-fetch/polyfill"
 
 import MuinaismuistotMap from "./map/MuinaismuistotMap"
 import MuinaismuistotUI from "./ui/MuinaismuistotUI"
-import { parseCoordinatesFromURL } from "./common/util/URLHashHelper"
+import {
+  getSettingsFromURL,
+  parseCoordinatesFromURL,
+  updateSettingsToURL
+} from "./common/util/URLHashHelper"
 import {
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
@@ -78,8 +82,8 @@ export default class Muinaismuistot {
   private settings: Settings
 
   public constructor() {
-    this.settings = initialSettings
-    this.map = new MuinaismuistotMap(initialSettings, {
+    this.settings = getSettingsFromURL(initialSettings)
+    this.map = new MuinaismuistotMap(this.settings, {
       featuresSelected: (features, models, maisemanMuistiFeatures) => {
         this.ui.featuresSelected(features, models, maisemanMuistiFeatures)
       },
@@ -94,7 +98,7 @@ export default class Muinaismuistot {
       }
     })
 
-    this.ui = new MuinaismuistotUI(initialSettings, {
+    this.ui = new MuinaismuistotUI(this.settings, {
       searchFeatures: (searchText) => {
         this.map.searchFeatures(searchText)
       },
@@ -108,22 +112,22 @@ export default class Muinaismuistot {
         this.map.centerToCurrentPositions()
       },
       selectedMaanmittauslaitosLayerChanged: (settings) => {
-        this.settings = settings
+        this.updateSettings(settings)
         this.map.selectedMaanmittauslaitosLayerChanged(settings)
       },
       selectedFeatureLayersChanged: (
         settings,
         changedLayerGroup: LayerGroup
       ) => {
-        this.settings = settings
+        this.updateSettings(settings)
         this.map.selectedFeatureLayersChanged(settings, changedLayerGroup)
       },
       selectedMuinaisjaannosTypesChanged: (settings) => {
-        this.settings = settings
+        this.updateSettings(settings)
         this.map.selectedMuinaisjaannosTypesChanged(settings)
       },
       selectedMuinaisjaannosDatingsChanged: (settings) => {
-        this.settings = settings
+        this.updateSettings(settings)
         this.map.selectedMuinaisjaannosDatingsChanged(settings)
       },
       fetchDataLatestUpdateDates: () => {
@@ -152,6 +156,11 @@ export default class Muinaismuistot {
       this.map.setMapLocation(coordinates)
       this.map.showSelectedLocationMarker(coordinates)
     }
+  }
+
+  private updateSettings = (settings: Settings) => {
+    this.settings = settings
+    updateSettingsToURL(initialSettings, this.settings)
   }
 }
 
