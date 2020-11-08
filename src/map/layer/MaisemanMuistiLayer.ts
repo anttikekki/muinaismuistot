@@ -1,7 +1,6 @@
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import Stroke from "ol/style/Stroke";
-import Circle from "ol/style/Circle";
 import Style from "ol/style/Style";
 import GeoJSON from "ol/format/GeoJSON";
 import {
@@ -9,8 +8,8 @@ import {
   MaisemanMuistiFeatureProperties,
   Settings,
 } from "../../common/types";
-import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser";
 import Fill from "ol/style/Fill";
+import RegularShape from "ol/style/RegularShape";
 
 export type OnLayersCreatedCallbackFn = (layer: VectorLayer) => void;
 
@@ -18,9 +17,8 @@ export default class MaisemanMuistiLayer {
   private settings: Settings;
   private layer?: VectorLayer;
   private source?: VectorSource;
-  private stylePointCircle: Style;
+  private style: Style;
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn;
-  private dataLatestUpdateDate?: Date;
 
   public constructor(
     settings: Settings,
@@ -29,15 +27,19 @@ export default class MaisemanMuistiLayer {
     this.settings = settings;
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn;
 
-    this.stylePointCircle = new Style({
-      image: new Circle({
-        fill: new Fill({
-          color: "yellow",
+    this.style = new Style({
+      image: new RegularShape({
+        fill: new Fill({ color: "#f1615b" }),
+        stroke: new Stroke({
+          color: "black",
+          width: 1,
         }),
-        radius: 7,
+        points: 5,
+        radius: 15,
+        radius2: 8,
+        angle: 0,
       }),
     });
-
     this.fetchGeoJson().then(this.addFeaturesToLayer);
   }
 
@@ -58,7 +60,7 @@ export default class MaisemanMuistiLayer {
     });
     this.layer = new VectorLayer({
       source: this.source,
-      style: this.stylePointCircle,
+      style: this.style,
     });
     this.onLayerCreatedCallbackFn(this.layer);
   };

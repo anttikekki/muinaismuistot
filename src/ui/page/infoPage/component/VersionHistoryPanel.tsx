@@ -4,6 +4,17 @@ import { Panel } from "../../../component/Panel";
 export const VersionHistoryPanel: React.FC = () => {
   return (
     <Panel title="Versiohistoria">
+      <h5>Marraskuu 2020</h5>
+      <p>
+        Lisätty{" "}
+        <a href="./maisemanmuisti/" target="_blank">
+          Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset
+        </a>{" "}
+        -kirjan paikkatietoaineisto kartalle{" "}
+        <img src="images/maiseman-muisti.png" /> korostuksella.
+      </p>
+
+      <br />
       <h5>Toukokuu 2020</h5>
       <p>
         Päivitetty Museoviraston{" "}

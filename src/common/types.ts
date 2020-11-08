@@ -45,6 +45,7 @@ export enum LayerGroup {
   Museovirasto = "Museovirasto",
   Ahvenanmaa = "Ahvenanmaa",
   Models = "Models",
+  MaisemanMuisti = "MaisemanMuisti",
 }
 
 export enum MaanmittauslaitosLayer {

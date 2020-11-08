@@ -4,6 +4,7 @@ import {
   FeatureLayer,
   AhvenanmaaLayer,
   ModelLayer,
+  MaisemanMuistiLayer,
 } from "../../../../common/types";
 import { Panel } from "../../../component/Panel";
 import { getLayerIconURLs } from "../../../../common/util/featureParser";
@@ -43,18 +44,22 @@ interface Props {
   selectedMuseovirastoLayers: Array<MuseovirastoLayer>;
   selectedAhvenanmaaLayers: Array<AhvenanmaaLayer>;
   selectedModelLayers: Array<ModelLayer>;
+  selectedMaisemanMuistiLayers: Array<MaisemanMuistiLayer>;
   onSelectMuseovirastoLayer: (layer: MuseovirastoLayer) => void;
   onSelectAhvenanmaaLayer: (layer: AhvenanmaaLayer) => void;
   onSelectModelLayer: (layer: ModelLayer) => void;
+  onSelectMaisemanMuistiLayer: (layer: MaisemanMuistiLayer) => void;
 }
 
 export const FeatureLayerSelectionPanel: React.FC<Props> = ({
   selectedMuseovirastoLayers,
   selectedAhvenanmaaLayers,
   selectedModelLayers,
+  selectedMaisemanMuistiLayers,
   onSelectMuseovirastoLayer,
   onSelectAhvenanmaaLayer,
   onSelectModelLayer,
+  onSelectMaisemanMuistiLayer,
 }) => {
   return (
     <Panel title={"Kartalla näkyvät kohteet"}>
@@ -149,6 +154,20 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
           layer={ModelLayer.ModelLayer}
           selectedLayers={selectedModelLayers}
           onSelectLayer={onSelectModelLayer}
+        />
+
+        <h5>
+          Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (
+          <a href="./maisemanmuisti/" target="_blank">
+            lisätietoa
+          </a>
+          )
+        </h5>
+        <LayerCheckbox
+          label="Valtakunnallisesti merkittävät muinaisjäännökset"
+          layer={MaisemanMuistiLayer.MaisemanMuisti}
+          selectedLayers={selectedMaisemanMuistiLayers}
+          onSelectLayer={onSelectMaisemanMuistiLayer}
         />
       </form>
     </Panel>

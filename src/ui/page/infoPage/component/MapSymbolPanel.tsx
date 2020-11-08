@@ -137,6 +137,23 @@ export const MapSymbolPanel: React.FC = () => {
           <span>Kohde sisältää 3D-malleja</span>
         </p>
       </div>
+
+      <br />
+
+      <div>
+        <h5>
+          Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (
+          <a href="./maisemanmuisti/" target="_blank">
+            lisätietoa
+          </a>
+          )
+        </h5>
+
+        <p>
+          <img className="feature-icon" src="images/maiseman-muisti.png" />
+          <span>Valtakunnallisesti merkittävä muinaisjäännös</span>
+        </p>
+      </div>
     </Panel>
   );
 };
