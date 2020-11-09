@@ -1,6 +1,14 @@
 import * as React from "react"
+import {
+  GeoJSONFeature,
+  MaisemanMuistiFeatureProperties
+} from "../../../../common/types"
 
-export const MaisemanMuistiField: React.FC = () => (
+interface Props {
+  feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>
+}
+
+export const MaisemanMuistiField: React.FC<Props> = ({ feature }) => (
   <div className="form-group">
     <label>
       Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (
@@ -11,7 +19,7 @@ export const MaisemanMuistiField: React.FC = () => (
     </label>
     <p>
       <img className="feature-icon" src="images/maiseman-muisti.png" />
-      <span>Kohde on valtakunnallisesti merkittävä muinaisjäännös</span>
+      <span>{feature.properties.name}</span>
     </p>
   </div>
 )

@@ -111,13 +111,14 @@ export const FeatureDetailsPage: React.FC<FeatureDetailsPageProps> = ({
         )
       })}
       {maisemanMuistiFeatures.map((feature) => {
-        // Do not show Maiseman uisti feature if there is feature rendered above for it
+        // Do not show Maiseman muisti feature if there is feature rendered above for it
         if (
           features.some(
             (argisFeature) =>
               argisFeature.layerName ===
                 MuseovirastoLayer.Muinaisjaannokset_piste &&
-              getFeatureID(argisFeature) === feature.properties.id.toString()
+              argisFeature.attributes.mjtunnus ===
+                feature.properties.id.toString()
           )
         ) {
           return null

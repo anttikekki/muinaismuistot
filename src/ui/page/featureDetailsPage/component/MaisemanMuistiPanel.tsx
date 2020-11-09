@@ -34,7 +34,7 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
         <Field label="Kohdenimi" value={feature.properties.name} />
         <Field label="Kunta" value={feature.properties.municipality} />
         <Field label="Maakunta" value={feature.properties.region} />
-        <MaisemanMuistiField />
+        <MaisemanMuistiField feature={feature} />
         <MuseovirastoLinkDirect
           url={`https://www.kyppi.fi/to.aspx?id=112.${feature.properties.id}`}
           registerName="Muinaisjäännösrekisteristä"

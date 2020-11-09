@@ -51,7 +51,9 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         <Field label="Alatyyppi" value={feature.attributes.alatyyppi} />
         <Field label="Laji" value={feature.attributes.laji} />
 
-        {maisemanMuistiFeatures.length > 0 && <MaisemanMuistiField />}
+        {maisemanMuistiFeatures.length > 0 && (
+          <MaisemanMuistiField feature={maisemanMuistiFeatures[0]} />
+        )}
 
         <MuseovirastoLink feature={feature} />
 
