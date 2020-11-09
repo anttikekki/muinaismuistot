@@ -14,7 +14,6 @@ const parseURLParams = () => {
   const hash = window.location.hash.replace(";", "&") // Old format used ";" as separator
   return parse(hash, {
     parseNumbers: true,
-    parseBooleans: true,
     arrayFormat: "comma"
   })
 }
@@ -50,8 +49,8 @@ interface URLSettings {
   muinaisjaannosTypes?: string | Array<string>
   muinaisjaannosDatings?: string | Array<string>
   ahvenanmaaLayer?: string | Array<string>
-  modelsVisible?: boolean
-  maisemanMuistiLayerVisible?: boolean
+  modelsLayer?: string | Array<string>
+  maisemanMuistiLayer?: string | Array<string>
 }
 
 const EMPTY_SELECTION = "none"
@@ -146,29 +145,36 @@ export const updateSettingsToURL = (
 
   // 3D models
   if (
-    currentSettings.models.selectedLayers.length ===
-    initialSettings.models.selectedLayers.length
+    initialSettings.models.selectedLayers.every((v) =>
+      currentSettings.models.selectedLayers.includes(v)
+    )
   ) {
     oldUrlSettings = {
       ...oldUrlSettings,
-      modelsVisible: undefined
+      modelsLayer: undefined
     }
   } else {
-    urlSettings.modelsVisible = currentSettings.models.selectedLayers.length > 0
+    urlSettings.modelsLayer =
+      currentSettings.models.selectedLayers.length > 0
+        ? currentSettings.models.selectedLayers
+        : [EMPTY_SELECTION]
   }
 
   // Maiseman muisti
   if (
-    currentSettings.maisemanMuisti.selectedLayers.length ===
-    initialSettings.maisemanMuisti.selectedLayers.length
+    initialSettings.maisemanMuisti.selectedLayers.every((v) =>
+      currentSettings.maisemanMuisti.selectedLayers.includes(v)
+    )
   ) {
     oldUrlSettings = {
       ...oldUrlSettings,
-      maisemanMuistiLayerVisible: undefined
+      maisemanMuistiLayer: undefined
     }
   } else {
-    urlSettings.maisemanMuistiLayerVisible =
+    urlSettings.maisemanMuistiLayer =
       currentSettings.maisemanMuisti.selectedLayers.length > 0
+        ? currentSettings.maisemanMuisti.selectedLayers
+        : [EMPTY_SELECTION]
   }
 
   window.location.hash = stringifyURLParamsToHash({
@@ -348,25 +354,43 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   }
 
   // 3D models
-  if (UrlSettings.modelsVisible !== undefined) {
-    newSettings = {
-      ...newSettings,
-      models: {
-        ...newSettings.models,
-        selectedLayers: UrlSettings.modelsVisible ? [ModelLayer.ModelLayer] : []
+  if (UrlSettings.modelsLayer) {
+    const allLayers = Object.values(ModelLayer)
+    if (
+      typeof UrlSettings.modelsLayer === "string" &&
+      (allLayers.some((v) => v === UrlSettings.modelsLayer) ||
+        UrlSettings.modelsLayer === EMPTY_SELECTION)
+    ) {
+      newSettings = {
+        ...newSettings,
+        models: {
+          ...newSettings.models,
+          selectedLayers:
+            UrlSettings.modelsLayer === EMPTY_SELECTION
+              ? []
+              : [UrlSettings.modelsLayer as ModelLayer]
+        }
       }
     }
   }
 
   // Maiseman muisti
-  if (UrlSettings.maisemanMuistiLayerVisible !== undefined) {
-    newSettings = {
-      ...newSettings,
-      maisemanMuisti: {
-        ...newSettings.maisemanMuisti,
-        selectedLayers: UrlSettings.maisemanMuistiLayerVisible
-          ? [MaisemanMuistiLayer.MaisemanMuisti]
-          : []
+  if (UrlSettings.maisemanMuistiLayer) {
+    const allLayers = Object.values(MaisemanMuistiLayer)
+    if (
+      typeof UrlSettings.maisemanMuistiLayer === "string" &&
+      (allLayers.some((v) => v === UrlSettings.maisemanMuistiLayer) ||
+        UrlSettings.maisemanMuistiLayer === EMPTY_SELECTION)
+    ) {
+      newSettings = {
+        ...newSettings,
+        maisemanMuisti: {
+          ...newSettings.maisemanMuisti,
+          selectedLayers:
+            UrlSettings.maisemanMuistiLayer === EMPTY_SELECTION
+              ? []
+              : [UrlSettings.maisemanMuistiLayer as MaisemanMuistiLayer]
+        }
       }
     }
   }
