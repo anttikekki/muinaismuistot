@@ -11,6 +11,131 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [233507.55790000036, 6729905.392000001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Nousiaisten kirkko",
+          "id": 200494,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200494",
+          "municipality": "Nousiainen"
+        },
+        "model": {
+          "name": "Nousiaisten kirkko",
+          "url": "https://sketchfab.com/models/5954ec23471f4f588c9ba51df5d99e2a"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-11-09"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [241504.78199999966, 6804084.2634]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Matinharju",
+          "id": 79010016,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.79010016",
+          "municipality": "Harjavalta"
+        },
+        "model": {
+          "name": "Matinharju 1",
+          "url": "https://sketchfab.com/models/73eeaba3999746fdb598812fd42c4226"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-11-09"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [241504.78199999966, 6804084.2634]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Matinharju",
+          "id": 79010016,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.79010016",
+          "municipality": "Harjavalta"
+        },
+        "model": {
+          "name": "Matinharju 2",
+          "url": "https://sketchfab.com/models/4c0f6a8b8ea240fbbd5c4db019ca0391"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-11-09"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [241504.78199999966, 6804084.2634]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Matinharju",
+          "id": 79010016,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.79010016",
+          "municipality": "Harjavalta"
+        },
+        "model": {
+          "name": "Matinharju 3",
+          "url": "https://sketchfab.com/models/168e398c34a24711ae0cbf599b4baf8d"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-11-09"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [233148.12420000043, 6806723.169100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kaunismäki A ja B",
+          "id": 79010001,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.79010001",
+          "municipality": "Harjavalta"
+        },
+        "model": {
+          "name": "Kaunismäki",
+          "url": "https://sketchfab.com/models/6a91e9cedc5040ab8fb94ece2b3d02a8"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2020-11-09"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [231440.6331000002, 6724301.5458]
       },
       "properties": {
