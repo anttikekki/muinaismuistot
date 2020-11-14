@@ -1,5 +1,4 @@
 import "core-js/stable"
-import "cross-fetch/polyfill"
 
 import MuinaismuistotMap from "./map/MuinaismuistotMap"
 import MuinaismuistotUI from "./ui/MuinaismuistotUI"
