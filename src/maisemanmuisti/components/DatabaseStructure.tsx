@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 
 export const DatabaseStructure: React.FC = () => {
   return (
@@ -81,7 +81,7 @@ export const DatabaseStructure: React.FC = () => {
               <code>properties.id</code>
             </td>
             <td>
-              Kohteen id Museoviraston{" "}
+              Kohteen rekisteritunnus Museoviraston{" "}
               <a
                 href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx"
                 target="_blank"
@@ -100,7 +100,7 @@ export const DatabaseStructure: React.FC = () => {
             </td>
             <td>
               Kohteen järjestysnumero kirjassa. Sama numero voi olla monella eri
-              kohteella jos kirjan kohde koostuu monesta eri
+              kohteella jos kirjan kohde koostuu monesta eri kiinteästä
               muinaisjäännöksestä.
             </td>
             <td>
@@ -112,7 +112,11 @@ export const DatabaseStructure: React.FC = () => {
             <td>
               <code>properties.name</code>
             </td>
-            <td>Kohteen nimi kirjassa</td>
+            <td>
+              Kohteen nimi kirjassa. Sama nimi voi olla monella eri kohteella
+              jos kirjan kohde koostuu monesta eri kiinteästä
+              muinaisjäännöksestä.
+            </td>
             <td>
               esim.{" "}
               <code>
@@ -123,9 +127,92 @@ export const DatabaseStructure: React.FC = () => {
           </tr>
           <tr>
             <td>
+              <code>properties.registerName</code>
+            </td>
+            <td>
+              Kiinteän muinaisjäännöksen nimi Museoviraston{" "}
+              <a
+                href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx"
+                target="_blank"
+              >
+                Muinaisjäännösrekisterissä
+              </a>
+            </td>
+            <td>
+              esim. <code>Rikala Linnamäki</code>
+            </td>
+            <td>Merkkijono</td>
+          </tr>
+          <tr>
+            <td>
+              <code>properties.type</code>
+            </td>
+            <td>
+              Kiinteän muinaisjäännöksen tyyppi Museoviraston{" "}
+              <a
+                href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx"
+                target="_blank"
+              >
+                Muinaisjäännösrekisterissä
+              </a>
+            </td>
+            <td>
+              esim. <code>puolustusvarustukset</code> tai{" "}
+              <code>asuinpaikat, hautapaikat, kirkkorakenteet</code>
+            </td>
+            <td>Merkkijono</td>
+          </tr>
+          <tr>
+            <td>
+              <code>properties.subtype</code>
+            </td>
+            <td>
+              Kiinteän muinaisjäännöksen alatyyppi Museoviraston{" "}
+              <a
+                href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx"
+                target="_blank"
+              >
+                Muinaisjäännösrekisterissä
+              </a>
+            </td>
+            <td>
+              esim. <code>muinaislinnat</code> tai{" "}
+              <code>ei määritelty, kirkonpaikat</code>
+            </td>
+            <td>Merkkijono</td>
+          </tr>
+          <tr>
+            <td>
+              <code>properties.dating</code>
+            </td>
+            <td>
+              Kiinteän muinaisjäännöksen ajoitus Museoviraston{" "}
+              <a
+                href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx"
+                target="_blank"
+              >
+                Muinaisjäännösrekisterissä
+              </a>
+            </td>
+            <td>
+              esim. <code>rautakautinen</code> tai{" "}
+              <code>keskiaikainen, rautakautinen</code>
+            </td>
+            <td>Merkkijono</td>
+          </tr>
+          <tr>
+            <td>
               <code>properties.municipality</code>
             </td>
-            <td>Kohteen kunta Museoviraston rekisterissä</td>
+            <td>
+              Kohteen kunta Museoviraston{" "}
+              <a
+                href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx"
+                target="_blank"
+              >
+                Muinaisjäännösrekisterissä
+              </a>
+            </td>
             <td>
               esim. <code>Helsinki</code>
             </td>
@@ -158,11 +245,15 @@ export const DatabaseStructure: React.FC = () => {
         "number": 18,
         "name": "Rikalan muinaislinna sekä rautakautiset asuinpaikat ja kalmistot",
         "municipality": "Halikko",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Rikala Linnamäki",
+        "type": "puolustusvarustukset",
+        "subtype": "muinaislinnat",
+        "dating": "rautakautinen"
       }
     }`}
         </code>
       </pre>
     </>
-  );
-};
+  )
+}

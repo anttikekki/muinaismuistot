@@ -127,7 +127,7 @@ export const MaisemanMuistiFeatureCollapsePanel: React.FC<MaisemanMuistiFeatureC
 }) => {
   const coordinates = getGeoJSONFeatureLocation(feature)
   const permanentLink = coordinates && createLocationHash(coordinates)
-  const featureName = feature.properties.name
+  const featureName = `${feature.properties.name}, ${feature.properties.registerName}`
   const featureTypeIconURL = getTypeIconURL("maiseman-muisti", has3dModels)
   const featureTypeName =
     "Kiinteä muinaisjäännös, Valtakunnallisesti merkittävä muinaisjäännös"

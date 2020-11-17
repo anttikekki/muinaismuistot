@@ -88,14 +88,15 @@ export const Content: React.FC = () => {
           kohdeluettelo (205 kpl), kohteen maakunta ja kohteiden nimet.
         </p>
         <p>
-          Kohteiden tunnus{" "}
+          Kohteiden rekisteritunnus{" "}
           <a
             href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx"
             target="_blank"
           >
             Muinaisjäännösrekisterissä
           </a>
-          , koordinaatit ja kunta ovat Museoviraston{" "}
+          , rekisterinimi, koordinaatit, kunta, tyyppi, alatyyppi ja ajoitus
+          ovat Museoviraston{" "}
           <a href="https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot">
             avoimesta paikkatietoaineistosta
           </a>{" "}
@@ -103,7 +104,7 @@ export const Content: React.FC = () => {
           <a href="https://creativecommons.org/licenses/by/4.0/deed.fi">
             Creative Commons CC By 4.0
           </a>{" "}
-          -lisenssillä)
+          -lisenssillä).
         </p>
 
         <DatabaseStructure />

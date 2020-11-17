@@ -6,7 +6,8 @@
     "build:prod": "webpack --mode=production --progress",
     "build:dev": "webpack --mode=development --progress --devtool source-map",
     "dev": "webpack serve --mode=development --https --host 0.0.0.0 --port 8091 --progress --hot --inline",
-    "profile-size": "NODE_ENV=production SHOW_BUNDLE_ANALYZER=true webpack --progress"
+    "profile-size": "NODE_ENV=production SHOW_BUNDLE_ANALYZER=true webpack --progress",
+    "addDataToMaisemanMuisti": "node scripts/addDataToMaisemanMuisti.js"
   },
   "author": "Antti Kekki",
   "license": "MIT",

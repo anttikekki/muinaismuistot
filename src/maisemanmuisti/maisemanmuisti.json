@@ -1,11 +1,6 @@
 {
   "type": "FeatureCollection",
-  "crs": {
-    "type": "EPSG",
-    "properties": {
-      "code": 3067
-    }
-  },
+  "crs": { "type": "EPSG", "properties": { "code": 3067 } },
   "features": [
     {
       "type": "Feature",
@@ -18,21 +13,26 @@
         "number": 1,
         "name": "Hauensuolen kalliopiirrosalue",
         "municipality": "Hanko",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Hauensuoli (Gäddtarmen)",
+        "type": "taide, muistomerkit",
+        "subtype": "hakkaukset",
+        "dating": "historiallinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [383771, 6674108]
-      },
+      "geometry": { "type": "Point", "coordinates": [383771, 6674108] },
       "properties": {
         "id": 91010019,
         "number": 2,
         "name": "Meilahden Humallahden pronssikautinen hautaröykkiö",
         "municipality": "Helsinki",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Humallahti",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -46,7 +46,11 @@
         "number": 3,
         "name": "Brobackan muinaisjäännösalue",
         "municipality": "Raasepori",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Brobacka",
+        "type": "asuinpaikat, hautapaikat, kivirakenteet",
+        "subtype": "kivilatomukset, kylänpaikat, muinaispellot, röykkiöt",
+        "dating": "ajoittamaton, historiallinen, rautakautinen"
       }
     },
     {
@@ -60,21 +64,26 @@
         "number": 4,
         "name": "Junkarsborgin keskiaikaine linnoitus",
         "municipality": "Raasepori",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Junkarsborg",
+        "type": "puolustusvarustukset",
+        "subtype": "linnat",
+        "dating": "keskiaikainen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [315331, 6664000]
-      },
+      "geometry": { "type": "Point", "coordinates": [315331, 6664000] },
       "properties": {
         "id": 220010058,
         "number": 5,
         "name": "Kroggårdsmalmenin rautakautinen tarhakalmisto",
         "municipality": "Raasepori",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Kroggårdsmalmen",
+        "type": "hautapaikat",
+        "subtype": "tarhakalmistot",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -88,35 +97,41 @@
         "number": 6,
         "name": "Juusjärven kalliomaalaus",
         "municipality": "Kirkkonummi",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Juusjärvi",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen, pronssikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [354318, 6662988]
-      },
+      "geometry": { "type": "Point", "coordinates": [354318, 6662988] },
       "properties": {
         "id": 257010026,
         "number": 7,
         "name": "Kasabergetin pronssikauden hautaröykkiöt ja vartiotulipaikka",
         "municipality": "Kirkkonummi",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Kasaberget 1",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [362564, 6674656]
-      },
+      "geometry": { "type": "Point", "coordinates": [362564, 6674656] },
       "properties": {
         "id": 257010057,
         "number": 8,
         "name": "Vitträskin kalliomaalaus",
         "municipality": "Kirkkonummi",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Vitträsk",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen, pronssikautinen"
       }
     },
     {
@@ -130,7 +145,11 @@
         "number": 9,
         "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
         "municipality": "Pohja",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Sjösäng 1",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -144,7 +163,11 @@
         "number": 9,
         "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
         "municipality": "Pohja",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Sjösäng 2",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -158,7 +181,11 @@
         "number": 9,
         "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
         "municipality": "Pohja",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Sjösäng 3",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -172,7 +199,11 @@
         "number": 9,
         "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
         "municipality": "Pohja",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Sjösäng 4",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -186,7 +217,11 @@
         "number": 9,
         "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
         "municipality": "Pohja",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Sjösäng 5",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -200,7 +235,11 @@
         "number": 9,
         "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
         "municipality": "Pohja",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Sjösäng 6",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -214,7 +253,11 @@
         "number": 9,
         "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
         "municipality": "Pohja",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Sjösäng 7",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -228,7 +271,11 @@
         "number": 9,
         "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
         "municipality": "Pohja",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Sjösäng 8",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -242,7 +289,11 @@
         "number": 9,
         "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
         "municipality": "Pohja",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Sjösäng 9",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -256,7 +307,11 @@
         "number": 9,
         "name": "Sjösängin ja Starrbölen rautakautiset röykkiöalueet",
         "municipality": "Pohja",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Starrböle 1",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -270,7 +325,11 @@
         "number": 10,
         "name": "Skällbergetin linnavuori, Krejansbergetin pronssikautiset hautaröykkiöt ja Ekebergan rautakautinen kalmisto",
         "municipality": "Siuntio",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Krejansberget",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -284,7 +343,11 @@
         "number": 10,
         "name": "Skällbergetin linnavuori, Krejansbergetin pronssikautiset hautaröykkiöt ja Ekebergan rautakautinen kalmisto",
         "municipality": "Siuntio",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Ekeberga",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -298,7 +361,11 @@
         "number": 10,
         "name": "Skällbergetin linnavuori, Krejansbergetin pronssikautiset hautaröykkiöt ja Ekebergan rautakautinen kalmisto",
         "municipality": "Siuntio",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Skällberget",
+        "type": "puolustusvarustukset",
+        "subtype": "muinaislinnat",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -312,7 +379,11 @@
         "number": 11,
         "name": "Snappertunan Rullarsbölen Kasbergetin pronssikautiset hautaröykkiöt",
         "municipality": "Tammisaari",
-        "region": "Uusimaa"
+        "region": "Uusimaa",
+        "registerName": "Rullarsböle Kasberget",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -326,7 +397,11 @@
         "number": 12,
         "name": "Korpinkallion kivikautinen kvartsilouhos",
         "municipality": "Askola",
-        "region": "Itä-Uusimaa"
+        "region": "Itä-Uusimaa",
+        "registerName": "Kopinkallio",
+        "type": "raaka-aineen hankintapaikat",
+        "subtype": "louhokset",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -340,7 +415,11 @@
         "number": 13,
         "name": "Henttalan kivikautinen asuinpaikka",
         "municipality": "Porvoo",
-        "region": "Itä-Uusimaa"
+        "region": "Itä-Uusimaa",
+        "registerName": "Henttala",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -354,21 +433,26 @@
         "number": 14,
         "name": "Isolinnanmäen muinaislinna ja Pikkulinnanmäen rautakautinen kalmisto",
         "municipality": "Porvoo",
-        "region": "Itä-Uusimaa"
+        "region": "Itä-Uusimaa",
+        "registerName": "Pikku Linnamäki",
+        "type": "hautapaikat",
+        "subtype": "ei määritelty",
+        "dating": "rautakautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [417125, 6673326]
-      },
+      "geometry": { "type": "Point", "coordinates": [417125, 6673326] },
       "properties": {
         "id": 613010036,
         "number": 15,
         "name": "Rågskärin jatulintarhat",
         "municipality": "Porvoo",
-        "region": "Itä-Uusimaa"
+        "region": "Itä-Uusimaa",
+        "registerName": "Rågskär",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "jatulintarhat",
+        "dating": "historiallinen"
       }
     },
     {
@@ -382,7 +466,11 @@
         "number": 16,
         "name": "Sibbesborgin muinaislinna",
         "municipality": "Sipoo",
-        "region": "Itä-Uusimaa"
+        "region": "Itä-Uusimaa",
+        "registerName": "Sibbesborg",
+        "type": "puolustusvarustukset",
+        "subtype": "linnat",
+        "dating": "keskiaikainen"
       }
     },
     {
@@ -396,7 +484,11 @@
         "number": 17,
         "name": "Hiittisten Kyrksundetin rautakautinen ja keskiaikainen muinaisjäännösalue",
         "municipality": "Dragsfjärd",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Kyrksundet",
+        "type": "asuinpaikat, hautapaikat, kirkkorakenteet",
+        "subtype": "ei määritelty, kirkonpaikat",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -410,7 +502,11 @@
         "number": 18,
         "name": "Rikalan muinaislinna sekä rautakautiset asuinpaikat ja kalmistot",
         "municipality": "Halikko",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Rikala Linnamäki",
+        "type": "puolustusvarustukset",
+        "subtype": "muinaislinnat",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -424,21 +520,26 @@
         "number": 18,
         "name": "Rikalan muinaislinna sekä rautakautiset asuinpaikat ja kalmistot",
         "municipality": "Halikko",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Rikalanmäki",
+        "type": "asuinpaikat,  , hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "ei määritelty, kuppikivet, polttokenttäkalmistot, ruumiskalmistot",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [182376, 6689518]
-      },
+      "geometry": { "type": "Point", "coordinates": [182376, 6689518] },
       "properties": {
         "id": 101010001,
         "number": 19,
         "name": "Furunabbin rautakautinen röykkiökalmisto",
         "municipality": "Houtskari",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Furunabb",
+        "type": "hautapaikat",
+        "subtype": "kivilatomukset",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -452,7 +553,11 @@
         "number": 20,
         "name": "Jurmon latomukset",
         "municipality": "Korppoo",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Jurmo",
+        "type": "kivirakenteet",
+        "subtype": "ei määritelty",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -466,7 +571,11 @@
         "number": 21,
         "name": "Untamalan muinaisjäännösalue",
         "municipality": "Laitila",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Untamalan kirkko",
+        "type": "hautapaikat, kivirakenteet, kultti- ja tarinapaikat",
+        "subtype": "ei määritelty, kuppikivet, röykkiöt",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -480,7 +589,11 @@
         "number": 22,
         "name": "Vainionmäen rautakautinen polttokalmisto",
         "municipality": "Laitila",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Vainionmäki",
+        "type": "asuinpaikat, hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "ei määritelty, kuppikivet, polttokenttäkalmistot",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -494,7 +607,11 @@
         "number": 23,
         "name": "Kukkarkosken kivikautinen asuinpaikka ja kalmisto",
         "municipality": "Lieto",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Kukkarkoski I",
+        "type": "asuinpaikat, hautapaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -508,7 +625,11 @@
         "number": 24,
         "name": "Ristipellon myöhäisrautakautinen ruumiskalmisto",
         "municipality": "Lieto",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Ristinpelto",
+        "type": "hautapaikat",
+        "subtype": "ruumiskalmistot",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -522,7 +643,11 @@
         "number": 25,
         "name": "Vanhalinnan muinaislinna, rautakautinen asuinpaikka ja kalmisto",
         "municipality": "Lieto",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Vanhalinna",
+        "type": "puolustusvarustukset",
+        "subtype": "muinaislinnat",
+        "dating": "keskiaikainen, moniperiodinen, pronssikautinen"
       }
     },
     {
@@ -536,7 +661,11 @@
         "number": 25,
         "name": "Vanhalinnan muinaislinna, rautakautinen asuinpaikka ja kalmisto",
         "municipality": "Lieto",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Vanhalinnan Aittamäki",
+        "type": "hautapaikat",
+        "subtype": "palokuoppahaudat, polttokenttäkalmistot",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -550,7 +679,11 @@
         "number": 26,
         "name": "Tiikkinummen ja Karpinmäen muinaisjäännösalue",
         "municipality": "Perniö",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Karpinmäki 1",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -564,7 +697,11 @@
         "number": 26,
         "name": "Tiikkinummen ja Karpinmäen muinaisjäännösalue",
         "municipality": "Perniö",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Karpinmäki 2",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -578,7 +715,11 @@
         "number": 26,
         "name": "Tiikkinummen ja Karpinmäen muinaisjäännösalue",
         "municipality": "Perniö",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Uusitalo",
+        "type": "hautapaikat",
+        "subtype": "kivilatomukset",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -592,7 +733,11 @@
         "number": 26,
         "name": "Tiikkinummen ja Karpinmäen muinaisjäännösalue",
         "municipality": "Perniö",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Rantala 1",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -606,21 +751,26 @@
         "number": 26,
         "name": "Tiikkinummen ja Karpinmäen muinaisjäännösalue",
         "municipality": "Perniö",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Rantala 2",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "ei määritelty",
+        "dating": "rautakautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [285497, 6676894]
-      },
+      "geometry": { "type": "Point", "coordinates": [285497, 6676894] },
       "properties": {
         "id": 586010077,
         "number": 26,
         "name": "Tiikkinummen ja Karpinmäen muinaisjäännösalue",
         "municipality": "Perniö",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Tiikkinummi",
+        "type": "asuinpaikat,  , hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "ei määritelty, kivilatomukset, kuppikivet, polttokenttäkalmistot",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -634,7 +784,11 @@
         "number": 27,
         "name": "Rungon Koskenhaan rautakautinen kalmistoalue",
         "municipality": "Piikkiö",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Rungon Koskenhaka",
+        "type": "asuinpaikat,  , hautapaikat",
+        "subtype": "ei määritelty, hautaröykkiöt, tarhakalmistot",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -648,35 +802,41 @@
         "number": 28,
         "name": "Ketohaan varhaismetallikautinen ja rautakautinen asuinpaikka- ja kalmistoalue",
         "municipality": "Salo",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Ketohaka",
+        "type": "asuinpaikat, hautapaikat",
+        "subtype": "ei määritelty, hautaröykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [284149, 6697739]
-      },
+      "geometry": { "type": "Point", "coordinates": [284149, 6697739] },
       "properties": {
         "id": 734010012,
         "number": 29,
         "name": "Tampaltanmäen, Viitamäen ja Ilmusmäen hiidenkiukaat",
         "municipality": "Salo",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Viitamäki",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [284204.1431, 6696976.5]
-      },
+      "geometry": { "type": "Point", "coordinates": [284204.1431, 6696976.5] },
       "properties": {
         "id": 734010013,
         "number": 29,
         "name": "Tampaltanmäen, Viitamäen ja Ilmusmäen hiidenkiukaat",
         "municipality": "Salo",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Tampaltankruunu",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -690,7 +850,11 @@
         "number": 29,
         "name": "Tampaltanmäen, Viitamäen ja Ilmusmäen hiidenkiukaat",
         "municipality": "Salo",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Aarnionsuo",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -704,7 +868,11 @@
         "number": 30,
         "name": "Koroisten piispanlinnan, kirkon ja kastarin perustukset",
         "municipality": "Turku",
-        "region": "Varsinais-Suomi"
+        "region": "Varsinais-Suomi",
+        "registerName": "Koroistenniemi",
+        "type": "asuinpaikat, kirkkorakenteet",
+        "subtype": "kirkonpaikat, pappilat",
+        "dating": "keskiaikainen"
       }
     },
     {
@@ -718,7 +886,11 @@
         "number": 31,
         "name": "Harolan rautakautinen röykkiöalue",
         "municipality": "Eura",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Harola",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -732,7 +904,11 @@
         "number": 32,
         "name": "Käräjämäen rautakautinen kalmistoalue",
         "municipality": "Eura",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Käräjämäki-Osmanmäki",
+        "type": "hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "käräjäpaikat, polttokenttäkalmistot, ruumiskalmistot",
+        "dating": "kivikautinen, rautakautinen"
       }
     },
     {
@@ -746,7 +922,11 @@
         "number": 33,
         "name": "Luistarin muinaisjäännösalue",
         "municipality": "Eura",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Luistari",
+        "type": "asuinpaikat,  , hautapaikat",
+        "subtype": "ei määritelty, hautaröykkiöt, ruumiskalmistot",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -760,7 +940,11 @@
         "number": 34,
         "name": "Liinmaan linnan keskiaikainen linnanraunio",
         "municipality": "Eurajoki",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Liinmaan linna",
+        "type": "puolustusvarustukset",
+        "subtype": "linnat",
+        "dating": "keskiaikainen"
       }
     },
     {
@@ -774,7 +958,11 @@
         "number": 35,
         "name": "Kaunismäen pronssikautinen röykkiökalmisto",
         "municipality": "Harjavalta",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Kaunismäki A ja B",
+        "type": "asuinpaikat, hautapaikat",
+        "subtype": "ei määritelty, hautaröykkiöt",
+        "dating": "kivikautinen, pronssikautinen"
       }
     },
     {
@@ -788,7 +976,11 @@
         "number": 36,
         "name": "Matinharjun pronssikautiset hautaröykkiöt",
         "municipality": "Harjavalta",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Matinharju",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -802,7 +994,11 @@
         "number": 37,
         "name": "Kuninkaanhauta - Suomen suurin pronssikautinen hautaröykkiö",
         "municipality": "Kiukainen",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Kuninkaanhauta",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -816,7 +1012,11 @@
         "number": 38,
         "name": "Orjapaadenkallion pronssikautinen hautaröykkiö",
         "municipality": "Kokemäki",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Orjapaadenkallio",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -830,7 +1030,11 @@
         "number": 39,
         "name": "Kokemäkijokivarren rautakautinen ja keskiaikainen muinaisjäännösalue",
         "municipality": "Kokemäki",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Köönikänmäki",
+        "type": "hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "hautaröykkiöt, kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -844,21 +1048,26 @@
         "number": 39,
         "name": "Kokemäkijokivarren rautakautinen ja keskiaikainen muinaisjäännösalue",
         "municipality": "Kokemäki",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Leikkimäki",
+        "type": "hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "hautaröykkiöt, kuppikivet, polttokenttäkalmistot",
+        "dating": "rautakautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [251638, 6801615]
-      },
+      "geometry": { "type": "Point", "coordinates": [251638, 6801615] },
       "properties": {
         "id": 271010015,
         "number": 39,
         "name": "Kokemäkijokivarren rautakautinen ja keskiaikainen muinaisjäännösalue",
         "municipality": "Kokemäki",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Perävainionmäki",
+        "type": "hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "ei määritelty, hautaröykkiöt, kuppikivet",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -872,7 +1081,11 @@
         "number": 39,
         "name": "Kokemäkijokivarren rautakautinen ja keskiaikainen muinaisjäännösalue",
         "municipality": "Kokemäki",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Teljä",
+        "type": "kirkkorakenteet, työ- ja valmistuspaikat",
+        "subtype": "kirkonpaikat, markkinapaikat",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -886,7 +1099,11 @@
         "number": 40,
         "name": "Kirkonkarin keskiaikainen kappelin paikka",
         "municipality": "Köyliö",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Kirkkokari",
+        "type": "kirkkorakenteet",
+        "subtype": "kirkonpaikat",
+        "dating": "keskiaikainen"
       }
     },
     {
@@ -900,7 +1117,11 @@
         "number": 41,
         "name": "Vanhankartanon rautakautiset ruumiskalmistot",
         "municipality": "Köyliö",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Vanhakartano (Luodonpää A-kalmisto)",
+        "type": "hautapaikat",
+        "subtype": "ruumiskalmistot",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -914,7 +1135,11 @@
         "number": 42,
         "name": "Sammallahdenmäen pronssikautinen hautaröykkiöalue",
         "municipality": "Lappi",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Sammallahdenmäki",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -928,7 +1153,11 @@
         "number": 43,
         "name": "Rieskaronmäen pronssikautiset hautaröykkiöt ja kolme rakennuksen jäännöstä",
         "municipality": "Nakkila",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Rieskaronmäki",
+        "type": "asuinpaikat, hautapaikat",
+        "subtype": "hautaröykkiöt, talonpohjat",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -942,7 +1171,11 @@
         "number": 44,
         "name": "Viikkalan Selkäkankaan pronssikautiset hautaröykkiöt",
         "municipality": "Nakkila",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Selkäkangas (Viikala I)",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -956,7 +1189,11 @@
         "number": 45,
         "name": "Linjaharjun rautakautinen röykkiökalmisto",
         "municipality": "Pori",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Linjaharju",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -970,7 +1207,11 @@
         "number": 46,
         "name": "Kylmäkorvenkallion pronssikautiset hautaröykkiöt, muut kiviröykkiöt ja kivipöydät",
         "municipality": "Rauma",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Lauri",
+        "type": "hautapaikat, kivirakenteet",
+        "subtype": "hautaröykkiöt, kivipöydät",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -984,7 +1225,11 @@
         "number": 46,
         "name": "Kylmäkorvenkallion pronssikautiset hautaröykkiöt, muut kiviröykkiöt ja kivipöydät",
         "municipality": "Rauma",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Kylmäkorvenkallio",
+        "type": "hautapaikat, kivirakenteet",
+        "subtype": "hautaröykkiöt, kivipöydät",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -998,7 +1243,11 @@
         "number": 47,
         "name": "Salissuonmäen vanhemman rautakauden hautaröykkiöt",
         "municipality": "Rauma",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Salisuonmäki",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt, tarhakalmistot",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -1012,7 +1261,11 @@
         "number": 48,
         "name": "Liikistön keskiaikaisen kirkon ja hautausmaan paikka",
         "municipality": "Ulvila",
-        "region": "Satakunta"
+        "region": "Satakunta",
+        "registerName": "Liikistö",
+        "type": "hautapaikat, kirkkorakenteet, kultti- ja tarinapaikat",
+        "subtype": "hautausmaat, kirkonpaikat, käräjäpaikat",
+        "dating": "keskiaikainen"
       }
     },
     {
@@ -1026,7 +1279,11 @@
         "number": 49,
         "name": "Anttilan rautakautinen miekanhiontakivi",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Anttila 2",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "miekanhiontakivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1040,7 +1297,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Myllymäki",
+        "type": "asuinpaikat, hautapaikat, kultti- ja tarinapaikat, työ- ja valmistuspaikat",
+        "subtype": "hautaröykkiöt, kuppikivet, talonpohjat, viljelyröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1054,7 +1315,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Kotiranta 2",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -1068,7 +1333,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Laurila SE",
+        "type": "kivirakenteet, työ- ja valmistuspaikat",
+        "subtype": "kiukaat, viljelyröykkiöt",
+        "dating": "historiallinen"
       }
     },
     {
@@ -1082,7 +1351,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Kiettarankallio",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "lähteet",
+        "dating": "historiallinen"
       }
     },
     {
@@ -1096,7 +1369,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Kiettara",
+        "type": "kivirakenteet, kultti- ja tarinapaikat",
+        "subtype": "kuppikivet, röykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1110,7 +1387,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Kiettara SW",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1124,7 +1405,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Kiettara-Peltoitu",
+        "type": "hautapaikat, työ- ja valmistuspaikat",
+        "subtype": "hautaröykkiöt, viljelyröykkiöt",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -1138,7 +1423,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Peltoitu E",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "viljelyröykkiöt",
+        "dating": "historiallinen"
       }
     },
     {
@@ -1152,7 +1441,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Peltoitu",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "moniperiodinen"
       }
     },
     {
@@ -1166,7 +1459,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Riidanmaa",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "viljelyröykkiöt",
+        "dating": "historiallinen"
       }
     },
     {
@@ -1180,7 +1477,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Koivuniemi",
+        "type": "asuinpaikat, hautapaikat",
+        "subtype": "ei määritelty, hautaröykkiöt",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -1194,7 +1495,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Huhtanen 2",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1208,7 +1513,11 @@
         "number": 50,
         "name": "Retulansaaren muinaisjäännösalue",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Piilosaari",
+        "type": "kivirakenteet, työ- ja valmistuspaikat",
+        "subtype": "ei määritelty, kivivallit",
+        "dating": "historiallinen, kivikautinen"
       }
     },
     {
@@ -1222,7 +1531,11 @@
         "number": 51,
         "name": "Tenholan linnavuori",
         "municipality": "Hattula",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Tenholan linnavuori",
+        "type": "puolustusvarustukset",
+        "subtype": "muinaislinnat",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1236,7 +1549,11 @@
         "number": 52,
         "name": "Kalomäen rautakautinen muinaisjäännösalue",
         "municipality": "Hauho",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Kalomäki 2",
+        "type": "asuinpaikat,  , hautapaikat",
+        "subtype": "ei määritelty, polttokenttäkalmistot, ruumiskalmistot",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1250,7 +1567,11 @@
         "number": 53,
         "name": "Varikonniemen hopea-aarteen löytöpaikka ja rautakautinen/varhaiskeskiaikainen asuinpaikka",
         "municipality": "Hämeenlinna",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Varikonniemi",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -1264,7 +1585,11 @@
         "number": 54,
         "name": "Hakoisten keskiaikainen linnavuori, rautakautinen kalmisto- ja asuinpaikka-alue",
         "municipality": "Janakkala",
-        "region": "Häme"
+        "region": "Häme",
+        "registerName": "Hakoistenlinna",
+        "type": "puolustusvarustukset",
+        "subtype": "linnat",
+        "dating": "keskiaikainen"
       }
     },
     {
@@ -1278,7 +1603,11 @@
         "number": 55,
         "name": "Kapatuosian linnavuori",
         "municipality": "Hollola",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Kapatuosia",
+        "type": "asuinpaikat, puolustusvarustukset",
+        "subtype": "ei määritelty, muinaislinnat",
+        "dating": "keskiaikainen, kivikautinen, rautakautinen"
       }
     },
     {
@@ -1292,7 +1621,11 @@
         "number": 56,
         "name": "Kirkailanmäen myöhäisrautakautinen ja varhaiskeskiaikainen ruumiskalmisto",
         "municipality": "Hollola",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Kirkailanmäki",
+        "type": "hautapaikat",
+        "subtype": "ruumiskalmistot",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -1306,7 +1639,11 @@
         "number": 57,
         "name": "Nostavan-Luhdanjoen kivikautiset asuinpaikat",
         "municipality": "Lahti-Hollola",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Lintutorni",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -1320,7 +1657,11 @@
         "number": 57,
         "name": "Nostavan-Luhdanjoen kivikautiset asuinpaikat",
         "municipality": "Lahti-Hollola",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Hölmänmäki",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -1334,7 +1675,11 @@
         "number": 57,
         "name": "Nostavan-Luhdanjoen kivikautiset asuinpaikat",
         "municipality": "Lahti-Hollola",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Luhdanjoki 1",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -1348,7 +1693,11 @@
         "number": 57,
         "name": "Nostavan-Luhdanjoen kivikautiset asuinpaikat",
         "municipality": "Lahti-Hollola",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Luhdanjoki 2-3",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -1362,7 +1711,11 @@
         "number": 57,
         "name": "Nostavan-Luhdanjoen kivikautiset asuinpaikat",
         "municipality": "Lahti-Hollola",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Luhdanniitty 1",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -1376,7 +1729,11 @@
         "number": 57,
         "name": "Nostavan-Luhdanjoen kivikautiset asuinpaikat",
         "municipality": "Lahti-Hollola",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Mäkelä",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -1390,7 +1747,11 @@
         "number": 58,
         "name": "Linnasaaren muinaislinna",
         "municipality": "Padasjoki",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Linnasaari",
+        "type": "puolustusvarustukset",
+        "subtype": "muinaislinnat",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -1404,7 +1765,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Seppälä",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1418,7 +1783,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Hyväniemi",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1432,7 +1801,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Niikulanmäki 1",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1446,7 +1819,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Niikulanmäki 2",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1460,7 +1837,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Pätikkälä a",
+        "type": "hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "ei määritelty, kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1474,7 +1855,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Pätikkälä 4",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1488,7 +1873,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Pätikkälä b",
+        "type": "hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "hautaröykkiöt, kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1502,7 +1891,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Pätikkälä 2",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1516,7 +1909,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Pätikkälä 1",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1530,21 +1927,26 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Pätikkälä 6",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [428333, 6818251]
-      },
+      "geometry": { "type": "Point", "coordinates": [428333, 6818251] },
       "properties": {
         "id": 781010013,
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Pätikkälä 7",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1558,7 +1960,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Päivärinnan pelto",
+        "type": "hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "kuppikivet, palokuoppahaudat",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1572,7 +1978,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Haaralan hevoshaka",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1586,7 +1996,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Alhio",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1600,7 +2014,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Nikala",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1614,7 +2032,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Pappilanhaka",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1628,7 +2050,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Seurakunnan maa",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1642,21 +2068,26 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Surmakivi",
+        "type": "hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "hautaröykkiöt, kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [429270, 6819120]
-      },
+      "geometry": { "type": "Point", "coordinates": [429270, 6819120] },
       "properties": {
         "id": 781010021,
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Ihananiemi",
+        "type": "asuinpaikat, hautapaikat, löytöpaikat",
+        "subtype": "ei määritelty, hautaröykkiöt, kätköt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1670,7 +2101,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Kirkkovainio",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -1684,7 +2119,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Suurikylä",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1698,7 +2137,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Simolanrinne",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1712,7 +2155,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Hovila Vasikkahaka",
+        "type": "asuinpaikat, hautapaikat",
+        "subtype": "ei määritelty",
+        "dating": "historiallinen, rautakautinen"
       }
     },
     {
@@ -1726,7 +2173,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Hovila Nykulla",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1740,7 +2191,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Aittosaari/Makasiinisaari",
+        "type": "hautapaikat",
+        "subtype": "polttokenttäkalmistot",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1754,7 +2209,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Haapasaari",
+        "type": "hautapaikat",
+        "subtype": "polttokenttäkalmistot",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1768,7 +2227,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Hyväniementie",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1782,7 +2245,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Hovila 3",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1796,7 +2263,11 @@
         "number": 59,
         "name": "Kirkonseudun rautakautinen asutusalue",
         "municipality": "Sysmä",
-        "region": "Päijät-Häme"
+        "region": "Päijät-Häme",
+        "registerName": "Hovila 4",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1810,21 +2281,26 @@
         "number": 60,
         "name": "Sarsan esihistorialliset asuinpaikat",
         "municipality": "Kangasala",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Huutijärvi",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [346617, 6816311]
-      },
+      "geometry": { "type": "Point", "coordinates": [346617, 6816311] },
       "properties": {
         "id": 211010004,
         "number": 60,
         "name": "Sarsan esihistorialliset asuinpaikat",
         "municipality": "Kangasala",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Pohtiolampi ja Tiilitehdas",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen, pronssikautinen"
       }
     },
     {
@@ -1838,7 +2314,11 @@
         "number": 60,
         "name": "Sarsan esihistorialliset asuinpaikat",
         "municipality": "Kangasala",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Vääksy",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -1852,21 +2332,26 @@
         "number": 60,
         "name": "Sarsan esihistorialliset asuinpaikat",
         "municipality": "Kangasala",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Sepänjärvi 1",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen, pronssikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [346130, 6816310]
-      },
+      "geometry": { "type": "Point", "coordinates": [346130, 6816310] },
       "properties": {
         "id": 211010007,
         "number": 60,
         "name": "Sarsan esihistorialliset asuinpaikat",
         "municipality": "Kangasala",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Lentola 3",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -1880,21 +2365,26 @@
         "number": 61,
         "name": "Päiväniemen rautakautinen röykkiökalmisto",
         "municipality": "Lempäälä",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Päivääniemi",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [353871, 6805587]
-      },
+      "geometry": { "type": "Point", "coordinates": [353871, 6805587] },
       "properties": {
         "id": 635010007,
         "number": 62,
         "name": "Hyllin rautakautinen röykkiöalue",
         "municipality": "Pälkäne",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Hylli",
+        "type": "asuinpaikat, kivirakenteet",
+        "subtype": "ei määritelty, röykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1908,7 +2398,11 @@
         "number": 63,
         "name": "Reuharinniemen kaksi lapinrauniota ja asuinpaikka",
         "municipality": "Tampere",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Reuharinniemi",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -1922,7 +2416,11 @@
         "number": 64,
         "name": "Jutikkalan muinaisjäännösalue",
         "municipality": "Valkeakoski",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Muuntajamäki",
+        "type": "hautapaikat",
+        "subtype": "polttokenttäkalmistot",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1936,7 +2434,11 @@
         "number": 64,
         "name": "Jutikkalan muinaisjäännösalue",
         "municipality": "Valkeakoski",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Jutikkala",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "historiallinen"
       }
     },
     {
@@ -1950,7 +2452,11 @@
         "number": 64,
         "name": "Jutikkalan muinaisjäännösalue",
         "municipality": "Valkeakoski",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Kokkomäki",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1964,7 +2470,11 @@
         "number": 64,
         "name": "Jutikkalan muinaisjäännösalue",
         "municipality": "Valkeakoski",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Jutikkalan kartano",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -1978,7 +2488,11 @@
         "number": 64,
         "name": "Jutikkalan muinaisjäännösalue",
         "municipality": "Valkeakoski",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Kirsikkamäki",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -1992,7 +2506,11 @@
         "number": 65,
         "name": "Rapolan muinaisjäännösalue ja kulttuuriympäristö",
         "municipality": "Valkeakoski",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Rapola",
+        "type": "asuinpaikat, hautapaikat, kivirakenteet, kultti- ja tarinapaikat",
+        "subtype": "hautaröykkiöt, kuppikivet, muinaislinnat, muinaispellot",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -2006,7 +2524,11 @@
         "number": 66,
         "name": "Kaukolan ja Liekosaaren rautakautiset kalmistot",
         "municipality": "Vammala",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Kaukola",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -2020,7 +2542,11 @@
         "number": 66,
         "name": "Kaukolan ja Liekosaaren rautakautiset kalmistot",
         "municipality": "Vammala",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Liekosaari",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -2034,7 +2560,11 @@
         "number": 67,
         "name": "Laukon muinaisjäännösalue",
         "municipality": "Vesilahti",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Pajalahdenranta ja Riihimäki",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -2048,7 +2578,11 @@
         "number": 67,
         "name": "Laukon muinaisjäännösalue",
         "municipality": "Vesilahti",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Laukon puisto",
+        "type": "hautapaikat",
+        "subtype": "ei määritelty",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -2062,7 +2596,11 @@
         "number": 67,
         "name": "Laukon muinaisjäännösalue",
         "municipality": "Vesilahti",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Laukonhaka",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -2076,7 +2614,11 @@
         "number": 68,
         "name": "Oraniemen varhaismetallikautiset lapinrauniot",
         "municipality": "Virrat",
-        "region": "Pirkanmaa"
+        "region": "Pirkanmaa",
+        "registerName": "Oraniemi",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -2090,7 +2632,11 @@
         "number": 69,
         "name": "Ankkapurhan kivikautinen asuinpaikka",
         "municipality": "Anjalankoski",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Ankkapurha",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -2104,7 +2650,11 @@
         "number": 70,
         "name": "Konniveden Haukkavuoren kalliomaalaus",
         "municipality": "Iitti",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Kelloniemi Haukkavuori",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2118,7 +2668,11 @@
         "number": 71,
         "name": "Hiidensalmen varhaismetallikautiset lapinrauniot",
         "municipality": "Iitti",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Hiidensalmi",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "pronssikautinen, rautakautinen, varhaismetallikautinen"
       }
     },
     {
@@ -2132,7 +2686,11 @@
         "number": 72,
         "name": "Pukkisaaren muinaisjäännökset",
         "municipality": "Jaala",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Pukkisaari",
+        "type": "asuinpaikat, hautapaikat",
+        "subtype": "asumuspainanteet, polttokenttäkalmistot",
+        "dating": "kivikautinen, rautakautinen"
       }
     },
     {
@@ -2146,21 +2704,26 @@
         "number": 73,
         "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
         "municipality": "Kotka",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Itäranta",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [499135, 6708813]
-      },
+      "geometry": { "type": "Point", "coordinates": [499135, 6708813] },
       "properties": {
         "id": 285010003,
         "number": 73,
         "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
         "municipality": "Kotka",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Sunakieli",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -2174,77 +2737,86 @@
         "number": 73,
         "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
         "municipality": "Kotka",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Rantahöyteri",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [499372, 6708746]
-      },
+      "geometry": { "type": "Point", "coordinates": [499372, 6708746] },
       "properties": {
         "id": 285010005,
         "number": 73,
         "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
         "municipality": "Kotka",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Salovaara",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [499469, 6708670]
-      },
+      "geometry": { "type": "Point", "coordinates": [499469, 6708670] },
       "properties": {
         "id": 285010006,
         "number": 73,
         "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
         "municipality": "Kotka",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Itähöyteri",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [499477, 6708987]
-      },
+      "geometry": { "type": "Point", "coordinates": [499477, 6708987] },
       "properties": {
         "id": 285010007,
         "number": 73,
         "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
         "municipality": "Kotka",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Pohjoishöyteri",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [499722, 6708958]
-      },
+      "geometry": { "type": "Point", "coordinates": [499722, 6708958] },
       "properties": {
         "id": 285010008,
         "number": 73,
         "name": "Höyterin pronssikautiset hautaröykkiöt ja laivanmuotoiset latomukset",
         "municipality": "Kotka",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Koillishöyteri",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [488910, 6716864]
-      },
+      "geometry": { "type": "Point", "coordinates": [488910, 6716864] },
       "properties": {
         "id": 285010017,
         "number": 74,
         "name": "Kymin Niskasuon kivikautinen asuinpaikka",
         "municipality": "Kotka",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Niskasuo",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2258,21 +2830,26 @@
         "number": 75,
         "name": "Mustasuon jatulintarha",
         "municipality": "Miehikkälä",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Mustasuo",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "jatulintarhat",
+        "dating": "historiallinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [487686, 6691798]
-      },
+      "geometry": { "type": "Point", "coordinates": [487686, 6691798] },
       "properties": {
         "id": 624010003,
         "number": 76,
         "name": "Kaunissaaren ryssänuunit",
         "municipality": "Pyhtää",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Kaunissaari Vironniemi",
+        "type": "kivirakenteet, kultti- ja tarinapaikat",
+        "subtype": "tarinapaikat, uunit",
+        "dating": "historiallinen"
       }
     },
     {
@@ -2286,7 +2863,11 @@
         "number": 77,
         "name": "Mustaviirin jatulintarha",
         "municipality": "Pyhtää",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Mustaviiri",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "jatulintarhat",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -2300,7 +2881,11 @@
         "number": 78,
         "name": "Strukankallioiden rautakautinen hautaröykkiöalue",
         "municipality": "Pyhtää",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Strukankalliot itä",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -2314,7 +2899,11 @@
         "number": 78,
         "name": "Strukankallioiden rautakautinen hautaröykkiöalue",
         "municipality": "Pyhtää",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Strukankalliot",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -2328,7 +2917,11 @@
         "number": 79,
         "name": "Verlan kalliomaalaus",
         "municipality": "Valkeala",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Verla",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2342,7 +2935,11 @@
         "number": 80,
         "name": "Tammion Västärin rautakautiset hautaröykkiöt",
         "municipality": "Vehkalahti",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Västäri",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -2356,7 +2953,11 @@
         "number": 81,
         "name": "Vähä-Harvajanniemen pronssikautiset hautaröykkiöt",
         "municipality": "Virolahti",
-        "region": "Kymenlaakso"
+        "region": "Kymenlaakso",
+        "registerName": "Vähä-Harvajanniemi",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -2370,7 +2971,11 @@
         "number": 82,
         "name": "Kauskilan Kappelinmäen rautakautinen ja keskiaikainen kalmisto",
         "municipality": "Lappeenranta",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Kappelinmäki",
+        "type": "hautapaikat, kirkkorakenteet",
+        "subtype": "kirkonpaikat, ruumiskalmistot",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -2384,21 +2989,26 @@
         "number": 83,
         "name": "Ruominkapian kalliomaalaus",
         "municipality": "Lemi",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Ruominkapia",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen, pronssikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [520202, 6765232]
-      },
+      "geometry": { "type": "Point", "coordinates": [520202, 6765232] },
       "properties": {
         "id": 441010003,
         "number": 84,
         "name": "Kalaniemi 2:n kalliomaalaus",
         "municipality": "Luumäki",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Kalamaniemi 2",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2412,35 +3022,41 @@
         "number": 85,
         "name": "Romanonkankaan pyyntikuopat",
         "municipality": "Parikkala",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Romanonkangas",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat",
+        "dating": "ajoittamaton"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [636127, 6821398]
-      },
+      "geometry": { "type": "Point", "coordinates": [636127, 6821398] },
       "properties": {
         "id": 580010023,
         "number": 86,
         "name": "Silvun kuppikivi",
         "municipality": "Parikkala",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Silvu",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [617925, 6818994]
-      },
+      "geometry": { "type": "Point", "coordinates": [617925, 6818994] },
       "properties": {
         "id": 689010010,
         "number": 87,
         "name": "Haukkavuoren historiallinen rajamerkki",
         "municipality": "Rautjärvi",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Haukkavuori",
+        "type": "kivirakenteet",
+        "subtype": "rajamerkit",
+        "dating": "historiallinen"
       }
     },
     {
@@ -2454,7 +3070,11 @@
         "number": 88,
         "name": "Kolmiköytisvuoren kalliomaalaus",
         "municipality": "Ruokolahti",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Kolmiköytisienvuori",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen, pronssikautinen"
       }
     },
     {
@@ -2468,7 +3088,11 @@
         "number": 89,
         "name": "Niemenkainalosaaren varhaismetallikautinen lapinraunio",
         "municipality": "Ruokolahti",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Niemenkainalonsaari",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -2482,7 +3106,11 @@
         "number": 90,
         "name": "Kokkosenmäen kuppikivi",
         "municipality": "Saari",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Kokkosenmäki",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -2496,7 +3124,11 @@
         "number": 91,
         "name": "Rovastinojan kivikautinen asuinpaikka ja asumuspainanteet",
         "municipality": "Savitaipale",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Rovastinoja",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2510,7 +3142,11 @@
         "number": 92,
         "name": "Kuivaketveleen linnavuori",
         "municipality": "Taipalsaari",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Kuivaketveleen Linnavuori",
+        "type": "puolustusvarustukset",
+        "subtype": "muinaislinnat",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -2524,7 +3160,11 @@
         "number": 93,
         "name": "Vaaterannan kivikautinen kalmisto ja asuinpaikka",
         "municipality": "Taipalsaari",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Vaateranta",
+        "type": "asuinpaikat, hautapaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -2538,35 +3178,41 @@
         "number": 94,
         "name": "Papinniemen ortodoksikylä",
         "municipality": "Uukuniemi",
-        "region": "Etelä-Karjala"
+        "region": "Etelä-Karjala",
+        "registerName": "Uukuniemi Papinniemi",
+        "type": "asuinpaikat",
+        "subtype": "kylänpaikat",
+        "dating": "historiallinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [587831, 6926457]
-      },
+      "geometry": { "type": "Point", "coordinates": [587831, 6926457] },
       "properties": {
         "id": 90010016,
         "number": 95,
         "name": "Hoikansaaren, Syrjäsaaren ja Linjasaaren varhaismetallikautiset lapinrauniot",
         "municipality": "Heinävesi",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Hoikansaari",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [588036, 6926015]
-      },
+      "geometry": { "type": "Point", "coordinates": [588036, 6926015] },
       "properties": {
         "id": 90010017,
         "number": 95,
         "name": "Hoikansaaren, Syrjäsaaren ja Linjasaaren varhaismetallikautiset lapinrauniot",
         "municipality": "Heinävesi",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Linjasaari",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -2580,7 +3226,11 @@
         "number": 95,
         "name": "Hoikansaaren, Syrjäsaaren ja Linjasaaren varhaismetallikautiset lapinrauniot",
         "municipality": "Heinävesi",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Syrjäsaari",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -2594,7 +3244,11 @@
         "number": 96,
         "name": "Vierunvuoren kalliomaalaus",
         "municipality": "Heinävesi",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Vierunvuori",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2608,7 +3262,11 @@
         "number": 97,
         "name": "Hahlavuoren kalliomaalaus",
         "municipality": "Hirvensalmi",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Hahlavuori",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2622,21 +3280,26 @@
         "number": 98,
         "name": "Kappelinpellon keskiaikainen hautausmaa",
         "municipality": "Juva",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Remojärvi Kappelinpelto",
+        "type": "hautapaikat",
+        "subtype": "ruumiskalmistot",
+        "dating": "historiallinen, keskiaikainen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [549124, 6829750]
-      },
+      "geometry": { "type": "Point", "coordinates": [549124, 6829750] },
       "properties": {
         "id": 178010003,
         "number": 99,
         "name": "Sarkavuoren ja Sarkaslammen kalliomaalaukset",
         "municipality": "Juva",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Sarkasvuori",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2650,21 +3313,26 @@
         "number": 99,
         "name": "Sarkavuoren ja Sarkaslammen kalliomaalaukset",
         "municipality": "Juva",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Sarkaslampi",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [607004, 6869980]
-      },
+      "geometry": { "type": "Point", "coordinates": [607004, 6869980] },
       "properties": {
         "id": 246010033,
         "number": 100,
         "name": "Hattukallion kuppikivi",
         "municipality": "Kerimäki",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Hattukallio",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "historiallinen, rautakautinen"
       }
     },
     {
@@ -2678,7 +3346,11 @@
         "number": 101,
         "name": "Martinniemen kivikautiset ja varhaismetallikautiset asuinpaikat sekä varhaismetallikautinen lapinraunio",
         "municipality": "Kerimäki",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Martinniemi 1-5",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet, ei määritelty",
+        "dating": "kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -2692,7 +3364,11 @@
         "number": 101,
         "name": "Martinniemen kivikautiset ja varhaismetallikautiset asuinpaikat sekä varhaismetallikautinen lapinraunio",
         "municipality": "Kerimäki",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Martinniemi 8",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -2706,7 +3382,11 @@
         "number": 102,
         "name": "Otralan linnavuori",
         "municipality": "Mikkeli",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Otralan linnavuori",
+        "type": "puolustusvarustukset",
+        "subtype": "muinaislinnat",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -2720,7 +3400,11 @@
         "number": 103,
         "name": "Tuukkalan ja Latokallion myöhäisrautakautiset kalmistot ja Moisionpellon rautakautinen asuinpaikka",
         "municipality": "Mikkeli",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Tuukkala",
+        "type": "hautapaikat",
+        "subtype": "ruumiskalmistot",
+        "dating": "keskiaikainen"
       }
     },
     {
@@ -2734,7 +3418,11 @@
         "number": 103,
         "name": "Tuukkalan ja Latokallion myöhäisrautakautiset kalmistot ja Moisionpellon rautakautinen asuinpaikka",
         "municipality": "Mikkeli",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Latokallio",
+        "type": "hautapaikat",
+        "subtype": "polttokenttäkalmistot",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -2748,7 +3436,11 @@
         "number": 103,
         "name": "Tuukkalan ja Latokallion myöhäisrautakautiset kalmistot ja Moisionpellon rautakautinen asuinpaikka",
         "municipality": "Mikkeli",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Moisionpelto",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -2762,7 +3454,11 @@
         "number": 104,
         "name": "Naarajärven kivi- ja varhaismetallikautinen asuinpaikka",
         "municipality": "Pieksämäki",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Naarajärvi",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet, ei määritelty",
+        "dating": "kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -2776,7 +3472,11 @@
         "number": 105,
         "name": "Paaslahden kivikautinen asuinpaikka",
         "municipality": "Punkaharju",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Paaslahti",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2790,7 +3490,11 @@
         "number": 106,
         "name": "Kärmelahden kivikautinen asuinpaikka",
         "municipality": "Puumala",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Kärmelahti",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2804,7 +3508,11 @@
         "number": 107,
         "name": "Ketveleenlahden varhaismetallikautiset lapinrauniot",
         "municipality": "Rantasalmi",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Ketveleenlahti",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -2818,7 +3526,11 @@
         "number": 108,
         "name": "Astuvansalmen ja Uittamonsalmen kalliomaalaukset",
         "municipality": "Ristiina",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Astuvansalmi",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2832,7 +3544,11 @@
         "number": 108,
         "name": "Astuvansalmen ja Uittamonsalmen kalliomaalaukset",
         "municipality": "Ristiina",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Uittamonsalmi",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2846,7 +3562,11 @@
         "number": 109,
         "name": "Kitulansuon varhaismetallikautinen asuinpaikka ja lspinrauniot sekä Kotilahden mahdollinen rautakautinen uhripaikka",
         "municipality": "Ristiina",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Kitulansuo A",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -2860,7 +3580,11 @@
         "number": 109,
         "name": "Kitulansuon varhaismetallikautinen asuinpaikka ja lspinrauniot sekä Kotilahden mahdollinen rautakautinen uhripaikka",
         "municipality": "Ristiina",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Kitulansuo B",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -2874,7 +3598,11 @@
         "number": 109,
         "name": "Kitulansuon varhaismetallikautinen asuinpaikka ja lspinrauniot sekä Kotilahden mahdollinen rautakautinen uhripaikka",
         "municipality": "Ristiina",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Kitulansuo C",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -2888,7 +3616,11 @@
         "number": 109,
         "name": "Kitulansuon varhaismetallikautinen asuinpaikka ja lspinrauniot sekä Kotilahden mahdollinen rautakautinen uhripaikka",
         "municipality": "Ristiina",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Kitulansuo D",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -2902,7 +3634,11 @@
         "number": 109,
         "name": "Kitulansuon varhaismetallikautinen asuinpaikka ja lspinrauniot sekä Kotilahden mahdollinen rautakautinen uhripaikka",
         "municipality": "Ristiina",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Kotilahti",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "uhrikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -2916,7 +3652,11 @@
         "number": 110,
         "name": "Juvolan ja Valkkilan kuppikivet",
         "municipality": "Savonlinna",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Juvola",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -2930,7 +3670,11 @@
         "number": 110,
         "name": "Juvolan ja Valkkilan kuppikivet",
         "municipality": "Savonlinna",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Valkkila",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "historiallinen, rautakautinen"
       }
     },
     {
@@ -2944,7 +3688,11 @@
         "number": 111,
         "name": "Tynkkylänjoen Kylmäniemen esihistorialliset asuinpaikat",
         "municipality": "Savonlinna",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Kylmäniemi a",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen, rautakautinen, varhaismetallikautinen"
       }
     },
     {
@@ -2958,7 +3706,11 @@
         "number": 111,
         "name": "Tynkkylänjoen Kylmäniemen esihistorialliset asuinpaikat",
         "municipality": "Savonlinna",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Kylmäniemi b",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen, rautakautinen, varhaismetallikautinen"
       }
     },
     {
@@ -2972,7 +3724,11 @@
         "number": 112,
         "name": "Rapakon kalliomaalaus",
         "municipality": "Savonlinna",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Rapakko Saunalahdenniemi",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -2986,7 +3742,11 @@
         "number": 113,
         "name": "Pisamalahden linnavuori",
         "municipality": "Sulkava",
-        "region": "Etelä-Savo"
+        "region": "Etelä-Savo",
+        "registerName": "Pisamalahden linnavuori",
+        "type": "puolustusvarustukset",
+        "subtype": "muinaislinnat",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -3000,7 +3760,11 @@
         "number": 114,
         "name": "Havukkakallion muinaislinna",
         "municipality": "Ilomantsi",
-        "region": "Pohjois-Karjala"
+        "region": "Pohjois-Karjala",
+        "registerName": "Havukkakallio",
+        "type": "puolustusvarustukset",
+        "subtype": "muinaislinnat",
+        "dating": "keskiaikainen"
       }
     },
     {
@@ -3014,7 +3778,11 @@
         "number": 115,
         "name": "Pirunpöytä - ajoittamaton kuppikivi",
         "municipality": "Kesälahti",
-        "region": "Pohjois-Karjala"
+        "region": "Pohjois-Karjala",
+        "registerName": "Pirunpöytä",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "historiallinen, rautakautinen"
       }
     },
     {
@@ -3028,7 +3796,11 @@
         "number": 116,
         "name": "Sirnihtan kivikautinen ja varhaismetallikautinen asuinpaikka",
         "municipality": "Kesälahti",
-        "region": "Pohjois-Karjala"
+        "region": "Pohjois-Karjala",
+        "registerName": "Sirnihta",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet, ei määritelty",
+        "dating": "kivikautinen, pronssikautinen"
       }
     },
     {
@@ -3042,7 +3814,11 @@
         "number": 117,
         "name": "Kalliolahden varhaismetallikautinen lapinraunio",
         "municipality": "Kitee",
-        "region": "Pohjois-Karjala"
+        "region": "Pohjois-Karjala",
+        "registerName": "Kalliolahti",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3056,7 +3832,11 @@
         "number": 118,
         "name": "Kalmoniemen ortodoksikalmisto ja kivikautinen asuinpaikka",
         "municipality": "Nurmes",
-        "region": "Pohjois-Karjala"
+        "region": "Pohjois-Karjala",
+        "registerName": "Mujejärvi Kalmoniemi",
+        "type": "hautapaikat, raaka-aineen hankintapaikat",
+        "subtype": "ei määritelty, ruumiskalmistot",
+        "dating": "historiallinen"
       }
     },
     {
@@ -3070,7 +3850,11 @@
         "number": 119,
         "name": "Lintutornin kivikautinen asuinpaikka",
         "municipality": "Outokumpu",
-        "region": "Pohjois-Karjala"
+        "region": "Pohjois-Karjala",
+        "registerName": "Lintutorni",
+        "type": "asuinpaikat, työ- ja valmistuspaikat",
+        "subtype": "asumuspainanteet, pyyntikuopat",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3084,7 +3868,11 @@
         "number": 120,
         "name": "Sätöksen kivikautinen asuinpaikka",
         "municipality": "Outokumpu",
-        "region": "Pohjois-Karjala"
+        "region": "Pohjois-Karjala",
+        "registerName": "Sätös",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3098,7 +3886,11 @@
         "number": 121,
         "name": "Vihin kivikautinen asuinpaikka",
         "municipality": "Rääkkylä",
-        "region": "Pohjois-Karjala"
+        "region": "Pohjois-Karjala",
+        "registerName": "Vihi 1",
+        "type": "asuinpaikat, työ- ja valmistuspaikat",
+        "subtype": "asumuspainanteet, hiilimiilut",
+        "dating": "historiallinen, kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -3112,7 +3904,11 @@
         "number": 122,
         "name": "Piilolahden kivikautinen asuinpaikka",
         "municipality": "Tohmajärvi",
-        "region": "Pohjois-Karjala"
+        "region": "Pohjois-Karjala",
+        "registerName": "Piilolahti",
+        "type": "asuinpaikat, työ- ja valmistuspaikat",
+        "subtype": "asumuspainanteet, hiilimiilut",
+        "dating": "historiallinen, kivikautinen"
       }
     },
     {
@@ -3126,7 +3922,11 @@
         "number": 123,
         "name": "Paljakan kuppikallio",
         "municipality": "Kiuruvesi",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Paljakka",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "kuppikivet",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -3140,7 +3940,11 @@
         "number": 124,
         "name": "Kuusikkolahdenniemen varhaismetallikautiset lapinrauniot",
         "municipality": "Kuopio",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Kuusikkolahdenniemi",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3154,7 +3958,11 @@
         "number": 125,
         "name": "Kuopion Hukkasen ja Vehmersalmen Korkea-Varpasen ja Lamminniemen varhaismetallikautiset lapinrauniot",
         "municipality": "Kuopio ja Vehmersalmi",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Hukkanen",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3168,7 +3976,11 @@
         "number": 125,
         "name": "Kuopion Hukkasen ja Vehmersalmen Korkea-Varpasen ja Lamminniemen varhaismetallikautiset lapinrauniot",
         "municipality": "Kuopio ja Vehmersalmi",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Korkea-Varpanen",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3182,21 +3994,26 @@
         "number": 125,
         "name": "Kuopion Hukkasen ja Vehmersalmen Korkea-Varpasen ja Lamminniemen varhaismetallikautiset lapinrauniot",
         "municipality": "Kuopio ja Vehmersalmi",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Lamminniemi",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [519371, 6992256]
-      },
+      "geometry": { "type": "Point", "coordinates": [519371, 6992256] },
       "properties": {
         "id": 476010003,
         "number": 126,
         "name": "Metelinkallion varhaismetallikautiset lapinrauniot",
         "municipality": "Maaninka",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Metelinkallio",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3210,7 +4027,11 @@
         "number": 127,
         "name": "Pisan historiallinen rajamerkki",
         "municipality": "Nilsiä",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Pisa",
+        "type": "kivirakenteet",
+        "subtype": "rajamerkit",
+        "dating": "historiallinen"
       }
     },
     {
@@ -3224,7 +4045,11 @@
         "number": 128,
         "name": "Kemilän varhaismetallikautinen lapinraunio",
         "municipality": "Pielavesi",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Kemilä",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3238,7 +4063,11 @@
         "number": 129,
         "name": "Meijerinkankaan kivi- ja varhaismetallikautinen asuinpaikka",
         "municipality": "Pielavesi",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Meijerinkangas",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -3252,7 +4081,11 @@
         "number": 130,
         "name": "Itäsaaren, Korpisen ja Iso- ja Pieni-Runkkuu -saarten varhaismetallikautiset lapinrauniot",
         "municipality": "Vesanto",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Itäsaari",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3266,7 +4099,11 @@
         "number": 130,
         "name": "Itäsaaren, Korpisen ja Iso- ja Pieni-Runkkuu -saarten varhaismetallikautiset lapinrauniot",
         "municipality": "Vesanto",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Korpinen",
+        "type": "hautapaikat",
+        "subtype": "ei määritelty",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3280,7 +4117,11 @@
         "number": 130,
         "name": "Itäsaaren, Korpisen ja Iso- ja Pieni-Runkkuu -saarten varhaismetallikautiset lapinrauniot",
         "municipality": "Vesanto",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Iso-Runkkuu",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3294,7 +4135,11 @@
         "number": 130,
         "name": "Itäsaaren, Korpisen ja Iso- ja Pieni-Runkkuu -saarten varhaismetallikautiset lapinrauniot",
         "municipality": "Vesanto",
-        "region": "Pohjois-Savo"
+        "region": "Pohjois-Savo",
+        "registerName": "Pieni-Runkkuu",
+        "type": "hautapaikat",
+        "subtype": "ei määritelty",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3308,7 +4153,11 @@
         "number": 131,
         "name": "Pyhäsaaren ja Oksasaaren varhaismetallikautiset lapinrauniot",
         "municipality": "Jyväskylä",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Oksassaari",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3322,7 +4171,11 @@
         "number": 131,
         "name": "Pyhäsaaren ja Oksasaaren varhaismetallikautiset lapinrauniot",
         "municipality": "Jyväskylä",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Pyhäsaari",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3336,7 +4189,11 @@
         "number": 132,
         "name": "Linnasenmäen muinaislinna",
         "municipality": "Jämsä",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Linnasenmäki",
+        "type": "puolustusvarustukset",
+        "subtype": "muinaislinnat",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -3350,7 +4207,11 @@
         "number": 133,
         "name": "Tarvaannenän ja Koukunkallion varhaismetallikautiset lapinrauniot",
         "municipality": "Jyväskylä",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Tarvaannenä",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -3364,7 +4225,11 @@
         "number": 133,
         "name": "Tarvaannenän ja Koukunkallion varhaismetallikautiset lapinrauniot",
         "municipality": "Jyväskylä",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Koukunkallio",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -3378,7 +4243,11 @@
         "number": 134,
         "name": "Päijälän linnavuori",
         "municipality": "Kuhmoinen",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Päijälän Linnavuori",
+        "type": "puolustusvarustukset",
+        "subtype": "muinaislinnat",
+        "dating": "keskiaikainen, rautakautinen"
       }
     },
     {
@@ -3392,7 +4261,11 @@
         "number": 135,
         "name": "Hartikan kivikautinen asuinpaikka ja kalmistoalue",
         "municipality": "Laukaa",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Hartikka",
+        "type": "asuinpaikat, hautapaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3406,7 +4279,11 @@
         "number": 136,
         "name": "Saraakallion kalliomaalaukset",
         "municipality": "Laukaa",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Saraakallio I ja II",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen, pronssikautinen"
       }
     },
     {
@@ -3420,7 +4297,11 @@
         "number": 137,
         "name": "Peukaloiskankaan muinaisjäännösalue",
         "municipality": "Pihtipudas",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Peukaloisenkangas 1",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3434,7 +4315,11 @@
         "number": 137,
         "name": "Peukaloiskankaan muinaisjäännösalue",
         "municipality": "Pihtipudas",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Peukaloisenkangas 2",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3448,7 +4333,11 @@
         "number": 137,
         "name": "Peukaloiskankaan muinaisjäännösalue",
         "municipality": "Pihtipudas",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Peukaloisenkangas 3",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3462,7 +4351,11 @@
         "number": 137,
         "name": "Peukaloiskankaan muinaisjäännösalue",
         "municipality": "Pihtipudas",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Peukaloisenkangas 4",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3476,7 +4369,11 @@
         "number": 137,
         "name": "Peukaloiskankaan muinaisjäännösalue",
         "municipality": "Pihtipudas",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Peukaloisenkangas 5",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3490,7 +4387,11 @@
         "number": 137,
         "name": "Peukaloiskankaan muinaisjäännösalue",
         "municipality": "Pihtipudas",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Peukaloisenkangas 6",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3504,21 +4405,26 @@
         "number": 138,
         "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
         "municipality": "Saarijärvi",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Moilanen",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [414845, 6948725]
-      },
+      "geometry": { "type": "Point", "coordinates": [414845, 6948725] },
       "properties": {
         "id": 729010027,
         "number": 138,
         "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
         "municipality": "Saarijärvi",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Rantaloma",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3532,7 +4438,11 @@
         "number": 138,
         "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
         "municipality": "Saarijärvi",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Haikankärki 1",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3546,7 +4456,11 @@
         "number": 138,
         "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
         "municipality": "Saarijärvi",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Peukaloniemi",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3560,7 +4474,11 @@
         "number": 138,
         "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
         "municipality": "Saarijärvi",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Karjalaispirtti/Rusavierto",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "moniperiodinen"
       }
     },
     {
@@ -3574,7 +4492,11 @@
         "number": 138,
         "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
         "municipality": "Saarijärvi",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Oksanen",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3588,7 +4510,11 @@
         "number": 138,
         "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
         "municipality": "Saarijärvi",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Salmenranta",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "moniperiodinen"
       }
     },
     {
@@ -3602,7 +4528,11 @@
         "number": 138,
         "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
         "municipality": "Saarijärvi",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Haikanniemi N",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -3616,7 +4546,11 @@
         "number": 138,
         "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
         "municipality": "Saarijärvi",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Summassaari Harju",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -3630,7 +4564,11 @@
         "number": 138,
         "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
         "municipality": "Saarijärvi",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Saarenpää N",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -3644,7 +4582,11 @@
         "number": 138,
         "name": "Summassaaren esihistorialliset muinaisjäännöskohteet",
         "municipality": "Saarijärvi",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Summassaari Uimaranta",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "moniperiodinen"
       }
     },
     {
@@ -3658,7 +4600,11 @@
         "number": 139,
         "name": "Pyhänsalon varhaismetallikautiset lapinrauniot",
         "municipality": "Äänekoski",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Pyhänsalo 1",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -3672,7 +4618,11 @@
         "number": 139,
         "name": "Pyhänsalon varhaismetallikautiset lapinrauniot",
         "municipality": "Äänekoski",
-        "region": "Keski-Suomi"
+        "region": "Keski-Suomi",
+        "registerName": "Pyhänsalo 2",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -3686,7 +4636,11 @@
         "number": 140,
         "name": "Heikinkankaan ja Rasin kivikautinen asuinpaikka-alue",
         "municipality": "Alajärvi",
-        "region": "Etelä-Pohjanmaa"
+        "region": "Etelä-Pohjanmaa",
+        "registerName": "Heikinkangas ja Rasinmäki/Rasi",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3700,7 +4654,11 @@
         "number": 141,
         "name": "Honkalanmäen kivikautinen asuinpaikka",
         "municipality": "Ilmajoki",
-        "region": "Etelä-Pohjanmaa"
+        "region": "Etelä-Pohjanmaa",
+        "registerName": "Honkalanmäki",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3714,7 +4672,11 @@
         "number": 142,
         "name": "Leväluhdan rautakautinen suokalmisto",
         "municipality": "Isokyrö",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Leväluhta",
+        "type": "hautapaikat",
+        "subtype": "ei määritelty",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -3728,21 +4690,26 @@
         "number": 143,
         "name": "Susiluolan/Varggrottanin paleoliittinen luola-asuinpaikka",
         "municipality": "Kristiinankaupunki",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Karijoen Susiluola",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [244342, 6983897]
-      },
+      "geometry": { "type": "Point", "coordinates": [244342, 6983897] },
       "properties": {
         "id": 399010042,
         "number": 144,
         "name": "Alatalon/Jätinhaudanmaan pronssikautinen röykkiökalmisto",
         "municipality": "Laihia",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Alatalo/Jätinhaudanmaa",
+        "type": "hautapaikat, työ- ja valmistuspaikat",
+        "subtype": "hautaröykkiöt, tulisijat",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -3756,7 +4723,11 @@
         "number": 145,
         "name": "Viirikallion varhaismetallikautinen muinaisjäännösalue",
         "municipality": "Laihia",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Viirikallio 1",
+        "type": "asuinpaikat, kivirakenteet",
+        "subtype": "ei määritelty, röykkiöt",
+        "dating": "pronssikautinen, rautakautinen"
       }
     },
     {
@@ -3770,7 +4741,11 @@
         "number": 146,
         "name": "Storsjön rautakautiset muinaisjäännösalueet",
         "municipality": "Maalahti",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Nissashaga S",
+        "type": "asuinpaikat, hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "ei määritelty, hautaröykkiöt, kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -3784,7 +4759,11 @@
         "number": 146,
         "name": "Storsjön rautakautiset muinaisjäännösalueet",
         "municipality": "Maalahti",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Nissashaga N/Långmark",
+        "type": "asuinpaikat, hautapaikat, kultti- ja tarinapaikat",
+        "subtype": "ei määritelty, hautaröykkiöt, kuppikivet",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -3798,7 +4777,11 @@
         "number": 146,
         "name": "Storsjön rautakautiset muinaisjäännösalueet",
         "municipality": "Maalahti",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Holsterbacken S",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -3812,7 +4795,11 @@
         "number": 146,
         "name": "Storsjön rautakautiset muinaisjäännösalueet",
         "municipality": "Maalahti",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Holsterbacken N",
+        "type": "asuinpaikat, kivirakenteet, kultti- ja tarinapaikat",
+        "subtype": "ei määritelty, kuppikivet, röykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -3826,7 +4813,11 @@
         "number": 147,
         "name": "Storskärin jatulintarhat ja kivirakenteet",
         "municipality": "Maalahti",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Storskäret",
+        "type": "kivirakenteet, kultti- ja tarinapaikat",
+        "subtype": "jatulintarhat, kivivallit, röykkiöt",
+        "dating": "historiallinen"
       }
     },
     {
@@ -3840,7 +4831,11 @@
         "number": 148,
         "name": "Storstenrösbackenin pronssikautinen hautaröykkiöalue",
         "municipality": "Maalahti",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Pörtom-Storstenrösbacken",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -3854,7 +4849,11 @@
         "number": 149,
         "name": "Småstenrösbackenin pronssikautiset hautaröykkiöt",
         "municipality": "Närpiö",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Pörtom-Småstenrösbacken",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -3868,7 +4867,11 @@
         "number": 150,
         "name": "Hundbackenin/Myllykankaan kivikautinen asuinpaikka",
         "municipality": "Pedersöre",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Pedersöre-Tegelstensbacken",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -3882,7 +4885,11 @@
         "number": 151,
         "name": "Svedjebackenin jätinkirkko",
         "municipality": "Pedersöre",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Esse-Svedjebacken",
+        "type": "kivirakenteet",
+        "subtype": "jätinkirkot",
+        "dating": "kivikautinen, pronssikautinen"
       }
     },
     {
@@ -3896,7 +4903,11 @@
         "number": 152,
         "name": "Asplandetin-Lövesmossenin pronssikautinen hautaröykkiöalue",
         "municipality": "Uusikaarlepyy",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Jepua-Knäbacken/Asplandet",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -3910,7 +4921,11 @@
         "number": 152,
         "name": "Asplandetin-Lövesmossenin pronssikautinen hautaröykkiöalue",
         "municipality": "Uusikaarlepyy",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Jepua-Kilismossen 2",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -3924,7 +4939,11 @@
         "number": 152,
         "name": "Asplandetin-Lövesmossenin pronssikautinen hautaröykkiöalue",
         "municipality": "Uusikaarlepyy",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Jepua-Palmlandet",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -3938,7 +4957,11 @@
         "number": 152,
         "name": "Asplandetin-Lövesmossenin pronssikautinen hautaröykkiöalue",
         "municipality": "Uusikaarlepyy",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Jeppo-Kilismossen 1",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -3952,7 +4975,11 @@
         "number": 153,
         "name": "Vitmossenin varhaismetallikautinen asuinpaikka ja röykkiöt",
         "municipality": "Vöyri",
-        "region": "Pohjanmaa"
+        "region": "Pohjanmaa",
+        "registerName": "Vitmossen 3",
+        "type": "muinaisjäännösryhmät",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen, pronssikautinen"
       }
     },
     {
@@ -3966,7 +4993,11 @@
         "number": 154,
         "name": "Kankaan kivikautinen asuinpaikka ja kalmistoalue",
         "municipality": "Kaustinen",
-        "region": "Keski-Pohjanmaa"
+        "region": "Keski-Pohjanmaa",
+        "registerName": "Kangas",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -3980,7 +5011,11 @@
         "number": 155,
         "name": "Ohtakarin jatulintarha",
         "municipality": "Lohtaja",
-        "region": "Keski-Pohjanmaa"
+        "region": "Keski-Pohjanmaa",
+        "registerName": "Ohtakari",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "jatulintarhat",
+        "dating": "historiallinen"
       }
     },
     {
@@ -3994,7 +5029,11 @@
         "number": 156,
         "name": "Autiokorpi ja Perttulankangas - historiallisen ajan asutus- ja viljelysjäänteitä",
         "municipality": "Haapavesi",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Perttulankangas",
+        "type": "asuinpaikat, työ- ja valmistuspaikat",
+        "subtype": "ei määritelty, viljelyröykkiöt",
+        "dating": "historiallinen"
       }
     },
     {
@@ -4008,35 +5047,41 @@
         "number": 157,
         "name": "Isoniemen jatulintarha",
         "municipality": "Haukipudas",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Isoniemi",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "jatulintarhat",
+        "dating": "historiallinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [439496, 7234850]
-      },
+      "geometry": { "type": "Point", "coordinates": [439496, 7234850] },
       "properties": {
         "id": 84010001,
         "number": 158,
         "name": "Rajakankaan jätinkirkko, röykkiö ja kivikautinen asuinpaikka",
         "municipality": "Haukipudas",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Rajakangas",
+        "type": "asuinpaikat,  , kivirakenteet",
+        "subtype": "ei määritelty, jätinkirkot, röykkiöt",
+        "dating": "kivikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [398565, 7252587]
-      },
+      "geometry": { "type": "Point", "coordinates": [398565, 7252587] },
       "properties": {
         "id": 139010003,
         "number": 159,
         "name": "Krunnien jatulintarhat ja muita historiallisen ajan kivilatomuksia",
         "municipality": "Ii",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Ulkokrunni",
+        "type": "asuinpaikat, kivirakenteet, kulkuväylät, kultti- ja tarinapaikat",
+        "subtype": "jatulintarhat, kalastuspaikat, merimerkit, röykkiöt",
+        "dating": "historiallinen"
       }
     },
     {
@@ -4050,7 +5095,11 @@
         "number": 159,
         "name": "Krunnien jatulintarhat ja muita historiallisen ajan kivilatomuksia",
         "municipality": "Ii",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Kumpeleenharju",
+        "type": "kulkuväylät",
+        "subtype": "kummelit",
+        "dating": "historiallinen"
       }
     },
     {
@@ -4064,7 +5113,11 @@
         "number": 159,
         "name": "Krunnien jatulintarhat ja muita historiallisen ajan kivilatomuksia",
         "municipality": "Ii",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Äijänkumpu",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "uhrikivet",
+        "dating": "historiallinen"
       }
     },
     {
@@ -4078,7 +5131,11 @@
         "number": 160,
         "name": "Rautatiesillan kivipöytä",
         "municipality": "Ii",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Rautatiesilta NW",
+        "type": "kivirakenteet",
+        "subtype": "kivipöydät",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -4092,7 +5149,11 @@
         "number": 161,
         "name": "Vuorenmaan pitkä kivilatomus",
         "municipality": "Kalajoki",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Vuorenmaa",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "pronssikautinen"
       }
     },
     {
@@ -4106,21 +5167,26 @@
         "number": 162,
         "name": "Ilvessalonmäen kivikautinen röykkiö",
         "municipality": "Merijärvi",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Ilvessalonmäki",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "esihistoriallinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [430631, 7205250]
-      },
+      "geometry": { "type": "Point", "coordinates": [430631, 7205250] },
       "properties": {
         "id": 564010022,
         "number": 163,
         "name": "Kaakkurin Välikankaan rautakautinen kalmisto",
         "municipality": "Oulu",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Välikangas",
+        "type": "hautapaikat",
+        "subtype": "hautaröykkiöt",
+        "dating": "rautakautinen"
       }
     },
     {
@@ -4134,7 +5200,11 @@
         "number": 164,
         "name": "Kudelmakankaan röykkiöryhmä",
         "municipality": "Oulunsalo",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Kudelmakangas",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "esihistoriallinen"
       }
     },
     {
@@ -4148,7 +5218,11 @@
         "number": 165,
         "name": "Kastellinlinna - jätinkirkko",
         "municipality": "Raahe",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Kastelli Linnakangas",
+        "type": "asuinpaikat,  , kivirakenteet",
+        "subtype": "asumuspainanteet, jätinkirkot, röykkiöt",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4162,7 +5236,11 @@
         "number": 166,
         "name": "Hanhikiven historiallinen rajamerkki",
         "municipality": "Pyhäjoki",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Hanhikivi",
+        "type": "kivirakenteet",
+        "subtype": "rajamerkit",
+        "dating": "historiallinen"
       }
     },
     {
@@ -4176,7 +5254,11 @@
         "number": 167,
         "name": "Varekankaan varhaismetallikautinen röykkiöryhmä",
         "municipality": "Pyhäjoki",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Varekangas",
+        "type": "kivirakenteet",
+        "subtype": "röykkiöt",
+        "dating": "esihistoriallinen"
       }
     },
     {
@@ -4190,7 +5272,11 @@
         "number": 168,
         "name": "Papinkankaan pyyntikuoppakohde",
         "municipality": "Siikajoki",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Papinkangas",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat",
+        "dating": "esihistoriallinen, keskiaikainen"
       }
     },
     {
@@ -4204,7 +5290,11 @@
         "number": 169,
         "name": "Miilukankaan kivikautinen asuinpaikka",
         "municipality": "Siikajoki, Raahe",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Miilukangas",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4218,7 +5308,11 @@
         "number": 169,
         "name": "Miilukankaan kivikautinen asuinpaikka",
         "municipality": "Siikajoki, Raahe",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Miilukangas",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4232,7 +5326,11 @@
         "number": 170,
         "name": "Rekikylän kivikautinen asumuspainannealue",
         "municipality": "Oulu",
-        "region": "Pohjois-Pohjanmaa"
+        "region": "Pohjois-Pohjanmaa",
+        "registerName": "Rekikylä",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4246,7 +5344,11 @@
         "number": 171,
         "name": "Koppeloniemen ja Vonkan esihistorialliset asuinpaikat",
         "municipality": "Hyrynsalmi",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Koppeloniemi",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -4260,7 +5362,11 @@
         "number": 171,
         "name": "Koppeloniemen ja Vonkan esihistorialliset asuinpaikat",
         "municipality": "Hyrynsalmi",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Vonkka 2",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "esihistoriallinen,  , kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -4274,7 +5380,11 @@
         "number": 171,
         "name": "Koppeloniemen ja Vonkan esihistorialliset asuinpaikat",
         "municipality": "Hyrynsalmi",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Vonkka 1",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "esihistoriallinen,  , kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -4288,7 +5398,11 @@
         "number": 172,
         "name": "Likosuon rautahytti",
         "municipality": "Hyrynsalmi",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Vuorisalmi",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4302,7 +5416,11 @@
         "number": 173,
         "name": "Myllyniemen pyyntikuoppaketju ja maakumpu",
         "municipality": "Kajaani",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Myllyniemi 1",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat, tervahaudat",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -4316,21 +5434,26 @@
         "number": 173,
         "name": "Myllyniemen pyyntikuoppaketju ja maakumpu",
         "municipality": "Kajaani",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Myllyniemi 2",
+        "type": "maarakenteet",
+        "subtype": "ei määritelty",
+        "dating": "ajoittamaton"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [596981, 7110376]
-      },
+      "geometry": { "type": "Point", "coordinates": [596981, 7110376] },
       "properties": {
         "id": 290010052,
         "number": 174,
         "name": "Pajasaaren esihistoriallinen asuinpaikka ja historiallisen ajan raudanvalmistuspaikka",
         "municipality": "Kuhmo",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Pajasaari",
+        "type": "asuinpaikat, työ- ja valmistuspaikat",
+        "subtype": "ei määritelty, raudanvalmistuspaikat",
+        "dating": "esihistoriallinen, historiallinen, kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -4344,7 +5467,11 @@
         "number": 175,
         "name": "Saunaniemen ja Iso-Palosen esihistorialliset asuinpaikka- ja pyyntikuoppakohteet",
         "municipality": "Kuhmo",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Saunaniemi",
+        "type": "asuinpaikat, löytöpaikat, maarakenteet",
+        "subtype": "ei määritelty, painanteet",
+        "dating": "kivikautinen, rautakautinen"
       }
     },
     {
@@ -4358,35 +5485,41 @@
         "number": 175,
         "name": "Saunaniemen ja Iso-Palosen esihistorialliset asuinpaikka- ja pyyntikuoppakohteet",
         "municipality": "Kuhmo",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Iso Palonen",
+        "type": "asuinpaikat, työ- ja valmistuspaikat",
+        "subtype": "ei määritelty, pyyntikuopat",
+        "dating": "ajoittamaton, kivikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [622481, 7114661]
-      },
+      "geometry": { "type": "Point", "coordinates": [622481, 7114661] },
       "properties": {
         "id": 290010029,
         "number": 176,
         "name": "Sylväjänniemen esihistoriallinen asuinpaikka",
         "municipality": "Kuhmo",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Sylväjänniemi 1",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen, rautakautinen, varhaismetallikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [623093, 7114840]
-      },
+      "geometry": { "type": "Point", "coordinates": [623093, 7114840] },
       "properties": {
         "id": 290010030,
         "number": 176,
         "name": "Sylväjänniemen esihistoriallinen asuinpaikka",
         "municipality": "Kuhmo",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Sylväjänniemi 2-3",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4400,7 +5533,11 @@
         "number": 177,
         "name": "Kiikarusniemen ja Ammonsaaren esihistorialliset asuinpaikat",
         "municipality": "Sotkamo",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Kiikarusniemi",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "esihistoriallinen,  , kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -4414,7 +5551,11 @@
         "number": 177,
         "name": "Kiikarusniemen ja Ammonsaaren esihistorialliset asuinpaikat",
         "municipality": "Sotkamo",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Ammonsaari",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "esihistoriallinen, kivikautinen, rautakautinen, varhaismetallikautinen"
       }
     },
     {
@@ -4428,7 +5569,11 @@
         "number": 178,
         "name": "Kalmosärkän esihistoriallinen asuinpaikka",
         "municipality": "Suomussalmi",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Kalmosärkkä",
+        "type": "asuinpaikat, hautapaikat, puolustusvarustukset",
+        "subtype": "ei määritelty, taistelukaivannot",
+        "dating": "historiallinen,  , kivikautinen, moderni"
       }
     },
     {
@@ -4442,7 +5587,11 @@
         "number": 179,
         "name": "Keräsensalmen pyyntikuoppakohde",
         "municipality": "Suomussalmi",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Keräsensalmi",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -4456,21 +5605,26 @@
         "number": 180,
         "name": "Vanhan Kirkkosaaren kivikautinen asuinpaikka",
         "municipality": "Suomussalmi",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Vanha Kirkkosaari",
+        "type": "asuinpaikat, hautapaikat, työ- ja valmistuspaikat",
+        "subtype": "ei määritelty, hautasaaret, hiilimiilut",
+        "dating": "historiallinen,  , kivikautinen, rautakautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [606466, 7267726]
-      },
+      "geometry": { "type": "Point", "coordinates": [606466, 7267726] },
       "properties": {
         "id": 777010100,
         "number": 181,
         "name": "Värikallion kalliomaalaus",
         "municipality": "Suomussalmi",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Värikallio",
+        "type": "taide, muistomerkit",
+        "subtype": "kalliomaalaukset",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4484,7 +5638,11 @@
         "number": 182,
         "name": "Lapinsalmen lapinpato",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Lapinsalmi",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "lapinpadot",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -4498,7 +5656,11 @@
         "number": 183,
         "name": "Manamansalon Martinkannan pyyntikuoppakohde, Vanha hautausmaa ja Muinaiskirkon kivikautinen asuinpaikka",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Martinkanta",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat, tervahaudat",
+        "dating": "ajoittamaton, historiallinen"
       }
     },
     {
@@ -4512,7 +5674,11 @@
         "number": 183,
         "name": "Manamansalon Martinkannan pyyntikuoppakohde, Vanha hautausmaa ja Muinaiskirkon kivikautinen asuinpaikka",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Manamansalon Vanha hautausmaa",
+        "type": "hautapaikat",
+        "subtype": "ruumiskalmistot",
+        "dating": "historiallinen"
       }
     },
     {
@@ -4526,7 +5692,11 @@
         "number": 183,
         "name": "Manamansalon Martinkannan pyyntikuoppakohde, Vanha hautausmaa ja Muinaiskirkon kivikautinen asuinpaikka",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Muinaiskirkko",
+        "type": "asuinpaikat, maarakenteet",
+        "subtype": "ei määritelty, kuopat",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4540,7 +5710,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjärvi Pellonpää",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4554,7 +5728,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjärvi Raappana",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4568,7 +5746,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjärvi Sillankorva",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "esihistoriallinen, kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -4582,7 +5764,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjärvi Uusitalo",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "esihistoriallinen, kivikautinen"
       }
     },
     {
@@ -4596,7 +5782,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjärvi Niemelänniemi",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4610,7 +5800,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjärvi Järventaka",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "esihistoriallinen,  , kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -4624,7 +5818,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjärvi Välitalo",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4638,21 +5836,26 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjärvi Kökkölä",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "esihistoriallinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [489070.5, 7156697.625]
-      },
+      "geometry": { "type": "Point", "coordinates": [489070.5, 7156697.625] },
       "properties": {
         "id": 785010014,
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjärvi Puhakka",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4666,7 +5869,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjärvi Toivola",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4680,7 +5887,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjoki Patokaarto",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4694,7 +5905,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjoki länsiranta",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4708,7 +5923,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjoki Patokenttä",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "esihistoriallinen"
       }
     },
     {
@@ -4722,7 +5941,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjoki Tavioja",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -4736,7 +5959,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjoki Kaitanen",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -4750,7 +5977,11 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjoki yläosa",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "lapinpadot",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -4764,21 +5995,26 @@
         "number": 184,
         "name": "Nimisjärven esihistorialliset asuinpaikat",
         "municipality": "Vaala",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Nimisjoki alaosa",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "lapinpadot",
+        "dating": "ajoittamaton"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [501235, 7127688]
-      },
+      "geometry": { "type": "Point", "coordinates": [501235, 7127688] },
       "properties": {
         "id": 940010011,
         "number": 185,
         "name": "Jataharjunnokan varhaismetallikautinen lapinraunio",
         "municipality": "Vuolijoki",
-        "region": "Kainuu"
+        "region": "Kainuu",
+        "registerName": "Jataharjunnokka",
+        "type": "hautapaikat",
+        "subtype": "lapinrauniot",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -4792,7 +6028,11 @@
         "number": 186,
         "name": "Jyppyrän pyyntikuopat",
         "municipality": "Enontekiö",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Jyppyrä etelä",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat",
+        "dating": "varhaismetallikautinen"
       }
     },
     {
@@ -4806,7 +6046,11 @@
         "number": 187,
         "name": "Markkinan esihistoriallisen ja historiallisen ajan muinaisjäännösalue",
         "municipality": "Enontekiö",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Markkina",
+        "type": "asuinpaikat, hautapaikat, kirkkorakenteet, kultti- ja tarinapaikat",
+        "subtype": "ei määritelty, hautausmaat, kirkonpaikat, markkinapaikat",
+        "dating": "historiallinen, kivikautinen"
       }
     },
     {
@@ -4820,7 +6064,11 @@
         "number": 188,
         "name": "Näkkälän seitakivi",
         "municipality": "Enontekiö",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Näkkälä",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "seidat",
+        "dating": "historiallinen"
       }
     },
     {
@@ -4834,7 +6082,11 @@
         "number": 189,
         "name": "Nukkumajoen saamelainen talvikylä",
         "municipality": "Inari",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Nukkumajoki 2",
+        "type": "asuinpaikat",
+        "subtype": "kodanpohjat",
+        "dating": "historiallinen"
       }
     },
     {
@@ -4848,7 +6100,11 @@
         "number": 190,
         "name": "Seärihjoen-Härkäjärven pyyntikuoppaketju",
         "municipality": "Inari",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Searitjohka länsi",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -4862,7 +6118,11 @@
         "number": 190,
         "name": "Seärihjoen-Härkäjärven pyyntikuoppaketju",
         "municipality": "Inari",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Searitjohka itä",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -4876,7 +6136,11 @@
         "number": 190,
         "name": "Seärihjoen-Härkäjärven pyyntikuoppaketju",
         "municipality": "Inari",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Sotkajärvi lounas",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -4890,7 +6154,11 @@
         "number": 190,
         "name": "Seärihjoen-Härkäjärven pyyntikuoppaketju",
         "municipality": "Inari",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Härkäjärvi",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -4904,7 +6172,11 @@
         "number": 190,
         "name": "Seärihjoen-Härkäjärven pyyntikuoppaketju",
         "municipality": "Inari",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Searitjohka itä 2",
+        "type": "työ- ja valmistuspaikat",
+        "subtype": "pyyntikuopat",
+        "dating": "ajoittamaton"
       }
     },
     {
@@ -4918,7 +6190,11 @@
         "number": 191,
         "name": "Siuttavaaran myöhäisrautakautiset kivilatomukset",
         "municipality": "Inari",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Siuttavaara",
+        "type": "asuinpaikat, kivirakenteet, työ- ja valmistuspaikat",
+        "subtype": "ei määritelty, latomukset, pyyntikuopat",
+        "dating": "kivikautinen, rautakautinen"
       }
     },
     {
@@ -4932,7 +6208,11 @@
         "number": 192,
         "name": "Ukonsaaren uhripaikka",
         "municipality": "Inari",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Ukonsaari",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "seidat",
+        "dating": "historiallinen"
       }
     },
     {
@@ -4946,7 +6226,11 @@
         "number": 193,
         "name": "Ämmänvaaran palvontapaikka. kivikautinen asuinpaikka ja kvartsilouhos",
         "municipality": "Kemijärvi",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Ämmänvaara 1",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "ei määritelty",
+        "dating": "historiallinen"
       }
     },
     {
@@ -4960,21 +6244,26 @@
         "number": 194,
         "name": "Valmarinniemen keskiaikaisten kirkkojen paikka ja kalmisto",
         "municipality": "Keminmaa",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Valmarinniemi",
+        "type": "hautapaikat, kirkkorakenteet",
+        "subtype": "kirkonpaikat, ruumiskalmistot",
+        "dating": "keskiaikainen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [411429, 7509006]
-      },
+      "geometry": { "type": "Point", "coordinates": [411429, 7509006] },
       "properties": {
         "id": 261010053,
         "number": 195,
         "name": "Kurjenpolven historiallisen ajan kalmisto",
         "municipality": "Kittilä",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Kurjenpolvi",
+        "type": "hautapaikat",
+        "subtype": "ruumiskalmistot",
+        "dating": "historiallinen"
       }
     },
     {
@@ -4988,7 +6277,11 @@
         "number": 196,
         "name": "Taatsin seita ja Taatsinkirkko",
         "municipality": "Kittilä",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Taatsi ja Taatsinkirkko",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "seidat",
+        "dating": "historiallinen"
       }
     },
     {
@@ -5002,7 +6295,11 @@
         "number": 197,
         "name": "Pakasaivon palvontapaikka, 'Lapin helvetti' ja Kirkkopahdan seitakivi",
         "municipality": "Muonio",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Pakasaivo, Lapin helvetti",
+        "type": "kultti- ja tarinapaikat",
+        "subtype": "seidat",
+        "dating": "ajoittamaton, historiallinen"
       }
     },
     {
@@ -5016,7 +6313,11 @@
         "number": 198,
         "name": "Luiminkajärven kesähautasaaret - Palosaari ja Kalliosaari",
         "municipality": "Ranua",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Luiminkajärvi Palosaari",
+        "type": "hautapaikat",
+        "subtype": "hautasaaret",
+        "dating": "historiallinen"
       }
     },
     {
@@ -5030,7 +6331,11 @@
         "number": 198,
         "name": "Luiminkajärven kesähautasaaret - Palosaari ja Kalliosaari",
         "municipality": "Ranua",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Luiminkajärvi Kalliosaari",
+        "type": "hautapaikat",
+        "subtype": "hautasaaret",
+        "dating": "historiallinen"
       }
     },
     {
@@ -5044,21 +6349,26 @@
         "number": 199,
         "name": "Tainiaron kivikautinen asuinpaikka ja kalmisto",
         "municipality": "Simo",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Tainiaro",
+        "type": "asuinpaikat, hautapaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
       "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [527920, 7501490]
-      },
+      "geometry": { "type": "Point", "coordinates": [527920, 7501490] },
       "properties": {
         "id": 758010035,
         "number": 200,
         "name": "Kyläselän talvikylä",
         "municipality": "Sodankylä",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Kyläselkä",
+        "type": "asuinpaikat",
+        "subtype": "kylänpaikat",
+        "dating": "historiallinen"
       }
     },
     {
@@ -5072,7 +6382,11 @@
         "number": 201,
         "name": "Törmävaaran kivikautinen asuinpaikka-alue",
         "municipality": "Tervola",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Törmävaara 26",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -5086,7 +6400,11 @@
         "number": 201,
         "name": "Törmävaaran kivikautinen asuinpaikka-alue",
         "municipality": "Tervola",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Törmävaara 30",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -5100,7 +6418,11 @@
         "number": 201,
         "name": "Törmävaaran kivikautinen asuinpaikka-alue",
         "municipality": "Tervola",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Törmävaara 40",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -5114,7 +6436,11 @@
         "number": 201,
         "name": "Törmävaaran kivikautinen asuinpaikka-alue",
         "municipality": "Tervola",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Törmävaara 41",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -5128,7 +6454,11 @@
         "number": 201,
         "name": "Törmävaaran kivikautinen asuinpaikka-alue",
         "municipality": "Tervola",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Törmävaara 42",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -5142,7 +6472,11 @@
         "number": 201,
         "name": "Törmävaaran kivikautinen asuinpaikka-alue",
         "municipality": "Tervola",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Törmävaara 47",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -5156,7 +6490,11 @@
         "number": 201,
         "name": "Törmävaaran kivikautinen asuinpaikka-alue",
         "municipality": "Tervola",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Törmävaara 48",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -5170,7 +6508,11 @@
         "number": 201,
         "name": "Törmävaaran kivikautinen asuinpaikka-alue",
         "municipality": "Tervola",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Törmävaara 50",
+        "type": "asuinpaikat",
+        "subtype": "asumuspainanteet",
+        "dating": "kivikautinen"
       }
     },
     {
@@ -5184,7 +6526,11 @@
         "number": 202,
         "name": "Iso-Huiturin Piispankivi",
         "municipality": "Tornio",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Piispankivi",
+        "type": "kivirakenteet",
+        "subtype": "rajamerkit",
+        "dating": "keskiaikainen"
       }
     },
     {
@@ -5198,7 +6544,11 @@
         "number": 203,
         "name": "Rakanmäen rautakautinen muinaisjäännösalue",
         "municipality": "Tornio",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Rakanmäki",
+        "type": "asuinpaikat, kivirakenteet",
+        "subtype": "ei määritelty, röykkiöt",
+        "dating": "ajoittamaton, rautakautinen, varhaismetallikautinen"
       }
     },
     {
@@ -5212,7 +6562,11 @@
         "number": 204,
         "name": "Ala-Jalven kivi- ja vathaismetallikautinen asuinpaikka",
         "municipality": "Utsjoki",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Ala-Jalve",
+        "type": "asuinpaikat",
+        "subtype": "ei määritelty",
+        "dating": "kivikautinen, pronssikautinen"
       }
     },
     {
@@ -5226,7 +6580,11 @@
         "number": 205,
         "name": "Välimaan museotila",
         "municipality": "Utsjoki",
-        "region": "Lappi"
+        "region": "Lappi",
+        "registerName": "Välimaa",
+        "type": "asuinpaikat",
+        "subtype": "kentät (gieddi)",
+        "dating": "moniperiodinen"
       }
     }
   ]

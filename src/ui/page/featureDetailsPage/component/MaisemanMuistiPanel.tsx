@@ -9,6 +9,8 @@ import { Field } from "./Field"
 import { MuseovirastoLinkDirect } from "./MuseovirastoLink"
 import { EmbeddedModels } from "./EmbeddedModels"
 import { MaisemanMuistiField } from "./MaisemanMuistiField"
+import { trim } from "../../../../common/util/featureParser"
+import { TimespanLabel } from "./TimespanLabel"
 
 interface Props {
   isOpen: boolean
@@ -31,9 +33,17 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
       has3dModels={models.length > 0}
     >
       <form>
-        <Field label="Kohdenimi" value={feature.properties.name} />
+        <Field label="Kohdenimi" value={feature.properties.registerName} />
         <Field label="Kunta" value={feature.properties.municipality} />
         <Field label="Maakunta" value={feature.properties.region} />
+        <Field label="Ajoitus">
+          <p>
+            <span>{trim(feature.properties.dating)}</span>
+            <TimespanLabel dating={feature.properties.dating} />
+          </p>
+        </Field>
+        <Field label="Tyyppi" value={feature.properties.type} />
+        <Field label="Alatyyppi" value={feature.properties.subtype} />
         <MaisemanMuistiField feature={feature} />
         <MuseovirastoLinkDirect
           url={`https://www.kyppi.fi/to.aspx?id=112.${feature.properties.id}`}

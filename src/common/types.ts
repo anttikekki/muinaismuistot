@@ -479,6 +479,10 @@ export interface MaisemanMuistiFeatureProperties {
   name: string
   municipality: string
   region: string
+  registerName: string
+  type: string
+  subtype: string
+  dating: MuinaisjaannosAjoitus
 }
 
 type GeoJSONPointGeometry = {
