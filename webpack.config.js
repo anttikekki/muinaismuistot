@@ -18,8 +18,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   output: {
-    path: __dirname + "/dist",
-    filename: "[name]-[hash].js",
+    filename: "[name]-[contenthash].js"
   },
   module: {
     rules: [
@@ -54,32 +53,19 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      chunks: [
-        "app",
-        "app~maisemanmuisti~models",
-        "vendors~app~maisemanmuisti~models",
-        "vendors~app",
-      ],
       template: "src/index.ejs",
       filename: "index.html",
+      excludeChunks: ["models", "maisemanmuisti"]
     }),
     new HtmlWebpackPlugin({
-      chunks: [
-        "models",
-        "app~maisemanmuisti~models",
-        "vendors~app~maisemanmuisti~models",
-      ],
       template: "src/3d/index.ejs",
       filename: "3d/index.html",
+      excludeChunks: ["app", "maisemanmuisti"]
     }),
     new HtmlWebpackPlugin({
-      chunks: [
-        "maisemanmuisti",
-        "app~maisemanmuisti~models",
-        "vendors~app~maisemanmuisti~models",
-      ],
       template: "src/maisemanmuisti/index.ejs",
       filename: "maisemanmuisti/index.html",
+      excludeChunks: ["app", "models"]
     }),
     new CopyWebpackPlugin({
       patterns: [

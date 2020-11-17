@@ -128,16 +128,21 @@ export default class MuinaismuistotMap {
 
   private loadFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
     this.eventListeners.showLoadingAnimation(true)
+    const mapSize = this.map.getSize()
+    if (!mapSize) {
+      return
+    }
+
     const ahvenanmaaQuery = this.ahvenanmaaTileLayer.identifyFeaturesAt(
       e.coordinate,
-      this.map.getSize(),
-      this.map.getView().calculateExtent(this.map.getSize())
+      mapSize,
+      this.map.getView().calculateExtent(mapSize)
     )
 
     const museovirastoQuery = this.museovirastoTileLayer.identifyFeaturesAt(
       e.coordinate,
-      this.map.getSize(),
-      this.map.getView().calculateExtent(this.map.getSize())
+      mapSize,
+      this.map.getView().calculateExtent(mapSize)
     )
 
     const modelsResult: Array<ModelFeatureProperties> = this.map
@@ -157,14 +162,12 @@ export default class MuinaismuistotMap {
         hitTolerance: 10
       })
       .map((feature) => {
+        const extent = feature.getGeometry()?.getExtent()
         return {
           type: "Feature",
           geometry: {
             type: "Point",
-            coordinates: [
-              feature.getGeometry().getExtent()[0],
-              feature.getGeometry().getExtent()[1]
-            ]
+            coordinates: [extent![0], extent![1]]
           },
           properties: {
             ...(feature.getProperties() as MaisemanMuistiFeatureProperties)
@@ -201,17 +204,20 @@ export default class MuinaismuistotMap {
   }
 
   private geolocationChanged = () => {
-    if (this.geolocation && this.geolocation.getPosition()) {
-      const position = this.geolocation.getPosition()
+    const position = this.geolocation?.getPosition()
+    if (position) {
       this.positionAndSelectedLocation.addCurrentPositionMarker(position)
     }
   }
 
   private zoom = (zoomChange: number) => {
-    this.view.animate({
-      zoom: this.view.getZoom() + zoomChange,
-      duration: 250
-    })
+    const zoom = this.view.getZoom()
+    if (zoom) {
+      this.view.animate({
+        zoom: zoom + zoomChange,
+        duration: 250
+      })
+    }
   }
 
   public selectedFeatureLayersChanged = (

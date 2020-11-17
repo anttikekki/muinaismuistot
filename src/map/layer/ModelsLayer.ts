@@ -90,7 +90,7 @@ export default class ModelsLayer {
       source: this.source,
       visible: this.settings.models.selectedLayers.length > 0,
       style: (feature: FeatureLike) => {
-        switch (feature.getGeometry().getType()) {
+        switch (feature.getGeometry()?.getType()) {
           case "Point":
             const properties = feature.getProperties() as ModelFeatureProperties
             if (
