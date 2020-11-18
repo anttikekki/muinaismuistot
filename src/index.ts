@@ -1,4 +1,5 @@
 import "core-js/stable"
+import "elm-pep"
 
 import MuinaismuistotMap from "./map/MuinaismuistotMap"
 import MuinaismuistotUI from "./ui/MuinaismuistotUI"

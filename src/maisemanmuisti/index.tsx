@@ -1,4 +1,6 @@
 import "core-js/stable"
+import "elm-pep"
+
 import "bootstrap/dist/css/bootstrap.min.css"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
