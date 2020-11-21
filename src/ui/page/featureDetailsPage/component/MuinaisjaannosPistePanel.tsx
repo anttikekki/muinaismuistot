@@ -43,7 +43,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         <Field label="Kunta" value={feature.attributes.kunta} />
         <Field label="Ajoitus">
           <p>
-            <span>{trim(feature.attributes.ajoitus)}</span>
+            <span>{trim(feature.attributes.ajoitus)}</span>{" "}
             <TimespanLabel dating={feature.attributes.ajoitus} />
           </p>
         </Field>

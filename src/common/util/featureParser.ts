@@ -3,7 +3,6 @@ import {
   MuinaisjaannosPisteArgisFeature,
   MuinaisjaannosAlueArgisFeature,
   MuinaisjaannosAjoitus,
-  MuinaisjaannosAjoitusTimespan,
   MaailmanperintoAlueArgisFeature,
   MaailmanperintoPisteArgisFeature,
   AhvenanmaaForminnenArgisFeature,
@@ -446,13 +445,34 @@ export const getGeoJSONFeatureLocation = (
  */
 export const getTimespanInYearsForTimingName = (
   ajoitus: MuinaisjaannosAjoitus
-) => {
-  return MuinaisjaannosAjoitusTimespan[ajoitus]
+): string => {
+  switch (trim(ajoitus)) {
+    case "esihistoriallinen":
+      return "8600 eaa. - 1200 jaa."
+    case "kivikautinen":
+      return "8600 – 1500 eaa."
+    case "varhaismetallikautinen":
+      return "1500 eaa. - 200 jaa."
+    case "pronssikautinen":
+      return "1700 – 500 eaa."
+    case "rautakautinen":
+      return "500 eaa. - 1200 jaa."
+    case "keskiaikainen":
+      return "1200 - 1570 jaa."
+    case "historiallinen":
+      return "1200 jaa. -"
+    case "moderni":
+      return "1800 jaa -"
+    case "moniperiodinen":
+    case "ajoittamaton":
+    case "ei määritelty":
+    default:
+      return ""
+  }
 }
 
 export const trim = (value: string | undefined | null): string => {
-  if (value == null) {
-    //Null and undefined
+  if (!value) {
     return ""
   }
 

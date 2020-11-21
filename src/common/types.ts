@@ -152,23 +152,6 @@ export enum MuinaisjaannosAjoitus {
   eiMääritelty = "ei määritelty"
 }
 
-export const MuinaisjaannosAjoitusTimespan: Record<
-  MuinaisjaannosAjoitus,
-  string
-> = {
-  moniperiodinen: "",
-  esihistoriallinen: "8600 eaa. - 1200 jaa.",
-  kivikautinen: "8600 – 1500 eaa.",
-  varhaismetallikautinen: "1500 eaa. - 200 jaa.",
-  pronssikautinen: "1700 – 500 eaa.",
-  rautakautinen: "500 eaa. - 1200 jaa.",
-  keskiaikainen: "1200 - 1570 jaa.",
-  historiallinen: "1200 jaa. -",
-  moderni: "1800 jaa -",
-  ajoittamaton: "",
-  "ei määritelty": ""
-}
-
 /**
  * @deprecated kartor.ax does not return timing field anymore
  */

@@ -38,7 +38,7 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
         <Field label="Maakunta" value={feature.properties.region} />
         <Field label="Ajoitus">
           <p>
-            <span>{trim(feature.properties.dating)}</span>
+            <span>{trim(feature.properties.dating)}</span>{" "}
             <TimespanLabel dating={feature.properties.dating} />
           </p>
         </Field>
