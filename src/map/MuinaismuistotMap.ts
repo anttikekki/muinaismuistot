@@ -108,6 +108,7 @@ export default class MuinaismuistotMap {
 
     this.maisemanMuistiLayer = new MaisemanMuistiLayer()
     this.modelsLayer = new ModelsLayer()
+    this.positionAndSelectedLocation = new CurrentPositionAndSelectedLocationMarkerLayer()
 
     Promise.all([
       this.maisemanMuistiLayer.createLayer(initialSettings),
@@ -115,13 +116,10 @@ export default class MuinaismuistotMap {
     ]).then(([maisemanMuistiLayer, modelsLayer]) => {
       this.map.getLayers().insertAt(5, maisemanMuistiLayer)
       this.map.getLayers().insertAt(6, modelsLayer)
+      this.map
+        .getLayers()
+        .insertAt(7, this.positionAndSelectedLocation.getLayer())
     })
-
-    this.positionAndSelectedLocation = new CurrentPositionAndSelectedLocationMarkerLayer(
-      (createdLayer) => {
-        this.map.getLayers().insertAt(7, createdLayer)
-      }
-    )
 
     this.map.on("singleclick", this.loadFeaturesOnClickedCoordinate)
   }
