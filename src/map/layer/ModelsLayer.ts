@@ -15,25 +15,15 @@ import { FeatureLike } from "ol/Feature"
 import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser"
 import Fill from "ol/style/Fill"
 
-export type OnLayersCreatedCallbackFn = (layer: VectorLayer) => void
-
 export default class ModelsLayer {
-  private settings: Settings
   private layer?: VectorLayer
   private source?: VectorSource
   private stylePointCircle: Style
   private stylePointSquare: Style
   private stylePolygon: Style
-  private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
   private dataLatestUpdateDate?: Date
 
-  public constructor(
-    settings: Settings,
-    onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
-  ) {
-    this.settings = settings
-    this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn
-
+  public constructor() {
     this.stylePointCircle = new Style({
       image: new Circle({
         stroke: new Stroke({
@@ -67,67 +57,69 @@ export default class ModelsLayer {
         color: "rgba(255, 255, 255, 0.01)"
       })
     })
-
-    this.fetchGeoJson().then(this.addFeaturesToLayer)
   }
 
-  private fetchGeoJson = async (): Promise<
-    GeoJSONResponse<ModelFeatureProperties>
-  > => {
-    const response = await fetch(this.settings.models.url.geojson)
+  private fetchGeoJson = async (
+    settings: Settings
+  ): Promise<GeoJSONResponse<ModelFeatureProperties>> => {
+    const response = await fetch(settings.models.url.geojson)
     const data = await response.json()
 
     return data as GeoJSONResponse<ModelFeatureProperties>
   }
 
-  private addFeaturesToLayer = (
-    geojsonObject: GeoJSONResponse<ModelFeatureProperties>
-  ) => {
+  private styleForFeature = (feature: FeatureLike) => {
+    switch (feature.getGeometry()?.getType()) {
+      case "Point":
+        const properties = feature.getProperties() as ModelFeatureProperties
+        if (
+          properties.registryItem.type ===
+          MuseovirastoLayer.Muinaisjaannokset_piste
+        ) {
+          return this.stylePointCircle
+        }
+        if (
+          properties.registryItem.type ===
+          MuseovirastoLayer.Suojellut_rakennukset_piste
+        ) {
+          return this.stylePointSquare
+        }
+        return this.stylePointCircle
+      case "Polygon":
+        return this.stylePolygon
+      default:
+        return this.stylePointCircle
+    }
+  }
+
+  public createLayer = async (settings: Settings): Promise<VectorLayer> => {
+    const geojsonObject = await this.fetchGeoJson(settings)
+
     this.source = new VectorSource({
       features: new GeoJSON().readFeatures(geojsonObject)
     })
     this.layer = new VectorLayer({
       source: this.source,
-      visible: this.settings.models.selectedLayers.length > 0,
-      style: (feature: FeatureLike) => {
-        switch (feature.getGeometry()?.getType()) {
-          case "Point":
-            const properties = feature.getProperties() as ModelFeatureProperties
-            if (
-              properties.registryItem.type ===
-              MuseovirastoLayer.Muinaisjaannokset_piste
-            ) {
-              return this.stylePointCircle
-            }
-            if (
-              properties.registryItem.type ===
-              MuseovirastoLayer.Suojellut_rakennukset_piste
-            ) {
-              return this.stylePointSquare
-            }
-            return this.stylePointCircle
-          case "Polygon":
-            return this.stylePolygon
-          default:
-            return this.stylePointCircle
-        }
-      }
+      visible: settings.models.selectedLayers.length > 0,
+      style: this.styleForFeature
     })
-    this.onLayerCreatedCallbackFn(this.layer)
+
+    return this.layer
   }
 
   public selectedFeatureLayersChanged = (settings: Settings) => {
-    this.settings = settings
     this.layer?.setVisible(settings.models.selectedLayers.length > 0)
   }
 
   public getLayer = (): VectorLayer | undefined => this.layer
 
-  public getDataLatestUpdateDate = async (): Promise<Date> => {
+  public getDataLatestUpdateDate = async (
+    settings: Settings
+  ): Promise<Date> => {
     if (this.dataLatestUpdateDate) {
       return Promise.resolve(this.dataLatestUpdateDate)
     }
-    const data = await this.fetchGeoJson()
+    const data = await this.fetchGeoJson(settings)
     return getGeoJSONDataLatestUpdateDate(data.features)
   }
 }

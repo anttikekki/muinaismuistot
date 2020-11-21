@@ -11,22 +11,12 @@ import {
 import Fill from "ol/style/Fill"
 import RegularShape from "ol/style/RegularShape"
 
-export type OnLayersCreatedCallbackFn = (layer: VectorLayer) => void
-
 export default class MaisemanMuistiLayer {
-  private settings: Settings
   private layer?: VectorLayer
   private source?: VectorSource
   private style: Style
-  private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
 
-  public constructor(
-    settings: Settings,
-    onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
-  ) {
-    this.settings = settings
-    this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn
-
+  public constructor() {
     this.style = new Style({
       image: new RegularShape({
         fill: new Fill({ color: "#f1615b" }),
@@ -40,34 +30,34 @@ export default class MaisemanMuistiLayer {
         angle: 0
       })
     })
-    this.fetchGeoJson().then(this.addFeaturesToLayer)
   }
 
-  private fetchGeoJson = async (): Promise<
-    GeoJSONResponse<MaisemanMuistiFeatureProperties>
-  > => {
-    const response = await fetch(this.settings.maisemanMuisti.url.geojson)
+  private fetchGeoJson = async (
+    settings: Settings
+  ): Promise<GeoJSONResponse<MaisemanMuistiFeatureProperties>> => {
+    const response = await fetch(settings.maisemanMuisti.url.geojson)
     const data = await response.json()
 
     return data as GeoJSONResponse<MaisemanMuistiFeatureProperties>
   }
 
-  private addFeaturesToLayer = (
-    geojsonObject: GeoJSONResponse<MaisemanMuistiFeatureProperties>
-  ) => {
+  public createLayer = async (settings: Settings): Promise<VectorLayer> => {
+    const geojsonObject = await this.fetchGeoJson(settings)
+
     this.source = new VectorSource({
       features: new GeoJSON().readFeatures(geojsonObject)
     })
+
     this.layer = new VectorLayer({
       source: this.source,
       style: this.style,
-      visible: this.settings.maisemanMuisti.selectedLayers.length > 0
+      visible: settings.maisemanMuisti.selectedLayers.length > 0
     })
-    this.onLayerCreatedCallbackFn(this.layer)
+
+    return this.layer
   }
 
   public selectedFeatureLayersChanged = (settings: Settings) => {
-    this.settings = settings
     this.layer?.setVisible(settings.maisemanMuisti.selectedLayers.length > 0)
   }
 

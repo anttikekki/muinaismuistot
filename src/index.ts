@@ -132,7 +132,7 @@ export default class Muinaismuistot {
         this.map.selectedMuinaisjaannosDatingsChanged(settings)
       },
       fetchDataLatestUpdateDates: () => {
-        this.map.fetchDataLatestUpdateDates()
+        this.map.fetchDataLatestUpdateDates(this.settings)
       }
     })
 

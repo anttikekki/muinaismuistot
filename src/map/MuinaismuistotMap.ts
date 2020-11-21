@@ -106,15 +106,15 @@ export default class MuinaismuistotMap {
       }
     )
 
-    this.maisemanMuistiLayer = new MaisemanMuistiLayer(
-      initialSettings,
-      (createdLayer) => {
-        this.map.getLayers().insertAt(5, createdLayer)
-      }
-    )
+    this.maisemanMuistiLayer = new MaisemanMuistiLayer()
+    this.modelsLayer = new ModelsLayer()
 
-    this.modelsLayer = new ModelsLayer(initialSettings, (createdLayer) => {
-      this.map.getLayers().insertAt(6, createdLayer)
+    Promise.all([
+      this.maisemanMuistiLayer.createLayer(initialSettings),
+      this.modelsLayer.createLayer(initialSettings)
+    ]).then(([maisemanMuistiLayer, modelsLayer]) => {
+      this.map.getLayers().insertAt(5, maisemanMuistiLayer)
+      this.map.getLayers().insertAt(6, modelsLayer)
     })
 
     this.positionAndSelectedLocation = new CurrentPositionAndSelectedLocationMarkerLayer(
@@ -299,12 +299,12 @@ export default class MuinaismuistotMap {
     this.zoom(-1)
   }
 
-  public fetchDataLatestUpdateDates = () => {
+  public fetchDataLatestUpdateDates = (settings: Settings) => {
     Promise.all([
       this.museovirastoTileLayer.getDataLatestUpdateDate(),
       this.ahvenanmaaTileLayer.getForminnenDataLatestUpdateDate(),
       this.ahvenanmaaTileLayer.getMaritimtKulturarvDataLatestUpdateDate(),
-      this.modelsLayer.getDataLatestUpdateDate()
+      this.modelsLayer.getDataLatestUpdateDate(settings)
     ])
       .then(
         ([
