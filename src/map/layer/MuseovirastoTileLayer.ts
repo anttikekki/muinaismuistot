@@ -109,6 +109,9 @@ export default class MuseovirastoTileLayer {
         .join(" OR ")
       layerDefinitions.push("(" + layerDefinition + ")")
     }
+    if (selectedTypes.length === 0) {
+      layerDefinitions.push("(tyyppi LIKE 'NONE')")
+    }
 
     const selectedDatings = this.settings.museovirasto
       .selectedMuinaisjaannosDatings
@@ -121,6 +124,9 @@ export default class MuseovirastoTileLayer {
         .map((ajoitus) => "ajoitus LIKE '%" + ajoitus + "%'")
         .join(" OR ")
       layerDefinitions.push("(" + layerDefinition + ")")
+    }
+    if (selectedDatings.length === 0) {
+      layerDefinitions.push("(ajoitus LIKE 'NONE')")
     }
 
     if (layerDefinitions.length > 0) {

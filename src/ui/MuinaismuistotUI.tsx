@@ -154,26 +154,38 @@ export default class MuinaismuistotUI {
     this.renderUI()
   }
 
-  private onSelectMuinaisjaannosType = (type: MuinaisjaannosTyyppi) => {
-    this.settings = updateSelectMuinaisjaannosTypes(
-      this.settings,
-      toggleSelection(
-        type,
-        this.settings.museovirasto.selectedMuinaisjaannosTypes
+  private onSelectMuinaisjaannosType = (
+    type: MuinaisjaannosTyyppi | Array<MuinaisjaannosTyyppi>
+  ) => {
+    if (Array.isArray(type)) {
+      this.settings = updateSelectMuinaisjaannosTypes(this.settings, type)
+    } else {
+      this.settings = updateSelectMuinaisjaannosTypes(
+        this.settings,
+        toggleSelection(
+          type,
+          this.settings.museovirasto.selectedMuinaisjaannosTypes
+        )
       )
-    )
+    }
     this.eventListeners.selectedMuinaisjaannosTypesChanged(this.settings)
     this.renderUI()
   }
 
-  private onSelectMuinaisjaannosDating = (dating: MuinaisjaannosAjoitus) => {
-    this.settings = updateSelectMuinaisjaannosDatings(
-      this.settings,
-      toggleSelection(
-        dating,
-        this.settings.museovirasto.selectedMuinaisjaannosDatings
+  private onSelectMuinaisjaannosDating = (
+    dating: MuinaisjaannosAjoitus | Array<MuinaisjaannosAjoitus>
+  ) => {
+    if (Array.isArray(dating)) {
+      this.settings = updateSelectMuinaisjaannosDatings(this.settings, dating)
+    } else {
+      this.settings = updateSelectMuinaisjaannosDatings(
+        this.settings,
+        toggleSelection(
+          dating,
+          this.settings.museovirasto.selectedMuinaisjaannosDatings
+        )
       )
-    )
+    }
     this.eventListeners.selectedMuinaisjaannosDatingsChanged(this.settings)
     this.renderUI()
   }

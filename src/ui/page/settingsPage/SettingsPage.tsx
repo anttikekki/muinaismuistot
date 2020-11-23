@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 import {
   Settings,
   MaanmittauslaitosLayer,
@@ -7,24 +7,28 @@ import {
   MuinaisjaannosAjoitus,
   AhvenanmaaLayer,
   ModelLayer,
-  MaisemanMuistiLayer,
-} from "../../../common/types";
-import { Page, PageVisibility } from "../Page";
-import { MMLMapLayerSelectionPanel } from "./component/MMLMapLayerSelectionPanel";
-import { FeatureLayerSelectionPanel } from "./component/FeatureLayerSelectionPanel";
-import { FeatureLayerFilterPanel } from "./component/FeatureLayerFilterPanel";
+  MaisemanMuistiLayer
+} from "../../../common/types"
+import { Page, PageVisibility } from "../Page"
+import { MMLMapLayerSelectionPanel } from "./component/MMLMapLayerSelectionPanel"
+import { FeatureLayerSelectionPanel } from "./component/FeatureLayerSelectionPanel"
+import { FeatureLayerFilterPanel } from "./component/FeatureLayerFilterPanel"
 
 interface Props {
-  visibility: PageVisibility;
-  hidePage: () => void;
-  settings: Settings;
-  onSelectMaanmittauslaitosLayer: (layer: MaanmittauslaitosLayer) => void;
-  onSelectMuseovirastoLayer: (layer: MuseovirastoLayer) => void;
-  onSelectAhvenanmaaLayer: (layer: AhvenanmaaLayer) => void;
-  onSelectModelLayer: (layer: ModelLayer) => void;
-  onSelectMaisemanMuistiLayer: (layer: MaisemanMuistiLayer) => void;
-  onSelectMuinaisjaannosType: (type: MuinaisjaannosTyyppi) => void;
-  onSelectMuinaisjaannosDating: (dating: MuinaisjaannosAjoitus) => void;
+  visibility: PageVisibility
+  hidePage: () => void
+  settings: Settings
+  onSelectMaanmittauslaitosLayer: (layer: MaanmittauslaitosLayer) => void
+  onSelectMuseovirastoLayer: (layer: MuseovirastoLayer) => void
+  onSelectAhvenanmaaLayer: (layer: AhvenanmaaLayer) => void
+  onSelectModelLayer: (layer: ModelLayer) => void
+  onSelectMaisemanMuistiLayer: (layer: MaisemanMuistiLayer) => void
+  onSelectMuinaisjaannosType: (
+    layer: MuinaisjaannosTyyppi | Array<MuinaisjaannosTyyppi>
+  ) => void
+  onSelectMuinaisjaannosDating: (
+    layer: MuinaisjaannosAjoitus | Array<MuinaisjaannosAjoitus>
+  ) => void
 }
 
 export const SettingsPage: React.FC<Props> = ({
@@ -37,7 +41,7 @@ export const SettingsPage: React.FC<Props> = ({
   onSelectModelLayer,
   onSelectMaisemanMuistiLayer,
   onSelectMuinaisjaannosType,
-  onSelectMuinaisjaannosDating,
+  onSelectMuinaisjaannosDating
 }) => {
   return (
     <Page title="Asetukset" visibility={visibility} hidePage={hidePage}>
@@ -66,5 +70,5 @@ export const SettingsPage: React.FC<Props> = ({
         onSelectMuinaisjaannosDating={onSelectMuinaisjaannosDating}
       />
     </Page>
-  );
-};
+  )
+}
