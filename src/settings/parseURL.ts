@@ -79,7 +79,7 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   // Museovirasto layers
   if (museovirastoLayer) {
     newSettings = validateAndUpdateUrlParamToSettings(
-      settings,
+      newSettings,
       MuseovirastoLayer,
       museovirastoLayer,
       updateMuseovirastoSelectedLayers
@@ -89,7 +89,7 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   // Museovirasto muinaisjaannos types
   if (muinaisjaannosTypes) {
     newSettings = validateAndUpdateUrlParamToSettings(
-      settings,
+      newSettings,
       MuinaisjaannosTyyppi,
       muinaisjaannosTypes,
       updateSelectMuinaisjaannosTypes
@@ -99,7 +99,7 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   // Museovirasto muinaisjaannos datings
   if (muinaisjaannosDatings) {
     newSettings = validateAndUpdateUrlParamToSettings(
-      settings,
+      newSettings,
       MuinaisjaannosAjoitus,
       muinaisjaannosDatings,
       updateSelectMuinaisjaannosDatings
@@ -109,7 +109,7 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   // Ahvenanmaa layers
   if (ahvenanmaaLayer) {
     newSettings = validateAndUpdateUrlParamToSettings(
-      settings,
+      newSettings,
       AhvenanmaaLayer,
       ahvenanmaaLayer,
       updateAhvenanmaaSelectedLayers
@@ -119,7 +119,7 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   // 3D models
   if (modelsLayer) {
     newSettings = validateAndUpdateUrlParamToSettings(
-      settings,
+      newSettings,
       ModelLayer,
       modelsLayer,
       updateModelSelectedLayers
@@ -129,7 +129,7 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   // Maiseman muisti
   if (maisemanMuistiLayer) {
     newSettings = validateAndUpdateUrlParamToSettings(
-      settings,
+      newSettings,
       MaisemanMuistiLayer,
       maisemanMuistiLayer,
       updateMaisemanMuistiSelectedLayers
