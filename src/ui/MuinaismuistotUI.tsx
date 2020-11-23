@@ -30,6 +30,15 @@ import { OpenSearchPageButton } from "./component/OpenSearchPageButton"
 import { SettingsPage } from "./page/settingsPage/SettingsPage"
 import { OpenSettingsPage } from "./component/OpenSettingsPage"
 import { PageVisibility } from "./page/Page"
+import {
+  updateAhvenanmaaSelectedLayers,
+  updateMaanmittauslaitosSelectedLayer,
+  updateMaisemanMuistiSelectedLayers,
+  updateModelSelectedLayers,
+  updateMuseovirastoSelectedLayers,
+  updateSelectMuinaisjaannosDatings,
+  updateSelectMuinaisjaannosTypes
+} from "../settings"
 
 enum PageId {
   Search = "searchPage",
@@ -92,28 +101,16 @@ export default class MuinaismuistotUI {
   }
 
   private onSelectMaanmittauslaitosLayer = (layer: MaanmittauslaitosLayer) => {
-    this.settings = {
-      ...this.settings,
-      maanmittauslaitos: {
-        ...this.settings.maanmittauslaitos,
-        selectedLayer: layer
-      }
-    }
+    this.settings = updateMaanmittauslaitosSelectedLayer(this.settings, layer)
     this.eventListeners.selectedMaanmittauslaitosLayerChanged(this.settings)
     this.renderUI()
   }
 
   private onSelectMuseovirastoLayer = (layer: MuseovirastoLayer) => {
-    this.settings = {
-      ...this.settings,
-      museovirasto: {
-        ...this.settings.museovirasto,
-        selectedLayers: toggleSelection(
-          layer,
-          this.settings.museovirasto.selectedLayers
-        )
-      }
-    }
+    this.settings = updateMuseovirastoSelectedLayers(
+      this.settings,
+      toggleSelection(layer, this.settings.museovirasto.selectedLayers)
+    )
     this.eventListeners.selectedFeatureLayersChanged(
       this.settings,
       LayerGroup.Museovirasto
@@ -122,16 +119,10 @@ export default class MuinaismuistotUI {
   }
 
   private onSelectAhvenanmaaLayer = (layer: AhvenanmaaLayer) => {
-    this.settings = {
-      ...this.settings,
-      ahvenanmaa: {
-        ...this.settings.ahvenanmaa,
-        selectedLayers: toggleSelection(
-          layer,
-          this.settings.ahvenanmaa.selectedLayers
-        )
-      }
-    }
+    this.settings = updateAhvenanmaaSelectedLayers(
+      this.settings,
+      toggleSelection(layer, this.settings.ahvenanmaa.selectedLayers)
+    )
     this.eventListeners.selectedFeatureLayersChanged(
       this.settings,
       LayerGroup.Ahvenanmaa
@@ -140,16 +131,10 @@ export default class MuinaismuistotUI {
   }
 
   private onSelectModelLayer = (layer: ModelLayer) => {
-    this.settings = {
-      ...this.settings,
-      models: {
-        ...this.settings.models,
-        selectedLayers: toggleSelection(
-          layer,
-          this.settings.models.selectedLayers
-        )
-      }
-    }
+    this.settings = updateModelSelectedLayers(
+      this.settings,
+      toggleSelection(layer, this.settings.models.selectedLayers)
+    )
     this.eventListeners.selectedFeatureLayersChanged(
       this.settings,
       LayerGroup.Models
@@ -158,16 +143,10 @@ export default class MuinaismuistotUI {
   }
 
   private onSelectMaisemanMuistiLayer = (layer: MaisemanMuistiLayer) => {
-    this.settings = {
-      ...this.settings,
-      maisemanMuisti: {
-        ...this.settings.maisemanMuisti,
-        selectedLayers: toggleSelection(
-          layer,
-          this.settings.maisemanMuisti.selectedLayers
-        )
-      }
-    }
+    this.settings = updateMaisemanMuistiSelectedLayers(
+      this.settings,
+      toggleSelection(layer, this.settings.maisemanMuisti.selectedLayers)
+    )
     this.eventListeners.selectedFeatureLayersChanged(
       this.settings,
       LayerGroup.MaisemanMuisti
@@ -176,31 +155,25 @@ export default class MuinaismuistotUI {
   }
 
   private onSelectMuinaisjaannosType = (type: MuinaisjaannosTyyppi) => {
-    this.settings = {
-      ...this.settings,
-      museovirasto: {
-        ...this.settings.museovirasto,
-        selectedMuinaisjaannosTypes: toggleSelection(
-          type,
-          this.settings.museovirasto.selectedMuinaisjaannosTypes
-        )
-      }
-    }
+    this.settings = updateSelectMuinaisjaannosTypes(
+      this.settings,
+      toggleSelection(
+        type,
+        this.settings.museovirasto.selectedMuinaisjaannosTypes
+      )
+    )
     this.eventListeners.selectedMuinaisjaannosTypesChanged(this.settings)
     this.renderUI()
   }
 
   private onSelectMuinaisjaannosDating = (dating: MuinaisjaannosAjoitus) => {
-    this.settings = {
-      ...this.settings,
-      museovirasto: {
-        ...this.settings.museovirasto,
-        selectedMuinaisjaannosDatings: toggleSelection(
-          dating,
-          this.settings.museovirasto.selectedMuinaisjaannosDatings
-        )
-      }
-    }
+    this.settings = updateSelectMuinaisjaannosDatings(
+      this.settings,
+      toggleSelection(
+        dating,
+        this.settings.museovirasto.selectedMuinaisjaannosDatings
+      )
+    )
     this.eventListeners.selectedMuinaisjaannosDatingsChanged(this.settings)
     this.renderUI()
   }
@@ -348,11 +321,6 @@ export default class MuinaismuistotUI {
 
   public dataLatestUpdateDatesReady = (dates: DataLatestUpdateDates) => {
     this.dataLatestUpdateDates = dates
-    this.renderUI()
-  }
-
-  public updateSettings = (settings: Settings) => {
-    this.settings = settings
     this.renderUI()
   }
 }
