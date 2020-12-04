@@ -4,6 +4,17 @@ import { Panel } from "../../../component/Panel"
 export const VersionHistoryPanel: React.FC = () => {
   return (
     <Panel title="Versiohistoria">
+      <h5>Joulukuu 2020</h5>
+      <p>
+        Lisätty Ahvenanmaan muinaisjäännösrekisterin kohteisiin tyyppi, ajoitus
+        ja alakohteiden lukumäärä.
+      </p>
+      <p>
+        Haku toimii nyt myös Ahvenanmaan muinaisjäännösrekisterin kohteen
+        tunnuksella (esim. Sa 14.1).
+      </p>
+
+      <br />
       <h5>Marraskuu 2020</h5>
       <p>
         Lisätty{" "}
