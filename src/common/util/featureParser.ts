@@ -471,6 +471,72 @@ export const getTimespanInYearsForTimingName = (
   }
 }
 
+/**
+ * @see https://www.kartor.ax/datasets/fornminnen-typ-och-datering
+ * @see https://kartor.regeringen.ax/dokument/metadata/Fornminnen-Typ%20och%20datering%20kodade%20v%C3%A4rden.xlsx
+ */
+export const getAhvenanmaaForminnenTypeText = (
+  typeId: number | null
+): string | undefined => {
+  switch (typeId) {
+    case 0:
+      return "Uppgifter saknas"
+    case 1:
+      return "Agrara lämningar"
+    case 2:
+      return "Bebyggelselämningar"
+    case 3:
+      return "Befästningsanläggningar"
+    case 4:
+      return "Boplatser"
+    case 5:
+      return "Gravar"
+    case 6:
+      return "Industriell-/produktionsplatser"
+    case 7:
+      return "Jakt och fångst"
+    case 8:
+      return "Kommunikations-/maritima lämningar"
+    case 9:
+      return "Kult, offer och folktro"
+    case 10:
+      return "Ristningar och minnesmärken"
+    case 11:
+      return "Övriga lämningar"
+    default:
+      return undefined
+  }
+}
+
+/**
+ * @see https://www.kartor.ax/datasets/fornminnen-typ-och-datering
+ * @see https://kartor.regeringen.ax/dokument/metadata/Fornminnen-Typ%20och%20datering%20kodade%20v%C3%A4rden.xlsx
+ */
+export const getAhvenanmaaForminneDatingText = (
+  datingId: number | null
+): string | undefined => {
+  switch (datingId) {
+    case 0:
+      return "Förhistorisk tid"
+    case 1:
+      return "Historisk tid"
+    case 2:
+      return "Stenålder"
+    case 3:
+      return "Bronsålder"
+    case 4:
+      return "Järnålder"
+    case 5:
+      return "Medeltid"
+    case 6:
+      return "Sentid"
+    case 99:
+      return "Uppgifter saknas"
+    default:
+      return undefined
+  }
+}
+
 export const trim = (value: string | undefined | null): string => {
   if (!value) {
     return ""

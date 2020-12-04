@@ -45,6 +45,8 @@ export const initialSettings: Settings = {
         "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/identify",
       find:
         "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/find",
+      typeAndDating:
+        "https://opendata.arcgis.com/datasets/4fa828b46a0740b18960cf3e91d35431_2.geojson",
       forminnenUpdateDate:
         "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Afornminnen",
       maritimtKulturarvUpdateDate:

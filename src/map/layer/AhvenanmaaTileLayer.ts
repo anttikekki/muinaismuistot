@@ -10,7 +10,10 @@ import {
   AhvenanmaaLayerId,
   getAhvenanmaaLayerId,
   AhvenanmaaLayer,
-  Settings
+  Settings,
+  GeoJSONResponse,
+  AhvenanmaaTypeAndDatingFeatureProperties,
+  ArgisFeature
 } from "../../common/types"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
@@ -24,6 +27,10 @@ export default class AhvenanmaaTileLayer {
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
   private forminnenDataLatestUpdateDate?: Date
   private maritimtKulturarvDataLatestUpdateDate?: Date
+  private typeAndDatingMap?: ReadonlyMap<
+    string,
+    Array<AhvenanmaaTypeAndDatingFeatureProperties>
+  >
 
   public constructor(
     initialSettings: Settings,
@@ -100,7 +107,7 @@ export default class AhvenanmaaTileLayer {
     this.updateLayerSource()
   }
 
-  public identifyFeaturesAt = (
+  public identifyFeaturesAt = async (
     coordinate: Coordinate,
     mapSize: Size,
     mapExtent: Extent
@@ -126,16 +133,19 @@ export default class AhvenanmaaTileLayer {
     const url = new URL(this.settings.ahvenanmaa.url.identify)
     url.search = String(urlParams)
 
-    return fetch(String(url)).then(
-      (response) => response.json() as Promise<ArgisIdentifyResult>
-    )
+    const response = await fetch(String(url))
+    const result = (await response.json()) as ArgisIdentifyResult
+
+    return this.addTypeAndDatingToResult(result)
   }
 
-  public findFeatures = (searchText: string): Promise<ArgisFindResult> => {
+  public findFeatures = async (
+    searchText: string
+  ): Promise<ArgisFindResult> => {
     const urlParams = new URLSearchParams({
       searchText: searchText,
       contains: "true",
-      searchFields: "Namn , Beskrivning, Topografi",
+      searchFields: "Fornlämnings ID, Namn , Beskrivning, Topografi",
       layers: this.toLayerIds(this.settings.ahvenanmaa.selectedLayers).join(
         ","
       ),
@@ -147,9 +157,71 @@ export default class AhvenanmaaTileLayer {
     const url = new URL(this.settings.ahvenanmaa.url.find)
     url.search = String(urlParams)
 
-    return fetch(String(url)).then(
-      (response) => response.json() as Promise<ArgisFindResult>
-    )
+    const response = await fetch(String(url))
+    return (await response.json()) as ArgisFindResult
+  }
+
+  private addTypeAndDatingToResult = async (
+    data: ArgisIdentifyResult
+  ): Promise<ArgisIdentifyResult> => {
+    const typeAndDatingMap = await this.getTypeAndDatingData()
+    const result: ArgisIdentifyResult = {
+      ...data,
+      results: data.results.map(
+        (result): ArgisFeature => {
+          if (result.layerName === AhvenanmaaLayer.Fornminnen) {
+            const typeAndDating = typeAndDatingMap.get(
+              result.attributes["Fornlämnings ID"]
+            )
+            if (typeAndDating) {
+              return {
+                ...result,
+                attributes: {
+                  ...result.attributes,
+                  typeAndDating
+                }
+              }
+            }
+          }
+          return result
+        }
+      )
+    }
+    return result
+  }
+
+  private getTypeAndDatingData = async (): Promise<
+    ReadonlyMap<string, Array<AhvenanmaaTypeAndDatingFeatureProperties>>
+  > => {
+    if (this.typeAndDatingMap) {
+      return this.typeAndDatingMap
+    }
+
+    const map = new Map<
+      string,
+      Array<AhvenanmaaTypeAndDatingFeatureProperties>
+    >()
+
+    try {
+      const response = await fetch(this.settings.ahvenanmaa.url.typeAndDating)
+      const data = (await response.json()) as GeoJSONResponse<
+        AhvenanmaaTypeAndDatingFeatureProperties
+      >
+
+      data.features.forEach((feature) => {
+        const id = feature.properties.FornID
+        const entry = map.get(id)
+        if (entry) {
+          map.set(id, [...entry, feature.properties])
+        } else {
+          map.set(id, [feature.properties])
+        }
+      })
+      this.typeAndDatingMap = map
+      return map
+    } catch {
+      return map
+    }
   }
 
   // Fetch URL is from https://www.kartor.ax/datasets/fornminnen

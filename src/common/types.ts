@@ -23,6 +23,7 @@ export interface Settings {
       export: string
       identify: string
       find: string
+      typeAndDating: string
       forminnenUpdateDate: string
       maritimtKulturarvUpdateDate: string
     }
@@ -369,6 +370,15 @@ export interface MaailmanperintoAlueArgisFeature {
   geometry: PolygonGeometry
 }
 
+export interface AhvenanmaaTypeAndDatingFeatureProperties {
+  FornID: string // "Jo 18.10"
+  Typ: number | null // 3
+  Und_typ: string | null // "fältbefästning"
+  Typ_1: number | null // 6
+  Undertyp: string | null // "1900-tal"
+  Antal: number // 1
+}
+
 export interface AhvenanmaaForminnenArgisFeature {
   layerId: 1
   layerName: AhvenanmaaLayer.Fornminnen
@@ -385,6 +395,11 @@ export interface AhvenanmaaForminnenArgisFeature {
     Shape: string // "Polygon";
     "Shape.STArea()": string // "2581,011841";
     "Shape.STLength()": string // "203,802335";
+    /**
+     * Fetched from separata data source in AhvenanmaaTileLayer
+     * @see https://www.kartor.ax/datasets/fornminnen-typ-och-datering
+     */
+    typeAndDating?: Array<AhvenanmaaTypeAndDatingFeatureProperties>
   }
   geometryType: GeometryTypePolygon
   geometry: PolygonGeometry
@@ -422,8 +437,8 @@ export type ArgisFeature =
   | AhvenanmaaForminnenArgisFeature
   | AhvenanmaaMaritimtKulturarvArgisFeature
 
-export interface ArgisIdentifyResult {
-  results: Array<ArgisFeature>
+export interface ArgisIdentifyResult<T = ArgisFeature> {
+  results: Array<T>
 }
 
 export interface ArgisFindResult {
