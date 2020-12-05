@@ -1,23 +1,24 @@
-const webpack = require("webpack");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const webpack = require("webpack")
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-  .BundleAnalyzerPlugin;
-const JSONMinifyPlugin = require("node-json-minify");
+  .BundleAnalyzerPlugin
+const JSONMinifyPlugin = require("node-json-minify")
 
-const SHOW_BUNDLE_ANALYZER = process.env.SHOW_BUNDLE_ANALYZER !== undefined;
+const SHOW_BUNDLE_ANALYZER = process.env.SHOW_BUNDLE_ANALYZER !== undefined
 
 module.exports = {
   entry: {
     app: "./src/index.ts",
     models: "./src/3d/index.tsx",
-    maisemanmuisti: "./src/maisemanmuisti/index.tsx",
+    maisemanmuisti: "./src/maisemanmuisti/index.tsx"
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".tsx", ".ts", ".js"]
   },
   output: {
+    path: __dirname + "/dist", // Required by CleanWebpackPlugin, default for Webpack 5
     filename: "[name]-[contenthash].js"
   },
   module: {
@@ -27,28 +28,28 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "ts-loader",
-          },
-        ],
+            loader: "ts-loader"
+          }
+        ]
       },
       {
         test: /\.css$/,
-        use: [{ loader: "style-loader" }, { loader: "css-loader" }],
+        use: [{ loader: "style-loader" }, { loader: "css-loader" }]
       },
       {
         test: [/\.svg$/, /\.woff2?$/, /\.ttf$/, /\.eot$/],
         loader: "file-loader",
         options: {
           name: "[name].[ext]",
-          outputPath: "fonts",
-        },
-      },
-    ],
+          outputPath: "fonts"
+        }
+      }
+    ]
   },
   optimization: {
     splitChunks: {
-      chunks: "all",
-    },
+      chunks: "all"
+    }
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -74,19 +75,19 @@ module.exports = {
           from: "src/3d/3d.json",
           to: "3d",
           transform: function (content) {
-            return JSONMinifyPlugin(content.toString());
-          },
+            return JSONMinifyPlugin(content.toString())
+          }
         },
         {
           from: "src/maisemanmuisti/maisemanmuisti.json",
           to: "maisemanmuisti",
           transform: function (content) {
-            return JSONMinifyPlugin(content.toString());
-          },
+            return JSONMinifyPlugin(content.toString())
+          }
         },
-        { from: "src/maisemanmuisti/images", to: "maisemanmuisti/images" },
-      ],
+        { from: "src/maisemanmuisti/images", to: "maisemanmuisti/images" }
+      ]
     }),
-    ...(SHOW_BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : []),
-  ],
-};
+    ...(SHOW_BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : [])
+  ]
+}

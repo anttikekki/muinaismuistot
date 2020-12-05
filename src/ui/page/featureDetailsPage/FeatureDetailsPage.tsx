@@ -7,21 +7,21 @@ import {
   GeoJSONFeature,
   MaisemanMuistiFeatureProperties
 } from "../../../common/types"
-import { MuinaisjaannosPistePanel } from "./component/MuinaisjaannosPistePanel"
+import { MuinaisjaannosPistePanel } from "./panel/MuinaisjaannosPistePanel"
 import {
   getFeatureID,
   getMaisemanMuistiFeaturesForArgisFeature,
   getModelsForArgisFeature,
   getModelsForMaisemanMuistiFeature
 } from "../../../common/util/featureParser"
-import { MuinaisjaannosAluePanel } from "./component/MuinaisjaannosAluePanel"
-import { RKYPanel } from "./component/RKYPanel"
-import { MaailmanperintokohdePanel } from "./component/MaailmanperintokohdePanel"
-import { SuojellutRakennuksetPanel } from "./component/SuojellutRakennuksetPanel"
-import { AhvenanmaaForminnenPanel } from "./component/AhvenanmaaForminnenPanel"
+import { MuinaisjaannosAluePanel } from "./panel/MuinaisjaannosAluePanel"
+import { RKYPanel } from "./panel/RKYPanel"
+import { MaailmanperintokohdePanel } from "./panel/MaailmanperintokohdePanel"
+import { SuojellutRakennuksetPanel } from "./panel/SuojellutRakennuksetPanel"
+import { AhvenanmaaForminnenPanel } from "./panel/AhvenanmaaForminnenPanel"
 import { Page, PageVisibility } from "../Page"
-import { AhvenanmaaMaritimtKulturarvPanel } from "./component/AhvenanmaaMaritimtKulturarvPanel"
-import { MaisemanMuistiPanel } from "./component/MaisemanMuistiPanel"
+import { AhvenanmaaMaritimtKulturarvPanel } from "./panel/AhvenanmaaMaritimtKulturarvPanel"
+import { MaisemanMuistiPanel } from "./panel/MaisemanMuistiPanel"
 
 interface PanelForFeatureProps {
   feature: ArgisFeature

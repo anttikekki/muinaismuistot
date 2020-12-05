@@ -3,9 +3,9 @@ import {
   MaailmanperintoPisteArgisFeature,
   MaailmanperintoAlueArgisFeature
 } from "../../../../common/types"
-import { ArgisFeatureCollapsePanel } from "./FeatureCollapsePanel"
-import { Field } from "./Field"
-import { MuseovirastoLink } from "./MuseovirastoLink"
+import { ArgisFeatureCollapsePanel } from "../component/FeatureCollapsePanel"
+import { Field } from "../component/Field"
+import { MuseovirastoLink } from "../component/MuseovirastoLink"
 
 interface Props {
   isOpen: boolean

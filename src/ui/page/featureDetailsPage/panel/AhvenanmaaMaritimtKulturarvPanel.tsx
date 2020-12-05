@@ -3,9 +3,9 @@ import {
   ModelFeatureProperties,
   AhvenanmaaMaritimtKulturarvArgisFeature
 } from "../../../../common/types"
-import { ArgisFeatureCollapsePanel } from "./FeatureCollapsePanel"
-import { Field } from "./Field"
-import { EmbeddedModels } from "./EmbeddedModels"
+import { ArgisFeatureCollapsePanel } from "../component/FeatureCollapsePanel"
+import { Field } from "../component/Field"
+import { EmbeddedModels } from "../component/EmbeddedModels"
 
 interface Props {
   isOpen: boolean

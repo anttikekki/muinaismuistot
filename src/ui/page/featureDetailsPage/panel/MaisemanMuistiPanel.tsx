@@ -4,13 +4,13 @@ import {
   GeoJSONFeature,
   MaisemanMuistiFeatureProperties
 } from "../../../../common/types"
-import { MaisemanMuistiFeatureCollapsePanel } from "./FeatureCollapsePanel"
-import { Field } from "./Field"
-import { MuseovirastoLinkDirect } from "./MuseovirastoLink"
-import { EmbeddedModels } from "./EmbeddedModels"
-import { MaisemanMuistiField } from "./MaisemanMuistiField"
+import { MaisemanMuistiFeatureCollapsePanel } from "../component/FeatureCollapsePanel"
+import { Field } from "../component/Field"
+import { MuseovirastoLinkDirect } from "../component/MuseovirastoLink"
+import { EmbeddedModels } from "../component/EmbeddedModels"
+import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
 import { trim } from "../../../../common/util/featureParser"
-import { TimespanLabel } from "./TimespanLabel"
+import { TimespanLabel } from "../component/TimespanLabel"
 
 interface Props {
   isOpen: boolean

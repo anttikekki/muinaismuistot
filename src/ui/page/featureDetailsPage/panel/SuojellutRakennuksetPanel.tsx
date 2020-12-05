@@ -5,10 +5,10 @@ import {
   MuseovirastoLayer,
   ModelFeatureProperties
 } from "../../../../common/types"
-import { ArgisFeatureCollapsePanel } from "./FeatureCollapsePanel"
-import { Field } from "./Field"
-import { MuseovirastoLink } from "./MuseovirastoLink"
-import { EmbeddedModels } from "./EmbeddedModels"
+import { ArgisFeatureCollapsePanel } from "../component/FeatureCollapsePanel"
+import { Field } from "../component/Field"
+import { MuseovirastoLink } from "../component/MuseovirastoLink"
+import { EmbeddedModels } from "../component/EmbeddedModels"
 
 interface Props {
   isOpen: boolean
