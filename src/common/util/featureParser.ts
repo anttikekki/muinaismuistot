@@ -66,15 +66,18 @@ export const getFeatureTypeName = (
 ): string | undefined => {
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
-      if (isKiinteäMuinaisjäännös(feature)) {
-        if (hasMaisemanMuistiFeatures) {
-          return "Kiinteä muinaisjäännös, Valtakunnallisesti merkittävä muinaisjäännös"
-        }
-        return "Kiinteä muinaisjäännös"
-      } else if (isMuuKulttuuriperintökohde(feature)) {
-        return "Muu kulttuuriperintökohde"
-      }
-      break
+      return [
+        isKiinteäMuinaisjäännös(feature) ? "Kiinteä muinaisjäännös" : undefined,
+        isMuuKulttuuriperintökohde(feature)
+          ? "Muu kulttuuriperintökohde"
+          : undefined,
+        trim(feature.attributes.tyyppi),
+        hasMaisemanMuistiFeatures
+          ? "Valtakunnallisesti merkittävä muinaisjäännös"
+          : undefined
+      ]
+        .filter((v) => !!v)
+        .join(", ")
     case MuseovirastoLayer.Muinaisjaannokset_alue:
       if (isKiinteäMuinaisjäännös(feature)) {
         return "Kiinteä muinaisjäännös (alue)"
@@ -553,6 +556,11 @@ export const trim = (value: string | undefined | null): string => {
   value = value.trim()
   if (value.toLowerCase() === "null") {
     return "" //For  example RKY ajoitus field may sometimes be 'Null'
+  }
+
+  //Remove prefix commas
+  while (value.substr(0, 1) === ",") {
+    value = value.substring(1).trim()
   }
 
   //Remove trailing commas
