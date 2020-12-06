@@ -41,13 +41,21 @@ export const getFeatureName = (feature: ArgisFeature): string => {
     case MuseovirastoLayer.Maailmanperinto_piste:
     case MuseovirastoLayer.Maailmanperinto_alue:
       return trim(feature.attributes.Nimi)
-    case AhvenanmaaLayer.Fornminnen:
-      return (
-        trim(feature.attributes.Namn) ||
-        trim(feature.attributes["Fornlämnings ID"])
-      )
+    case AhvenanmaaLayer.Fornminnen: {
+      const id = trim(feature.attributes["Fornlämnings ID"])
+      const name = trim(feature.attributes.Namn)
+      const types =
+        feature.attributes.typeAndDating
+          ?.map(({ Und_typ: subType }) => subType)
+          .filter((v) => !!v)
+          .join(", ") ?? ""
+      const suffix = [name, types].filter((v) => !!v).join(", ")
+      return `${id} ${suffix}`
+    }
     case AhvenanmaaLayer.MaritimtKulturarv:
-      return trim(feature.attributes.Namn) || trim(feature.attributes.FornID)
+      return `${trim(feature.attributes.FornID)} ${trim(
+        feature.attributes.Namn
+      )}`
   }
 }
 

@@ -158,7 +158,9 @@ export default class AhvenanmaaTileLayer {
     url.search = String(urlParams)
 
     const response = await fetch(String(url))
-    return (await response.json()) as ArgisFindResult
+    const result = (await response.json()) as ArgisFindResult
+
+    return this.addTypeAndDatingToResult(result)
   }
 
   private addTypeAndDatingToResult = async (
@@ -204,9 +206,7 @@ export default class AhvenanmaaTileLayer {
 
     try {
       const response = await fetch(this.settings.ahvenanmaa.url.typeAndDating)
-      const data = (await response.json()) as GeoJSONResponse<
-        AhvenanmaaTypeAndDatingFeatureProperties
-      >
+      const data = (await response.json()) as GeoJSONResponse<AhvenanmaaTypeAndDatingFeatureProperties>
 
       data.features.forEach((feature) => {
         const id = feature.properties.FornID

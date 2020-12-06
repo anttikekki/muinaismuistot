@@ -30,13 +30,13 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
       has3dModels={models.length > 0}
     >
       <form>
+        <Field label="Tunniste" value={feature.attributes["Fornlämnings ID"]} />
         <Field label="Nimi" value={feature.attributes.Namn} />
         <Field label="Kunta" value={feature.attributes.Kommun} />
         <Field label="Kylä" value={feature.attributes.By} />
         <AhvenanmaaTypeAndDatingField feature={feature} />
         <Field label="Kuvaus" value={feature.attributes.Beskrivning} />
         <Field label="Sijainti" value={feature.attributes.Topografi} />
-        <Field label="Tunniste" value={feature.attributes["Fornlämnings ID"]} />
 
         <AhvenanmaaRegeringenLink feature={feature} />
 
