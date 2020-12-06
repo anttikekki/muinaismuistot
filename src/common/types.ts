@@ -5,6 +5,7 @@ export interface Settings {
     url: {
       WMTSCapabilities: string
     }
+    apiKey: string
   }
   museovirasto: {
     selectedLayers: Array<MuseovirastoLayer>
