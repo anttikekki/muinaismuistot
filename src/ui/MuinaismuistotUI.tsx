@@ -2,6 +2,9 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "../css/muinaismuistot.css"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
+import i18n from "i18next"
+import { initReactI18next } from "react-i18next"
+import fiTranslations from "../translations/fi.json"
 import {
   ArgisFeature,
   Settings,
@@ -69,6 +72,17 @@ export interface EventListeners {
   selectedMuinaisjaannosDatingsChanged: (settings: Settings) => void
   fetchDataLatestUpdateDates: () => void
 }
+
+i18n.use(initReactI18next).init({
+  resources: {
+    fi: { translation: fiTranslations }
+  },
+  lng: "fi",
+  fallbackLng: "fi",
+  interpolation: {
+    escapeValue: false
+  }
+})
 
 export default class MuinaismuistotUI {
   private settings: Settings

@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useTranslation } from "react-i18next"
 import {
   AhvenanmaaForminnenArgisFeature,
   ModelFeatureProperties
@@ -22,6 +23,7 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
   feature,
   models = []
 }) => {
+  const { t } = useTranslation()
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
@@ -30,13 +32,31 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
       has3dModels={models.length > 0}
     >
       <form>
-        <Field label="Tunniste" value={feature.attributes["Fornlämnings ID"]} />
-        <Field label="Nimi" value={feature.attributes.Namn} />
-        <Field label="Kunta" value={feature.attributes.Kommun} />
-        <Field label="Kylä" value={feature.attributes.By} />
+        <Field
+          label={t(`details.field.id`)}
+          value={feature.attributes["Fornlämnings ID"]}
+        />
+        <Field
+          label={t(`details.field.name`)}
+          value={feature.attributes.Namn}
+        />
+        <Field
+          label={t(`details.field.municipality`)}
+          value={feature.attributes.Kommun}
+        />
+        <Field
+          label={t(`details.field.village`)}
+          value={feature.attributes.By}
+        />
         <AhvenanmaaTypeAndDatingField feature={feature} />
-        <Field label="Kuvaus" value={feature.attributes.Beskrivning} />
-        <Field label="Sijainti" value={feature.attributes.Topografi} />
+        <Field
+          label={t(`details.field.description`)}
+          value={feature.attributes.Beskrivning}
+        />
+        <Field
+          label={t(`details.field.location`)}
+          value={feature.attributes.Topografi}
+        />
 
         <AhvenanmaaRegeringenLink feature={feature} />
 

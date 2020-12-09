@@ -1,0 +1,37 @@
+{
+  "info": {
+    "title": "Lisätietoja sivustosta"
+  },
+  "search": {
+    "title": "Hae kohteita",
+    "info": "Voit hakea kohteen nimellä (esim. Turun linna) tai rekisterin tunnuksella (esim. 200284 tai Sa 14.1)",
+    "placeholder": "Kirjoita kohteen nimi tai sen osa",
+    "searchButton": "Hae",
+    "error": "Hakusanan pitää olla vähintään kolme merkkiä"
+  },
+  "details": {
+    "title": "Valitut kohteet",
+    "field": {
+      "id": "Tunniste",
+      "feature": "Kohde",
+      "name": "Nimi",
+      "municipality": "Kunta",
+      "village": "Kylä",
+      "description": "Kuvaus",
+      "location": "Sijainti",
+      "typeAndDating": "Tyyppi ja ajoitus",
+      "mainCategory": "Pääkategoria",
+      "subCategory": "Alatyyppi",
+      "mainEra": "Pääaikakausi",
+      "period": "Periodi",
+      "featureCount": "Lukumäärä",
+      "precision": "Tarkkuus",
+      "legislation": "Laki"
+    },
+    "3d": {
+      "title": "Kohteen 3D-mallit",
+      "infoHeading": "Lisätietoa 3D-malleista",
+      "infoText1": "Nämä 3D-mallit ovat <a href='./3d/' target='_blank'>tietokannasta</a>, joka listaa harrastajien sekä virallisten toimijoiden (museot, Museovirasto, Ahvenanmaan paikallishallinto) tekemiä 3D-mallinnuksia <a href='https://sketchfab.com' target='_blank'>Sketchfab</a>-palvelusta."
+    }
+  }
+}

@@ -7,6 +7,7 @@
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "resolveJsonModule": true
   }
 }

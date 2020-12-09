@@ -1,19 +1,21 @@
-import * as React from "react";
-import { ModelFeatureProperties } from "../../../../common/types";
+import * as React from "react"
+import { Trans, useTranslation } from "react-i18next"
+import { ModelFeatureProperties } from "../../../../common/types"
 
 interface Props {
-  models?: Array<ModelFeatureProperties>;
+  models?: Array<ModelFeatureProperties>
 }
 
 export const Info: React.FC = () => {
-  const [infoOpen, setInfoOpen] = React.useState(false);
+  const { t } = useTranslation()
+  const [infoOpen, setInfoOpen] = React.useState(false)
 
   const onInfoHeadingClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
-    event.preventDefault();
-    setInfoOpen(!infoOpen);
-  };
+    event.preventDefault()
+    setInfoOpen(!infoOpen)
+  }
 
   return (
     <div className="panel panel-default">
@@ -23,7 +25,7 @@ export const Info: React.FC = () => {
             className="glyphicon glyphicon-info-sign"
             aria-hidden="true"
           ></span>{" "}
-          Lisätietoa 3D-malleista
+          {t(`details.3d.infoHeading`)}
         </a>
       </div>
       <div
@@ -32,17 +34,7 @@ export const Info: React.FC = () => {
       >
         <div className="panel-body">
           <p>
-            Nämä 3D-mallit ovat{" "}
-            <a href="./3d/" target="_blank">
-              tietokannasta
-            </a>
-            , joka listaa harrastajien sekä virallisen toimijoiden (museot,
-            Museovirasto, Ahvenanmaan paikallioshallinto) tekemiä
-            3D-mallinnuksia{" "}
-            <a href="https://sketchfab.com" target="_blank">
-              Sketchfab
-            </a>{" "}
-            -palvelusta.
+            <Trans i18nKey="details.3d.infoText1" components={{ a: <a /> }} />
           </p>
           <p>
             Mallit saa käynnistettyä nuolipainikkeesta. Käynnistymisen jälkeen
@@ -70,18 +62,20 @@ export const Info: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export const EmbeddedModels: React.FC<Props> = ({ models = [] }) => {
+  const { t } = useTranslation()
+
   if (models.length === 0) {
-    return null;
+    return null
   }
 
   return (
     <>
       <br />
-      <h4>Kohteen 3D-mallit</h4>
+      <h4>{t(`details.3d.title`)}</h4>
 
       <Info />
 
@@ -99,5 +93,5 @@ export const EmbeddedModels: React.FC<Props> = ({ models = [] }) => {
         </div>
       ))}
     </>
-  );
-};
+  )
+}

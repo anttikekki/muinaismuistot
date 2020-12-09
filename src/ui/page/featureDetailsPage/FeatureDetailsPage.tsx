@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useTranslation } from "react-i18next"
 import {
   ArgisFeature,
   ModelFeatureProperties,
@@ -90,12 +91,17 @@ export const FeatureDetailsPage: React.FC<FeatureDetailsPageProps> = ({
   models = [],
   maisemanMuistiFeatures = []
 }) => {
+  const { t } = useTranslation()
   const [openPanelId, setOpenPanelId] = React.useState("")
   const onTogglePanelOpen = (id: string) =>
     setOpenPanelId(openPanelId === id ? "" : id)
 
   return (
-    <Page title="Valitut kohteet" visibility={visibility} hidePage={hidePage}>
+    <Page
+      title={t(`details.title`)}
+      visibility={visibility}
+      hidePage={hidePage}
+    >
       <div className="panel-group" role="tablist" aria-multiselectable="true" />
       {features.map((feature) => {
         const panelId = `${feature.layerName}-${getFeatureID(feature)}`

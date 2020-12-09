@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useTranslation } from "react-i18next"
 import {
   ModelFeatureProperties,
   AhvenanmaaMaritimtKulturarvArgisFeature
@@ -20,6 +21,7 @@ export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
   feature,
   models = []
 }) => {
+  const { t } = useTranslation()
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
@@ -28,13 +30,34 @@ export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
       has3dModels={models.length > 0}
     >
       <form>
-        <Field label="Nimi" value={feature.attributes.Namn} />
-        <Field label="Kunta" value={feature.attributes.Kommun} />
-        <Field label="Kylä" value={feature.attributes.By} />
-        <Field label="Kuvaus" value={feature.attributes.Beskrivning} />
-        <Field label="Tarkkuus" value={feature.attributes.Precision} />
-        <Field label="Tunniste" value={feature.attributes.FornID} />
-        <Field label="Laki" value={feature.attributes.Lagrum} />
+        <Field
+          label={t(`details.field.id`)}
+          value={feature.attributes.FornID}
+        />
+        <Field
+          label={t(`details.field.name`)}
+          value={feature.attributes.Namn}
+        />
+        <Field
+          label={t(`details.field.municipality`)}
+          value={feature.attributes.Kommun}
+        />
+        <Field
+          label={t(`details.field.village`)}
+          value={feature.attributes.By}
+        />
+        <Field
+          label={t(`details.field.description`)}
+          value={feature.attributes.Beskrivning}
+        />
+        <Field
+          label={t(`details.field.precision`)}
+          value={feature.attributes.Precision}
+        />
+        <Field
+          label={t(`details.field.legislation`)}
+          value={feature.attributes.Lagrum}
+        />
 
         {isOpen && <EmbeddedModels models={models} />}
       </form>

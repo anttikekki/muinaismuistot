@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useTranslation } from "react-i18next"
 import { ArgisFeature } from "../../../common/types"
 import {
   getFeatureID,
@@ -72,9 +73,10 @@ const Results: React.FC<ResultsProps> = ({ hidePage, features }) => {
 }
 
 const ValidationError: React.FC = () => {
+  const { t } = useTranslation()
   return (
     <div className="alert alert-danger" role="alert">
-      Hakusanan pitää olla vähintään kolme merkkiä
+      {t(`search.error`)}
     </div>
   )
 }
@@ -92,6 +94,7 @@ export const SearchPage: React.FC<Props> = ({
   searchFeatures,
   searchResultFeatures
 }) => {
+  const { t } = useTranslation()
   const [searchText, setSearchText] = React.useState("")
   const [showSearchTextError, setShowSearchTextError] = React.useState(false)
   const inputRef = React.useRef<HTMLInputElement | null>(null)
@@ -115,29 +118,28 @@ export const SearchPage: React.FC<Props> = ({
   }
 
   return (
-    <Page title="Hae kohteita" visibility={visibility} hidePage={hidePage}>
+    <Page title={t(`search.title`)} visibility={visibility} hidePage={hidePage}>
       <form
         className={showSearchTextError ? "has-error" : undefined}
         onSubmit={onSearchClick}
       >
         {showSearchTextError && <ValidationError />}
         <span id="helpBlock" className="help-block">
-          Voit hakea kohteen nimellä (esim. Turun linna) tai rekisterin
-          tunnuksella (esim. 200284 tai Sa 14.1)
+          {t(`search.info`)}
         </span>
         <div className="input-group">
           <input
             type="text"
             ref={inputRef}
             className="form-control"
-            placeholder="Kirjoita kohteen nimi tai sen osa"
+            placeholder={t(`search.placeholder`)}
             value={searchText}
             aria-describedby="helpBlock"
             onChange={(e) => setSearchText(e.target.value)}
           />
           <span className="input-group-btn">
             <button className="btn btn-default" type="submit">
-              Hae
+              {t(`search.searchButton`)}
             </button>
           </span>
         </div>
