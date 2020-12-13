@@ -34,7 +34,9 @@ export default class MaanmittauslaitosTileLayer {
   }
 
   private loadMMLWmtsCapabilitiesAndAddLayers = (settings: Settings) => {
-    fetch(this.settings.maanmittauslaitos.url.WMTSCapabilities)
+    fetch(
+      `${this.settings.maanmittauslaitos.url.WMTSCapabilities}?api-key=${settings.maanmittauslaitos.apiKey}`
+    )
       .then((response) => response.text())
       .then((WMTSCapabilitiesXml) =>
         this.addWmtsLayers(WMTSCapabilitiesXml, settings)

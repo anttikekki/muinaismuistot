@@ -2128,7 +2128,7 @@
       "properties": {
         "registryItem": {
           "name": "Tuntematon ('Nyhamn')",
-          "id": 287,
+          "id": "M1 Le 408.9",
           "type": "Maritimt kulturarv; Vrak",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Lemland"
@@ -2207,7 +2207,7 @@
       "properties": {
         "registryItem": {
           "name": "Tuntematon ('Kolvraket')",
-          "id": 440,
+          "id": "M1 Kö 404.12",
           "type": "Maritimt kulturarv; Vrak",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Kökar"
@@ -2286,7 +2286,7 @@
       "properties": {
         "registryItem": {
           "name": "NEDERLAND",
-          "id": 468,
+          "id": "M1 Jo 440.6",
           "type": "Maritimt kulturarv; Vrak",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Jomala"
@@ -2365,7 +2365,7 @@
       "properties": {
         "registryItem": {
           "name": "ROTTERDAM",
-          "id": 234,
+          "id": "M1 Ha 445.1",
           "type": "Maritimt kulturarv; Vrak",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Hammarland"
@@ -2444,7 +2444,7 @@
       "properties": {
         "registryItem": {
           "name": "SKIFTET",
-          "id": 472,
+          "id": "M1 Le 404.2",
           "type": "Maritimt kulturarv; Vrak",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Lemland"
@@ -2523,7 +2523,7 @@
       "properties": {
         "registryItem": {
           "name": "Tuntematon ('Holländaren')",
-          "id": 483,
+          "id": "M1 Ha 443.3",
           "type": "Maritimt kulturarv; Vrak",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Hammarland"
@@ -2602,7 +2602,7 @@
       "properties": {
         "registryItem": {
           "name": "ELSE NAVAL",
-          "id": 452,
+          "id": "M1 Fö 426.2",
           "type": "Maritimt kulturarv; Vrak",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Föglö"
@@ -3172,8 +3172,8 @@
       },
       "properties": {
         "registryItem": {
-          "name": "Sa 14.9",
-          "id": 1131,
+          "name": "Sa 14.9 boplats",
+          "id": "Sa 14.9",
           "type": "Fornminnen",
           "url": "https://aland.maps.arcgis.com/apps/webappviewer/index.html?id=9d7cc07ab4004f0ca620038c4fd416ca&marker=116165.49136584083%2C6702394.208363676%2C102139%2C%2C%2C&markertemplate=%7B%22title%22%3A%22Sa%2014.9%22%2C%22x%22%3A116165.49136584083%2C%22y%22%3A6702394.208363676%2C%22wkid%22%3A102139%2C%22isIncludeShareUrl%22%3Atrue%7D&level=13",
           "municipality": "Saltvik"
@@ -3209,8 +3209,8 @@
       },
       "properties": {
         "registryItem": {
-          "name": "Sa 14.9",
-          "id": 1131,
+          "name": "Sa 14.9 boplats",
+          "id": "Sa 14.9",
           "type": "Fornminnen",
           "url": "https://aland.maps.arcgis.com/apps/webappviewer/index.html?id=9d7cc07ab4004f0ca620038c4fd416ca&marker=116165.49136584083%2C6702394.208363676%2C102139%2C%2C%2C&markertemplate=%7B%22title%22%3A%22Sa%2014.9%22%2C%22x%22%3A116165.49136584083%2C%22y%22%3A6702394.208363676%2C%22wkid%22%3A102139%2C%22isIncludeShareUrl%22%3Atrue%7D&level=13",
           "municipality": "Saltvik"
@@ -3246,8 +3246,8 @@
       },
       "properties": {
         "registryItem": {
-          "name": "Sa 14.9",
-          "id": 1131,
+          "name": "Sa 14.9 boplats",
+          "id": "Sa 14.9",
           "type": "Fornminnen",
           "url": "https://aland.maps.arcgis.com/apps/webappviewer/index.html?id=9d7cc07ab4004f0ca620038c4fd416ca&marker=116165.49136584083%2C6702394.208363676%2C102139%2C%2C%2C&markertemplate=%7B%22title%22%3A%22Sa%2014.9%22%2C%22x%22%3A116165.49136584083%2C%22y%22%3A6702394.208363676%2C%22wkid%22%3A102139%2C%22isIncludeShareUrl%22%3Atrue%7D&level=13",
           "municipality": "Saltvik"
