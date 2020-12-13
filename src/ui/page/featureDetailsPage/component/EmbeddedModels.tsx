@@ -37,26 +37,25 @@ export const Info: React.FC = () => {
             <Trans i18nKey="details.3d.infoText1" components={{ a: <a /> }} />
           </p>
           <p>
-            Mallit saa käynnistettyä nuolipainikkeesta. Käynnistymisen jälkeen
-            mallin saa koko ruudun tilaan oikean alareunan{" "}
-            <img src="images/sketchfab-fullscreen.png" /> painikkeesta tai
-            painamalla näppäimistöltä <kbd>f</kbd> painiketta.
+            <Trans
+              i18nKey="details.3d.infoText2"
+              components={{ kbd: <kbd /> }}
+            />{" "}
+            <img src="images/sketchfab-fullscreen.png" />
           </p>
-          <p>Mallin ohjaus:</p>
+          <p>{t(`details.3d.controls.title`)}:</p>
           <ul>
             <li>
-              <b>Kääntäminen:</b> pidä vasen hiirenpainike pohjaan painettuna ja
-              liikuta hiirtä. Kosketusnäytöillä pidä sormi painettuna ja liikuta
-              sormea.
+              <b>{t(`details.3d.controls.rotateTitle`)}:</b>{" "}
+              {t(`details.3d.controls.rotate`)}
             </li>
             <li>
-              <b>Suurennus ja pienennys:</b> käytä hiiren rullaa.
-              Kosketusnäytöillä käytä kahden sormen nipistyselettä.
+              <b>{t(`details.3d.controls.zoomTitle`)}:</b>{" "}
+              {t(`details.3d.controls.zoom`)}
             </li>
             <li>
-              <b>Kohdistuksen siirtäminen:</b> pidä oikea hiirenpainike pohjaan
-              painettuna ja liikuta hiirtä. Kosketusnäytöillä pidä kaksi sormea
-              painettuna ja liikuta sormia.
+              <b>{t(`details.3d.controls.zoomTitle`)}:</b>{" "}
+              {t(`details.3d.controls.zoom`)}
             </li>
           </ul>
         </div>

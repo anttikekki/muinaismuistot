@@ -11,7 +11,7 @@
   },
   "details": {
     "title": "Valitut kohteet",
-    "finnishHeritageAgencyMoreInfoLink": "Lisää tietoa kohteesta Museoviraston <1>{{registerName}}</1>.",
+    "finnishHeritageAgencyMoreInfoLink": "Lisää tietoa kohteesta Museoviraston <a href='{{url}}' target='_blank'>{{ registerName }}</a>.",
     "field": {
       "id": "Tunniste",
       "feature": "Kohde",
@@ -40,7 +40,17 @@
     "3d": {
       "title": "Kohteen 3D-mallit",
       "infoHeading": "Lisätietoa 3D-malleista",
-      "infoText1": "Nämä 3D-mallit ovat <a href='./3d/' target='_blank'>tietokannasta</a>, joka listaa harrastajien sekä virallisten toimijoiden (museot, Museovirasto, Ahvenanmaan paikallishallinto) tekemiä 3D-mallinnuksia <a href='https://sketchfab.com' target='_blank'>Sketchfab</a>-palvelusta."
+      "infoText1": "Nämä 3D-mallit ovat <a href='./3d/' target='_blank'>tietokannasta</a>, joka listaa harrastajien sekä virallisten toimijoiden (museot, Museovirasto, Ahvenanmaan paikallishallinto) tekemiä 3D-mallinnuksia <a href='https://sketchfab.com' target='_blank'>Sketchfab</a>-palvelusta.",
+      "infoText2": "Mallit saa käynnistettyä nuolipainikkeesta. Käynnistymisen jälkeen mallin saa koko ruudun tilaan painamalla näppäimistöltä <kbd>f</kbd> painiketta tai oikean alareunan painikkeesta",
+      "controls": {
+        "title": "Mallin ohjaus",
+        "rotateTitle": "Kääntäminen",
+        "rotate": "pidä vasen hiirenpainike pohjaan painettuna ja liikuta hiirtä. Kosketusnäytöillä pidä sormi painettuna ja liikuta sormea.",
+        "zoomTitle": "Suurennus ja pienennys",
+        "zoom": "käytä hiiren rullaa. Kosketusnäytöillä käytä kahden sormen nipistyselettä.",
+        "focusTitle": "Kohdistuksen siirtäminen",
+        "focus": "pidä oikea hiirenpainike pohjaan painettuna ja liikuta hiirtä. Kosketusnäytöillä pidä kaksi sormea painettuna ja liikuta sormia."
+      }
     }
   },
   "data": {

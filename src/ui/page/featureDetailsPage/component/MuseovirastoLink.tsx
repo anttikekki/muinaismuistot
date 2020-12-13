@@ -17,13 +17,11 @@ export const MuseovirastoLinkDirect: React.FC<MuseovirastoLinkDirectProps> = ({
 }) => {
   return (
     <p className="well">
-      <Trans i18nKey="details.finnishHeritageAgencyMoreInfoLink">
-        Lisää tietoa kohteesta Museoviraston{" "}
-        <a href={url} target="_blank">
-          {{ registerName }}
-        </a>
-        .
-      </Trans>
+      <Trans
+        i18nKey="details.finnishHeritageAgencyMoreInfoLink"
+        values={{ url, registerName }}
+        components={{ a: <a /> }}
+      />
     </p>
   )
 }
