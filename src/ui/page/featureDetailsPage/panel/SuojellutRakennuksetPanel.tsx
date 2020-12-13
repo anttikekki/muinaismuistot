@@ -9,6 +9,7 @@ import { ArgisFeatureCollapsePanel } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
 import { EmbeddedModels } from "../component/EmbeddedModels"
+import { useTranslation } from "react-i18next"
 
 interface Props {
   isOpen: boolean
@@ -25,6 +26,7 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
   feature,
   models = []
 }) => {
+  const { t } = useTranslation()
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
@@ -33,12 +35,24 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
       has3dModels={models.length > 0}
     >
       <form>
-        <Field label="Kohdenimi" value={feature.attributes.kohdenimi} />
+        <Field
+          label={t(`details.field.featureName`)}
+          value={feature.attributes.kohdenimi}
+        />
         {feature.layerName == MuseovirastoLayer.Suojellut_rakennukset_piste && (
-          <Field label="Rakennusnimi" value={feature.attributes.rakennusnimi} />
+          <Field
+            label={t(`details.field.buildingName`)}
+            value={feature.attributes.rakennusnimi}
+          />
         )}
-        <Field label="Kunta" value={feature.attributes.kunta} />
-        <Field label="Suojeluryhmä" value={feature.attributes.suojeluryhmä} />
+        <Field
+          label={t(`details.field.municipality`)}
+          value={feature.attributes.kunta}
+        />
+        <Field
+          label={t(`details.field.protectionGroup`)}
+          value={feature.attributes.suojeluryhmä}
+        />
         <MuseovirastoLink feature={feature} />
         {isOpen && <EmbeddedModels models={models} />}
       </form>

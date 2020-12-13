@@ -36,7 +36,7 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
     >
       <form>
         <Field
-          label={t(`details.field.name`)}
+          label={t(`details.field.featureName`)}
           value={feature.properties.registerName}
         />
         <Field
@@ -58,7 +58,7 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
           value={feature.properties.type}
         />
         <Field
-          label={t(`details.field.dating`)}
+          label={t(`details.field.subType`)}
           value={feature.properties.subtype}
         />
         <MaisemanMuistiField feature={feature} />

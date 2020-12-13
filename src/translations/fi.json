@@ -15,6 +15,8 @@
       "id": "Tunniste",
       "feature": "Kohde",
       "name": "Nimi",
+      "featureName": "Kohdenimi",
+      "buildingName": "Rakennusnimi",
       "municipality": "Kunta",
       "region": "Maakunta",
       "village": "Kylä",
@@ -30,7 +32,9 @@
       "period": "Periodi",
       "featureCount": "Lukumäärä",
       "precision": "Tarkkuus",
-      "legislation": "Laki"
+      "legislation": "Laki",
+      "featureType": "Laji",
+      "protectionGroup": "Suojeluryhmä"
     },
     "3d": {
       "title": "Kohteen 3D-mallit",

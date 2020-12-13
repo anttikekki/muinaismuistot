@@ -12,6 +12,7 @@ import { MuseovirastoLink } from "../component/MuseovirastoLink"
 import { trim } from "../../../../common/util/featureParser"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
+import { useTranslation } from "react-i18next"
 
 interface Props {
   isOpen: boolean
@@ -30,6 +31,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
   models = [],
   maisemanMuistiFeatures = []
 }) => {
+  const { t } = useTranslation()
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
@@ -39,17 +41,32 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
       hasMaisemanMuistiFeatures={maisemanMuistiFeatures.length > 0}
     >
       <form>
-        <Field label="Kohdenimi" value={feature.attributes.kohdenimi} />
-        <Field label="Kunta" value={feature.attributes.kunta} />
-        <Field label="Ajoitus">
+        <Field
+          label={t(`details.field.featureName`)}
+          value={feature.attributes.kohdenimi}
+        />
+        <Field
+          label={t(`details.field.municipality`)}
+          value={feature.attributes.kunta}
+        />
+        <Field label={t(`details.field.dating`)}>
           <p>
             <span>{trim(feature.attributes.ajoitus)}</span>{" "}
             <TimespanLabel dating={feature.attributes.ajoitus} />
           </p>
         </Field>
-        <Field label="Tyyppi" value={feature.attributes.tyyppi} />
-        <Field label="Alatyyppi" value={feature.attributes.alatyyppi} />
-        <Field label="Laji" value={feature.attributes.laji} />
+        <Field
+          label={t(`details.field.type`)}
+          value={feature.attributes.tyyppi}
+        />
+        <Field
+          label={t(`details.field.subType`)}
+          value={feature.attributes.alatyyppi}
+        />
+        <Field
+          label={t(`details.field.featureType`)}
+          value={feature.attributes.laji}
+        />
 
         {maisemanMuistiFeatures.length > 0 && (
           <MaisemanMuistiField feature={maisemanMuistiFeatures[0]} />
