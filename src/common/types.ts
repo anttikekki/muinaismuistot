@@ -456,7 +456,7 @@ export interface DataLatestUpdateDates {
 export interface ModelFeatureProperties {
   registryItem: {
     name: string
-    id: number
+    id: string | number
     type: MuseovirastoLayer | AhvenanmaaLayer
     url: string
     municipality: string

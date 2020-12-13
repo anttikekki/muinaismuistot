@@ -225,10 +225,10 @@ export const getModelsForArgisFeature = (
       featureId = feature.attributes.ID
       break
     case AhvenanmaaLayer.Fornminnen:
-      featureId = feature.attributes.OBJECTID
+      featureId = feature.attributes["Fornlämnings ID"]
       break
     case AhvenanmaaLayer.MaritimtKulturarv:
-      featureId = feature.attributes.OBJECTID
+      featureId = feature.attributes.FornID
       break
   }
 

@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 
 export const DatabaseStructure: React.FC = () => {
   return (
@@ -216,9 +216,9 @@ export const DatabaseStructure: React.FC = () => {
               rekisterissä
             </td>
             <td>
-              esim. <code>1000011245</code>
+              esim. <code>1000011245</code> tai <code>Sa 14.9</code>
             </td>
-            <td>Numero</td>
+            <td>Numero tai merkkijono</td>
           </tr>
           <tr>
             <td>
@@ -395,5 +395,5 @@ export const DatabaseStructure: React.FC = () => {
         </code>
       </pre>
     </>
-  );
-};
+  )
+}
