@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useTranslation } from "react-i18next"
 import {
   MaailmanperintoPisteArgisFeature,
   MaailmanperintoAlueArgisFeature
@@ -18,6 +19,7 @@ export const MaailmanperintokohdePanel: React.FC<Props> = ({
   onToggleOpen,
   feature
 }) => {
+  const { t } = useTranslation()
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
@@ -25,7 +27,10 @@ export const MaailmanperintokohdePanel: React.FC<Props> = ({
       feature={feature}
     >
       <form>
-        <Field label="Kohdenimi" value={feature.attributes.Nimi} />
+        <Field
+          label={t(`details.field.name`)}
+          value={feature.attributes.Nimi}
+        />
         <MuseovirastoLink feature={feature} />
       </form>
     </ArgisFeatureCollapsePanel>

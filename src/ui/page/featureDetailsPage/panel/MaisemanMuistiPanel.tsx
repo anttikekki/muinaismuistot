@@ -11,6 +11,7 @@ import { EmbeddedModels } from "../component/EmbeddedModels"
 import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
 import { trim } from "../../../../common/util/featureParser"
 import { TimespanLabel } from "../component/TimespanLabel"
+import { useTranslation } from "react-i18next"
 
 interface Props {
   isOpen: boolean
@@ -25,6 +26,7 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
   feature,
   models = []
 }) => {
+  const { t } = useTranslation()
   return (
     <MaisemanMuistiFeatureCollapsePanel
       isOpen={isOpen}
@@ -33,17 +35,32 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
       has3dModels={models.length > 0}
     >
       <form>
-        <Field label="Kohdenimi" value={feature.properties.registerName} />
-        <Field label="Kunta" value={feature.properties.municipality} />
-        <Field label="Maakunta" value={feature.properties.region} />
-        <Field label="Ajoitus">
+        <Field
+          label={t(`details.field.name`)}
+          value={feature.properties.registerName}
+        />
+        <Field
+          label={t(`details.field.municipality`)}
+          value={feature.properties.municipality}
+        />
+        <Field
+          label={t(`details.field.region`)}
+          value={feature.properties.region}
+        />
+        <Field label={t(`details.field.dating`)}>
           <p>
             <span>{trim(feature.properties.dating)}</span>{" "}
             <TimespanLabel dating={feature.properties.dating} />
           </p>
         </Field>
-        <Field label="Tyyppi" value={feature.properties.type} />
-        <Field label="Alatyyppi" value={feature.properties.subtype} />
+        <Field
+          label={t(`details.field.type`)}
+          value={feature.properties.type}
+        />
+        <Field
+          label={t(`details.field.dating`)}
+          value={feature.properties.subtype}
+        />
         <MaisemanMuistiField feature={feature} />
         <MuseovirastoLinkDirect
           url={`https://www.kyppi.fi/to.aspx?id=112.${feature.properties.id}`}
