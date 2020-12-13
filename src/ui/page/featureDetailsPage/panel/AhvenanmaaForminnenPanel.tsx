@@ -5,7 +5,6 @@ import {
 } from "../../../../common/types"
 import { ArgisFeatureCollapsePanel } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
-import { AhvenanmaaRegeringenLink } from "../component/AhvenanmaaRegeringenLink"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import { AhvenanmaaTypeAndDatingField } from "../component/AhvenanmaaTypeAndDatingField"
 
@@ -37,8 +36,6 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
         <AhvenanmaaTypeAndDatingField feature={feature} />
         <Field label="Kuvaus" value={feature.attributes.Beskrivning} />
         <Field label="Sijainti" value={feature.attributes.Topografi} />
-
-        <AhvenanmaaRegeringenLink feature={feature} />
 
         {isOpen && <EmbeddedModels models={models} />}
       </form>

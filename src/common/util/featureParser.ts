@@ -298,46 +298,6 @@ const getMaailmanperintoUrl = (
   return url
 }
 
-const generateAhvenanmaaKuntaPdfUrl = (
-  feature: AhvenanmaaForminnenArgisFeature
-): string | undefined => {
-  switch (feature.attributes["Fornlämnings ID"].substring(0, 2)) {
-    case "Br":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/BR%c3%84ND%c3%96.pdf"
-    case "Ec":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/ECKER%c3%96.pdf"
-    case "Fö":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/F%c3%96GL%c3%96.pdf"
-    case "Fi":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/FINSTR%c3%96M.pdf"
-    case "Ge":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/GETA.pdf"
-    case "Ha":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/HAMMARLAND.pdf"
-    case "Jo":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/JOMALA.pdf"
-    case "Kö":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/K%c3%96KAR.pdf"
-    case "Ku":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/KUMLINGE.pdf"
-    case "Le":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/LEMLAND.pdf"
-    case "Lu":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/LUMPARLAND.pdf"
-    case "Ma":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/MARIEHAMN.pdf"
-    case "Sa":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/SALTVIK.pdf"
-    case "So":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/SOTTUNGA.pdf"
-    case "Su":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/SUND.pdf"
-    case "Vå":
-      return "http://www.kulturarv.ax/wp-content/uploads/2014/11/V%c3%85RD%c3%96.pdf"
-  }
-  return undefined
-}
-
 export const getFeatureRegisterURL = (
   feature: ArgisFeature
 ): string | undefined => {
@@ -354,8 +314,6 @@ export const getFeatureRegisterURL = (
     case MuseovirastoLayer.Maailmanperinto_alue:
     case MuseovirastoLayer.Maailmanperinto_piste:
       return getMaailmanperintoUrl(feature)
-    case AhvenanmaaLayer.Fornminnen:
-      return generateAhvenanmaaKuntaPdfUrl(feature)
   }
 }
 
