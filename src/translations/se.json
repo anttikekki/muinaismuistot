@@ -1,0 +1,17 @@
+{
+  "data": {
+    "dating": {
+      "main": {
+        "prehistoric": "Förhistorisk tid",
+        "historic": "Historisk tid",
+        "stoneAge": "Stenålder",
+        "earlyMetalAge": "",
+        "bronzeAge": "Bronsålder",
+        "ironAge": "Järnålder",
+        "middleAge": "Medeltid",
+        "modern": "Sentid",
+        "dataMissing": "Uppgifter saknas"
+      }
+    }
+  }
+}

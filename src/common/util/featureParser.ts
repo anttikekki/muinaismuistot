@@ -415,25 +415,26 @@ export const getGeoJSONFeatureLocation = (
  * @return {string} timespan. Example: "1200 - 1600". Returns empty string if there is no timspan for timing name.
  */
 export const getTimespanInYearsForTimingName = (
+  t: TFunction,
   ajoitus: MuinaisjaannosAjoitus
 ): string => {
   switch (trim(ajoitus)) {
     case "esihistoriallinen":
-      return "8600 eaa. - 1200 jaa."
+      return t(`data.dating.timespan.prehistoric`)
     case "kivikautinen":
-      return "8600 – 1500 eaa."
+      return t(`data.dating.timespan.stoneAge`)
     case "varhaismetallikautinen":
-      return "1500 eaa. - 200 jaa."
+      return t(`data.dating.timespan.earlyMetalAge`)
     case "pronssikautinen":
-      return "1700 – 500 eaa."
+      return t(`data.dating.timespan.bronzeAge`)
     case "rautakautinen":
-      return "500 eaa. - 1200 jaa."
+      return t(`data.dating.timespan.ironAge`)
     case "keskiaikainen":
-      return "1200 - 1570 jaa."
+      return t(`data.dating.timespan.middleAge`)
     case "historiallinen":
-      return "1200 jaa. -"
+      return t(`data.dating.timespan.historic`)
     case "moderni":
-      return "1800 jaa -"
+      return t(`data.dating.timespan.modern`)
     case "moniperiodinen":
     case "ajoittamaton":
     case "ei määritelty":
@@ -484,25 +485,26 @@ export const getAhvenanmaaForminnenTypeText = (
  * @see https://kartor.regeringen.ax/dokument/metadata/Fornminnen-Typ%20och%20datering%20kodade%20v%C3%A4rden.xlsx
  */
 export const getAhvenanmaaForminneDatingText = (
+  t: TFunction,
   datingId: number | null
 ): string | undefined => {
   switch (datingId) {
     case 0:
-      return "Förhistorisk tid"
+      return t(`data.dating.main.prehistoric`)
     case 1:
-      return "Historisk tid"
+      return t(`data.dating.main.historic`)
     case 2:
-      return "Stenålder"
+      return t(`data.dating.main.stoneAge`)
     case 3:
-      return "Bronsålder"
+      return t(`data.dating.main.bronzeAge`)
     case 4:
-      return "Järnålder"
+      return t(`data.dating.main.ironAge`)
     case 5:
-      return "Medeltid"
+      return t(`data.dating.main.middleAge`)
     case 6:
-      return "Sentid"
+      return t(`data.dating.main.modern`) // Sentid
     case 99:
-      return "Uppgifter saknas"
+      return t(`data.dating.main.dataMissing`)
     default:
       return undefined
   }

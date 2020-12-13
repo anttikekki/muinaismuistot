@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Trans } from "react-i18next"
 import {
   GeoJSONFeature,
   MaisemanMuistiFeatureProperties
@@ -8,18 +9,19 @@ interface Props {
   feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>
 }
 
-export const MaisemanMuistiField: React.FC<Props> = ({ feature }) => (
-  <div className="form-group">
-    <label>
-      Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (
-      <a href="./maisemanmuisti/" target="_blank">
-        lisätietoa
-      </a>
-      )
-    </label>
-    <p>
-      <img className="feature-icon" src="images/maiseman-muisti.png" />
-      <span>{feature.properties.name}</span>
-    </p>
-  </div>
-)
+export const MaisemanMuistiField: React.FC<Props> = ({ feature }) => {
+  return (
+    <div className="form-group">
+      <label>
+        <Trans
+          i18nKey="details.field.maisemanMuisti"
+          components={{ a: <a /> }}
+        />
+      </label>
+      <p>
+        <img className="feature-icon" src="images/maiseman-muisti.png" />
+        <span>{feature.properties.name}</span>
+      </p>
+    </div>
+  )
+}

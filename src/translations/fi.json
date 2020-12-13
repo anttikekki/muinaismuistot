@@ -35,7 +35,8 @@
       "precision": "Tarkkuus",
       "legislation": "Laki",
       "featureType": "Laji",
-      "protectionGroup": "Suojeluryhmä"
+      "protectionGroup": "Suojeluryhmä",
+      "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>lisätietoa</a>)"
     },
     "3d": {
       "title": "Kohteen 3D-mallit",
@@ -59,6 +60,31 @@
       "fromRKY": "rky.fi rekisteristä",
       "fromMaailmanperinto": "Museoviraston sivuilta",
       "fromRakennusperintö": "Rakennusperintörekisteristä"
+    },
+    "dating": {
+      "timespan": {
+        "prehistoric": "8600 eaa. - 1200 jaa.",
+        "historic": "1200 jaa. -",
+        "stoneAge": "8600 – 1500 eaa.",
+        "earlyMetalAge": "1500 eaa. - 200 jaa.",
+        "bronzeAge": "1700 – 500 eaa.",
+        "ironAge": "500 eaa. - 1200 jaa.",
+        "middleAge": "1200 - 1570 jaa.",
+        "modern": "1800 jaa. -"
+      },
+      "main": {
+        "prehistoric": "esihistoriallinen",
+        "historic": "historiallinen",
+        "stoneAge": "kivikautinen",
+        "earlyMetalAge": "varhaismetallikautinen",
+        "bronzeAge": "pronssikautinen",
+        "ironAge": "rautakautinen",
+        "middleAge": "keskiaikainen",
+        "modern": "moderni",
+        "multiPeriod": "moniperiodinen",
+        "undated": "ajoittamaton",
+        "dataMissing": "ei määritelty"
+      }
     }
   }
 }

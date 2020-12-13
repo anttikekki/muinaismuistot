@@ -24,7 +24,7 @@ export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {
         Antal: count
       }) => {
         const type = getAhvenanmaaForminnenTypeText(typeId)
-        const dating = getAhvenanmaaForminneDatingText(datingId)
+        const dating = getAhvenanmaaForminneDatingText(t, datingId)
 
         return [
           [t(`details.field.mainCategory`), type],
