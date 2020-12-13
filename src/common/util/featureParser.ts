@@ -1,3 +1,4 @@
+import { TFunction } from "i18next"
 import {
   ArgisFeature,
   MuinaisjaannosPisteArgisFeature,
@@ -317,25 +318,26 @@ export const getFeatureRegisterURL = (
   }
 }
 
-export const getFeatureRegisterName = (feature: ArgisFeature): string => {
+export const getFeatureRegisterName = (
+  t: TFunction,
+  feature: ArgisFeature
+): string => {
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
     case MuseovirastoLayer.Muinaisjaannokset_alue:
-      return "Muinaisjäännösrekisteristä"
+      return t(`data.register.fromMuinaisjaannos`)
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_viiva:
     case MuseovirastoLayer.RKY_piste:
-      return "rky.fi rekisteristä"
+      return t(`data.register.fromRKY`)
     case MuseovirastoLayer.Maailmanperinto_alue:
     case MuseovirastoLayer.Maailmanperinto_piste:
-      return "Museoviraston sivuilta"
+      return t(`data.register.fromMaailmanperinto`)
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
-      return "rakennusperintörekisteristä"
-    case AhvenanmaaLayer.Fornminnen:
-      return "Ahvenamaan muinaisjäännösrekisteri"
-    case AhvenanmaaLayer.MaritimtKulturarv:
-      return "Ahvenamaan merellinen kulttuuriperintörekisteri"
+      return t(`data.register.fromRakennusperintö`)
+    default:
+      return ""
   }
 }
 

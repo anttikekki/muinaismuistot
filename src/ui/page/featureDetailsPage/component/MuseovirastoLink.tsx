@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Trans, useTranslation } from "react-i18next"
 import { ArgisFeature } from "../../../../common/types"
 import {
   getFeatureRegisterURL,
@@ -16,11 +17,13 @@ export const MuseovirastoLinkDirect: React.FC<MuseovirastoLinkDirectProps> = ({
 }) => {
   return (
     <p className="well">
-      Lisää tietoa kohteesta Museoviraston{" "}
-      <a href={url} target="_blank">
-        {registerName}
-      </a>
-      .
+      <Trans i18nKey="details.finnishHeritageAgencyMoreInfoLink">
+        Lisää tietoa kohteesta Museoviraston{" "}
+        <a href={url} target="_blank">
+          {{ registerName }}
+        </a>
+        .
+      </Trans>
     </p>
   )
 }
@@ -32,8 +35,9 @@ interface MuseovirastoLinkProps {
 export const MuseovirastoLink: React.FC<MuseovirastoLinkProps> = ({
   feature
 }) => {
+  const { t } = useTranslation()
   const url = getFeatureRegisterURL(feature)
-  const registerName = getFeatureRegisterName(feature)
+  const registerName = getFeatureRegisterName(t, feature)
   if (!url) {
     return null
   }
