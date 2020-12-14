@@ -32,6 +32,14 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
   maisemanMuistiFeatures = []
 }) => {
   const { t } = useTranslation()
+  const {
+    kohdenimi,
+    kunta,
+    ajoitus,
+    tyyppi,
+    alatyyppi,
+    laji
+  } = feature.attributes
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
@@ -41,31 +49,25 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
       hasMaisemanMuistiFeatures={maisemanMuistiFeatures.length > 0}
     >
       <form>
-        <Field
-          label={t(`details.field.featureName`)}
-          value={feature.attributes.kohdenimi}
-        />
-        <Field
-          label={t(`details.field.municipality`)}
-          value={feature.attributes.kunta}
-        />
+        <Field label={t(`details.field.featureName`)} value={kohdenimi} />
+        <Field label={t(`details.field.municipality`)} value={kunta} />
         <Field label={t(`details.field.dating`)}>
           <p>
-            <span>{trim(feature.attributes.ajoitus)}</span>{" "}
-            <TimespanLabel dating={feature.attributes.ajoitus} />
+            <span>{t(`data.museovirasto.dating.${ajoitus}`, ajoitus)}</span>{" "}
+            <TimespanLabel dating={ajoitus} />
           </p>
         </Field>
         <Field
           label={t(`details.field.type`)}
-          value={feature.attributes.tyyppi}
+          value={t(`data.museovirasto.type.${tyyppi}`, tyyppi)}
         />
         <Field
           label={t(`details.field.subType`)}
-          value={feature.attributes.alatyyppi}
+          value={t(`data.museovirasto.subtype.${alatyyppi}`, alatyyppi)}
         />
         <Field
           label={t(`details.field.featureType`)}
-          value={feature.attributes.laji}
+          value={t(`data.museovirasto.featureType.${laji}`, laji)}
         />
 
         {maisemanMuistiFeatures.length > 0 && (

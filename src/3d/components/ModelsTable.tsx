@@ -1,25 +1,27 @@
-import * as React from "react";
-import { GeoJSONFeature, ModelFeatureProperties } from "../../common/types";
+import * as React from "react"
+import { useTranslation } from "react-i18next"
+import { GeoJSONFeature, ModelFeatureProperties } from "../../common/types"
 import {
   getLayerRegisterName,
-  getGeoJSONFeatureLocation,
-} from "../../common/util/featureParser";
-import { createLocationHash } from "../../common/util/URLHashHelper";
+  getGeoJSONFeatureLocation
+} from "../../common/util/featureParser"
+import { createLocationHash } from "../../common/util/URLHashHelper"
 
 interface Props {
-  models: Array<GeoJSONFeature<ModelFeatureProperties>>;
+  models: Array<GeoJSONFeature<ModelFeatureProperties>>
 }
 
 export const ModelsTable: React.FC<Props> = ({ models }) => {
+  const { t } = useTranslation()
   const [sortedModels, setSortedModels] = React.useState<
     Array<GeoJSONFeature<ModelFeatureProperties>>
-  >([]);
-  const [sortColumn, setSortColumn] = React.useState<string>("Lisätty");
+  >([])
+  const [sortColumn, setSortColumn] = React.useState<string>("Lisätty")
   const [sortDirection, setSortDirection] = React.useState<"asc" | "desc">(
     "desc"
-  );
+  )
 
-  React.useEffect(() => setSortedModels(models), [models]);
+  React.useEffect(() => setSortedModels(models), [models])
 
   const onSortClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -29,26 +31,25 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
       b: GeoJSONFeature<ModelFeatureProperties>
     ) => number
   ) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    let newSortDirection = sortDirection;
+    let newSortDirection = sortDirection
     if (newSortColumn === sortColumn) {
-      newSortDirection = sortDirection === "asc" ? "desc" : "asc";
+      newSortDirection = sortDirection === "asc" ? "desc" : "asc"
     } else {
-      setSortColumn(newSortColumn);
-      newSortDirection = "asc";
+      setSortColumn(newSortColumn)
+      newSortDirection = "asc"
     }
-    setSortDirection(newSortDirection);
+    setSortDirection(newSortDirection)
 
-    let sortResult = [...sortedModels].sort(compareFn);
-    sortResult =
-      newSortDirection === "desc" ? sortResult.reverse() : sortResult;
-    setSortedModels(sortResult);
-  };
+    let sortResult = [...sortedModels].sort(compareFn)
+    sortResult = newSortDirection === "desc" ? sortResult.reverse() : sortResult
+    setSortedModels(sortResult)
+  }
 
   const ColumnHeader: React.FC<{
-    name: string;
-    valueFn: (v: GeoJSONFeature<ModelFeatureProperties>) => string;
+    name: string
+    valueFn: (v: GeoJSONFeature<ModelFeatureProperties>) => string
   }> = ({ name, valueFn }) => {
     return (
       <th>
@@ -65,8 +66,8 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
           )}
         </a>
       </th>
-    );
-  };
+    )
+  }
 
   return (
     <>
@@ -142,7 +143,7 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
         </thead>
         <tbody>
           {sortedModels.map((feature, i) => {
-            const { properties } = feature;
+            const { properties } = feature
             return (
               <tr key={properties.model.url}>
                 <td>{i + 1}</td>
@@ -164,7 +165,7 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
                   ]
                 </td>
                 <td>{properties.registryItem.municipality}</td>
-                <td>{getLayerRegisterName(properties.registryItem.type)}</td>
+                <td>{getLayerRegisterName(t, properties.registryItem.type)}</td>
                 <td>
                   <a href={properties.model.url} target="_blank">
                     {properties.model.name}
@@ -188,10 +189,10 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
                   )}
                 </td>
               </tr>
-            );
+            )
           })}
         </tbody>
       </table>
     </>
-  );
-};
+  )
+}

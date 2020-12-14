@@ -18,9 +18,10 @@ interface ResultRowProps {
 }
 
 const ResultRow: React.FC<ResultRowProps> = ({ hidePage, feature }) => {
+  const { t } = useTranslation()
   const nimi = getFeatureName(feature)
   const municipality = getFeatureMunicipality(feature)
-  const tyypinNimi = getFeatureTypeName(feature)
+  const tyypinNimi = getFeatureTypeName(t, feature)
   const iconURL = getFeatureTypeIconURL(feature)
   const coordinates = getFeatureLocation(feature)
   const locationHash = coordinates && createLocationHash(coordinates)

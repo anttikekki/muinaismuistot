@@ -1,16 +1,32 @@
 {
   "data": {
-    "common": {
-      "timespan": {
-        "prehistoric": "8600 eaa. - 1200 jaa.",
-        "historic": "1200 jaa. -",
-        "stoneAge": "8600 – 1500 eaa.",
-        "earlyMetalAge": "1500 eaa. - 200 jaa.",
-        "bronzeAge": "1700 – 500 eaa.",
-        "ironAge": "500 eaa. - 1200 jaa.",
-        "middleAge": "1200 - 1570 jaa.",
-        "modern": "1800 jaa. -"
-      }
+    "register": {
+      "Muinaisjäännösrekisteri": "Muinaisjäännösrekisteri",
+      "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt",
+      "Maailmanperintökohteet": "Maailmanperintökohteet",
+      "Rakennusperintörekisteri": "Rakennusperintörekisteri",
+      "Ahvenamaan muinaisjäännösrekisteri": "Ahvenamaan muinaisjäännösrekisteri",
+      "Ahvenamaan merellinen kulttuuriperintörekisteri": "Ahvenamaan merellinen kulttuuriperintörekisteri"
+    },
+    "featureType": {
+      "Kiinteä muinaisjäännös": "Kiinteä muinaisjäännös",
+      "Muu kulttuuriperintökohde": "Muu kulttuuriperintökohde",
+      "Valtakunnallisesti merkittävä muinaisjäännös": "Valtakunnallisesti merkittävä muinaisjäännös",
+      "Rakennettu kulttuuriympäristö": "Rakennettu kulttuuriympäristö",
+      "Maailmanperintökohde": "Maailmanperintökohde",
+      "Rakennusperintökohde": "Rakennusperintökohde",
+      "Ahvenanmaan muinaisjäännösrekisterin kohde": "Ahvenanmaan muinaisjäännösrekisterin kohde",
+      "Ahvenamaan merellisen kulttuuriperintörekisterin kohde": "Ahvenamaan merellisen kulttuuriperintörekisterin kohde"
+    },
+    "timespan": {
+      "prehistoric": "8600 eaa. - 1200 jaa.",
+      "historic": "1200 jaa. -",
+      "stoneAge": "8600 – 1500 eaa.",
+      "earlyMetalAge": "1500 eaa. - 200 jaa.",
+      "bronzeAge": "1700 – 500 eaa.",
+      "ironAge": "500 eaa. - 1200 jaa.",
+      "middleAge": "1200 - 1570 jaa.",
+      "modern": "1800 jaa. -"
     },
     "museovirasto": {
       "dating": {
@@ -237,6 +253,10 @@
         "virstanpylväät": "milstolpar",
         "yhdyshaudat": "löpgravar",
         "yksinäistalot": "enskilda gårdar"
+      },
+      "featureType": {
+        "kiinteä muinaisjäännös": "kiinteä muinaisjäännös",
+        "muu kulttuuriperintökohde": "muu kulttuuriperintökohde"
       }
     },
     "ahvenanmaa": {

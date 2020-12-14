@@ -17,6 +17,7 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
   feature
 }) => {
   const { t } = useTranslation()
+  const { kohdenimi, kunta, laji } = feature.attributes
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
@@ -24,17 +25,11 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
       feature={feature}
     >
       <form>
-        <Field
-          label={t(`details.field.name`)}
-          value={feature.attributes.kohdenimi}
-        />
-        <Field
-          label={t(`details.field.municipality`)}
-          value={feature.attributes.kunta}
-        />
+        <Field label={t(`details.field.name`)} value={kohdenimi} />
+        <Field label={t(`details.field.municipality`)} value={kunta} />
         <Field
           label={t(`details.field.featureType`)}
-          value={feature.attributes.laji}
+          value={t(`data.museovirasto.featureType.${laji}`, laji)}
         />
         <MuseovirastoLink feature={feature} />
       </form>

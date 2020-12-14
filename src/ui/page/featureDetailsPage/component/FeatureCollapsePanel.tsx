@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useTranslation } from "react-i18next"
 import {
   ArgisFeature,
   GeoJSONFeature,
@@ -83,6 +84,7 @@ export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps>
   hasMaisemanMuistiFeatures,
   children
 }) => {
+  const { t } = useTranslation()
   const coordinates = getFeatureLocation(feature)
   const permanentLink = coordinates && createLocationHash(coordinates)
   const featureName = getFeatureName(feature)
@@ -92,6 +94,7 @@ export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps>
     hasMaisemanMuistiFeatures
   )
   const featureTypeName = getFeatureTypeName(
+    t,
     feature,
     has3dModels,
     hasMaisemanMuistiFeatures
@@ -125,12 +128,14 @@ export const MaisemanMuistiFeatureCollapsePanel: React.FC<MaisemanMuistiFeatureC
   has3dModels,
   children
 }) => {
+  const { t } = useTranslation()
   const coordinates = getGeoJSONFeatureLocation(feature)
   const permanentLink = coordinates && createLocationHash(coordinates)
   const featureName = `${feature.properties.name}, ${feature.properties.registerName}`
   const featureTypeIconURL = getTypeIconURL("maiseman-muisti", has3dModels)
-  const featureTypeName =
-    "Kiinteä muinaisjäännös, Valtakunnallisesti merkittävä muinaisjäännös"
+  const featureTypeName = `${t(`data.featureType.Kiinteä muinaisjäännös`)}, ${t(
+    `data.featureType.Valtakunnallisesti merkittävä muinaisjäännös`
+  )}`
 
   return (
     <FeatureCollapsePanel

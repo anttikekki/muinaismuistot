@@ -4,7 +4,8 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
-import fiTranslations from "../translations/fi.json"
+import fiTranslations from "../common/translations/fi.json"
+import svTranslations from "../common/translations/sv.json"
 import {
   ArgisFeature,
   Settings,
@@ -75,7 +76,8 @@ export interface EventListeners {
 
 i18n.use(initReactI18next).init({
   resources: {
-    fi: { translation: fiTranslations }
+    fi: { translation: fiTranslations },
+    sv: { translations: svTranslations }
   },
   lng: "fi",
   fallbackLng: "fi",

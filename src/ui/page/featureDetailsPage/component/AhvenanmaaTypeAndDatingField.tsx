@@ -23,14 +23,20 @@ export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {
         Undertyp: subDating,
         Antal: count
       }) => {
-        const type = getAhvenanmaaForminnenTypeText(typeId)
+        const type = getAhvenanmaaForminnenTypeText(t, typeId)
         const dating = getAhvenanmaaForminneDatingText(t, datingId)
 
         return [
           [t(`details.field.mainCategory`), type],
-          [t(`details.field.subCategory`), subType],
+          [
+            t(`details.field.subCategory`),
+            t(`data.ahvenanmaa.subType.${subType}`, subType ?? undefined)
+          ],
           [t(`details.field.mainEra`), dating],
-          [t(`details.field.period`), subDating],
+          [
+            t(`details.field.period`),
+            t(`data.ahvenanmaa.subDating.${subDating}`, subDating ?? undefined)
+          ],
           [t(`details.field.featureCount`), count]
         ]
           .filter((v) => !!v[1])

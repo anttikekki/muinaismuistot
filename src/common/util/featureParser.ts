@@ -61,6 +61,7 @@ export const getFeatureName = (feature: ArgisFeature): string => {
 }
 
 export const getFeatureTypeName = (
+  t: TFunction,
   feature: ArgisFeature,
   has3dModels: boolean = false,
   hasMaisemanMuistiFeatures: boolean = false
@@ -68,38 +69,42 @@ export const getFeatureTypeName = (
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
       return [
-        isKiinteäMuinaisjäännös(feature) ? "Kiinteä muinaisjäännös" : undefined,
+        isKiinteäMuinaisjäännös(feature)
+          ? t(`data.featureType.Kiinteä muinaisjäännös`)
+          : undefined,
         isMuuKulttuuriperintökohde(feature)
-          ? "Muu kulttuuriperintökohde"
+          ? t(`data.featureType.Muu kulttuuriperintökohde`)
           : undefined,
         trim(feature.attributes.tyyppi),
         hasMaisemanMuistiFeatures
-          ? "Valtakunnallisesti merkittävä muinaisjäännös"
+          ? t(`data.featureType.Valtakunnallisesti merkittävä muinaisjäännös`)
           : undefined
       ]
         .filter((v) => !!v)
         .join(", ")
     case MuseovirastoLayer.Muinaisjaannokset_alue:
       if (isKiinteäMuinaisjäännös(feature)) {
-        return "Kiinteä muinaisjäännös (alue)"
+        return t(`data.featureType.Kiinteä muinaisjäännös (alue)`)
       } else if (isMuuKulttuuriperintökohde(feature)) {
-        return "Muu kulttuuriperintökohde (alue)"
+        return t(`data.featureType.Muu kulttuuriperintökohde (alue)`)
       }
       break
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_piste:
     case MuseovirastoLayer.RKY_viiva:
-      return "Rakennettu kulttuuriympäristö"
+      return t(`data.featureType.Rakennettu kulttuuriympäristö`)
     case MuseovirastoLayer.Maailmanperinto_piste:
     case MuseovirastoLayer.Maailmanperinto_alue:
-      return "Maailmanperintökohde"
+      return t(`data.featureType.Maailmanperintökohde`)
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
-      return "Rakennusperintökohde"
+      return t(`data.featureType.Rakennusperintökohde`)
     case AhvenanmaaLayer.Fornminnen:
-      return "Ahvenanmaan muinaisjäännösrekisterin kohde"
+      return t(`data.featureType.Ahvenanmaan muinaisjäännösrekisterin kohde`)
     case AhvenanmaaLayer.MaritimtKulturarv:
-      return "Ahvenamaan merellisen kulttuuriperintörekisterin kohde"
+      return t(
+        `data.featureType.Ahvenamaan merellisen kulttuuriperintörekisterin kohde`
+      )
     default:
       return undefined
   }
@@ -325,43 +330,46 @@ export const getFeatureRegisterName = (
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
     case MuseovirastoLayer.Muinaisjaannokset_alue:
-      return t(`data.register.fromMuinaisjaannos`)
+      return t(`details.registerLink.fromMuinaisjaannos`)
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_viiva:
     case MuseovirastoLayer.RKY_piste:
-      return t(`data.register.fromRKY`)
+      return t(`details.registerLink.fromRKY`)
     case MuseovirastoLayer.Maailmanperinto_alue:
     case MuseovirastoLayer.Maailmanperinto_piste:
-      return t(`data.register.fromMaailmanperinto`)
+      return t(`details.registerLink.fromMaailmanperinto`)
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
-      return t(`data.register.fromRakennusperintö`)
+      return t(`details.registerLink.fromRakennusperintö`)
     default:
       return ""
   }
 }
 
 export const getLayerRegisterName = (
+  t: TFunction,
   layer: MuseovirastoLayer | AhvenanmaaLayer
 ): string => {
   switch (layer) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
     case MuseovirastoLayer.Muinaisjaannokset_alue:
-      return "Muinaisjäännösrekisteri"
+      return t(`data.register.Muinaisjäännösrekisteri`)
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_viiva:
     case MuseovirastoLayer.RKY_piste:
-      return "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt"
+      return t(
+        `data.register.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`
+      )
     case MuseovirastoLayer.Maailmanperinto_alue:
     case MuseovirastoLayer.Maailmanperinto_piste:
-      return "Maailmanperintökohteet"
+      return t(`data.register.Maailmanperintökohteet`)
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
-      return "Rakennusperintörekisteri"
+      return t(`data.register.Rakennusperintörekisteri`)
     case AhvenanmaaLayer.Fornminnen:
-      return "Ahvenamaan muinaisjäännösrekisteri"
+      return t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)
     case AhvenanmaaLayer.MaritimtKulturarv:
-      return "Ahvenamaan merellinen kulttuuriperintörekisteri"
+      return t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)
   }
 }
 
@@ -420,21 +428,21 @@ export const getTimespanInYearsForTimingName = (
 ): string => {
   switch (trim(ajoitus)) {
     case "esihistoriallinen":
-      return t(`data.common.timespan.prehistoric`)
+      return t(`data.timespan.prehistoric`)
     case "kivikautinen":
-      return t(`data.common.timespan.stoneAge`)
+      return t(`data.timespan.stoneAge`)
     case "varhaismetallikautinen":
-      return t(`data.common.timespan.earlyMetalAge`)
+      return t(`data.timespan.earlyMetalAge`)
     case "pronssikautinen":
-      return t(`data.common.timespan.bronzeAge`)
+      return t(`data.timespan.bronzeAge`)
     case "rautakautinen":
-      return t(`data.common.timespan.ironAge`)
+      return t(`data.timespan.ironAge`)
     case "keskiaikainen":
-      return t(`data.common.timespan.middleAge`)
+      return t(`data.timespan.middleAge`)
     case "historiallinen":
-      return t(`data.common.timespan.historic`)
+      return t(`data.timespan.historic`)
     case "moderni":
-      return t(`data.common.timespan.modern`)
+      return t(`data.timespan.modern`)
     case "moniperiodinen":
     case "ajoittamaton":
     case "ei määritelty":

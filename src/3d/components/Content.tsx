@@ -1,4 +1,7 @@
 import * as React from "react"
+import i18n from "i18next"
+import { initReactI18next } from "react-i18next"
+import fiTranslations from "../../common/translations/fi.json"
 import { TableOfContent } from "./TableOfContent"
 import { DatabaseStructure } from "./DatabaseStructure"
 import { Registers } from "./Registers"
@@ -11,6 +14,17 @@ import {
 } from "../../common/types"
 import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser"
 import { DatabaseIntro } from "./DatabaseIntro"
+
+i18n.use(initReactI18next).init({
+  resources: {
+    fi: { translation: fiTranslations }
+  },
+  lng: "fi",
+  fallbackLng: "fi",
+  interpolation: {
+    escapeValue: false
+  }
+})
 
 export const Content: React.FC = () => {
   const [models, setModels] = React.useState<
