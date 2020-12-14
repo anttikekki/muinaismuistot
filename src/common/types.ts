@@ -147,6 +147,7 @@ export enum MuinaisjaannosAjoitus {
   varhaismetallikautinen = "varhaismetallikautinen",
   pronssikautinen = "pronssikautinen",
   rautakautinen = "rautakautinen",
+  rautakautinenJaTaiKeskiaikainen = "rautakautinen ja/tai keskiaikainen",
   keskiaikainen = "keskiaikainen",
   historiallinen = "historiallinen",
   moderni = "moderni",

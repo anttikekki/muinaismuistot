@@ -420,21 +420,21 @@ export const getTimespanInYearsForTimingName = (
 ): string => {
   switch (trim(ajoitus)) {
     case "esihistoriallinen":
-      return t(`data.dating.timespan.prehistoric`)
+      return t(`data.common.timespan.prehistoric`)
     case "kivikautinen":
-      return t(`data.dating.timespan.stoneAge`)
+      return t(`data.common.timespan.stoneAge`)
     case "varhaismetallikautinen":
-      return t(`data.dating.timespan.earlyMetalAge`)
+      return t(`data.common.timespan.earlyMetalAge`)
     case "pronssikautinen":
-      return t(`data.dating.timespan.bronzeAge`)
+      return t(`data.common.timespan.bronzeAge`)
     case "rautakautinen":
-      return t(`data.dating.timespan.ironAge`)
+      return t(`data.common.timespan.ironAge`)
     case "keskiaikainen":
-      return t(`data.dating.timespan.middleAge`)
+      return t(`data.common.timespan.middleAge`)
     case "historiallinen":
-      return t(`data.dating.timespan.historic`)
+      return t(`data.common.timespan.historic`)
     case "moderni":
-      return t(`data.dating.timespan.modern`)
+      return t(`data.common.timespan.modern`)
     case "moniperiodinen":
     case "ajoittamaton":
     case "ei määritelty":
@@ -448,33 +448,34 @@ export const getTimespanInYearsForTimingName = (
  * @see https://kartor.regeringen.ax/dokument/metadata/Fornminnen-Typ%20och%20datering%20kodade%20v%C3%A4rden.xlsx
  */
 export const getAhvenanmaaForminnenTypeText = (
+  t: TFunction,
   typeId: number | null
 ): string | undefined => {
   switch (typeId) {
     case 0:
-      return "Uppgifter saknas"
+      return t(`data.ahvenanmaa.type.Uppgifter saknas`)
     case 1:
-      return "Agrara lämningar"
+      return t(`data.ahvenanmaa.type.Agrara lämningar`)
     case 2:
-      return "Bebyggelselämningar"
+      return t(`data.ahvenanmaa.type.Bebyggelselämningar`)
     case 3:
-      return "Befästningsanläggningar"
+      return t(`data.ahvenanmaa.type.Befästningsanläggningar`)
     case 4:
-      return "Boplatser"
+      return t(`data.ahvenanmaa.type.Boplatser`)
     case 5:
-      return "Gravar"
+      return t(`data.ahvenanmaa.type.Gravar`)
     case 6:
-      return "Industriell-/produktionsplatser"
+      return t(`data.ahvenanmaa.type.Industriell-/produktionsplatser`)
     case 7:
-      return "Jakt och fångst"
+      return t(`data.ahvenanmaa.type.Jakt och fångst`)
     case 8:
-      return "Kommunikations-/maritima lämningar"
+      return t(`data.ahvenanmaa.type.Kommunikations-/maritima lämningar`)
     case 9:
-      return "Kult, offer och folktro"
+      return t(`data.ahvenanmaa.type.Kult, offer och folktro`)
     case 10:
-      return "Ristningar och minnesmärken"
+      return t(`data.ahvenanmaa.type.Ristningar och minnesmärken`)
     case 11:
-      return "Övriga lämningar"
+      return t(`data.ahvenanmaa.type.Övriga lämningar`)
     default:
       return undefined
   }
@@ -490,21 +491,21 @@ export const getAhvenanmaaForminneDatingText = (
 ): string | undefined => {
   switch (datingId) {
     case 0:
-      return t(`data.dating.main.prehistoric`)
+      return t(`data.ahvenanmaa.type.Förhistorisk tid`)
     case 1:
-      return t(`data.dating.main.historic`)
+      return t(`data.ahvenanmaa.type.Historisk tid`)
     case 2:
-      return t(`data.dating.main.stoneAge`)
+      return t(`data.ahvenanmaa.type.Stenålder`)
     case 3:
-      return t(`data.dating.main.bronzeAge`)
+      return t(`data.ahvenanmaa.type.Bronsålder`)
     case 4:
-      return t(`data.dating.main.ironAge`)
+      return t(`data.ahvenanmaa.type.Järnålder`)
     case 5:
-      return t(`data.dating.main.middleAge`)
+      return t(`data.ahvenanmaa.type.Medeltid`)
     case 6:
-      return t(`data.dating.main.modern`) // Sentid
+      return t(`data.ahvenanmaa.type.Sentid`)
     case 99:
-      return t(`data.dating.main.dataMissing`)
+      return t(`data.ahvenanmaa.type.Uppgifter saknas`)
     default:
       return undefined
   }
