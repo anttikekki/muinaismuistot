@@ -1,4 +1,74 @@
 {
+  "info": {
+    "title": "Lisätietoja sivustosta",
+    "dataUpdates": {
+      "title": "Aineisto päivitetty viimeksi",
+      "Museoviraston aineistot": "Museoviraston aineistot",
+      "Ahvenamaan muinaisjäännösrekisteri": "Ahvenamaan muinaisjäännösrekisteri",
+      "Ahvenamaan merellisen kulttuuriperinnön rekisteri": "Ahvenamaan merellisen kulttuuriperinnön rekisteri",
+      "3Dmodels": "3D-mallit (<a href='./3d/' target='_blank'>lisätietoa</a>)",
+      "loading": "Tietoa selvitetään parhaillaan...",
+      "error": "Päivityshetkeä ei valitettavasti saatu selville"
+    }
+  },
+  "search": {
+    "title": "Hae kohteita",
+    "info": "Voit hakea kohteen nimellä (esim. Turun linna) tai rekisterin tunnuksella (esim. 200284 tai Sa 14.1)",
+    "placeholder": "Kirjoita kohteen nimi tai sen osa",
+    "searchButton": "Hae",
+    "error": "Hakusanan pitää olla vähintään kolme merkkiä"
+  },
+  "details": {
+    "title": "Valitut kohteet",
+    "finnishHeritageAgencyMoreInfoLink": "Lisää tietoa kohteesta Museoviraston <a href='{{url}}' target='_blank'>{{ registerName }}</a>.",
+    "registerLink": {
+      "fromMuinaisjaannos": "Muinaisjäännösrekisteristä",
+      "fromRKY": "rky.fi rekisteristä",
+      "fromMaailmanperinto": "Museoviraston sivuilta",
+      "fromRakennusperintö": "Rakennusperintörekisteristä"
+    },
+    "field": {
+      "id": "Tunniste",
+      "feature": "Kohde",
+      "name": "Nimi",
+      "featureName": "Kohdenimi",
+      "buildingName": "Rakennusnimi",
+      "municipality": "Kunta",
+      "region": "Maakunta",
+      "village": "Kylä",
+      "description": "Kuvaus",
+      "location": "Sijainti",
+      "type": "Tyyppi",
+      "subType": "Alatyyppi",
+      "dating": "Ajoitus",
+      "typeAndDating": "Tyyppi ja ajoitus",
+      "mainCategory": "Pääkategoria",
+      "subCategory": "Alatyyppi",
+      "mainEra": "Pääaikakausi",
+      "period": "Periodi",
+      "featureCount": "Lukumäärä",
+      "precision": "Tarkkuus",
+      "legislation": "Laki",
+      "featureType": "Laji",
+      "protectionGroup": "Suojeluryhmä",
+      "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>lisätietoa</a>)"
+    },
+    "3d": {
+      "title": "Kohteen 3D-mallit",
+      "infoHeading": "Lisätietoa 3D-malleista",
+      "infoText1": "Nämä 3D-mallit ovat <a href='./3d/' target='_blank'>tietokannasta</a>, joka listaa harrastajien sekä virallisten toimijoiden (museot, Museovirasto, Ahvenanmaan paikallishallinto) tekemiä 3D-mallinnuksia <a href='https://sketchfab.com' target='_blank'>Sketchfab</a>-palvelusta.",
+      "infoText2": "Mallit saa käynnistettyä nuolipainikkeesta. Käynnistymisen jälkeen mallin saa koko ruudun tilaan painamalla näppäimistöltä <kbd>f</kbd> painiketta tai oikean alareunan painikkeesta",
+      "controls": {
+        "title": "Mallin ohjaus",
+        "rotateTitle": "Kääntäminen",
+        "rotate": "pidä vasen hiirenpainike pohjaan painettuna ja liikuta hiirtä. Kosketusnäytöillä pidä sormi painettuna ja liikuta sormea.",
+        "zoomTitle": "Suurennus ja pienennys",
+        "zoom": "käytä hiiren rullaa. Kosketusnäytöillä käytä kahden sormen nipistyselettä.",
+        "focusTitle": "Kohdistuksen siirtäminen",
+        "focus": "pidä oikea hiirenpainike pohjaan painettuna ja liikuta hiirtä. Kosketusnäytöillä pidä kaksi sormea painettuna ja liikuta sormia."
+      }
+    }
+  },
   "data": {
     "register": {
       "Muinaisjäännösrekisteri": "Muinaisjäännösrekisteri",

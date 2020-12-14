@@ -1,6 +1,15 @@
 {
   "info": {
-    "title": "Lisätietoja sivustosta"
+    "title": "Lisätietoja sivustosta",
+    "dataUpdates": {
+      "title": "Aineisto päivitetty viimeksi",
+      "Museoviraston aineistot": "Museoviraston aineistot",
+      "Ahvenamaan muinaisjäännösrekisteri": "Ahvenamaan muinaisjäännösrekisteri",
+      "Ahvenamaan merellisen kulttuuriperinnön rekisteri": "Ahvenamaan merellisen kulttuuriperinnön rekisteri",
+      "3Dmodels": "3D-mallit (<a href='./3d/' target='_blank'>lisätietoa</a>)",
+      "loading": "Tietoa selvitetään parhaillaan...",
+      "error": "Päivityshetkeä ei valitettavasti saatu selville"
+    }
   },
   "search": {
     "title": "Hae kohteita",
