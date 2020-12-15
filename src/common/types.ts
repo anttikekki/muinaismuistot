@@ -219,9 +219,9 @@ export interface MuinaisjaannosPisteArgisFeature {
     kohdenimi: string // "Melkki länsiranta";
     kunta: string // "Helsinki"
     laji: MuinaisjaannosLaji // "kiinteä muinaisjäännös";
-    tyyppi: MuinaisjaannosTyyppi // "alusten hylyt";
-    ajoitus: MuinaisjaannosAjoitus // "ei määritelty";
-    alatyyppi: string // "hylyt (puu)";
+    tyyppi: string // "alusten hylyt, kivirakenteet";
+    ajoitus: string // "ei määritelty, keskiaikainen";
+    alatyyppi: string // "hylyt (puu), hautakummut";
     vedenalainen: string // "k";
     muutospvm: string // "10.9.2015 13:07:24";
     luontipvm: string // "2.11.2001";
@@ -232,6 +232,12 @@ export interface MuinaisjaannosPisteArgisFeature {
     x: string // "382363.823";
     y: string // "6667893.676";
     Shape: string // "Point";
+    /**
+     * trimmed and splitted values for easier usage
+     */
+    tyyppiSplitted: Array<MuinaisjaannosTyyppi>
+    ajoitusSplitted: Array<MuinaisjaannosAjoitus>
+    alatyyppiSplitted: Array<string>
   }
   geometryType: GeometryTypePoint
   geometry: PointGeometry

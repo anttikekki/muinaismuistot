@@ -9,7 +9,6 @@ import { ArgisFeatureCollapsePanel } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
 import { TimespanLabel } from "../component/TimespanLabel"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
-import { trim } from "../../../../common/util/featureParser"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
 import { useTranslation } from "react-i18next"
@@ -24,6 +23,26 @@ interface Props {
   >
 }
 
+function renderList<T extends string>(
+  data: Array<T>,
+  contentFn: (row: T) => JSX.Element
+) {
+  if (data.length === 0) {
+    return null
+  }
+  if (data.length === 1) {
+    return <p>{contentFn(data[0])}</p>
+  }
+
+  return (
+    <ul>
+      {data.map((row) => (
+        <li key={row}>{contentFn(row)}</li>
+      ))}
+    </ul>
+  )
+}
+
 export const MuinaisjaannosPistePanel: React.FC<Props> = ({
   isOpen,
   onToggleOpen,
@@ -35,9 +54,9 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
   const {
     kohdenimi,
     kunta,
-    ajoitus,
-    tyyppi,
-    alatyyppi,
+    ajoitusSplitted,
+    tyyppiSplitted,
+    alatyyppiSplitted,
     laji
   } = feature.attributes
   return (
@@ -52,19 +71,23 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         <Field label={t(`details.field.featureName`)} value={kohdenimi} />
         <Field label={t(`details.field.municipality`)} value={kunta} />
         <Field label={t(`details.field.dating`)}>
-          <p>
-            <span>{t(`data.museovirasto.dating.${ajoitus}`, ajoitus)}</span>{" "}
-            <TimespanLabel dating={ajoitus} />
-          </p>
+          {renderList(ajoitusSplitted, (ajoitus) => (
+            <>
+              <span>{t(`data.museovirasto.dating.${ajoitus}`, ajoitus)}</span>{" "}
+              <TimespanLabel dating={ajoitus} />
+            </>
+          ))}
         </Field>
-        <Field
-          label={t(`details.field.type`)}
-          value={t(`data.museovirasto.type.${tyyppi}`, tyyppi)}
-        />
-        <Field
-          label={t(`details.field.subType`)}
-          value={t(`data.museovirasto.subtype.${alatyyppi}`, alatyyppi)}
-        />
+        <Field label={t(`details.field.type`)}>
+          {renderList(tyyppiSplitted, (tyyppi) =>
+            t(`data.museovirasto.type.${tyyppi}`, tyyppi)
+          )}
+        </Field>
+        <Field label={t(`details.field.subType`)}>
+          {renderList(alatyyppiSplitted, (alatyyppi) =>
+            t(`data.museovirasto.subtype.${alatyyppi}`, alatyyppi)
+          )}
+        </Field>
         <Field
           label={t(`details.field.featureType`)}
           value={t(`data.museovirasto.featureType.${laji}`, laji)}

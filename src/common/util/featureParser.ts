@@ -426,7 +426,7 @@ export const getTimespanInYearsForTimingName = (
   t: TFunction,
   ajoitus: MuinaisjaannosAjoitus
 ): string => {
-  switch (trim(ajoitus)) {
+  switch (ajoitus) {
     case "esihistoriallinen":
       return t(`data.timespan.prehistoric`)
     case "kivikautinen":
@@ -529,16 +529,13 @@ export const trim = (value: string | undefined | null): string => {
     return "" //For  example RKY ajoitus field may sometimes be 'Null'
   }
 
-  //Remove prefix commas
-  while (value.substr(0, 1) === ",") {
-    value = value.substring(1).trim()
-  }
-
-  //Remove trailing commas
-  while (value.substr(value.length - 1, 1) === ",") {
-    value = value.substring(0, value.length - 1).trim()
-  }
   return value
+    .split(", ")
+    .map((v) => v.trim())
+    .filter((v) => !!v)
+    .map((v) => v.replace(",", ""))
+    .filter((v) => !!v)
+    .join(", ")
 }
 
 export const getGeoJSONDataLatestUpdateDate = (
