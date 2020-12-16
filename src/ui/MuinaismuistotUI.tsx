@@ -77,10 +77,12 @@ export interface EventListeners {
 i18n.use(initReactI18next).init({
   resources: {
     fi: { translation: fiTranslations },
-    sv: { translations: svTranslations }
+    sv: { translation: svTranslations }
   },
   lng: "fi",
+  supportedLngs: ["fi", "sv"],
   fallbackLng: "fi",
+  defaultNS: "translation",
   interpolation: {
     escapeValue: false
   }

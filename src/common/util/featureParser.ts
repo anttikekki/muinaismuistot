@@ -75,7 +75,12 @@ export const getFeatureTypeName = (
         isMuuKulttuuriperintökohde(feature)
           ? t(`data.featureType.Muu kulttuuriperintökohde`)
           : undefined,
-        trim(feature.attributes.tyyppi),
+        feature.attributes.tyyppiSplitted[0]
+          ? t(
+              `data.museovirasto.type.${feature.attributes.tyyppiSplitted[0]}`,
+              feature.attributes.tyyppiSplitted[0]
+            )
+          : undefined,
         hasMaisemanMuistiFeatures
           ? t(`data.featureType.Valtakunnallisesti merkittävä muinaisjäännös`)
           : undefined

@@ -1,4 +1,7 @@
 {
+  "common": {
+    "close": "Sulje"
+  },
   "info": {
     "title": "Lisätietoja sivustosta",
     "dataUpdates": {
@@ -81,6 +84,8 @@
     "featureType": {
       "Kiinteä muinaisjäännös": "Kiinteä muinaisjäännös",
       "Muu kulttuuriperintökohde": "Muu kulttuuriperintökohde",
+      "Kiinteä muinaisjäännös (alue)": "Kiinteä muinaisjäännös (alue)",
+      "Muu kulttuuriperintökohde (alue)": "Muu kulttuuriperintökohde (alue)",
       "Valtakunnallisesti merkittävä muinaisjäännös": "Valtakunnallisesti merkittävä muinaisjäännös",
       "Rakennettu kulttuuriympäristö": "Rakennettu kulttuuriympäristö",
       "Maailmanperintökohde": "Maailmanperintökohde",
@@ -325,8 +330,8 @@
         "yksinäistalot": "enskilda gårdar"
       },
       "featureType": {
-        "kiinteä muinaisjäännös": "kiinteä muinaisjäännös",
-        "muu kulttuuriperintökohde": "muu kulttuuriperintökohde"
+        "kiinteä muinaisjäännös": "fast fornlämning",
+        "muu kulttuuriperintökohde": "övrigt kulturarvsobjekt"
       }
     },
     "ahvenanmaa": {
