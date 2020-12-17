@@ -1,6 +1,15 @@
 {
   "common": {
-    "close": "Sulje"
+    "close": "Sulje",
+    "features": {
+      "Alue": "Alue",
+      "Viiva": "Viiva (esim. tie)",
+      "Rakennettu alue": "Rakennettu alue",
+      "Rakennus": "Rakennus",
+      "Kohde": "Kohde",
+      "3D-malli": "3D-malli",
+      "Valtakunnallisesti merkittävä muinaisjäännös": "Valtakunnallisesti merkittävä muinaisjäännös"
+    }
   },
   "info": {
     "title": "Lisätietoja sivustosta",
@@ -20,15 +29,7 @@
       "ortokuva": "Ortokuva"
     },
     "layers": {
-      "title": "Kartalla näkyvät kohteet",
-      "Alueet": "Alueet",
-      "Viivat": "Viivat (esim. tie)",
-      "Pisteet": "Pisteet",
-      "Rakennetut alueet": "Rakennetut alueet",
-      "Rakennukset": "Rakennukset",
-      "Kohde": "Kohde",
-      "3D-mallit": "3D-mallit",
-      "Valtakunnallisesti merkittävät muinaisjäännökset": "Valtakunnallisesti merkittävät muinaisjäännökset"
+      "title": "Kartalla näkyvät kohteet"
     },
     "filters": {
       "title": "Kartalla näkyvät muinaisjäännökset",

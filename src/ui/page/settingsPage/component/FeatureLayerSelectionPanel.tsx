@@ -72,19 +72,19 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
           )}
         </h5>
         <LayerCheckbox
-          label={t(`settings.layers.Alueet`)}
+          label={t(`common.features.Alue`)}
           layer={MuseovirastoLayer.RKY_alue}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
-          label={t(`settings.layers.Viivat`)}
+          label={t(`common.features.Viiva`)}
           layer={MuseovirastoLayer.RKY_viiva}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
-          label={t(`settings.layers.Pisteet`)}
+          label={t(`common.features.Rakennus`)}
           layer={MuseovirastoLayer.RKY_piste}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
@@ -92,13 +92,13 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
 
         <h5>{t(`data.register.Maailmanperintökohteet`)}</h5>
         <LayerCheckbox
-          label={t(`settings.layers.Alueet`)}
+          label={t(`common.features.Alue`)}
           layer={MuseovirastoLayer.Maailmanperinto_alue}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
-          label={t(`settings.layers.Pisteet`)}
+          label={t(`common.features.Kohde`)}
           layer={MuseovirastoLayer.Maailmanperinto_piste}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
@@ -106,13 +106,13 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
 
         <h5>{t(`data.register.Rakennusperintörekisteri`)}</h5>
         <LayerCheckbox
-          label={t(`settings.layers.Rakennetut alueet`)}
+          label={t(`common.features.Rakennettu alue`)}
           layer={MuseovirastoLayer.Suojellut_rakennukset_alue}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
-          label={t(`settings.layers.Rakennukset`)}
+          label={t(`common.features.Rakennus`)}
           layer={MuseovirastoLayer.Suojellut_rakennukset_piste}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
@@ -120,13 +120,13 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
 
         <h5>{t(`data.register.Muinaisjäännösrekisteri`)}</h5>
         <LayerCheckbox
-          label={t(`settings.layers.Alueet`)}
+          label={t(`common.features.Alue`)}
           layer={MuseovirastoLayer.Muinaisjaannokset_alue}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
-          label={t(`settings.layers.Pisteet`)}
+          label={t(`common.features.Kohde`)}
           layer={MuseovirastoLayer.Muinaisjaannokset_piste}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
@@ -134,7 +134,7 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
 
         <h5>{t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)}</h5>
         <LayerCheckbox
-          label={t(`settings.layers.Kohde`)}
+          label={t(`common.features.Kohde`)}
           layer={AhvenanmaaLayer.Fornminnen}
           selectedLayers={selectedAhvenanmaaLayers}
           onSelectLayer={onSelectAhvenanmaaLayer}
@@ -144,7 +144,7 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
           {t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)}
         </h5>
         <LayerCheckbox
-          label={t(`settings.layers.Kohde`)}
+          label={t(`common.features.Kohde`)}
           layer={AhvenanmaaLayer.MaritimtKulturarv}
           selectedLayers={selectedAhvenanmaaLayers}
           onSelectLayer={onSelectAhvenanmaaLayer}
@@ -154,7 +154,7 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
           <Trans i18nKey="data.register.3Dmodels" components={{ a: <a /> }} />
         </h5>
         <LayerCheckbox
-          label={t(`settings.layers.3D-mallit`)}
+          label={t(`common.features.3D-malli`)}
           layer={ModelLayer.ModelLayer}
           selectedLayers={selectedModelLayers}
           onSelectLayer={onSelectModelLayer}
@@ -168,7 +168,7 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
         </h5>
         <LayerCheckbox
           label={t(
-            `settings.layers.Valtakunnallisesti merkittävät muinaisjäännökset`
+            `common.features.Valtakunnallisesti merkittävä muinaisjäännös`
           )}
           layer={MaisemanMuistiLayer.MaisemanMuisti}
           selectedLayers={selectedMaisemanMuistiLayers}
