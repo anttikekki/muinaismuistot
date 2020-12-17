@@ -20,7 +20,8 @@ import {
   ModelLayer,
   MaisemanMuistiLayer,
   GeoJSONFeature,
-  MaisemanMuistiFeatureProperties
+  MaisemanMuistiFeatureProperties,
+  Language
 } from "../common/types"
 import { LoadingAnimation } from "./component/LoadingAnimation"
 import { ZoomInButton } from "./component/ZoomInButton"
@@ -36,6 +37,7 @@ import { OpenSettingsPage } from "./component/OpenSettingsPage"
 import { PageVisibility } from "./page/Page"
 import {
   updateAhvenanmaaSelectedLayers,
+  updateLanguage,
   updateMaanmittauslaitosSelectedLayer,
   updateMaisemanMuistiSelectedLayers,
   updateModelSelectedLayers,
@@ -71,6 +73,7 @@ export interface EventListeners {
   ) => void
   selectedMuinaisjaannosTypesChanged: (settings: Settings) => void
   selectedMuinaisjaannosDatingsChanged: (settings: Settings) => void
+  selectedLanguageChanged: (settings: Settings) => void
   fetchDataLatestUpdateDates: () => void
 }
 
@@ -79,9 +82,9 @@ i18n.use(initReactI18next).init({
     fi: { translation: fiTranslations },
     sv: { translation: svTranslations }
   },
-  lng: "fi",
-  supportedLngs: ["fi", "sv"],
-  fallbackLng: "fi",
+  lng: Language.FI,
+  supportedLngs: Object.values(Language),
+  fallbackLng: Language.FI,
   defaultNS: "translation",
   interpolation: {
     escapeValue: false
@@ -109,6 +112,13 @@ export default class MuinaismuistotUI {
   ) {
     this.settings = initialSettings
     this.eventListeners = eventListeners
+
+    i18n.changeLanguage(this.settings.language)
+    i18n.on("languageChanged", (lang) => {
+      this.settings = updateLanguage(this.settings, lang as Language)
+      this.eventListeners.selectedLanguageChanged(this.settings)
+    })
+
     this.renderUI()
   }
 

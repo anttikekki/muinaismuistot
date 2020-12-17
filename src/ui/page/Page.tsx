@@ -1,5 +1,6 @@
 import * as React from "react"
 import { useTranslation } from "react-i18next"
+import { Language } from "../../common/types"
 
 export enum PageVisibility {
   Visible = "Visible",
@@ -7,19 +8,18 @@ export enum PageVisibility {
   Hidden = "Hidden"
 }
 
-const LangSelection: React.FC<{ lang: string }> = ({ lang }) => {
+const LangSelection: React.FC<{ lang: Language }> = ({ lang }) => {
   const { i18n } = useTranslation()
+  const isSelectedLang = i18n.language === lang
   return (
-    <label
-      className={`btn btn-default ${i18n.language === lang ? "active" : ""}`}
-    >
+    <label className={`btn btn-default ${isSelectedLang ? "active" : ""}`}>
       <input
         type="radio"
         name="selectedLanguage"
-        checked={i18n.language === lang}
+        checked={isSelectedLang}
         onChange={() => i18n.changeLanguage(lang)}
       />
-      FI
+      <b>{lang.toUpperCase()}</b>
     </label>
   )
 }
@@ -65,8 +65,8 @@ export const Page: React.FC<Props> = ({
           </div>
           <div className="col-xs-3 col-sm-2" style={{ textAlign: "right" }}>
             <div className="btn-group" data-toggle="buttons">
-              <LangSelection lang="fi" />
-              <LangSelection lang="sv" />
+              <LangSelection lang={Language.FI} />
+              <LangSelection lang={Language.SV} />
             </div>
           </div>
         </div>

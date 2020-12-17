@@ -1,5 +1,11 @@
+export enum Language {
+  FI = "fi",
+  SV = "sv"
+}
+
 export interface Settings {
   initialMapZoom: number
+  language: Language
   maanmittauslaitos: {
     selectedLayer: MaanmittauslaitosLayer
     url: {

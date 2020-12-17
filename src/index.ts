@@ -65,6 +65,9 @@ export default class Muinaismuistot {
         this.updateSettings(settings)
         this.map.selectedMuinaisjaannosDatingsChanged(settings)
       },
+      selectedLanguageChanged: (settings) => {
+        this.updateSettings(settings)
+      },
       fetchDataLatestUpdateDates: () => {
         this.map.fetchDataLatestUpdateDates(this.settings)
       }

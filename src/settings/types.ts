@@ -1,5 +1,8 @@
+import { Language } from "../common/types"
+
 export interface URLSettings {
   zoom?: number
+  lang?: Language
   mmlLayer?: string
   museovirastoLayer?: string | Array<string>
   muinaisjaannosTypes?: string | Array<string>

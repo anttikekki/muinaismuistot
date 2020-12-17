@@ -6,11 +6,13 @@ import {
   Settings,
   AhvenanmaaLayer,
   ModelLayer,
-  MaisemanMuistiLayer
+  MaisemanMuistiLayer,
+  Language
 } from "../common/types"
 
 export const initialSettings: Settings = {
   initialMapZoom: 8,
+  language: Language.FI,
   maanmittauslaitos: {
     selectedLayer: MaanmittauslaitosLayer.Taustakartta,
     url: {

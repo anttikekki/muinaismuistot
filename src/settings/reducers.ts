@@ -6,8 +6,19 @@ import {
   Settings,
   AhvenanmaaLayer,
   ModelLayer,
-  MaisemanMuistiLayer
+  MaisemanMuistiLayer,
+  Language
 } from "../common/types"
+
+export const updateLanguage = (
+  settings: Settings,
+  language: Language
+): Settings => {
+  return {
+    ...settings,
+    language
+  }
+}
 
 export const updateMaanmittauslaitosSelectedLayer = (
   settings: Settings,
