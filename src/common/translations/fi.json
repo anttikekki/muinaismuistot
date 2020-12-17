@@ -7,11 +7,34 @@
     "dataUpdates": {
       "title": "Aineisto päivitetty viimeksi",
       "Museoviraston aineistot": "Museoviraston aineistot",
-      "Ahvenamaan muinaisjäännösrekisteri": "Ahvenamaan muinaisjäännösrekisteri",
-      "Ahvenamaan merellisen kulttuuriperinnön rekisteri": "Ahvenamaan merellisen kulttuuriperinnön rekisteri",
-      "3Dmodels": "3D-mallit (<a href='./3d/' target='_blank'>lisätietoa</a>)",
       "loading": "Tietoa selvitetään parhaillaan...",
       "error": "Päivityshetkeä ei valitettavasti saatu selville"
+    }
+  },
+  "settings": {
+    "title": "Asetukset",
+    "backgroundMap": {
+      "title": "Karttapohja",
+      "maastokartta": "Maastokartta",
+      "taustakartta": "Taustakartta",
+      "ortokuva": "Ortokuva"
+    },
+    "layers": {
+      "title": "Kartalla näkyvät kohteet",
+      "Alueet": "Alueet",
+      "Viivat": "Viivat (esim. tie)",
+      "Pisteet": "Pisteet",
+      "Rakennetut alueet": "Rakennetut alueet",
+      "Rakennukset": "Rakennukset",
+      "Kohde": "Kohde",
+      "3D-mallit": "3D-mallit",
+      "Valtakunnallisesti merkittävät muinaisjäännökset": "Valtakunnallisesti merkittävät muinaisjäännökset"
+    },
+    "filters": {
+      "title": "Kartalla näkyvät muinaisjäännökset",
+      "info": "Rajoitus toimii vain Museoviraston muijaisjäännöksien pisteille (PISTE_ICONS) mutta ei alueille (ALUE_ICONS). Rajaus ei valitettavasti toimi Ahvenanmaan muinaisjäännöksiin.",
+      "type": "Tyyppi",
+      "dating": "Ajoitus"
     }
   },
   "search": {
@@ -53,8 +76,7 @@
       "precision": "Tarkkuus",
       "legislation": "Laki",
       "featureType": "Laji",
-      "protectionGroup": "Suojeluryhmä",
-      "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>lisätietoa</a>)"
+      "protectionGroup": "Suojeluryhmä"
     },
     "3d": {
       "title": "Kohteen 3D-mallit",
@@ -79,7 +101,9 @@
       "Maailmanperintökohteet": "Maailmanperintökohteet",
       "Rakennusperintörekisteri": "Rakennusperintörekisteri",
       "Ahvenamaan muinaisjäännösrekisteri": "Ahvenamaan muinaisjäännösrekisteri",
-      "Ahvenamaan merellinen kulttuuriperintörekisteri": "Ahvenamaan merellinen kulttuuriperintörekisteri"
+      "Ahvenamaan merellinen kulttuuriperintörekisteri": "Ahvenamaan merellinen kulttuuriperintörekisteri",
+      "3Dmodels": "3D-mallit (<a href='./3d/' target='_blank'>lisätietoa</a>)",
+      "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>lisätietoa</a>)"
     },
     "featureType": {
       "Kiinteä muinaisjäännös": "Kiinteä muinaisjäännös",
@@ -121,6 +145,7 @@
       "type": {
         "alusten hylyt": "alusten hylyt",
         "asuinpaikat": "asuinpaikat",
+        "ei määritelty": "ei määritelty",
         "hautapaikat": "hautapaikat",
         "kirkkorakenteet": "kirkkorakenteet",
         "kivirakenteet": "kivirakenteet",

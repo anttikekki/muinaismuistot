@@ -14,7 +14,7 @@ export const MaisemanMuistiField: React.FC<Props> = ({ feature }) => {
     <div className="form-group">
       <label>
         <Trans
-          i18nKey="details.field.maisemanMuisti"
+          i18nKey="data.register.maisemanMuisti"
           components={{ a: <a /> }}
         />
       </label>

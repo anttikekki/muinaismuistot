@@ -140,7 +140,6 @@ export enum MuinaisjaannosTyyppi {
   puolustusvarustukset = "puolustusvarustukset",
   puurakenteet = "puurakenteet",
   raakaAineenHankintapaikat = "raaka-aineen hankintapaikat",
-  taideMuistomerkit = "taide, muistomerkit",
   tapahtumapaikat = "tapahtumapaikat",
   teollisuuskohteet = "teollisuuskohteet",
   työJaValmistuspaikat = "työ- ja valmistuspaikat"

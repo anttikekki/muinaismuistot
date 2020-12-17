@@ -1,11 +1,12 @@
-import * as React from "react";
-import { MaanmittauslaitosLayer } from "../../../../common/types";
-import { Panel } from "../../../component/Panel";
+import * as React from "react"
+import { useTranslation } from "react-i18next"
+import { MaanmittauslaitosLayer } from "../../../../common/types"
+import { Panel } from "../../../component/Panel"
 
 interface LayerButtonProps {
-  layer: MaanmittauslaitosLayer;
-  selectedLayer: MaanmittauslaitosLayer;
-  onSelectLayer: (layer: MaanmittauslaitosLayer) => void;
+  layer: MaanmittauslaitosLayer
+  selectedLayer: MaanmittauslaitosLayer
+  onSelectLayer: (layer: MaanmittauslaitosLayer) => void
 }
 
 const LayerButton: React.FC<LayerButtonProps> = ({
@@ -13,7 +14,8 @@ const LayerButton: React.FC<LayerButtonProps> = ({
   selectedLayer,
   onSelectLayer
 }) => {
-  const isSelected = layer === selectedLayer;
+  const { t } = useTranslation()
+  const isSelected = layer === selectedLayer
   return (
     <label className={`btn btn-default ${isSelected ? "active" : ""}`}>
       <input
@@ -22,24 +24,25 @@ const LayerButton: React.FC<LayerButtonProps> = ({
         checked={isSelected}
         onChange={() => onSelectLayer(layer)}
       />
-      {layer}
+      {t(`settings.backgroundMap.${layer}`)}
     </label>
-  );
-};
+  )
+}
 
 interface Props {
-  selectedLayer: MaanmittauslaitosLayer;
-  onSelectLayer: (layer: MaanmittauslaitosLayer) => void;
+  selectedLayer: MaanmittauslaitosLayer
+  onSelectLayer: (layer: MaanmittauslaitosLayer) => void
 }
 
 export const MMLMapLayerSelectionPanel: React.FC<Props> = ({
   selectedLayer,
   onSelectLayer
 }) => {
+  const { t } = useTranslation()
   return (
-    <Panel title={"Karttapohja"}>
+    <Panel title={t(`settings.backgroundMap.title`)}>
       <div className="btn-group" data-toggle="buttons">
-        {Object.values(MaanmittauslaitosLayer).map(l => (
+        {Object.values(MaanmittauslaitosLayer).map((l) => (
           <LayerButton
             key={l}
             layer={l}
@@ -49,5 +52,5 @@ export const MMLMapLayerSelectionPanel: React.FC<Props> = ({
         ))}
       </div>
     </Panel>
-  );
-};
+  )
+}

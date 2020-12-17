@@ -13,6 +13,7 @@ import { Page, PageVisibility } from "../Page"
 import { MMLMapLayerSelectionPanel } from "./component/MMLMapLayerSelectionPanel"
 import { FeatureLayerSelectionPanel } from "./component/FeatureLayerSelectionPanel"
 import { FeatureLayerFilterPanel } from "./component/FeatureLayerFilterPanel"
+import { useTranslation } from "react-i18next"
 
 interface Props {
   visibility: PageVisibility
@@ -43,8 +44,13 @@ export const SettingsPage: React.FC<Props> = ({
   onSelectMuinaisjaannosType,
   onSelectMuinaisjaannosDating
 }) => {
+  const { t } = useTranslation()
   return (
-    <Page title="Asetukset" visibility={visibility} hidePage={hidePage}>
+    <Page
+      title={t(`settings.title`)}
+      visibility={visibility}
+      hidePage={hidePage}
+    >
       <MMLMapLayerSelectionPanel
         selectedLayer={settings.maanmittauslaitos.selectedLayer}
         onSelectLayer={onSelectMaanmittauslaitosLayer}

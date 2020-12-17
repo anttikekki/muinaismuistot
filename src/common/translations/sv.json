@@ -121,6 +121,7 @@
       "type": {
         "alusten hylyt": "fartygsvrak",
         "asuinpaikat": "boplatser",
+        "ei määritelty": "ej definierad",
         "hautapaikat": "gravplatser",
         "kirkkorakenteet": "kyrkobyggnader",
         "kivirakenteet": "stenkonstruktioner",

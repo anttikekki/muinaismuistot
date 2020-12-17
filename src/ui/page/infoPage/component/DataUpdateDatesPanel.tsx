@@ -27,18 +27,16 @@ export const DataUpdateDatesPanel: React.FC<Props> = ({
       <h5>{t(`info.dataUpdates.Museoviraston aineistot`)}</h5>
       <UpdatedDate date={dataLatestUpdateDates?.museovirasto} />
 
-      <h5>{t(`info.dataUpdates.Ahvenamaan muinaisjäännösrekisteri`)}</h5>
+      <h5>{t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)}</h5>
       <UpdatedDate date={dataLatestUpdateDates?.ahvenanmaaForminnen} />
 
       <h5>
-        {t(
-          `info.dataUpdates.Ahvenamaan merellisen kulttuuriperinnön rekisteri`
-        )}
+        {t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)}
       </h5>
       <UpdatedDate date={dataLatestUpdateDates?.ahvenanmaaMaritimtKulturarv} />
 
       <h5>
-        <Trans i18nKey="info.dataUpdates.3Dmodels" components={{ a: <a /> }} />
+        <Trans i18nKey="data.register.3Dmodels" components={{ a: <a /> }} />
       </h5>
       <UpdatedDate date={dataLatestUpdateDates?.models} />
     </Panel>
