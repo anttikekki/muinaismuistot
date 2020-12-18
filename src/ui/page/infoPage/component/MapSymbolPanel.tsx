@@ -5,7 +5,7 @@ import { Panel } from "../../../component/Panel"
 export const MapSymbolPanel: React.FC = () => {
   const { t } = useTranslation()
   return (
-    <Panel title="Karttasymbolit">
+    <Panel title={t(`info.symbols`)}>
       <div>
         <div>
           <h5>

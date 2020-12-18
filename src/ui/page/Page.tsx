@@ -57,7 +57,7 @@ export const Page: React.FC<Props> = ({
           <div className="col-xs-1 col-sm-1">
             <button className="btn btn-primary btn-sm" onClick={hidePage}>
               <span className="glyphicon glyphicon-remove" aria-hidden="true" />
-              {t(`common.close`)}
+              {t(`common.button.close`)}
             </button>
           </div>
           <div className="col-xs-8 col-sm-9" style={{ textAlign: "center" }}>

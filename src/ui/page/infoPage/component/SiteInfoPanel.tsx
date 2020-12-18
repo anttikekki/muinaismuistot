@@ -1,19 +1,22 @@
-import * as React from "react";
-import { Panel } from "../../../component/Panel";
+import * as React from "react"
+import { Trans, useTranslation } from "react-i18next"
+import regexifyString from "regexify-string"
+import { Panel } from "../../../component/Panel"
 
 export const SiteInfoPanel: React.FC = () => {
+  const { t } = useTranslation()
   return (
-    <Panel title="Tietoa sivustosta">
-      <p>Tällä sivustolla näet kartalla seuraavien rekisterien tiedot:</p>
+    <Panel title={t(`info.siteInfo.title`)}>
+      <p>{t(`info.siteInfo.registerInfo`)}:</p>
 
-      <h5>Museovirasto</h5>
+      <h5>{t(`common.organization.Museovirasto`)}</h5>
       <ul>
         <li>
           <a
             href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx"
             target="_blank"
           >
-            Muinaisjäännösrekisteri
+            {t(`data.register.Muinaisjäännösrekisteri`)}
           </a>
         </li>
         <li>
@@ -21,7 +24,7 @@ export const SiteInfoPanel: React.FC = () => {
             href="https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_default.aspx"
             target="_blank"
           >
-            Rakennusperintörekisteri
+            {t(`data.register.Rakennusperintörekisteri`)}
           </a>
         </li>
         <li>
@@ -29,24 +32,26 @@ export const SiteInfoPanel: React.FC = () => {
             href="https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa"
             target="_blank"
           >
-            Maailmanperintökohteet
+            {t(`data.register.Maailmanperintökohteet`)}
           </a>
         </li>
         <li>
           <a href="http://www.rky.fi/" target="_blank">
-            Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt
+            {t(
+              `data.register.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`
+            )}
           </a>
         </li>
       </ul>
 
-      <h5>Ahvenamaan paikallishallinto</h5>
+      <h5>{t(`common.organization.Ahvenamaan paikallishallinto`)}</h5>
       <ul>
         <li>
           <a
             href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret"
             target="_blank"
           >
-            Muinaisjäännösrekisteri
+            {t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)}
           </a>
         </li>
         <li>
@@ -54,70 +59,87 @@ export const SiteInfoPanel: React.FC = () => {
             href="https://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/marinarkeologi"
             target="_blank"
           >
-            Merellisen kulttuuriperinnön rekisteri
+            {t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)}
           </a>
         </li>
       </ul>
 
-      <p>
-        Kaikki näytettävät kohteet ovat avointa dataa ja haettu rekisterin
-        ylläpitäjän tarjoamasta karttapalvelusta.
-      </p>
+      <p>{t(`info.siteInfo.info1`)}</p>
 
       <p>
-        Kohteista saa lisätietoikkunan näkyviin klikkaamalla kohdetta kartalla.
-        Tästä näkymästä on myös linkki kohteen lisätietoihin rekisterin
-        ylläpitäjän sivustolla. Kohteen otsikon vieressä olevasta kuvakkeesta (
-        <span className="glyphicon glyphicon-link" aria-hidden="true" />) saa
-        talteen pysyvän linkin kohteen sijaintiin kartalla.
+        {regexifyString({
+          pattern: /ICON/gm,
+          decorator: (match) => {
+            return (
+              <span className="glyphicon glyphicon-link" aria-hidden="true" />
+            )
+          },
+          input: t(`info.siteInfo.info2`)
+        })}
       </p>
 
-      <h5>3D-mallit</h5>
+      <h5>
+        <Trans i18nKey="data.register.3Dmodels" components={{ a: <a /> }} />
+      </h5>
       <p>
-        Joillekin kohteille on saataville myös 3D-malleja{" "}
-        <a href="./3d/" target="_blank">
-          tietokannasta
-        </a>
-        , joka listaa harrastajien sekä virallisen toimijoiden (museot,
-        Museovirasto, Ahvenanmaan paikallioshallinto) tekemiä 3D-mallinnuksia{" "}
-        <a href="https://sketchfab.com" target="_blank">
-          Sketchfab
-        </a>{" "}
-        -palvelusta.
+        <Trans i18nKey="info.siteInfo.3DModelsInfo" components={{ a: <a /> }} />
       </p>
 
-      <h5>Paikannus</h5>
+      <h5>{t(`info.siteInfo.positioningTitle`)}</h5>
       <p>
-        Kartta keskitetään oletuksena nykyiseen sijaintiisi jos annat selaimelle
-        luvan luovuttaa se tieto. Keskityksen nykyiseen sijaintiin voi suorittaa
-        myös myöhemmin{" "}
-        <span className="glyphicon glyphicon-screenshot" aria-hidden="true" />{" "}
-        painikkeesta.
+        {regexifyString({
+          pattern: /ICON/gm,
+          decorator: (match) => {
+            return (
+              <span
+                className="glyphicon glyphicon-screenshot"
+                aria-hidden="true"
+              />
+            )
+          },
+          input: t(`info.siteInfo.positioningInfo`)
+        })}
       </p>
 
-      <h5>Haku</h5>
+      <h5>{t(`info.siteInfo.searchTitle`)}</h5>
       <p>
-        Museoviraston rekisterien kohteita pystyy hakemaan nimen perusteella
-        hakunäkymässä (
-        <span className="glyphicon glyphicon-search" aria-hidden="true" />
-        ). Hakutuloksen klikkaaminen keskittää kartan kohteeseen ja lisää siihen
-        paikkamerkin <img src="images/map-pin-small.png" />.
+        {regexifyString({
+          pattern: /SEARCH_ICON|ALUE_ICONS/gm,
+          decorator: (match) => {
+            if (match === "SEARCH_ICON") {
+              return (
+                <span
+                  className="glyphicon glyphicon-search"
+                  aria-hidden="true"
+                />
+              )
+            }
+            if (match === "PIN_ICON") {
+              return <img src="images/map-pin-small.png" />
+            }
+            return ""
+          },
+          input: t(`info.siteInfo.searchInfo`)
+        })}
       </p>
 
-      <h5>Asetukset</h5>
+      <h5>{t(`info.siteInfo.settingsTitle`)}</h5>
       <p>
-        Pohjakartan voi vaihtaa taustakartan ja maastokartan välillä asetuksista
-        (
-        <span className="glyphicon glyphicon-cog" aria-hidden="true" />
-        ). Samasta näkymästä voi piilottaa Museoviraston rekisterien kohteita
-        tyypin ja muinaisjäännöksiä myös ajoituksen mukaan jos haluaa
-        tarkastella esimerkiksi pelkästään muinaisjäännöksiä rautakaudelta.
+        {regexifyString({
+          pattern: /ICON/gm,
+          decorator: (match) => {
+            return (
+              <span className="glyphicon glyphicon-cog" aria-hidden="true" />
+            )
+          },
+          input: t(`info.siteInfo.settingsInfo`)
+        })}
       </p>
 
+      <h5>{t(`info.siteInfo.feedbackTitle`)}</h5>
       <p>
-        Palautetta sivustosta otetaan mielellään vastaan osoitteeseen{" "}
-        <a href="mailto:antti.kekki@gmail.com">antti.kekki@gmail.com</a>
+        <Trans i18nKey="info.siteInfo.feedbackInfo" components={{ a: <a /> }} />
       </p>
     </Panel>
-  );
-};
+  )
+}
