@@ -1,4 +1,12 @@
 import * as React from "react"
+import {
+  Button,
+  Col,
+  Container,
+  Row,
+  ToggleButton,
+  ToggleButtonGroup
+} from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { Language } from "../../common/types"
 
@@ -6,22 +14,6 @@ export enum PageVisibility {
   Visible = "Visible",
   Closing = "Closing",
   Hidden = "Hidden"
-}
-
-const LangSelection: React.FC<{ lang: Language }> = ({ lang }) => {
-  const { i18n } = useTranslation()
-  const isSelectedLang = i18n.language === lang
-  return (
-    <label className={`btn btn-default ${isSelectedLang ? "active" : ""}`}>
-      <input
-        type="radio"
-        name="selectedLanguage"
-        checked={isSelectedLang}
-        onChange={() => i18n.changeLanguage(lang)}
-      />
-      <b>{lang.toUpperCase()}</b>
-    </label>
-  )
 }
 
 interface Props {
@@ -51,30 +43,38 @@ export const Page: React.FC<Props> = ({
   }
 
   return (
-    <div className={`container page ${classes}`}>
+    <Container className={`page ${classes}`}>
       {visibility !== PageVisibility.Hidden && (
-        <div className="row pageHeader">
-          <div className="col-xs-1 col-sm-1">
-            <button className="btn btn-primary btn-sm" onClick={hidePage}>
+        <Row className="pageHeader">
+          <Col xs={1} sm={1}>
+            <Button variant="primary" size="sm" onClick={hidePage}>
               <span className="glyphicon glyphicon-remove" aria-hidden="true" />
               {t(`common.button.close`)}
-            </button>
-          </div>
-          <div className="col-xs-8 col-sm-9" style={{ textAlign: "center" }}>
+            </Button>
+          </Col>
+          <Col xs={8} sm={9} style={{ textAlign: "center" }}>
             <span className="pageHeaderText">{title}</span>
-          </div>
-          <div className="col-xs-3 col-sm-2" style={{ textAlign: "right" }}>
-            <div className="btn-group" data-toggle="buttons">
-              <LangSelection lang={Language.FI} />
-              <LangSelection lang={Language.SV} />
-            </div>
-          </div>
-        </div>
+          </Col>
+          <Col xs={3} sm={2} style={{ textAlign: "right" }}>
+            <ToggleButtonGroup
+              name="lang"
+              value={i18n.language}
+              onChange={(lang: Language) => i18n.changeLanguage(lang)}
+            >
+              <ToggleButton value={Language.FI} variant="outline-secondary">
+                <b>FI</b>
+              </ToggleButton>
+              <ToggleButton value={Language.SV} variant="outline-secondary">
+                <b>SV</b>
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Col>
+        </Row>
       )}
 
       {visibility !== PageVisibility.Hidden && (
         <div className="pageContent">{children}</div>
       )}
-    </div>
+    </Container>
   )
 }

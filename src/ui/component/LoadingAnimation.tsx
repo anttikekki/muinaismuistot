@@ -1,13 +1,17 @@
-import * as React from "react";
+import * as React from "react"
+import { Spinner } from "react-bootstrap"
 
 interface Props {
-  visible: boolean;
+  visible: boolean
 }
 
 export const LoadingAnimation: React.FC<Props> = ({ visible }) => {
+  if (!visible) {
+    return null
+  }
   return (
-    <div id="loading-animation" className={visible ? "" : "hidden"}>
-      <img src="images/loading.gif" />
-    </div>
-  );
-};
+    <Spinner animation="border" role="status" id="loading-animation">
+      <span className="sr-only">Ladataan...</span>
+    </Spinner>
+  )
+}

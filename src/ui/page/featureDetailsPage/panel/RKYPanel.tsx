@@ -14,14 +14,14 @@ import { useTranslation } from "react-i18next"
 
 interface Props {
   isOpen: boolean
-  onToggleOpen: () => void
+  featureUniqueId: string
   feature: RKYPisteArgisFeature | RKYAlueArgisFeature | RKYViivaArgisFeature
   models?: Array<ModelFeatureProperties>
 }
 
 export const RKYPanel: React.FC<Props> = ({
   isOpen,
-  onToggleOpen,
+  featureUniqueId,
   feature,
   models = []
 }) => {
@@ -29,7 +29,7 @@ export const RKYPanel: React.FC<Props> = ({
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
+      featureUniqueId={featureUniqueId}
       feature={feature}
       has3dModels={models.length > 0}
     >

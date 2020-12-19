@@ -11,14 +11,14 @@ import { AhvenanmaaTypeAndDatingField } from "../component/AhvenanmaaTypeAndDati
 
 interface Props {
   isOpen: boolean
-  onToggleOpen: () => void
+  featureUniqueId: string
   feature: AhvenanmaaForminnenArgisFeature
   models?: Array<ModelFeatureProperties>
 }
 
 export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
   isOpen,
-  onToggleOpen,
+  featureUniqueId,
   feature,
   models = []
 }) => {
@@ -26,7 +26,7 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
+      featureUniqueId={featureUniqueId}
       feature={feature}
       has3dModels={models.length > 0}
     >

@@ -7,13 +7,13 @@ import { MuseovirastoLink } from "../component/MuseovirastoLink"
 
 interface Props {
   isOpen: boolean
-  onToggleOpen: () => void
+  featureUniqueId: string
   feature: MuinaisjaannosAlueArgisFeature
 }
 
 export const MuinaisjaannosAluePanel: React.FC<Props> = ({
   isOpen,
-  onToggleOpen,
+  featureUniqueId,
   feature
 }) => {
   const { t } = useTranslation()
@@ -21,7 +21,7 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
+      featureUniqueId={featureUniqueId}
       feature={feature}
     >
       <form>

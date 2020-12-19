@@ -1,4 +1,6 @@
 import * as React from "react"
+import { Button } from "react-bootstrap"
+import { Bullseye } from "react-bootstrap-icons"
 import { useTranslation } from "react-i18next"
 
 interface Props {
@@ -11,14 +13,13 @@ export const CenterToCurrentPositionButton: React.FunctionComponent<Props> = ({
   const { t } = useTranslation()
   return (
     <div id="map-button-position" className="map-button">
-      <button
-        type="button"
-        className="btn btn-primary"
+      <Button
+        variant="primary"
         title={t(`common.button.positioning`)}
         onClick={onClick}
       >
-        <span className="glyphicon glyphicon-screenshot" aria-hidden="true" />
-      </button>
+        <Bullseye aria-hidden="true" />
+      </Button>
     </div>
   )
 }

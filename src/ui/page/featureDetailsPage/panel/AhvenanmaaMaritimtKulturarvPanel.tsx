@@ -10,14 +10,14 @@ import { EmbeddedModels } from "../component/EmbeddedModels"
 
 interface Props {
   isOpen: boolean
-  onToggleOpen: () => void
+  featureUniqueId: string
   feature: AhvenanmaaMaritimtKulturarvArgisFeature
   models?: Array<ModelFeatureProperties>
 }
 
 export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
   isOpen,
-  onToggleOpen,
+  featureUniqueId,
   feature,
   models = []
 }) => {
@@ -25,7 +25,7 @@ export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
+      featureUniqueId={featureUniqueId}
       feature={feature}
       has3dModels={models.length > 0}
     >

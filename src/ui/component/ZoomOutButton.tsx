@@ -1,4 +1,6 @@
 import * as React from "react"
+import { Button } from "react-bootstrap"
+import { Dash } from "react-bootstrap-icons"
 import { useTranslation } from "react-i18next"
 
 interface Props {
@@ -9,14 +11,13 @@ export const ZoomOutButton: React.FunctionComponent<Props> = ({ onClick }) => {
   const { t } = useTranslation()
   return (
     <div id="map-button-zoom-out" className="map-button">
-      <button
-        type="button"
-        className="btn btn-primary"
+      <Button
+        variant="primary"
         title={t(`common.button.zoomOut`)}
         onClick={onClick}
       >
-        <span className="glyphicon glyphicon-minus" aria-hidden="true" />
-      </button>
+        <Dash aria-hidden="true" />
+      </Button>
     </div>
   )
 }

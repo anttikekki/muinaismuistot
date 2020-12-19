@@ -1,4 +1,6 @@
 import * as React from "react"
+import { Accordion, Card } from "react-bootstrap"
+import { Link, CaretDownFill, CaretUpFill } from "react-bootstrap-icons"
 import { useTranslation } from "react-i18next"
 import {
   ArgisFeature,
@@ -14,10 +16,11 @@ import {
   getTypeIconURL
 } from "../../../../common/util/featureParser"
 import { createLocationHash } from "../../../../common/util/URLHashHelper"
+import { LinkButton } from "./LinkButton"
 
 interface FeatureCollapsePanelProps {
   isOpen: boolean
-  onToggleOpen: () => void
+  featureUniqueId: string
   permanentLink: string | undefined
   featureName: string
   featureTypeIconURL: string | undefined
@@ -26,51 +29,43 @@ interface FeatureCollapsePanelProps {
 
 const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
   isOpen,
-  onToggleOpen,
+  featureUniqueId,
   permanentLink,
   featureName,
   featureTypeIconURL,
   featureTypeName,
   children
 }) => {
-  const onTitleClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    event.preventDefault()
-    onToggleOpen()
-  }
-
   return (
-    <div className="panel panel-default">
-      <div className="panel-heading feature-collapse-panel-heading" role="tab">
-        <h4 className="panel-title">
-          <a role="button" href="" onClick={onTitleClick}>
-            {featureName}
-          </a>
-          <a className="pull-right" href={permanentLink}>
-            <span className="glyphicon glyphicon-link" aria-hidden="true" />
-          </a>
-        </h4>
-        <h6 className="panel-title">
-          <a role="button" href="" onClick={onTitleClick}>
+    <Card>
+      <Accordion.Toggle as={Card.Header} eventKey={featureUniqueId}>
+        <a
+          className="float-right"
+          href={permanentLink}
+          style={{ color: "black" }}
+        >
+          <Link aria-hidden="true" size={28} />
+        </a>
+        <LinkButton>
+          <b>{featureName}</b>
+        </LinkButton>
+        <div>
+          <LinkButton>
             <img className="feature-icon" src={featureTypeIconURL} />
             <span>{featureTypeName}</span>
-          </a>
-        </h6>
-      </div>
-      <div
-        className={`panel-collapse collapse ${isOpen ? "in" : ""}`}
-        role="tabpanel"
-      >
-        <div className="panel-body">{children}</div>
-      </div>
-    </div>
+          </LinkButton>
+        </div>
+      </Accordion.Toggle>
+      <Accordion.Collapse eventKey={featureUniqueId}>
+        <Card.Body>{children}</Card.Body>
+      </Accordion.Collapse>
+    </Card>
   )
 }
 
 interface ArgisFeatureCollapsePanelProps {
   isOpen: boolean
-  onToggleOpen: () => void
+  featureUniqueId: string
   feature: ArgisFeature
   has3dModels?: boolean
   hasMaisemanMuistiFeatures?: boolean
@@ -78,7 +73,7 @@ interface ArgisFeatureCollapsePanelProps {
 
 export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps> = ({
   isOpen,
-  onToggleOpen,
+  featureUniqueId,
   feature,
   has3dModels,
   hasMaisemanMuistiFeatures,
@@ -103,7 +98,7 @@ export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps>
   return (
     <FeatureCollapsePanel
       isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
+      featureUniqueId={featureUniqueId}
       permanentLink={permanentLink}
       featureName={featureName}
       featureTypeIconURL={featureTypeIconURL}
@@ -116,14 +111,14 @@ export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps>
 
 interface MaisemanMuistiFeatureCollapsePanelProps {
   isOpen: boolean
-  onToggleOpen: () => void
+  featureUniqueId: string
   feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>
   has3dModels?: boolean
 }
 
 export const MaisemanMuistiFeatureCollapsePanel: React.FC<MaisemanMuistiFeatureCollapsePanelProps> = ({
   isOpen,
-  onToggleOpen,
+  featureUniqueId,
   feature,
   has3dModels,
   children
@@ -140,7 +135,7 @@ export const MaisemanMuistiFeatureCollapsePanel: React.FC<MaisemanMuistiFeatureC
   return (
     <FeatureCollapsePanel
       isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
+      featureUniqueId={featureUniqueId}
       permanentLink={permanentLink}
       featureName={featureName}
       featureTypeIconURL={featureTypeIconURL}

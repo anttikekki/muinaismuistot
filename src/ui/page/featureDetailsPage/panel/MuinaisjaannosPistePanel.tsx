@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next"
 
 interface Props {
   isOpen: boolean
-  onToggleOpen: () => void
+  featureUniqueId: string
   feature: MuinaisjaannosPisteArgisFeature
   models?: Array<ModelFeatureProperties>
   maisemanMuistiFeatures?: Array<
@@ -45,7 +45,7 @@ function renderList<T extends string>(
 
 export const MuinaisjaannosPistePanel: React.FC<Props> = ({
   isOpen,
-  onToggleOpen,
+  featureUniqueId,
   feature,
   models = [],
   maisemanMuistiFeatures = []
@@ -62,7 +62,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
+      featureUniqueId={featureUniqueId}
       feature={feature}
       has3dModels={models.length > 0}
       hasMaisemanMuistiFeatures={maisemanMuistiFeatures.length > 0}

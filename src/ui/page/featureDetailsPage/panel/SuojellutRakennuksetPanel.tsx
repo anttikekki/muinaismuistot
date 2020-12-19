@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next"
 
 interface Props {
   isOpen: boolean
-  onToggleOpen: () => void
+  featureUniqueId: string
   feature:
     | SuojellutRakennuksetPisteArgisFeature
     | SuojellutRakennuksetAlueArgisFeature
@@ -22,7 +22,7 @@ interface Props {
 
 export const SuojellutRakennuksetPanel: React.FC<Props> = ({
   isOpen,
-  onToggleOpen,
+  featureUniqueId,
   feature,
   models = []
 }) => {
@@ -30,7 +30,7 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
   return (
     <ArgisFeatureCollapsePanel
       isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
+      featureUniqueId={featureUniqueId}
       feature={feature}
       has3dModels={models.length > 0}
     >

@@ -1,4 +1,6 @@
 import * as React from "react"
+import { Button } from "react-bootstrap"
+import { Info } from "react-bootstrap-icons"
 import { useTranslation } from "react-i18next"
 
 interface Props {
@@ -11,14 +13,13 @@ export const ShowInfoPageButton: React.FunctionComponent<Props> = ({
   const { t } = useTranslation()
   return (
     <div id="map-button-info" className="map-button">
-      <button
-        type="button"
-        className="btn btn-primary"
+      <Button
+        variant="primary"
         title={t(`common.button.info`)}
         onClick={onClick}
       >
-        <span className="glyphicon glyphicon-info-sign" aria-hidden="true" />
-      </button>
+        <Info aria-hidden="true" />
+      </Button>
     </div>
   )
 }

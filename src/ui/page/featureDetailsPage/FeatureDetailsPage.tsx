@@ -23,11 +23,12 @@ import { AhvenanmaaForminnenPanel } from "./panel/AhvenanmaaForminnenPanel"
 import { Page, PageVisibility } from "../Page"
 import { AhvenanmaaMaritimtKulturarvPanel } from "./panel/AhvenanmaaMaritimtKulturarvPanel"
 import { MaisemanMuistiPanel } from "./panel/MaisemanMuistiPanel"
+import { Accordion } from "react-bootstrap"
 
 interface PanelForFeatureProps {
   feature: ArgisFeature
   isOpen: boolean
-  onToggleOpen: () => void
+  featureUniqueId: string
   models?: Array<ModelFeatureProperties>
   maisemanMuistiFeatures?: Array<
     GeoJSONFeature<MaisemanMuistiFeatureProperties>
@@ -37,13 +38,13 @@ interface PanelForFeatureProps {
 const PanelForArgisFeature: React.FC<PanelForFeatureProps> = ({
   feature,
   isOpen,
-  onToggleOpen,
+  featureUniqueId,
   models,
   maisemanMuistiFeatures
 }) => {
   const params = {
     isOpen,
-    onToggleOpen,
+    featureUniqueId,
     models: getModelsForArgisFeature(feature, models),
     maisemanMuistiFeatures: getMaisemanMuistiFeaturesForArgisFeature(
       feature,
@@ -92,9 +93,7 @@ export const FeatureDetailsPage: React.FC<FeatureDetailsPageProps> = ({
   maisemanMuistiFeatures = []
 }) => {
   const { t } = useTranslation()
-  const [openPanelId, setOpenPanelId] = React.useState("")
-  const onTogglePanelOpen = (id: string) =>
-    setOpenPanelId(openPanelId === id ? "" : id)
+  const [openPanelId, setOpenPanelId] = React.useState<string | null>(null)
 
   return (
     <Page
@@ -102,45 +101,46 @@ export const FeatureDetailsPage: React.FC<FeatureDetailsPageProps> = ({
       visibility={visibility}
       hidePage={hidePage}
     >
-      <div className="panel-group" role="tablist" aria-multiselectable="true" />
-      {features.map((feature) => {
-        const panelId = `${feature.layerName}-${getFeatureID(feature)}`
-        return (
-          <PanelForArgisFeature
-            key={panelId}
-            isOpen={openPanelId === panelId}
-            onToggleOpen={() => onTogglePanelOpen(panelId)}
-            feature={feature}
-            models={models}
-            maisemanMuistiFeatures={maisemanMuistiFeatures}
-          />
-        )
-      })}
-      {maisemanMuistiFeatures.map((feature) => {
-        // Do not show Maiseman muisti feature if there is feature rendered above for it
-        if (
-          features.some(
-            (argisFeature) =>
-              argisFeature.layerName ===
-                MuseovirastoLayer.Muinaisjaannokset_piste &&
-              argisFeature.attributes.mjtunnus ===
-                feature.properties.id.toString()
+      <Accordion onSelect={(eventKey) => setOpenPanelId(eventKey)}>
+        {features.map((feature) => {
+          const panelId = `${feature.layerName}-${getFeatureID(feature)}`
+          return (
+            <PanelForArgisFeature
+              key={panelId}
+              featureUniqueId={panelId}
+              isOpen={openPanelId === panelId}
+              feature={feature}
+              models={models}
+              maisemanMuistiFeatures={maisemanMuistiFeatures}
+            />
           )
-        ) {
-          return null
-        }
+        })}
+        {maisemanMuistiFeatures.map((feature) => {
+          // Do not show Maiseman muisti feature if there is feature rendered above for it
+          if (
+            features.some(
+              (argisFeature) =>
+                argisFeature.layerName ===
+                  MuseovirastoLayer.Muinaisjaannokset_piste &&
+                argisFeature.attributes.mjtunnus ===
+                  feature.properties.id.toString()
+            )
+          ) {
+            return null
+          }
 
-        const panelId = `maisemanMuisti-${feature.properties.id.toString()}`
-        return (
-          <MaisemanMuistiPanel
-            key={panelId}
-            isOpen={openPanelId === panelId}
-            onToggleOpen={() => onTogglePanelOpen(panelId)}
-            feature={feature}
-            models={getModelsForMaisemanMuistiFeature(feature, models)}
-          />
-        )
-      })}
+          const panelId = `maisemanMuisti-${feature.properties.id.toString()}`
+          return (
+            <MaisemanMuistiPanel
+              key={panelId}
+              featureUniqueId={panelId}
+              isOpen={openPanelId === panelId}
+              feature={feature}
+              models={getModelsForMaisemanMuistiFeature(feature, models)}
+            />
+          )
+        })}
+      </Accordion>
     </Page>
   )
 }
