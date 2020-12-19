@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap-icons/font/bootstrap-icons.css"
 import "../css/muinaismuistot.css"
 import * as React from "react"
 import * as ReactDOM from "react-dom"

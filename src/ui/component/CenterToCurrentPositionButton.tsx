@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Button } from "react-bootstrap"
-import { Bullseye } from "react-bootstrap-icons"
 import { useTranslation } from "react-i18next"
 
 interface Props {
@@ -18,7 +17,7 @@ export const CenterToCurrentPositionButton: React.FunctionComponent<Props> = ({
         title={t(`common.button.positioning`)}
         onClick={onClick}
       >
-        <Bullseye aria-hidden="true" />
+        <i className="bi bi-bullseye" />
       </Button>
     </div>
   )

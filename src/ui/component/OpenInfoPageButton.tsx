@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Button } from "react-bootstrap"
-import { Info } from "react-bootstrap-icons"
 import { useTranslation } from "react-i18next"
 
 interface Props {
@@ -18,7 +17,7 @@ export const ShowInfoPageButton: React.FunctionComponent<Props> = ({
         title={t(`common.button.info`)}
         onClick={onClick}
       >
-        <Info aria-hidden="true" />
+        <i className="bi bi-info" />
       </Button>
     </div>
   )

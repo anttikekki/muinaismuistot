@@ -1,6 +1,5 @@
 import * as React from "react"
-import { Accordion, Card } from "react-bootstrap"
-import { Link, CaretDownFill, CaretUpFill } from "react-bootstrap-icons"
+import { Accordion, Button, Card } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
   ArgisFeature,
@@ -16,7 +15,6 @@ import {
   getTypeIconURL
 } from "../../../../common/util/featureParser"
 import { createLocationHash } from "../../../../common/util/URLHashHelper"
-import { LinkButton } from "./LinkButton"
 
 interface FeatureCollapsePanelProps {
   isOpen: boolean
@@ -26,6 +24,8 @@ interface FeatureCollapsePanelProps {
   featureTypeIconURL: string | undefined
   featureTypeName: string | undefined
 }
+
+const linkButtonStyles = { color: "black", padding: "0" }
 
 const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
   isOpen,
@@ -39,21 +39,32 @@ const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
   return (
     <Card>
       <Accordion.Toggle as={Card.Header} eventKey={featureUniqueId}>
+        <Button
+          variant="link"
+          className="float-right"
+          style={{ ...linkButtonStyles, marginLeft: "5px", fontSize: "26px" }}
+        >
+          {isOpen ? (
+            <i className="bi bi-caret-up-fill" />
+          ) : (
+            <i className="bi bi-caret-down-fill" />
+          )}
+        </Button>
         <a
           className="float-right"
           href={permanentLink}
-          style={{ color: "black" }}
+          style={{ color: "black", fontSize: "26px" }}
         >
-          <Link aria-hidden="true" size={28} />
+          <i className="bi bi-link" />
         </a>
-        <LinkButton>
+        <Button variant="link" style={linkButtonStyles}>
           <b>{featureName}</b>
-        </LinkButton>
+        </Button>
         <div>
-          <LinkButton>
+          <Button variant="link" style={linkButtonStyles}>
             <img className="feature-icon" src={featureTypeIconURL} />
             <span>{featureTypeName}</span>
-          </LinkButton>
+          </Button>
         </div>
       </Accordion.Toggle>
       <Accordion.Collapse eventKey={featureUniqueId}>

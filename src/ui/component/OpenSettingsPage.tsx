@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Button } from "react-bootstrap"
-import { Gear } from "react-bootstrap-icons"
 import { useTranslation } from "react-i18next"
 
 interface Props {
@@ -18,7 +17,7 @@ export const OpenSettingsPage: React.FunctionComponent<Props> = ({
         title={t(`common.button.settings`)}
         onClick={onClick}
       >
-        <Gear aria-hidden="true" />
+        <i className="bi bi-gear" />
       </Button>
     </div>
   )

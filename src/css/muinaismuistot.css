@@ -25,6 +25,7 @@ body,
 .map-button {
   z-index: 15;
   position: absolute;
+  font-size: "30px";
 }
 
 #map-button-zoom-in {

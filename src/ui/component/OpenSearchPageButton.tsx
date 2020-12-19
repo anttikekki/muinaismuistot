@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Button } from "react-bootstrap"
-import { Search } from "react-bootstrap-icons"
 import { useTranslation } from "react-i18next"
 
 interface Props {
@@ -18,7 +17,7 @@ export const OpenSearchPageButton: React.FunctionComponent<Props> = ({
         title={t(`common.button.search`)}
         onClick={onClick}
       >
-        <Search aria-hidden="true" />
+        <i className="bi bi-search" />
       </Button>
     </div>
   )

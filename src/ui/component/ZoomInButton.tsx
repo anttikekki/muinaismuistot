@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Button } from "react-bootstrap"
-import { Plus } from "react-bootstrap-icons"
 import { useTranslation } from "react-i18next"
 
 interface Props {
@@ -16,7 +15,7 @@ export const ZoomInButton: React.FunctionComponent<Props> = ({ onClick }) => {
         title={t(`common.button.zoomIn`)}
         onClick={onClick}
       >
-        <Plus aria-hidden="true" />
+        <i className="bi bi-plus" />
       </Button>
     </div>
   )

@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Button } from "react-bootstrap"
-import { Dash } from "react-bootstrap-icons"
 import { useTranslation } from "react-i18next"
 
 interface Props {
@@ -16,7 +15,7 @@ export const ZoomOutButton: React.FunctionComponent<Props> = ({ onClick }) => {
         title={t(`common.button.zoomOut`)}
         onClick={onClick}
       >
-        <Dash aria-hidden="true" />
+        <i className="bi bi-dash" />
       </Button>
     </div>
   )
