@@ -11,6 +11,7 @@ import { Field } from "../component/Field"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import { useTranslation } from "react-i18next"
+import { Form } from "react-bootstrap"
 
 interface Props {
   isOpen: boolean
@@ -33,7 +34,7 @@ export const RKYPanel: React.FC<Props> = ({
       feature={feature}
       has3dModels={models.length > 0}
     >
-      <form>
+      <Form>
         <Field
           label={t(`details.field.featureName`)}
           value={feature.attributes.kohdenimi}
@@ -46,7 +47,7 @@ export const RKYPanel: React.FC<Props> = ({
         )}
         <MuseovirastoLink feature={feature} />
         {isOpen && <EmbeddedModels models={models} />}
-      </form>
+      </Form>
     </ArgisFeatureCollapsePanel>
   )
 }

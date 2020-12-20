@@ -17,7 +17,7 @@ export const ShowInfoPageButton: React.FunctionComponent<Props> = ({
         title={t(`common.button.info`)}
         onClick={onClick}
       >
-        <i className="bi bi-info" />
+        <i className="bi bi-info-circle" />
       </Button>
     </div>
   )

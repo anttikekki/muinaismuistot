@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Card } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { ArgisFeature } from "../../../../common/types"
 import {
@@ -16,13 +17,17 @@ export const MuseovirastoLinkDirect: React.FC<MuseovirastoLinkDirectProps> = ({
   registerName
 }) => {
   return (
-    <p className="well">
-      <Trans
-        i18nKey="details.finnishHeritageAgencyMoreInfoLink"
-        values={{ url, registerName }}
-        components={{ a: <a /> }}
-      />
-    </p>
+    <Card>
+      <Card.Body>
+        <Card.Text>
+          <Trans
+            i18nKey="details.finnishHeritageAgencyMoreInfoLink"
+            values={{ url, registerName }}
+            components={{ a: <a /> }}
+          />
+        </Card.Text>
+      </Card.Body>
+    </Card>
   )
 }
 

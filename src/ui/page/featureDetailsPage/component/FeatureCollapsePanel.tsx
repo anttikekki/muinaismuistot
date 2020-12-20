@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Accordion, Button, Card } from "react-bootstrap"
+import { Accordion, Button, Card, Col, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
   ArgisFeature,
@@ -25,7 +25,11 @@ interface FeatureCollapsePanelProps {
   featureTypeName: string | undefined
 }
 
-const linkButtonStyles = { color: "black", padding: "0" }
+const linkButtonStyles: React.CSSProperties = {
+  color: "black",
+  padding: "0",
+  textAlign: "left"
+}
 
 const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
   isOpen,
@@ -39,33 +43,43 @@ const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
   return (
     <Card>
       <Accordion.Toggle as={Card.Header} eventKey={featureUniqueId}>
-        <Button
-          variant="link"
-          className="float-right"
-          style={{ ...linkButtonStyles, marginLeft: "5px", fontSize: "26px" }}
-        >
-          {isOpen ? (
-            <i className="bi bi-caret-up-fill" />
-          ) : (
-            <i className="bi bi-caret-down-fill" />
-          )}
-        </Button>
-        <a
-          className="float-right"
-          href={permanentLink}
-          style={{ color: "black", fontSize: "26px" }}
-        >
-          <i className="bi bi-link" />
-        </a>
-        <Button variant="link" style={linkButtonStyles}>
-          <b>{featureName}</b>
-        </Button>
-        <div>
-          <Button variant="link" style={linkButtonStyles}>
-            <img className="feature-icon" src={featureTypeIconURL} />
-            <span>{featureTypeName}</span>
-          </Button>
-        </div>
+        <Row>
+          <Col xs={9}>
+            <Button variant="link" style={linkButtonStyles}>
+              <b>{featureName}</b>
+            </Button>
+            <div>
+              <Button variant="link" style={linkButtonStyles}>
+                <img className="feature-icon" src={featureTypeIconURL} />
+                <span>{featureTypeName}</span>
+              </Button>
+            </div>
+          </Col>
+          <Col xs={3}>
+            <Button
+              variant="link"
+              className="float-right"
+              style={{
+                ...linkButtonStyles,
+                marginLeft: "5px",
+                fontSize: "26px"
+              }}
+            >
+              {isOpen ? (
+                <i className="bi bi-caret-up-fill" />
+              ) : (
+                <i className="bi bi-caret-down-fill" />
+              )}
+            </Button>
+            <a
+              className="float-right"
+              href={permanentLink}
+              style={{ color: "black", fontSize: "26px" }}
+            >
+              <i className="bi bi-link" />
+            </a>
+          </Col>
+        </Row>
       </Accordion.Toggle>
       <Accordion.Collapse eventKey={featureUniqueId}>
         <Card.Body>{children}</Card.Body>

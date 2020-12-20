@@ -7,6 +7,7 @@ import {
 import { ArgisFeatureCollapsePanel } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
 import { EmbeddedModels } from "../component/EmbeddedModels"
+import { Form } from "react-bootstrap"
 
 interface Props {
   isOpen: boolean
@@ -29,7 +30,7 @@ export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
       feature={feature}
       has3dModels={models.length > 0}
     >
-      <form>
+      <Form>
         <Field
           label={t(`details.field.id`)}
           value={feature.attributes.FornID}
@@ -60,7 +61,7 @@ export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
         />
 
         {isOpen && <EmbeddedModels models={models} />}
-      </form>
+      </Form>
     </ArgisFeatureCollapsePanel>
   )
 }

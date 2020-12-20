@@ -12,6 +12,7 @@ import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
 import { trim } from "../../../../common/util/featureParser"
 import { TimespanLabel } from "../component/TimespanLabel"
 import { useTranslation } from "react-i18next"
+import { Form } from "react-bootstrap"
 
 interface Props {
   isOpen: boolean
@@ -34,7 +35,7 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
       feature={feature}
       has3dModels={models.length > 0}
     >
-      <form>
+      <Form>
         <Field
           label={t(`details.field.featureName`)}
           value={feature.properties.registerName}
@@ -68,7 +69,7 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
         />
 
         {isOpen && <EmbeddedModels models={models} />}
-      </form>
+      </Form>
     </MaisemanMuistiFeatureCollapsePanel>
   )
 }

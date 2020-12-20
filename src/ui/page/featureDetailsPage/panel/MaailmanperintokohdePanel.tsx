@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
   MaailmanperintoPisteArgisFeature,
@@ -26,13 +27,13 @@ export const MaailmanperintokohdePanel: React.FC<Props> = ({
       featureUniqueId={featureUniqueId}
       feature={feature}
     >
-      <form>
+      <Form>
         <Field
           label={t(`details.field.name`)}
           value={feature.attributes.Nimi}
         />
         <MuseovirastoLink feature={feature} />
-      </form>
+      </Form>
     </ArgisFeatureCollapsePanel>
   )
 }

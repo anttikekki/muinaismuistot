@@ -12,6 +12,7 @@ import { MuseovirastoLink } from "../component/MuseovirastoLink"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
 import { useTranslation } from "react-i18next"
+import { Form } from "react-bootstrap"
 
 interface Props {
   isOpen: boolean
@@ -67,7 +68,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
       has3dModels={models.length > 0}
       hasMaisemanMuistiFeatures={maisemanMuistiFeatures.length > 0}
     >
-      <form>
+      <Form>
         <Field label={t(`details.field.featureName`)} value={kohdenimi} />
         <Field label={t(`details.field.municipality`)} value={kunta} />
         <Field label={t(`details.field.dating`)}>
@@ -100,7 +101,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         <MuseovirastoLink feature={feature} />
 
         {isOpen && <EmbeddedModels models={models} />}
-      </form>
+      </Form>
     </ArgisFeatureCollapsePanel>
   )
 }

@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { MuinaisjaannosAlueArgisFeature } from "../../../../common/types"
 import { ArgisFeatureCollapsePanel } from "../component/FeatureCollapsePanel"
@@ -24,7 +25,7 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
       featureUniqueId={featureUniqueId}
       feature={feature}
     >
-      <form>
+      <Form>
         <Field label={t(`details.field.name`)} value={kohdenimi} />
         <Field label={t(`details.field.municipality`)} value={kunta} />
         <Field
@@ -32,7 +33,7 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
           value={t(`data.museovirasto.featureType.${laji}`, laji)}
         />
         <MuseovirastoLink feature={feature} />
-      </form>
+      </Form>
     </ArgisFeatureCollapsePanel>
   )
 }

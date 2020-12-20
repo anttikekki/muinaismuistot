@@ -48,7 +48,7 @@ export const Page: React.FC<Props> = ({
         <Row className="pageHeader">
           <Col xs={1} sm={1}>
             <Button variant="primary" size="sm" onClick={hidePage}>
-              <span className="glyphicon glyphicon-remove" aria-hidden="true" />
+              <span aria-hidden="true">&times;</span>
               {t(`common.button.close`)}
             </Button>
           </Col>

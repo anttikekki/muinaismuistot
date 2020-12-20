@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Badge } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { MuinaisjaannosAjoitus } from "../../../../common/types"
 import { getTimespanInYearsForTimingName } from "../../../../common/util/featureParser"
@@ -13,5 +14,5 @@ export const TimespanLabel: React.FC<Props> = ({ dating }) => {
   if (!timespan) {
     return null
   }
-  return <span className="label label-default">{timespan}</span>
+  return <Badge variant="secondary">{timespan}</Badge>
 }
