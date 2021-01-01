@@ -61,13 +61,13 @@ export const Page: React.FC<Props> = ({
             </button>
           </div>
           <div
-            className="col-xs-7 col-sm-7 col-md-7"
+            className="col-xs-6 col-sm-7 col-md-7"
             style={{ textAlign: "center" }}
           >
             <span className="pageHeaderText">{title}</span>
           </div>
           <div
-            className="col-xs-3 col-sm-3 col-md-3"
+            className="col-xs-4 col-sm-3 col-md-3"
             style={{ textAlign: "right" }}
           >
             <div className="btn-group" data-toggle="buttons">
