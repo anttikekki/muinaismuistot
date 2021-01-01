@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useTranslation } from "react-i18next"
 import { AhvenanmaaForminnenArgisFeature } from "../../../../common/types"
 import {
   getAhvenanmaaForminneDatingText,
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {
+  const { t } = useTranslation()
+
   const subFeatureTypesAndDatings =
     feature.attributes.typeAndDating?.map(
       ({
@@ -20,15 +23,21 @@ export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {
         Undertyp: subDating,
         Antal: count
       }) => {
-        const type = getAhvenanmaaForminnenTypeText(typeId)
-        const dating = getAhvenanmaaForminneDatingText(datingId)
+        const type = getAhvenanmaaForminnenTypeText(t, typeId)
+        const dating = getAhvenanmaaForminneDatingText(t, datingId)
 
         return [
-          ["Pääkategoria", type],
-          ["Alatyyppi", subType],
-          ["Pääaikakausi", dating],
-          ["Periodi", subDating],
-          ["Lukumäärä", count]
+          [t(`details.field.mainCategory`), type],
+          [
+            t(`details.field.subCategory`),
+            t(`data.ahvenanmaa.subType.${subType}`, subType ?? "")
+          ],
+          [t(`details.field.mainEra`), dating],
+          [
+            t(`details.field.period`),
+            t(`data.ahvenanmaa.subDating.${subDating}`, subDating ?? "")
+          ],
+          [t(`details.field.featureCount`), count]
         ]
           .filter((v) => !!v[1])
           .map((v, i) => (
@@ -40,7 +49,7 @@ export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {
     ) || []
 
   return (
-    <Field label="Tyyppi ja ajoitus">
+    <Field label={t(`details.field.typeAndDating`)}>
       {subFeatureTypesAndDatings.map((row, i, items) => {
         const list = <ul key={i}>{row}</ul>
         if (items.length > 1) {
@@ -53,7 +62,7 @@ export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {
                   fontWeight: 500
                 }}
               >
-                Kohde {i + 1}
+                {`${t(`details.field.feature`)} ${i + 1}`}
               </label>
               {list}
             </React.Fragment>

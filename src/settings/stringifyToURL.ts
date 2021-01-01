@@ -34,6 +34,30 @@ const updateParams = (
   }
 }
 
+const updateParam = <T>(
+  state: URLSettingsState,
+  initialValue: T,
+  currentValue: T,
+  key: keyof URLSettings
+): URLSettingsState => {
+  if (initialValue === currentValue) {
+    return {
+      ...state,
+      old: {
+        ...state.old,
+        [key]: undefined
+      }
+    }
+  }
+  return {
+    ...state,
+    next: {
+      ...state.next,
+      [key]: currentValue
+    }
+  }
+}
+
 export const updateSettingsToURL = (
   initialSettings: Settings,
   currentSettings: Settings
@@ -43,27 +67,21 @@ export const updateSettingsToURL = (
     old: parseURLParams() as URLSettings
   }
 
+  // Language
+  state = updateParam(
+    state,
+    initialSettings.language,
+    currentSettings.language,
+    "lang"
+  )
+
   // MML
-  if (
-    initialSettings.maanmittauslaitos.selectedLayer ===
-    currentSettings.maanmittauslaitos.selectedLayer
-  ) {
-    state = {
-      ...state,
-      old: {
-        ...state.old,
-        mmlLayer: undefined
-      }
-    }
-  } else {
-    state = {
-      ...state,
-      next: {
-        ...state.next,
-        mmlLayer: currentSettings.maanmittauslaitos.selectedLayer
-      }
-    }
-  }
+  state = updateParam(
+    state,
+    initialSettings.maanmittauslaitos.selectedLayer,
+    currentSettings.maanmittauslaitos.selectedLayer,
+    "mmlLayer"
+  )
 
   // Museovirasto layers
   state = updateParams(

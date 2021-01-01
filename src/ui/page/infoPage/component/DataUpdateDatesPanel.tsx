@@ -1,43 +1,44 @@
-import * as React from "react";
-import { Panel } from "../../../component/Panel";
-import { DataLatestUpdateDates } from "../../../../common/types";
+import * as React from "react"
+import { Panel } from "../../../component/Panel"
+import { DataLatestUpdateDates } from "../../../../common/types"
+import { Trans, useTranslation } from "react-i18next"
 
 const UpdatedDate: React.FC<{ date: Date | null | undefined }> = ({ date }) => {
+  const { t } = useTranslation()
   if (date === undefined) {
-    return <p>Tietoa selvitetään parhaillaan...</p>;
+    return <p>{t(`info.dataUpdates.loading`)}</p>
   }
   if (date === null) {
-    return <p>Päivityshetkeä ei valitettavasti saatu selville</p>;
+    return <p>{t(`info.dataUpdates.error`)}</p>
   }
-  return <p>{date.toLocaleDateString("fi")}</p>;
-};
+  return <p>{date.toLocaleDateString("fi")}</p>
+}
 
 interface Props {
-  dataLatestUpdateDates?: DataLatestUpdateDates;
+  dataLatestUpdateDates?: DataLatestUpdateDates
 }
 
 export const DataUpdateDatesPanel: React.FC<Props> = ({
-  dataLatestUpdateDates,
+  dataLatestUpdateDates
 }) => {
+  const { t } = useTranslation()
   return (
-    <Panel title="Aineisto päivitetty viimeksi">
-      <h5>Museoviraston aineistot</h5>
+    <Panel title={t(`info.dataUpdates.title`)}>
+      <h5>{t(`info.dataUpdates.Museoviraston aineistot`)}</h5>
       <UpdatedDate date={dataLatestUpdateDates?.museovirasto} />
 
-      <h5>Ahvenamaan muinaisjäännösrekisteri</h5>
+      <h5>{t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)}</h5>
       <UpdatedDate date={dataLatestUpdateDates?.ahvenanmaaForminnen} />
 
-      <h5>Ahvenamaan merellisen kulttuuriperinnön rekisteri</h5>
+      <h5>
+        {t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)}
+      </h5>
       <UpdatedDate date={dataLatestUpdateDates?.ahvenanmaaMaritimtKulturarv} />
 
       <h5>
-        3D-mallit (
-        <a href="./3d/" target="_blank">
-          lisätietoa
-        </a>
-        )
+        <Trans i18nKey="data.register.3Dmodels" components={{ a: <a /> }} />
       </h5>
       <UpdatedDate date={dataLatestUpdateDates?.models} />
     </Panel>
-  );
-};
+  )
+}

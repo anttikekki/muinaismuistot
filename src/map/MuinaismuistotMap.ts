@@ -17,7 +17,8 @@ import {
   ModelFeatureProperties,
   LayerGroup,
   GeoJSONFeature,
-  MaisemanMuistiFeatureProperties
+  MaisemanMuistiFeatureProperties,
+  MuseovirastoLayer
 } from "../common/types"
 import MapBrowserEvent from "ol/MapBrowserEvent"
 import { Coordinate } from "ol/coordinate"
@@ -26,11 +27,13 @@ import ModelsLayer from "./layer/ModelsLayer"
 import Layer from "ol/layer/Layer"
 import Source from "ol/source/Source"
 import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
+import { Pixel } from "ol/pixel"
+import VectorLayer from "ol/layer/Vector"
 
 export interface MapEventListener {
   featuresSelected: (
     features: Array<ArgisFeature>,
-    models: Array<ModelFeatureProperties>,
+    models: Array<GeoJSONFeature<ModelFeatureProperties>>,
     maisemanMuistiFeatures: Array<
       GeoJSONFeature<MaisemanMuistiFeatureProperties>
     >
@@ -124,6 +127,31 @@ export default class MuinaismuistotMap {
     this.map.on("singleclick", this.loadFeaturesOnClickedCoordinate)
   }
 
+  private getFeaturesAtPixelAtGeoJsonLayer = <T>(
+    pixel: Pixel,
+    geoJsonLayer?: VectorLayer
+  ): Array<GeoJSONFeature<T>> => {
+    return this.map
+      .getFeaturesAtPixel(pixel, {
+        layerFilter: (layer: Layer<Source>) => layer === geoJsonLayer,
+        hitTolerance: 10
+      })
+      .map((feature) => {
+        // Convert FeatureLike to GeoJSONFeature
+        const extent = feature.getGeometry()?.getExtent()
+        return {
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [extent![0], extent![1]]
+          },
+          properties: {
+            ...(feature.getProperties() as T)
+          }
+        }
+      })
+  }
+
   private loadFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
     this.eventListeners.showLoadingAnimation(true)
     const mapSize = this.map.getSize()
@@ -143,46 +171,37 @@ export default class MuinaismuistotMap {
       this.map.getView().calculateExtent(mapSize)
     )
 
-    const modelsResult: Array<ModelFeatureProperties> = this.map
-      .getFeaturesAtPixel(e.pixel, {
-        layerFilter: (layer: Layer<Source>) =>
-          layer === this.modelsLayer.getLayer(),
-        hitTolerance: 10
-      })
-      .map((feature) => feature.getProperties() as ModelFeatureProperties)
+    const modelsResult = this.getFeaturesAtPixelAtGeoJsonLayer<ModelFeatureProperties>(
+      e.pixel,
+      this.modelsLayer.getLayer()
+    )
 
-    const maisemanMuistiResult: Array<GeoJSONFeature<
-      MaisemanMuistiFeatureProperties
-    >> = this.map
-      .getFeaturesAtPixel(e.pixel, {
-        layerFilter: (layer: Layer<Source>) =>
-          layer === this.maisemanMuistiLayer.getLayer(),
-        hitTolerance: 10
-      })
-      .map((feature) => {
-        const extent = feature.getGeometry()?.getExtent()
-        return {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [extent![0], extent![1]]
-          },
-          properties: {
-            ...(feature.getProperties() as MaisemanMuistiFeatureProperties)
-          }
-        }
-      })
+    const maisemanMuistiResult = this.getFeaturesAtPixelAtGeoJsonLayer<MaisemanMuistiFeatureProperties>(
+      e.pixel,
+      this.maisemanMuistiLayer.getLayer()
+    )
 
     Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
       ([ahvenanmaaResult, museovirastoResult]) => {
         this.eventListeners.showLoadingAnimation(false)
-        const allFeatures = ahvenanmaaResult.results.concat(
-          museovirastoResult.results
-        )
+        const allFeatures = ahvenanmaaResult.results
+          .concat(museovirastoResult.results)
+          .map((f) => this.modelsLayer.addFeaturesForArgisFeature(f))
+          .map((f) => this.maisemanMuistiLayer.addFeaturesForArgisFeature(f))
+
         this.eventListeners.featuresSelected(
           allFeatures,
           modelsResult,
-          maisemanMuistiResult
+          maisemanMuistiResult.filter((feature) => {
+            // Do not show Maiseman muisti feature if there is Argis feature for it in search results
+            const id = feature.properties.id.toString()
+            return !allFeatures.some(
+              (argisFeature) =>
+                argisFeature.layerName ===
+                  MuseovirastoLayer.Muinaisjaannokset_piste &&
+                argisFeature.attributes.mjtunnus === id
+            )
+          })
         )
       }
     )
@@ -256,9 +275,11 @@ export default class MuinaismuistotMap {
     Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
       ([ahvenanmaaResult, museovirastoResult]) => {
         this.eventListeners.showLoadingAnimation(false)
-        const allFeatures = ahvenanmaaResult.results.concat(
-          museovirastoResult.results
-        )
+        const allFeatures = ahvenanmaaResult.results
+          .concat(museovirastoResult.results)
+          .map((f) => this.modelsLayer.addFeaturesForArgisFeature(f))
+          .map((f) => this.maisemanMuistiLayer.addFeaturesForArgisFeature(f))
+
         this.eventListeners.featureSearchReady(allFeatures)
       }
     )

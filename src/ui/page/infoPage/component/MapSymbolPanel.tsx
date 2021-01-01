@@ -1,20 +1,91 @@
-import * as React from "react";
-import { Panel } from "../../../component/Panel";
+import * as React from "react"
+import { Trans, useTranslation } from "react-i18next"
+import { Panel } from "../../../component/Panel"
 
 export const MapSymbolPanel: React.FC = () => {
+  const { t } = useTranslation()
   return (
-    <Panel title="Karttasymbolit">
+    <Panel title={t(`info.symbols`)}>
       <div>
-        <h5>Museoviraston muinaisjäännösrekisteri</h5>
+        <div>
+          <h5>
+            {t(
+              `data.register.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`
+            )}
+          </h5>
+
+          <p>
+            <img className="feature-icon" src="images/rky_piste.png" />
+            <span>{t(`common.features.Kohde`)}</span>
+          </p>
+
+          <p>
+            <img className="feature-icon" src="images/rky_viiva.png" />
+            <span>{t(`common.features.Viiva`)}</span>
+          </p>
+
+          <p>
+            <img className="feature-icon" src="images/rky_alue.png" />
+            <span>{t(`common.features.Alue`)}</span>
+          </p>
+        </div>
+
+        <br />
+
+        <div>
+          <h5>{t(`data.register.Maailmanperintökohteet`)}</h5>
+
+          <p>
+            <img
+              className="feature-icon"
+              src="images/maailmanperinto_piste.png"
+            />
+            <span>{t(`common.features.Kohde`)}</span>
+          </p>
+
+          <p>
+            <img
+              className="feature-icon"
+              src="images/maailmanperinto_alue.png"
+            />
+            <span>{t(`common.features.Alue`)}</span>
+          </p>
+        </div>
+
+        <br />
+
+        <div>
+          <h5>{t(`data.register.Rakennusperintörekisteri`)}</h5>
+
+          <p>
+            <img
+              className="feature-icon"
+              src="images/rakennusperintorekisteri_rakennus.png"
+            />
+            <span>{t(`common.features.Rakennus`)}</span>
+          </p>
+
+          <p>
+            <img
+              className="feature-icon"
+              src="images/rakennusperintorekisteri_alue.png"
+            />
+            <span>{t(`common.features.Alue`)}</span>
+          </p>
+        </div>
+
+        <br />
+
+        <h5>{t(`data.register.Muinaisjäännösrekisteri`)}</h5>
 
         <p>
           <img className="feature-icon" src="images/muinaisjaannos_kohde.png" />
-          <span>Kiinteä muinaisjäännös</span>
+          <span>{t(`data.featureType.Kiinteä muinaisjäännös`)}</span>
         </p>
 
         <p>
           <img className="feature-icon" src="images/muinaisjaannos_alue.png" />
-          <span>Kiinteä muinaisjäännös (alue)</span>
+          <span>{t(`data.featureType.Kiinteä muinaisjäännös (alue)`)}</span>
         </p>
 
         <p>
@@ -22,7 +93,7 @@ export const MapSymbolPanel: React.FC = () => {
             className="feature-icon"
             src="images/muu_kulttuuriperintokohde_kohde.png"
           />
-          <span>Muu kulttuuriperintökohde</span>
+          <span>{t(`data.featureType.Muu kulttuuriperintökohde`)}</span>
         </p>
 
         <p>
@@ -30,93 +101,33 @@ export const MapSymbolPanel: React.FC = () => {
             className="feature-icon"
             src="images/muu-kulttuuriperintokohde-alue.png"
           />
-          <span>Muu kulttuuriperintökohde (alue)</span>
+          <span>{t(`data.featureType.Muu kulttuuriperintökohde (alue)`)}</span>
         </p>
       </div>
 
       <br />
 
       <div>
-        <h5>Ahvenanmaan muinaisjäännösrekisteri</h5>
+        <h5>{t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)}</h5>
 
         <p>
           <img
             className="feature-icon"
             src="images/ahvenanmaa_muinaisjaannos.png"
           />
-          <span>Kohde</span>
+          <span>{t(`common.features.Kohde`)}</span>
         </p>
       </div>
 
       <br />
       <div>
-        <h5>Ahvenanmaan merellisen kulttuuriperinnön rekisteri</h5>
+        <h5>
+          {t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)}
+        </h5>
 
         <p>
           <img className="feature-icon" src="images/ahvenanmaa_hylky.png" />
-          <span>Kohde</span>
-        </p>
-      </div>
-
-      <br />
-
-      <div>
-        <h5>Rakennusperintörekisteri</h5>
-
-        <p>
-          <img
-            className="feature-icon"
-            src="images/rakennusperintorekisteri_rakennus.png"
-          />
-          <span>Rakennus</span>
-        </p>
-
-        <p>
-          <img
-            className="feature-icon"
-            src="images/rakennusperintorekisteri_alue.png"
-          />
-          <span>Alue</span>
-        </p>
-      </div>
-
-      <br />
-
-      <div>
-        <h5>Maailmanperintökohteet</h5>
-
-        <p>
-          <img
-            className="feature-icon"
-            src="images/maailmanperinto_piste.png"
-          />
-          <span>Kohde</span>
-        </p>
-
-        <p>
-          <img className="feature-icon" src="images/maailmanperinto_alue.png" />
-          <span>Alue</span>
-        </p>
-      </div>
-
-      <br />
-
-      <div>
-        <h5>Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt</h5>
-
-        <p>
-          <img className="feature-icon" src="images/rky_piste.png" />
-          <span>Kohde</span>
-        </p>
-
-        <p>
-          <img className="feature-icon" src="images/rky_viiva.png" />
-          <span>Viiva (esim. tie)</span>
-        </p>
-
-        <p>
-          <img className="feature-icon" src="images/rky_alue.png" />
-          <span>Alue</span>
+          <span>{t(`common.features.Kohde`)}</span>
         </p>
       </div>
 
@@ -124,17 +135,13 @@ export const MapSymbolPanel: React.FC = () => {
 
       <div>
         <h5>
-          3D-mallit (
-          <a href="./3d/" target="_blank">
-            lisätietoa
-          </a>
-          )
+          <Trans i18nKey="data.register.3Dmodels" components={{ a: <a /> }} />
         </h5>
 
         <p>
           <img className="feature-icon" src="images/3d_malli_circle.png" />
           <img className="feature-icon" src="images/3d_malli_square.png" />
-          <span>Kohde sisältää 3D-malleja</span>
+          <span>{t(`common.features.3D-malli`)}</span>
         </p>
       </div>
 
@@ -142,18 +149,19 @@ export const MapSymbolPanel: React.FC = () => {
 
       <div>
         <h5>
-          Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (
-          <a href="./maisemanmuisti/" target="_blank">
-            lisätietoa
-          </a>
-          )
+          <Trans
+            i18nKey="data.register.maisemanMuisti"
+            components={{ a: <a /> }}
+          />
         </h5>
 
         <p>
           <img className="feature-icon" src="images/maiseman-muisti.png" />
-          <span>Valtakunnallisesti merkittävä muinaisjäännös</span>
+          <span>
+            {t(`common.features.Valtakunnallisesti merkittävä muinaisjäännös`)}
+          </span>
         </p>
       </div>
     </Panel>
-  );
-};
+  )
+}

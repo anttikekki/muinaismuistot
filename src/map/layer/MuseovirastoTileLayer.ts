@@ -12,8 +12,10 @@ import {
   MuinaisjaannosAjoitus,
   MuseovirastoLayerId,
   ArgisIdentifyResult,
-  ArgisFindResult
+  ArgisFindResult,
+  ArgisFeature
 } from "../../common/types"
+import { trim } from "../../common/util/featureParser"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
@@ -162,7 +164,7 @@ export default class MuseovirastoTileLayer {
     this.updateLayerSource()
   }
 
-  public identifyFeaturesAt = (
+  public identifyFeaturesAt = async (
     coordinate: Coordinate,
     mapSize: Size,
     mapExtent: Extent
@@ -186,12 +188,15 @@ export default class MuseovirastoTileLayer {
     const url = new URL(this.settings.museovirasto.url.identify)
     url.search = String(urlParams)
 
-    return fetch(String(url)).then(
-      (response) => response.json() as Promise<ArgisIdentifyResult>
-    )
+    const response = await fetch(String(url))
+    const result = (await response.json()) as ArgisIdentifyResult
+
+    return this.trimAnsSplitMultivalueFields(result)
   }
 
-  public findFeatures = (searchText: string): Promise<ArgisFindResult> => {
+  public findFeatures = async (
+    searchText: string
+  ): Promise<ArgisFindResult> => {
     let selectedLayers = this.settings.museovirasto.selectedLayers
 
     //Muinaismustot areas always has same name as main point so do not search those
@@ -222,9 +227,39 @@ export default class MuseovirastoTileLayer {
     const url = new URL(this.settings.museovirasto.url.find)
     url.search = String(urlParams)
 
-    return fetch(String(url)).then(
-      (response) => response.json() as Promise<ArgisFindResult>
-    )
+    const response = await fetch(String(url))
+    const result = (await response.json()) as ArgisFindResult
+
+    return this.trimAnsSplitMultivalueFields(result)
+  }
+
+  private trimAnsSplitMultivalueFields = async (
+    data: ArgisIdentifyResult
+  ): Promise<ArgisIdentifyResult> => {
+    const result: ArgisIdentifyResult = {
+      ...data,
+      results: data.results?.map(
+        (result): ArgisFeature => {
+          if (result.layerName === MuseovirastoLayer.Muinaisjaannokset_piste) {
+            return {
+              ...result,
+              attributes: {
+                ...result.attributes,
+                tyyppiSplitted: trim(result.attributes.tyyppi).split(
+                  ", "
+                ) as Array<MuinaisjaannosTyyppi>,
+                ajoitusSplitted: trim(result.attributes.ajoitus).split(
+                  ", "
+                ) as Array<MuinaisjaannosAjoitus>,
+                alatyyppiSplitted: trim(result.attributes.alatyyppi).split(", ")
+              }
+            }
+          }
+          return result
+        }
+      )
+    }
+    return result
   }
 
   // http://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml

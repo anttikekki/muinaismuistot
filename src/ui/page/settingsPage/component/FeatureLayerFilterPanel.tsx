@@ -1,4 +1,6 @@
 import * as React from "react"
+import { useTranslation } from "react-i18next"
+import regexifyString from "regexify-string"
 import {
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus
@@ -14,6 +16,7 @@ const TypeToggleAllCheckbox: React.FC<TypeToggleAllCheckboxProps> = ({
   selectedMuinaisjaannosTypes,
   onSelectTypes
 }) => {
+  const { t } = useTranslation()
   const allTypes = React.useMemo(() => Object.values(MuinaisjaannosTyyppi), [])
   const isAllSelected = Object.values(allTypes).every((v) =>
     selectedMuinaisjaannosTypes.includes(v)
@@ -27,7 +30,7 @@ const TypeToggleAllCheckbox: React.FC<TypeToggleAllCheckboxProps> = ({
           onChange={() => onSelectTypes(isAllSelected ? [] : allTypes)}
           checked={isAllSelected}
         />{" "}
-        Tyyppi
+        {t(`settings.filters.type`)}
       </label>
     </h5>
   )
@@ -44,6 +47,7 @@ const TypeCheckbox: React.FC<TypeCheckboxProps> = ({
   selectedMuinaisjaannosTypes,
   onSelectType
 }) => {
+  const { t } = useTranslation()
   const isSelected = selectedMuinaisjaannosTypes.includes(type)
 
   return (
@@ -54,7 +58,7 @@ const TypeCheckbox: React.FC<TypeCheckboxProps> = ({
           onChange={() => onSelectType(type)}
           checked={isSelected}
         />
-        {type}
+        {t(`data.museovirasto.type.${type}`)}
       </label>
     </div>
   )
@@ -69,6 +73,7 @@ const DatingToggleAllCheckbox: React.FC<DatingToggleAllCheckboxProps> = ({
   selectedMuinaisjaannosDatings,
   onSelectDatings
 }) => {
+  const { t } = useTranslation()
   const allDatings = React.useMemo(
     () => Object.values(MuinaisjaannosAjoitus),
     []
@@ -85,7 +90,7 @@ const DatingToggleAllCheckbox: React.FC<DatingToggleAllCheckboxProps> = ({
           onChange={() => onSelectDatings(isAllSelected ? [] : allDatings)}
           checked={isAllSelected}
         />{" "}
-        Ajoitus
+        {t(`settings.filters.dating`)}
       </label>
     </h5>
   )
@@ -102,6 +107,7 @@ const DatingCheckbox: React.FC<DatingCheckboxProps> = ({
   selectedMuinaisjaannosDatings,
   onSelectDating
 }) => {
+  const { t } = useTranslation()
   const isSelected = selectedMuinaisjaannosDatings.includes(dating)
 
   return (
@@ -112,7 +118,7 @@ const DatingCheckbox: React.FC<DatingCheckboxProps> = ({
           onChange={() => onSelectDating(dating)}
           checked={isSelected}
         />{" "}
-        {dating}
+        {t(`data.museovirasto.dating.${dating}`)}
       </label>
     </div>
   )
@@ -135,17 +141,35 @@ export const FeatureLayerFilterPanel: React.FC<Props> = ({
   onSelectMuinaisjaannosType,
   onSelectMuinaisjaannosDating
 }) => {
+  const { t } = useTranslation()
+  let infoText = regexifyString({
+    pattern: /PISTE_ICONS|ALUE_ICONS/gm,
+    decorator: (match) => {
+      if (match === "PISTE_ICONS") {
+        return (
+          <>
+            <img src="images/muinaisjaannos_kohde.png" />
+            <img src="images/muu_kulttuuriperintokohde_kohde.png" />
+          </>
+        )
+      }
+      if (match === "ALUE_ICONS") {
+        return (
+          <>
+            <img src="images/muinaisjaannos_alue.png" />
+            <img src="images/muu-kulttuuriperintokohde-alue.png" />
+          </>
+        )
+      }
+      return ""
+    },
+    input: t(`settings.filters.info`)
+  })
+
   return (
-    <Panel title={"Kartalla näkyvät muinaisjäännökset"}>
+    <Panel title={t(`settings.filters.title`)}>
       <form>
-        <div className="well well-sm">
-          Rajoitus toimii vain Museoviraston muijaisjäännöksien pisteille (
-          <img src="images/muinaisjaannos_kohde.png" /> ja
-          <img src="images/muu_kulttuuriperintokohde_kohde.png" />) mutta ei
-          alueille (<img src="images/muinaisjaannos_alue.png" /> ja
-          <img src="images/muu-kulttuuriperintokohde-alue.png" />
-          ). Rajaus ei valitettavasti toimi Ahvenanmaan muinaisjäännöksiin.
-        </div>
+        <div className="well well-sm">{infoText}</div>
 
         <TypeToggleAllCheckbox
           selectedMuinaisjaannosTypes={selectedMuinaisjaannosTypes}

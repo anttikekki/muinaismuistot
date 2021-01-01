@@ -2,6 +2,10 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "../css/muinaismuistot.css"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
+import i18n from "i18next"
+import { initReactI18next } from "react-i18next"
+import fiTranslations from "../common/translations/fi.json"
+import svTranslations from "../common/translations/sv.json"
 import {
   ArgisFeature,
   Settings,
@@ -16,22 +20,24 @@ import {
   ModelLayer,
   MaisemanMuistiLayer,
   GeoJSONFeature,
-  MaisemanMuistiFeatureProperties
+  MaisemanMuistiFeatureProperties,
+  Language
 } from "../common/types"
 import { LoadingAnimation } from "./component/LoadingAnimation"
-import { ZoomInButton } from "./component/ZoomInButton"
-import { ZoomOutButton } from "./component/ZoomOutButton"
-import { CenterToCurrentPositionButton } from "./component/CenterToCurrentPositionButton"
-import { ShowInfoPageButton } from "./component/OpenInfoPageButton"
+import { ZoomInButton } from "./component/mapButton/ZoomInButton"
+import { ZoomOutButton } from "./component/mapButton/ZoomOutButton"
+import { CenterToCurrentPositionButton } from "./component/mapButton/CenterToCurrentPositionButton"
+import { ShowInfoPageButton } from "./component/mapButton/OpenInfoPageButton"
 import { FeatureDetailsPage } from "./page/featureDetailsPage/FeatureDetailsPage"
 import { SearchPage } from "./page/searchPage/SearchPage"
 import { InfoPage } from "./page/infoPage/InfoPage"
-import { OpenSearchPageButton } from "./component/OpenSearchPageButton"
+import { OpenSearchPageButton } from "./component/mapButton/OpenSearchPageButton"
 import { SettingsPage } from "./page/settingsPage/SettingsPage"
-import { OpenSettingsPage } from "./component/OpenSettingsPage"
+import { OpenSettingsPage } from "./component/mapButton/OpenSettingsPage"
 import { PageVisibility } from "./page/Page"
 import {
   updateAhvenanmaaSelectedLayers,
+  updateLanguage,
   updateMaanmittauslaitosSelectedLayer,
   updateMaisemanMuistiSelectedLayers,
   updateModelSelectedLayers,
@@ -67,14 +73,29 @@ export interface EventListeners {
   ) => void
   selectedMuinaisjaannosTypesChanged: (settings: Settings) => void
   selectedMuinaisjaannosDatingsChanged: (settings: Settings) => void
+  selectedLanguageChanged: (settings: Settings) => void
   fetchDataLatestUpdateDates: () => void
 }
+
+i18n.use(initReactI18next).init({
+  resources: {
+    fi: { translation: fiTranslations },
+    sv: { translation: svTranslations }
+  },
+  lng: Language.FI,
+  supportedLngs: Object.values(Language),
+  fallbackLng: Language.FI,
+  defaultNS: "translation",
+  interpolation: {
+    escapeValue: false
+  }
+})
 
 export default class MuinaismuistotUI {
   private settings: Settings
   private visiblePage?: PageId
   private selectedFeatures?: Array<ArgisFeature>
-  private selectedModels?: Array<ModelFeatureProperties>
+  private selectedModels?: Array<GeoJSONFeature<ModelFeatureProperties>>
   private selectedMaisemanMuistiFeatures?: Array<
     GeoJSONFeature<MaisemanMuistiFeatureProperties>
   >
@@ -91,6 +112,13 @@ export default class MuinaismuistotUI {
   ) {
     this.settings = initialSettings
     this.eventListeners = eventListeners
+
+    i18n.changeLanguage(this.settings.language)
+    i18n.on("languageChanged", (lang) => {
+      this.settings = updateLanguage(this.settings, lang as Language)
+      this.eventListeners.selectedLanguageChanged(this.settings)
+    })
+
     this.renderUI()
   }
 
@@ -311,7 +339,7 @@ export default class MuinaismuistotUI {
 
   public featuresSelected = (
     selectedFeatures: Array<ArgisFeature>,
-    models: Array<ModelFeatureProperties>,
+    models: Array<GeoJSONFeature<ModelFeatureProperties>>,
     maisemanMuistiFeatures: Array<
       GeoJSONFeature<MaisemanMuistiFeatureProperties>
     >

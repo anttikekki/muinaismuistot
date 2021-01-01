@@ -1,5 +1,11 @@
+export enum Language {
+  FI = "fi",
+  SV = "sv"
+}
+
 export interface Settings {
   initialMapZoom: number
+  language: Language
   maanmittauslaitos: {
     selectedLayer: MaanmittauslaitosLayer
     url: {
@@ -134,7 +140,6 @@ export enum MuinaisjaannosTyyppi {
   puolustusvarustukset = "puolustusvarustukset",
   puurakenteet = "puurakenteet",
   raakaAineenHankintapaikat = "raaka-aineen hankintapaikat",
-  taideMuistomerkit = "taide, muistomerkit",
   tapahtumapaikat = "tapahtumapaikat",
   teollisuuskohteet = "teollisuuskohteet",
   työJaValmistuspaikat = "työ- ja valmistuspaikat"
@@ -147,6 +152,7 @@ export enum MuinaisjaannosAjoitus {
   varhaismetallikautinen = "varhaismetallikautinen",
   pronssikautinen = "pronssikautinen",
   rautakautinen = "rautakautinen",
+  rautakautinenJaTaiKeskiaikainen = "rautakautinen ja/tai keskiaikainen",
   keskiaikainen = "keskiaikainen",
   historiallinen = "historiallinen",
   moderni = "moderni",
@@ -208,7 +214,16 @@ interface PolylineGeometry {
   paths: Array<Array<[number, number]>>
 }
 
-export interface MuinaisjaannosPisteArgisFeature {
+/**
+ * 3D models and Maiseman muisti supplemetary data for Argis search/identify feature
+ */
+interface ArgisFeatureSupplementaryData {
+  models: Array<GeoJSONFeature<ModelFeatureProperties>>
+  maisemanMuisti: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
+}
+
+export interface MuinaisjaannosPisteArgisFeature
+  extends ArgisFeatureSupplementaryData {
   layerId: 9
   layerName: MuseovirastoLayer.Muinaisjaannokset_piste
   attributes: {
@@ -218,9 +233,9 @@ export interface MuinaisjaannosPisteArgisFeature {
     kohdenimi: string // "Melkki länsiranta";
     kunta: string // "Helsinki"
     laji: MuinaisjaannosLaji // "kiinteä muinaisjäännös";
-    tyyppi: MuinaisjaannosTyyppi // "alusten hylyt";
-    ajoitus: MuinaisjaannosAjoitus // "ei määritelty";
-    alatyyppi: string // "hylyt (puu)";
+    tyyppi: string // "alusten hylyt, kivirakenteet";
+    ajoitus: string // "ei määritelty, keskiaikainen";
+    alatyyppi: string // "hylyt (puu), hautakummut";
     vedenalainen: string // "k";
     muutospvm: string // "10.9.2015 13:07:24";
     luontipvm: string // "2.11.2001";
@@ -231,12 +246,19 @@ export interface MuinaisjaannosPisteArgisFeature {
     x: string // "382363.823";
     y: string // "6667893.676";
     Shape: string // "Point";
+    /**
+     * trimmed and splitted values for easier usage
+     */
+    tyyppiSplitted: Array<MuinaisjaannosTyyppi>
+    ajoitusSplitted: Array<MuinaisjaannosAjoitus>
+    alatyyppiSplitted: Array<string>
   }
   geometryType: GeometryTypePoint
   geometry: PointGeometry
 }
 
-export interface MuinaisjaannosAlueArgisFeature {
+export interface MuinaisjaannosAlueArgisFeature
+  extends ArgisFeatureSupplementaryData {
   layerId: 10
   layerName: MuseovirastoLayer.Muinaisjaannokset_alue
   attributes: {
@@ -257,7 +279,8 @@ export interface MuinaisjaannosAlueArgisFeature {
   geometry: PolygonGeometry
 }
 
-export interface SuojellutRakennuksetPisteArgisFeature {
+export interface SuojellutRakennuksetPisteArgisFeature
+  extends ArgisFeatureSupplementaryData {
   layerId: 2
   layerName: MuseovirastoLayer.Suojellut_rakennukset_piste
   attributes: {
@@ -280,7 +303,8 @@ export interface SuojellutRakennuksetPisteArgisFeature {
   geometry: PointGeometry
 }
 
-export interface SuojellutRakennuksetAlueArgisFeature {
+export interface SuojellutRakennuksetAlueArgisFeature
+  extends ArgisFeatureSupplementaryData {
   layerId: 3
   layerName: MuseovirastoLayer.Suojellut_rakennukset_alue
   attributes: {
@@ -298,7 +322,7 @@ export interface SuojellutRakennuksetAlueArgisFeature {
   geometry: PolygonGeometry
 }
 
-export interface RKYAlueArgisFeature {
+export interface RKYAlueArgisFeature extends ArgisFeatureSupplementaryData {
   layerId: 4
   layerName: MuseovirastoLayer.RKY_alue
   attributes: {
@@ -314,7 +338,7 @@ export interface RKYAlueArgisFeature {
   geometry: PolygonGeometry
 }
 
-export interface RKYPisteArgisFeature {
+export interface RKYPisteArgisFeature extends ArgisFeatureSupplementaryData {
   layerId: 5
   layerName: MuseovirastoLayer.RKY_piste
   attributes: {
@@ -329,7 +353,7 @@ export interface RKYPisteArgisFeature {
   geometry: PointGeometry
 }
 
-export interface RKYViivaArgisFeature {
+export interface RKYViivaArgisFeature extends ArgisFeatureSupplementaryData {
   layerId: 6
   layerName: MuseovirastoLayer.RKY_viiva
   attributes: {
@@ -344,7 +368,8 @@ export interface RKYViivaArgisFeature {
   geometry: PolylineGeometry
 }
 
-export interface MaailmanperintoPisteArgisFeature {
+export interface MaailmanperintoPisteArgisFeature
+  extends ArgisFeatureSupplementaryData {
   layerId: 11
   layerName: MuseovirastoLayer.Maailmanperinto_piste
   attributes: {
@@ -357,7 +382,8 @@ export interface MaailmanperintoPisteArgisFeature {
   geometry: PointGeometry
 }
 
-export interface MaailmanperintoAlueArgisFeature {
+export interface MaailmanperintoAlueArgisFeature
+  extends ArgisFeatureSupplementaryData {
   layerId: 12
   layerName: MuseovirastoLayer.Maailmanperinto_alue
   attributes: {
@@ -380,7 +406,8 @@ export interface AhvenanmaaTypeAndDatingFeatureProperties {
   Antal: number // 1
 }
 
-export interface AhvenanmaaForminnenArgisFeature {
+export interface AhvenanmaaForminnenArgisFeature
+  extends ArgisFeatureSupplementaryData {
   layerId: 1
   layerName: AhvenanmaaLayer.Fornminnen
   attributes: {
@@ -406,7 +433,8 @@ export interface AhvenanmaaForminnenArgisFeature {
   geometry: PolygonGeometry
 }
 
-export interface AhvenanmaaMaritimtKulturarvArgisFeature {
+export interface AhvenanmaaMaritimtKulturarvArgisFeature
+  extends ArgisFeatureSupplementaryData {
   layerId: 5
   layerName: AhvenanmaaLayer.MaritimtKulturarv
   attributes: {
@@ -437,6 +465,8 @@ export type ArgisFeature =
   | MaailmanperintoAlueArgisFeature
   | AhvenanmaaForminnenArgisFeature
   | AhvenanmaaMaritimtKulturarvArgisFeature
+
+export type ArgisFeatureLayer = MuseovirastoLayer | AhvenanmaaLayer
 
 export interface ArgisIdentifyResult<T = ArgisFeature> {
   results: Array<T>

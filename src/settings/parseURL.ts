@@ -6,11 +6,13 @@ import {
   Settings,
   AhvenanmaaLayer,
   ModelLayer,
-  MaisemanMuistiLayer
+  MaisemanMuistiLayer,
+  Language
 } from "../common/types"
 import { parseURLParams } from "../common/util/URLHashHelper"
 import {
   updateAhvenanmaaSelectedLayers,
+  updateLanguage,
   updateMaanmittauslaitosSelectedLayer,
   updateMaisemanMuistiSelectedLayers,
   updateModelSelectedLayers,
@@ -54,6 +56,7 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   let newSettings = settings
   const {
     zoom,
+    lang,
     mmlLayer,
     museovirastoLayer,
     muinaisjaannosTypes,
@@ -69,6 +72,11 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
       ...newSettings,
       initialMapZoom: zoom
     }
+  }
+
+  // Language
+  if (lang !== undefined && isEnumValue(Language, lang)) {
+    newSettings = updateLanguage(newSettings, lang)
   }
 
   // MML

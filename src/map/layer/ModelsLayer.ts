@@ -7,12 +7,18 @@ import Style from "ol/style/Style"
 import GeoJSON from "ol/format/GeoJSON"
 import {
   GeoJSONResponse,
+  GeoJSONFeature,
   ModelFeatureProperties,
   MuseovirastoLayer,
-  Settings
+  Settings,
+  ArgisFeature,
+  ArgisFeatureLayer
 } from "../../common/types"
 import { FeatureLike } from "ol/Feature"
-import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser"
+import {
+  getFeatureID,
+  getGeoJSONDataLatestUpdateDate
+} from "../../common/util/featureParser"
 import Fill from "ol/style/Fill"
 
 export default class ModelsLayer {
@@ -22,6 +28,10 @@ export default class ModelsLayer {
   private stylePointSquare: Style
   private stylePolygon: Style
   private dataLatestUpdateDate?: Date
+  private featuresForRegisterId = new Map<
+    string,
+    Array<GeoJSONFeature<ModelFeatureProperties>>
+  >()
 
   public constructor() {
     this.stylePointCircle = new Style({
@@ -95,6 +105,17 @@ export default class ModelsLayer {
   public createLayer = async (settings: Settings): Promise<VectorLayer> => {
     const geojsonObject = await this.fetchGeoJson(settings)
 
+    geojsonObject.features.forEach((f) => {
+      const id = f.properties.registryItem.id.toString()
+      const modelsForFeature = this.featuresForRegisterId.get(id)
+
+      if (modelsForFeature) {
+        modelsForFeature.push(f)
+      } else {
+        this.featuresForRegisterId.set(id, [f])
+      }
+    })
+
     this.source = new VectorSource({
       features: new GeoJSON().readFeatures(geojsonObject)
     })
@@ -105,6 +126,24 @@ export default class ModelsLayer {
     })
 
     return this.layer
+  }
+
+  public getFeaturesForFeatureRegisterId = (
+    id: string,
+    layer: ArgisFeatureLayer
+  ): Array<GeoJSONFeature<ModelFeatureProperties>> => {
+    const models = this.featuresForRegisterId.get(id) || []
+    return models.filter((m) => m.properties.registryItem.type === layer)
+  }
+
+  public addFeaturesForArgisFeature = (feature: ArgisFeature): ArgisFeature => {
+    return {
+      ...feature,
+      models: this.getFeaturesForFeatureRegisterId(
+        getFeatureID(feature),
+        feature.layerName
+      )
+    }
   }
 
   public selectedFeatureLayersChanged = (settings: Settings) => {
