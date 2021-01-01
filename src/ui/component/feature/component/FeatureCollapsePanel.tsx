@@ -133,7 +133,10 @@ export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps>
     const coordinates = getFeatureLocation(feature)
     return coordinates && createLocationHash(coordinates)
   }, [feature])
-  const featureName = React.useMemo(() => getFeatureName(t, feature), [feature])
+  const featureName = React.useMemo(() => getFeatureName(t, feature), [
+    t,
+    feature
+  ])
   const featureTypeIconURL = React.useMemo(
     () => getFeatureTypeIconURL(feature),
     [feature]
