@@ -4,6 +4,13 @@ import { Panel } from "../../../component/Panel"
 export const VersionHistoryPanel: React.FC = () => {
   return (
     <Panel title="Versiohistoria">
+      <h5>Tammikuu 2021</h5>
+      <p>
+        Lisätty käännökset ruotsin kielelle (kiitos Mikko Helminen!).
+        Hakutuloksissa saa nyt myös kohteen tarkermmat tiedot auki.
+      </p>
+
+      <br />
       <h5>Joulukuu 2020</h5>
       <p>
         Lisätty Ahvenanmaan muinaisjäännösrekisterin kohteisiin tyyppi, ajoitus
