@@ -128,13 +128,13 @@ export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps>
   feature,
   children
 }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const permanentLink = React.useMemo(() => {
     const coordinates = getFeatureLocation(feature)
     return coordinates && createLocationHash(coordinates)
-  }, [feature])
+  }, [i18n.language, feature])
   const featureName = React.useMemo(() => getFeatureName(t, feature), [
-    t,
+    i18n.language,
     feature
   ])
   const featureTypeIconURL = React.useMemo(
@@ -151,7 +151,7 @@ export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps>
         : ""
 
     return name + suffix
-  }, [t, titleClickAction, feature])
+  }, [i18n.language, titleClickAction, feature])
 
   return (
     <FeatureCollapsePanel
