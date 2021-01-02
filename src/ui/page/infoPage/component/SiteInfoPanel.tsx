@@ -140,6 +140,14 @@ export const SiteInfoPanel: React.FC = () => {
       <p>
         <Trans i18nKey="info.siteInfo.feedbackInfo" components={{ a: <a /> }} />
       </p>
+
+      <h5>{t(`info.siteInfo.developersTitle`)}</h5>
+      <p>
+        <Trans
+          i18nKey="info.siteInfo.developersInfo"
+          components={{ br: <br /> }}
+        />
+      </p>
     </Panel>
   )
 }

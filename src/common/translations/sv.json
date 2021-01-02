@@ -45,7 +45,9 @@
       "settingsTitle": "Inställningar",
       "settingsInfo": "Byt kartlager mellan bakgrunskarta och terrängkarta på inställningar (ICON). Objekt kan från Museiverkets register kan döljas enligt typ och datering. Detta möjliggör sökningar till exempel på fornlämningar från järnålder.",
       "feedbackTitle": "Respons",
-      "feedbackInfo": "Lämna respons om webbplatsen till adressen <a href='mailto:antti.kekki@gmail.com'>antti.kekki@gmail.com</a>"
+      "feedbackInfo": "Lämna respons om webbplatsen till adressen <a href='mailto:antti.kekki@gmail.com'>antti.kekki@gmail.com</a>",
+      "developersTitle": "Utvecklare",
+      "developersInfo": "Kodning: Antti Kekki<br/>Översättningar: Jenni Lucenius och Mikko Helminen"
     },
     "licences": {
       "title": "Öppet data, licenser och källkod",

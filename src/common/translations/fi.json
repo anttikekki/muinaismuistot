@@ -45,7 +45,9 @@
       "settingsTitle": "Asetukset",
       "settingsInfo": "Pohjakartan voi vaihtaa taustakartan ja maastokartan välillä asetuksista (ICON). Samasta näkymästä voi piilottaa Museoviraston rekisterien kohteita tyypin ja muinaisjäännöksiä myös ajoituksen mukaan jos haluaa tarkastella esimerkiksi pelkästään muinaisjäännöksiä rautakaudelta.",
       "feedbackTitle": "Palaute",
-      "feedbackInfo": "Palautetta sivustosta otetaan mielellään vastaan osoitteeseen <a href='mailto:antti.kekki@gmail.com'>antti.kekki@gmail.com</a>"
+      "feedbackInfo": "Palautetta sivustosta otetaan mielellään vastaan osoitteeseen <a href='mailto:antti.kekki@gmail.com'>antti.kekki@gmail.com</a>",
+      "developersTitle": "Kehittäjät",
+      "developersInfo": "Koodaus: Antti Kekki<br/>Käännökset: Jenni Lucenius ja Mikko Helminen"
     },
     "licences": {
       "title": "Avoin data, lisenssit ja lähdekoodi",

@@ -6,9 +6,10 @@ export const VersionHistoryPanel: React.FC = () => {
     <Panel title="Versiohistoria">
       <h5>Tammikuu 2021</h5>
       <p>
-        Lisätty käännökset ruotsin kielelle (kiitos Mikko Helminen!).
-        Hakutuloksissa saa nyt myös kohteen tarkermmat tiedot auki.
+        Lisätty käännökset ruotsin kielelle (kiitos Jenni Lucenius ja Mikko
+        Helminen!).
       </p>
+      <p>Hakutuloksissa saa nyt myös kohteen tarkemmat tiedot auki.</p>
 
       <br />
       <h5>Joulukuu 2020</h5>
