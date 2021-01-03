@@ -501,41 +501,6 @@ export const getAhvenanmaaForminneDatingText = (
   }
 }
 
-export const getArkeologisenKulttuuriperinnonOpasLinkForType = (
-  type: MuinaisjaannosTyyppi
-): string | undefined => {
-  switch (type) {
-    case MuinaisjaannosTyyppi.alustenHylyt:
-    case MuinaisjaannosTyyppi.kulkuväylät:
-      return "http://akp.nba.fi/wiki;luokka;liikenne_ja_tiedonkulku"
-    case MuinaisjaannosTyyppi.asuinpaikat:
-      return "http://akp.nba.fi/wiki;luokka;asuminen_ja_oleskelu"
-    case MuinaisjaannosTyyppi.hautapaikat:
-      return "http://akp.nba.fi/wiki;luokka;hautaaminen"
-    case MuinaisjaannosTyyppi.kirkkorakenteet:
-    case MuinaisjaannosTyyppi.kulttiJaTarinapaikat:
-      return "http://akp.nba.fi/wiki;luokka;uskonnon_harjoittaminen"
-    case MuinaisjaannosTyyppi.puolustusvarustukset:
-      return "http://akp.nba.fi/wiki;luokka;puolustus_ja_sodank%C3%A4ynti"
-    case MuinaisjaannosTyyppi.raakaAineenHankintapaikat:
-    case MuinaisjaannosTyyppi.työJaValmistuspaikat:
-      return "http://akp.nba.fi/wiki;luokka;elinkeinot"
-    case MuinaisjaannosTyyppi.tapahtumapaikat:
-      return "http://akp.nba.fi/muut"
-    case MuinaisjaannosTyyppi.teollisuuskohteet:
-      return "http://akp.nba.fi/wiki;luokka;teollisuus"
-    case MuinaisjaannosTyyppi.kivirakenteet:
-    case MuinaisjaannosTyyppi.luonnonmuodostumat:
-    case MuinaisjaannosTyyppi.löytöpaikat:
-    case MuinaisjaannosTyyppi.puurakenteet:
-    case MuinaisjaannosTyyppi.maarakenteet:
-    case MuinaisjaannosTyyppi.muinaisjäännösryhmät:
-    case MuinaisjaannosTyyppi.eiMääritelty:
-    default:
-      return undefined
-  }
-}
-
 export const trim = (value: string | undefined | null): string => {
   if (!value) {
     return ""

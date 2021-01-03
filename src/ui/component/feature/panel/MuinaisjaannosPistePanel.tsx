@@ -10,7 +10,10 @@ import { MuseovirastoLink } from "../component/MuseovirastoLink"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
 import { useTranslation } from "react-i18next"
-import { getArkeologisenKulttuuriperinnonOpasLinkForType } from "../../../../common/util/featureParser"
+import {
+  getArkeologisenKulttuuriperinnonOpasLinkForSubType,
+  getArkeologisenKulttuuriperinnonOpasLinkForType
+} from "../../../../common/util/wikiLinkHelper"
 
 interface Props {
   hidePage: () => void
@@ -89,9 +92,19 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
           })}
         </Field>
         <Field label={t(`details.field.subType`)}>
-          {renderList(alatyyppiSplitted, (alatyyppi) =>
-            t(`data.museovirasto.subtype.${alatyyppi}`, alatyyppi)
-          )}
+          {renderList(alatyyppiSplitted, (alatyyppi) => {
+            const link = getArkeologisenKulttuuriperinnonOpasLinkForSubType(
+              alatyyppi
+            )
+            const name = t(`data.museovirasto.subtype.${alatyyppi}`, alatyyppi)
+            return link ? (
+              <a href={link} target="_blank">
+                {name}
+              </a>
+            ) : (
+              <>{name}</>
+            )
+          })}
         </Field>
         <Field
           label={t(`details.field.featureType`)}
