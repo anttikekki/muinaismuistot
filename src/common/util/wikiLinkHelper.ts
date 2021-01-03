@@ -42,6 +42,7 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "aallonmurtajat":
       return "http://akp.nba.fi/wiki;satama"
     case "aidat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000033039
       return undefined
     case "ammusvarastot":
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000030744
@@ -53,12 +54,13 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "eräsijat":
       return "http://akp.nba.fi/wiki;er%C3%A4sija"
     case "haaksirikkopaikat":
-      return undefined
+      return "http://akp.nba.fi/wiki;hylky"
     case "hakkaukset":
-      return undefined
+      return "http://akp.nba.fi/wiki;kalliohakkaus"
     case "hangakset":
-      return undefined
+      return "http://akp.nba.fi/wiki;pyyntikuoppa"
     case "hautakammiot":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000021280
       return undefined
     case "hautakummut":
       return "http://akp.nba.fi/wiki;hautakumpu"
@@ -69,6 +71,7 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "hautausmaat":
       return "http://akp.nba.fi/wiki;hautausmaa"
     case "hiekanottokuopat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000015379
       return undefined
     case "hiilimiilut":
       return "http://akp.nba.fi/wiki;hiilimiilu"
@@ -76,16 +79,21 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=2172
       return undefined
     case "hospitaalit ja sairaalat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000003668
       return undefined
     case "hylyt (metalli)":
     case "hylyt (puu)":
       return "http://akp.nba.fi/wiki;hylky"
+    case "höyrysahat": // TODO New subtype
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000038079
+      return "http://akp.nba.fi/wiki;h%C3%B6yrysaha"
     case "irtolöytöpaikat":
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000010181
       return undefined
     case "jatulintarhat":
       return "http://akp.nba.fi/wiki;jatulintarha"
     case "joukkohaudat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=10500008
       return undefined
     case "jätinkirkot":
       return "http://akp.nba.fi/wiki;j%C3%A4tinkirkko"
@@ -105,7 +113,7 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "kalliomaalaukset":
       return "http://akp.nba.fi/wiki;kalliomaalaus"
     case "kalliopiirrokset":
-      return undefined
+      return "http://akp.nba.fi/wiki;kalliohakkaus"
     case "kanavat":
       return "http://akp.nba.fi/wiki;kanava"
     case "kapulatiet":
@@ -116,10 +124,11 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "kartanot":
       return "http://akp.nba.fi/wiki;kartano"
     case "kaskiröykkiöt":
-      return undefined
+      return "http://akp.nba.fi/wiki;viljelyr%C3%B6ykki%C3%B6"
     case "kaupungit":
       return "http://akp.nba.fi/wiki;kaupunki"
     case "keittokuopat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000030703
       return undefined
     case "kellarit":
       return "http://akp.nba.fi/wiki;kellari"
@@ -128,9 +137,10 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "kentät (gieddi)":
       return "http://akp.nba.fi/wiki;kentt%C3%A4"
     case "keramiikkatehtaat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000018168
       return undefined
     case "kestikievarit":
-      return undefined
+      return "http://akp.nba.fi/wiki;tie"
     case "kesähaudat":
       return "http://akp.nba.fi/wiki;hautasaari"
     case "kiinnitysrenkaat":
@@ -166,9 +176,9 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "kodanpohjat":
       return "http://akp.nba.fi/wiki;kotasija"
     case "kompassiruusut":
-      return undefined
+      return "http://akp.nba.fi/wiki;kivikompassi"
     case "kullanhuuhdonnan jäännökset":
-      return undefined
+      return "http://akp.nba.fi/wiki;kullanhuuhdontapaikka"
     case "kummelit":
       return "http://akp.nba.fi/wiki;merimerkki"
     case "kummut":
@@ -180,6 +190,7 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000040039
       return undefined
     case "kuparinsulattamot":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000015816
       return undefined
     case "kuppikivet":
       return "http://akp.nba.fi/wiki;kuppikivi"
@@ -188,6 +199,7 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "käräjäpaikat":
       return "http://akp.nba.fi/wiki;k%C3%A4r%C3%A4j%C3%A4ympyr%C3%A4"
     case "käsittelypaikat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000026842
       return undefined
     case "kätköt":
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=10010005
@@ -197,20 +209,20 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "laivalatomukset":
       return "http://akp.nba.fi/wiki;laivalatomus"
     case "laivanrakennuspaikat":
-      return undefined
+      return "http://akp.nba.fi/wiki;laivanrakennuspaikka"
     case "lapinpadot":
-      return undefined
+      return "http://akp.nba.fi/wiki;kalastusrakenne"
     case "lapinrauniot":
       return "http://akp.nba.fi/wiki;lapinraunio"
     case "lasitehtaat":
-      return undefined
+      return "http://akp.nba.fi/wiki;lasitehdas"
     case "latomukset":
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000037853
       return undefined
     case "liesikiveykset":
       return "http://akp.nba.fi/wiki;tulisija"
     case "liesilatomukset (árran)":
-      return undefined
+      return "http://akp.nba.fi/wiki;liesilatomus"
     case "linnakkeet":
       return "http://akp.nba.fi/wiki;linnake-1500-ja-1600-luku"
     case "linnamalmit":
@@ -218,10 +230,11 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "linnat":
       return "http://akp.nba.fi/wiki;keskiaikainen-linna"
     case "linnavuoret":
-      return undefined
+      return "http://akp.nba.fi/wiki;muinaislinna"
     case "linnoitukset":
-      return undefined
+      return "http://akp.nba.fi/wiki;bastionilinnoitus"
     case "linnustuspaikat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000026229
       return undefined
     case "louhokset":
       return "http://akp.nba.fi/wiki;louhos"
@@ -237,22 +250,23 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "luostarinpaikat":
       return "http://akp.nba.fi/wiki;luostari"
     case "luotsi- ja tulliasemat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000037475
       return undefined
     case "lähteet":
       return "http://akp.nba.fi/wiki;uhril%C3%A4hde"
     case "maanmittauspisteet":
-      return undefined
+      return "http://akp.nba.fi/wiki;kalliohakkaus"
     case "maavallit":
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000037044
       return undefined
     case "majakat":
       return "http://akp.nba.fi/wiki;merimerkki"
     case "manufaktuurit":
-      return undefined
+      return "http://akp.nba.fi/wiki;rautaruukki"
     case "markkinapaikat":
       return "http://akp.nba.fi/wiki;markkinapaikka"
     case "masuunit":
-      return undefined
+      return "http://akp.nba.fi/wiki;masuuni"
     case "merimerkit":
       return "http://akp.nba.fi/wiki;merimerkki"
     case "merkkikivet":
@@ -264,7 +278,7 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "muinaislinnat":
       return "http://akp.nba.fi/wiki;muinaislinna"
     case "muinaispellot":
-      return undefined
+      return "http://akp.nba.fi/wiki;muinaispelto"
     case "muistomerkit":
       return "http://akp.nba.fi/wiki;muistomerkki"
     case "muistopaikat":
@@ -272,7 +286,7 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "mäkituvat":
       return "http://akp.nba.fi/wiki;m%C3%A4kitupa"
     case "nauriskuopat":
-      return undefined
+      return "http://akp.nba.fi/wiki;nauriskuoppa"
     case "optiset lennätinasemat":
       return "http://akp.nba.fi/wiki;optinen-lenn%C3%A4tinasema"
     case "ortodoksikalmistot":
@@ -283,13 +297,13 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "painolastipaikat":
       return "http://akp.nba.fi/wiki;satama"
     case "pajat":
-      return undefined
-    case "palokuoppahaudat": // UUSI
+      return "http://akp.nba.fi/wiki;paja"
+    case "palokuoppahaudat": // TODO New subtype
       return "http://akp.nba.fi/wiki;palokuoppahauta"
     case "panssariesteet":
       return "http://akp.nba.fi/wiki;panssarieste"
     case "paperitehtaat":
-      return undefined
+      return "http://akp.nba.fi/wiki;paperitehdas"
     case "pappilat":
       return "http://akp.nba.fi/wiki;pappila"
     case "piilopirtit":
@@ -297,7 +311,7 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "piiskauspetäjät":
       return "http://akp.nba.fi/wiki;rangaistuspaikka"
     case "pikiruukit":
-      return undefined
+      return "http://akp.nba.fi/wiki;pikiruukki"
     case "pirunpellot":
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=152010017
       return undefined
@@ -309,11 +323,12 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "polut":
       return "http://akp.nba.fi/wiki;polku"
     case "poroaidat":
-      return undefined
-    case "portaat": // UUSI
+      return "http://akp.nba.fi/wiki;poroerotuspaikka"
+    case "portaat": // TODO New subtype
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000008024
       return undefined
     case "potaskauunit":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=165010045
       return undefined
     case "puistot":
       return "http://akp.nba.fi/wiki;puutarha"
@@ -322,41 +337,48 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "puutarhat":
       return "http://akp.nba.fi/wiki;puutarha"
     case "pyyntikuopat":
-      return undefined
+      return "http://akp.nba.fi/wiki;pyyntikuoppa"
     case "pyyntitukikohdat":
-      return undefined
+      return "http://akp.nba.fi/wiki;tomtning"
     case "rajamerkit":
       return "http://akp.nba.fi/wiki;rajamerkki"
+    case "rajamerkit, puu": // TODO New subtype
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000020206
+      return undefined
     case "rakkakuopat":
       return "http://akp.nba.fi/wiki;rakkakuoppa"
     case "rangaistuspaikat":
-      return undefined
-    case "rantakivikot": // UUSI
+      return "http://akp.nba.fi/wiki;rangaistuspaikka"
+    case "rantakivikot": // TODO New subtype
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000008143
       return undefined
     case "ratapohjat":
       return "http://akp.nba.fi/wiki;rautatie"
     case "raudanvalmistuspaikat":
-      return undefined
+      return "http://akp.nba.fi/wiki;paja"
     case "rautaruukit":
-      return undefined
+      return "http://akp.nba.fi/wiki;rautaruukki"
     case "ristikivet":
       return "http://akp.nba.fi/wiki;karsikko"
     case "ruuhet":
       return "http://akp.nba.fi/wiki;hylky"
     case "ruumiskalmistot":
       return "http://akp.nba.fi/wiki;ruumishauta"
-    case "ruttohautausmaat": // UUSI
+    case "ruttohautausmaat": // TODO New subtype
       return "http://akp.nba.fi/wiki;ruumishauta"
     case "ryssänuunit":
       return "http://akp.nba.fi/wiki;kiviuuni"
     case "röykkiöt":
       return "http://akp.nba.fi/wiki;hautar%C3%B6ykki%C3%B6"
     case "salpietarikeittimöt":
-      return undefined
+      return "http://akp.nba.fi/wiki;salpietarikeittim%C3%B6"
     case "satamat":
       return "http://akp.nba.fi/wiki;satama"
+    case "savenottokuopat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000031564
+      return undefined
     case "savupiiput":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000026640
       return undefined
     case "seidat":
       return "http://akp.nba.fi/wiki;seita"
@@ -365,17 +387,19 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "sillat":
       return "http://akp.nba.fi/wiki;silta"
     case "sirpalekivikasat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000024580
       return undefined
     case "sotilasleirit":
       return "http://akp.nba.fi/wiki;sotilasleiri"
     case "sudenkuopat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000035285
       return undefined
     case "suojahuoneet":
       return "http://akp.nba.fi/wiki;suojahuone"
     case "taistelukaivannot":
       return "http://akp.nba.fi/wiki;taisteluhauta"
     case "taistelupaikat":
-      return undefined
+      return "http://akp.nba.fi/wiki;taistelupaikka"
     case "talonpohjat":
       return "http://akp.nba.fi/wiki;talonpohja"
     case "tarhakalmistot":
@@ -383,73 +407,86 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "tarinapaikat":
       return "http://akp.nba.fi/wiki;tarinapaikka"
     case "telakat":
+      return "http://akp.nba.fi/wiki;laivanrakennuspaikka"
     case "terva- ja tärpättitehtaat":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000006190
+      return undefined
     case "tervahaudat":
+      return "http://akp.nba.fi/wiki;tervahauta"
     case "terveyslähteet":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=49500001
       return undefined
     case "tienpohjat":
       return "http://akp.nba.fi/wiki;tie"
     case "tiilenpolttouunit":
-      return undefined
+      return "http://akp.nba.fi/wiki;tiilenpolttouuni"
     case "tiilitehtaat":
-      return undefined
+      return "http://akp.nba.fi/wiki;tiilitehdas"
     case "tomtning-jäännökset":
       return "http://akp.nba.fi/wiki;tomtning"
     case "tornit":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000030383
       return undefined
     case "torpat":
-      return undefined
+      return "http://akp.nba.fi/wiki;torppa"
     case "tsasounanpaikat":
       return "http://akp.nba.fi/wiki;kirkko"
     case "tulipesäkkeet":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000023596
       return undefined
     case "tulisijat":
-      return undefined
+      return "http://akp.nba.fi/wiki;tulisija"
     case "tupasijat":
-      return undefined
+      return "http://akp.nba.fi/wiki;tupasija"
     case "tuulimyllyt":
-      return undefined
+      return "http://akp.nba.fi/wiki;tuulimylly"
     case "tykkiasemat":
       return "http://akp.nba.fi/wiki;tykkiasema"
     case "tykkitiet":
-      return undefined
+      return "http://akp.nba.fi/wiki;tie"
     case "tähystysasemat":
-      return undefined
+      return "http://akp.nba.fi/wiki;t%C3%A4hystysasema"
     case "uhrikivet":
       return "http://akp.nba.fi/wiki;uhrikivi"
-    case "uhrilehdot": // UUSI
+    case "uhrilehdot": // TODO New subtype
       return "http://akp.nba.fi/wiki;tarinapaikka"
     case "uhripuut":
       return "http://akp.nba.fi/wiki;uhripuu"
     case "uittolaitteet":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000007844
       return undefined
     case "uunit":
       return "http://akp.nba.fi/wiki;uuni"
     case "valkamat":
       return "http://akp.nba.fi/wiki;satama"
     case "vallihaudat":
-      return undefined
+      return "http://akp.nba.fi/wiki;vallihauta"
     case "vallit":
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000003529
       return undefined
     case "valonheitinasemat":
-      return undefined
+      return "http://akp.nba.fi/wiki;valonheitinasema"
     case "veneenvetopaikat":
       return "http://akp.nba.fi/wiki;kanava"
     case "vesimyllyt":
-      return undefined
+      return "http://akp.nba.fi/wiki;vesimylly"
     case "vesisahat":
-      return undefined
+      return "http://akp.nba.fi/wiki;vesisaha"
     case "viljelmät":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000007843
       return undefined
     case "viljelyröykkiöt":
       return "http://akp.nba.fi/wiki;viljelyr%C3%B6ykki%C3%B6"
     case "virkatalot":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000039153
       return undefined
     case "virstanpylväät":
       return "http://akp.nba.fi/wiki;tie"
     case "yhdyshaudat":
+      return "http://akp.nba.fi/wiki;yhdyshauta"
     case "yksinäistalot":
+      // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000037140
+      return undefined
     default:
       return undefined
   }
