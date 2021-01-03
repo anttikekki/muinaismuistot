@@ -9,7 +9,14 @@ export const VersionHistoryPanel: React.FC = () => {
         Lisätty käännökset ruotsin kielelle (kiitos Jenni Lucenius ja Mikko
         Helminen!).
       </p>
-      <p>Hakutuloksissa saa nyt myös kohteen tarkemmat tiedot auki.</p>
+      <p>Hakutuloksissa saa nyt kohteen tarkemmat tiedot auki suoraan.</p>
+      <p>
+        Kiinteiden muinaisjäännösten tyyppi ja alatyyppi ovat nyt linkkejä{" "}
+        <a href="http://akp.nba.fi" target="_blank">
+          Arkeologisen kulttuuriperinnön opas
+        </a>{" "}
+        -sivustolle.
+      </p>
 
       <br />
       <h5>Joulukuu 2020</h5>
