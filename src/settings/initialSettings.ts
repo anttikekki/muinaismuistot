@@ -10,9 +10,17 @@ import {
   Language
 } from "../common/types"
 
+const getInitialLang = (): Language => {
+  const lang = navigator.language?.substr(0, 2)
+  if (Object.values(Language).some((v) => v === lang)) {
+    return lang as Language
+  }
+  return Language.FI
+}
+
 export const initialSettings: Settings = {
   initialMapZoom: 8,
-  language: Language.FI,
+  language: getInitialLang(),
   maanmittauslaitos: {
     selectedLayer: MaanmittauslaitosLayer.Taustakartta,
     url: {
