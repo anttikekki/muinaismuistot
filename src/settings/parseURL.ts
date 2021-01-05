@@ -77,6 +77,12 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   // Language
   if (lang !== undefined && isEnumValue(Language, lang)) {
     newSettings = updateLanguage(newSettings, lang)
+  } else {
+    // No UR param, check navigator.language
+    const navigatorLang = navigator.language?.substr(0, 2)
+    if (isEnumValue(Language, navigatorLang)) {
+      newSettings = updateLanguage(newSettings, navigatorLang)
+    }
   }
 
   // MML
