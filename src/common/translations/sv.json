@@ -200,6 +200,7 @@
         "raaka-aineen hankintapaikat": "förvärvsplatser för råmaterial",
         "tapahtumapaikat": "händelseplatser",
         "teollisuuskohteet": "industriobjekt",
+        "taide, muistomerkit": "konst, minnesmärken",
         "työ- ja valmistuspaikat": "arbets- och tillverkningsplatser"
       },
       "subtype": {
@@ -336,6 +337,7 @@
         "pyyntikuopat": "fångstgropar",
         "pyyntitukikohdat": "basstationer för fångst",
         "rajamerkit": "gränsmärken",
+        "rajamerkit, puu": "gränsmärken, trä",
         "rakkakuopat": "klapperstensgropar",
         "rangaistuspaikat": "avrättningsplatser",
         "rantakivikot": "strandstenjordar",

@@ -245,13 +245,19 @@ export default class MuseovirastoTileLayer {
               ...result,
               attributes: {
                 ...result.attributes,
-                tyyppiSplitted: trim(result.attributes.tyyppi).split(
-                  ", "
-                ) as Array<MuinaisjaannosTyyppi>,
+                tyyppiSplitted: trim(result.attributes.tyyppi)
+                  .replace("taide, muistomerkit", "taide-muistomerkit")
+                  .split(", ")
+                  .map((t) =>
+                    t === "taide-muistomerkit" ? "taide, muistomerkit" : t
+                  ) as Array<MuinaisjaannosTyyppi>,
                 ajoitusSplitted: trim(result.attributes.ajoitus).split(
                   ", "
                 ) as Array<MuinaisjaannosAjoitus>,
-                alatyyppiSplitted: trim(result.attributes.alatyyppi).split(", ")
+                alatyyppiSplitted: trim(result.attributes.alatyyppi)
+                  .replace("rajamerkit, puu", "rajamerkit-puu")
+                  .split(", ")
+                  .map((t) => (t === "rajamerkit-puu" ? "rajamerkit, puu" : t))
               }
             }
           }

@@ -142,6 +142,7 @@ export enum MuinaisjaannosTyyppi {
   raakaAineenHankintapaikat = "raaka-aineen hankintapaikat",
   tapahtumapaikat = "tapahtumapaikat",
   teollisuuskohteet = "teollisuuskohteet",
+  taideMuistomerkit = "taide, muistomerkit",
   työJaValmistuspaikat = "työ- ja valmistuspaikat"
 }
 

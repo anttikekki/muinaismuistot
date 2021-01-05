@@ -20,6 +20,7 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForType = (
     case MuinaisjaannosTyyppi.työJaValmistuspaikat:
       return "http://akp.nba.fi/wiki;luokka;elinkeinot"
     case MuinaisjaannosTyyppi.tapahtumapaikat:
+    case MuinaisjaannosTyyppi.taideMuistomerkit:
       return "http://akp.nba.fi/muut"
     case MuinaisjaannosTyyppi.teollisuuskohteet:
       return "http://akp.nba.fi/wiki;luokka;teollisuus"
@@ -343,7 +344,7 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
       return "http://akp.nba.fi/wiki;tomtning"
     case "rajamerkit":
       return "http://akp.nba.fi/wiki;rajamerkki"
-    case "rajamerkit, puu": // TODO New subtype
+    case "rajamerkit, puu":
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000020206
       return undefined
     case "rakkakuopat":

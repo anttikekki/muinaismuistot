@@ -200,6 +200,7 @@
         "raaka-aineen hankintapaikat": "raaka-aineen hankintapaikat",
         "tapahtumapaikat": "tapahtumapaikat",
         "teollisuuskohteet": "teollisuuskohteet",
+        "taide, muistomerkit": "taide, muistomerkit",
         "työ- ja valmistuspaikat": "työ- ja valmistuspaikat"
       },
       "subtype": {
@@ -336,6 +337,7 @@
         "pyyntikuopat": "pyyntikuopat",
         "pyyntitukikohdat": "pyyntitukikohdat",
         "rajamerkit": "rajamerkit",
+        "rajamerkit, puu": "rajamerkit, puu",
         "rakkakuopat": "rakkakuopat",
         "rangaistuspaikat": "rangaistuspaikat",
         "rantakivikot": "rantakivikot",
