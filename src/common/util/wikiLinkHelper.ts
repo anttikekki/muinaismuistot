@@ -554,7 +554,7 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaSubType = (
       return "http://akp.nba.fi/wiki;hautausmaa"
     case "bevakning/signalering": //tähystys/viestintä
       return undefined // ??
-    case "boplats": //asuinapaikka
+    case "boplats": //asuinpaikka
       return undefined // ??
     case "brokista": //kiviarkku
       return undefined // ??
