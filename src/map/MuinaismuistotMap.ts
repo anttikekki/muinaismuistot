@@ -89,7 +89,7 @@ export default class MuinaismuistotMap {
     this.map = new Map({
       target: "map",
       view: this.view,
-      controls: new Collection([scaleControl, fullScreenControl])
+      controls: new Collection([scaleControl /*fullScreenControl*/])
     })
 
     this.maanmittauslaitosTileLayer = new MaanmittauslaitosTileLayer(
