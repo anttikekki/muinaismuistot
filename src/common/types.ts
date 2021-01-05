@@ -161,35 +161,6 @@ export enum MuinaisjaannosAjoitus {
   eiMääritelty = "ei määritelty"
 }
 
-/**
- * @deprecated kartor.ax does not return timing field anymore
- */
-export type ForminnenAjoitus =
-  | "Stenålder"
-  | "Bronsålder"
-  | "Brons/Ä järnålder"
-  | "Äldre järnålder"
-  | "Yngre järnålder"
-  | "Järnålder"
-  | "Järnålder/Medeltid"
-  | "Medeltida"
-  | "Sentida"
-
-/**
- * @deprecated kartor.ax does not return timing field anymore
- */
-export const ForminnenAjoitusTimespan: Record<ForminnenAjoitus, string> = {
-  Stenålder: "8600–1500 eaa.",
-  Bronsålder: "1700 – 500 eaa.",
-  "Brons/Ä järnålder": "1700 eaa. – 1200 jaa.",
-  "Äldre järnålder": "500 eaa. – 400 jaa.",
-  "Yngre järnålder": "800 – 1200 jaa.",
-  Järnålder: "500 eaa. - 1200 jaa.",
-  "Järnålder/Medeltid": "500 eaa. – 1570 jaa.",
-  Medeltida: "1200 - 1570 jaa.",
-  Sentida: "1570 jaa. -"
-}
-
 export type MuinaisjaannosLaji =
   | "kiinteä muinaisjäännös"
   | "muu kulttuuriperintökohde"

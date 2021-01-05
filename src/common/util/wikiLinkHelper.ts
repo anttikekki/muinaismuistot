@@ -36,6 +36,50 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForType = (
   }
 }
 
+export const getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaType = (
+  type?: string
+): string | undefined => {
+  switch (type) {
+    case "Uppgifter saknas":
+    case "Tiedot puuttuvat":
+      return undefined
+    case "Agrara lämningar":
+    case "Maanviljelyjäännökset":
+      return "http://akp.nba.fi/wiki;luokka;elinkeinot"
+    case "Bebyggelselämningar":
+    case "Asutusjäännökset":
+      return "http://akp.nba.fi/wiki;luokka;asuminen_ja_oleskelu"
+    case "Befästningsanläggningar":
+    case "Puolustusvarustukset":
+      return "http://akp.nba.fi/wiki;luokka;puolustus_ja_sodank%C3%A4ynti"
+    case "Boplatser":
+    case "Asuinpaikat":
+      return "http://akp.nba.fi/wiki;luokka;asuminen_ja_oleskelu"
+    case "Gravar":
+    case "Hautapaikat":
+      return "http://akp.nba.fi/wiki;luokka;hautaaminen"
+    case "Industriell-/produktionsplatser":
+    case "Teollisuus- ja valmistuspaikat":
+      return "http://akp.nba.fi/wiki;luokka;teollisuus"
+    case "Jakt och fångst":
+    case "Metsästys- ja pyyntijäännökset":
+      return "http://akp.nba.fi/wiki;luokka;elinkeinot"
+    case "Kommunikations-/maritima lämningar":
+    case "Liikenne ja merellinen kulttuuriperintö":
+      return "http://akp.nba.fi/wiki;luokka;liikenne_ja_tiedonkulku"
+    case "Kult, offer och folktro":
+    case "Kultti-, uhri- ja tarinapaikat":
+      return "http://akp.nba.fi/wiki;luokka;uskonnon_harjoittaminen"
+    case "Ristningar och minnesmärken":
+    case "Hakkaukset ja muistomerkit":
+      return "http://akp.nba.fi/muut"
+    case "Övriga lämningar":
+    case "Muut jäännökset":
+    default:
+      return undefined
+  }
+}
+
 export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
   subtype: string
 ): string | undefined => {
@@ -489,6 +533,115 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "yksinäistalot":
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000037140
       return undefined
+    default:
+      return undefined
+  }
+}
+
+export const getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaSubType = (
+  subtype?: string | null
+): string | undefined => {
+  switch (subtype) {
+    case "Uppgifter saknas": //tiedot puuttuvat
+      return undefined
+    case "artilleriställning": //tykkiasema
+      return "http://akp.nba.fi/wiki;tykkiasema"
+    case "avrättningsplats": //teloituspaikka
+      return "http://akp.nba.fi/wiki;rangaistuspaikka"
+    case "befästning": //linnoitus
+      return undefined // keskiaikainen linna, linnake-1500-ja-1600-luku, bastionilinnoitus??
+    case "begravningsplats": //hautausmaa
+      return "http://akp.nba.fi/wiki;hautausmaa"
+    case "bevakning/signalering": //tähystys/viestintä
+      return undefined // ??
+    case "boplats": //asuinapaikka
+      return undefined // ??
+    case "brokista": //kiviarkku
+      return undefined // ??
+    case "brott/täkt": //louhos/kaivanto
+      return "http://akp.nba.fi/wiki;louhos"
+    case "brunn/kallkälla": //kaivo/lähde
+      return "http://akp.nba.fi/wiki;kaivo"
+    case "bytomt/gårdstomt": //kylänpaikka/tilanpaikka
+      return "http://akp.nba.fi/wiki;kyl%C3%A4npaikka"
+    case "depofynd": //kätkö
+      return undefined
+    case "domarring": //käräjäkivet
+      return "http://akp.nba.fi/wiki;k%C3%A4r%C3%A4j%C3%A4ympyr%C3%A4"
+    case "flygstation": //lentoasema
+      return undefined
+    case "fornborg": //muinaislinna
+      return "http://akp.nba.fi/wiki;muinaislinna"
+    case "fossil åker": //muinaispelto
+      return "http://akp.nba.fi/wiki;muinaispelto"
+    case "fältbefästning": //kenttälinnoitus
+      return undefined // ??
+    case "fångstgrop": //pyyntikuoppa
+      return "http://akp.nba.fi/wiki;pyyntikuoppa"
+    case "förtöjningsanordning": //kiinnityslaite
+      return undefined // ??
+    case "förvaringsanläggning": //säilytyskuoppa
+      return undefined // ??
+    case "grav": //hautapaikka
+      return undefined // hautakumpu, hautaröykkiö, hautausmaa, hautalatomus, ruumishauta??
+    case "gravhög": //hautakumpu
+      return "http://akp.nba.fi/wiki;hautakumpu"
+    case "gravröse": //hautaröykkiö
+      return "http://akp.nba.fi/wiki;hautar%C3%B6ykki%C3%B6"
+    case "gruvlämning": //kaivos
+      return "http://akp.nba.fi/wiki;kaivos"
+    case "gränsmärke": //rajamerkki
+      return "http://akp.nba.fi/wiki;rajamerkki"
+    case "hamnanläggning": //satamat
+      return "http://akp.nba.fi/wiki;satama"
+    case "husgrund": //rakennusjäännös
+      return undefined // ??
+    case "hägnad": //aita
+      return undefined // kiviaita??
+    case "höggravfält": //kumpukalmisto
+      return undefined // ??
+    case "industrilämning": //teollisuuskohde
+      return undefined // ??
+    case "kastalgrund": //kastelli
+      return undefined // ??
+    case "kyrka/kapell": //kirkko/kappeli
+      return "http://akp.nba.fi/wiki;kirkko"
+    case "labyrint": //jatulintarha
+      return "http://akp.nba.fi/wiki;jatulintarha"
+    case "minnesmärke": //muistomerkki
+      return "http://akp.nba.fi/wiki;muistomerkki"
+    case "offerplats": //uhripaikka
+      return undefined // uhrikivi, uhrilehto, uhripuu ??
+    case "ristning": //kalliohakkaus
+      return "http://akp.nba.fi/wiki;kalliohakkaus"
+    case "röjningsröse": //peltoröykkiö
+      return "http://akp.nba.fi/wiki;viljelyr%C3%B6ykki%C3%B6"
+    case "rösegravfält": //röykkiökalmisto
+      return undefined // hautaröykkiö??
+    case "sjömärke": //merimerkki
+      return "http://akp.nba.fi/wiki;merimerkki"
+    case "skeppssättning": //laivalatomus
+      return "http://akp.nba.fi/wiki;laivalatomus"
+    case "skärvstenshög": //palokiviröykkiö
+      return undefined // palokuoppahauta??
+    case "slott": //linna
+      return undefined //? keskiaikainen linna, linnake-1500-ja-1600-luku, bastionilinnoitus?
+    case "stenkompass": //kompassiruusu
+      return "http://akp.nba.fi/wiki;kivikompassi"
+    case "stenugn": //kiviuuni
+      return "http://akp.nba.fi/wiki;kiviuuni"
+    case "tomtning": //tomtning-jäännös
+      return "http://akp.nba.fi/wiki;tomtning"
+    case "traditionsplats": //tarinapaikka
+      return "http://akp.nba.fi/wiki;tarinapaikka"
+    case "transport/förråd": //kuljetus/säilytys
+      return undefined // ??
+    case "treudd": //treudd
+      return undefined // ??
+    case "varv": //laivanrakennuspaikka
+      return "http://akp.nba.fi/wiki;laivanrakennuspaikka"
+    case "väglämning": //tiejäännös"
+      return "http://akp.nba.fi/wiki;tie"
     default:
       return undefined
   }

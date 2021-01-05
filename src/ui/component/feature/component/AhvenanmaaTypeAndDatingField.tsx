@@ -1,10 +1,17 @@
 import * as React from "react"
 import { useTranslation } from "react-i18next"
-import { AhvenanmaaForminnenArgisFeature } from "../../../../common/types"
+import {
+  AhvenanmaaForminnenArgisFeature,
+  Language
+} from "../../../../common/types"
 import {
   getAhvenanmaaForminneDatingText,
   getAhvenanmaaForminnenTypeText
 } from "../../../../common/util/featureParser"
+import {
+  getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaType,
+  getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaSubType
+} from "../../../../common/util/wikiLinkHelper"
 import { Field } from "./Field"
 
 interface Props {
@@ -12,7 +19,7 @@ interface Props {
 }
 
 export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const subFeatureTypesAndDatings =
     feature.attributes.typeAndDating?.map(
@@ -24,13 +31,38 @@ export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {
         Antal: count
       }) => {
         const type = getAhvenanmaaForminnenTypeText(t, typeId)
+        const typeLink = getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaType(
+          type
+        )
+        const subTypeName = t(
+          `data.ahvenanmaa.subType.${subType}`,
+          subType ?? ""
+        )
+        const subTypeLink = getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaSubType(
+          subType
+        )
         const dating = getAhvenanmaaForminneDatingText(t, datingId)
 
         return [
-          [t(`details.field.mainCategory`), type],
+          [
+            t(`details.field.mainCategory`),
+            typeLink && i18n.language === Language.FI ? (
+              <a href={typeLink} target="_blank">
+                {type}
+              </a>
+            ) : (
+              type
+            )
+          ],
           [
             t(`details.field.subCategory`),
-            t(`data.ahvenanmaa.subType.${subType}`, subType ?? "")
+            subTypeLink && i18n.language === Language.FI ? (
+              <a href={subTypeLink} target="_blank">
+                {subTypeName}
+              </a>
+            ) : (
+              subTypeName
+            )
           ],
           [t(`details.field.mainEra`), dating],
           [
