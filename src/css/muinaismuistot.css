@@ -151,3 +151,14 @@ body,
 .feature-icon {
   margin-right: 5px;
 }
+
+.ol-scale-line {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.ol-scale-line-inner {
+  border: 2px solid black;
+  border-top: none;
+  color: black;
+  font-size: 13px;
+}

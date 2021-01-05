@@ -5,6 +5,7 @@ import View from "ol/View"
 import { register as registerProj4 } from "ol/proj/proj4"
 import { get as getProjection } from "ol/proj"
 import Collection from "ol/Collection"
+import { ScaleLine } from "ol/control"
 import Geolocation from "ol/Geolocation"
 import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer"
 import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer"
@@ -77,10 +78,14 @@ export default class MuinaismuistotMap {
       enableRotation: false
     })
 
+    const scaleControl = new ScaleLine({
+      units: "metric"
+    })
+
     this.map = new Map({
       target: "map",
       view: this.view,
-      controls: new Collection()
+      controls: new Collection([scaleControl])
     })
 
     this.maanmittauslaitosTileLayer = new MaanmittauslaitosTileLayer(
