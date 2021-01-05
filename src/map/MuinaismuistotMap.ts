@@ -5,7 +5,7 @@ import View from "ol/View"
 import { register as registerProj4 } from "ol/proj/proj4"
 import { get as getProjection } from "ol/proj"
 import Collection from "ol/Collection"
-import { ScaleLine } from "ol/control"
+import { FullScreen, ScaleLine } from "ol/control"
 import Geolocation from "ol/Geolocation"
 import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer"
 import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer"
@@ -82,10 +82,14 @@ export default class MuinaismuistotMap {
       units: "metric"
     })
 
+    const fullScreenControl = new FullScreen({
+      label: "\u2922"
+    })
+
     this.map = new Map({
       target: "map",
       view: this.view,
-      controls: new Collection([scaleControl])
+      controls: new Collection([scaleControl, fullScreenControl])
     })
 
     this.maanmittauslaitosTileLayer = new MaanmittauslaitosTileLayer(
