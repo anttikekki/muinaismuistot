@@ -162,7 +162,6 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
     case "kanavat":
       return "http://akp.nba.fi/wiki;kanava"
     case "kapulatiet":
-      // TODO Multiple links: https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000026897
       return "http://akp.nba.fi/wiki;tie"
     case "karsikkopaikat":
       return "http://akp.nba.fi/wiki;karsikko"
@@ -362,7 +361,6 @@ export const getArkeologisenKulttuuriperinnonOpasLinkForSubType = (
       // https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=152010017
       return undefined
     case "pitkospuut":
-      // TODO Multiple links: https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=1000029407
       return "http://akp.nba.fi/wiki;tie"
     case "polttokenttäkalmistot":
       return "http://akp.nba.fi/wiki;polttokentt%C3%A4kalmisto"

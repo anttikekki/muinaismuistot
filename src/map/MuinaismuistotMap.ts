@@ -82,16 +82,10 @@ export default class MuinaismuistotMap {
       units: "metric"
     })
 
-    /*
-    const fullScreenControl = new FullScreen({
-      label: "\u2922"
-    })
-    */
-
     this.map = new Map({
       target: "map",
       view: this.view,
-      controls: new Collection([scaleControl /*fullScreenControl*/])
+      controls: new Collection([scaleControl])
     })
 
     this.maanmittauslaitosTileLayer = new MaanmittauslaitosTileLayer(

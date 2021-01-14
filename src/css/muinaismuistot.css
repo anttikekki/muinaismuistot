@@ -57,6 +57,11 @@ body,
   left: 20px;
 }
 
+#map-button-fullscreen {
+  bottom: 10px;
+  right: 10px;
+}
+
 .page {
   z-index: 20;
   position: absolute;

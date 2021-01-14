@@ -45,6 +45,7 @@ import {
   updateSelectMuinaisjaannosDatings,
   updateSelectMuinaisjaannosTypes
 } from "../settings"
+import { FullscreenButton } from "./component/mapButton/FullscreenButton"
 
 enum PageId {
   Search = "searchPage",
@@ -218,6 +219,14 @@ export default class MuinaismuistotUI {
     this.renderUI()
   }
 
+  private toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.body.requestFullscreen()
+    } else if (document.fullscreenElement) {
+      document.exitFullscreen()
+    }
+  }
+
   private renderUI = () => {
     const isLoading = this.loadingAnimationCounter > 0
     const { zoomIn, zoomOut, centerToCurrentPositions } = this.eventListeners
@@ -231,6 +240,10 @@ export default class MuinaismuistotUI {
         <OpenSearchPageButton onClick={() => this.showPage(PageId.Search)} />
         <ShowInfoPageButton onClick={() => this.showPage(PageId.Info)} />
         <OpenSettingsPage onClick={() => this.showPage(PageId.Settings)} />
+        <FullscreenButton
+          onClick={this.toggleFullscreen}
+          fullscreenPossible={document.fullscreenEnabled}
+        />
 
         <FeatureDetailsPage
           visibility={this.getPageVisibility(PageId.Details)}
