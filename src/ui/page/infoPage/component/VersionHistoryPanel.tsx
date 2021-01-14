@@ -17,6 +17,7 @@ export const VersionHistoryPanel: React.FC = () => {
         </a>{" "}
         -sivustolle.
       </p>
+      <p>Kokoruudun tila.</p>
 
       <br />
       <h5>Joulukuu 2020</h5>
