@@ -199,11 +199,14 @@ export default class MuseovirastoTileLayer {
   ): Promise<ArgisFindResult> => {
     let selectedLayers = this.settings.museovirasto.selectedLayers
 
-    //Muinaismustot areas always has same name as main point so do not search those
+    //Muinaismustot areas always have same name as main point so do not search those
     if (selectedLayers.includes(MuseovirastoLayer.Muinaisjaannokset_alue)) {
       selectedLayers = selectedLayers.filter(
         (l) => l !== MuseovirastoLayer.Muinaisjaannokset_alue
       )
+    }
+    if (selectedLayers.length === 0) {
+      return { results: [] }
     }
 
     let searchFields = "Kohdenimi, Nimi, KOHDENIMI"

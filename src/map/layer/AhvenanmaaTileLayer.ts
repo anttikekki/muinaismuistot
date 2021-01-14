@@ -142,6 +142,10 @@ export default class AhvenanmaaTileLayer {
   public findFeatures = async (
     searchText: string
   ): Promise<ArgisFindResult> => {
+    if (this.settings.ahvenanmaa.selectedLayers.length === 0) {
+      return { results: [] }
+    }
+
     const urlParams = new URLSearchParams({
       searchText: searchText,
       contains: "true",
