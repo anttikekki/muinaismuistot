@@ -1,6 +1,13 @@
+import { DataLatestUpdateDates } from "../common/types"
+import { SelectedFeaturesOnMap } from "./storeTypes"
+
 export const ZOOM_IN = "ZOOM_IN"
 export const ZOOM_OUT = "ZOOM_OUT"
 export const CENTER_TO_CURRENT_POSITION = "CENTER_TO_CURRENT_POSITION"
+export const FEATURES_SELECTED_ON_MAP = "FEATURES_SELECTED_ON_MAP"
+export const FETCH_DATA_LATESTS_UPDATE_DATES = "FETCH_DATA_LATESTS_UPDATE_DATES"
+export const FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE =
+  "FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE"
 
 export interface ZoomInAction {
   type: typeof ZOOM_IN
@@ -14,4 +21,24 @@ export interface CenterToCurrentPosition {
   type: typeof CENTER_TO_CURRENT_POSITION
 }
 
-export type ActionTypes = ZoomInAction | ZoomOutAction | CenterToCurrentPosition
+export interface FeaturesSelectedOnMap {
+  type: typeof FEATURES_SELECTED_ON_MAP
+  payload: SelectedFeaturesOnMap
+}
+
+export interface FetchDataLatestUpdateDates {
+  type: typeof FETCH_DATA_LATESTS_UPDATE_DATES
+}
+
+export interface FetchDataLatestUpdateDatesComplete {
+  type: typeof FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE
+  payload: DataLatestUpdateDates
+}
+
+export type ActionTypes =
+  | ZoomInAction
+  | ZoomOutAction
+  | CenterToCurrentPosition
+  | FeaturesSelectedOnMap
+  | FetchDataLatestUpdateDates
+  | FetchDataLatestUpdateDatesComplete

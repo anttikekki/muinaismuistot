@@ -6,23 +6,17 @@ import { MapSymbolPanel } from "./component/MapSymbolPanel"
 import { DataAndLicencesPanel } from "./component/DataAndLicencesPanel"
 import { VersionHistoryPanel } from "./component/VersionHistoryPanel"
 import { DataUpdateDatesPanel } from "./component/DataUpdateDatesPanel"
-import { DataLatestUpdateDates } from "../../../common/types"
 
 interface Props {
   visibility: PageVisibility
   hidePage: () => void
-  dataLatestUpdateDates?: DataLatestUpdateDates
 }
 
-export const InfoPage: React.FC<Props> = ({
-  visibility,
-  hidePage,
-  dataLatestUpdateDates
-}) => {
+export const InfoPage: React.FC<Props> = ({ visibility, hidePage }) => {
   const { t } = useTranslation()
   return (
     <Page title={t(`info.title`)} visibility={visibility} hidePage={hidePage}>
-      <DataUpdateDatesPanel dataLatestUpdateDates={dataLatestUpdateDates} />
+      <DataUpdateDatesPanel />
       <SiteInfoPanel />
       <MapSymbolPanel />
       <DataAndLicencesPanel />

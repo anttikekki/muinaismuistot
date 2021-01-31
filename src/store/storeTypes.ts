@@ -22,14 +22,18 @@ export enum PageId {
   Details = "detailsPage"
 }
 
+export interface SelectedFeaturesOnMap {
+  features: Array<ArgisFeature>
+  models: Array<GeoJSONFeature<ModelFeatureProperties>>
+  maisemanMuistiFeatures: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
+}
+
 export interface Settings {
   visiblePage?: PageId
-  selectedFeatures?: Array<ArgisFeature>
-  selectedModels?: Array<GeoJSONFeature<ModelFeatureProperties>>
-  selectedMaisemanMuistiFeatures?: Array<
-    GeoJSONFeature<MaisemanMuistiFeatureProperties>
-  >
-  searchResultFeatures?: Array<ArgisFeature>
+  selectedFeaturesOnMap: SelectedFeaturesOnMap
+  search: {
+    searchResults?: Array<ArgisFeature>
+  }
   dataLatestUpdateDates?: DataLatestUpdateDates
   initialMapZoom: number
   language: Language

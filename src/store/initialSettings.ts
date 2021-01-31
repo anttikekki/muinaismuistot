@@ -20,6 +20,16 @@ const getInitialLang = (): Language => {
 }
 
 export const initialSettings: Settings = {
+  visiblePage: undefined,
+  selectedFeaturesOnMap: {
+    features: [],
+    models: [],
+    maisemanMuistiFeatures: []
+  },
+  search: {
+    searchResults: undefined
+  },
+  dataLatestUpdateDates: undefined,
   initialMapZoom: 8,
   language: getInitialLang(),
   maanmittauslaitos: {

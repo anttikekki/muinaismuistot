@@ -12,14 +12,10 @@ import {
   MuseovirastoLayer,
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi,
-  DataLatestUpdateDates,
-  ModelFeatureProperties,
   AhvenanmaaLayer,
   LayerGroup,
   ModelLayer,
   MaisemanMuistiLayer,
-  GeoJSONFeature,
-  MaisemanMuistiFeatureProperties,
   Language,
   GtkLayer
 } from "../common/types"
@@ -63,9 +59,6 @@ const toggleSelection = function <T>(value: T, values: Array<T>) {
 
 export interface EventListeners {
   searchFeatures: (searchText: string) => void
-  zoomIn: () => void
-  zoomOut: () => void
-  centerToCurrentPositions: () => void
   selectedMaanmittauslaitosLayerChanged: (settings: Settings) => void
   selectedGtkLayerChanged: (
     settings: Settings,
@@ -79,7 +72,6 @@ export interface EventListeners {
   selectedMuinaisjaannosTypesChanged: (settings: Settings) => void
   selectedMuinaisjaannosDatingsChanged: (settings: Settings) => void
   selectedLanguageChanged: (settings: Settings) => void
-  fetchDataLatestUpdateDates: () => void
 }
 
 i18n.use(initReactI18next).init({
@@ -99,13 +91,7 @@ i18n.use(initReactI18next).init({
 export default class MuinaismuistotUI {
   private settings: Settings
   private visiblePage?: PageId
-  private selectedFeatures?: Array<ArgisFeature>
-  private selectedModels?: Array<GeoJSONFeature<ModelFeatureProperties>>
-  private selectedMaisemanMuistiFeatures?: Array<
-    GeoJSONFeature<MaisemanMuistiFeatureProperties>
-  >
   private searchResultFeatures?: Array<ArgisFeature>
-  private dataLatestUpdateDates?: DataLatestUpdateDates
   private pageClosingAnimationTimeoutID: Partial<Record<PageId, number>> = {}
   private loadingAnimationTimeoutID?: number
   private loadingAnimationCounter = 0
@@ -251,7 +237,6 @@ export default class MuinaismuistotUI {
 
   private renderUI = () => {
     const isLoading = this.loadingAnimationCounter > 0
-    const { centerToCurrentPositions } = this.eventListeners
 
     ReactDOM.render(
       <Provider store={this.store}>
@@ -270,9 +255,6 @@ export default class MuinaismuistotUI {
         <FeatureDetailsPage
           visibility={this.getPageVisibility(PageId.Details)}
           hidePage={this.hidePage}
-          features={this.selectedFeatures}
-          models={this.selectedModels}
-          maisemanMuistiFeatures={this.selectedMaisemanMuistiFeatures}
         />
         <SearchPage
           visibility={this.getPageVisibility(PageId.Search)}
@@ -283,7 +265,6 @@ export default class MuinaismuistotUI {
         <InfoPage
           visibility={this.getPageVisibility(PageId.Info)}
           hidePage={this.hidePage}
-          dataLatestUpdateDates={this.dataLatestUpdateDates}
         />
         <SettingsPage
           visibility={this.getPageVisibility(PageId.Settings)}
@@ -320,11 +301,6 @@ export default class MuinaismuistotUI {
     }
     this.abortClosingPage(page)
     this.visiblePage = page
-
-    if (page === PageId.Info) {
-      this.eventListeners.fetchDataLatestUpdateDates()
-    }
-
     this.renderUI()
   }
 
@@ -374,30 +350,8 @@ export default class MuinaismuistotUI {
     }
   }
 
-  public featuresSelected = (
-    selectedFeatures: Array<ArgisFeature>,
-    models: Array<GeoJSONFeature<ModelFeatureProperties>>,
-    maisemanMuistiFeatures: Array<
-      GeoJSONFeature<MaisemanMuistiFeatureProperties>
-    >
-  ) => {
-    if (selectedFeatures.length === 0 && maisemanMuistiFeatures.length === 0) {
-      return
-    }
-    this.selectedFeatures = selectedFeatures
-    this.selectedModels = models
-    this.selectedMaisemanMuistiFeatures = maisemanMuistiFeatures
-    this.visiblePage = PageId.Details
-    this.renderUI()
-  }
-
   public featureSearchReady = (features: Array<ArgisFeature>) => {
     this.searchResultFeatures = features
-    this.renderUI()
-  }
-
-  public dataLatestUpdateDatesReady = (dates: DataLatestUpdateDates) => {
-    this.dataLatestUpdateDates = dates
     this.renderUI()
   }
 }

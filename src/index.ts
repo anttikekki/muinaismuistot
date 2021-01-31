@@ -12,6 +12,10 @@ import { ActionTypes } from "./store/actionTypes"
 import { createRootReducer } from "./store/reducers"
 import { Settings } from "./store/storeTypes"
 import { initialSettings } from "./store/initialSettings"
+import {
+  featuresSelectedOnMap,
+  fetchDataLatestUpdateDatesComplete
+} from "./store/actions"
 
 export default class Muinaismuistot {
   private map: MuinaismuistotMap
@@ -24,7 +28,9 @@ export default class Muinaismuistot {
 
     this.map = new MuinaismuistotMap(this.settings, {
       featuresSelected: (features, models, maisemanMuistiFeatures) => {
-        this.ui.featuresSelected(features, models, maisemanMuistiFeatures)
+        this.store.dispatch(
+          featuresSelectedOnMap({ features, models, maisemanMuistiFeatures })
+        )
       },
       showLoadingAnimation: (show) => {
         this.ui.showLoadingAnimation(show)
@@ -33,7 +39,7 @@ export default class Muinaismuistot {
         this.ui.featureSearchReady(features)
       },
       dataLatestUpdateDatesReady: (dates: DataLatestUpdateDates) => {
-        this.ui.dataLatestUpdateDatesReady(dates)
+        this.store.dispatch(fetchDataLatestUpdateDatesComplete(dates))
       }
     })
 
@@ -42,15 +48,6 @@ export default class Muinaismuistot {
     this.ui = new MuinaismuistotUI(this.settings, this.store, {
       searchFeatures: (searchText) => {
         this.map.searchFeatures(searchText)
-      },
-      zoomIn: () => {
-        this.map.zoomIn()
-      },
-      zoomOut: () => {
-        this.map.zoomOut()
-      },
-      centerToCurrentPositions: () => {
-        this.map.centerToCurrentPositions()
       },
       selectedMaanmittauslaitosLayerChanged: (settings) => {
         this.updateSettings(settings)
@@ -78,9 +75,6 @@ export default class Muinaismuistot {
       },
       selectedLanguageChanged: (settings) => {
         this.updateSettings(settings)
-      },
-      fetchDataLatestUpdateDates: () => {
-        this.map.fetchDataLatestUpdateDates(this.settings)
       }
     })
 
