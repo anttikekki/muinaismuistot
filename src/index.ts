@@ -4,16 +4,14 @@ import "elm-pep"
 import MuinaismuistotMap from "./map/MuinaismuistotMap"
 import MuinaismuistotUI from "./ui/MuinaismuistotUI"
 import { parseCoordinatesFromURL } from "./common/util/URLHashHelper"
-import { Settings, DataLatestUpdateDates } from "./common/types"
-import {
-  getSettingsFromURL,
-  initialSettings,
-  updateSettingsToURL
-} from "./settings"
+import { DataLatestUpdateDates } from "./common/types"
+import { getSettingsFromURL, updateSettingsToURL } from "./settings"
 import { Store } from "redux"
 import { configureStore } from "./store/configureStore"
-import { ActionTypes } from "./store/types"
+import { ActionTypes } from "./store/actionTypes"
 import { createRootReducer } from "./store/reducers"
+import { Settings } from "./store/storeTypes"
+import { initialSettings } from "./store/initialSettings"
 
 export default class Muinaismuistot {
   private map: MuinaismuistotMap

@@ -1,11 +1,11 @@
 import { applyMiddleware, createStore, Reducer, Store } from "redux"
 import thunkMiddleware from "redux-thunk"
 import { composeWithDevTools } from "redux-devtools-extension"
-import { Settings } from "../common/types"
-import { ActionTypes } from "./types"
+import { ActionTypes } from "./actionTypes"
+import { Settings } from "./storeTypes"
 
 export const configureStore = (
-  preloadedState: Settings,
+  initialSettings: Settings,
   rootReducer: Reducer<Settings, ActionTypes>
 ): Store<Settings, ActionTypes> => {
   const middlewares = [thunkMiddleware]
@@ -14,7 +14,7 @@ export const configureStore = (
   const enhancers = [middlewareEnhancer]
   const composedEnhancers = composeWithDevTools(...enhancers)
 
-  const store = createStore(rootReducer, preloadedState, composedEnhancers)
+  const store = createStore(rootReducer, initialSettings, composedEnhancers)
 
   return store
 }

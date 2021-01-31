@@ -3,59 +3,6 @@ export enum Language {
   SV = "sv"
 }
 
-export interface Settings {
-  initialMapZoom: number
-  language: Language
-  maanmittauslaitos: {
-    selectedLayer: MaanmittauslaitosLayer
-    url: {
-      WMTSCapabilities: string
-    }
-    apiKey: string
-  }
-  museovirasto: {
-    selectedLayers: Array<MuseovirastoLayer>
-    selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
-    selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>
-    url: {
-      export: string
-      identify: string
-      find: string
-      updateDate: string
-    }
-  }
-  ahvenanmaa: {
-    selectedLayers: Array<AhvenanmaaLayer>
-    url: {
-      export: string
-      identify: string
-      find: string
-      typeAndDating: string
-      forminnenUpdateDate: string
-      maritimtKulturarvUpdateDate: string
-    }
-  }
-  models: {
-    selectedLayers: Array<ModelLayer>
-    url: {
-      geojson: string
-    }
-  }
-  maisemanMuisti: {
-    selectedLayers: Array<MaisemanMuistiLayer>
-    url: {
-      geojson: string
-    }
-  }
-  gtk: {
-    selectedLayers: Array<GtkLayer>
-    url: {
-      export: string
-    }
-    opacity: number
-  }
-}
-
 export enum LayerGroup {
   Maanmittauslaitos = "Maanmittauslaitos",
   GTK = "GTK",

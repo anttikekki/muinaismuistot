@@ -1,6 +1,5 @@
 import * as React from "react"
 import {
-  Settings,
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
@@ -18,6 +17,7 @@ import { useTranslation } from "react-i18next"
 import { GTKMapLayerSelectionPanel } from "./component/GTKMapLayerSelectionPanel"
 import { MuseovirastoLayerSelectionPanel } from "./component/MuseovirastoLayerSelectionPanel"
 import { AhvenanmaaLayerSelectionPanel } from "./component/AhvenanmaaLayerSelectionPanel"
+import { Settings } from "../../../store/storeTypes"
 
 interface Props {
   visibility: PageVisibility

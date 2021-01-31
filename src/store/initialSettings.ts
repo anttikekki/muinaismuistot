@@ -3,13 +3,13 @@ import {
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus,
-  Settings,
   AhvenanmaaLayer,
   ModelLayer,
   MaisemanMuistiLayer,
   Language,
   GtkLayer
 } from "../common/types"
+import { Settings } from "./storeTypes"
 
 const getInitialLang = (): Language => {
   const lang = navigator.language?.substr(0, 2)

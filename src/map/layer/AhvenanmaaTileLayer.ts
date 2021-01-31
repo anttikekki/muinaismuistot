@@ -10,11 +10,11 @@ import {
   AhvenanmaaLayerId,
   getAhvenanmaaLayerId,
   AhvenanmaaLayer,
-  Settings,
   GeoJSONResponse,
   AhvenanmaaTypeAndDatingFeatureProperties,
   ArgisFeature
 } from "../../common/types"
+import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void

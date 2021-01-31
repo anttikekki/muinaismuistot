@@ -5,7 +5,6 @@ import { Coordinate } from "ol/coordinate"
 import { Size } from "ol/size"
 import { Extent } from "ol/extent"
 import {
-  Settings,
   museovirastoLayerIdMap,
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
@@ -16,6 +15,7 @@ import {
   ArgisFeature
 } from "../../common/types"
 import { trim } from "../../common/util/featureParser"
+import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void

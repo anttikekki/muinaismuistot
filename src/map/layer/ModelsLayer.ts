@@ -10,7 +10,6 @@ import {
   GeoJSONFeature,
   ModelFeatureProperties,
   MuseovirastoLayer,
-  Settings,
   ArgisFeature,
   ArgisFeatureLayer
 } from "../../common/types"
@@ -20,6 +19,7 @@ import {
   getGeoJSONDataLatestUpdateDate
 } from "../../common/util/featureParser"
 import Fill from "ol/style/Fill"
+import { Settings } from "../../store/storeTypes"
 
 export default class ModelsLayer {
   private layer?: VectorLayer

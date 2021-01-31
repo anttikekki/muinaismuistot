@@ -3,7 +3,6 @@ import {
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus,
-  Settings,
   AhvenanmaaLayer,
   ModelLayer,
   MaisemanMuistiLayer,
@@ -11,6 +10,7 @@ import {
   GtkLayer
 } from "../common/types"
 import { parseURLParams } from "../common/util/URLHashHelper"
+import { Settings } from "../store/storeTypes"
 import {
   updateAhvenanmaaSelectedLayers,
   updateGtkLayerOpacity,

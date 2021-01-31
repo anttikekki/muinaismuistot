@@ -8,7 +8,6 @@ import fiTranslations from "../common/translations/fi.json"
 import svTranslations from "../common/translations/sv.json"
 import {
   ArgisFeature,
-  Settings,
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
   MuinaisjaannosAjoitus,
@@ -51,14 +50,8 @@ import {
 import { FullscreenButton } from "./component/mapButton/FullscreenButton"
 import { Store } from "redux"
 import { Provider } from "react-redux"
-import { ActionTypes } from "../store/types"
-
-enum PageId {
-  Search = "searchPage",
-  Info = "infoPage",
-  Settings = "settingsPage",
-  Details = "detailsPage"
-}
+import { ActionTypes } from "../store/actionTypes"
+import { PageId, Settings } from "../store/storeTypes"
 
 const toggleSelection = function <T>(value: T, values: Array<T>) {
   if (values.includes(value)) {
@@ -265,7 +258,7 @@ export default class MuinaismuistotUI {
         <LoadingAnimation visible={isLoading} isPageOpen={!!this.visiblePage} />
         <ZoomInButton />
         <ZoomOutButton />
-        <CenterToCurrentPositionButton onClick={centerToCurrentPositions} />
+        <CenterToCurrentPositionButton />
         <OpenSearchPageButton onClick={() => this.showPage(PageId.Search)} />
         <ShowInfoPageButton onClick={() => this.showPage(PageId.Info)} />
         <OpenSettingsPage onClick={() => this.showPage(PageId.Settings)} />

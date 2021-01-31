@@ -13,7 +13,6 @@ import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
 import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositionAndSelectedLocationMarkerLayer"
 import {
   ArgisFeature,
-  Settings,
   DataLatestUpdateDates,
   ModelFeatureProperties,
   LayerGroup,
@@ -31,6 +30,7 @@ import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
 import { Pixel } from "ol/pixel"
 import VectorLayer from "ol/layer/Vector"
 import GtkTileLayer from "./layer/GtkTileLayer"
+import { Settings } from "../store/storeTypes"
 
 export interface MapEventListener {
   featuresSelected: (

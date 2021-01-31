@@ -1,12 +1,12 @@
 import { Reducer } from "redux"
-import { Settings } from "../common/types"
 import MuinaismuistotMap from "../map/MuinaismuistotMap"
+import { Settings } from "./storeTypes"
 import {
   ActionTypes,
   CENTER_TO_CURRENT_POSITION,
   ZOOM_IN,
   ZOOM_OUT
-} from "./types"
+} from "./actionTypes"
 
 export const createRootReducer = (map: MuinaismuistotMap): Reducer => {
   return (state: Settings, action: ActionTypes) => {

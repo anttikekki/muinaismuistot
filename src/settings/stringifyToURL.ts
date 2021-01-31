@@ -1,8 +1,8 @@
-import { Settings } from "../common/types"
 import {
   parseURLParams,
   stringifyURLParamsToHash
 } from "../common/util/URLHashHelper"
+import { Settings } from "../store/storeTypes"
 import { EMPTY_SELECTION, URLSettings } from "./types"
 
 interface URLSettingsState {

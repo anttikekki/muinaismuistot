@@ -5,7 +5,7 @@ import {
   ZoomOutAction,
   ZOOM_IN,
   ZOOM_OUT
-} from "./types"
+} from "./actionTypes"
 
 export const zoomIn = (): ZoomInAction => {
   return {

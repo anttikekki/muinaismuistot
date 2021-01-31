@@ -1,12 +1,8 @@
 import TileLayer from "ol/layer/Tile"
 import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest"
 import { TileSourceEvent } from "ol/source/Tile"
-import {
-  Settings,
-  GtkLayer,
-  getGtkLayerId,
-  GtkLayerId
-} from "../../common/types"
+import { GtkLayer, getGtkLayerId, GtkLayerId } from "../../common/types"
+import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void

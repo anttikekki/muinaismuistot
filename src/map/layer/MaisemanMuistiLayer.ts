@@ -7,12 +7,12 @@ import {
   ArgisFeature,
   GeoJSONFeature,
   GeoJSONResponse,
-  MaisemanMuistiFeatureProperties,
-  Settings
+  MaisemanMuistiFeatureProperties
 } from "../../common/types"
 import Fill from "ol/style/Fill"
 import RegularShape from "ol/style/RegularShape"
 import { getFeatureID } from "../../common/util/featureParser"
+import { Settings } from "../../store/storeTypes"
 
 export default class MaisemanMuistiLayer {
   private layer?: VectorLayer
