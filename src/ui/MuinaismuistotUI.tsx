@@ -49,6 +49,9 @@ import {
   updateSelectMuinaisjaannosTypes
 } from "../settings"
 import { FullscreenButton } from "./component/mapButton/FullscreenButton"
+import { Store } from "redux"
+import { Provider } from "react-redux"
+import { ActionTypes } from "../store/types"
 
 enum PageId {
   Search = "searchPage",
@@ -114,13 +117,16 @@ export default class MuinaismuistotUI {
   private loadingAnimationTimeoutID?: number
   private loadingAnimationCounter = 0
   private eventListeners: EventListeners
+  private store: Store<Settings, ActionTypes>
 
   public constructor(
     initialSettings: Settings,
+    store: Store<Settings, ActionTypes>,
     eventListeners: EventListeners
   ) {
     this.settings = initialSettings
     this.eventListeners = eventListeners
+    this.store = store
 
     i18n.changeLanguage(this.settings.language)
     i18n.on("languageChanged", (lang) => {
@@ -252,13 +258,13 @@ export default class MuinaismuistotUI {
 
   private renderUI = () => {
     const isLoading = this.loadingAnimationCounter > 0
-    const { zoomIn, zoomOut, centerToCurrentPositions } = this.eventListeners
+    const { centerToCurrentPositions } = this.eventListeners
 
     ReactDOM.render(
-      <>
+      <Provider store={this.store}>
         <LoadingAnimation visible={isLoading} isPageOpen={!!this.visiblePage} />
-        <ZoomInButton onClick={zoomIn} />
-        <ZoomOutButton onClick={zoomOut} />
+        <ZoomInButton />
+        <ZoomOutButton />
         <CenterToCurrentPositionButton onClick={centerToCurrentPositions} />
         <OpenSearchPageButton onClick={() => this.showPage(PageId.Search)} />
         <ShowInfoPageButton onClick={() => this.showPage(PageId.Info)} />
@@ -300,7 +306,7 @@ export default class MuinaismuistotUI {
           onSelectMuinaisjaannosType={this.onSelectMuinaisjaannosType}
           onSelectMuinaisjaannosDating={this.onSelectMuinaisjaannosDating}
         />
-      </>,
+      </Provider>,
       document.getElementById("ui")
     )
   }

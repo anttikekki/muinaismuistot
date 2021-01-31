@@ -1,12 +1,13 @@
 import * as React from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch } from "react-redux"
+import { zoomIn } from "../../../store/actions"
 
-interface Props {
-  onClick: () => void
-}
-
-export const ZoomInButton: React.FunctionComponent<Props> = ({ onClick }) => {
+export const ZoomInButton: React.FunctionComponent = () => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const onClick = React.useCallback(() => dispatch(zoomIn()), [dispatch])
+
   return (
     <div id="map-button-zoom-in" className="map-button">
       <button

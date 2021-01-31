@@ -1,14 +1,19 @@
 import * as React from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch } from "react-redux"
+import { centerToCurrentPosition } from "../../../store/actions"
 
 interface Props {
   onClick: () => void
 }
 
-export const CenterToCurrentPositionButton: React.FunctionComponent<Props> = ({
-  onClick
-}) => {
+export const CenterToCurrentPositionButton: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const onClick = React.useCallback(() => dispatch(centerToCurrentPosition()), [
+    dispatch
+  ])
+
   return (
     <div id="map-button-position" className="map-button">
       <button

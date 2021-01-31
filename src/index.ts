@@ -4,20 +4,26 @@ import "elm-pep"
 import MuinaismuistotMap from "./map/MuinaismuistotMap"
 import MuinaismuistotUI from "./ui/MuinaismuistotUI"
 import { parseCoordinatesFromURL } from "./common/util/URLHashHelper"
-import { Settings, DataLatestUpdateDates, LayerGroup } from "./common/types"
+import { Settings, DataLatestUpdateDates } from "./common/types"
 import {
   getSettingsFromURL,
   initialSettings,
   updateSettingsToURL
 } from "./settings"
+import { Store } from "redux"
+import { configureStore } from "./store/configureStore"
+import { ActionTypes } from "./store/types"
+import { createRootReducer } from "./store/reducers"
 
 export default class Muinaismuistot {
   private map: MuinaismuistotMap
   private ui: MuinaismuistotUI
   private settings: Settings
+  private store: Store<Settings, ActionTypes>
 
   public constructor() {
     this.settings = getSettingsFromURL(initialSettings)
+
     this.map = new MuinaismuistotMap(this.settings, {
       featuresSelected: (features, models, maisemanMuistiFeatures) => {
         this.ui.featuresSelected(features, models, maisemanMuistiFeatures)
@@ -33,7 +39,9 @@ export default class Muinaismuistot {
       }
     })
 
-    this.ui = new MuinaismuistotUI(this.settings, {
+    this.store = configureStore(this.settings, createRootReducer(this.map))
+
+    this.ui = new MuinaismuistotUI(this.settings, this.store, {
       searchFeatures: (searchText) => {
         this.map.searchFeatures(searchText)
       },
