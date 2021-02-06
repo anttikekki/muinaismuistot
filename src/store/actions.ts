@@ -1,4 +1,4 @@
-import { DataLatestUpdateDates } from "../common/types"
+import { ArgisFeature, DataLatestUpdateDates } from "../common/types"
 import {
   CenterToCurrentPosition,
   CENTER_TO_CURRENT_POSITION,
@@ -8,6 +8,10 @@ import {
   FetchDataLatestUpdateDatesComplete,
   FETCH_DATA_LATESTS_UPDATE_DATES,
   FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
+  SearchFeatures,
+  SearchFeaturesComplete,
+  SEARCH_FEATURES,
+  SEARCH_FEATURES_COMPLETE,
   ZoomInAction,
   ZoomOutAction,
   ZOOM_IN,
@@ -54,5 +58,21 @@ export const fetchDataLatestUpdateDatesComplete = (
   return {
     type: FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
     payload
+  }
+}
+
+export const searchFeatures = (searchText: string): SearchFeatures => {
+  return {
+    type: SEARCH_FEATURES,
+    searchText
+  }
+}
+
+export const searchFeaturesComplete = (
+  searchResultFeatures: Array<ArgisFeature>
+): SearchFeaturesComplete => {
+  return {
+    type: SEARCH_FEATURES_COMPLETE,
+    searchResultFeatures
   }
 }

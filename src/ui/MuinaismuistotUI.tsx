@@ -91,7 +91,6 @@ i18n.use(initReactI18next).init({
 export default class MuinaismuistotUI {
   private settings: Settings
   private visiblePage?: PageId
-  private searchResultFeatures?: Array<ArgisFeature>
   private pageClosingAnimationTimeoutID: Partial<Record<PageId, number>> = {}
   private loadingAnimationTimeoutID?: number
   private loadingAnimationCounter = 0
@@ -259,8 +258,6 @@ export default class MuinaismuistotUI {
         <SearchPage
           visibility={this.getPageVisibility(PageId.Search)}
           hidePage={this.hidePage}
-          searchFeatures={this.onSearchFeatures}
-          searchResultFeatures={this.searchResultFeatures}
         />
         <InfoPage
           visibility={this.getPageVisibility(PageId.Info)}

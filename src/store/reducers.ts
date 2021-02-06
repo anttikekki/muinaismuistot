@@ -7,6 +7,8 @@ import {
   FEATURES_SELECTED_ON_MAP,
   FETCH_DATA_LATESTS_UPDATE_DATES,
   FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
+  SEARCH_FEATURES,
+  SEARCH_FEATURES_COMPLETE,
   ZOOM_IN,
   ZOOM_OUT
 } from "./actionTypes"
@@ -42,6 +44,17 @@ export const createRootReducer = (map: MuinaismuistotMap): Reducer => {
       return {
         ...state,
         dataLatestUpdateDates: action.payload
+      }
+    } else if (action.type === SEARCH_FEATURES) {
+      map.searchFeatures(action.searchText)
+      return {
+        ...state,
+        searchResultFeatures: undefined
+      }
+    } else if (action.type === SEARCH_FEATURES_COMPLETE) {
+      return {
+        ...state,
+        searchResultFeatures: action.searchResultFeatures
       }
     }
     return state
