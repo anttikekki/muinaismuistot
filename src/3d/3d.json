@@ -11,6 +11,131 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [229462.08600000013, 6647202.2338]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Alfred",
+          "id": 1552,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1552",
+          "municipality": "Kemiönsaari"
+        },
+        "model": {
+          "name": "The wreck of Alfred",
+          "url": "https://sketchfab.com/models/69eedb8487bf4da1aa62e1e697e190a0"
+        },
+        "author": "Museovirasto",
+        "authorUrl": "https://sketchfab.com/MuseovirastoMeriarkeologia",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2021-02-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [314772.3552000001, 6644727.6559]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Esselholm",
+          "id": 1439,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1439",
+          "municipality": "Raasepori"
+        },
+        "model": {
+          "name": "The wreck of Esselholm",
+          "url": "https://sketchfab.com/models/a857077ca59d42879659c51be8bc524a"
+        },
+        "author": "Museovirasto",
+        "authorUrl": "https://sketchfab.com/MuseovirastoMeriarkeologia",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2021-02-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [308707, 6633660]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Trutlandet",
+          "id": 1000028229,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000028229",
+          "municipality": "Raasepori"
+        },
+        "model": {
+          "name": "Trutlandet Jussarö",
+          "url": "https://sketchfab.com/models/774a4790b1214116aae770c18293094f"
+        },
+        "author": "Museovirasto",
+        "authorUrl": "https://sketchfab.com/MuseovirastoMeriarkeologia",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2021-02-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [499577, 6704279]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Ämpyri",
+          "id": 1000035323,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000035323",
+          "municipality": "Kotka"
+        },
+        "model": {
+          "name": "Ämpyrin hylky",
+          "url": "https://sketchfab.com/models/81863c7ef7ad42e4bf23dfbf2bfa9fb6"
+        },
+        "author": "Museovirasto",
+        "authorUrl": "https://sketchfab.com/MuseovirastoMeriarkeologia",
+        "licence": "Copyright (C) 2019-2020 Museovirasto",
+        "licenceUrl": "",
+        "createdDate": "2021-02-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [235274.2276999997, 6816161.388999999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Selkäkangas (Viikala I)",
+          "id": 531010027,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.531010027",
+          "municipality": "Nakkila"
+        },
+        "model": {
+          "name": "Selkäkangas (Viikala I)",
+          "url": "https://sketchfab.com/models/5975147ef5914a019a2af22045454e26"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-02-06"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [233507.55790000036, 6729905.392000001]
       },
       "properties": {
