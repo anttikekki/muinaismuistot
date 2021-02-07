@@ -11,6 +11,56 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [233148.12420000043, 6806723.169100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kaunismäki A ja B",
+          "id": 79010001,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.79010001",
+          "municipality": "Harjavalta"
+        },
+        "model": {
+          "name": "Kaunismäki (pohjoinen)",
+          "url": "https://sketchfab.com/models/84e9d5c1bac54fe8a5fb4b7fcf95e802"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-02-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [345017.8080000002, 6674748.7412]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Krejansberget",
+          "id": 755010007,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.755010007",
+          "municipality": "Siuntio"
+        },
+        "model": {
+          "name": "Röykkiö 1 (A)",
+          "url": "https://sketchfab.com/models/cfba7e9276cf49b1b93fea34b1f67445"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-02-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [229462.08600000013, 6647202.2338]
       },
       "properties": {
@@ -247,7 +297,7 @@
           "municipality": "Harjavalta"
         },
         "model": {
-          "name": "Kaunismäki",
+          "name": "Kaunismäki (eteläinen)",
           "url": "https://sketchfab.com/models/6a91e9cedc5040ab8fb94ece2b3d02a8"
         },
         "author": "Antti Kekki",
