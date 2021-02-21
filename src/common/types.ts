@@ -47,10 +47,18 @@ export interface Settings {
       geojson: string
     }
   }
+  gtk: {
+    selectedLayers: Array<GtkLayer>
+    url: {
+      export: string
+    }
+    opacity: number
+  }
 }
 
 export enum LayerGroup {
   Maanmittauslaitos = "Maanmittauslaitos",
+  GTK = "GTK",
   Museovirasto = "Museovirasto",
   Ahvenanmaa = "Ahvenanmaa",
   Models = "Models",
@@ -88,6 +96,26 @@ export enum MaisemanMuistiLayer {
   MaisemanMuisti = "MaisemanMuisti"
 }
 
+export enum GtkLayer {
+  // kaikki = "Muinaisrannat", //(7)
+  // kuroutumishavainnot = "kuroutumishavainnot", //(8)
+  // rantahavainnot = "rantahavainnot", //(9)
+  // Isobaasit_ylin_ranta = "ylin_ranta", //(11)
+  // Isobaasit_litorina = "litorina", //(12)
+  // Jääjärvet_baltia = "baltia", //(14)
+  // Jääjärvet_ilomantsi = "ilomantsi", //(15)
+  // Jääjärvet_pohjois_suomi = "pohjois_suomi", //(16)
+  // Jääjärvet_pielinen = "pielinen", //(17)
+  // Jääjärvet_saaminki = "saaminki", //(18)
+  // Jääjärvet_sotkamo = "sotkamo", //(19)
+  muinaisrannat = "muinaisrannat" //(20)
+  // ylin_ranta_10m_korkeusmallista = "ylin_ranta_10m_korkeusmallista", //(21)
+  // ylin_ranta_25m_korkeusmallista = "ylin_ranta_25m_korkeusmallista", //(22)
+  // litorina_10m_korkeusmallista = "litorina_10m_korkeusmallista", //(23)
+  // litorina_25m_korkeusmallista = "litorina_25m_korkeusmallista", //(24)
+  // merialue = "merialue" //(25)
+}
+
 export type FeatureLayer =
   | MuseovirastoLayer
   | AhvenanmaaLayer
@@ -121,6 +149,68 @@ export const getAhvenanmaaLayerId = (
       return 1
     case AhvenanmaaLayer.MaritimtKulturarv:
       return 5
+  }
+}
+
+export type GtkLayerId =
+  | 7
+  | 8
+  | 9
+  | 11
+  | 12
+  | 14
+  | 15
+  | 16
+  | 17
+  | 18
+  | 19
+  | 20
+  | 21
+  | 22
+  | 23
+  | 24
+  | 25
+
+export const getGtkLayerId = (layer: GtkLayer): GtkLayerId => {
+  switch (layer) {
+    /*
+    case GtkLayer.kaikki:
+      return 7
+    case GtkLayer.kuroutumishavainnot:
+      return 8
+    case GtkLayer.rantahavainnot:
+      return 9
+    case GtkLayer.Isobaasit_ylin_ranta:
+      return 11
+    case GtkLayer.Isobaasit_litorina:
+      return 12
+    case GtkLayer.Jääjärvet_baltia:
+      return 14
+    case GtkLayer.Jääjärvet_ilomantsi:
+      return 15
+    case GtkLayer.Jääjärvet_pohjois_suomi:
+      return 16
+    case GtkLayer.Jääjärvet_pielinen:
+      return 17
+    case GtkLayer.Jääjärvet_saaminki:
+      return 18
+    case GtkLayer.Jääjärvet_sotkamo:
+      return 19
+      */
+    case GtkLayer.muinaisrannat:
+      return 20
+    /*
+    case GtkLayer.ylin_ranta_10m_korkeusmallista:
+      return 21
+    case GtkLayer.ylin_ranta_25m_korkeusmallista:
+      return 22
+    case GtkLayer.litorina_10m_korkeusmallista:
+      return 23
+    case GtkLayer.litorina_25m_korkeusmallista:
+      return 24
+    case GtkLayer.merialue:
+      return 25
+      */
   }
 }
 

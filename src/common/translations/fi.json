@@ -55,6 +55,7 @@
       "museovirasto": "Museoviraston rekistereistä tietoa haetaan <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "ahvenanmaa": "Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href='https://www.kartor.ax/datasets'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "maanmittauslaitos": "Tausta-, ortokuva- ja peruskartta haetaan Maanmittauslaitoksen <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "gtk": "Muinaisrantojen aineisto haetaan Geologian tutkimuskeskuksen <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://www.gtk.fi/peruslisenssi/'>Peruslisenssillä</a>, erillislupa aineiston käyttöön saatu 15.1.2021).",
       "maisemanmuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset -kirjan paikkatieto on <a href='./maisemanmuisti/'>tietokannasta</a> johon on koottu kirjan listaamat 205 kohdetta. Kirjan sisällön tekijanoikeus on Museovirastolla, jolta on kysytty lupa aineiston käyttöön.",
       "3DModels": "3D-mallit ovat avoimesta <a href='./3d/'>tietokannasta</a>, joka listaa harrastajien sekä virallisen toimijoiden (museot, Museovirasto, Ahvenanmaan paikallioshallinto) tekemiä 3D-mallinnuksia. Mallien lisenssit on listattu tietokannassa mallikohtaisesti.",
       "sourceCode": "Tämän sivuston tekninen toteutus on <a href='https://github.com/anttikekki/muinaismuistot'>avointa lähdekoodia</a>, lisenssinä on <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE'>MIT</a>."
@@ -62,14 +63,28 @@
   },
   "settings": {
     "title": "Asetukset",
-    "backgroundMap": {
-      "title": "Karttapohja",
+    "mml": {
+      "title": "Maanmittauslaitoksen aineistot",
       "maastokartta": "Maastokartta",
       "taustakartta": "Taustakartta",
-      "ortokuva": "Ortokuva"
+      "ortokuva": "Ortokuva",
+      "licence": "Taustakarttasarja (rasteri), Maastokarttasarja (rasteri), ortokuva © Maanmittauslaitos 2021"
     },
-    "layers": {
-      "title": "Kartalla näkyvät kohteet"
+    "gtk": {
+      "title": "Geologian tutkimuskeskuksen aineistot",
+      "transparency": "Läpinäkyvyys (%)",
+      "licence": "GTK Maaperä/Muinaisrannat © Geologian tutkimuskeskus 2021"
+    },
+    "museovirasto": {
+      "title": "Museoviraston aineistot",
+      "licence": "Kulttuuriympäristön tietoaineisto © Museovirasto 2021"
+    },
+    "ahvenanmaa": {
+      "title": "Ahvenanmaan paikallishallinnon aineistot",
+      "licence": "Fornminnen © Ålands landskapsregering 2021"
+    },
+    "other": {
+      "title": "Muut aineistot"
     },
     "filters": {
       "title": "Kartalla näkyvät muinaisjäännökset",
@@ -167,6 +182,16 @@
       "ironAge": "500 eaa. - 1200 jaa.",
       "middleAge": "1200 - 1570 jaa.",
       "modern": "1800 jaa. -"
+    },
+    "gtk": {
+      "layer": {
+        "muinaisrannat": "Muinaisrannat (<a href='https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html' target='_blank'>lisätietoa</a>)"
+      },
+      "feature": {
+        "supra-akvaattinen": "Supra-akvaattinen, jääkauden jälkeen vedenpinnan yläpuolelle jäänyt alue",
+        "yoldia": "Yoldiameren tai Ancylusjärven peittämä alue (11 600 – 7 200 eaa.)",
+        "litorina": "Litorinameren peittämä alue (8 500 – 4 000 eaa.)"
+      }
     },
     "museovirasto": {
       "dating": {

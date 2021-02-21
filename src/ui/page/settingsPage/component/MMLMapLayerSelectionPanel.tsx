@@ -24,7 +24,7 @@ const LayerButton: React.FC<LayerButtonProps> = ({
         checked={isSelected}
         onChange={() => onSelectLayer(layer)}
       />
-      {t(`settings.backgroundMap.${layer}`)}
+      {t(`settings.mml.${layer}`)}
     </label>
   )
 }
@@ -40,17 +40,22 @@ export const MMLMapLayerSelectionPanel: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
   return (
-    <Panel title={t(`settings.backgroundMap.title`)}>
-      <div className="btn-group" data-toggle="buttons">
-        {Object.values(MaanmittauslaitosLayer).map((l) => (
-          <LayerButton
-            key={l}
-            layer={l}
-            selectedLayer={selectedLayer}
-            onSelectLayer={onSelectLayer}
-          />
-        ))}
-      </div>
+    <Panel title={t(`settings.mml.title`)}>
+      <form>
+        <div className="form-group">
+          <div className="btn-group" data-toggle="buttons">
+            {Object.values(MaanmittauslaitosLayer).map((l) => (
+              <LayerButton
+                key={l}
+                layer={l}
+                selectedLayer={selectedLayer}
+                onSelectLayer={onSelectLayer}
+              />
+            ))}
+          </div>
+        </div>
+        <small className="pull-right">{t(`settings.mml.licence`)}</small>
+      </form>
     </Panel>
   )
 }

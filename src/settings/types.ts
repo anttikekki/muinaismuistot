@@ -4,6 +4,8 @@ export interface URLSettings {
   zoom?: number
   lang?: Language
   mmlLayer?: string
+  gtkLayer?: string | Array<string>
+  gtkOpacity?: number
   museovirastoLayer?: string | Array<string>
   muinaisjaannosTypes?: string | Array<string>
   muinaisjaannosDatings?: string | Array<string>

@@ -30,6 +30,7 @@ import Source from "ol/source/Source"
 import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
 import { Pixel } from "ol/pixel"
 import VectorLayer from "ol/layer/Vector"
+import GtkTileLayer from "./layer/GtkTileLayer"
 
 export interface MapEventListener {
   featuresSelected: (
@@ -54,6 +55,7 @@ export default class MuinaismuistotMap {
   private positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
   private modelsLayer: ModelsLayer
   private maisemanMuistiLayer: MaisemanMuistiLayer
+  private gtkLayer: GtkTileLayer
   private eventListeners: MapEventListener
 
   public constructor(
@@ -98,7 +100,7 @@ export default class MuinaismuistotMap {
       }
     )
 
-    this.ahvenanmaaTileLayer = new AhvenanmaaTileLayer(
+    this.gtkLayer = new GtkTileLayer(
       initialSettings,
       eventListeners.showLoadingAnimation,
       (createdLayer) => {
@@ -106,11 +108,19 @@ export default class MuinaismuistotMap {
       }
     )
 
-    this.museovirastoTileLayer = new MuseovirastoTileLayer(
+    this.ahvenanmaaTileLayer = new AhvenanmaaTileLayer(
       initialSettings,
       eventListeners.showLoadingAnimation,
       (createdLayer) => {
         this.map.getLayers().insertAt(4, createdLayer)
+      }
+    )
+
+    this.museovirastoTileLayer = new MuseovirastoTileLayer(
+      initialSettings,
+      eventListeners.showLoadingAnimation,
+      (createdLayer) => {
+        this.map.getLayers().insertAt(5, createdLayer)
       }
     )
 
@@ -122,11 +132,11 @@ export default class MuinaismuistotMap {
       this.maisemanMuistiLayer.createLayer(initialSettings),
       this.modelsLayer.createLayer(initialSettings)
     ]).then(([maisemanMuistiLayer, modelsLayer]) => {
-      this.map.getLayers().insertAt(5, maisemanMuistiLayer)
-      this.map.getLayers().insertAt(6, modelsLayer)
+      this.map.getLayers().insertAt(6, maisemanMuistiLayer)
+      this.map.getLayers().insertAt(7, modelsLayer)
       this.map
         .getLayers()
-        .insertAt(7, this.positionAndSelectedLocation.getLayer())
+        .insertAt(8, this.positionAndSelectedLocation.getLayer())
     })
 
     this.map.on("singleclick", this.loadFeaturesOnClickedCoordinate)
@@ -247,6 +257,9 @@ export default class MuinaismuistotMap {
     changedLayerGroup: LayerGroup
   ): void => {
     switch (changedLayerGroup) {
+      case LayerGroup.GTK:
+        this.gtkLayer.selectedGTKLayersChanged(settings)
+        break
       case LayerGroup.Museovirasto:
         this.museovirastoTileLayer.selectedFeatureLayersChanged(settings)
         break
@@ -294,6 +307,10 @@ export default class MuinaismuistotMap {
     this.maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged(
       settings
     )
+  }
+
+  public gtkLayerOpacityChanged = (settings: Settings) => {
+    this.gtkLayer.opacityChanged(settings)
   }
 
   public setMapLocation = (coordinates: Coordinate) => {

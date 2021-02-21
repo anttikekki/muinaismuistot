@@ -7,7 +7,8 @@ import {
   AhvenanmaaLayer,
   ModelLayer,
   MaisemanMuistiLayer,
-  Language
+  Language,
+  GtkLayer
 } from "../common/types"
 
 const getInitialLang = (): Language => {
@@ -78,5 +79,13 @@ export const initialSettings: Settings = {
     url: {
       geojson: "./maisemanmuisti/maisemanmuisti.json"
     }
+  },
+  gtk: {
+    selectedLayers: [],
+    url: {
+      export:
+        "https://gtkdata.gtk.fi/arcgis/rest/services/Rajapinnat/GTK_Maapera_WMS/MapServer/export"
+    },
+    opacity: 0.7
   }
 }

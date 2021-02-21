@@ -16,7 +16,11 @@ const updateParams = (
   currentValues: Array<string>,
   key: keyof URLSettings
 ): URLSettingsState => {
-  if (initialValues.every((v) => currentValues.includes(v))) {
+  if (
+    (initialValues.length === 0 && currentValues.length === 0) ||
+    (initialValues.length > 0 &&
+      initialValues.every((v) => currentValues.includes(v)))
+  ) {
     return {
       ...state,
       old: {
@@ -81,6 +85,22 @@ export const updateSettingsToURL = (
     initialSettings.maanmittauslaitos.selectedLayer,
     currentSettings.maanmittauslaitos.selectedLayer,
     "mmlLayer"
+  )
+
+  // GTK layers
+  state = updateParams(
+    state,
+    initialSettings.gtk.selectedLayers,
+    currentSettings.gtk.selectedLayers,
+    "gtkLayer"
+  )
+
+  // GTK opacity
+  state = updateParam(
+    state,
+    initialSettings.gtk.opacity,
+    currentSettings.gtk.opacity,
+    "gtkOpacity"
   )
 
   // Museovirasto layers

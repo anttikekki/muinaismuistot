@@ -50,10 +50,15 @@ export default class Muinaismuistot {
         this.updateSettings(settings)
         this.map.selectedMaanmittauslaitosLayerChanged(settings)
       },
-      selectedFeatureLayersChanged: (
-        settings,
-        changedLayerGroup: LayerGroup
-      ) => {
+      selectedGtkLayerChanged: (settings, changedLayerGroup) => {
+        this.updateSettings(settings)
+        this.map.selectedFeatureLayersChanged(settings, changedLayerGroup)
+      },
+      onGtkLayerOpacityChange: (settings: Settings) => {
+        this.updateSettings(settings)
+        this.map.gtkLayerOpacityChanged(settings)
+      },
+      selectedFeatureLayersChanged: (settings, changedLayerGroup) => {
         this.updateSettings(settings)
         this.map.selectedFeatureLayersChanged(settings, changedLayerGroup)
       },

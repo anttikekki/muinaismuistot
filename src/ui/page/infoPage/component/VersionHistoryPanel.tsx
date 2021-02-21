@@ -4,6 +4,22 @@ import { Panel } from "../../../component/Panel"
 export const VersionHistoryPanel: React.FC = () => {
   return (
     <Panel title="Versiohistoria">
+      <h5>Helmikuu 2021</h5>
+      <p>
+        Lisätty{" "}
+        <a href="https://www.gtk.fi/" target="_blank">
+          Geologian tutkimuskeskuksen
+        </a>{" "}
+        <a
+          href="https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html"
+          target="_blank"
+        >
+          Muinaisrannat
+        </a>
+        -aineisto karttatasona.
+      </p>
+
+      <br />
       <h5>Tammikuu 2021</h5>
       <p>
         Lisätty käännökset ruotsin kielelle (kiitos Jenni Lucenius ja Mikko

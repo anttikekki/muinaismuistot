@@ -7,7 +7,8 @@ import {
   AhvenanmaaLayer,
   ModelLayer,
   MaisemanMuistiLayer,
-  Language
+  Language,
+  GtkLayer
 } from "../common/types"
 
 export const updateLanguage = (
@@ -29,6 +30,32 @@ export const updateMaanmittauslaitosSelectedLayer = (
     maanmittauslaitos: {
       ...settings.maanmittauslaitos,
       selectedLayer
+    }
+  }
+}
+
+export const updateGtkSelectedLayers = (
+  settings: Settings,
+  selectedLayers: Array<GtkLayer>
+): Settings => {
+  return {
+    ...settings,
+    gtk: {
+      ...settings.gtk,
+      selectedLayers
+    }
+  }
+}
+
+export const updateGtkLayerOpacity = (
+  settings: Settings,
+  opacity: number
+): Settings => {
+  return {
+    ...settings,
+    gtk: {
+      ...settings.gtk,
+      opacity
     }
   }
 }

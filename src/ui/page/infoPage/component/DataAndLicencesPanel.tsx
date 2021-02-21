@@ -22,6 +22,10 @@ export const DataAndLicencesPanel: React.FC = () => {
       </p>
 
       <p>
+        <Trans i18nKey="info.licences.gtk" components={{ a: <a /> }} />
+      </p>
+
+      <p>
         <Trans
           i18nKey="info.licences.maisemanmuisti"
           components={{ a: <a /> }}

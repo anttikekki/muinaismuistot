@@ -55,6 +55,7 @@
       "museovirasto": "Museiverkets registerdata hämtas från <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0</a>).",
       "ahvenanmaa": "Ålands landskapsregerings register hämtas från <a href='https://www.kartor.ax/datasets'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0</a>).",
       "maanmittauslaitos": "Bakgrundskarta, flygfoto och terrängskarta hämtas från Lantmäteriverkets <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0</a>).",
+      "gtk": "Materialet över fornstränder hämtas från Geologiska forskningscentralens <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/'>öppet WMS-gränssnitt</a> (platsdata har publicerats med <a href='https://www.gtk.fi/sv/grundlicens/'>grundlicens</a>, tillstånd för användning av materialet beviljades 15.1.2021).",
       "maisemanmuisti": "Platsdata från boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset hämtas från <a href='./maisemanmuisti/'>en databas</a> som sammanställer samtliga 205 objekt i boken. Upphovsrätten till boken tillhör Museiverket, som har godkänt att informationen används.",
       "3DModels": "3D-modeller hämtas från öppen <a href='./3d/'>databas</a>, som sammanställer modeller från privata och offentliga aktörer (museer, Museiverket, Ålands landskapsregering). Licensuppgifter över modellerna har sammanställts enligt respektive modell i databasen.",
       "sourceCode": "Denna webbplats använder <a href='https://github.com/anttikekki/muinaismuistot'>öppen källkod</a> av licensen <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE'>MIT</a>."
@@ -62,14 +63,28 @@
   },
   "settings": {
     "title": "Inställningar",
-    "backgroundMap": {
-      "title": "Kartlager",
+    "mml": {
+      "title": "Lantmäteriverkets material",
       "maastokartta": "Terrängkarta",
       "taustakartta": "Bakgrundskarta",
-      "ortokuva": "Flygfoto"
+      "ortokuva": "Flygfoto",
+      "licence": "Bakgrundskarta (raster), terrängskarta (raster), ortofoto © Lantmäteriverket 2021"
     },
-    "layers": {
-      "title": "Objekt på kartan"
+    "gtk": {
+      "title": "Geologiska forskningscentralens material",
+      "transparency": "Transparens (%)",
+      "licence": "GTK Jordmån/Fornstränder © Geologiska forskningscentralen 2021"
+    },
+    "museovirasto": {
+      "title": "Museiverkets registerdata",
+      "licence": "Material om kulturmiljön © Museiverket 2021"
+    },
+    "ahvenanmaa": {
+      "title": "Ålands landskapsregerings registerdata",
+      "licence": "Fornminnen © Ålands landskapsregering 2021"
+    },
+    "other": {
+      "title": "Andra källor"
     },
     "filters": {
       "title": "Fasta fornlämningar",
@@ -167,6 +182,16 @@
       "ironAge": "500 f.v.t. - 1200 e.v.t.",
       "middleAge": "1200 - 1570 e.v.t.",
       "modern": "1800 e.v.t. -"
+    },
+    "gtk": {
+      "layer": {
+        "muinaisrannat": "Fornstränder (<a href='https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html' target='_blank'>information</a>)"
+      },
+      "feature": {
+        "supra-akvaattinen": "Supraakvatiskt, dvs. yta som efter istiden blivit ovan havsytan",
+        "yoldia": "Yta som täckts av Yoldiahavet eller Ancylussjön (11 600 - 7 200 f.v.t.)",
+        "litorina": "Yta som täckts av Litorinahavet (8 500 – 4 000 f.v.t.)"
+      }
     },
     "museovirasto": {
       "dating": {

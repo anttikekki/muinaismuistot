@@ -141,30 +141,60 @@ export const FeatureLayerFilterPanel: React.FC<Props> = ({
   onSelectMuinaisjaannosType,
   onSelectMuinaisjaannosDating
 }) => {
-  const { t } = useTranslation()
-  let infoText = regexifyString({
-    pattern: /PISTE_ICONS|ALUE_ICONS/gm,
-    decorator: (match) => {
-      if (match === "PISTE_ICONS") {
-        return (
-          <>
-            <img src="images/muinaisjaannos_kohde.png" />
-            <img src="images/muu_kulttuuriperintokohde_kohde.png" />
-          </>
-        )
-      }
-      if (match === "ALUE_ICONS") {
-        return (
-          <>
-            <img src="images/muinaisjaannos_alue.png" />
-            <img src="images/muu-kulttuuriperintokohde-alue.png" />
-          </>
-        )
-      }
-      return ""
-    },
-    input: t(`settings.filters.info`)
-  })
+  const { t, i18n } = useTranslation()
+  const infoText = React.useMemo(
+    () =>
+      regexifyString({
+        pattern: /PISTE_ICONS|ALUE_ICONS/gm,
+        decorator: (match) => {
+          if (match === "PISTE_ICONS") {
+            return (
+              <>
+                <img src="images/muinaisjaannos_kohde.png" />
+                <img src="images/muu_kulttuuriperintokohde_kohde.png" />
+              </>
+            )
+          }
+          if (match === "ALUE_ICONS") {
+            return (
+              <>
+                <img src="images/muinaisjaannos_alue.png" />
+                <img src="images/muu-kulttuuriperintokohde-alue.png" />
+              </>
+            )
+          }
+          return ""
+        },
+        input: t(`settings.filters.info`)
+      }),
+    [i18n.language]
+  )
+
+  const typeCheckboxes = React.useMemo(
+    () =>
+      Object.values(MuinaisjaannosTyyppi).map((type) => (
+        <TypeCheckbox
+          key={type}
+          type={type}
+          selectedMuinaisjaannosTypes={selectedMuinaisjaannosTypes}
+          onSelectType={onSelectMuinaisjaannosType}
+        />
+      )),
+    [selectedMuinaisjaannosTypes, i18n.language]
+  )
+
+  const datingCheckboxes = React.useMemo(
+    () =>
+      Object.values(MuinaisjaannosAjoitus).map((dating) => (
+        <DatingCheckbox
+          key={dating}
+          dating={dating}
+          selectedMuinaisjaannosDatings={selectedMuinaisjaannosDatings}
+          onSelectDating={onSelectMuinaisjaannosDating}
+        />
+      )),
+    [selectedMuinaisjaannosDatings, i18n.language]
+  )
 
   return (
     <Panel title={t(`settings.filters.title`)}>
@@ -175,14 +205,7 @@ export const FeatureLayerFilterPanel: React.FC<Props> = ({
           selectedMuinaisjaannosTypes={selectedMuinaisjaannosTypes}
           onSelectTypes={onSelectMuinaisjaannosType}
         />
-        {Object.values(MuinaisjaannosTyyppi).map((type) => (
-          <TypeCheckbox
-            key={type}
-            type={type}
-            selectedMuinaisjaannosTypes={selectedMuinaisjaannosTypes}
-            onSelectType={onSelectMuinaisjaannosType}
-          />
-        ))}
+        {typeCheckboxes}
 
         <br />
 
@@ -190,14 +213,7 @@ export const FeatureLayerFilterPanel: React.FC<Props> = ({
           selectedMuinaisjaannosDatings={selectedMuinaisjaannosDatings}
           onSelectDatings={onSelectMuinaisjaannosDating}
         />
-        {Object.values(MuinaisjaannosAjoitus).map((dating) => (
-          <DatingCheckbox
-            key={dating}
-            dating={dating}
-            selectedMuinaisjaannosDatings={selectedMuinaisjaannosDatings}
-            onSelectDating={onSelectMuinaisjaannosDating}
-          />
-        ))}
+        {datingCheckboxes}
       </form>
     </Panel>
   )

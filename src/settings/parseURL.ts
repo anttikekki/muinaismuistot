@@ -7,11 +7,14 @@ import {
   AhvenanmaaLayer,
   ModelLayer,
   MaisemanMuistiLayer,
-  Language
+  Language,
+  GtkLayer
 } from "../common/types"
 import { parseURLParams } from "../common/util/URLHashHelper"
 import {
   updateAhvenanmaaSelectedLayers,
+  updateGtkLayerOpacity,
+  updateGtkSelectedLayers,
   updateLanguage,
   updateMaanmittauslaitosSelectedLayer,
   updateMaisemanMuistiSelectedLayers,
@@ -58,6 +61,8 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
     zoom,
     lang,
     mmlLayer,
+    gtkLayer,
+    gtkOpacity,
     museovirastoLayer,
     muinaisjaannosTypes,
     muinaisjaannosDatings,
@@ -82,6 +87,21 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   // MML
   if (mmlLayer && isEnumValue(MaanmittauslaitosLayer, mmlLayer)) {
     newSettings = updateMaanmittauslaitosSelectedLayer(newSettings, mmlLayer)
+  }
+
+  // GTK layers
+  if (gtkLayer) {
+    newSettings = validateAndUpdateUrlParamToSettings(
+      newSettings,
+      GtkLayer,
+      gtkLayer,
+      updateGtkSelectedLayers
+    )
+  }
+
+  // GTK opacity
+  if (gtkOpacity !== undefined) {
+    newSettings = updateGtkLayerOpacity(newSettings, gtkOpacity)
   }
 
   // Museovirasto layers

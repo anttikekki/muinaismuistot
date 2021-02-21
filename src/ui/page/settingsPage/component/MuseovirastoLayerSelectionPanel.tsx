@@ -1,14 +1,8 @@
 import * as React from "react"
-import {
-  MuseovirastoLayer,
-  FeatureLayer,
-  AhvenanmaaLayer,
-  ModelLayer,
-  MaisemanMuistiLayer
-} from "../../../../common/types"
+import { MuseovirastoLayer, FeatureLayer } from "../../../../common/types"
 import { Panel } from "../../../component/Panel"
 import { getLayerIconURLs } from "../../../../common/util/featureParser"
-import { Trans, useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 
 interface LayerCheckboxProps<T extends FeatureLayer> {
   label: string
@@ -43,28 +37,16 @@ const LayerCheckbox = <T extends FeatureLayer>(
 
 interface Props {
   selectedMuseovirastoLayers: Array<MuseovirastoLayer>
-  selectedAhvenanmaaLayers: Array<AhvenanmaaLayer>
-  selectedModelLayers: Array<ModelLayer>
-  selectedMaisemanMuistiLayers: Array<MaisemanMuistiLayer>
   onSelectMuseovirastoLayer: (layer: MuseovirastoLayer) => void
-  onSelectAhvenanmaaLayer: (layer: AhvenanmaaLayer) => void
-  onSelectModelLayer: (layer: ModelLayer) => void
-  onSelectMaisemanMuistiLayer: (layer: MaisemanMuistiLayer) => void
 }
 
-export const FeatureLayerSelectionPanel: React.FC<Props> = ({
+export const MuseovirastoLayerSelectionPanel: React.FC<Props> = ({
   selectedMuseovirastoLayers,
-  selectedAhvenanmaaLayers,
-  selectedModelLayers,
-  selectedMaisemanMuistiLayers,
-  onSelectMuseovirastoLayer,
-  onSelectAhvenanmaaLayer,
-  onSelectModelLayer,
-  onSelectMaisemanMuistiLayer
+  onSelectMuseovirastoLayer
 }) => {
-  const { t } = useTranslation()
-  return (
-    <Panel title={t(`settings.layers.title`)}>
+  const { t, i18n } = useTranslation()
+  const checkboxes = React.useMemo(
+    () => (
       <form>
         <h5>
           {t(
@@ -131,50 +113,16 @@ export const FeatureLayerSelectionPanel: React.FC<Props> = ({
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
         />
-
-        <h5>{t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)}</h5>
-        <LayerCheckbox
-          label={t(`common.features.Kohde`)}
-          layer={AhvenanmaaLayer.Fornminnen}
-          selectedLayers={selectedAhvenanmaaLayers}
-          onSelectLayer={onSelectAhvenanmaaLayer}
-        />
-
-        <h5>
-          {t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)}
-        </h5>
-        <LayerCheckbox
-          label={t(`common.features.Kohde`)}
-          layer={AhvenanmaaLayer.MaritimtKulturarv}
-          selectedLayers={selectedAhvenanmaaLayers}
-          onSelectLayer={onSelectAhvenanmaaLayer}
-        />
-
-        <h5>
-          <Trans i18nKey="data.register.3Dmodels" components={{ a: <a /> }} />
-        </h5>
-        <LayerCheckbox
-          label={t(`common.features.3D-malli`)}
-          layer={ModelLayer.ModelLayer}
-          selectedLayers={selectedModelLayers}
-          onSelectLayer={onSelectModelLayer}
-        />
-
-        <h5>
-          <Trans
-            i18nKey="data.register.maisemanMuisti"
-            components={{ a: <a /> }}
-          />
-        </h5>
-        <LayerCheckbox
-          label={t(
-            `common.features.Valtakunnallisesti merkittävä muinaisjäännös`
-          )}
-          layer={MaisemanMuistiLayer.MaisemanMuisti}
-          selectedLayers={selectedMaisemanMuistiLayers}
-          onSelectLayer={onSelectMaisemanMuistiLayer}
-        />
       </form>
+    ),
+    [selectedMuseovirastoLayers, i18n.language]
+  )
+
+  return (
+    <Panel title={t(`settings.museovirasto.title`)}>
+      {checkboxes}
+
+      <small className="pull-right">{t(`settings.museovirasto.licence`)}</small>
     </Panel>
   )
 }

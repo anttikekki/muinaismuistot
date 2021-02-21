@@ -21,7 +21,8 @@ import {
   MaisemanMuistiLayer,
   GeoJSONFeature,
   MaisemanMuistiFeatureProperties,
-  Language
+  Language,
+  GtkLayer
 } from "../common/types"
 import { LoadingAnimation } from "./component/LoadingAnimation"
 import { ZoomInButton } from "./component/mapButton/ZoomInButton"
@@ -37,6 +38,8 @@ import { OpenSettingsPage } from "./component/mapButton/OpenSettingsPage"
 import { PageVisibility } from "./page/Page"
 import {
   updateAhvenanmaaSelectedLayers,
+  updateGtkLayerOpacity,
+  updateGtkSelectedLayers,
   updateLanguage,
   updateMaanmittauslaitosSelectedLayer,
   updateMaisemanMuistiSelectedLayers,
@@ -68,6 +71,11 @@ export interface EventListeners {
   zoomOut: () => void
   centerToCurrentPositions: () => void
   selectedMaanmittauslaitosLayerChanged: (settings: Settings) => void
+  selectedGtkLayerChanged: (
+    settings: Settings,
+    changedLayerGroup: LayerGroup
+  ) => void
+  onGtkLayerOpacityChange: (settings: Settings) => void
   selectedFeatureLayersChanged: (
     settings: Settings,
     changedLayerGroup: LayerGroup
@@ -132,6 +140,21 @@ export default class MuinaismuistotUI {
   private onSelectMaanmittauslaitosLayer = (layer: MaanmittauslaitosLayer) => {
     this.settings = updateMaanmittauslaitosSelectedLayer(this.settings, layer)
     this.eventListeners.selectedMaanmittauslaitosLayerChanged(this.settings)
+    this.renderUI()
+  }
+
+  private onSelectGTKLayer = (layer: GtkLayer) => {
+    this.settings = updateGtkSelectedLayers(
+      this.settings,
+      toggleSelection(layer, this.settings.gtk.selectedLayers)
+    )
+    this.eventListeners.selectedGtkLayerChanged(this.settings, LayerGroup.GTK)
+    this.renderUI()
+  }
+
+  private onGtkLayerOpacityChange = (opacity: number) => {
+    this.settings = updateGtkLayerOpacity(this.settings, opacity)
+    this.eventListeners.onGtkLayerOpacityChange(this.settings)
     this.renderUI()
   }
 
@@ -233,7 +256,7 @@ export default class MuinaismuistotUI {
 
     ReactDOM.render(
       <>
-        <LoadingAnimation visible={isLoading} />
+        <LoadingAnimation visible={isLoading} isPageOpen={!!this.visiblePage} />
         <ZoomInButton onClick={zoomIn} />
         <ZoomOutButton onClick={zoomOut} />
         <CenterToCurrentPositionButton onClick={centerToCurrentPositions} />
@@ -268,6 +291,8 @@ export default class MuinaismuistotUI {
           hidePage={this.hidePage}
           settings={this.settings}
           onSelectMaanmittauslaitosLayer={this.onSelectMaanmittauslaitosLayer}
+          onSelectGtkLayer={this.onSelectGTKLayer}
+          onGtkLayerOpacityChange={this.onGtkLayerOpacityChange}
           onSelectMuseovirastoLayer={this.onSelectMuseovirastoLayer}
           onSelectAhvenanmaaLayer={this.onSelectAhvenanmaaLayer}
           onSelectModelLayer={this.onSelectModelLayer}
