@@ -1,13 +1,24 @@
 import "core-js/stable"
 import "elm-pep"
 
-import MuinaismuistotMap from "./map/MuinaismuistotMap"
+import {
+  centerToCurrentPositions,
+  createMap,
+  gtkLayerOpacityChanged,
+  searchFeatures,
+  selectedFeatureLayersChanged,
+  selectedMaanmittauslaitosLayerChanged,
+  selectedMuinaisjaannosDatingsChanged,
+  selectedMuinaisjaannosTypesChanged,
+  setMapLocation,
+  showSelectedLocationMarker
+} from "./map/MuinaismuistotMap"
 import MuinaismuistotUI from "./ui/MuinaismuistotUI"
 import { parseCoordinatesFromURL } from "./common/util/URLHashHelper"
 import { DataLatestUpdateDates } from "./common/types"
 import { getSettingsFromURL, updateSettingsToURL } from "./settings"
 import { configureStore } from "./store/configureStore"
-import { createRootReducer } from "./store/reducers"
+import { rootReducer } from "./store/reducers"
 import { Settings } from "./store/storeTypes"
 import { initialSettings } from "./store/initialSettings"
 import {
@@ -19,15 +30,15 @@ const determineStartLocation = () => {
   if (parseCoordinatesFromURL()) {
     setMapLocationFromURLHash()
   } else {
-    map.centerToCurrentPositions()
+    centerToCurrentPositions()
   }
 }
 
 const setMapLocationFromURLHash = () => {
   const coordinates = parseCoordinatesFromURL()
   if (coordinates) {
-    map.setMapLocation(coordinates)
-    map.showSelectedLocationMarker(coordinates)
+    setMapLocation(coordinates)
+    showSelectedLocationMarker(coordinates)
   }
 }
 
@@ -38,7 +49,7 @@ const updateSettings = (settings: Settings) => {
 
 const settings = getSettingsFromURL(initialSettings)
 
-const map = new MuinaismuistotMap(settings, {
+createMap(settings, {
   featuresSelected: (features, models, maisemanMuistiFeatures) => {
     store.dispatch(
       featuresSelectedOnMap({ features, models, maisemanMuistiFeatures })
@@ -55,35 +66,35 @@ const map = new MuinaismuistotMap(settings, {
   }
 })
 
-const store = configureStore(settings, createRootReducer(map))
+const store = configureStore(settings, rootReducer)
 
 const ui = new MuinaismuistotUI(settings, store, {
   searchFeatures: (searchText) => {
-    map.searchFeatures(searchText)
+    searchFeatures(searchText)
   },
   selectedMaanmittauslaitosLayerChanged: (settings) => {
     updateSettings(settings)
-    map.selectedMaanmittauslaitosLayerChanged(settings)
+    selectedMaanmittauslaitosLayerChanged(settings)
   },
   selectedGtkLayerChanged: (settings, changedLayerGroup) => {
     updateSettings(settings)
-    map.selectedFeatureLayersChanged(settings, changedLayerGroup)
+    selectedFeatureLayersChanged(settings, changedLayerGroup)
   },
   onGtkLayerOpacityChange: (settings: Settings) => {
     updateSettings(settings)
-    map.gtkLayerOpacityChanged(settings)
+    gtkLayerOpacityChanged(settings)
   },
   selectedFeatureLayersChanged: (settings, changedLayerGroup) => {
     updateSettings(settings)
-    map.selectedFeatureLayersChanged(settings, changedLayerGroup)
+    selectedFeatureLayersChanged(settings, changedLayerGroup)
   },
   selectedMuinaisjaannosTypesChanged: (settings) => {
     updateSettings(settings)
-    map.selectedMuinaisjaannosTypesChanged(settings)
+    selectedMuinaisjaannosTypesChanged(settings)
   },
   selectedMuinaisjaannosDatingsChanged: (settings) => {
     updateSettings(settings)
-    map.selectedMuinaisjaannosDatingsChanged(settings)
+    selectedMuinaisjaannosDatingsChanged(settings)
   },
   selectedLanguageChanged: (settings) => {
     updateSettings(settings)

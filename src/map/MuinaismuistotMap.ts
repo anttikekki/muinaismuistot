@@ -45,330 +45,324 @@ export interface MapEventListener {
   dataLatestUpdateDatesReady: (dates: DataLatestUpdateDates) => void
 }
 
-export default class MuinaismuistotMap {
-  private map: Map
-  private view: View
-  private geolocation?: Geolocation
-  private maanmittauslaitosTileLayer: MaanmittauslaitosTileLayer
-  private museovirastoTileLayer: MuseovirastoTileLayer
-  private ahvenanmaaTileLayer: AhvenanmaaTileLayer
-  private positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
-  private modelsLayer: ModelsLayer
-  private maisemanMuistiLayer: MaisemanMuistiLayer
-  private gtkLayer: GtkTileLayer
-  private eventListeners: MapEventListener
+let map: Map
+let view: View
+let geolocation: Geolocation
+let maanmittauslaitosTileLayer: MaanmittauslaitosTileLayer
+let museovirastoTileLayer: MuseovirastoTileLayer
+let ahvenanmaaTileLayer: AhvenanmaaTileLayer
+let positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
+let modelsLayer: ModelsLayer
+let maisemanMuistiLayer: MaisemanMuistiLayer
+let gtkLayer: GtkTileLayer
+let eventListeners: MapEventListener
 
-  public constructor(
-    initialSettings: Settings,
-    eventListeners: MapEventListener
-  ) {
-    this.eventListeners = eventListeners
+export const createMap = (
+  initialSettings: Settings,
+  eventListeners: MapEventListener
+) => {
+  eventListeners = eventListeners
 
-    proj4.defs(
-      "EPSG:3067",
-      "+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
-    )
-    registerProj4(proj4)
+  proj4.defs(
+    "EPSG:3067",
+    "+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+  )
+  registerProj4(proj4)
 
-    const extent: Extent = [50199.4814, 6582464.0358, 761274.6247, 7799839.8902]
-    getProjection("EPSG:3067").setExtent(extent)
+  const extent: Extent = [50199.4814, 6582464.0358, 761274.6247, 7799839.8902]
+  getProjection("EPSG:3067").setExtent(extent)
 
-    this.view = new View({
-      center: [385249.63630000036, 6672695.7579],
-      projection: "EPSG:3067",
-      zoom: initialSettings.initialMapZoom,
-      enableRotation: false
+  view = new View({
+    center: [385249.63630000036, 6672695.7579],
+    projection: "EPSG:3067",
+    zoom: initialSettings.initialMapZoom,
+    enableRotation: false
+  })
+
+  const scaleControl = new ScaleLine({
+    units: "metric"
+  })
+
+  map = new Map({
+    target: "map",
+    view: view,
+    controls: new Collection([scaleControl])
+  })
+
+  maanmittauslaitosTileLayer = new MaanmittauslaitosTileLayer(
+    initialSettings,
+    eventListeners.showLoadingAnimation,
+    (mmlMaastokarttaLayer, mmlTaustakarttaLayer, mmlOrtokuvaLayer) => {
+      map.getLayers().insertAt(0, mmlMaastokarttaLayer)
+      map.getLayers().insertAt(1, mmlTaustakarttaLayer)
+      map.getLayers().insertAt(2, mmlOrtokuvaLayer)
+    }
+  )
+
+  gtkLayer = new GtkTileLayer(
+    initialSettings,
+    eventListeners.showLoadingAnimation,
+    (createdLayer) => {
+      map.getLayers().insertAt(3, createdLayer)
+    }
+  )
+
+  ahvenanmaaTileLayer = new AhvenanmaaTileLayer(
+    initialSettings,
+    eventListeners.showLoadingAnimation,
+    (createdLayer) => {
+      map.getLayers().insertAt(4, createdLayer)
+    }
+  )
+
+  museovirastoTileLayer = new MuseovirastoTileLayer(
+    initialSettings,
+    eventListeners.showLoadingAnimation,
+    (createdLayer) => {
+      map.getLayers().insertAt(5, createdLayer)
+    }
+  )
+
+  maisemanMuistiLayer = new MaisemanMuistiLayer()
+  modelsLayer = new ModelsLayer()
+  positionAndSelectedLocation = new CurrentPositionAndSelectedLocationMarkerLayer()
+
+  Promise.all([
+    maisemanMuistiLayer.createLayer(initialSettings),
+    modelsLayer.createLayer(initialSettings)
+  ]).then(([maisemanMuistiLayer, modelsLayer]) => {
+    map.getLayers().insertAt(6, maisemanMuistiLayer)
+    map.getLayers().insertAt(7, modelsLayer)
+    map.getLayers().insertAt(8, positionAndSelectedLocation.getLayer())
+  })
+
+  map.on("singleclick", loadFeaturesOnClickedCoordinate)
+}
+
+const getFeaturesAtPixelAtGeoJsonLayer = <T>(
+  pixel: Pixel,
+  geoJsonLayer?: VectorLayer
+): Array<GeoJSONFeature<T>> => {
+  return map
+    .getFeaturesAtPixel(pixel, {
+      layerFilter: (layer: Layer<Source>) => layer === geoJsonLayer,
+      hitTolerance: 10
     })
-
-    const scaleControl = new ScaleLine({
-      units: "metric"
-    })
-
-    this.map = new Map({
-      target: "map",
-      view: this.view,
-      controls: new Collection([scaleControl])
-    })
-
-    this.maanmittauslaitosTileLayer = new MaanmittauslaitosTileLayer(
-      initialSettings,
-      eventListeners.showLoadingAnimation,
-      (mmlMaastokarttaLayer, mmlTaustakarttaLayer, mmlOrtokuvaLayer) => {
-        this.map.getLayers().insertAt(0, mmlMaastokarttaLayer)
-        this.map.getLayers().insertAt(1, mmlTaustakarttaLayer)
-        this.map.getLayers().insertAt(2, mmlOrtokuvaLayer)
-      }
-    )
-
-    this.gtkLayer = new GtkTileLayer(
-      initialSettings,
-      eventListeners.showLoadingAnimation,
-      (createdLayer) => {
-        this.map.getLayers().insertAt(3, createdLayer)
-      }
-    )
-
-    this.ahvenanmaaTileLayer = new AhvenanmaaTileLayer(
-      initialSettings,
-      eventListeners.showLoadingAnimation,
-      (createdLayer) => {
-        this.map.getLayers().insertAt(4, createdLayer)
-      }
-    )
-
-    this.museovirastoTileLayer = new MuseovirastoTileLayer(
-      initialSettings,
-      eventListeners.showLoadingAnimation,
-      (createdLayer) => {
-        this.map.getLayers().insertAt(5, createdLayer)
-      }
-    )
-
-    this.maisemanMuistiLayer = new MaisemanMuistiLayer()
-    this.modelsLayer = new ModelsLayer()
-    this.positionAndSelectedLocation = new CurrentPositionAndSelectedLocationMarkerLayer()
-
-    Promise.all([
-      this.maisemanMuistiLayer.createLayer(initialSettings),
-      this.modelsLayer.createLayer(initialSettings)
-    ]).then(([maisemanMuistiLayer, modelsLayer]) => {
-      this.map.getLayers().insertAt(6, maisemanMuistiLayer)
-      this.map.getLayers().insertAt(7, modelsLayer)
-      this.map
-        .getLayers()
-        .insertAt(8, this.positionAndSelectedLocation.getLayer())
-    })
-
-    this.map.on("singleclick", this.loadFeaturesOnClickedCoordinate)
-  }
-
-  private getFeaturesAtPixelAtGeoJsonLayer = <T>(
-    pixel: Pixel,
-    geoJsonLayer?: VectorLayer
-  ): Array<GeoJSONFeature<T>> => {
-    return this.map
-      .getFeaturesAtPixel(pixel, {
-        layerFilter: (layer: Layer<Source>) => layer === geoJsonLayer,
-        hitTolerance: 10
-      })
-      .map((feature) => {
-        // Convert FeatureLike to GeoJSONFeature
-        const extent = feature.getGeometry()?.getExtent()
-        return {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [extent![0], extent![1]]
-          },
-          properties: {
-            ...(feature.getProperties() as T)
-          }
+    .map((feature) => {
+      // Convert FeatureLike to GeoJSONFeature
+      const extent = feature.getGeometry()?.getExtent()
+      return {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [extent![0], extent![1]]
+        },
+        properties: {
+          ...(feature.getProperties() as T)
         }
-      })
-  }
-
-  private loadFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
-    this.eventListeners.showLoadingAnimation(true)
-    const mapSize = this.map.getSize()
-    if (!mapSize) {
-      return
-    }
-
-    const ahvenanmaaQuery = this.ahvenanmaaTileLayer.identifyFeaturesAt(
-      e.coordinate,
-      mapSize,
-      this.map.getView().calculateExtent(mapSize)
-    )
-
-    const museovirastoQuery = this.museovirastoTileLayer.identifyFeaturesAt(
-      e.coordinate,
-      mapSize,
-      this.map.getView().calculateExtent(mapSize)
-    )
-
-    const modelsResult = this.getFeaturesAtPixelAtGeoJsonLayer<ModelFeatureProperties>(
-      e.pixel,
-      this.modelsLayer.getLayer()
-    )
-
-    const maisemanMuistiResult = this.getFeaturesAtPixelAtGeoJsonLayer<MaisemanMuistiFeatureProperties>(
-      e.pixel,
-      this.maisemanMuistiLayer.getLayer()
-    )
-
-    Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
-      ([ahvenanmaaResult, museovirastoResult]) => {
-        this.eventListeners.showLoadingAnimation(false)
-        const allFeatures = ahvenanmaaResult.results
-          .concat(museovirastoResult.results)
-          .map((f) => this.modelsLayer.addFeaturesForArgisFeature(f))
-          .map((f) => this.maisemanMuistiLayer.addFeaturesForArgisFeature(f))
-
-        this.eventListeners.featuresSelected(
-          allFeatures,
-          modelsResult,
-          maisemanMuistiResult.filter((feature) => {
-            // Do not show Maiseman muisti feature if there is Argis feature for it in search results
-            const id = feature.properties.id.toString()
-            return !allFeatures.some(
-              (argisFeature) =>
-                argisFeature.layerName ===
-                  MuseovirastoLayer.Muinaisjaannokset_piste &&
-                argisFeature.attributes.mjtunnus === id
-            )
-          })
-        )
-      }
-    )
-  }
-
-  private initGeolocation = () => {
-    this.geolocation = new Geolocation({
-      projection: this.view.getProjection(),
-      tracking: true,
-      trackingOptions: {
-        enableHighAccuracy: true
       }
     })
+}
 
-    this.geolocation.once("change:position", this.centerToCurrentPositions)
-    this.geolocation.on("change:position", this.geolocationChanged)
+const loadFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
+  eventListeners.showLoadingAnimation(true)
+  const mapSize = map.getSize()
+  if (!mapSize) {
+    return
   }
 
-  private geolocationChanged = () => {
-    const position = this.geolocation?.getPosition()
-    if (position) {
-      this.positionAndSelectedLocation.addCurrentPositionMarker(position)
-    }
-  }
+  const ahvenanmaaQuery = ahvenanmaaTileLayer.identifyFeaturesAt(
+    e.coordinate,
+    mapSize,
+    map.getView().calculateExtent(mapSize)
+  )
 
-  private zoom = (zoomChange: number) => {
-    const zoom = this.view.getZoom()
-    if (zoom) {
-      this.view.animate({
-        zoom: zoom + zoomChange,
-        duration: 250
-      })
-    }
-  }
+  const museovirastoQuery = museovirastoTileLayer.identifyFeaturesAt(
+    e.coordinate,
+    mapSize,
+    map.getView().calculateExtent(mapSize)
+  )
 
-  public selectedFeatureLayersChanged = (
-    settings: Settings,
-    changedLayerGroup: LayerGroup
-  ): void => {
-    switch (changedLayerGroup) {
-      case LayerGroup.GTK:
-        this.gtkLayer.selectedGTKLayersChanged(settings)
-        break
-      case LayerGroup.Museovirasto:
-        this.museovirastoTileLayer.selectedFeatureLayersChanged(settings)
-        break
-      case LayerGroup.Ahvenanmaa:
-        this.ahvenanmaaTileLayer.selectedFeatureLayersChanged(settings)
-        break
-      case LayerGroup.Models:
-        this.modelsLayer.selectedFeatureLayersChanged(settings)
-        break
-      case LayerGroup.MaisemanMuisti:
-        this.maisemanMuistiLayer.selectedFeatureLayersChanged(settings)
-        break
-    }
-  }
+  const modelsResult = getFeaturesAtPixelAtGeoJsonLayer<ModelFeatureProperties>(
+    e.pixel,
+    modelsLayer.getLayer()
+  )
 
-  public selectedMuinaisjaannosTypesChanged = (settings: Settings): void => {
-    this.museovirastoTileLayer.selectedMuinaisjaannosTypesChanged(settings)
-  }
+  const maisemanMuistiResult = getFeaturesAtPixelAtGeoJsonLayer<MaisemanMuistiFeatureProperties>(
+    e.pixel,
+    maisemanMuistiLayer.getLayer()
+  )
 
-  public selectedMuinaisjaannosDatingsChanged = (settings: Settings): void => {
-    this.museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged(settings)
-  }
+  Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
+    ([ahvenanmaaResult, museovirastoResult]) => {
+      eventListeners.showLoadingAnimation(false)
+      const allFeatures = ahvenanmaaResult.results
+        .concat(museovirastoResult.results)
+        .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
+        .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
 
-  public searchFeatures = (searchText: string): void => {
-    this.eventListeners.showLoadingAnimation(true)
-    const ahvenanmaaQuery = this.ahvenanmaaTileLayer.findFeatures(searchText)
-    const museovirastoQuery = this.museovirastoTileLayer.findFeatures(
-      searchText
-    )
-
-    Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
-      ([ahvenanmaaResult, museovirastoResult]) => {
-        this.eventListeners.showLoadingAnimation(false)
-        const allFeatures = ahvenanmaaResult.results
-          .concat(museovirastoResult.results)
-          .map((f) => this.modelsLayer.addFeaturesForArgisFeature(f))
-          .map((f) => this.maisemanMuistiLayer.addFeaturesForArgisFeature(f))
-
-        this.eventListeners.featureSearchReady(allFeatures)
-      }
-    )
-  }
-
-  public selectedMaanmittauslaitosLayerChanged = (settings: Settings) => {
-    this.maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged(
-      settings
-    )
-  }
-
-  public gtkLayerOpacityChanged = (settings: Settings) => {
-    this.gtkLayer.opacityChanged(settings)
-  }
-
-  public setMapLocation = (coordinates: Coordinate) => {
-    this.view.setCenter(coordinates)
-  }
-
-  public centerToCurrentPositions = () => {
-    if (this.geolocation && this.geolocation.getPosition()) {
-      const position = this.geolocation.getPosition()
-      this.view.setCenter(position)
-    } else {
-      this.initGeolocation()
-    }
-  }
-
-  public showSelectedLocationMarker = (coordinates: Coordinate) => {
-    this.positionAndSelectedLocation.addSelectedLocationFeatureMarker(
-      coordinates
-    )
-  }
-
-  public zoomIn = () => {
-    this.zoom(1)
-  }
-
-  public zoomOut = () => {
-    this.zoom(-1)
-  }
-
-  public fetchDataLatestUpdateDates = (settings: Settings) => {
-    Promise.all([
-      this.museovirastoTileLayer.getDataLatestUpdateDate(),
-      this.ahvenanmaaTileLayer.getForminnenDataLatestUpdateDate(),
-      this.ahvenanmaaTileLayer.getMaritimtKulturarvDataLatestUpdateDate(),
-      this.modelsLayer.getDataLatestUpdateDate(settings)
-    ])
-      .then(
-        ([
-          museovirastoResult,
-          ahvenanmaaForminnenResult,
-          ahvenanmaaMaritimtKulturarvResult,
-          modelsResult
-        ]) => {
-          this.eventListeners.dataLatestUpdateDatesReady({
-            museovirasto: museovirastoResult,
-            ahvenanmaaForminnen: ahvenanmaaForminnenResult,
-            ahvenanmaaMaritimtKulturarv: ahvenanmaaMaritimtKulturarvResult,
-            models: modelsResult
-          })
-        }
-      )
-      .catch(() =>
-        this.eventListeners.dataLatestUpdateDatesReady({
-          museovirasto: null,
-          ahvenanmaaForminnen: null,
-          ahvenanmaaMaritimtKulturarv: null,
-          models: null
+      eventListeners.featuresSelected(
+        allFeatures,
+        modelsResult,
+        maisemanMuistiResult.filter((feature) => {
+          // Do not show Maiseman muisti feature if there is Argis feature for it in search results
+          const id = feature.properties.id.toString()
+          return !allFeatures.some(
+            (argisFeature) =>
+              argisFeature.layerName ===
+                MuseovirastoLayer.Muinaisjaannokset_piste &&
+              argisFeature.attributes.mjtunnus === id
+          )
         })
       )
+    }
+  )
+}
+
+const initGeolocation = () => {
+  geolocation = new Geolocation({
+    projection: view.getProjection(),
+    tracking: true,
+    trackingOptions: {
+      enableHighAccuracy: true
+    }
+  })
+
+  geolocation.once("change:position", centerToCurrentPositions)
+  geolocation.on("change:position", geolocationChanged)
+}
+
+const geolocationChanged = () => {
+  const position = geolocation?.getPosition()
+  if (position) {
+    positionAndSelectedLocation.addCurrentPositionMarker(position)
   }
+}
+
+const zoom = (zoomChange: number) => {
+  const zoom = view.getZoom()
+  if (zoom) {
+    view.animate({
+      zoom: zoom + zoomChange,
+      duration: 250
+    })
+  }
+}
+
+export const selectedFeatureLayersChanged = (
+  settings: Settings,
+  changedLayerGroup: LayerGroup
+): void => {
+  switch (changedLayerGroup) {
+    case LayerGroup.GTK:
+      gtkLayer.selectedGTKLayersChanged(settings)
+      break
+    case LayerGroup.Museovirasto:
+      museovirastoTileLayer.selectedFeatureLayersChanged(settings)
+      break
+    case LayerGroup.Ahvenanmaa:
+      ahvenanmaaTileLayer.selectedFeatureLayersChanged(settings)
+      break
+    case LayerGroup.Models:
+      modelsLayer.selectedFeatureLayersChanged(settings)
+      break
+    case LayerGroup.MaisemanMuisti:
+      maisemanMuistiLayer.selectedFeatureLayersChanged(settings)
+      break
+  }
+}
+
+export const selectedMuinaisjaannosTypesChanged = (
+  settings: Settings
+): void => {
+  museovirastoTileLayer.selectedMuinaisjaannosTypesChanged(settings)
+}
+
+export const selectedMuinaisjaannosDatingsChanged = (
+  settings: Settings
+): void => {
+  museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged(settings)
+}
+
+export const searchFeatures = (searchText: string): void => {
+  eventListeners.showLoadingAnimation(true)
+  const ahvenanmaaQuery = ahvenanmaaTileLayer.findFeatures(searchText)
+  const museovirastoQuery = museovirastoTileLayer.findFeatures(searchText)
+
+  Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
+    ([ahvenanmaaResult, museovirastoResult]) => {
+      eventListeners.showLoadingAnimation(false)
+      const allFeatures = ahvenanmaaResult.results
+        .concat(museovirastoResult.results)
+        .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
+        .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
+
+      eventListeners.featureSearchReady(allFeatures)
+    }
+  )
+}
+
+export const selectedMaanmittauslaitosLayerChanged = (settings: Settings) => {
+  maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged(settings)
+}
+
+export const gtkLayerOpacityChanged = (settings: Settings) => {
+  gtkLayer.opacityChanged(settings)
+}
+
+export const setMapLocation = (coordinates: Coordinate) => {
+  view.setCenter(coordinates)
+}
+
+export const centerToCurrentPositions = () => {
+  if (geolocation && geolocation.getPosition()) {
+    const position = geolocation.getPosition()
+    view.setCenter(position)
+  } else {
+    initGeolocation()
+  }
+}
+
+export const showSelectedLocationMarker = (coordinates: Coordinate) => {
+  positionAndSelectedLocation.addSelectedLocationFeatureMarker(coordinates)
+}
+
+export const zoomIn = () => {
+  zoom(1)
+}
+
+export const zoomOut = () => {
+  zoom(-1)
+}
+
+export const fetchDataLatestUpdateDates = (settings: Settings) => {
+  Promise.all([
+    museovirastoTileLayer.getDataLatestUpdateDate(),
+    ahvenanmaaTileLayer.getForminnenDataLatestUpdateDate(),
+    ahvenanmaaTileLayer.getMaritimtKulturarvDataLatestUpdateDate(),
+    modelsLayer.getDataLatestUpdateDate(settings)
+  ])
+    .then(
+      ([
+        museovirastoResult,
+        ahvenanmaaForminnenResult,
+        ahvenanmaaMaritimtKulturarvResult,
+        modelsResult
+      ]) => {
+        eventListeners.dataLatestUpdateDatesReady({
+          museovirasto: museovirastoResult,
+          ahvenanmaaForminnen: ahvenanmaaForminnenResult,
+          ahvenanmaaMaritimtKulturarv: ahvenanmaaMaritimtKulturarvResult,
+          models: modelsResult
+        })
+      }
+    )
+    .catch(() =>
+      eventListeners.dataLatestUpdateDatesReady({
+        museovirasto: null,
+        ahvenanmaaForminnen: null,
+        ahvenanmaaMaritimtKulturarv: null,
+        models: null
+      })
+    )
 }
