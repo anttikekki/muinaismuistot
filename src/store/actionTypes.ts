@@ -8,7 +8,6 @@ export const FEATURES_SELECTED_ON_MAP = "FEATURES_SELECTED_ON_MAP"
 export const FETCH_DATA_LATESTS_UPDATE_DATES = "FETCH_DATA_LATESTS_UPDATE_DATES"
 export const FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE =
   "FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE"
-export const SEARCH_FEATURES = "SEARCH_FEATURES"
 export const SEARCH_FEATURES_COMPLETE = "SEARCH_FEATURES_COMPLETE"
 
 export interface ZoomInAction {
@@ -37,11 +36,6 @@ export interface FetchDataLatestUpdateDatesComplete {
   payload: DataLatestUpdateDates
 }
 
-export interface SearchFeatures {
-  type: typeof SEARCH_FEATURES
-  searchText: string
-}
-
 export interface SearchFeaturesComplete {
   type: typeof SEARCH_FEATURES_COMPLETE
   searchResultFeatures: Array<ArgisFeature>
@@ -54,5 +48,4 @@ export type ActionTypes =
   | FeaturesSelectedOnMap
   | FetchDataLatestUpdateDates
   | FetchDataLatestUpdateDatesComplete
-  | SearchFeatures
   | SearchFeaturesComplete

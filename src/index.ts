@@ -5,7 +5,6 @@ import {
   centerToCurrentPositions,
   createMap,
   gtkLayerOpacityChanged,
-  searchFeatures,
   selectedFeatureLayersChanged,
   selectedMaanmittauslaitosLayerChanged,
   selectedMuinaisjaannosDatingsChanged,
@@ -58,9 +57,6 @@ createMap(settings, {
   showLoadingAnimation: (show) => {
     ui.showLoadingAnimation(show)
   },
-  featureSearchReady: (features) => {
-    //ui.featureSearchReady(features)
-  },
   dataLatestUpdateDatesReady: (dates: DataLatestUpdateDates) => {
     store.dispatch(fetchDataLatestUpdateDatesComplete(dates))
   }
@@ -69,9 +65,6 @@ createMap(settings, {
 const store = configureStore(settings, rootReducer)
 
 const ui = new MuinaismuistotUI(settings, store, {
-  searchFeatures: (searchText) => {
-    searchFeatures(searchText)
-  },
   selectedMaanmittauslaitosLayerChanged: (settings) => {
     updateSettings(settings)
     selectedMaanmittauslaitosLayerChanged(settings)

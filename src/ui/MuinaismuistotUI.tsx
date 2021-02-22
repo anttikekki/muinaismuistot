@@ -58,7 +58,6 @@ const toggleSelection = function <T>(value: T, values: Array<T>) {
 }
 
 export interface EventListeners {
-  searchFeatures: (searchText: string) => void
   selectedMaanmittauslaitosLayerChanged: (settings: Settings) => void
   selectedGtkLayerChanged: (
     settings: Settings,

@@ -6,7 +6,6 @@ import {
   FEATURES_SELECTED_ON_MAP,
   FETCH_DATA_LATESTS_UPDATE_DATES,
   FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
-  SEARCH_FEATURES,
   SEARCH_FEATURES_COMPLETE,
   ZOOM_IN,
   ZOOM_OUT
@@ -14,12 +13,15 @@ import {
 import {
   centerToCurrentPositions,
   fetchDataLatestUpdateDates,
-  searchFeatures,
   zoomIn,
   zoomOut
 } from "../map/MuinaismuistotMap"
 
-export const rootReducer: Reducer = (state: Settings, action: ActionTypes) => {
+export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
+  if (state == undefined) {
+    throw new Error("State must be defined")
+  }
+
   if (action.type === ZOOM_IN) {
     zoomIn()
     return state
@@ -50,16 +52,13 @@ export const rootReducer: Reducer = (state: Settings, action: ActionTypes) => {
       ...state,
       dataLatestUpdateDates: action.payload
     }
-  } else if (action.type === SEARCH_FEATURES) {
-    searchFeatures(action.searchText)
-    return {
-      ...state,
-      searchResultFeatures: undefined
-    }
   } else if (action.type === SEARCH_FEATURES_COMPLETE) {
     return {
       ...state,
-      searchResultFeatures: action.searchResultFeatures
+      search: {
+        ...state.search,
+        searchResults: action.searchResultFeatures
+      }
     }
   }
   return state

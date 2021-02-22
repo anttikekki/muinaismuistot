@@ -1,5 +1,8 @@
+import { ThunkAction, ThunkDispatch } from "redux-thunk"
 import { ArgisFeature, DataLatestUpdateDates } from "../common/types"
+import { searchFeaturesFromMapLayers } from "../map/MuinaismuistotMap"
 import {
+  ActionTypes,
   CenterToCurrentPosition,
   CENTER_TO_CURRENT_POSITION,
   FeaturesSelectedOnMap,
@@ -8,16 +11,14 @@ import {
   FetchDataLatestUpdateDatesComplete,
   FETCH_DATA_LATESTS_UPDATE_DATES,
   FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
-  SearchFeatures,
   SearchFeaturesComplete,
-  SEARCH_FEATURES,
   SEARCH_FEATURES_COMPLETE,
   ZoomInAction,
   ZoomOutAction,
   ZOOM_IN,
   ZOOM_OUT
 } from "./actionTypes"
-import { SelectedFeaturesOnMap } from "./storeTypes"
+import { SelectedFeaturesOnMap, Settings } from "./storeTypes"
 
 export const zoomIn = (): ZoomInAction => {
   return {
@@ -61,18 +62,14 @@ export const fetchDataLatestUpdateDatesComplete = (
   }
 }
 
-export const searchFeatures = (searchText: string): SearchFeatures => {
-  return {
-    type: SEARCH_FEATURES,
-    searchText
-  }
-}
-
-export const searchFeaturesComplete = (
-  searchResultFeatures: Array<ArgisFeature>
-): SearchFeaturesComplete => {
-  return {
-    type: SEARCH_FEATURES_COMPLETE,
-    searchResultFeatures
+export const searchFeatures = (
+  searchText: string
+): ThunkAction<Promise<SearchFeaturesComplete>, Settings, {}, ActionTypes> => {
+  return async (dispatch: ThunkDispatch<Settings, {}, ActionTypes>) => {
+    const searchResultFeatures = await searchFeaturesFromMapLayers(searchText)
+    return dispatch({
+      type: SEARCH_FEATURES_COMPLETE,
+      searchResultFeatures
+    })
   }
 }

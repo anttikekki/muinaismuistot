@@ -41,13 +41,12 @@ export interface MapEventListener {
     >
   ) => void
   showLoadingAnimation: (show: boolean) => void
-  featureSearchReady: (features: Array<ArgisFeature>) => void
   dataLatestUpdateDatesReady: (dates: DataLatestUpdateDates) => void
 }
 
 let map: Map
 let view: View
-let geolocation: Geolocation
+let geolocation: Geolocation | undefined
 let maanmittauslaitosTileLayer: MaanmittauslaitosTileLayer
 let museovirastoTileLayer: MuseovirastoTileLayer
 let ahvenanmaaTileLayer: AhvenanmaaTileLayer
@@ -59,9 +58,9 @@ let eventListeners: MapEventListener
 
 export const createMap = (
   initialSettings: Settings,
-  eventListeners: MapEventListener
+  listeners: MapEventListener
 ) => {
-  eventListeners = eventListeners
+  eventListeners = listeners
 
   proj4.defs(
     "EPSG:3067",
@@ -284,22 +283,23 @@ export const selectedMuinaisjaannosDatingsChanged = (
   museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged(settings)
 }
 
-export const searchFeatures = (searchText: string): void => {
+export const searchFeaturesFromMapLayers = async (
+  searchText: string
+): Promise<Array<ArgisFeature>> => {
   eventListeners.showLoadingAnimation(true)
   const ahvenanmaaQuery = ahvenanmaaTileLayer.findFeatures(searchText)
   const museovirastoQuery = museovirastoTileLayer.findFeatures(searchText)
 
-  Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
-    ([ahvenanmaaResult, museovirastoResult]) => {
-      eventListeners.showLoadingAnimation(false)
-      const allFeatures = ahvenanmaaResult.results
-        .concat(museovirastoResult.results)
-        .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
-        .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
+  const [ahvenanmaaResult, museovirastoResult] = await Promise.all([
+    ahvenanmaaQuery,
+    museovirastoQuery
+  ])
+  eventListeners.showLoadingAnimation(false)
 
-      eventListeners.featureSearchReady(allFeatures)
-    }
-  )
+  return ahvenanmaaResult.results
+    .concat(museovirastoResult.results)
+    .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
+    .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
 }
 
 export const selectedMaanmittauslaitosLayerChanged = (settings: Settings) => {
