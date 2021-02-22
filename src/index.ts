@@ -13,7 +13,7 @@ import { initialSettings } from "./store/initialSettings"
 import {
   featuresSelectedOnMap,
   fetchDataLatestUpdateDatesComplete
-} from "./store/actions"
+} from "./store/actionCreators"
 
 const determineStartLocation = () => {
   if (parseCoordinatesFromURL()) {
@@ -48,7 +48,7 @@ const map = new MuinaismuistotMap(settings, {
     ui.showLoadingAnimation(show)
   },
   featureSearchReady: (features) => {
-    ui.featureSearchReady(features)
+    //ui.featureSearchReady(features)
   },
   dataLatestUpdateDatesReady: (dates: DataLatestUpdateDates) => {
     store.dispatch(fetchDataLatestUpdateDatesComplete(dates))

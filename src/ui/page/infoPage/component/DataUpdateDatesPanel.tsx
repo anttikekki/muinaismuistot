@@ -3,7 +3,7 @@ import { Panel } from "../../../component/Panel"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { Settings } from "../../../../store/storeTypes"
-import { fetchDataLatestUpdateDates } from "../../../../store/actions"
+import { fetchDataLatestUpdateDates } from "../../../../store/actionCreators"
 
 const UpdatedDate: React.FC<{ date: Date | null | undefined }> = ({ date }) => {
   const { t } = useTranslation()

@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
-import { zoomOut } from "../../../store/actions"
+import { zoomOut } from "../../../store/actionCreators"
 
 export const ZoomOutButton: React.FunctionComponent = () => {
   const { t } = useTranslation()

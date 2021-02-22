@@ -5,7 +5,7 @@ import { Page, PageVisibility } from "../Page"
 import { FeatureList } from "../../component/feature/FeatureList"
 import { FeatureTitleClickAction } from "../../component/feature/component/FeatureCollapsePanel"
 import { useDispatch, useSelector } from "react-redux"
-import { searchFeatures } from "../../../store/actions"
+import { searchFeatures } from "../../../store/actionCreators"
 import { Settings } from "../../../store/storeTypes"
 
 interface ResultsProps {

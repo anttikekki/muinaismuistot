@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
-import { zoomIn } from "../../../store/actions"
+import { zoomIn } from "../../../store/actionCreators"
 
 export const ZoomInButton: React.FunctionComponent = () => {
   const { t } = useTranslation()

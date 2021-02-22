@@ -115,12 +115,6 @@ export default class MuinaismuistotUI {
     this.renderUI()
   }
 
-  private onSearchFeatures = (searchText: string) => {
-    this.eventListeners.searchFeatures(searchText)
-    this.searchResultFeatures = undefined
-    this.renderUI()
-  }
-
   private onSelectMaanmittauslaitosLayer = (layer: MaanmittauslaitosLayer) => {
     this.settings = updateMaanmittauslaitosSelectedLayer(this.settings, layer)
     this.eventListeners.selectedMaanmittauslaitosLayerChanged(this.settings)
@@ -345,10 +339,5 @@ export default class MuinaismuistotUI {
       this.loadingAnimationTimeoutID = undefined
       this.renderUI()
     }
-  }
-
-  public featureSearchReady = (features: Array<ArgisFeature>) => {
-    this.searchResultFeatures = features
-    this.renderUI()
   }
 }
