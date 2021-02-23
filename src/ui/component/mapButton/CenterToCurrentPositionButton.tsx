@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { centerToCurrentPosition } from "../../../store/actionCreators"
@@ -6,7 +6,7 @@ import { centerToCurrentPosition } from "../../../store/actionCreators"
 export const CenterToCurrentPositionButton: React.FunctionComponent = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const onClick = React.useCallback(() => dispatch(centerToCurrentPosition()), [
+  const onClick = useCallback(() => dispatch(centerToCurrentPosition()), [
     dispatch
   ])
 

@@ -3,7 +3,7 @@ import {
   ActionTypes,
   SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER
 } from "../store/actionTypes"
-import { tap } from "rxjs/operators"
+import { tap, ignoreElements } from "rxjs/operators"
 import { selectedMaanmittauslaitosLayerChanged } from "../map/MuinaismuistotMap"
 
 export const selectVisibleMaanmittauslaitosLayerEpic: Epic<ActionTypes> = (
@@ -11,5 +11,6 @@ export const selectVisibleMaanmittauslaitosLayerEpic: Epic<ActionTypes> = (
 ) =>
   action$.pipe(
     ofType(SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER),
-    tap(() => selectedMaanmittauslaitosLayerChanged())
+    tap(() => selectedMaanmittauslaitosLayerChanged()),
+    ignoreElements()
   )

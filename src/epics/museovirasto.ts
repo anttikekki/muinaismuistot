@@ -5,7 +5,7 @@ import {
   SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE,
   SELECT_VISIBLE_MUSEOVIRASTO_LAYERS
 } from "../store/actionTypes"
-import { tap } from "rxjs/operators"
+import { tap, ignoreElements } from "rxjs/operators"
 import {
   selectedFeatureLayersChanged,
   selectedMuinaisjaannosDatingsChanged,
@@ -18,7 +18,8 @@ export const selectVisibleMuseovirastoLayerEpic: Epic<ActionTypes> = (
 ) =>
   action$.pipe(
     ofType(SELECT_VISIBLE_MUSEOVIRASTO_LAYERS),
-    tap(() => selectedFeatureLayersChanged(LayerGroup.Museovirasto))
+    tap(() => selectedFeatureLayersChanged(LayerGroup.Museovirasto)),
+    ignoreElements()
   )
 
 export const selectVisibleMuinaisjäännösTypeEpic: Epic<ActionTypes> = (
@@ -26,7 +27,8 @@ export const selectVisibleMuinaisjäännösTypeEpic: Epic<ActionTypes> = (
 ) =>
   action$.pipe(
     ofType(SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE),
-    tap(() => selectedMuinaisjaannosTypesChanged())
+    tap(() => selectedMuinaisjaannosTypesChanged()),
+    ignoreElements()
   )
 
 export const selectVisibleMuinaisjäännösDatingEpic: Epic<ActionTypes> = (
@@ -34,5 +36,6 @@ export const selectVisibleMuinaisjäännösDatingEpic: Epic<ActionTypes> = (
 ) =>
   action$.pipe(
     ofType(SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING),
-    tap(() => selectedMuinaisjaannosDatingsChanged())
+    tap(() => selectedMuinaisjaannosDatingsChanged()),
+    ignoreElements()
   )
