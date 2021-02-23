@@ -70,19 +70,19 @@ export const Page: React.FC<Props> = ({ title, pageId, children }) => {
   )
 
   useEffect(() => {
-    if (visiblePage === pageId && pageVisibility === PageVisibility.Closing) {
+    if (visiblePage === pageId && pageClosingAnimationTimeoutID !== undefined) {
       // Abort closing page because it is visible again
       window.clearTimeout(pageClosingAnimationTimeoutID)
       setPageClosingAnimationTimeoutID(undefined)
     }
-    if (visiblePage !== pageId && pageVisibility === PageVisibility.Visible) {
+    if (visiblePage !== pageId && pageClosingAnimationTimeoutID === undefined) {
       // Start closing page
       const id = window.setTimeout(() => {
         setPageClosingAnimationTimeoutID(undefined)
       }, 500)
       setPageClosingAnimationTimeoutID(id)
     }
-  }, [visiblePage, pageVisibility])
+  }, [visiblePage, pageClosingAnimationTimeoutID])
 
   let classes = ""
   switch (pageVisibility) {
