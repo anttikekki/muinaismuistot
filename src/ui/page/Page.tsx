@@ -1,8 +1,9 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Language } from "../../common/types"
-import { changeLanguage } from "../../store/actionCreators"
+import { changeLanguage, showPage } from "../../store/actionCreators"
+import { PageId, Settings } from "../../store/storeTypes"
 
 export enum PageVisibility {
   Visible = "Visible",
@@ -35,23 +36,56 @@ const LangSelection: React.FC<LangSelectionProps> = ({
   )
 }
 
-interface Props {
-  title: string
-  visibility: PageVisibility
-  hidePage: () => void
+const getPageVisibility = (
+  page: PageId,
+  visiblePage: PageId | undefined,
+  pageClosingAnimationTimeoutID: number | undefined
+): PageVisibility => {
+  if (visiblePage === page) {
+    return PageVisibility.Visible
+  }
+  if (pageClosingAnimationTimeoutID) {
+    return PageVisibility.Closing
+  }
+  return PageVisibility.Hidden
 }
 
-export const Page: React.FC<Props> = ({
-  title,
-  visibility,
-  hidePage,
-  children
-}) => {
+interface Props {
+  title: string
+  pageId: PageId
+}
+
+export const Page: React.FC<Props> = ({ title, pageId, children }) => {
   const { t, i18n } = useTranslation()
   const dispatch = useDispatch()
+  const visiblePage = useSelector((settings: Settings) => settings.visiblePage)
+  const [
+    pageClosingAnimationTimeoutID,
+    setPageClosingAnimationTimeoutID
+  ] = useState<number | undefined>()
+  const pageVisibility = getPageVisibility(
+    pageId,
+    visiblePage,
+    pageClosingAnimationTimeoutID
+  )
+
+  useEffect(() => {
+    if (visiblePage === pageId && pageVisibility === PageVisibility.Closing) {
+      // Abort closing page because it is visible again
+      window.clearTimeout(pageClosingAnimationTimeoutID)
+      setPageClosingAnimationTimeoutID(undefined)
+    }
+    if (visiblePage !== pageId && pageVisibility === PageVisibility.Visible) {
+      // Start closing page
+      const id = window.setTimeout(() => {
+        setPageClosingAnimationTimeoutID(undefined)
+      }, 500)
+      setPageClosingAnimationTimeoutID(id)
+    }
+  }, [visiblePage, pageVisibility])
 
   let classes = ""
-  switch (visibility) {
+  switch (pageVisibility) {
     case PageVisibility.Visible:
       classes = "page-right-visible"
       break
@@ -71,12 +105,16 @@ export const Page: React.FC<Props> = ({
     [dispatch, i18n]
   )
 
+  const onHidePage = useCallback(() => {
+    dispatch(showPage(undefined))
+  }, [dispatch])
+
   return (
     <div className={`container page ${classes}`}>
-      {visibility !== PageVisibility.Hidden && (
+      {pageVisibility !== PageVisibility.Hidden && (
         <div className="row pageHeader">
           <div className="col-xs-2 col-sm-2 col-md-2">
-            <button className="btn btn-primary btn-sm" onClick={hidePage}>
+            <button className="btn btn-primary btn-sm" onClick={onHidePage}>
               <span className="glyphicon glyphicon-remove" aria-hidden="true" />
               {t(`common.button.close`)}
             </button>
@@ -105,7 +143,7 @@ export const Page: React.FC<Props> = ({
         </div>
       )}
 
-      {visibility !== PageVisibility.Hidden && (
+      {pageVisibility !== PageVisibility.Hidden && (
         <div className="pageContent">{children}</div>
       )}
     </div>

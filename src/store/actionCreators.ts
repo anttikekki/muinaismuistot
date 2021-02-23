@@ -45,13 +45,15 @@ import {
   SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE,
   SELECT_VISIBLE_MUSEOVIRASTO_LAYERS,
   ShowLoadingAnimationAction,
+  ShowPageAction,
   SHOW_LOADING_ANIMATION,
+  SHOW_PAGE,
   ZoomInAction,
   ZoomOutAction,
   ZOOM_IN,
   ZOOM_OUT
 } from "./actionTypes"
-import { SelectedFeaturesOnMap } from "./storeTypes"
+import { PageId, SelectedFeaturesOnMap } from "./storeTypes"
 
 export const zoomIn = (): ZoomInAction => {
   return {
@@ -205,5 +207,12 @@ export const showLoadingAnimation = (
   return {
     type: SHOW_LOADING_ANIMATION,
     show
+  }
+}
+
+export const showPage = (pageId?: PageId): ShowPageAction => {
+  return {
+    type: SHOW_PAGE,
+    pageId
   }
 }

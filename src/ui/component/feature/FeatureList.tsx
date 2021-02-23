@@ -23,7 +23,6 @@ import { MaisemanMuistiPanel } from "../../component/feature/panel/MaisemanMuist
 import { FeatureTitleClickAction } from "./component/FeatureCollapsePanel"
 
 interface FeatureListProps {
-  hidePage: () => void
   titleClickAction: FeatureTitleClickAction
   features?: Array<ArgisFeature>
   models?: Array<GeoJSONFeature<ModelFeatureProperties>>
@@ -33,7 +32,6 @@ interface FeatureListProps {
 }
 
 export const FeatureList: React.FC<FeatureListProps> = ({
-  hidePage,
   titleClickAction,
   features = [],
   models = [],
@@ -51,7 +49,6 @@ export const FeatureList: React.FC<FeatureListProps> = ({
         const panelId = `${feature.layerName}-${getFeatureID(feature)}`
         const params = {
           key: panelId,
-          hidePage,
           titleClickAction,
           isOpen: openPanelId === panelId,
           onToggleOpen: () => onTogglePanelOpen(panelId)
@@ -85,7 +82,6 @@ export const FeatureList: React.FC<FeatureListProps> = ({
         return (
           <MaisemanMuistiPanel
             key={panelId}
-            hidePage={hidePage}
             titleClickAction={titleClickAction}
             isOpen={openPanelId === panelId}
             onToggleOpen={() => onTogglePanelOpen(panelId)}

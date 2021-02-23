@@ -11,7 +11,7 @@ import {
   MuinaisjaannosTyyppi,
   MuseovirastoLayer
 } from "../common/types"
-import { SelectedFeaturesOnMap } from "./storeTypes"
+import { PageId, SelectedFeaturesOnMap } from "./storeTypes"
 
 export const ZOOM_IN = "ZOOM_IN"
 export const ZOOM_OUT = "ZOOM_OUT"
@@ -40,6 +40,7 @@ export const SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING =
   "SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING"
 export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE"
 export const SHOW_LOADING_ANIMATION = "SHOW_LOADING_ANIMATION"
+export const SHOW_PAGE = "SHOW_PAGE"
 
 export interface ZoomInAction {
   type: typeof ZOOM_IN
@@ -132,6 +133,11 @@ export interface ShowLoadingAnimationAction {
   show: boolean
 }
 
+export interface ShowPageAction {
+  type: typeof SHOW_PAGE
+  pageId?: PageId
+}
+
 export type ActionTypes =
   | ZoomInAction
   | ZoomOutAction
@@ -152,3 +158,4 @@ export type ActionTypes =
   | SelectVisibleMuinaisjäännösDatingAction
   | ChangeLanguageAction
   | ShowLoadingAnimationAction
+  | ShowPageAction

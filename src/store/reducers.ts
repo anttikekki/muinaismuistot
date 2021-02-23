@@ -16,7 +16,8 @@ import {
   SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING,
   SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE,
   SELECT_VISIBLE_MUSEOVIRASTO_LAYERS,
-  SHOW_LOADING_ANIMATION
+  SHOW_LOADING_ANIMATION,
+  SHOW_PAGE
 } from "./actionTypes"
 import {
   MaanmittauslaitosLayer,
@@ -220,6 +221,11 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     return {
       ...state,
       showLoadingAnimation: action.show
+    }
+  } else if (action.type === SHOW_PAGE) {
+    return {
+      ...state,
+      visiblePage: action.pageId
     }
   }
   return state

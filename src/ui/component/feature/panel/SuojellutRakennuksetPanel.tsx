@@ -15,7 +15,6 @@ import { EmbeddedModels } from "../component/EmbeddedModels"
 import { useTranslation } from "react-i18next"
 
 interface Props {
-  hidePage: () => void
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
@@ -25,7 +24,6 @@ interface Props {
 }
 
 export const SuojellutRakennuksetPanel: React.FC<Props> = ({
-  hidePage,
   titleClickAction,
   isOpen,
   onToggleOpen,
@@ -34,7 +32,6 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
   const { t } = useTranslation()
   return (
     <ArgisFeatureCollapsePanel
-      hidePage={hidePage}
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}

@@ -18,12 +18,11 @@ import { InfoPage } from "./page/infoPage/InfoPage"
 import { OpenSearchPageButton } from "./component/mapButton/OpenSearchPageButton"
 import { SettingsPage } from "./page/settingsPage/SettingsPage"
 import { OpenSettingsPage } from "./component/mapButton/OpenSettingsPage"
-import { PageVisibility } from "./page/Page"
 import { FullscreenButton } from "./component/mapButton/FullscreenButton"
 import { Store } from "redux"
 import { Provider } from "react-redux"
 import { ActionTypes } from "../store/actionTypes"
-import { PageId, Settings } from "../store/storeTypes"
+import { Settings } from "../store/storeTypes"
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -40,10 +39,6 @@ i18n.use(initReactI18next).init({
 })
 
 export default class MuinaismuistotUI {
-  private visiblePage?: PageId
-  private pageClosingAnimationTimeoutID: Partial<Record<PageId, number>> = {}
-  private loadingAnimationTimeoutID?: number
-  private loadingAnimationCounter = 0
   private store: Store<Settings, ActionTypes>
 
   public constructor(store: Store<Settings, ActionTypes>) {
@@ -68,74 +63,20 @@ export default class MuinaismuistotUI {
         <ZoomInButton />
         <ZoomOutButton />
         <CenterToCurrentPositionButton />
-        <OpenSearchPageButton onClick={() => this.showPage(PageId.Search)} />
-        <ShowInfoPageButton onClick={() => this.showPage(PageId.Info)} />
-        <OpenSettingsPage onClick={() => this.showPage(PageId.Settings)} />
+        <OpenSearchPageButton />
+        <ShowInfoPageButton />
+        <OpenSettingsPage />
         <FullscreenButton
           onClick={this.toggleFullscreen}
           fullscreenPossible={document.fullscreenEnabled}
         />
 
-        <FeatureDetailsPage
-          visibility={this.getPageVisibility(PageId.Details)}
-          hidePage={this.hidePage}
-        />
-        <SearchPage
-          visibility={this.getPageVisibility(PageId.Search)}
-          hidePage={this.hidePage}
-        />
-        <InfoPage
-          visibility={this.getPageVisibility(PageId.Info)}
-          hidePage={this.hidePage}
-        />
-        <SettingsPage
-          visibility={this.getPageVisibility(PageId.Settings)}
-          hidePage={this.hidePage}
-        />
+        <FeatureDetailsPage />
+        <SearchPage />
+        <InfoPage />
+        <SettingsPage />
       </Provider>,
       document.getElementById("ui")
     )
-  }
-
-  private getPageVisibility = (page: PageId): PageVisibility => {
-    if (this.visiblePage === page) {
-      return PageVisibility.Visible
-    }
-    if (this.pageClosingAnimationTimeoutID[page]) {
-      return PageVisibility.Closing
-    }
-    return PageVisibility.Hidden
-  }
-
-  private showPage = (page: PageId) => {
-    if (this.visiblePage === page) {
-      return
-    }
-    this.abortClosingPage(page)
-    this.visiblePage = page
-    this.renderUI()
-  }
-
-  private hidePage = () => {
-    if (this.visiblePage) {
-      this.startClosingPage(this.visiblePage)
-    }
-
-    this.visiblePage = undefined
-    this.renderUI()
-  }
-
-  private startClosingPage = (page: PageId) => {
-    this.pageClosingAnimationTimeoutID[page] = window.setTimeout(() => {
-      this.pageClosingAnimationTimeoutID[page] = undefined
-      this.renderUI()
-    }, 500)
-  }
-
-  private abortClosingPage = (page: PageId) => {
-    if (this.pageClosingAnimationTimeoutID[page]) {
-      window.clearTimeout(this.pageClosingAnimationTimeoutID[page])
-      this.pageClosingAnimationTimeoutID[page] = undefined
-    }
   }
 }

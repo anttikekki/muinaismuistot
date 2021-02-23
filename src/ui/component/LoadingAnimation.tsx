@@ -23,7 +23,7 @@ export const LoadingAnimation: React.FC = () => {
     if (showLoadingAnimation) {
       const id = window.setTimeout(() => {
         if (loadingAnimationTimeoutIDRef.current) {
-          // Pending loading animtaion is still valid, render spinner
+          // Pending loading animation is still valid, render spinner
           setRenderLoadingAnimation(true)
         }
       }, 300)

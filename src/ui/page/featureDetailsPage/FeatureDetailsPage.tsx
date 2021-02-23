@@ -1,20 +1,12 @@
 import * as React from "react"
 import { useTranslation } from "react-i18next"
-import { Page, PageVisibility } from "../Page"
+import { Page } from "../Page"
 import { FeatureList } from "../../component/feature/FeatureList"
 import { FeatureTitleClickAction } from "../../component/feature/component/FeatureCollapsePanel"
-import { Settings } from "../../../store/storeTypes"
+import { PageId, Settings } from "../../../store/storeTypes"
 import { useSelector } from "react-redux"
 
-interface FeatureDetailsPageProps {
-  visibility: PageVisibility
-  hidePage: () => void
-}
-
-export const FeatureDetailsPage: React.FC<FeatureDetailsPageProps> = ({
-  visibility,
-  hidePage
-}) => {
+export const FeatureDetailsPage: React.FC = () => {
   const { t } = useTranslation()
   const features = useSelector(
     (settings: Settings) => settings.selectedFeaturesOnMap.features
@@ -28,13 +20,8 @@ export const FeatureDetailsPage: React.FC<FeatureDetailsPageProps> = ({
   )
 
   return (
-    <Page
-      title={t(`details.title`)}
-      visibility={visibility}
-      hidePage={hidePage}
-    >
+    <Page title={t(`details.title`)} pageId={PageId.Details}>
       <FeatureList
-        hidePage={hidePage}
         titleClickAction={FeatureTitleClickAction.OpenDetails}
         features={features}
         models={models}
