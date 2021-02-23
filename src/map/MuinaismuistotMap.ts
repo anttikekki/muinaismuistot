@@ -31,6 +31,8 @@ import { Pixel } from "ol/pixel"
 import VectorLayer from "ol/layer/Vector"
 import GtkTileLayer from "./layer/GtkTileLayer"
 import { Settings } from "../store/storeTypes"
+import { Store } from "redux"
+import { ActionTypes } from "../store/actionTypes"
 
 export interface MapEventListener {
   featuresSelected: (
@@ -41,7 +43,6 @@ export interface MapEventListener {
     >
   ) => void
   showLoadingAnimation: (show: boolean) => void
-  dataLatestUpdateDatesReady: (dates: DataLatestUpdateDates) => void
 }
 
 let map: Map
@@ -57,7 +58,7 @@ let gtkLayer: GtkTileLayer
 let eventListeners: MapEventListener
 
 export const createMap = (
-  initialSettings: Settings,
+  store: Store<Settings, ActionTypes>,
   listeners: MapEventListener
 ) => {
   eventListeners = listeners
@@ -74,7 +75,7 @@ export const createMap = (
   view = new View({
     center: [385249.63630000036, 6672695.7579],
     projection: "EPSG:3067",
-    zoom: initialSettings.initialMapZoom,
+    zoom: store.getState().initialMapZoom,
     enableRotation: false
   })
 
@@ -89,7 +90,7 @@ export const createMap = (
   })
 
   maanmittauslaitosTileLayer = new MaanmittauslaitosTileLayer(
-    initialSettings,
+    store.getState(),
     eventListeners.showLoadingAnimation,
     (mmlMaastokarttaLayer, mmlTaustakarttaLayer, mmlOrtokuvaLayer) => {
       map.getLayers().insertAt(0, mmlMaastokarttaLayer)
@@ -99,7 +100,7 @@ export const createMap = (
   )
 
   gtkLayer = new GtkTileLayer(
-    initialSettings,
+    store,
     eventListeners.showLoadingAnimation,
     (createdLayer) => {
       map.getLayers().insertAt(3, createdLayer)
@@ -107,7 +108,7 @@ export const createMap = (
   )
 
   ahvenanmaaTileLayer = new AhvenanmaaTileLayer(
-    initialSettings,
+    store,
     eventListeners.showLoadingAnimation,
     (createdLayer) => {
       map.getLayers().insertAt(4, createdLayer)
@@ -115,20 +116,20 @@ export const createMap = (
   )
 
   museovirastoTileLayer = new MuseovirastoTileLayer(
-    initialSettings,
+    store,
     eventListeners.showLoadingAnimation,
     (createdLayer) => {
       map.getLayers().insertAt(5, createdLayer)
     }
   )
 
-  maisemanMuistiLayer = new MaisemanMuistiLayer()
-  modelsLayer = new ModelsLayer()
+  maisemanMuistiLayer = new MaisemanMuistiLayer(store)
+  modelsLayer = new ModelsLayer(store)
   positionAndSelectedLocation = new CurrentPositionAndSelectedLocationMarkerLayer()
 
   Promise.all([
-    maisemanMuistiLayer.createLayer(initialSettings),
-    modelsLayer.createLayer(initialSettings)
+    maisemanMuistiLayer.createLayer(),
+    modelsLayer.createLayer()
   ]).then(([maisemanMuistiLayer, modelsLayer]) => {
     map.getLayers().insertAt(6, maisemanMuistiLayer)
     map.getLayers().insertAt(7, modelsLayer)
@@ -249,38 +250,33 @@ const zoom = (zoomChange: number) => {
 }
 
 export const selectedFeatureLayersChanged = (
-  settings: Settings,
   changedLayerGroup: LayerGroup
 ): void => {
   switch (changedLayerGroup) {
     case LayerGroup.GTK:
-      gtkLayer.selectedGTKLayersChanged(settings)
+      gtkLayer.selectedGTKLayersChanged()
       break
     case LayerGroup.Museovirasto:
-      museovirastoTileLayer.selectedFeatureLayersChanged(settings)
+      museovirastoTileLayer.selectedFeatureLayersChanged()
       break
     case LayerGroup.Ahvenanmaa:
-      ahvenanmaaTileLayer.selectedFeatureLayersChanged(settings)
+      ahvenanmaaTileLayer.selectedFeatureLayersChanged()
       break
     case LayerGroup.Models:
-      modelsLayer.selectedFeatureLayersChanged(settings)
+      modelsLayer.selectedFeatureLayersChanged()
       break
     case LayerGroup.MaisemanMuisti:
-      maisemanMuistiLayer.selectedFeatureLayersChanged(settings)
+      maisemanMuistiLayer.selectedFeatureLayersChanged()
       break
   }
 }
 
-export const selectedMuinaisjaannosTypesChanged = (
-  settings: Settings
-): void => {
-  museovirastoTileLayer.selectedMuinaisjaannosTypesChanged(settings)
+export const selectedMuinaisjaannosTypesChanged = (): void => {
+  museovirastoTileLayer.selectedMuinaisjaannosTypesChanged()
 }
 
-export const selectedMuinaisjaannosDatingsChanged = (
-  settings: Settings
-): void => {
-  museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged(settings)
+export const selectedMuinaisjaannosDatingsChanged = (): void => {
+  museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged()
 }
 
 export const searchFeaturesFromMapLayers = async (
@@ -306,8 +302,8 @@ export const selectedMaanmittauslaitosLayerChanged = (settings: Settings) => {
   maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged(settings)
 }
 
-export const gtkLayerOpacityChanged = (settings: Settings) => {
-  gtkLayer.opacityChanged(settings)
+export const gtkLayerOpacityChanged = () => {
+  gtkLayer.opacityChanged()
 }
 
 export const setMapLocation = (coordinates: Coordinate) => {
@@ -335,34 +331,32 @@ export const zoomOut = () => {
   zoom(-1)
 }
 
-export const fetchDataLatestUpdateDates = (settings: Settings) => {
-  Promise.all([
-    museovirastoTileLayer.getDataLatestUpdateDate(),
-    ahvenanmaaTileLayer.getForminnenDataLatestUpdateDate(),
-    ahvenanmaaTileLayer.getMaritimtKulturarvDataLatestUpdateDate(),
-    modelsLayer.getDataLatestUpdateDate(settings)
-  ])
-    .then(
-      ([
-        museovirastoResult,
-        ahvenanmaaForminnenResult,
-        ahvenanmaaMaritimtKulturarvResult,
-        modelsResult
-      ]) => {
-        eventListeners.dataLatestUpdateDatesReady({
-          museovirasto: museovirastoResult,
-          ahvenanmaaForminnen: ahvenanmaaForminnenResult,
-          ahvenanmaaMaritimtKulturarv: ahvenanmaaMaritimtKulturarvResult,
-          models: modelsResult
-        })
-      }
-    )
-    .catch(() =>
-      eventListeners.dataLatestUpdateDatesReady({
-        museovirasto: null,
-        ahvenanmaaForminnen: null,
-        ahvenanmaaMaritimtKulturarv: null,
-        models: null
-      })
-    )
+export const fetchDataLatestUpdateDatesFromMapLayers = async (): Promise<DataLatestUpdateDates> => {
+  try {
+    const [
+      museovirastoResult,
+      ahvenanmaaForminnenResult,
+      ahvenanmaaMaritimtKulturarvResult,
+      modelsResult
+    ] = await Promise.all([
+      museovirastoTileLayer.getDataLatestUpdateDate(),
+      ahvenanmaaTileLayer.getForminnenDataLatestUpdateDate(),
+      ahvenanmaaTileLayer.getMaritimtKulturarvDataLatestUpdateDate(),
+      modelsLayer.getDataLatestUpdateDate()
+    ])
+
+    return {
+      museovirasto: museovirastoResult,
+      ahvenanmaaForminnen: ahvenanmaaForminnenResult,
+      ahvenanmaaMaritimtKulturarv: ahvenanmaaMaritimtKulturarvResult,
+      models: modelsResult
+    }
+  } catch (e) {
+    return {
+      museovirasto: null,
+      ahvenanmaaForminnen: null,
+      ahvenanmaaMaritimtKulturarv: null,
+      models: null
+    }
+  }
 }

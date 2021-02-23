@@ -14,16 +14,12 @@ import {
 } from "./map/MuinaismuistotMap"
 import MuinaismuistotUI from "./ui/MuinaismuistotUI"
 import { parseCoordinatesFromURL } from "./common/util/URLHashHelper"
-import { DataLatestUpdateDates } from "./common/types"
 import { getSettingsFromURL, updateSettingsToURL } from "./settings"
 import { configureStore } from "./store/configureStore"
 import { rootReducer } from "./store/reducers"
 import { Settings } from "./store/storeTypes"
 import { initialSettings } from "./store/initialSettings"
-import {
-  featuresSelectedOnMap,
-  fetchDataLatestUpdateDatesComplete
-} from "./store/actionCreators"
+import { featuresSelectedOnMap } from "./store/actionCreators"
 
 const determineStartLocation = () => {
   if (parseCoordinatesFromURL()) {
@@ -47,8 +43,9 @@ const updateSettings = (settings: Settings) => {
 }
 
 const settings = getSettingsFromURL(initialSettings)
+const store = configureStore(settings, rootReducer)
 
-createMap(settings, {
+createMap(store, {
   featuresSelected: (features, models, maisemanMuistiFeatures) => {
     store.dispatch(
       featuresSelectedOnMap({ features, models, maisemanMuistiFeatures })
@@ -56,13 +53,8 @@ createMap(settings, {
   },
   showLoadingAnimation: (show) => {
     ui.showLoadingAnimation(show)
-  },
-  dataLatestUpdateDatesReady: (dates: DataLatestUpdateDates) => {
-    store.dispatch(fetchDataLatestUpdateDatesComplete(dates))
   }
 })
-
-const store = configureStore(settings, rootReducer)
 
 const ui = new MuinaismuistotUI(settings, store, {
   selectedMaanmittauslaitosLayerChanged: (settings) => {
@@ -71,23 +63,23 @@ const ui = new MuinaismuistotUI(settings, store, {
   },
   selectedGtkLayerChanged: (settings, changedLayerGroup) => {
     updateSettings(settings)
-    selectedFeatureLayersChanged(settings, changedLayerGroup)
+    selectedFeatureLayersChanged(changedLayerGroup)
   },
   onGtkLayerOpacityChange: (settings: Settings) => {
     updateSettings(settings)
-    gtkLayerOpacityChanged(settings)
+    gtkLayerOpacityChanged()
   },
   selectedFeatureLayersChanged: (settings, changedLayerGroup) => {
     updateSettings(settings)
-    selectedFeatureLayersChanged(settings, changedLayerGroup)
+    selectedFeatureLayersChanged(changedLayerGroup)
   },
   selectedMuinaisjaannosTypesChanged: (settings) => {
     updateSettings(settings)
-    selectedMuinaisjaannosTypesChanged(settings)
+    selectedMuinaisjaannosTypesChanged()
   },
   selectedMuinaisjaannosDatingsChanged: (settings) => {
     updateSettings(settings)
-    selectedMuinaisjaannosDatingsChanged(settings)
+    selectedMuinaisjaannosDatingsChanged()
   },
   selectedLanguageChanged: (settings) => {
     updateSettings(settings)

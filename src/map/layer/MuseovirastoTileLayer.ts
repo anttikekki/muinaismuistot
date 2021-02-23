@@ -16,6 +16,8 @@ import {
 } from "../../common/types"
 import { trim } from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
+import { Store } from "redux"
+import { ActionTypes } from "../../store/actionTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
@@ -23,17 +25,17 @@ export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
 export default class MuseovirastoTileLayer {
   private source?: TileArcGISRestSource
   private layer?: TileLayer
-  private settings: Settings
+  private store: Store<Settings, ActionTypes>
   private showLoadingAnimationFn: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
   private dataLatestUpdateDate?: Date
 
   public constructor(
-    initialSettings: Settings,
+    store: Store<Settings, ActionTypes>,
     showLoadingAnimationFn: ShowLoadingAnimationFn,
     onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
-    this.settings = initialSettings
+    this.store = store
     this.showLoadingAnimationFn = showLoadingAnimationFn
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn
     this.addLayer()
@@ -50,8 +52,9 @@ export default class MuseovirastoTileLayer {
   }
 
   private createSource = () => {
+    const settings = this.store.getState()
     const newSource = new TileArcGISRestSource({
-      urls: [this.settings.museovirasto.url.export],
+      urls: [settings.museovirasto.url.export],
       params: {
         layers: this.getSourceLayerSelectionSettings(),
         layerDefs: this.getSourceLayerDefinitionFilterParams()
@@ -79,13 +82,14 @@ export default class MuseovirastoTileLayer {
   }
 
   private getSourceLayerSelectionSettings = (): string | undefined => {
+    const settings = this.store.getState()
     const allLayers: Array<MuseovirastoLayer> = Object.values(MuseovirastoLayer)
-    if (allLayers.length === this.settings.museovirasto.selectedLayers.length) {
+    if (allLayers.length === settings.museovirasto.selectedLayers.length) {
       // All layers are selected. No need to filter.
       return undefined
     }
     const selectedLayerIds = this.toLayerIds(
-      this.settings.museovirasto.selectedLayers
+      settings.museovirasto.selectedLayers
     )
 
     if (selectedLayerIds.length > 0) {
@@ -98,9 +102,10 @@ export default class MuseovirastoTileLayer {
   }
 
   private getSourceLayerDefinitionFilterParams = () => {
-    const layerDefinitions = []
+    const settings = this.store.getState()
+    const layerDefinitions: Array<string> = []
 
-    const selectedTypes = this.settings.museovirasto.selectedMuinaisjaannosTypes
+    const selectedTypes = settings.museovirasto.selectedMuinaisjaannosTypes
     if (
       selectedTypes.length > 0 &&
       selectedTypes.length != Object.values(MuinaisjaannosTyyppi).length
@@ -115,8 +120,7 @@ export default class MuseovirastoTileLayer {
       layerDefinitions.push("(tyyppi LIKE 'NONE')")
     }
 
-    const selectedDatings = this.settings.museovirasto
-      .selectedMuinaisjaannosDatings
+    const selectedDatings = settings.museovirasto.selectedMuinaisjaannosDatings
     if (
       selectedDatings.length > 0 &&
       selectedDatings.length != Object.values(MuinaisjaannosAjoitus).length
@@ -149,18 +153,15 @@ export default class MuseovirastoTileLayer {
       .sort((a, b) => a - b)
   }
 
-  public selectedFeatureLayersChanged = (settings: Settings) => {
-    this.settings = settings
+  public selectedFeatureLayersChanged = () => {
     this.updateLayerSource()
   }
 
-  public selectedMuinaisjaannosTypesChanged = (settings: Settings) => {
-    this.settings = settings
+  public selectedMuinaisjaannosTypesChanged = () => {
     this.updateLayerSource()
   }
 
-  public selectedMuinaisjaannosDatingsChanged = (settings: Settings) => {
-    this.settings = settings
+  public selectedMuinaisjaannosDatingsChanged = () => {
     this.updateLayerSource()
   }
 
@@ -169,9 +170,10 @@ export default class MuseovirastoTileLayer {
     mapSize: Size,
     mapExtent: Extent
   ): Promise<ArgisIdentifyResult> => {
+    const settings = this.store.getState()
     const visibleLayerIds =
-      this.settings.museovirasto.selectedLayers.length > 0
-        ? this.toLayerIds(this.settings.museovirasto.selectedLayers)
+      settings.museovirasto.selectedLayers.length > 0
+        ? this.toLayerIds(settings.museovirasto.selectedLayers)
         : [-1]
 
     const urlParams = new URLSearchParams({
@@ -185,7 +187,7 @@ export default class MuseovirastoTileLayer {
       returnGeometry: "true"
     })
 
-    const url = new URL(this.settings.museovirasto.url.identify)
+    const url = new URL(settings.museovirasto.url.identify)
     url.search = String(urlParams)
 
     const response = await fetch(String(url))
@@ -197,7 +199,8 @@ export default class MuseovirastoTileLayer {
   public findFeatures = async (
     searchText: string
   ): Promise<ArgisFindResult> => {
-    let selectedLayers = this.settings.museovirasto.selectedLayers
+    const settings = this.store.getState()
+    let selectedLayers = settings.museovirasto.selectedLayers
 
     //Muinaismustot areas always have same name as main point so do not search those
     if (selectedLayers.includes(MuseovirastoLayer.Muinaisjaannokset_alue)) {
@@ -227,7 +230,7 @@ export default class MuseovirastoTileLayer {
       returnZ: "false"
     })
 
-    const url = new URL(this.settings.museovirasto.url.find)
+    const url = new URL(settings.museovirasto.url.find)
     url.search = String(urlParams)
 
     const response = await fetch(String(url))
@@ -274,11 +277,12 @@ export default class MuseovirastoTileLayer {
   // http://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml
   // https://www.avoindata.fi/data/fi/dataset/museoviraston-paikkatietojen-tiedostolataus
   public getDataLatestUpdateDate = (): Promise<Date> => {
+    const settings = this.store.getState()
     if (this.dataLatestUpdateDate) {
       return Promise.resolve(this.dataLatestUpdateDate)
     }
 
-    return fetch(this.settings.museovirasto.url.updateDate)
+    return fetch(settings.museovirasto.url.updateDate)
       .then((response) => response.text())
       .then((str) => new DOMParser().parseFromString(str, "text/xml"))
       .then(this.parseSuunnitteluaineistoUpdatedDate)

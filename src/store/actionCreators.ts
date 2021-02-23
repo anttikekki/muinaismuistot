@@ -1,15 +1,15 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk"
-import { ArgisFeature, DataLatestUpdateDates } from "../common/types"
-import { searchFeaturesFromMapLayers } from "../map/MuinaismuistotMap"
+import {
+  fetchDataLatestUpdateDatesFromMapLayers,
+  searchFeaturesFromMapLayers
+} from "../map/MuinaismuistotMap"
 import {
   ActionTypes,
   CenterToCurrentPosition,
   CENTER_TO_CURRENT_POSITION,
   FeaturesSelectedOnMap,
-  FEATURES_SELECTED_ON_MAP,
-  FetchDataLatestUpdateDates,
   FetchDataLatestUpdateDatesComplete,
-  FETCH_DATA_LATESTS_UPDATE_DATES,
+  FEATURES_SELECTED_ON_MAP,
   FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
   SearchFeaturesComplete,
   SEARCH_FEATURES_COMPLETE,
@@ -47,18 +47,18 @@ export const featuresSelectedOnMap = (
   }
 }
 
-export const fetchDataLatestUpdateDates = (): FetchDataLatestUpdateDates => {
-  return {
-    type: FETCH_DATA_LATESTS_UPDATE_DATES
-  }
-}
-
-export const fetchDataLatestUpdateDatesComplete = (
-  payload: DataLatestUpdateDates
-): FetchDataLatestUpdateDatesComplete => {
-  return {
-    type: FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
-    payload
+export const fetchDataLatestUpdateDates = (): ThunkAction<
+  Promise<FetchDataLatestUpdateDatesComplete>,
+  Settings,
+  {},
+  ActionTypes
+> => {
+  return async (dispatch: ThunkDispatch<Settings, {}, ActionTypes>) => {
+    const payload = await fetchDataLatestUpdateDatesFromMapLayers()
+    return dispatch({
+      type: FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
+      payload
+    })
   }
 }
 

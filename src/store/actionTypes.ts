@@ -27,10 +27,6 @@ export interface FeaturesSelectedOnMap {
   payload: SelectedFeaturesOnMap
 }
 
-export interface FetchDataLatestUpdateDates {
-  type: typeof FETCH_DATA_LATESTS_UPDATE_DATES
-}
-
 export interface FetchDataLatestUpdateDatesComplete {
   type: typeof FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE
   payload: DataLatestUpdateDates
@@ -46,6 +42,5 @@ export type ActionTypes =
   | ZoomOutAction
   | CenterToCurrentPosition
   | FeaturesSelectedOnMap
-  | FetchDataLatestUpdateDates
   | FetchDataLatestUpdateDatesComplete
   | SearchFeaturesComplete

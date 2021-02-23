@@ -4,7 +4,6 @@ import {
   ActionTypes,
   CENTER_TO_CURRENT_POSITION,
   FEATURES_SELECTED_ON_MAP,
-  FETCH_DATA_LATESTS_UPDATE_DATES,
   FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
   SEARCH_FEATURES_COMPLETE,
   ZOOM_IN,
@@ -12,7 +11,6 @@ import {
 } from "./actionTypes"
 import {
   centerToCurrentPositions,
-  fetchDataLatestUpdateDates,
   zoomIn,
   zoomOut
 } from "../map/MuinaismuistotMap"
@@ -44,9 +42,6 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
       visiblePage: PageId.Details,
       selectedFeaturesOnMap
     }
-  } else if (action.type === FETCH_DATA_LATESTS_UPDATE_DATES) {
-    fetchDataLatestUpdateDates(state)
-    return state
   } else if (action.type === FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE) {
     return {
       ...state,

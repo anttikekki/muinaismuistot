@@ -3,6 +3,8 @@ import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest"
 import { TileSourceEvent } from "ol/source/Tile"
 import { GtkLayer, getGtkLayerId, GtkLayerId } from "../../common/types"
 import { Settings } from "../../store/storeTypes"
+import { Store } from "redux"
+import { ActionTypes } from "../../store/actionTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
@@ -10,28 +12,29 @@ export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
 export default class GtkTileLayer {
   private source?: TileArcGISRestSource
   private layer?: TileLayer
-  private settings: Settings
+  private store: Store<Settings, ActionTypes>
   private showLoadingAnimationFn: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
 
   public constructor(
-    initialSettings: Settings,
+    store: Store<Settings, ActionTypes>,
     showLoadingAnimationFn: ShowLoadingAnimationFn,
     onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
-    this.settings = initialSettings
+    this.store = store
     this.showLoadingAnimationFn = showLoadingAnimationFn
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn
     this.addLayer()
   }
 
   private addLayer = () => {
+    const settings = this.store.getState()
     this.source = this.createSource()
     this.layer = new TileLayer({
       source: this.source,
-      visible: this.settings.gtk.selectedLayers.length > 0
+      visible: settings.gtk.selectedLayers.length > 0
     })
-    this.layer.setOpacity(this.settings.gtk.opacity)
+    this.layer.setOpacity(settings.gtk.opacity)
 
     this.onLayerCreatedCallbackFn(this.layer)
   }
@@ -41,10 +44,9 @@ export default class GtkTileLayer {
   }
 
   private getSourceLayersParams = (): string => {
-    if (this.settings.gtk.selectedLayers.length > 0) {
-      return (
-        "show:" + this.toLayerIds(this.settings.gtk.selectedLayers).join(",")
-      )
+    const settings = this.store.getState()
+    if (settings.gtk.selectedLayers.length > 0) {
+      return "show:" + this.toLayerIds(settings.gtk.selectedLayers).join(",")
     } else {
       // No selected layers. Hide all.
       return "hide:" + this.toLayerIds(Object.values(GtkLayer)).join(",")
@@ -52,8 +54,9 @@ export default class GtkTileLayer {
   }
 
   private createSource = () => {
+    const settings = this.store.getState()
     const options: Options = {
-      urls: [this.settings.gtk.url.export],
+      urls: [settings.gtk.url.export],
       params: {
         layers: this.getSourceLayersParams()
       }
@@ -75,21 +78,21 @@ export default class GtkTileLayer {
 
   private updateLayerSource = () => {
     if (this.layer) {
+      const settings = this.store.getState()
       this.source = this.createSource()
       this.layer.setSource(this.source)
-      this.layer.setVisible(this.settings.gtk.selectedLayers.length > 0)
+      this.layer.setVisible(settings.gtk.selectedLayers.length > 0)
     }
   }
 
-  public selectedGTKLayersChanged = (settings: Settings) => {
-    this.settings = settings
+  public selectedGTKLayersChanged = () => {
     this.updateLayerSource()
   }
 
-  public opacityChanged = (settings: Settings) => {
-    this.settings = settings
+  public opacityChanged = () => {
     if (this.layer) {
-      this.layer.setOpacity(this.settings.gtk.opacity)
+      const settings = this.store.getState()
+      this.layer.setOpacity(settings.gtk.opacity)
     }
   }
 }

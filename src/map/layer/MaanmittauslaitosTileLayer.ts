@@ -13,7 +13,6 @@ export type OnLayersCreatedCallbackFn = (
 ) => void
 
 export default class MaanmittauslaitosTileLayer {
-  private settings: Settings
   private mmlMaastokarttaLayer?: TileLayer
   private mmlTaustakarttaLayer?: TileLayer
   private mmlOrtokuvaLayer?: TileLayer
@@ -28,7 +27,6 @@ export default class MaanmittauslaitosTileLayer {
     showLoadingAnimationFn: ShowLoadingAnimationFn,
     onLayersCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
-    this.settings = settings
     this.showLoadingAnimationFn = showLoadingAnimationFn
     this.onLayersCreatedCallbackFn = onLayersCreatedCallbackFn
     this.loadMMLWmtsCapabilitiesAndAddLayers(settings)
@@ -36,7 +34,7 @@ export default class MaanmittauslaitosTileLayer {
 
   private loadMMLWmtsCapabilitiesAndAddLayers = (settings: Settings) => {
     fetch(
-      `${this.settings.maanmittauslaitos.url.WMTSCapabilities}?api-key=${settings.maanmittauslaitos.apiKey}`
+      `${settings.maanmittauslaitos.url.WMTSCapabilities}?api-key=${settings.maanmittauslaitos.apiKey}`
     )
       .then((response) => response.text())
       .then((WMTSCapabilitiesXml) =>
