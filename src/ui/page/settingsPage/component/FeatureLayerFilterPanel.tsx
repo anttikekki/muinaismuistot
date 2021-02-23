@@ -1,11 +1,18 @@
-import * as React from "react"
+import React, { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch, useSelector } from "react-redux"
 import regexifyString from "regexify-string"
 import {
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus
 } from "../../../../common/types"
+import {
+  selectMuinaisjaannosDating,
+  selectMuinaisjaannosType
+} from "../../../../store/actionCreators"
+import { Settings } from "../../../../store/storeTypes"
 import { Panel } from "../../../component/Panel"
+import { toggleSelection } from "../../../util"
 
 interface TypeToggleAllCheckboxProps {
   selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
@@ -17,7 +24,7 @@ const TypeToggleAllCheckbox: React.FC<TypeToggleAllCheckboxProps> = ({
   onSelectTypes
 }) => {
   const { t } = useTranslation()
-  const allTypes = React.useMemo(() => Object.values(MuinaisjaannosTyyppi), [])
+  const allTypes = useMemo(() => Object.values(MuinaisjaannosTyyppi), [])
   const isAllSelected = Object.values(allTypes).every((v) =>
     selectedMuinaisjaannosTypes.includes(v)
   )
@@ -74,10 +81,7 @@ const DatingToggleAllCheckbox: React.FC<DatingToggleAllCheckboxProps> = ({
   onSelectDatings
 }) => {
   const { t } = useTranslation()
-  const allDatings = React.useMemo(
-    () => Object.values(MuinaisjaannosAjoitus),
-    []
-  )
+  const allDatings = useMemo(() => Object.values(MuinaisjaannosAjoitus), [])
   const isAllSelected = Object.values(allDatings).every((v) =>
     selectedMuinaisjaannosDatings.includes(v)
   )
@@ -135,14 +139,46 @@ interface Props {
   ) => void
 }
 
-export const FeatureLayerFilterPanel: React.FC<Props> = ({
-  selectedMuinaisjaannosTypes,
-  selectedMuinaisjaannosDatings,
-  onSelectMuinaisjaannosType,
-  onSelectMuinaisjaannosDating
-}) => {
+export const FeatureLayerFilterPanel: React.FC = () => {
   const { t, i18n } = useTranslation()
-  const infoText = React.useMemo(
+  const dispatch = useDispatch()
+
+  const selectedMuinaisjaannosTypes = useSelector(
+    (settings: Settings) => settings.museovirasto.selectedMuinaisjaannosTypes
+  )
+  const selectedMuinaisjaannosDatings = useSelector(
+    (settings: Settings) => settings.museovirasto.selectedMuinaisjaannosDatings
+  )
+  const onSelectMuinaisjaannosType = useCallback(
+    (type: MuinaisjaannosTyyppi) =>
+      dispatch(
+        selectMuinaisjaannosType(
+          toggleSelection(type, selectedMuinaisjaannosTypes)
+        )
+      ),
+    [dispatch, selectedMuinaisjaannosTypes]
+  )
+  const onToggleAllMuinaisjaannosTypes = useCallback(
+    (types: Array<MuinaisjaannosTyyppi>) =>
+      dispatch(selectMuinaisjaannosType(types)),
+    [dispatch]
+  )
+  const onSelectMuinaisjaannosDating = useCallback(
+    (dating: MuinaisjaannosAjoitus) =>
+      dispatch(
+        selectMuinaisjaannosDating(
+          toggleSelection(dating, selectedMuinaisjaannosDatings)
+        )
+      ),
+    [dispatch, selectedMuinaisjaannosDatings]
+  )
+  const onToggleAllMuinaisjaannosDatings = useCallback(
+    (types: Array<MuinaisjaannosAjoitus>) =>
+      dispatch(selectMuinaisjaannosDating(types)),
+    [dispatch]
+  )
+
+  const infoText = useMemo(
     () =>
       regexifyString({
         pattern: /PISTE_ICONS|ALUE_ICONS/gm,
@@ -170,7 +206,7 @@ export const FeatureLayerFilterPanel: React.FC<Props> = ({
     [i18n.language]
   )
 
-  const typeCheckboxes = React.useMemo(
+  const typeCheckboxes = useMemo(
     () =>
       Object.values(MuinaisjaannosTyyppi).map((type) => (
         <TypeCheckbox
@@ -183,7 +219,7 @@ export const FeatureLayerFilterPanel: React.FC<Props> = ({
     [selectedMuinaisjaannosTypes, i18n.language]
   )
 
-  const datingCheckboxes = React.useMemo(
+  const datingCheckboxes = useMemo(
     () =>
       Object.values(MuinaisjaannosAjoitus).map((dating) => (
         <DatingCheckbox
@@ -203,7 +239,7 @@ export const FeatureLayerFilterPanel: React.FC<Props> = ({
 
         <TypeToggleAllCheckbox
           selectedMuinaisjaannosTypes={selectedMuinaisjaannosTypes}
-          onSelectTypes={onSelectMuinaisjaannosType}
+          onSelectTypes={onToggleAllMuinaisjaannosTypes}
         />
         {typeCheckboxes}
 
@@ -211,7 +247,7 @@ export const FeatureLayerFilterPanel: React.FC<Props> = ({
 
         <DatingToggleAllCheckbox
           selectedMuinaisjaannosDatings={selectedMuinaisjaannosDatings}
-          onSelectDatings={onSelectMuinaisjaannosDating}
+          onSelectDatings={onToggleAllMuinaisjaannosDatings}
         />
         {datingCheckboxes}
       </form>

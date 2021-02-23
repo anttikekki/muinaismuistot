@@ -1,33 +1,42 @@
-import * as React from "react"
+import React, { useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
+import { useDispatch, useSelector } from "react-redux"
 import { GtkLayer } from "../../../../common/types"
+import {
+  changeGtkLayerOpacity,
+  selectGTKLayer
+} from "../../../../store/actionCreators"
+import { Settings } from "../../../../store/storeTypes"
 import { Panel } from "../../../component/Panel"
+import { toggleSelection } from "../../../util"
 
-interface Props {
-  selectedLayers: Array<GtkLayer>
-  opacity: number
-  onSelectLayer: (layer: GtkLayer) => void
-  onOpacityChange: (opacity: number) => void
-}
-
-export const GTKMapLayerSelectionPanel: React.FC<Props> = ({
-  selectedLayers,
-  opacity,
-  onSelectLayer,
-  onOpacityChange
-}) => {
+export const GTKMapLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const selectedLayers = useSelector(
+    (settings: Settings) => settings.gtk.selectedLayers
+  )
+  const opacity = useSelector((settings: Settings) => settings.gtk.opacity)
+  const onSelectLayer = useCallback(
+    (layer: GtkLayer) => {
+      dispatch(selectGTKLayer(toggleSelection(layer, selectedLayers)))
+    },
+    [dispatch, selectedLayers]
+  )
+
   const transparency = Number((1 - opacity) * 100).toFixed(0)
-  const onTransparencyInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    let transparency = Number(e.target.value)
-    if (transparency > 100) {
-      transparency = 100
-    }
-    const opacity = Number((1 - transparency / 100).toFixed(2))
-    onOpacityChange(opacity)
-  }
+  const onTransparencyInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      let transparency = Number(e.target.value)
+      if (transparency > 100) {
+        transparency = 100
+      }
+      const opacity = Number((1 - transparency / 100).toFixed(2))
+      dispatch(changeGtkLayerOpacity(opacity))
+    },
+    [dispatch, transparency]
+  )
+
   return (
     <Panel title={t(`settings.gtk.title`)}>
       <form>

@@ -22,7 +22,7 @@ import {
   updateMuseovirastoSelectedLayers,
   updateSelectMuinaisjaannosDatings,
   updateSelectMuinaisjaannosTypes
-} from "./reducers"
+} from "../store/reducers"
 import { EMPTY_SELECTION, URLSettings } from "./types"
 
 const isEnumValue = <ENUM>(

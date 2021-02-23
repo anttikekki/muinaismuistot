@@ -1,58 +1,40 @@
-import * as React from "react"
-import {
-  FeatureLayer,
-  ModelLayer,
-  MaisemanMuistiLayer
-} from "../../../../common/types"
+import React, { useCallback } from "react"
+import { ModelLayer, MaisemanMuistiLayer } from "../../../../common/types"
 import { Panel } from "../../../component/Panel"
-import { getLayerIconURLs } from "../../../../common/util/featureParser"
 import { Trans, useTranslation } from "react-i18next"
+import { LayerCheckbox } from "./LayerCheckbox"
+import { useDispatch, useSelector } from "react-redux"
+import { Settings } from "../../../../store/storeTypes"
+import { toggleSelection } from "../../../util"
+import {
+  selectMaisemanMuistiLayers,
+  selectModelLayers
+} from "../../../../store/actionCreators"
 
-interface LayerCheckboxProps<T extends FeatureLayer> {
-  label: string
-  layer: T
-  selectedLayers: Array<T>
-  onSelectLayer: (layer: T) => void
-}
-
-const LayerCheckbox = <T extends FeatureLayer>(
-  props: LayerCheckboxProps<T>
-) => {
-  const { label, layer, selectedLayers, onSelectLayer } = props
-  const isSelected = selectedLayers.includes(layer)
-
-  return (
-    <div className="checkbox sub-layer-select-checkbox-container">
-      <label>
-        <input
-          type="checkbox"
-          onChange={() => onSelectLayer(layer)}
-          checked={isSelected}
-        />
-        {getLayerIconURLs(layer).map((url, index) => (
-          <img className="feature-icon" key={index} src={url} />
-        ))}
-
-        <span>{label}</span>
-      </label>
-    </div>
-  )
-}
-
-interface Props {
-  selectedModelLayers: Array<ModelLayer>
-  selectedMaisemanMuistiLayers: Array<MaisemanMuistiLayer>
-  onSelectModelLayer: (layer: ModelLayer) => void
-  onSelectMaisemanMuistiLayer: (layer: MaisemanMuistiLayer) => void
-}
-
-export const OtherLayerSelectionPanel: React.FC<Props> = ({
-  selectedModelLayers,
-  selectedMaisemanMuistiLayers,
-  onSelectModelLayer,
-  onSelectMaisemanMuistiLayer
-}) => {
+export const OtherLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const selectedModelLayers = useSelector(
+    (settings: Settings) => settings.models.selectedLayers
+  )
+  const selectedMaisemanMuistiLayers = useSelector(
+    (settings: Settings) => settings.maisemanMuisti.selectedLayers
+  )
+  const onSelectModelLayer = useCallback(
+    (layer: ModelLayer) =>
+      dispatch(selectModelLayers(toggleSelection(layer, selectedModelLayers))),
+    [dispatch, selectedModelLayers]
+  )
+  const onSelectMaisemanMuistiLayer = useCallback(
+    (layer: MaisemanMuistiLayer) =>
+      dispatch(
+        selectMaisemanMuistiLayers(
+          toggleSelection(layer, selectedMaisemanMuistiLayers)
+        )
+      ),
+    [dispatch, selectedMaisemanMuistiLayers]
+  )
+
   return (
     <Panel title={t(`settings.other.title`)}>
       <form>

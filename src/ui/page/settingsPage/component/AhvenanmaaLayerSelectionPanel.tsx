@@ -1,50 +1,27 @@
-import * as React from "react"
-import { FeatureLayer, AhvenanmaaLayer } from "../../../../common/types"
+import React, { useCallback } from "react"
+import { AhvenanmaaLayer } from "../../../../common/types"
 import { Panel } from "../../../component/Panel"
-import { getLayerIconURLs } from "../../../../common/util/featureParser"
 import { useTranslation } from "react-i18next"
+import { useDispatch, useSelector } from "react-redux"
+import { Settings } from "../../../../store/storeTypes"
+import { toggleSelection } from "../../../util"
+import { selectAhvenanmaaLayers } from "../../../../store/actionCreators"
+import { LayerCheckbox } from "./LayerCheckbox"
 
-interface LayerCheckboxProps<T extends FeatureLayer> {
-  label: string
-  layer: T
-  selectedLayers: Array<T>
-  onSelectLayer: (layer: T) => void
-}
-
-const LayerCheckbox = <T extends FeatureLayer>(
-  props: LayerCheckboxProps<T>
-) => {
-  const { label, layer, selectedLayers, onSelectLayer } = props
-  const isSelected = selectedLayers.includes(layer)
-
-  return (
-    <div className="checkbox sub-layer-select-checkbox-container">
-      <label>
-        <input
-          type="checkbox"
-          onChange={() => onSelectLayer(layer)}
-          checked={isSelected}
-        />
-        {getLayerIconURLs(layer).map((url, index) => (
-          <img className="feature-icon" key={index} src={url} />
-        ))}
-
-        <span>{label}</span>
-      </label>
-    </div>
-  )
-}
-
-interface Props {
-  selectedAhvenanmaaLayers: Array<AhvenanmaaLayer>
-  onSelectAhvenanmaaLayer: (layer: AhvenanmaaLayer) => void
-}
-
-export const AhvenanmaaLayerSelectionPanel: React.FC<Props> = ({
-  selectedAhvenanmaaLayers,
-  onSelectAhvenanmaaLayer
-}) => {
+export const AhvenanmaaLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const selectedAhvenanmaaLayers = useSelector(
+    (settings: Settings) => settings.ahvenanmaa.selectedLayers
+  )
+  const onSelectAhvenanmaaLayer = useCallback(
+    (layer: AhvenanmaaLayer) =>
+      dispatch(
+        selectAhvenanmaaLayers(toggleSelection(layer, selectedAhvenanmaaLayers))
+      ),
+    [dispatch, selectedAhvenanmaaLayers]
+  )
+
   return (
     <Panel title={t(`settings.ahvenanmaa.title`)}>
       <form>

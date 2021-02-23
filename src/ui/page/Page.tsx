@@ -1,6 +1,8 @@
-import * as React from "react"
+import React, { useCallback } from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch } from "react-redux"
 import { Language } from "../../common/types"
+import { changeLanguage } from "../../store/actionCreators"
 
 export enum PageVisibility {
   Visible = "Visible",
@@ -8,16 +10,25 @@ export enum PageVisibility {
   Hidden = "Hidden"
 }
 
-const LangSelection: React.FC<{ lang: Language }> = ({ lang }) => {
+interface LangSelectionProps {
+  lang: Language
+  onLanguageChange: (language: Language) => void
+}
+
+const LangSelection: React.FC<LangSelectionProps> = ({
+  lang,
+  onLanguageChange
+}) => {
   const { i18n } = useTranslation()
   const isSelectedLang = i18n.language === lang
+
   return (
     <label className={`btn btn-default ${isSelectedLang ? "active" : ""}`}>
       <input
         type="radio"
         name="selectedLanguage"
         checked={isSelectedLang}
-        onChange={() => i18n.changeLanguage(lang)}
+        onChange={() => onLanguageChange(lang)}
       />
       <b>{lang.toUpperCase()}</b>
     </label>
@@ -36,7 +47,9 @@ export const Page: React.FC<Props> = ({
   hidePage,
   children
 }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const dispatch = useDispatch()
+
   let classes = ""
   switch (visibility) {
     case PageVisibility.Visible:
@@ -49,6 +62,14 @@ export const Page: React.FC<Props> = ({
       classes = "page-right-hidden"
       break
   }
+
+  const onLanguageChange = useCallback(
+    (language: Language) => {
+      i18n.changeLanguage(language)
+      dispatch(changeLanguage(language))
+    },
+    [dispatch, i18n]
+  )
 
   return (
     <div className={`container page ${classes}`}>
@@ -71,8 +92,14 @@ export const Page: React.FC<Props> = ({
             style={{ textAlign: "right" }}
           >
             <div className="btn-group" data-toggle="buttons">
-              <LangSelection lang={Language.FI} />
-              <LangSelection lang={Language.SV} />
+              <LangSelection
+                lang={Language.FI}
+                onLanguageChange={onLanguageChange}
+              />
+              <LangSelection
+                lang={Language.SV}
+                onLanguageChange={onLanguageChange}
+              />
             </div>
           </div>
         </div>

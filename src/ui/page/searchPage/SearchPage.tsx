@@ -75,7 +75,6 @@ export const SearchPage: React.FC<Props> = ({ visibility, hidePage }) => {
         return
       }
       setShowSearchTextError(false)
-      // TODO Clear old search results
       dispatch(searchFeatures(searchText))
     },
     [dispatch, searchText]

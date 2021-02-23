@@ -1,20 +1,22 @@
 import { applyMiddleware, createStore, Reducer, Store } from "redux"
-import thunkMiddleware from "redux-thunk"
+import { createEpicMiddleware } from "redux-observable"
 import { composeWithDevTools } from "redux-devtools-extension"
 import { ActionTypes } from "./actionTypes"
 import { Settings } from "./storeTypes"
+import { rootEpic } from "../epics"
 
 export const configureStore = (
   initialSettings: Settings,
   rootReducer: Reducer<Settings, ActionTypes>
 ): Store<Settings, ActionTypes> => {
-  const middlewares = [thunkMiddleware]
-  const middlewareEnhancer = applyMiddleware(...middlewares)
+  const epicMiddleware = createEpicMiddleware()
 
-  const enhancers = [middlewareEnhancer]
-  const composedEnhancers = composeWithDevTools(...enhancers)
+  const store = createStore(
+    rootReducer,
+    initialSettings,
+    composeWithDevTools(applyMiddleware(epicMiddleware))
+  )
 
-  const store = createStore(rootReducer, initialSettings, composedEnhancers)
-
+  epicMiddleware.run(rootEpic)
   return store
 }

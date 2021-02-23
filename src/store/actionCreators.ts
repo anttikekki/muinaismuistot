@@ -1,22 +1,55 @@
-import { ThunkAction, ThunkDispatch } from "redux-thunk"
 import {
-  fetchDataLatestUpdateDatesFromMapLayers,
-  searchFeaturesFromMapLayers
-} from "../map/MuinaismuistotMap"
+  AhvenanmaaLayer,
+  ArgisFeature,
+  DataLatestUpdateDates,
+  GtkLayer,
+  Language,
+  MaanmittauslaitosLayer,
+  MaisemanMuistiLayer,
+  ModelLayer,
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi,
+  MuseovirastoLayer
+} from "../common/types"
 import {
-  ActionTypes,
-  CenterToCurrentPosition,
-  CENTER_TO_CURRENT_POSITION,
-  FetchDataLatestUpdateDatesComplete,
+  CenterMapToCurrentPositionAction,
+  CENTER_MAP_TO_CURRENT_POSITION,
+  ChangeGTKLayerOpacityAction,
+  ChangeLanguageAction,
+  CHANGE_GTK_LAYER_OPACITY,
+  CHANGE_LANGUAGE,
+  ClickedMapFeatureIdentificationCompleteAction,
+  CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
+  FetchDataLatestUpdateDatesAction,
+  FetchDataLatestUpdateDatesCompleteAction,
+  FETCH_DATA_LATESTS_UPDATE_DATES,
   FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
-  SearchFeaturesComplete,
+  SearchFeaturesAction,
+  SearchFeaturesCompleteAction,
+  SEARCH_FEATURES,
   SEARCH_FEATURES_COMPLETE,
+  SelectVisibleAhvenanmaaLayersAction,
+  SelectVisibleGTKLayersAction,
+  SelectVisibleMaanmittauslaitosLayerAction,
+  SelectVisibleMaisemanMuistiLayersAction,
+  SelectVisibleModelsLayersAction,
+  SelectVisibleMuinaisjäännösDatingAction,
+  SelectVisibleMuinaisjäännösTypeAction,
+  SelectVisibleMuseovirastoLayersAction,
+  SELECT_VISIBLE_AHVENANMAA_LAYERS,
+  SELECT_VISIBLE_GTK_LAYERS,
+  SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER,
+  SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS,
+  SELECT_VISIBLE_MODELS_LAYERS,
+  SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING,
+  SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE,
+  SELECT_VISIBLE_MUSEOVIRASTO_LAYERS,
   ZoomInAction,
   ZoomOutAction,
   ZOOM_IN,
   ZOOM_OUT
 } from "./actionTypes"
-import { SelectedFeaturesOnMap, Settings } from "./storeTypes"
+import { SelectedFeaturesOnMap } from "./storeTypes"
 
 export const zoomIn = (): ZoomInAction => {
   return {
@@ -30,35 +63,136 @@ export const zoomOut = (): ZoomOutAction => {
   }
 }
 
-export const centerToCurrentPosition = (): CenterToCurrentPosition => {
+export const centerToCurrentPosition = (): CenterMapToCurrentPositionAction => {
   return {
-    type: CENTER_TO_CURRENT_POSITION
+    type: CENTER_MAP_TO_CURRENT_POSITION
   }
 }
 
-export const fetchDataLatestUpdateDates = (): ThunkAction<
-  Promise<FetchDataLatestUpdateDatesComplete>,
-  Settings,
-  {},
-  ActionTypes
-> => {
-  return async (dispatch: ThunkDispatch<Settings, {}, ActionTypes>) => {
-    const payload = await fetchDataLatestUpdateDatesFromMapLayers()
-    return dispatch({
-      type: FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
-      payload
-    })
+export const fetchDataLatestUpdateDates = (): FetchDataLatestUpdateDatesAction => {
+  return {
+    type: FETCH_DATA_LATESTS_UPDATE_DATES
   }
 }
 
-export const searchFeatures = (
-  searchText: string
-): ThunkAction<Promise<SearchFeaturesComplete>, Settings, {}, ActionTypes> => {
-  return async (dispatch: ThunkDispatch<Settings, {}, ActionTypes>) => {
-    const searchResultFeatures = await searchFeaturesFromMapLayers(searchText)
-    return dispatch({
-      type: SEARCH_FEATURES_COMPLETE,
-      searchResultFeatures
-    })
+export const fetchDataLatestUpdateDatesComplete = (
+  payload: DataLatestUpdateDates
+): FetchDataLatestUpdateDatesCompleteAction => {
+  return {
+    type: FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
+    payload
+  }
+}
+
+export const searchFeatures = (searchText: string): SearchFeaturesAction => {
+  return {
+    type: SEARCH_FEATURES,
+    searchText
+  }
+}
+
+export const searchFeaturesComplete = (
+  searchResultFeatures: Array<ArgisFeature>
+): SearchFeaturesCompleteAction => {
+  return {
+    type: SEARCH_FEATURES_COMPLETE,
+    searchResultFeatures
+  }
+}
+
+export const clickedMapFeatureIdentificationComplete = (
+  payload: SelectedFeaturesOnMap
+): ClickedMapFeatureIdentificationCompleteAction => {
+  return {
+    type: CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
+    payload
+  }
+}
+
+export const selectMaanmittauslaitosLayer = (
+  layer: MaanmittauslaitosLayer
+): SelectVisibleMaanmittauslaitosLayerAction => {
+  return {
+    type: SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER,
+    layer
+  }
+}
+
+export const selectGTKLayer = (
+  layers: Array<GtkLayer>
+): SelectVisibleGTKLayersAction => {
+  return {
+    type: SELECT_VISIBLE_GTK_LAYERS,
+    layers
+  }
+}
+
+export const changeGtkLayerOpacity = (
+  opacity: number
+): ChangeGTKLayerOpacityAction => {
+  return {
+    type: CHANGE_GTK_LAYER_OPACITY,
+    opacity
+  }
+}
+
+export const selectMuseovirastoLayers = (
+  layers: Array<MuseovirastoLayer>
+): SelectVisibleMuseovirastoLayersAction => {
+  return {
+    type: SELECT_VISIBLE_MUSEOVIRASTO_LAYERS,
+    layers
+  }
+}
+
+export const selectAhvenanmaaLayers = (
+  layers: Array<AhvenanmaaLayer>
+): SelectVisibleAhvenanmaaLayersAction => {
+  return {
+    type: SELECT_VISIBLE_AHVENANMAA_LAYERS,
+    layers
+  }
+}
+
+export const selectModelLayers = (
+  layers: Array<ModelLayer>
+): SelectVisibleModelsLayersAction => {
+  return {
+    type: SELECT_VISIBLE_MODELS_LAYERS,
+    layers
+  }
+}
+
+export const selectMaisemanMuistiLayers = (
+  layers: Array<MaisemanMuistiLayer>
+): SelectVisibleMaisemanMuistiLayersAction => {
+  return {
+    type: SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS,
+    layers
+  }
+}
+
+export const selectMuinaisjaannosType = (
+  types: Array<MuinaisjaannosTyyppi>
+): SelectVisibleMuinaisjäännösTypeAction => {
+  return {
+    type: SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE,
+    types
+  }
+}
+
+export const selectMuinaisjaannosDating = (
+  datings: Array<MuinaisjaannosAjoitus>
+): SelectVisibleMuinaisjäännösDatingAction => {
+  return {
+    type: SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING,
+    datings
+  }
+}
+
+export const changeLanguage = (language: Language): ChangeLanguageAction => {
+  return {
+    type: CHANGE_LANGUAGE,
+    language
   }
 }

@@ -1,24 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import "../css/muinaismuistot.css"
-import * as React from "react"
+import React from "react"
 import * as ReactDOM from "react-dom"
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
 import fiTranslations from "../common/translations/fi.json"
 import svTranslations from "../common/translations/sv.json"
-import {
-  ArgisFeature,
-  MaanmittauslaitosLayer,
-  MuseovirastoLayer,
-  MuinaisjaannosAjoitus,
-  MuinaisjaannosTyyppi,
-  AhvenanmaaLayer,
-  LayerGroup,
-  ModelLayer,
-  MaisemanMuistiLayer,
-  Language,
-  GtkLayer
-} from "../common/types"
+import { Language } from "../common/types"
 import { LoadingAnimation } from "./component/LoadingAnimation"
 import { ZoomInButton } from "./component/mapButton/ZoomInButton"
 import { ZoomOutButton } from "./component/mapButton/ZoomOutButton"
@@ -31,47 +19,11 @@ import { OpenSearchPageButton } from "./component/mapButton/OpenSearchPageButton
 import { SettingsPage } from "./page/settingsPage/SettingsPage"
 import { OpenSettingsPage } from "./component/mapButton/OpenSettingsPage"
 import { PageVisibility } from "./page/Page"
-import {
-  updateAhvenanmaaSelectedLayers,
-  updateGtkLayerOpacity,
-  updateGtkSelectedLayers,
-  updateLanguage,
-  updateMaanmittauslaitosSelectedLayer,
-  updateMaisemanMuistiSelectedLayers,
-  updateModelSelectedLayers,
-  updateMuseovirastoSelectedLayers,
-  updateSelectMuinaisjaannosDatings,
-  updateSelectMuinaisjaannosTypes
-} from "../settings"
 import { FullscreenButton } from "./component/mapButton/FullscreenButton"
 import { Store } from "redux"
 import { Provider } from "react-redux"
 import { ActionTypes } from "../store/actionTypes"
 import { PageId, Settings } from "../store/storeTypes"
-
-const toggleSelection = function <T>(value: T, values: Array<T>) {
-  if (values.includes(value)) {
-    return values.filter((v) => v !== value)
-  } else {
-    return [...values, value]
-  }
-}
-
-export interface EventListeners {
-  selectedMaanmittauslaitosLayerChanged: (settings: Settings) => void
-  selectedGtkLayerChanged: (
-    settings: Settings,
-    changedLayerGroup: LayerGroup
-  ) => void
-  onGtkLayerOpacityChange: (settings: Settings) => void
-  selectedFeatureLayersChanged: (
-    settings: Settings,
-    changedLayerGroup: LayerGroup
-  ) => void
-  selectedMuinaisjaannosTypesChanged: (settings: Settings) => void
-  selectedMuinaisjaannosDatingsChanged: (settings: Settings) => void
-  selectedLanguageChanged: (settings: Settings) => void
-}
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -88,134 +40,16 @@ i18n.use(initReactI18next).init({
 })
 
 export default class MuinaismuistotUI {
-  private settings: Settings
   private visiblePage?: PageId
   private pageClosingAnimationTimeoutID: Partial<Record<PageId, number>> = {}
   private loadingAnimationTimeoutID?: number
   private loadingAnimationCounter = 0
-  private eventListeners: EventListeners
   private store: Store<Settings, ActionTypes>
 
-  public constructor(
-    initialSettings: Settings,
-    store: Store<Settings, ActionTypes>,
-    eventListeners: EventListeners
-  ) {
-    this.settings = initialSettings
-    this.eventListeners = eventListeners
+  public constructor(store: Store<Settings, ActionTypes>) {
     this.store = store
 
-    i18n.changeLanguage(this.settings.language)
-    i18n.on("languageChanged", (lang) => {
-      this.settings = updateLanguage(this.settings, lang as Language)
-      this.eventListeners.selectedLanguageChanged(this.settings)
-    })
-
-    this.renderUI()
-  }
-
-  private onSelectMaanmittauslaitosLayer = (layer: MaanmittauslaitosLayer) => {
-    this.settings = updateMaanmittauslaitosSelectedLayer(this.settings, layer)
-    this.eventListeners.selectedMaanmittauslaitosLayerChanged(this.settings)
-    this.renderUI()
-  }
-
-  private onSelectGTKLayer = (layer: GtkLayer) => {
-    this.settings = updateGtkSelectedLayers(
-      this.settings,
-      toggleSelection(layer, this.settings.gtk.selectedLayers)
-    )
-    this.eventListeners.selectedGtkLayerChanged(this.settings, LayerGroup.GTK)
-    this.renderUI()
-  }
-
-  private onGtkLayerOpacityChange = (opacity: number) => {
-    this.settings = updateGtkLayerOpacity(this.settings, opacity)
-    this.eventListeners.onGtkLayerOpacityChange(this.settings)
-    this.renderUI()
-  }
-
-  private onSelectMuseovirastoLayer = (layer: MuseovirastoLayer) => {
-    this.settings = updateMuseovirastoSelectedLayers(
-      this.settings,
-      toggleSelection(layer, this.settings.museovirasto.selectedLayers)
-    )
-    this.eventListeners.selectedFeatureLayersChanged(
-      this.settings,
-      LayerGroup.Museovirasto
-    )
-    this.renderUI()
-  }
-
-  private onSelectAhvenanmaaLayer = (layer: AhvenanmaaLayer) => {
-    this.settings = updateAhvenanmaaSelectedLayers(
-      this.settings,
-      toggleSelection(layer, this.settings.ahvenanmaa.selectedLayers)
-    )
-    this.eventListeners.selectedFeatureLayersChanged(
-      this.settings,
-      LayerGroup.Ahvenanmaa
-    )
-    this.renderUI()
-  }
-
-  private onSelectModelLayer = (layer: ModelLayer) => {
-    this.settings = updateModelSelectedLayers(
-      this.settings,
-      toggleSelection(layer, this.settings.models.selectedLayers)
-    )
-    this.eventListeners.selectedFeatureLayersChanged(
-      this.settings,
-      LayerGroup.Models
-    )
-    this.renderUI()
-  }
-
-  private onSelectMaisemanMuistiLayer = (layer: MaisemanMuistiLayer) => {
-    this.settings = updateMaisemanMuistiSelectedLayers(
-      this.settings,
-      toggleSelection(layer, this.settings.maisemanMuisti.selectedLayers)
-    )
-    this.eventListeners.selectedFeatureLayersChanged(
-      this.settings,
-      LayerGroup.MaisemanMuisti
-    )
-    this.renderUI()
-  }
-
-  private onSelectMuinaisjaannosType = (
-    type: MuinaisjaannosTyyppi | Array<MuinaisjaannosTyyppi>
-  ) => {
-    if (Array.isArray(type)) {
-      this.settings = updateSelectMuinaisjaannosTypes(this.settings, type)
-    } else {
-      this.settings = updateSelectMuinaisjaannosTypes(
-        this.settings,
-        toggleSelection(
-          type,
-          this.settings.museovirasto.selectedMuinaisjaannosTypes
-        )
-      )
-    }
-    this.eventListeners.selectedMuinaisjaannosTypesChanged(this.settings)
-    this.renderUI()
-  }
-
-  private onSelectMuinaisjaannosDating = (
-    dating: MuinaisjaannosAjoitus | Array<MuinaisjaannosAjoitus>
-  ) => {
-    if (Array.isArray(dating)) {
-      this.settings = updateSelectMuinaisjaannosDatings(this.settings, dating)
-    } else {
-      this.settings = updateSelectMuinaisjaannosDatings(
-        this.settings,
-        toggleSelection(
-          dating,
-          this.settings.museovirasto.selectedMuinaisjaannosDatings
-        )
-      )
-    }
-    this.eventListeners.selectedMuinaisjaannosDatingsChanged(this.settings)
+    i18n.changeLanguage(this.store.getState().language)
     this.renderUI()
   }
 
@@ -259,16 +93,6 @@ export default class MuinaismuistotUI {
         <SettingsPage
           visibility={this.getPageVisibility(PageId.Settings)}
           hidePage={this.hidePage}
-          settings={this.settings}
-          onSelectMaanmittauslaitosLayer={this.onSelectMaanmittauslaitosLayer}
-          onSelectGtkLayer={this.onSelectGTKLayer}
-          onGtkLayerOpacityChange={this.onGtkLayerOpacityChange}
-          onSelectMuseovirastoLayer={this.onSelectMuseovirastoLayer}
-          onSelectAhvenanmaaLayer={this.onSelectAhvenanmaaLayer}
-          onSelectModelLayer={this.onSelectModelLayer}
-          onSelectMaisemanMuistiLayer={this.onSelectMaisemanMuistiLayer}
-          onSelectMuinaisjaannosType={this.onSelectMuinaisjaannosType}
-          onSelectMuinaisjaannosDating={this.onSelectMuinaisjaannosDating}
         />
       </Provider>,
       document.getElementById("ui")

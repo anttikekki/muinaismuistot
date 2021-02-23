@@ -28,8 +28,9 @@
     "react-i18next": "11.8.7",
     "react-redux": "7.2.2",
     "redux": "4.0.5",
-    "redux-thunk": "2.3.0",
+    "redux-observable": "1.2.0",
     "regexify-string": "1.0.5",
+    "rxjs": "6.6.3",
     "tslib": "2.1.0"
   },
   "devDependencies": {

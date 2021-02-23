@@ -32,10 +32,8 @@ import VectorLayer from "ol/layer/Vector"
 import GtkTileLayer from "./layer/GtkTileLayer"
 import { Settings } from "../store/storeTypes"
 import { Store } from "redux"
-import {
-  ActionTypes,
-  CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE
-} from "../store/actionTypes"
+import { ActionTypes } from "../store/actionTypes"
+import { clickedMapFeatureIdentificationComplete } from "../store/actionCreators"
 
 export interface MapEventListener {
   showLoadingAnimation: (show: boolean) => void
@@ -88,7 +86,7 @@ export const createMap = (
   })
 
   maanmittauslaitosTileLayer = new MaanmittauslaitosTileLayer(
-    store.getState(),
+    store,
     eventListeners.showLoadingAnimation,
     (mmlMaastokarttaLayer, mmlTaustakarttaLayer, mmlOrtokuvaLayer) => {
       map.getLayers().insertAt(0, mmlMaastokarttaLayer)
@@ -199,9 +197,8 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
         .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
         .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
 
-      store.dispatch({
-        type: CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
-        payload: {
+      store.dispatch(
+        clickedMapFeatureIdentificationComplete({
           features: allFeatures,
           models: modelsResult,
           maisemanMuistiFeatures: maisemanMuistiResult.filter((feature) => {
@@ -214,8 +211,8 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
                 argisFeature.attributes.mjtunnus === id
             )
           })
-        }
-      })
+        })
+      )
     }
   )
 }
@@ -299,8 +296,8 @@ export const searchFeaturesFromMapLayers = async (
     .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
 }
 
-export const selectedMaanmittauslaitosLayerChanged = (settings: Settings) => {
-  maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged(settings)
+export const selectedMaanmittauslaitosLayerChanged = () => {
+  maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged()
 }
 
 export const gtkLayerOpacityChanged = () => {

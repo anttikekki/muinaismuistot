@@ -4,6 +4,8 @@ import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS"
 import { MaanmittauslaitosLayer } from "../../common/types"
 import { TileSourceEvent } from "ol/source/Tile"
 import { Settings } from "../../store/storeTypes"
+import { Store } from "redux"
+import { ActionTypes } from "../../store/actionTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (
@@ -13,6 +15,7 @@ export type OnLayersCreatedCallbackFn = (
 ) => void
 
 export default class MaanmittauslaitosTileLayer {
+  private store: Store<Settings, ActionTypes>
   private mmlMaastokarttaLayer?: TileLayer
   private mmlTaustakarttaLayer?: TileLayer
   private mmlOrtokuvaLayer?: TileLayer
@@ -23,16 +26,18 @@ export default class MaanmittauslaitosTileLayer {
   private onLayersCreatedCallbackFn: OnLayersCreatedCallbackFn
 
   public constructor(
-    settings: Settings,
+    store: Store<Settings, ActionTypes>,
     showLoadingAnimationFn: ShowLoadingAnimationFn,
     onLayersCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
+    this.store = store
     this.showLoadingAnimationFn = showLoadingAnimationFn
     this.onLayersCreatedCallbackFn = onLayersCreatedCallbackFn
-    this.loadMMLWmtsCapabilitiesAndAddLayers(settings)
+    this.loadMMLWmtsCapabilitiesAndAddLayers()
   }
 
-  private loadMMLWmtsCapabilitiesAndAddLayers = (settings: Settings) => {
+  private loadMMLWmtsCapabilitiesAndAddLayers = () => {
+    const settings = this.store.getState()
     fetch(
       `${settings.maanmittauslaitos.url.WMTSCapabilities}?api-key=${settings.maanmittauslaitos.apiKey}`
     )
@@ -120,7 +125,8 @@ export default class MaanmittauslaitosTileLayer {
     })
   }
 
-  public selectedMaanmittauslaitosLayerChanged = (settings: Settings) => {
+  public selectedMaanmittauslaitosLayerChanged = () => {
+    const settings = this.store.getState()
     if (
       !this.mmlMaastokarttaLayer ||
       !this.mmlTaustakarttaLayer ||
