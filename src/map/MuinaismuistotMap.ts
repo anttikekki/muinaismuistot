@@ -33,11 +33,10 @@ import GtkTileLayer from "./layer/GtkTileLayer"
 import { Settings } from "../store/storeTypes"
 import { Store } from "redux"
 import { ActionTypes } from "../store/actionTypes"
-import { clickedMapFeatureIdentificationComplete } from "../store/actionCreators"
-
-export interface MapEventListener {
-  showLoadingAnimation: (show: boolean) => void
-}
+import {
+  clickedMapFeatureIdentificationComplete,
+  showLoadingAnimation
+} from "../store/actionCreators"
 
 let store: Store<Settings, ActionTypes>
 let map: Map
@@ -50,14 +49,10 @@ let positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
 let modelsLayer: ModelsLayer
 let maisemanMuistiLayer: MaisemanMuistiLayer
 let gtkLayer: GtkTileLayer
-let eventListeners: MapEventListener
+let tileLoadingCounter: number = 0
 
-export const createMap = (
-  reduxStore: Store<Settings, ActionTypes>,
-  listeners: MapEventListener
-) => {
+export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
   store = reduxStore
-  eventListeners = listeners
 
   proj4.defs(
     "EPSG:3067",
@@ -87,7 +82,7 @@ export const createMap = (
 
   maanmittauslaitosTileLayer = new MaanmittauslaitosTileLayer(
     store,
-    eventListeners.showLoadingAnimation,
+    updateTileLoadingStatus,
     (mmlMaastokarttaLayer, mmlTaustakarttaLayer, mmlOrtokuvaLayer) => {
       map.getLayers().insertAt(0, mmlMaastokarttaLayer)
       map.getLayers().insertAt(1, mmlTaustakarttaLayer)
@@ -97,7 +92,7 @@ export const createMap = (
 
   gtkLayer = new GtkTileLayer(
     store,
-    eventListeners.showLoadingAnimation,
+    updateTileLoadingStatus,
     (createdLayer) => {
       map.getLayers().insertAt(3, createdLayer)
     }
@@ -105,7 +100,7 @@ export const createMap = (
 
   ahvenanmaaTileLayer = new AhvenanmaaTileLayer(
     store,
-    eventListeners.showLoadingAnimation,
+    updateTileLoadingStatus,
     (createdLayer) => {
       map.getLayers().insertAt(4, createdLayer)
     }
@@ -113,7 +108,7 @@ export const createMap = (
 
   museovirastoTileLayer = new MuseovirastoTileLayer(
     store,
-    eventListeners.showLoadingAnimation,
+    updateTileLoadingStatus,
     (createdLayer) => {
       map.getLayers().insertAt(5, createdLayer)
     }
@@ -133,6 +128,26 @@ export const createMap = (
   })
 
   map.on("singleclick", indentifyFeaturesOnClickedCoordinate)
+}
+
+const updateTileLoadingStatus = (loading: boolean) => {
+  const oldCounterValue = tileLoadingCounter
+
+  if (loading) {
+    tileLoadingCounter++
+  } else {
+    tileLoadingCounter--
+  }
+
+  if (oldCounterValue === 0 && tileLoadingCounter === 1) {
+    showLoadingAnimationInUI(true)
+  } else if (oldCounterValue === 1 && tileLoadingCounter === 0) {
+    showLoadingAnimationInUI(false)
+  }
+}
+
+const showLoadingAnimationInUI = (show: boolean) => {
+  store.dispatch(showLoadingAnimation(show))
 }
 
 const getFeaturesAtPixelAtGeoJsonLayer = <T>(
@@ -161,7 +176,7 @@ const getFeaturesAtPixelAtGeoJsonLayer = <T>(
 }
 
 const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
-  eventListeners.showLoadingAnimation(true)
+  showLoadingAnimationInUI(true)
   const mapSize = map.getSize()
   if (!mapSize) {
     return
@@ -191,7 +206,7 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
 
   Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
     ([ahvenanmaaResult, museovirastoResult]) => {
-      eventListeners.showLoadingAnimation(false)
+      showLoadingAnimationInUI(false)
       const allFeatures = ahvenanmaaResult.results
         .concat(museovirastoResult.results)
         .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
@@ -280,7 +295,7 @@ export const selectedMuinaisjaannosDatingsChanged = (): void => {
 export const searchFeaturesFromMapLayers = async (
   searchText: string
 ): Promise<Array<ArgisFeature>> => {
-  eventListeners.showLoadingAnimation(true)
+  showLoadingAnimationInUI(true)
   const ahvenanmaaQuery = ahvenanmaaTileLayer.findFeatures(searchText)
   const museovirastoQuery = museovirastoTileLayer.findFeatures(searchText)
 
@@ -288,7 +303,7 @@ export const searchFeaturesFromMapLayers = async (
     ahvenanmaaQuery,
     museovirastoQuery
   ])
-  eventListeners.showLoadingAnimation(false)
+  showLoadingAnimationInUI(false)
 
   return ahvenanmaaResult.results
     .concat(museovirastoResult.results)

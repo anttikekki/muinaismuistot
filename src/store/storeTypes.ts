@@ -29,6 +29,7 @@ export interface SelectedFeaturesOnMap {
 }
 
 export interface Settings {
+  showLoadingAnimation: boolean
   visiblePage?: PageId
   selectedFeaturesOnMap: SelectedFeaturesOnMap
   search: {

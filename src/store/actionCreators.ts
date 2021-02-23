@@ -44,6 +44,8 @@ import {
   SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING,
   SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE,
   SELECT_VISIBLE_MUSEOVIRASTO_LAYERS,
+  ShowLoadingAnimationAction,
+  SHOW_LOADING_ANIMATION,
   ZoomInAction,
   ZoomOutAction,
   ZOOM_IN,
@@ -194,5 +196,14 @@ export const changeLanguage = (language: Language): ChangeLanguageAction => {
   return {
     type: CHANGE_LANGUAGE,
     language
+  }
+}
+
+export const showLoadingAnimation = (
+  show: boolean
+): ShowLoadingAnimationAction => {
+  return {
+    type: SHOW_LOADING_ANIMATION,
+    show
   }
 }

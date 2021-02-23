@@ -39,6 +39,7 @@ export const SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE =
 export const SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING =
   "SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING"
 export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE"
+export const SHOW_LOADING_ANIMATION = "SHOW_LOADING_ANIMATION"
 
 export interface ZoomInAction {
   type: typeof ZOOM_IN
@@ -126,6 +127,11 @@ export interface ChangeLanguageAction {
   language: Language
 }
 
+export interface ShowLoadingAnimationAction {
+  type: typeof SHOW_LOADING_ANIMATION
+  show: boolean
+}
+
 export type ActionTypes =
   | ZoomInAction
   | ZoomOutAction
@@ -145,3 +151,4 @@ export type ActionTypes =
   | SelectVisibleMuinaisjäännösTypeAction
   | SelectVisibleMuinaisjäännösDatingAction
   | ChangeLanguageAction
+  | ShowLoadingAnimationAction

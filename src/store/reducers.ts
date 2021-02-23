@@ -15,7 +15,8 @@ import {
   SELECT_VISIBLE_MODELS_LAYERS,
   SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING,
   SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE,
-  SELECT_VISIBLE_MUSEOVIRASTO_LAYERS
+  SELECT_VISIBLE_MUSEOVIRASTO_LAYERS,
+  SHOW_LOADING_ANIMATION
 } from "./actionTypes"
 import {
   MaanmittauslaitosLayer,
@@ -215,6 +216,11 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     return updateSelectMuinaisjaannosDatings(state, action.datings)
   } else if (action.type === CHANGE_LANGUAGE) {
     return updateLanguage(state, action.language)
+  } else if (action.type === SHOW_LOADING_ANIMATION) {
+    return {
+      ...state,
+      showLoadingAnimation: action.show
+    }
   }
   return state
 }

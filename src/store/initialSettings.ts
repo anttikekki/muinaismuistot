@@ -20,6 +20,7 @@ const getInitialLang = (): Language => {
 }
 
 export const initialSettings: Settings = {
+  showLoadingAnimation: false,
   visiblePage: undefined,
   selectedFeaturesOnMap: {
     features: [],

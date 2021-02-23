@@ -26,17 +26,17 @@ export default class MuseovirastoTileLayer {
   private source?: TileArcGISRestSource
   private layer?: TileLayer
   private store: Store<Settings, ActionTypes>
-  private showLoadingAnimationFn: ShowLoadingAnimationFn
+  private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
   private dataLatestUpdateDate?: Date
 
   public constructor(
     store: Store<Settings, ActionTypes>,
-    showLoadingAnimationFn: ShowLoadingAnimationFn,
+    updateTileLoadingStatus: ShowLoadingAnimationFn,
     onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
     this.store = store
-    this.showLoadingAnimationFn = showLoadingAnimationFn
+    this.updateTileLoadingStatus = updateTileLoadingStatus
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn
     this.addLayer()
   }
@@ -62,13 +62,13 @@ export default class MuseovirastoTileLayer {
     })
 
     newSource.on("tileloadstart", (evt: TileSourceEvent) => {
-      this.showLoadingAnimationFn(true)
+      this.updateTileLoadingStatus(true)
     })
     newSource.on("tileloadend", (evt: TileSourceEvent) => {
-      this.showLoadingAnimationFn(false)
+      this.updateTileLoadingStatus(false)
     })
     newSource.on("tileloaderror", (evt: TileSourceEvent) => {
-      this.showLoadingAnimationFn(false)
+      this.updateTileLoadingStatus(false)
     })
 
     return newSource

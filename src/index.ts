@@ -33,11 +33,7 @@ const setMapLocationFromURLHash = () => {
 const settings = getSettingsFromURL(initialSettings)
 const store = configureStore(settings, rootReducer)
 
-createMap(store, {
-  showLoadingAnimation: (show) => {
-    ui.showLoadingAnimation(show)
-  }
-})
+createMap(store)
 
 const ui = new MuinaismuistotUI(store)
 

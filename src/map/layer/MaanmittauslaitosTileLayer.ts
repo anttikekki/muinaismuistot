@@ -22,16 +22,16 @@ export default class MaanmittauslaitosTileLayer {
   private maastokarttaLayerSource?: WMTSSource
   private taustakarttaLayerSource?: WMTSSource
   private ortokuvaLayerSource?: WMTSSource
-  private showLoadingAnimationFn: ShowLoadingAnimationFn
+  private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayersCreatedCallbackFn: OnLayersCreatedCallbackFn
 
   public constructor(
     store: Store<Settings, ActionTypes>,
-    showLoadingAnimationFn: ShowLoadingAnimationFn,
+    updateTileLoadingStatus: ShowLoadingAnimationFn,
     onLayersCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
     this.store = store
-    this.showLoadingAnimationFn = showLoadingAnimationFn
+    this.updateTileLoadingStatus = updateTileLoadingStatus
     this.onLayersCreatedCallbackFn = onLayersCreatedCallbackFn
     this.loadMMLWmtsCapabilitiesAndAddLayers()
   }
@@ -115,13 +115,13 @@ export default class MaanmittauslaitosTileLayer {
     source: WMTSSource
   ) => {
     source.on("tileloadstart", (evt: TileSourceEvent) => {
-      this.showLoadingAnimationFn(true)
+      this.updateTileLoadingStatus(true)
     })
     source.on("tileloadend", (evt: TileSourceEvent) => {
-      this.showLoadingAnimationFn(false)
+      this.updateTileLoadingStatus(false)
     })
     source.on("tileloaderror", (evt: TileSourceEvent) => {
-      this.showLoadingAnimationFn(false)
+      this.updateTileLoadingStatus(false)
     })
   }
 

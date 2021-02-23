@@ -62,11 +62,9 @@ export default class MuinaismuistotUI {
   }
 
   private renderUI = () => {
-    const isLoading = this.loadingAnimationCounter > 0
-
     ReactDOM.render(
       <Provider store={this.store}>
-        <LoadingAnimation visible={isLoading} isPageOpen={!!this.visiblePage} />
+        <LoadingAnimation />
         <ZoomInButton />
         <ZoomOutButton />
         <CenterToCurrentPositionButton />
@@ -138,29 +136,6 @@ export default class MuinaismuistotUI {
     if (this.pageClosingAnimationTimeoutID[page]) {
       window.clearTimeout(this.pageClosingAnimationTimeoutID[page])
       this.pageClosingAnimationTimeoutID[page] = undefined
-    }
-  }
-
-  public showLoadingAnimation = (show: boolean) => {
-    const oldCounterValue = this.loadingAnimationCounter
-    if (show) {
-      this.loadingAnimationCounter++
-    } else {
-      this.loadingAnimationCounter--
-    }
-
-    if (oldCounterValue === 0 && this.loadingAnimationCounter === 1) {
-      this.loadingAnimationTimeoutID = window.setTimeout(() => {
-        if (this.loadingAnimationTimeoutID) {
-          this.renderUI()
-        }
-      }, 300)
-    }
-
-    if (oldCounterValue === 1 && this.loadingAnimationCounter === 0) {
-      window.clearTimeout(this.loadingAnimationTimeoutID)
-      this.loadingAnimationTimeoutID = undefined
-      this.renderUI()
     }
   }
 }
