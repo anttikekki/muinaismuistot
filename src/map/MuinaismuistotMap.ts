@@ -32,19 +32,16 @@ import VectorLayer from "ol/layer/Vector"
 import GtkTileLayer from "./layer/GtkTileLayer"
 import { Settings } from "../store/storeTypes"
 import { Store } from "redux"
-import { ActionTypes } from "../store/actionTypes"
+import {
+  ActionTypes,
+  CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE
+} from "../store/actionTypes"
 
 export interface MapEventListener {
-  featuresSelected: (
-    features: Array<ArgisFeature>,
-    models: Array<GeoJSONFeature<ModelFeatureProperties>>,
-    maisemanMuistiFeatures: Array<
-      GeoJSONFeature<MaisemanMuistiFeatureProperties>
-    >
-  ) => void
   showLoadingAnimation: (show: boolean) => void
 }
 
+let store: Store<Settings, ActionTypes>
 let map: Map
 let view: View
 let geolocation: Geolocation | undefined
@@ -58,9 +55,10 @@ let gtkLayer: GtkTileLayer
 let eventListeners: MapEventListener
 
 export const createMap = (
-  store: Store<Settings, ActionTypes>,
+  reduxStore: Store<Settings, ActionTypes>,
   listeners: MapEventListener
 ) => {
+  store = reduxStore
   eventListeners = listeners
 
   proj4.defs(
@@ -136,7 +134,7 @@ export const createMap = (
     map.getLayers().insertAt(8, positionAndSelectedLocation.getLayer())
   })
 
-  map.on("singleclick", loadFeaturesOnClickedCoordinate)
+  map.on("singleclick", indentifyFeaturesOnClickedCoordinate)
 }
 
 const getFeaturesAtPixelAtGeoJsonLayer = <T>(
@@ -164,7 +162,7 @@ const getFeaturesAtPixelAtGeoJsonLayer = <T>(
     })
 }
 
-const loadFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
+const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
   eventListeners.showLoadingAnimation(true)
   const mapSize = map.getSize()
   if (!mapSize) {
@@ -201,20 +199,23 @@ const loadFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
         .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
         .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
 
-      eventListeners.featuresSelected(
-        allFeatures,
-        modelsResult,
-        maisemanMuistiResult.filter((feature) => {
-          // Do not show Maiseman muisti feature if there is Argis feature for it in search results
-          const id = feature.properties.id.toString()
-          return !allFeatures.some(
-            (argisFeature) =>
-              argisFeature.layerName ===
-                MuseovirastoLayer.Muinaisjaannokset_piste &&
-              argisFeature.attributes.mjtunnus === id
-          )
-        })
-      )
+      store.dispatch({
+        type: CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
+        payload: {
+          features: allFeatures,
+          models: modelsResult,
+          maisemanMuistiFeatures: maisemanMuistiResult.filter((feature) => {
+            // Do not show Maiseman muisti feature if there is Argis feature for it in search results
+            const id = feature.properties.id.toString()
+            return !allFeatures.some(
+              (argisFeature) =>
+                argisFeature.layerName ===
+                  MuseovirastoLayer.Muinaisjaannokset_piste &&
+                argisFeature.attributes.mjtunnus === id
+            )
+          })
+        }
+      })
     }
   )
 }

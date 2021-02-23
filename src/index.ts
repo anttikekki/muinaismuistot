@@ -19,7 +19,6 @@ import { configureStore } from "./store/configureStore"
 import { rootReducer } from "./store/reducers"
 import { Settings } from "./store/storeTypes"
 import { initialSettings } from "./store/initialSettings"
-import { featuresSelectedOnMap } from "./store/actionCreators"
 
 const determineStartLocation = () => {
   if (parseCoordinatesFromURL()) {
@@ -46,11 +45,6 @@ const settings = getSettingsFromURL(initialSettings)
 const store = configureStore(settings, rootReducer)
 
 createMap(store, {
-  featuresSelected: (features, models, maisemanMuistiFeatures) => {
-    store.dispatch(
-      featuresSelectedOnMap({ features, models, maisemanMuistiFeatures })
-    )
-  },
   showLoadingAnimation: (show) => {
     ui.showLoadingAnimation(show)
   }

@@ -3,7 +3,7 @@ import { PageId, Settings } from "./storeTypes"
 import {
   ActionTypes,
   CENTER_TO_CURRENT_POSITION,
-  FEATURES_SELECTED_ON_MAP,
+  CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
   FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
   SEARCH_FEATURES_COMPLETE,
   ZOOM_IN,
@@ -29,7 +29,7 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
   } else if (action.type === CENTER_TO_CURRENT_POSITION) {
     centerToCurrentPositions()
     return state
-  } else if (action.type === FEATURES_SELECTED_ON_MAP) {
+  } else if (action.type === CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE) {
     const selectedFeaturesOnMap = action.payload
     if (
       selectedFeaturesOnMap.features.length === 0 &&

@@ -7,9 +7,7 @@ import {
   ActionTypes,
   CenterToCurrentPosition,
   CENTER_TO_CURRENT_POSITION,
-  FeaturesSelectedOnMap,
   FetchDataLatestUpdateDatesComplete,
-  FEATURES_SELECTED_ON_MAP,
   FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
   SearchFeaturesComplete,
   SEARCH_FEATURES_COMPLETE,
@@ -35,15 +33,6 @@ export const zoomOut = (): ZoomOutAction => {
 export const centerToCurrentPosition = (): CenterToCurrentPosition => {
   return {
     type: CENTER_TO_CURRENT_POSITION
-  }
-}
-
-export const featuresSelectedOnMap = (
-  payload: SelectedFeaturesOnMap
-): FeaturesSelectedOnMap => {
-  return {
-    type: FEATURES_SELECTED_ON_MAP,
-    payload
   }
 }
 
