@@ -9,7 +9,7 @@ import {
 } from "./map/MuinaismuistotMap"
 import MuinaismuistotUI from "./ui/MuinaismuistotUI"
 import { parseCoordinatesFromURL } from "./common/util/URLHashHelper"
-import { getSettingsFromURL } from "./settings"
+import { getSettingsFromURL } from "./url"
 import { configureStore } from "./store/configureStore"
 import { rootReducer } from "./store/reducers"
 import { initialSettings } from "./store/initialSettings"

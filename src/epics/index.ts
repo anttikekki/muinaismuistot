@@ -13,6 +13,7 @@ import {
 import { selectVisibleAhvenanmaaLayerEpic } from "./ahvenanmaa"
 import { selectVisibleMaisemanMuistiLayerEpic } from "./maisemanMuisti"
 import { selectVisibleModelsLayerEpic } from "./models"
+import { updateUrlParametersEpic } from "./url"
 
 export const rootEpic = combineEpics(
   zoomInEpic,
@@ -28,5 +29,6 @@ export const rootEpic = combineEpics(
   selectVisibleModelsLayerEpic,
   selectVisibleMaisemanMuistiLayerEpic,
   selectVisibleMuinaisjäännösTypeEpic,
-  selectVisibleMuinaisjäännösDatingEpic
+  selectVisibleMuinaisjäännösDatingEpic,
+  updateUrlParametersEpic
 )
