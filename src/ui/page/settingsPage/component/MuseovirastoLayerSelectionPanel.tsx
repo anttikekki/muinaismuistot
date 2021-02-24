@@ -1,51 +1,30 @@
-import * as React from "react"
-import { MuseovirastoLayer, FeatureLayer } from "../../../../common/types"
+import React, { useCallback, useMemo } from "react"
+import { MuseovirastoLayer } from "../../../../common/types"
 import { Panel } from "../../../component/Panel"
-import { getLayerIconURLs } from "../../../../common/util/featureParser"
 import { useTranslation } from "react-i18next"
+import { useDispatch, useSelector } from "react-redux"
+import { Settings } from "../../../../store/storeTypes"
+import { selectMuseovirastoLayers } from "../../../../store/actionCreators"
+import { toggleSelection } from "../../../util"
+import { LayerCheckbox } from "./LayerCheckbox"
 
-interface LayerCheckboxProps<T extends FeatureLayer> {
-  label: string
-  layer: T
-  selectedLayers: Array<T>
-  onSelectLayer: (layer: T) => void
-}
-
-const LayerCheckbox = <T extends FeatureLayer>(
-  props: LayerCheckboxProps<T>
-) => {
-  const { label, layer, selectedLayers, onSelectLayer } = props
-  const isSelected = selectedLayers.includes(layer)
-
-  return (
-    <div className="checkbox sub-layer-select-checkbox-container">
-      <label>
-        <input
-          type="checkbox"
-          onChange={() => onSelectLayer(layer)}
-          checked={isSelected}
-        />
-        {getLayerIconURLs(layer).map((url, index) => (
-          <img className="feature-icon" key={index} src={url} />
-        ))}
-
-        <span>{label}</span>
-      </label>
-    </div>
-  )
-}
-
-interface Props {
-  selectedMuseovirastoLayers: Array<MuseovirastoLayer>
-  onSelectMuseovirastoLayer: (layer: MuseovirastoLayer) => void
-}
-
-export const MuseovirastoLayerSelectionPanel: React.FC<Props> = ({
-  selectedMuseovirastoLayers,
-  onSelectMuseovirastoLayer
-}) => {
+export const MuseovirastoLayerSelectionPanel: React.FC = () => {
   const { t, i18n } = useTranslation()
-  const checkboxes = React.useMemo(
+  const dispatch = useDispatch()
+  const selectedMuseovirastoLayers = useSelector(
+    (settings: Settings) => settings.museovirasto.selectedLayers
+  )
+  const onSelectMuseovirastoLayer = useCallback(
+    (layer: MuseovirastoLayer) =>
+      dispatch(
+        selectMuseovirastoLayers(
+          toggleSelection(layer, selectedMuseovirastoLayers)
+        )
+      ),
+    [dispatch, selectedMuseovirastoLayers]
+  )
+
+  const checkboxes = useMemo(
     () => (
       <form>
         <h5>

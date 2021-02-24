@@ -1,5 +1,7 @@
 import * as React from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch } from "react-redux"
+import { dispatch } from "rxjs/internal/observable/pairs"
 import {
   ArgisFeature,
   GeoJSONFeature,
@@ -15,6 +17,7 @@ import {
   getFeatureMunicipality
 } from "../../../../common/util/featureParser"
 import { createLocationHash } from "../../../../common/util/URLHashHelper"
+import { showPage } from "../../../../store/actionCreators"
 
 export enum FeatureTitleClickAction {
   OpenDetails = "openDetails",
@@ -22,7 +25,6 @@ export enum FeatureTitleClickAction {
 }
 
 interface FeatureCollapsePanelProps {
-  hidePage: () => void
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
@@ -33,7 +35,6 @@ interface FeatureCollapsePanelProps {
 }
 
 const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
-  hidePage,
   titleClickAction,
   isOpen,
   onToggleOpen,
@@ -43,6 +44,11 @@ const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
   featureTypeName,
   children
 }) => {
+  const dispatch = useDispatch()
+  const hidePage = React.useCallback(() => {
+    dispatch(showPage(undefined))
+  }, [dispatch])
+
   const onTitleClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
@@ -113,7 +119,6 @@ const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
 }
 
 interface ArgisFeatureCollapsePanelProps {
-  hidePage: () => void
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
@@ -121,7 +126,6 @@ interface ArgisFeatureCollapsePanelProps {
 }
 
 export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps> = ({
-  hidePage,
   titleClickAction,
   isOpen,
   onToggleOpen,
@@ -155,7 +159,6 @@ export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps>
 
   return (
     <FeatureCollapsePanel
-      hidePage={hidePage}
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
@@ -170,7 +173,6 @@ export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps>
 }
 
 interface MaisemanMuistiFeatureCollapsePanelProps {
-  hidePage: () => void
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
@@ -179,7 +181,6 @@ interface MaisemanMuistiFeatureCollapsePanelProps {
 }
 
 export const MaisemanMuistiFeatureCollapsePanel: React.FC<MaisemanMuistiFeatureCollapsePanelProps> = ({
-  hidePage,
   titleClickAction,
   isOpen,
   onToggleOpen,
@@ -203,7 +204,6 @@ export const MaisemanMuistiFeatureCollapsePanel: React.FC<MaisemanMuistiFeatureC
 
   return (
     <FeatureCollapsePanel
-      hidePage={hidePage}
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}

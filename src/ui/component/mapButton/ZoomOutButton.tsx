@@ -1,12 +1,13 @@
-import * as React from "react"
+import React, { useCallback } from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch } from "react-redux"
+import { zoomOut } from "../../../store/actionCreators"
 
-interface Props {
-  onClick: () => void
-}
-
-export const ZoomOutButton: React.FunctionComponent<Props> = ({ onClick }) => {
+export const ZoomOutButton: React.FunctionComponent = () => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const onClick = useCallback(() => dispatch(zoomOut()), [dispatch])
+
   return (
     <div id="map-button-zoom-out" className="map-button">
       <button

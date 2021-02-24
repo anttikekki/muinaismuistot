@@ -1,14 +1,17 @@
-import * as React from "react"
+import React, { useCallback } from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch } from "react-redux"
+import { showPage } from "../../../store/actionCreators"
+import { PageId } from "../../../store/storeTypes"
 
-interface Props {
-  onClick: () => void
-}
-
-export const OpenSearchPageButton: React.FunctionComponent<Props> = ({
-  onClick
-}) => {
+export const OpenSearchPageButton: React.FunctionComponent = () => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+
+  const onClick = useCallback(() => {
+    dispatch(showPage(PageId.Search))
+  }, [dispatch])
+
   return (
     <div id="map-button-search" className="map-button">
       <button

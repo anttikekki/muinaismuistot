@@ -1,14 +1,17 @@
-import * as React from "react"
+import React, { useCallback } from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch } from "react-redux"
+import { showPage } from "../../../store/actionCreators"
+import { PageId } from "../../../store/storeTypes"
 
-interface Props {
-  onClick: () => void
-}
-
-export const ShowInfoPageButton: React.FunctionComponent<Props> = ({
-  onClick
-}) => {
+export const ShowInfoPageButton: React.FunctionComponent = () => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+
+  const onClick = useCallback(() => {
+    dispatch(showPage(PageId.Info))
+  }, [dispatch])
+
   return (
     <div id="map-button-info" className="map-button">
       <button

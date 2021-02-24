@@ -1,8 +1,11 @@
 import TileLayer from "ol/layer/Tile"
 import WMTSCapabilities from "ol/format/WMTSCapabilities"
 import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS"
-import { MaanmittauslaitosLayer, Settings } from "../../common/types"
+import { MaanmittauslaitosLayer } from "../../common/types"
 import { TileSourceEvent } from "ol/source/Tile"
+import { Settings } from "../../store/storeTypes"
+import { Store } from "redux"
+import { ActionTypes } from "../../store/actionTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (
@@ -12,30 +15,31 @@ export type OnLayersCreatedCallbackFn = (
 ) => void
 
 export default class MaanmittauslaitosTileLayer {
-  private settings: Settings
+  private store: Store<Settings, ActionTypes>
   private mmlMaastokarttaLayer?: TileLayer
   private mmlTaustakarttaLayer?: TileLayer
   private mmlOrtokuvaLayer?: TileLayer
   private maastokarttaLayerSource?: WMTSSource
   private taustakarttaLayerSource?: WMTSSource
   private ortokuvaLayerSource?: WMTSSource
-  private showLoadingAnimationFn: ShowLoadingAnimationFn
+  private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayersCreatedCallbackFn: OnLayersCreatedCallbackFn
 
   public constructor(
-    settings: Settings,
-    showLoadingAnimationFn: ShowLoadingAnimationFn,
+    store: Store<Settings, ActionTypes>,
+    updateTileLoadingStatus: ShowLoadingAnimationFn,
     onLayersCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
-    this.settings = settings
-    this.showLoadingAnimationFn = showLoadingAnimationFn
+    this.store = store
+    this.updateTileLoadingStatus = updateTileLoadingStatus
     this.onLayersCreatedCallbackFn = onLayersCreatedCallbackFn
-    this.loadMMLWmtsCapabilitiesAndAddLayers(settings)
+    this.loadMMLWmtsCapabilitiesAndAddLayers()
   }
 
-  private loadMMLWmtsCapabilitiesAndAddLayers = (settings: Settings) => {
+  private loadMMLWmtsCapabilitiesAndAddLayers = () => {
+    const settings = this.store.getState()
     fetch(
-      `${this.settings.maanmittauslaitos.url.WMTSCapabilities}?api-key=${settings.maanmittauslaitos.apiKey}`
+      `${settings.maanmittauslaitos.url.WMTSCapabilities}?api-key=${settings.maanmittauslaitos.apiKey}`
     )
       .then((response) => response.text())
       .then((WMTSCapabilitiesXml) =>
@@ -111,17 +115,18 @@ export default class MaanmittauslaitosTileLayer {
     source: WMTSSource
   ) => {
     source.on("tileloadstart", (evt: TileSourceEvent) => {
-      this.showLoadingAnimationFn(true)
+      this.updateTileLoadingStatus(true)
     })
     source.on("tileloadend", (evt: TileSourceEvent) => {
-      this.showLoadingAnimationFn(false)
+      this.updateTileLoadingStatus(false)
     })
     source.on("tileloaderror", (evt: TileSourceEvent) => {
-      this.showLoadingAnimationFn(false)
+      this.updateTileLoadingStatus(false)
     })
   }
 
-  public selectedMaanmittauslaitosLayerChanged = (settings: Settings) => {
+  public selectedMaanmittauslaitosLayerChanged = () => {
+    const settings = this.store.getState()
     if (
       !this.mmlMaastokarttaLayer ||
       !this.mmlTaustakarttaLayer ||

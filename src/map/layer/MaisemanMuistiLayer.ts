@@ -7,14 +7,17 @@ import {
   ArgisFeature,
   GeoJSONFeature,
   GeoJSONResponse,
-  MaisemanMuistiFeatureProperties,
-  Settings
+  MaisemanMuistiFeatureProperties
 } from "../../common/types"
 import Fill from "ol/style/Fill"
 import RegularShape from "ol/style/RegularShape"
 import { getFeatureID } from "../../common/util/featureParser"
+import { Settings } from "../../store/storeTypes"
+import { Store } from "redux"
+import { ActionTypes } from "../../store/actionTypes"
 
 export default class MaisemanMuistiLayer {
+  private store: Store<Settings, ActionTypes>
   private layer?: VectorLayer
   private source?: VectorSource
   private style: Style
@@ -23,7 +26,8 @@ export default class MaisemanMuistiLayer {
     Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
   >()
 
-  public constructor() {
+  public constructor(store: Store<Settings, ActionTypes>) {
+    this.store = store
     this.style = new Style({
       image: new RegularShape({
         fill: new Fill({ color: "#f1615b" }),
@@ -48,7 +52,8 @@ export default class MaisemanMuistiLayer {
     return data as GeoJSONResponse<MaisemanMuistiFeatureProperties>
   }
 
-  public createLayer = async (settings: Settings): Promise<VectorLayer> => {
+  public createLayer = async (): Promise<VectorLayer> => {
+    const settings = this.store.getState()
     const geojsonObject = await this.fetchGeoJson(settings)
 
     geojsonObject.features.forEach((f) => {
@@ -90,7 +95,8 @@ export default class MaisemanMuistiLayer {
     }
   }
 
-  public selectedFeatureLayersChanged = (settings: Settings) => {
+  public selectedFeatureLayersChanged = () => {
+    const settings = this.store.getState()
     this.layer?.setVisible(settings.maisemanMuisti.selectedLayers.length > 0)
   }
 

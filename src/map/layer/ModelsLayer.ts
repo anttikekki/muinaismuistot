@@ -10,7 +10,6 @@ import {
   GeoJSONFeature,
   ModelFeatureProperties,
   MuseovirastoLayer,
-  Settings,
   ArgisFeature,
   ArgisFeatureLayer
 } from "../../common/types"
@@ -20,8 +19,12 @@ import {
   getGeoJSONDataLatestUpdateDate
 } from "../../common/util/featureParser"
 import Fill from "ol/style/Fill"
+import { Settings } from "../../store/storeTypes"
+import { Store } from "redux"
+import { ActionTypes } from "../../store/actionTypes"
 
 export default class ModelsLayer {
+  private store: Store<Settings, ActionTypes>
   private layer?: VectorLayer
   private source?: VectorSource
   private stylePointCircle: Style
@@ -33,7 +36,8 @@ export default class ModelsLayer {
     Array<GeoJSONFeature<ModelFeatureProperties>>
   >()
 
-  public constructor() {
+  public constructor(store: Store<Settings, ActionTypes>) {
+    this.store = store
     this.stylePointCircle = new Style({
       image: new Circle({
         stroke: new Stroke({
@@ -102,7 +106,8 @@ export default class ModelsLayer {
     }
   }
 
-  public createLayer = async (settings: Settings): Promise<VectorLayer> => {
+  public createLayer = async (): Promise<VectorLayer> => {
+    const settings = this.store.getState()
     const geojsonObject = await this.fetchGeoJson(settings)
 
     geojsonObject.features.forEach((f) => {
@@ -146,15 +151,15 @@ export default class ModelsLayer {
     }
   }
 
-  public selectedFeatureLayersChanged = (settings: Settings) => {
+  public selectedFeatureLayersChanged = () => {
+    const settings = this.store.getState()
     this.layer?.setVisible(settings.models.selectedLayers.length > 0)
   }
 
   public getLayer = (): VectorLayer | undefined => this.layer
 
-  public getDataLatestUpdateDate = async (
-    settings: Settings
-  ): Promise<Date> => {
+  public getDataLatestUpdateDate = async (): Promise<Date> => {
+    const settings = this.store.getState()
     if (this.dataLatestUpdateDate) {
       return Promise.resolve(this.dataLatestUpdateDate)
     }

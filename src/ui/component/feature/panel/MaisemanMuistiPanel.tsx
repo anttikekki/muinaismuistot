@@ -17,7 +17,6 @@ import { TimespanLabel } from "../component/TimespanLabel"
 import { useTranslation } from "react-i18next"
 
 interface Props {
-  hidePage: () => void
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
@@ -26,7 +25,6 @@ interface Props {
 }
 
 export const MaisemanMuistiPanel: React.FC<Props> = ({
-  hidePage,
   titleClickAction,
   isOpen,
   onToggleOpen,
@@ -36,7 +34,6 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
   const { t } = useTranslation()
   return (
     <MaisemanMuistiFeatureCollapsePanel
-      hidePage={hidePage}
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}

@@ -16,7 +16,6 @@ import {
 } from "../../../../common/util/wikiLinkHelper"
 
 interface Props {
-  hidePage: () => void
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
@@ -44,7 +43,6 @@ function renderList<T extends string>(
 }
 
 export const MuinaisjaannosPistePanel: React.FC<Props> = ({
-  hidePage,
   titleClickAction,
   isOpen,
   onToggleOpen,
@@ -61,7 +59,6 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
   } = feature.attributes
   return (
     <ArgisFeatureCollapsePanel
-      hidePage={hidePage}
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}

@@ -12,7 +12,6 @@ import { Field } from "../component/Field"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
 
 interface Props {
-  hidePage: () => void
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
@@ -20,7 +19,6 @@ interface Props {
 }
 
 export const MaailmanperintokohdePanel: React.FC<Props> = ({
-  hidePage,
   titleClickAction,
   isOpen,
   onToggleOpen,
@@ -29,7 +27,6 @@ export const MaailmanperintokohdePanel: React.FC<Props> = ({
   const { t } = useTranslation()
   return (
     <ArgisFeatureCollapsePanel
-      hidePage={hidePage}
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}

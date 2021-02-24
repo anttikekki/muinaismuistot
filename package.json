@@ -26,7 +26,11 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-i18next": "11.8.7",
+    "react-redux": "7.2.2",
+    "redux": "4.0.5",
+    "redux-observable": "1.2.0",
     "regexify-string": "1.0.5",
+    "rxjs": "6.6.3",
     "tslib": "2.1.0"
   },
   "devDependencies": {
@@ -34,6 +38,7 @@
     "@types/proj4": "2.5.0",
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.1",
+    "@types/react-redux": "7.1.16",
     "clean-webpack-plugin": "3.0.0",
     "copy-webpack-plugin": "7.0.0",
     "css-loader": "5.0.2",
@@ -41,6 +46,7 @@
     "html-webpack-plugin": "5.2.0",
     "node-json-minify": "1.0.0",
     "prettier": "2.2.1",
+    "redux-devtools-extension": "2.13.8",
     "style-loader": "2.0.0",
     "ts-loader": "8.0.17",
     "typescript": "4.1.5",

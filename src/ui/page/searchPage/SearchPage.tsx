@@ -1,16 +1,18 @@
-import * as React from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { ArgisFeature } from "../../../common/types"
-import { Page, PageVisibility } from "../Page"
+import { Page } from "../Page"
 import { FeatureList } from "../../component/feature/FeatureList"
 import { FeatureTitleClickAction } from "../../component/feature/component/FeatureCollapsePanel"
+import { useDispatch, useSelector } from "react-redux"
+import { searchFeatures } from "../../../store/actionCreators"
+import { PageId, Settings } from "../../../store/storeTypes"
 
 interface ResultsProps {
-  hidePage: () => void
   features?: Array<ArgisFeature>
 }
 
-const Results: React.FC<ResultsProps> = ({ hidePage, features }) => {
+const Results: React.FC<ResultsProps> = ({ features }) => {
   if (!features) {
     return null
   }
@@ -22,7 +24,6 @@ const Results: React.FC<ResultsProps> = ({ hidePage, features }) => {
       </h5>
 
       <FeatureList
-        hidePage={hidePage}
         titleClickAction={FeatureTitleClickAction.ClosePageAndPinOnMap}
         features={features}
         models={[]}
@@ -41,44 +42,40 @@ const ValidationError: React.FC = () => {
   )
 }
 
-interface Props {
-  visibility: PageVisibility
-  hidePage: () => void
-  searchFeatures: (searchText: string) => void
-  searchResultFeatures?: Array<ArgisFeature>
-}
-
-export const SearchPage: React.FC<Props> = ({
-  visibility,
-  hidePage,
-  searchFeatures,
-  searchResultFeatures
-}) => {
+export const SearchPage: React.FC = () => {
   const { t } = useTranslation()
-  const [searchText, setSearchText] = React.useState("")
-  const [showSearchTextError, setShowSearchTextError] = React.useState(false)
-  const inputRef = React.useRef<HTMLInputElement | null>(null)
+  const dispatch = useDispatch()
+  const [searchText, setSearchText] = useState("")
+  const [showSearchTextError, setShowSearchTextError] = useState(false)
+  const inputRef = useRef<HTMLInputElement | null>(null)
+  const searchResultFeatures = useSelector(
+    (settings: Settings) => settings.search.searchResults
+  )
+  const visiblePage = useSelector((settings: Settings) => settings.visiblePage)
 
-  React.useEffect(() => {
-    if (visibility === PageVisibility.Visible) {
+  useEffect(() => {
+    if (visiblePage === PageId.Search) {
       setTimeout(() => inputRef.current?.focus(), 500)
     }
-  }, [visibility])
+  }, [visiblePage])
 
-  const onSearchClick = (event: React.FormEvent<HTMLFormElement>) => {
-    event.stopPropagation()
-    event.preventDefault()
+  const onSearchClick = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.stopPropagation()
+      event.preventDefault()
 
-    if (searchText.trim().length < 3) {
-      setShowSearchTextError(true)
-      return
-    }
-    setShowSearchTextError(false)
-    searchFeatures(searchText)
-  }
+      if (searchText.trim().length < 3) {
+        setShowSearchTextError(true)
+        return
+      }
+      setShowSearchTextError(false)
+      dispatch(searchFeatures(searchText))
+    },
+    [dispatch, searchText]
+  )
 
   return (
-    <Page title={t(`search.title`)} visibility={visibility} hidePage={hidePage}>
+    <Page title={t(`search.title`)} pageId={PageId.Search}>
       <form
         className={showSearchTextError ? "has-error" : undefined}
         onSubmit={onSearchClick}
@@ -105,7 +102,7 @@ export const SearchPage: React.FC<Props> = ({
         </div>
       </form>
 
-      <Results features={searchResultFeatures} hidePage={hidePage} />
+      <Results features={searchResultFeatures} />
     </Page>
   )
 }

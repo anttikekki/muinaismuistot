@@ -1,7 +1,9 @@
-import * as React from "react"
+import React, { useEffect } from "react"
 import { Panel } from "../../../component/Panel"
-import { DataLatestUpdateDates } from "../../../../common/types"
 import { Trans, useTranslation } from "react-i18next"
+import { useDispatch, useSelector } from "react-redux"
+import { Settings } from "../../../../store/storeTypes"
+import { fetchDataLatestUpdateDates } from "../../../../store/actionCreators"
 
 const UpdatedDate: React.FC<{ date: Date | null | undefined }> = ({ date }) => {
   const { t } = useTranslation()
@@ -14,14 +16,18 @@ const UpdatedDate: React.FC<{ date: Date | null | undefined }> = ({ date }) => {
   return <p>{date.toLocaleDateString("fi")}</p>
 }
 
-interface Props {
-  dataLatestUpdateDates?: DataLatestUpdateDates
-}
-
-export const DataUpdateDatesPanel: React.FC<Props> = ({
-  dataLatestUpdateDates
-}) => {
+export const DataUpdateDatesPanel: React.FC = () => {
   const { t } = useTranslation()
+  const dispacth = useDispatch()
+  const dataLatestUpdateDates = useSelector(
+    (settings: Settings) => settings.dataLatestUpdateDates
+  )
+  useEffect(() => {
+    if (dataLatestUpdateDates === undefined) {
+      dispacth(fetchDataLatestUpdateDates())
+    }
+  }, [dataLatestUpdateDates])
+
   return (
     <Panel title={t(`info.dataUpdates.title`)}>
       <h5>{t(`info.dataUpdates.Museoviraston aineistot`)}</h5>

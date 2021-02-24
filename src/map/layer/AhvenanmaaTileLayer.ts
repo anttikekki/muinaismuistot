@@ -10,11 +10,13 @@ import {
   AhvenanmaaLayerId,
   getAhvenanmaaLayerId,
   AhvenanmaaLayer,
-  Settings,
   GeoJSONResponse,
   AhvenanmaaTypeAndDatingFeatureProperties,
   ArgisFeature
 } from "../../common/types"
+import { Settings } from "../../store/storeTypes"
+import { Store } from "redux"
+import { ActionTypes } from "../../store/actionTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
@@ -22,8 +24,8 @@ export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
 export default class AhvenanmaaTileLayer {
   private source?: TileArcGISRestSource
   private layer?: TileLayer
-  private settings: Settings
-  private showLoadingAnimationFn: ShowLoadingAnimationFn
+  private store: Store<Settings, ActionTypes>
+  private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
   private forminnenDataLatestUpdateDate?: Date
   private maritimtKulturarvDataLatestUpdateDate?: Date
@@ -33,12 +35,12 @@ export default class AhvenanmaaTileLayer {
   >
 
   public constructor(
-    initialSettings: Settings,
-    showLoadingAnimationFn: ShowLoadingAnimationFn,
+    store: Store<Settings, ActionTypes>,
+    updateTileLoadingStatus: ShowLoadingAnimationFn,
     onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
   ) {
-    this.settings = initialSettings
-    this.showLoadingAnimationFn = showLoadingAnimationFn
+    this.store = store
+    this.updateTileLoadingStatus = updateTileLoadingStatus
     this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn
     this.addLayer()
   }
@@ -62,10 +64,10 @@ export default class AhvenanmaaTileLayer {
   }
 
   private getSourceLayersParams = (): string => {
-    if (this.settings.ahvenanmaa.selectedLayers.length > 0) {
+    const settings = this.store.getState()
+    if (settings.ahvenanmaa.selectedLayers.length > 0) {
       return (
-        "show:" +
-        this.toLayerIds(this.settings.ahvenanmaa.selectedLayers).join(",")
+        "show:" + this.toLayerIds(settings.ahvenanmaa.selectedLayers).join(",")
       )
     } else {
       // No selected layers. Hide all.
@@ -74,8 +76,9 @@ export default class AhvenanmaaTileLayer {
   }
 
   private createSource = () => {
+    const settings = this.store.getState()
     const options: Options = {
-      urls: [this.settings.ahvenanmaa.url.export],
+      urls: [settings.ahvenanmaa.url.export],
       params: {
         layers: this.getSourceLayersParams()
       }
@@ -83,13 +86,13 @@ export default class AhvenanmaaTileLayer {
     const newSource = new TileArcGISRestSource(options)
 
     newSource.on("tileloadstart", (evt: TileSourceEvent) => {
-      this.showLoadingAnimationFn(true)
+      this.updateTileLoadingStatus(true)
     })
     newSource.on("tileloadend", (evt: TileSourceEvent) => {
-      this.showLoadingAnimationFn(false)
+      this.updateTileLoadingStatus(false)
     })
     newSource.on("tileloaderror", (evt: TileSourceEvent) => {
-      this.showLoadingAnimationFn(false)
+      this.updateTileLoadingStatus(false)
     })
 
     return newSource
@@ -102,8 +105,7 @@ export default class AhvenanmaaTileLayer {
     }
   }
 
-  public selectedFeatureLayersChanged = (settings: Settings) => {
-    this.settings = settings
+  public selectedFeatureLayersChanged = () => {
     this.updateLayerSource()
   }
 
@@ -112,6 +114,7 @@ export default class AhvenanmaaTileLayer {
     mapSize: Size,
     mapExtent: Extent
   ): Promise<ArgisIdentifyResult> => {
+    const settings = this.store.getState()
     const extent = this.layer?.getExtent()
     if (!extent || !containsCoordinate(extent, coordinate)) {
       return Promise.resolve({ results: [] })
@@ -124,13 +127,13 @@ export default class AhvenanmaaTileLayer {
       imageDisplay: mapSize.join(",") + ",96",
       mapExtent: mapExtent.join(","),
       layers: `visible:${this.toLayerIds(
-        this.settings.ahvenanmaa.selectedLayers
+        settings.ahvenanmaa.selectedLayers
       ).join(",")}`,
       f: "json",
       returnGeometry: "true"
     })
 
-    const url = new URL(this.settings.ahvenanmaa.url.identify)
+    const url = new URL(settings.ahvenanmaa.url.identify)
     url.search = String(urlParams)
 
     const response = await fetch(String(url))
@@ -142,7 +145,8 @@ export default class AhvenanmaaTileLayer {
   public findFeatures = async (
     searchText: string
   ): Promise<ArgisFindResult> => {
-    if (this.settings.ahvenanmaa.selectedLayers.length === 0) {
+    const settings = this.store.getState()
+    if (settings.ahvenanmaa.selectedLayers.length === 0) {
       return { results: [] }
     }
 
@@ -150,15 +154,13 @@ export default class AhvenanmaaTileLayer {
       searchText: searchText,
       contains: "true",
       searchFields: "Fornlämnings ID, Namn , Beskrivning, Topografi",
-      layers: this.toLayerIds(this.settings.ahvenanmaa.selectedLayers).join(
-        ","
-      ),
+      layers: this.toLayerIds(settings.ahvenanmaa.selectedLayers).join(","),
       f: "json",
       returnGeometry: "true",
       returnZ: "false"
     })
 
-    const url = new URL(this.settings.ahvenanmaa.url.find)
+    const url = new URL(settings.ahvenanmaa.url.find)
     url.search = String(urlParams)
 
     const response = await fetch(String(url))
@@ -199,6 +201,7 @@ export default class AhvenanmaaTileLayer {
   private getTypeAndDatingData = async (): Promise<
     ReadonlyMap<string, Array<AhvenanmaaTypeAndDatingFeatureProperties>>
   > => {
+    const settings = this.store.getState()
     if (this.typeAndDatingMap) {
       return this.typeAndDatingMap
     }
@@ -209,7 +212,7 @@ export default class AhvenanmaaTileLayer {
     >()
 
     try {
-      const response = await fetch(this.settings.ahvenanmaa.url.typeAndDating)
+      const response = await fetch(settings.ahvenanmaa.url.typeAndDating)
       const data = (await response.json()) as GeoJSONResponse<AhvenanmaaTypeAndDatingFeatureProperties>
 
       data.features.forEach((feature) => {
@@ -230,11 +233,12 @@ export default class AhvenanmaaTileLayer {
 
   // Fetch URL is from https://www.kartor.ax/datasets/fornminnen
   public getForminnenDataLatestUpdateDate = (): Promise<Date> => {
+    const settings = this.store.getState()
     if (this.forminnenDataLatestUpdateDate) {
       return Promise.resolve(this.forminnenDataLatestUpdateDate)
     }
 
-    return fetch(this.settings.ahvenanmaa.url.forminnenUpdateDate)
+    return fetch(settings.ahvenanmaa.url.forminnenUpdateDate)
       .then((response) => response.json())
       .then(this.parseUpdatedDate)
       .then((date) => {
@@ -245,11 +249,12 @@ export default class AhvenanmaaTileLayer {
 
   // Fetch URL is from https://www.kartor.ax/datasets/maritimt-kulturarv-vrak
   public getMaritimtKulturarvDataLatestUpdateDate = (): Promise<Date> => {
+    const settings = this.store.getState()
     if (this.maritimtKulturarvDataLatestUpdateDate) {
       return Promise.resolve(this.maritimtKulturarvDataLatestUpdateDate)
     }
 
-    return fetch(this.settings.ahvenanmaa.url.maritimtKulturarvUpdateDate)
+    return fetch(settings.ahvenanmaa.url.maritimtKulturarvUpdateDate)
       .then((response) => response.json())
       .then(this.parseUpdatedDate)
       .then((date) => {

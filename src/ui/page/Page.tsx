@@ -1,6 +1,9 @@
-import * as React from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch, useSelector } from "react-redux"
 import { Language } from "../../common/types"
+import { changeLanguage, showPage } from "../../store/actionCreators"
+import { PageId, Settings } from "../../store/storeTypes"
 
 export enum PageVisibility {
   Visible = "Visible",
@@ -8,16 +11,25 @@ export enum PageVisibility {
   Hidden = "Hidden"
 }
 
-const LangSelection: React.FC<{ lang: Language }> = ({ lang }) => {
+interface LangSelectionProps {
+  lang: Language
+  onLanguageChange: (language: Language) => void
+}
+
+const LangSelection: React.FC<LangSelectionProps> = ({
+  lang,
+  onLanguageChange
+}) => {
   const { i18n } = useTranslation()
   const isSelectedLang = i18n.language === lang
+
   return (
     <label className={`btn btn-default ${isSelectedLang ? "active" : ""}`}>
       <input
         type="radio"
         name="selectedLanguage"
         checked={isSelectedLang}
-        onChange={() => i18n.changeLanguage(lang)}
+        onChange={() => onLanguageChange(lang)}
       />
       <b>{lang.toUpperCase()}</b>
     </label>
@@ -26,19 +38,54 @@ const LangSelection: React.FC<{ lang: Language }> = ({ lang }) => {
 
 interface Props {
   title: string
-  visibility: PageVisibility
-  hidePage: () => void
+  pageId: PageId
 }
 
-export const Page: React.FC<Props> = ({
-  title,
-  visibility,
-  hidePage,
-  children
-}) => {
-  const { t } = useTranslation()
+export const Page: React.FC<Props> = ({ title, pageId, children }) => {
+  const { t, i18n } = useTranslation()
+  const dispatch = useDispatch()
+  const visiblePage = useSelector((settings: Settings) => settings.visiblePage)
+  const [
+    pageClosingAnimationTimeoutID,
+    setPageClosingAnimationTimeoutID
+  ] = useState<number | undefined>()
+  const [pageVisibility, setPageVisibility] = useState<PageVisibility>(
+    PageVisibility.Hidden
+  )
+
+  useEffect(() => {
+    if (visiblePage === pageId) {
+      setPageVisibility(PageVisibility.Visible)
+    }
+    if (visiblePage !== pageId && pageVisibility === PageVisibility.Visible) {
+      setPageVisibility(PageVisibility.Closing)
+    }
+  }, [visiblePage, pageVisibility])
+
+  useEffect(() => {
+    if (pageVisibility === PageVisibility.Closing) {
+      // Start closing page
+      const id = window.setTimeout(() => {
+        setPageClosingAnimationTimeoutID(undefined)
+        setPageVisibility(PageVisibility.Hidden)
+      }, 500)
+      setPageClosingAnimationTimeoutID(id)
+    }
+  }, [pageVisibility])
+
+  useEffect(() => {
+    if (
+      pageVisibility === PageVisibility.Visible &&
+      pageClosingAnimationTimeoutID !== undefined
+    ) {
+      // Abort closing page because it is visible again
+      window.clearTimeout(pageClosingAnimationTimeoutID)
+      setPageClosingAnimationTimeoutID(undefined)
+    }
+  }, [pageVisibility, pageClosingAnimationTimeoutID])
+
   let classes = ""
-  switch (visibility) {
+  switch (pageVisibility) {
     case PageVisibility.Visible:
       classes = "page-right-visible"
       break
@@ -50,12 +97,24 @@ export const Page: React.FC<Props> = ({
       break
   }
 
+  const onLanguageChange = useCallback(
+    (language: Language) => {
+      i18n.changeLanguage(language)
+      dispatch(changeLanguage(language))
+    },
+    [dispatch, i18n]
+  )
+
+  const onHidePage = useCallback(() => {
+    dispatch(showPage(undefined))
+  }, [dispatch])
+
   return (
     <div className={`container page ${classes}`}>
-      {visibility !== PageVisibility.Hidden && (
+      {pageVisibility !== PageVisibility.Hidden && (
         <div className="row pageHeader">
           <div className="col-xs-2 col-sm-2 col-md-2">
-            <button className="btn btn-primary btn-sm" onClick={hidePage}>
+            <button className="btn btn-primary btn-sm" onClick={onHidePage}>
               <span className="glyphicon glyphicon-remove" aria-hidden="true" />
               {t(`common.button.close`)}
             </button>
@@ -71,14 +130,20 @@ export const Page: React.FC<Props> = ({
             style={{ textAlign: "right" }}
           >
             <div className="btn-group" data-toggle="buttons">
-              <LangSelection lang={Language.FI} />
-              <LangSelection lang={Language.SV} />
+              <LangSelection
+                lang={Language.FI}
+                onLanguageChange={onLanguageChange}
+              />
+              <LangSelection
+                lang={Language.SV}
+                onLanguageChange={onLanguageChange}
+              />
             </div>
           </div>
         </div>
       )}
 
-      {visibility !== PageVisibility.Hidden && (
+      {pageVisibility !== PageVisibility.Hidden && (
         <div className="pageContent">{children}</div>
       )}
     </div>

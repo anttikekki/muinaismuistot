@@ -3,13 +3,13 @@ import {
   MuseovirastoLayer,
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus,
-  Settings,
   AhvenanmaaLayer,
   ModelLayer,
   MaisemanMuistiLayer,
   Language,
   GtkLayer
 } from "../common/types"
+import { Settings } from "./storeTypes"
 
 const getInitialLang = (): Language => {
   const lang = navigator.language?.substr(0, 2)
@@ -20,6 +20,17 @@ const getInitialLang = (): Language => {
 }
 
 export const initialSettings: Settings = {
+  showLoadingAnimation: false,
+  visiblePage: undefined,
+  selectedFeaturesOnMap: {
+    features: [],
+    models: [],
+    maisemanMuistiFeatures: []
+  },
+  search: {
+    searchResults: undefined
+  },
+  dataLatestUpdateDates: undefined,
   initialMapZoom: 8,
   language: getInitialLang(),
   maanmittauslaitos: {
