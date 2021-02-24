@@ -36,20 +36,6 @@ const LangSelection: React.FC<LangSelectionProps> = ({
   )
 }
 
-const getPageVisibility = (
-  page: PageId,
-  visiblePage: PageId | undefined,
-  pageClosingAnimationTimeoutID: number | undefined
-): PageVisibility => {
-  if (visiblePage === page) {
-    return PageVisibility.Visible
-  }
-  if (pageClosingAnimationTimeoutID) {
-    return PageVisibility.Closing
-  }
-  return PageVisibility.Hidden
-}
-
 interface Props {
   title: string
   pageId: PageId
@@ -63,26 +49,40 @@ export const Page: React.FC<Props> = ({ title, pageId, children }) => {
     pageClosingAnimationTimeoutID,
     setPageClosingAnimationTimeoutID
   ] = useState<number | undefined>()
-  const pageVisibility = getPageVisibility(
-    pageId,
-    visiblePage,
-    pageClosingAnimationTimeoutID
+  const [pageVisibility, setPageVisibility] = useState<PageVisibility>(
+    PageVisibility.Hidden
   )
 
   useEffect(() => {
-    if (visiblePage === pageId && pageClosingAnimationTimeoutID !== undefined) {
+    if (visiblePage === pageId) {
+      setPageVisibility(PageVisibility.Visible)
+    }
+    if (visiblePage !== pageId && pageVisibility === PageVisibility.Visible) {
+      setPageVisibility(PageVisibility.Closing)
+    }
+  }, [visiblePage, pageVisibility])
+
+  useEffect(() => {
+    if (pageVisibility === PageVisibility.Closing) {
+      // Start closing page
+      const id = window.setTimeout(() => {
+        setPageClosingAnimationTimeoutID(undefined)
+        setPageVisibility(PageVisibility.Hidden)
+      }, 500)
+      setPageClosingAnimationTimeoutID(id)
+    }
+  }, [pageVisibility])
+
+  useEffect(() => {
+    if (
+      pageVisibility === PageVisibility.Visible &&
+      pageClosingAnimationTimeoutID !== undefined
+    ) {
       // Abort closing page because it is visible again
       window.clearTimeout(pageClosingAnimationTimeoutID)
       setPageClosingAnimationTimeoutID(undefined)
     }
-    if (visiblePage !== pageId && pageClosingAnimationTimeoutID === undefined) {
-      // Start closing page
-      const id = window.setTimeout(() => {
-        setPageClosingAnimationTimeoutID(undefined)
-      }, 500)
-      setPageClosingAnimationTimeoutID(id)
-    }
-  }, [visiblePage, pageClosingAnimationTimeoutID])
+  }, [pageVisibility, pageClosingAnimationTimeoutID])
 
   let classes = ""
   switch (pageVisibility) {
