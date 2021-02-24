@@ -37,6 +37,7 @@ import {
   clickedMapFeatureIdentificationComplete,
   showLoadingAnimation
 } from "../store/actionCreators"
+import HelsinkiTileLayer from "./layer/HelsinkiTileLayer"
 
 let store: Store<Settings, ActionTypes>
 let map: Map
@@ -49,6 +50,7 @@ let positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
 let modelsLayer: ModelsLayer
 let maisemanMuistiLayer: MaisemanMuistiLayer
 let gtkLayer: GtkTileLayer
+let helsinkiLayer: HelsinkiTileLayer
 let tileLoadingCounter: number = 0
 
 export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
@@ -114,6 +116,14 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     }
   )
 
+  helsinkiLayer = new HelsinkiTileLayer(
+    store,
+    updateTileLoadingStatus,
+    (createdLayer) => {
+      map.getLayers().insertAt(6, createdLayer)
+    }
+  )
+
   maisemanMuistiLayer = new MaisemanMuistiLayer(store)
   modelsLayer = new ModelsLayer(store)
   positionAndSelectedLocation = new CurrentPositionAndSelectedLocationMarkerLayer()
@@ -122,9 +132,9 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     maisemanMuistiLayer.createLayer(),
     modelsLayer.createLayer()
   ]).then(([maisemanMuistiLayer, modelsLayer]) => {
-    map.getLayers().insertAt(6, maisemanMuistiLayer)
-    map.getLayers().insertAt(7, modelsLayer)
-    map.getLayers().insertAt(8, positionAndSelectedLocation.getLayer())
+    map.getLayers().insertAt(7, maisemanMuistiLayer)
+    map.getLayers().insertAt(8, modelsLayer)
+    map.getLayers().insertAt(9, positionAndSelectedLocation.getLayer())
   })
 
   map.on("singleclick", indentifyFeaturesOnClickedCoordinate)

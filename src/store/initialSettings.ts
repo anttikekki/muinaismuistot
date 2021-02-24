@@ -7,7 +7,8 @@ import {
   ModelLayer,
   MaisemanMuistiLayer,
   Language,
-  GtkLayer
+  GtkLayer,
+  HelsinkiLayer
 } from "../common/types"
 import { Settings } from "./storeTypes"
 
@@ -98,5 +99,12 @@ export const initialSettings: Settings = {
         "https://gtkdata.gtk.fi/arcgis/rest/services/Rajapinnat/GTK_Maapera_WMS/MapServer/export"
     },
     opacity: 0.7
+  },
+  helsinki: {
+    selectedLayers: Object.values(HelsinkiLayer),
+    url: {
+      wms: "https://kartta.hel.fi/ws/geoserver/avoindata/wms"
+    },
+    opacity: 1.0
   }
 }

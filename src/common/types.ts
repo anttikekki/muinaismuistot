@@ -63,6 +63,13 @@ export enum GtkLayer {
   // merialue = "merialue" //(25)
 }
 
+export enum HelsinkiLayer {
+  Maalinnoitus_yksikot = "Maalinnoitus_yksikot",
+  Maalinnoitus_kohteet = "Maalinnoitus_kohteet",
+  Maalinnoitus_rajaukset = "Maalinnoitus_rajaukset",
+  Maalinnoitus_karttatekstit = "Maalinnoitus_karttatekstit"
+}
+
 export type FeatureLayer =
   | MuseovirastoLayer
   | AhvenanmaaLayer

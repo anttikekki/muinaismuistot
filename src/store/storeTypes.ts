@@ -4,6 +4,7 @@ import {
   DataLatestUpdateDates,
   GeoJSONFeature,
   GtkLayer,
+  HelsinkiLayer,
   Language,
   MaanmittauslaitosLayer,
   MaisemanMuistiFeatureProperties,
@@ -83,6 +84,13 @@ export interface Settings {
     selectedLayers: Array<GtkLayer>
     url: {
       export: string
+    }
+    opacity: number
+  }
+  helsinki: {
+    selectedLayers: Array<HelsinkiLayer>
+    url: {
+      wms: string
     }
     opacity: number
   }
