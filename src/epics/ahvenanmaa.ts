@@ -4,7 +4,7 @@ import {
   SELECT_VISIBLE_AHVENANMAA_LAYERS
 } from "../store/actionTypes"
 import { tap, ignoreElements } from "rxjs/operators"
-import { selectedFeatureLayersChanged } from "../map/MuinaismuistotMap"
+import { selectedFeatureLayersChanged } from "../map"
 import { LayerGroup } from "../common/types"
 
 export const selectVisibleAhvenanmaaLayerEpic: Epic<ActionTypes> = (action$) =>

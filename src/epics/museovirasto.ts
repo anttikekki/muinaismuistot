@@ -10,7 +10,7 @@ import {
   selectedFeatureLayersChanged,
   selectedMuinaisjaannosDatingsChanged,
   selectedMuinaisjaannosTypesChanged
-} from "../map/MuinaismuistotMap"
+} from "../map"
 import { LayerGroup } from "../common/types"
 
 export const selectVisibleMuseovirastoLayerEpic: Epic<ActionTypes> = (

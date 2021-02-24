@@ -4,7 +4,7 @@ import {
   CENTER_MAP_TO_CURRENT_POSITION
 } from "../store/actionTypes"
 import { tap, ignoreElements } from "rxjs/operators"
-import { centerToCurrentPositions } from "../map/MuinaismuistotMap"
+import { centerToCurrentPositions } from "../map"
 
 export const centerMapEpic: Epic<ActionTypes> = (action$) =>
   action$.pipe(

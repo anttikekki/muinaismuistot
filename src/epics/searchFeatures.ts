@@ -5,7 +5,7 @@ import {
   SEARCH_FEATURES
 } from "../store/actionTypes"
 import { mergeMap, filter } from "rxjs/operators"
-import { searchFeaturesFromMapLayers } from "../map/MuinaismuistotMap"
+import { searchFeaturesFromMapLayers } from "../map"
 import { searchFeaturesComplete } from "../store/actionCreators"
 
 export const searchFeaturesEpic: Epic<ActionTypes> = (action$) =>

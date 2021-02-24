@@ -4,7 +4,7 @@ import {
   SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS
 } from "../store/actionTypes"
 import { tap, ignoreElements } from "rxjs/operators"
-import { selectedFeatureLayersChanged } from "../map/MuinaismuistotMap"
+import { selectedFeatureLayersChanged } from "../map"
 import { LayerGroup } from "../common/types"
 
 export const selectVisibleMaisemanMuistiLayerEpic: Epic<ActionTypes> = (

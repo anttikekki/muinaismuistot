@@ -6,8 +6,8 @@ import {
   createMap,
   setMapLocation,
   showSelectedLocationMarker
-} from "./map/MuinaismuistotMap"
-import MuinaismuistotUI from "./ui/MuinaismuistotUI"
+} from "./map"
+import { createUI } from "./ui"
 import { parseCoordinatesFromURL } from "./common/util/URLHashHelper"
 import { getSettingsFromURL } from "./url"
 import { configureStore } from "./store/configureStore"
@@ -34,8 +34,7 @@ const settings = getSettingsFromURL(initialSettings)
 const store = configureStore(settings, rootReducer)
 
 createMap(store)
-
-const ui = new MuinaismuistotUI(store)
+createUI(store)
 
 window.onhashchange = () => {
   setMapLocationFromURLHash()

@@ -4,7 +4,7 @@ import {
   FETCH_DATA_LATESTS_UPDATE_DATES
 } from "../store/actionTypes"
 import { mergeMap } from "rxjs/operators"
-import { fetchDataLatestUpdateDatesFromMapLayers } from "../map/MuinaismuistotMap"
+import { fetchDataLatestUpdateDatesFromMapLayers } from "../map"
 import { fetchDataLatestUpdateDatesComplete } from "../store/actionCreators"
 
 export const dataUpdateDatesEpic: Epic<ActionTypes> = (action$) =>

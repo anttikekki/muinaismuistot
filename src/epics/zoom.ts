@@ -1,7 +1,7 @@
 import { Epic, ofType } from "redux-observable"
 import { ActionTypes, ZOOM_IN, ZOOM_OUT } from "../store/actionTypes"
 import { tap, ignoreElements } from "rxjs/operators"
-import { zoomIn, zoomOut } from "../map/MuinaismuistotMap"
+import { zoomIn, zoomOut } from "../map"
 
 export const zoomInEpic: Epic<ActionTypes> = (action$) =>
   action$.pipe(

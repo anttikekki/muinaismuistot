@@ -24,59 +24,48 @@ import { Provider } from "react-redux"
 import { ActionTypes } from "../store/actionTypes"
 import { Settings } from "../store/storeTypes"
 
-i18n.use(initReactI18next).init({
-  resources: {
-    fi: { translation: fiTranslations },
-    sv: { translation: svTranslations }
-  },
-  lng: Language.FI,
-  supportedLngs: Object.values(Language),
-  fallbackLng: Language.FI,
-  defaultNS: "translation",
-  interpolation: {
-    escapeValue: false
+const toggleFullscreen = () => {
+  if (!document.fullscreenElement) {
+    document.body.requestFullscreen()
+  } else if (document.fullscreenElement) {
+    document.exitFullscreen()
   }
-})
+}
 
-export default class MuinaismuistotUI {
-  private store: Store<Settings, ActionTypes>
-
-  public constructor(store: Store<Settings, ActionTypes>) {
-    this.store = store
-
-    i18n.changeLanguage(this.store.getState().language)
-    this.renderUI()
-  }
-
-  private toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.body.requestFullscreen()
-    } else if (document.fullscreenElement) {
-      document.exitFullscreen()
+export const createUI = (store: Store<Settings, ActionTypes>) => {
+  i18n.use(initReactI18next).init({
+    resources: {
+      fi: { translation: fiTranslations },
+      sv: { translation: svTranslations }
+    },
+    lng: store.getState().language,
+    supportedLngs: Object.values(Language),
+    fallbackLng: Language.FI,
+    defaultNS: "translation",
+    interpolation: {
+      escapeValue: false
     }
-  }
+  })
 
-  private renderUI = () => {
-    ReactDOM.render(
-      <Provider store={this.store}>
-        <LoadingAnimation />
-        <ZoomInButton />
-        <ZoomOutButton />
-        <CenterToCurrentPositionButton />
-        <OpenSearchPageButton />
-        <ShowInfoPageButton />
-        <OpenSettingsPage />
-        <FullscreenButton
-          onClick={this.toggleFullscreen}
-          fullscreenPossible={document.fullscreenEnabled}
-        />
+  ReactDOM.render(
+    <Provider store={store}>
+      <LoadingAnimation />
+      <ZoomInButton />
+      <ZoomOutButton />
+      <CenterToCurrentPositionButton />
+      <OpenSearchPageButton />
+      <ShowInfoPageButton />
+      <OpenSettingsPage />
+      <FullscreenButton
+        onClick={toggleFullscreen}
+        fullscreenPossible={document.fullscreenEnabled}
+      />
 
-        <FeatureDetailsPage />
-        <SearchPage />
-        <InfoPage />
-        <SettingsPage />
-      </Provider>,
-      document.getElementById("ui")
-    )
-  }
+      <FeatureDetailsPage />
+      <SearchPage />
+      <InfoPage />
+      <SettingsPage />
+    </Provider>,
+    document.getElementById("ui")
+  )
 }
