@@ -21,7 +21,7 @@
     },
     "organization": {
       "Museovirasto": "Museiverket",
-      "Ahvenamaan paikallishallinto": "Ålands landskapsregering"
+      "Ahvenanmaan paikallishallinto": "Ålands landskapsregering"
     }
   },
   "info": {
@@ -63,6 +63,9 @@
   },
   "settings": {
     "title": "Inställningar",
+    "common": {
+      "transparency": "Transparens (%)"
+    },
     "mml": {
       "title": "Lantmäteriverkets material",
       "maastokartta": "Terrängkarta",
@@ -72,7 +75,6 @@
     },
     "gtk": {
       "title": "Geologiska forskningscentralens material",
-      "transparency": "Transparens (%)",
       "licence": "GTK Jordmån/Fornstränder © Geologiska forskningscentralen 2021"
     },
     "museovirasto": {
@@ -156,8 +158,8 @@
       "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Byggda kulturmiljöer av riksintresse (RKY)",
       "Maailmanperintökohteet": "Världsarv",
       "Rakennusperintörekisteri": "Register över byggnadsarv",
-      "Ahvenamaan muinaisjäännösrekisteri": "Fornminnesregister för Åland",
-      "Ahvenamaan merellinen kulttuuriperintörekisteri": "Register över maritimt kulturarv på Åland",
+      "Ahvenanmaan muinaisjäännösrekisteri": "Fornminnesregister för Åland",
+      "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Register över maritimt kulturarv på Åland",
       "3Dmodels": "3D-modeller (<a href='./3d/' target='_blank'>information</a>)",
       "maisemanMuisti": "Boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>information</a>)"
     },
@@ -171,7 +173,7 @@
       "Maailmanperintökohde": "Världsarvs",
       "Rakennusperintökohde": "Byggandsarv",
       "Ahvenanmaan muinaisjäännösrekisterin kohde": "Fast fornlämning i fornminnesregister för Åland",
-      "Ahvenamaan merellisen kulttuuriperintörekisterin kohde": "Objekt i register över maritimt kulturarv på Åland"
+      "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde": "Objekt i register över maritimt kulturarv på Åland"
     },
     "timespan": {
       "prehistoric": "8600 f.v.t. - 1200 e.v.t.",

@@ -25,7 +25,7 @@ export const AhvenanmaaLayerSelectionPanel: React.FC = () => {
   return (
     <Panel title={t(`settings.ahvenanmaa.title`)}>
       <form>
-        <h5>{t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)}</h5>
+        <h5>{t(`data.register.Ahvenanmaan muinaisjäännösrekisteri`)}</h5>
         <LayerCheckbox
           label={t(`common.features.Kohde`)}
           layer={AhvenanmaaLayer.Fornminnen}
@@ -34,7 +34,7 @@ export const AhvenanmaaLayerSelectionPanel: React.FC = () => {
         />
 
         <h5>
-          {t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)}
+          {t(`data.register.Ahvenanmaan merellinen kulttuuriperintörekisteri`)}
         </h5>
         <LayerCheckbox
           label={t(`common.features.Kohde`)}

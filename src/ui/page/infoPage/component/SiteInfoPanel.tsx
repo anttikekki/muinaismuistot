@@ -44,14 +44,14 @@ export const SiteInfoPanel: React.FC = () => {
         </li>
       </ul>
 
-      <h5>{t(`common.organization.Ahvenamaan paikallishallinto`)}</h5>
+      <h5>{t(`common.organization.Ahvenanmaan paikallishallinto`)}</h5>
       <ul>
         <li>
           <a
             href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret"
             target="_blank"
           >
-            {t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)}
+            {t(`data.register.Ahvenanmaan muinaisjäännösrekisteri`)}
           </a>
         </li>
         <li>
@@ -59,7 +59,9 @@ export const SiteInfoPanel: React.FC = () => {
             href="https://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/marinarkeologi"
             target="_blank"
           >
-            {t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)}
+            {t(
+              `data.register.Ahvenanmaan merellinen kulttuuriperintörekisteri`
+            )}
           </a>
         </li>
       </ul>

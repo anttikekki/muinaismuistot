@@ -2,7 +2,7 @@ import { Reducer } from "redux"
 import { PageId, Settings } from "./storeTypes"
 import {
   ActionTypes,
-  CHANGE_GTK_LAYER_OPACITY,
+  CHANGE_LAYER_OPACITY,
   CHANGE_LANGUAGE,
   CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
   FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
@@ -17,7 +17,8 @@ import {
   SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE,
   SELECT_VISIBLE_MUSEOVIRASTO_LAYERS,
   SHOW_LOADING_ANIMATION,
-  SHOW_PAGE
+  SHOW_PAGE,
+  SELECT_VISIBLE_HELSINKI_LAYERS
 } from "./actionTypes"
 import {
   MaanmittauslaitosLayer,
@@ -28,7 +29,9 @@ import {
   ModelLayer,
   MaisemanMuistiLayer,
   Language,
-  GtkLayer
+  GtkLayer,
+  LayerGroup,
+  HelsinkiLayer
 } from "../common/types"
 
 export const updateLanguage = (
@@ -75,6 +78,32 @@ export const updateGtkLayerOpacity = (
     ...settings,
     gtk: {
       ...settings.gtk,
+      opacity
+    }
+  }
+}
+
+export const updateHelsinkiSelectedLayers = (
+  settings: Settings,
+  selectedLayers: Array<HelsinkiLayer>
+): Settings => {
+  return {
+    ...settings,
+    helsinki: {
+      ...settings.helsinki,
+      selectedLayers
+    }
+  }
+}
+
+export const updateHelsinkiLayerOpacity = (
+  settings: Settings,
+  opacity: number
+): Settings => {
+  return {
+    ...settings,
+    helsinki: {
+      ...settings.helsinki,
       opacity
     }
   }
@@ -201,8 +230,15 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     return updateMaanmittauslaitosSelectedLayer(state, action.layer)
   } else if (action.type === SELECT_VISIBLE_GTK_LAYERS) {
     return updateGtkSelectedLayers(state, action.layers)
-  } else if (action.type === CHANGE_GTK_LAYER_OPACITY) {
-    return updateGtkLayerOpacity(state, action.opacity)
+  } else if (action.type === CHANGE_LAYER_OPACITY) {
+    switch (action.layerGroup) {
+      case LayerGroup.GTK:
+        return updateGtkLayerOpacity(state, action.opacity)
+      case LayerGroup.Helsinki:
+        return updateHelsinkiLayerOpacity(state, action.opacity)
+    }
+  } else if (action.type === SELECT_VISIBLE_HELSINKI_LAYERS) {
+    return updateHelsinkiSelectedLayers(state, action.layers)
   } else if (action.type === SELECT_VISIBLE_MUSEOVIRASTO_LAYERS) {
     return updateMuseovirastoSelectedLayers(state, action.layers)
   } else if (action.type === SELECT_VISIBLE_AHVENANMAA_LAYERS) {

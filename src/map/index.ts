@@ -285,6 +285,9 @@ export const selectedFeatureLayersChanged = (
     case LayerGroup.Ahvenanmaa:
       ahvenanmaaTileLayer.selectedFeatureLayersChanged()
       break
+    case LayerGroup.Helsinki:
+      helsinkiLayer.selectedFeatureLayersChanged()
+      break
     case LayerGroup.Models:
       modelsLayer.selectedFeatureLayersChanged()
       break
@@ -325,8 +328,15 @@ export const selectedMaanmittauslaitosLayerChanged = () => {
   maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged()
 }
 
-export const gtkLayerOpacityChanged = () => {
-  gtkLayer.opacityChanged()
+export const layerOpacityChanged = (changedLayerGroup: LayerGroup): void => {
+  switch (changedLayerGroup) {
+    case LayerGroup.GTK:
+      gtkLayer.opacityChanged()
+      break
+    case LayerGroup.Helsinki:
+      helsinkiLayer.opacityChanged()
+      break
+  }
 }
 
 export const setMapLocation = (coordinates: Coordinate) => {

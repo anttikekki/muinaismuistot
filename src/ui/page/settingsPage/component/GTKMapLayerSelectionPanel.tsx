@@ -1,14 +1,12 @@
 import React, { useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { GtkLayer } from "../../../../common/types"
-import {
-  changeGtkLayerOpacity,
-  selectGTKLayer
-} from "../../../../store/actionCreators"
+import { GtkLayer, LayerGroup } from "../../../../common/types"
+import { selectGTKLayer } from "../../../../store/actionCreators"
 import { Settings } from "../../../../store/storeTypes"
 import { Panel } from "../../../component/Panel"
 import { toggleSelection } from "../../../util"
+import { LayerTransparencyInput } from "./LayerTransparencyInput"
 
 export const GTKMapLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
@@ -22,19 +20,6 @@ export const GTKMapLayerSelectionPanel: React.FC = () => {
       dispatch(selectGTKLayer(toggleSelection(layer, selectedLayers)))
     },
     [dispatch, selectedLayers]
-  )
-
-  const transparency = Number((1 - opacity) * 100).toFixed(0)
-  const onTransparencyInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      let transparency = Number(e.target.value)
-      if (transparency > 100) {
-        transparency = 100
-      }
-      const opacity = Number((1 - transparency / 100).toFixed(2))
-      dispatch(changeGtkLayerOpacity(opacity))
-    },
-    [dispatch, transparency]
   )
 
   return (
@@ -75,22 +60,7 @@ export const GTKMapLayerSelectionPanel: React.FC = () => {
           <span>{t(`data.gtk.feature.litorina`)}</span>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="gtkTransparency" style={{ fontWeight: 500 }}>
-            {t(`settings.gtk.transparency`)}
-          </label>
-          <input
-            id="gtkTransparency"
-            className="form-control"
-            style={{ width: "auto" }}
-            type="number"
-            min="0"
-            max="100"
-            step="5"
-            onChange={onTransparencyInputChange}
-            value={transparency}
-          />
-        </div>
+        <LayerTransparencyInput opacity={opacity} layerGroup={LayerGroup.GTK} />
 
         <small className="pull-right">{t(`settings.gtk.licence`)}</small>
       </form>

@@ -8,6 +8,7 @@ export enum LayerGroup {
   GTK = "GTK",
   Museovirasto = "Museovirasto",
   Ahvenanmaa = "Ahvenanmaa",
+  Helsinki = "Helsinki",
   Models = "Models",
   MaisemanMuisti = "MaisemanMuisti"
 }
@@ -75,6 +76,7 @@ export type FeatureLayer =
   | AhvenanmaaLayer
   | ModelLayer
   | MaisemanMuistiLayer
+  | HelsinkiLayer
 
 export type MuseovirastoLayerId = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
 

@@ -79,7 +79,7 @@ export default class HelsinkiTileLayer {
     }
   }
 
-  public selectedLayersChanged = () => {
+  public selectedFeatureLayersChanged = () => {
     this.updateLayerSource()
   }
 

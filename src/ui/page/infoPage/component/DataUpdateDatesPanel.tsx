@@ -33,11 +33,11 @@ export const DataUpdateDatesPanel: React.FC = () => {
       <h5>{t(`info.dataUpdates.Museoviraston aineistot`)}</h5>
       <UpdatedDate date={dataLatestUpdateDates?.museovirasto} />
 
-      <h5>{t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)}</h5>
+      <h5>{t(`data.register.Ahvenanmaan muinaisjäännösrekisteri`)}</h5>
       <UpdatedDate date={dataLatestUpdateDates?.ahvenanmaaForminnen} />
 
       <h5>
-        {t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)}
+        {t(`data.register.Ahvenanmaan merellinen kulttuuriperintörekisteri`)}
       </h5>
       <UpdatedDate date={dataLatestUpdateDates?.ahvenanmaaMaritimtKulturarv} />
 

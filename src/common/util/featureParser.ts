@@ -15,7 +15,8 @@ import {
   MaisemanMuistiLayer,
   MaisemanMuistiFeatureProperties,
   Language,
-  MuinaisjaannosTyyppi
+  MuinaisjaannosTyyppi,
+  HelsinkiLayer
 } from "../types"
 
 export const isKiinteäMuinaisjäännös = (
@@ -109,7 +110,7 @@ export const getFeatureTypeName = (
       return t(`data.featureType.Ahvenanmaan muinaisjäännösrekisterin kohde`)
     case AhvenanmaaLayer.MaritimtKulturarv:
       return t(
-        `data.featureType.Ahvenamaan merellisen kulttuuriperintörekisterin kohde`
+        `data.featureType.Ahvenanmaan merellisen kulttuuriperintörekisterin kohde`
       )
     default:
       return undefined
@@ -200,6 +201,22 @@ export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
       return ["images/3d_malli_circle.png", "images/3d_malli_square.png"]
     case MaisemanMuistiLayer.MaisemanMuisti:
       return ["images/maiseman-muisti.png"]
+    case HelsinkiLayer.Maalinnoitus_kohteet:
+      return [
+        "images/maalinnoitus-asema.png",
+        "images/maalinnoitus-luola.png",
+        "images/maalinnoitus-tykkitie.png",
+        "images/maalinnoitus-tykkipatteri.png"
+      ]
+    case HelsinkiLayer.Maalinnoitus_rajaukset:
+      return [
+        "images/maalinnoitus-tukikohta.png",
+        "images/maalinnoitus-laji.png"
+      ]
+    case HelsinkiLayer.Maalinnoitus_karttatekstit:
+      return ["images/maalinnoitus-teksti-viite.png"]
+    case HelsinkiLayer.Maalinnoitus_yksikot:
+      return ["images/maalinnoitus-yksikko.png"]
   }
 }
 
@@ -349,9 +366,9 @@ export const getLayerRegisterName = (
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
       return t(`data.register.Rakennusperintörekisteri`)
     case AhvenanmaaLayer.Fornminnen:
-      return t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)
+      return t(`data.register.Ahvenanmaan muinaisjäännösrekisteri`)
     case AhvenanmaaLayer.MaritimtKulturarv:
-      return t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)
+      return t(`data.register.Ahvenanmaan merellinen kulttuuriperintörekisteri`)
   }
 }
 

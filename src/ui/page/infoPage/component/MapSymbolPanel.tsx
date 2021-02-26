@@ -100,7 +100,7 @@ export const MapSymbolPanel: React.FC = () => {
       </div>
 
       <div>
-        <h5>{t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)}</h5>
+        <h5>{t(`data.register.Ahvenanmaan muinaisjäännösrekisteri`)}</h5>
 
         <div className="checkbox sub-layer-select-checkbox-container">
           <img
@@ -113,7 +113,7 @@ export const MapSymbolPanel: React.FC = () => {
 
       <div>
         <h5>
-          {t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)}
+          {t(`data.register.Ahvenanmaan merellinen kulttuuriperintörekisteri`)}
         </h5>
 
         <div className="checkbox sub-layer-select-checkbox-container">
