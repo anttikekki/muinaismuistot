@@ -86,7 +86,7 @@
       "licence": "Fornminnen © Ålands landskapsregering 2021"
     },
     "helsinki": {
-      "title": "Helsingin kaupunki",
+      "title": "Helsingin kaupungin aineistot",
       "licence": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset © Helsingin kaupunki 2021"
     },
     "other": {
@@ -202,12 +202,19 @@
     },
     "helsinki": {
       "layer": {
-        "Maalinnoitus_yksikot": "Yksiköt",
+        "Maalinnoitus_karttatekstit": "Kohteiden nimet",
+        "Maalinnoitus_yksikot": "Kohteiden numerointi",
         "Maalinnoitus_kohteet": "Kohteet",
-        "Maalinnoitus_rajaukset": "Rajaukset",
-        "Maalinnoitus_karttatekstit": "Karttatekstit"
+        "Maalinnoitus_rajaukset": "Rajat"
       },
-      "feature": {}
+      "feature": {
+        "asema": "Juoksuhauta, suojahuone, tuliasema",
+        "luola": "Luola",
+        "tykkipatteri": "Tykkipatteri",
+        "tykkitie": "Tykkitie",
+        "puolustusasemanRaja": "Puolustusaseman raja",
+        "tukikohdanRaja": "Tukikohdan raja"
+      }
     },
     "museovirasto": {
       "dating": {

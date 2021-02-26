@@ -6,6 +6,7 @@ import { selectGTKLayer } from "../../../../store/actionCreators"
 import { Settings } from "../../../../store/storeTypes"
 import { Panel } from "../../../component/Panel"
 import { toggleSelection } from "../../../util"
+import { FeatureImageAndLabel } from "./FeatureImageAndLabel"
 import { LayerTransparencyInput } from "./LayerTransparencyInput"
 
 export const GTKMapLayerSelectionPanel: React.FC = () => {
@@ -39,26 +40,18 @@ export const GTKMapLayerSelectionPanel: React.FC = () => {
           </label>
         </h5>
 
-        <div className="checkbox sub-layer-select-checkbox-container">
-          <img
-            className="feature-icon"
-            src="images/muinaisrannat_supra_akvaattinen.png"
-          />
-          <span>{t(`data.gtk.feature.supra-akvaattinen`)}</span>
-        </div>
-
-        <div className="checkbox sub-layer-select-checkbox-container">
-          <img className="feature-icon" src="images/muinaisrannat_yoldia.png" />
-          <span>{t(`data.gtk.feature.yoldia`)}</span>
-        </div>
-
-        <div className="checkbox sub-layer-select-checkbox-container">
-          <img
-            className="feature-icon"
-            src="images/muinaisrannat_litorina.png"
-          />
-          <span>{t(`data.gtk.feature.litorina`)}</span>
-        </div>
+        <FeatureImageAndLabel
+          iconPath="images/muinaisrannat_supra_akvaattinen.png"
+          label={t(`data.gtk.feature.supra-akvaattinen`)}
+        />
+        <FeatureImageAndLabel
+          iconPath="images/muinaisrannat_yoldia.png"
+          label={t(`data.gtk.feature.yoldia`)}
+        />
+        <FeatureImageAndLabel
+          iconPath="images/muinaisrannat_litorina.png"
+          label={t(`data.gtk.feature.litorina`)}
+        />
 
         <LayerTransparencyInput opacity={opacity} layerGroup={LayerGroup.GTK} />
 

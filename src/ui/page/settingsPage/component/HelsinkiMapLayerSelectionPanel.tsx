@@ -6,8 +6,53 @@ import { selectHelsinkiLayer } from "../../../../store/actionCreators"
 import { Settings } from "../../../../store/storeTypes"
 import { Panel } from "../../../component/Panel"
 import { toggleSelection } from "../../../util"
+import { FeatureImageAndLabel } from "./FeatureImageAndLabel"
 import { LayerCheckbox } from "./LayerCheckbox"
 import { LayerTransparencyInput } from "./LayerTransparencyInput"
+
+const FeatureLabelsForLayer: React.FC<{ layer: HelsinkiLayer }> = ({
+  layer
+}) => {
+  const { t } = useTranslation()
+  switch (layer) {
+    case HelsinkiLayer.Maalinnoitus_kohteet:
+      return (
+        <>
+          <FeatureImageAndLabel
+            iconPath="images/maalinnoitus-asema.png"
+            label={t(`data.helsinki.feature.asema`)}
+          />
+          <FeatureImageAndLabel
+            iconPath="images/maalinnoitus-luola.png"
+            label={t(`data.helsinki.feature.luola`)}
+          />
+          <FeatureImageAndLabel
+            iconPath="images/maalinnoitus-tykkitie.png"
+            label={t(`data.helsinki.feature.tykkitie`)}
+          />
+          <FeatureImageAndLabel
+            iconPath="images/maalinnoitus-tykkipatteri.png"
+            label={t(`data.helsinki.feature.tykkipatteri`)}
+          />
+        </>
+      )
+    case HelsinkiLayer.Maalinnoitus_rajaukset:
+      return (
+        <>
+          <FeatureImageAndLabel
+            iconPath="images/maalinnoitus-puolustusaseman-raja.png"
+            label={t(`data.helsinki.feature.puolustusasemanRaja`)}
+          />
+          <FeatureImageAndLabel
+            iconPath="images/maalinnoitus-tukikohdan-raja.png"
+            label={t(`data.helsinki.feature.tukikohdanRaja`)}
+          />
+        </>
+      )
+    default:
+      return null
+  }
+}
 
 export const HelsinkiMapLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
@@ -34,7 +79,10 @@ export const HelsinkiMapLayerSelectionPanel: React.FC = () => {
             layer={layer}
             selectedLayers={selectedLayers}
             onSelectLayer={onSelectLayer}
-          />
+            showIcon={false}
+          >
+            <FeatureLabelsForLayer layer={layer} />
+          </LayerCheckbox>
         ))}
 
         <LayerTransparencyInput

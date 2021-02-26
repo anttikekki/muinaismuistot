@@ -210,8 +210,8 @@ export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
       ]
     case HelsinkiLayer.Maalinnoitus_rajaukset:
       return [
-        "images/maalinnoitus-tukikohta.png",
-        "images/maalinnoitus-laji.png"
+        "images/maalinnoitus-tukikohdan-raja.png",
+        "images/maalinnoitus-puolustusaseman-raja.png"
       ]
     case HelsinkiLayer.Maalinnoitus_karttatekstit:
       return ["images/maalinnoitus-teksti-viite.png"]
