@@ -1,7 +1,7 @@
-import * as React from "react";
+import React from "react"
 
 interface Props {
-  title: string;
+  title: string
 }
 
 export const Panel: React.FC<Props> = ({ title, children }) => {
@@ -10,5 +10,5 @@ export const Panel: React.FC<Props> = ({ title, children }) => {
       <div className="panel-heading">{title}</div>
       <div className="panel-body">{children}</div>
     </div>
-  );
-};
+  )
+}

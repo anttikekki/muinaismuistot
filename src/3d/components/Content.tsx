@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
 import fiTranslations from "../../common/translations/fi.json"

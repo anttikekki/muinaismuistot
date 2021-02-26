@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import { Panel } from "../../../component/Panel"
 
 export const VersionHistoryPanel: React.FC = () => {

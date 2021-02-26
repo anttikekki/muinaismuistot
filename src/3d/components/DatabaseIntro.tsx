@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react"
 
 export const DatabaseIntro: React.FC = () => {
   return (
@@ -29,5 +29,5 @@ export const DatabaseIntro: React.FC = () => {
         <li>Missä sijainnissa kartalla 3D-mallin esittämä kohde on?</li>
       </ol>
     </>
-  );
-};
+  )
+}

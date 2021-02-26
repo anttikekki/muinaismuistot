@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 
 export const DatabaseStructure: React.FC = () => {
   return (

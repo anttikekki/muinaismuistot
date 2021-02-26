@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import { TableOfContent } from "./TableOfContent"
 import { DatabaseStructure } from "./DatabaseStructure"
 import { Download } from "./Download"

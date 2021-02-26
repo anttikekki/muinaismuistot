@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import "../css/muinaismuistot.css"
 import React from "react"
-import * as ReactDOM from "react-dom"
+import ReactDOM from "react-dom"
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
 import fiTranslations from "../common/translations/fi.json"
