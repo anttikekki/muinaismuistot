@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react"
-import { MuseovirastoLayer } from "../../../../common/types"
+import { LayerGroup, MuseovirastoLayer } from "../../../../common/types"
 import { Panel } from "../../../component/Panel"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
@@ -7,12 +7,16 @@ import { Settings } from "../../../../store/storeTypes"
 import { selectMuseovirastoLayers } from "../../../../store/actionCreators"
 import { toggleSelection } from "../../../util"
 import { LayerCheckbox } from "./LayerCheckbox"
+import { LayerTransparencyInput } from "./LayerTransparencyInput"
 
 export const MuseovirastoLayerSelectionPanel: React.FC = () => {
   const { t, i18n } = useTranslation()
   const dispatch = useDispatch()
   const selectedMuseovirastoLayers = useSelector(
     (settings: Settings) => settings.museovirasto.selectedLayers
+  )
+  const opacity = useSelector(
+    (settings: Settings) => settings.museovirasto.opacity
   )
   const onSelectMuseovirastoLayer = useCallback(
     (layer: MuseovirastoLayer) =>
@@ -100,6 +104,11 @@ export const MuseovirastoLayerSelectionPanel: React.FC = () => {
   return (
     <Panel title={t(`settings.museovirasto.title`)}>
       {checkboxes}
+
+      <LayerTransparencyInput
+        opacity={opacity}
+        layerGroup={LayerGroup.Museovirasto}
+      />
 
       <small className="pull-right">{t(`settings.museovirasto.licence`)}</small>
     </Panel>

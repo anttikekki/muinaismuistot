@@ -56,6 +56,7 @@ export interface Settings {
       find: string
       updateDate: string
     }
+    opacity: number
   }
   ahvenanmaa: {
     selectedLayers: Array<AhvenanmaaLayer>
@@ -67,6 +68,7 @@ export interface Settings {
       forminnenUpdateDate: string
       maritimtKulturarvUpdateDate: string
     }
+    opacity: number
   }
   models: {
     selectedLayers: Array<ModelLayer>

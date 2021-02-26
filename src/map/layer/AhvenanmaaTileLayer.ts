@@ -46,13 +46,14 @@ export default class AhvenanmaaTileLayer {
   }
 
   private addLayer = () => {
+    const settings = this.store.getState()
     this.source = this.createSource()
     this.layer = new TileLayer({
       source: this.source,
       // Extent from EPSG:3067 https://kartor.regeringen.ax/arcgis/services/Kulturarv/Fornminnen/MapServer/WMSServer?request=GetCapabilities&service=WMS
       extent: [65741.9087, 6606901.2261, 180921.4173, 6747168.5691]
     })
-    this.layer.setOpacity(0.7)
+    this.layer.setOpacity(settings.ahvenanmaa.opacity)
 
     this.onLayerCreatedCallbackFn(this.layer)
   }
@@ -274,5 +275,12 @@ export default class AhvenanmaaTileLayer {
       return Promise.resolve(new Date(date))
     }
     return Promise.reject(new Error("Ahvenanmaan updated date not found"))
+  }
+
+  public opacityChanged = () => {
+    if (this.layer) {
+      const settings = this.store.getState()
+      this.layer.setOpacity(settings.ahvenanmaa.opacity)
+    }
   }
 }

@@ -122,6 +122,19 @@ export const updateMuseovirastoSelectedLayers = (
   }
 }
 
+export const updateMuseovirastoLayerOpacity = (
+  settings: Settings,
+  opacity: number
+): Settings => {
+  return {
+    ...settings,
+    museovirasto: {
+      ...settings.museovirasto,
+      opacity
+    }
+  }
+}
+
 export const updateAhvenanmaaSelectedLayers = (
   settings: Settings,
   selectedLayers: Array<AhvenanmaaLayer>
@@ -131,6 +144,19 @@ export const updateAhvenanmaaSelectedLayers = (
     ahvenanmaa: {
       ...settings.ahvenanmaa,
       selectedLayers
+    }
+  }
+}
+
+export const updateAhvenanmaaLayerOpacity = (
+  settings: Settings,
+  opacity: number
+): Settings => {
+  return {
+    ...settings,
+    ahvenanmaa: {
+      ...settings.ahvenanmaa,
+      opacity
     }
   }
 }
@@ -234,6 +260,10 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     switch (action.layerGroup) {
       case LayerGroup.GTK:
         return updateGtkLayerOpacity(state, action.opacity)
+      case LayerGroup.Museovirasto:
+        return updateMuseovirastoLayerOpacity(state, action.opacity)
+      case LayerGroup.Ahvenanmaa:
+        return updateAhvenanmaaLayerOpacity(state, action.opacity)
       case LayerGroup.Helsinki:
         return updateHelsinkiLayerOpacity(state, action.opacity)
     }

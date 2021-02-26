@@ -333,6 +333,12 @@ export const layerOpacityChanged = (changedLayerGroup: LayerGroup): void => {
     case LayerGroup.GTK:
       gtkLayer.opacityChanged()
       break
+    case LayerGroup.Museovirasto:
+      museovirastoTileLayer.opacityChanged()
+      break
+    case LayerGroup.Ahvenanmaa:
+      ahvenanmaaTileLayer.opacityChanged()
+      break
     case LayerGroup.Helsinki:
       helsinkiLayer.opacityChanged()
       break

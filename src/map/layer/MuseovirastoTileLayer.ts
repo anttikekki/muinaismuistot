@@ -42,11 +42,12 @@ export default class MuseovirastoTileLayer {
   }
 
   private addLayer = () => {
+    const settings = this.store.getState()
     this.source = this.createSource()
     this.layer = new TileLayer({
       source: this.source
     })
-    this.layer.setOpacity(0.7)
+    this.layer.setOpacity(settings.museovirasto.opacity)
 
     this.onLayerCreatedCallbackFn(this.layer)
   }
@@ -308,5 +309,12 @@ export default class MuseovirastoTileLayer {
       return Promise.resolve(this.dataLatestUpdateDate)
     }
     return Promise.reject(new Error("Museovirasto updated date not found"))
+  }
+
+  public opacityChanged = () => {
+    if (this.layer) {
+      const settings = this.store.getState()
+      this.layer.setOpacity(settings.museovirasto.opacity)
+    }
   }
 }
