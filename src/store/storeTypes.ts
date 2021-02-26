@@ -6,6 +6,7 @@ import {
   GtkLayer,
   HelsinkiLayer,
   Language,
+  MaalinnoitusFeature,
   MaanmittauslaitosLayer,
   MaisemanMuistiFeatureProperties,
   MaisemanMuistiLayer,
@@ -27,6 +28,7 @@ export interface SelectedFeaturesOnMap {
   features: Array<ArgisFeature>
   models: Array<GeoJSONFeature<ModelFeatureProperties>>
   maisemanMuistiFeatures: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
+  maalinnoitusFeatures: Array<MaalinnoitusFeature>
 }
 
 export interface Settings {

@@ -204,6 +204,12 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
     map.getView().calculateExtent(mapSize)
   )
 
+  const maalinnoitusQuery = helsinkiLayer.identifyFeaturesAt(
+    e.coordinate,
+    view.getResolution(),
+    view.getProjection()
+  )
+
   const modelsResult = getFeaturesAtPixelAtGeoJsonLayer<ModelFeatureProperties>(
     e.pixel,
     modelsLayer.getLayer()
@@ -214,28 +220,31 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
     maisemanMuistiLayer.getLayer()
   )
 
-  Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
-    ([ahvenanmaaResult, museovirastoResult]) => {
+  Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery]).then(
+    ([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {
       showLoadingAnimationInUI(false)
       const allFeatures = ahvenanmaaResult.results
         .concat(museovirastoResult.results)
         .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
         .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
 
+      const maisemanMuistiFeatures = maisemanMuistiResult.filter((feature) => {
+        // Do not show Maiseman muisti feature if there is Argis feature for it in search results
+        const id = feature.properties.id.toString()
+        return !allFeatures.some(
+          (argisFeature) =>
+            argisFeature.layerName ===
+              MuseovirastoLayer.Muinaisjaannokset_piste &&
+            argisFeature.attributes.mjtunnus === id
+        )
+      })
+
       store.dispatch(
         clickedMapFeatureIdentificationComplete({
           features: allFeatures,
           models: modelsResult,
-          maisemanMuistiFeatures: maisemanMuistiResult.filter((feature) => {
-            // Do not show Maiseman muisti feature if there is Argis feature for it in search results
-            const id = feature.properties.id.toString()
-            return !allFeatures.some(
-              (argisFeature) =>
-                argisFeature.layerName ===
-                  MuseovirastoLayer.Muinaisjaannokset_piste &&
-                argisFeature.attributes.mjtunnus === id
-            )
-          })
+          maisemanMuistiFeatures,
+          maalinnoitusFeatures
         })
       )
     }

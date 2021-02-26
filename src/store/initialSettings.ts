@@ -26,7 +26,8 @@ export const initialSettings: Settings = {
   selectedFeaturesOnMap: {
     features: [],
     models: [],
-    maisemanMuistiFeatures: []
+    maisemanMuistiFeatures: [],
+    maalinnoitusFeatures: []
   },
   search: {
     searchResults: undefined

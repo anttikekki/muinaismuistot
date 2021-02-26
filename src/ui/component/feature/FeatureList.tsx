@@ -6,7 +6,8 @@ import {
   MuseovirastoLayer,
   AhvenanmaaLayer,
   GeoJSONFeature,
-  MaisemanMuistiFeatureProperties
+  MaisemanMuistiFeatureProperties,
+  MaalinnoitusFeature
 } from "../../../common/types"
 import { MuinaisjaannosPistePanel } from "../../component/feature/panel/MuinaisjaannosPistePanel"
 import {
@@ -29,13 +30,15 @@ interface FeatureListProps {
   maisemanMuistiFeatures?: Array<
     GeoJSONFeature<MaisemanMuistiFeatureProperties>
   >
+  maalinnoitusFeatures?: Array<MaalinnoitusFeature>
 }
 
 export const FeatureList: React.FC<FeatureListProps> = ({
   titleClickAction,
   features = [],
   models = [],
-  maisemanMuistiFeatures = []
+  maisemanMuistiFeatures = [],
+  maalinnoitusFeatures = []
 }) => {
   const [openPanelId, setOpenPanelId] = React.useState("")
   const onTogglePanelOpen = React.useCallback(

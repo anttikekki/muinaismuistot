@@ -118,7 +118,7 @@ export default class AhvenanmaaTileLayer {
     const settings = this.store.getState()
     const extent = this.layer?.getExtent()
     if (!extent || !containsCoordinate(extent, coordinate)) {
-      return Promise.resolve({ results: [] })
+      return { results: [] }
     }
 
     const urlParams = new URLSearchParams({

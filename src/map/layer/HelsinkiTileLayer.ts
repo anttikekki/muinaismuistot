@@ -4,6 +4,13 @@ import { TileSourceEvent } from "ol/source/Tile"
 import { Settings } from "../../store/storeTypes"
 import { Store } from "redux"
 import { ActionTypes } from "../../store/actionTypes"
+import { Coordinate } from "ol/coordinate"
+import { containsCoordinate } from "ol/extent"
+import Projection from "ol/proj/Projection"
+import {
+  MaalinnoitusWmsFeatureInfoResult,
+  MaalinnoitusFeature
+} from "../../common/types"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
@@ -77,6 +84,45 @@ export default class HelsinkiTileLayer {
       this.layer.setSource(this.source)
       this.layer.setVisible(settings.helsinki.selectedLayers.length > 0)
     }
+  }
+
+  public identifyFeaturesAt = async (
+    coordinate: Coordinate,
+    resolution: number | undefined,
+    projection: Projection
+  ): Promise<Array<MaalinnoitusFeature>> => {
+    const extent = this.layer?.getExtent()
+    if (!extent || !containsCoordinate(extent, coordinate)) {
+      return []
+    }
+
+    if (this.source && resolution !== undefined) {
+      const url = this.source.getFeatureInfoUrl(
+        coordinate,
+        resolution,
+        projection,
+        {
+          INFO_FORMAT: "application/json",
+          FEATURE_COUNT: 100,
+          /**
+           * Geoserver vendor specific param to extend the search radius pixels. Similar to ArcGis tolerance.
+           * @see https://docs.geoserver.org/latest/en/user/services/wms/vendor.html#buffer
+           */
+          BUFFER: 15
+        }
+      )
+      if (url) {
+        try {
+          const response = await fetch(String(url))
+          const result = (await response.json()) as MaalinnoitusWmsFeatureInfoResult
+          console.log("Helsinki identifyFeaturesAt", result)
+          return result.features
+        } catch (e) {
+          return []
+        }
+      }
+    }
+    return []
   }
 
   public selectedFeatureLayersChanged = () => {
