@@ -73,7 +73,11 @@ export const SiteInfoPanel: React.FC = () => {
           pattern: /ICON/gm,
           decorator: (match) => {
             return (
-              <span className="glyphicon glyphicon-link" aria-hidden="true" />
+              <span
+                key={match}
+                className="glyphicon glyphicon-link"
+                aria-hidden="true"
+              />
             )
           },
           input: t(`info.siteInfo.info2`)
@@ -94,6 +98,7 @@ export const SiteInfoPanel: React.FC = () => {
           decorator: (match) => {
             return (
               <span
+                key={match}
                 className="glyphicon glyphicon-screenshot"
                 aria-hidden="true"
               />
@@ -111,13 +116,14 @@ export const SiteInfoPanel: React.FC = () => {
             if (match === "SEARCH_ICON") {
               return (
                 <span
+                  key={match}
                   className="glyphicon glyphicon-search"
                   aria-hidden="true"
                 />
               )
             }
             if (match === "PIN_ICON") {
-              return <img src="images/map-pin-small.png" />
+              return <img key={match} src="images/map-pin-small.png" />
             }
             return ""
           },
@@ -131,7 +137,11 @@ export const SiteInfoPanel: React.FC = () => {
           pattern: /ICON/gm,
           decorator: (match) => {
             return (
-              <span className="glyphicon glyphicon-cog" aria-hidden="true" />
+              <span
+                key={match}
+                className="glyphicon glyphicon-cog"
+                aria-hidden="true"
+              />
             )
           },
           input: t(`info.siteInfo.settingsInfo`)
