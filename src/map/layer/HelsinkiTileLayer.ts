@@ -146,15 +146,15 @@ export default class HelsinkiTileLayer {
   ): Array<MaalinnoitusFeature> => {
     const allKohdeFeatures = features.filter(isMaalinnoitusKohdeFeature)
 
-    return features.filter((f, index) => {
+    return features.filter((f) => {
       // Kohde features sometimes has multiple features with same data. Filter those out.
       if (isMaalinnoitusKohdeFeature(f)) {
-        const firstMatchIndex = allKohdeFeatures.findIndex(
+        const firstMatch = allKohdeFeatures.find(
           (v) =>
             v.properties.tukikohtanumero === f.properties.tukikohtanumero &&
             v.properties.olotila === f.properties.olotila
         )
-        return firstMatchIndex === index
+        return firstMatch?.id === f.id
       }
       return true
     })
