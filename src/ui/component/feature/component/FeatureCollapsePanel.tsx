@@ -240,7 +240,7 @@ export const MaalinnoitusFeatureCollapsePanel: React.FC<MaalinnoitusFeatureColla
     const coordinates = getMaalinnoitusFeatureLocation(feature)
     return coordinates && createLocationHash(coordinates)
   }, [feature])
-  const featureName = getMaalinnoitusFeatureName(feature)
+  const featureName = getMaalinnoitusFeatureName(t, feature)
   const featureTypeIconURL = getMaalinnoitusFeatureIconUrl(feature)
   const featureTypeName = t(`data.featureType.maalinnoitus`)
 

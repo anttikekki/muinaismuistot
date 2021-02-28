@@ -74,18 +74,32 @@ export const getArgisFeatureName = (
 }
 
 export const getMaalinnoitusFeatureName = (
+  t: TFunction,
   feature: MaalinnoitusFeature
 ): string => {
   if (isMaalinnoitusYksikkoFeature(feature)) {
-    return `${feature.properties.lajinumero} ${feature.properties.laji} ${
-      feature.properties.yksikko ?? ""
-    }`
+    const { laji, lajinumero, yksikko } = feature.properties
+    const lajiTranslation = t(`data.helsinki.yksikkoLaji.${laji}`, {
+      defaultValue: laji
+    })
+    return `${lajinumero} ${t(`data.helsinki.yksikko.${yksikko}`, {
+      defaultValue: yksikko ?? lajiTranslation
+    })}`.trim()
   }
   if (isMaalinnoitusKohdeFeature(feature)) {
-    return `${feature.properties.tukikohtanumero} ${feature.properties.kohdetyyppi}`
+    const { tukikohtanumero, kohdetyyppi } = feature.properties
+    return `${tukikohtanumero} ${t(`data.helsinki.kohdetyyppi.${kohdetyyppi}`, {
+      defaultValue: kohdetyyppi
+    })}`
   }
   if (isMaalinnoitusRajausFeature(feature)) {
-    return `${feature.properties.tukikohtanumero} ${feature.properties.rajaustyyppi}`
+    const { tukikohtanumero, lajinumero, rajaustyyppi } = feature.properties
+    return `${lajinumero ?? tukikohtanumero} ${t(
+      `data.helsinki.rajaustyyppi.${rajaustyyppi}`,
+      {
+        defaultValue: rajaustyyppi
+      }
+    )}`
   }
   return ""
 }

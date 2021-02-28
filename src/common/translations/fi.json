@@ -216,6 +216,31 @@
         "tykkitie": "Tykkitie",
         "puolustusasemanRaja": "Puolustusaseman raja",
         "tukikohdanRaja": "Tukikohdan raja"
+      },
+      "yksikkoLaji": {
+        "asema": "Asema",
+        "tykkipatteri": "Tykkipatteri",
+        "tykkitie": "Tykkitie"
+      },
+      "yksikko": {
+        "tulipesäke": "Tulipesäke",
+        "suojahuone": "Suojahuone",
+        "kuoppa": "Kuoppa",
+        "tykkiasema": "Tykkiasema",
+        "rakenne": "Rakenne",
+        "hauta": "Juoksuhauta",
+        "luola": "Luola",
+        "jalusta": "Jalusta"
+      },
+      "kohdetyyppi": {
+        "asema (hauta,suojahuone, tulipesäke)": "Asema (juoksuhauta, suojahuone, tulipesäke)",
+        "luola": "Luola",
+        "tykkitie": "Tykkitie",
+        "tykkipatteri": "Tykkipatteri"
+      },
+      "rajaustyyppi": {
+        "tukikohta": "Tukikohta",
+        "laji": "Puolustusasema"
       }
     },
     "museovirasto": {

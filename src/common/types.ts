@@ -573,6 +573,23 @@ export type WmsGeometry =
   | WmsGeometryLineString
   | WmsGeometryPolygon
 
+export enum MaalinnoitusYksikkoLaji {
+  Asema = "asema",
+  Tykkipatteri = "tykkipatteri",
+  Tykkitie = "tykkitie"
+}
+
+export enum MaalinnoitusYksikko {
+  Tulipesäke = "tulipesäke",
+  Suojahuone = "suojahuone",
+  Kuoppa = "kuoppa",
+  Tykkiasema = "tykkiasema",
+  Rakenne = "rakenne",
+  Juoksuhauta = "hauta",
+  Luola = "luola",
+  Jalusta = "jalusta"
+}
+
 export type MaalinnoitusYksikkoFeature = {
   type: "Feature"
   id: string // "Maalinnoitus_yksikot.444"
@@ -595,7 +612,7 @@ export type MaalinnoitusYksikkoFeature = {
     /**
      * Kertoo mikä on kohteen tyyppi, esim.asema, tykkipatteri
      */
-    laji: string | null // "asema"
+    laji: MaalinnoitusYksikkoLaji | null // "asema"
     /**
      * Yksikön numero, ks.tunnistenumero
      */
@@ -603,7 +620,7 @@ export type MaalinnoitusYksikkoFeature = {
     /**
      * Yksikön lajityyppi, esim.tulipesäke, suojahuone, kuoppa
      */
-    yksikko: string | null // "kuoppa"
+    yksikko: MaalinnoitusYksikko | null // "kuoppa"
     /**
      * Lisätiedot yksiköstä, esim.yksihuoneinen, avoin/katettu
      */
