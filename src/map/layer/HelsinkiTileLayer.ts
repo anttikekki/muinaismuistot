@@ -9,7 +9,9 @@ import { containsCoordinate } from "ol/extent"
 import Projection from "ol/proj/Projection"
 import {
   MaalinnoitusWmsFeatureInfoResult,
-  MaalinnoitusFeature
+  MaalinnoitusFeature,
+  isMaalinnoitusKohdeFeature,
+  HelsinkiLayer
 } from "../../common/types"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
@@ -91,8 +93,22 @@ export default class HelsinkiTileLayer {
     resolution: number | undefined,
     projection: Projection
   ): Promise<Array<MaalinnoitusFeature>> => {
+    const settings = this.store.getState()
     const extent = this.layer?.getExtent()
-    if (!extent || !containsCoordinate(extent, coordinate)) {
+
+    /**
+     * Maalinnoitus_karttatekstit layer does not provide any usefull data so
+     * let's remove it from identify call
+     */
+    const selectedLayersWithoutTextLayer = settings.helsinki.selectedLayers.filter(
+      (layer) => layer !== HelsinkiLayer.Maalinnoitus_karttatekstit
+    )
+
+    if (
+      !extent ||
+      !containsCoordinate(extent, coordinate) ||
+      selectedLayersWithoutTextLayer.length === 0
+    ) {
       return []
     }
 
@@ -103,6 +119,7 @@ export default class HelsinkiTileLayer {
         projection,
         {
           INFO_FORMAT: "application/json",
+          QUERY_LAYERS: selectedLayersWithoutTextLayer.join(","),
           FEATURE_COUNT: 100,
           /**
            * Geoserver vendor specific param to extend the search radius pixels. Similar to ArcGis tolerance.
@@ -115,14 +132,32 @@ export default class HelsinkiTileLayer {
         try {
           const response = await fetch(String(url))
           const result = (await response.json()) as MaalinnoitusWmsFeatureInfoResult
-          console.log("Helsinki identifyFeaturesAt", result)
-          return result.features
+          return this.removeDuplicateIdentifyFeatures(result.features)
         } catch (e) {
           return []
         }
       }
     }
     return []
+  }
+
+  private removeDuplicateIdentifyFeatures = (
+    features: Array<MaalinnoitusFeature>
+  ): Array<MaalinnoitusFeature> => {
+    const allKohdeFeatures = features.filter(isMaalinnoitusKohdeFeature)
+
+    return features.filter((f, index) => {
+      // Kohde features sometimes has multiple features with same data. Filter those out.
+      if (isMaalinnoitusKohdeFeature(f)) {
+        const firstMatchIndex = allKohdeFeatures.findIndex(
+          (v) =>
+            v.properties.tukikohtanumero === f.properties.tukikohtanumero &&
+            v.properties.olotila === f.properties.olotila
+        )
+        return firstMatchIndex === index
+      }
+      return true
+    })
   }
 
   public selectedFeatureLayersChanged = () => {

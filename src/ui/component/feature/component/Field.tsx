@@ -3,7 +3,7 @@ import { trim } from "../../../../common/util/featureParser"
 
 interface Props {
   label: string
-  value?: string
+  value?: string | null
 }
 
 export const Field: React.FC<Props> = ({ label, value, children }) => {

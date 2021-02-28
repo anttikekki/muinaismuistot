@@ -1,20 +1,24 @@
-import React from "react"
+import React, { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { dispatch } from "rxjs/internal/observable/pairs"
 import {
   ArgisFeature,
   GeoJSONFeature,
+  MaalinnoitusFeature,
   MaisemanMuistiFeatureProperties
 } from "../../../../common/types"
 import {
-  getFeatureTypeIconURL,
+  getArgisFeatureTypeIconURL,
   getFeatureTypeName,
-  getFeatureLocation,
-  getFeatureName,
+  getArgisFeatureLocation,
+  getArgisFeatureName,
   getGeoJSONFeatureLocation,
   getTypeIconURL,
-  getFeatureMunicipality
+  getFeatureMunicipality,
+  getMaalinnoitusFeatureName,
+  getMaalinnoitusFeatureIconUrl,
+  getMaalinnoitusFeatureLocation
 } from "../../../../common/util/featureParser"
 import { createLocationHash } from "../../../../common/util/URLHashHelper"
 import { showPage } from "../../../../store/actionCreators"
@@ -45,7 +49,7 @@ const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
   children
 }) => {
   const dispatch = useDispatch()
-  const hidePage = React.useCallback(() => {
+  const hidePage = useCallback(() => {
     dispatch(showPage(undefined))
   }, [dispatch])
 
@@ -133,19 +137,19 @@ export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps>
   children
 }) => {
   const { t, i18n } = useTranslation()
-  const permanentLink = React.useMemo(() => {
-    const coordinates = getFeatureLocation(feature)
+  const permanentLink = useMemo(() => {
+    const coordinates = getArgisFeatureLocation(feature)
     return coordinates && createLocationHash(coordinates)
   }, [i18n.language, feature])
-  const featureName = React.useMemo(() => getFeatureName(t, feature), [
+  const featureName = useMemo(() => getArgisFeatureName(t, feature), [
     i18n.language,
     feature
   ])
-  const featureTypeIconURL = React.useMemo(
-    () => getFeatureTypeIconURL(feature),
+  const featureTypeIconURL = useMemo(
+    () => getArgisFeatureTypeIconURL(feature),
     [feature]
   )
-  const featureTypeName = React.useMemo(() => {
+  const featureTypeName = useMemo(() => {
     const municipality = getFeatureMunicipality(feature)
     const name = getFeatureTypeName(t, feature)
     const suffix =
@@ -189,18 +193,56 @@ export const MaisemanMuistiFeatureCollapsePanel: React.FC<MaisemanMuistiFeatureC
   children
 }) => {
   const { t } = useTranslation()
-  const permanentLink = React.useMemo(() => {
+  const permanentLink = useMemo(() => {
     const coordinates = getGeoJSONFeatureLocation(feature)
     return coordinates && createLocationHash(coordinates)
   }, [feature])
   const featureName = `${feature.properties.name}, ${feature.properties.registerName}`
-  const featureTypeIconURL = React.useMemo(
+  const featureTypeIconURL = useMemo(
     () => getTypeIconURL("maiseman-muisti", has3dModels),
     [has3dModels]
   )
   const featureTypeName = `${t(`data.featureType.Kiinteä muinaisjäännös`)}, ${t(
     `data.featureType.Valtakunnallisesti merkittävä muinaisjäännös`
   )}`
+
+  return (
+    <FeatureCollapsePanel
+      titleClickAction={titleClickAction}
+      isOpen={isOpen}
+      onToggleOpen={onToggleOpen}
+      permanentLink={permanentLink}
+      featureName={featureName}
+      featureTypeIconURL={featureTypeIconURL}
+      featureTypeName={featureTypeName}
+    >
+      {children}
+    </FeatureCollapsePanel>
+  )
+}
+
+interface MaalinnoitusFeatureCollapsePanelProps {
+  titleClickAction: FeatureTitleClickAction
+  isOpen: boolean
+  onToggleOpen: () => void
+  feature: MaalinnoitusFeature
+}
+
+export const MaalinnoitusFeatureCollapsePanel: React.FC<MaalinnoitusFeatureCollapsePanelProps> = ({
+  titleClickAction,
+  isOpen,
+  onToggleOpen,
+  feature,
+  children
+}) => {
+  const { t } = useTranslation()
+  const permanentLink = useMemo(() => {
+    const coordinates = getMaalinnoitusFeatureLocation(feature)
+    return coordinates && createLocationHash(coordinates)
+  }, [feature])
+  const featureName = getMaalinnoitusFeatureName(feature)
+  const featureTypeIconURL = getMaalinnoitusFeatureIconUrl(feature)
+  const featureTypeName = t(`data.featureType.maalinnoitus`)
 
   return (
     <FeatureCollapsePanel

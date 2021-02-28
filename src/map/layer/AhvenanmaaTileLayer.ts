@@ -117,7 +117,12 @@ export default class AhvenanmaaTileLayer {
   ): Promise<ArgisIdentifyResult> => {
     const settings = this.store.getState()
     const extent = this.layer?.getExtent()
-    if (!extent || !containsCoordinate(extent, coordinate)) {
+
+    if (
+      !extent ||
+      !containsCoordinate(extent, coordinate) ||
+      settings.ahvenanmaa.selectedLayers.length === 0
+    ) {
       return { results: [] }
     }
 

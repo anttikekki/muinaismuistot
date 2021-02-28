@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   ArgisFeature,
@@ -7,7 +7,10 @@ import {
   AhvenanmaaLayer,
   GeoJSONFeature,
   MaisemanMuistiFeatureProperties,
-  MaalinnoitusFeature
+  MaalinnoitusFeature,
+  isMaalinnoitusYksikkoFeature,
+  isMaalinnoitusKohdeFeature,
+  isMaalinnoitusRajausFeature
 } from "../../../common/types"
 import { MuinaisjaannosPistePanel } from "../../component/feature/panel/MuinaisjaannosPistePanel"
 import {
@@ -22,6 +25,9 @@ import { AhvenanmaaForminnenPanel } from "../../component/feature/panel/Ahvenanm
 import { AhvenanmaaMaritimtKulturarvPanel } from "../../component/feature/panel/AhvenanmaaMaritimtKulturarvPanel"
 import { MaisemanMuistiPanel } from "../../component/feature/panel/MaisemanMuistiPanel"
 import { FeatureTitleClickAction } from "./component/FeatureCollapsePanel"
+import { MaalinnoitusYksikkoPanel } from "./panel/MaalinnoitusYksikkoPanel"
+import { MaalinnoitusKohdePanel } from "./panel/MaalinnoitusKohdePanel"
+import { MaalinnoitusRajausPanel } from "./panel/MaalinnoitusRajausPanel"
 
 interface FeatureListProps {
   titleClickAction: FeatureTitleClickAction
@@ -40,8 +46,8 @@ export const FeatureList: React.FC<FeatureListProps> = ({
   maisemanMuistiFeatures = [],
   maalinnoitusFeatures = []
 }) => {
-  const [openPanelId, setOpenPanelId] = React.useState("")
-  const onTogglePanelOpen = React.useCallback(
+  const [openPanelId, setOpenPanelId] = useState("")
+  const onTogglePanelOpen = useCallback(
     (id: string) => setOpenPanelId(openPanelId === id ? "" : id),
     [openPanelId]
   )
@@ -92,6 +98,43 @@ export const FeatureList: React.FC<FeatureListProps> = ({
             models={getModelsForMaisemanMuistiFeature(feature, models)}
           />
         )
+      })}
+      {maalinnoitusFeatures.map((feature) => {
+        const panelId = feature.id // Contains type prefix and unique id
+
+        if (isMaalinnoitusYksikkoFeature(feature)) {
+          return (
+            <MaalinnoitusYksikkoPanel
+              key={panelId}
+              titleClickAction={titleClickAction}
+              isOpen={openPanelId === panelId}
+              onToggleOpen={() => onTogglePanelOpen(panelId)}
+              feature={feature}
+            />
+          )
+        }
+        if (isMaalinnoitusKohdeFeature(feature)) {
+          return (
+            <MaalinnoitusKohdePanel
+              key={panelId}
+              titleClickAction={titleClickAction}
+              isOpen={openPanelId === panelId}
+              onToggleOpen={() => onTogglePanelOpen(panelId)}
+              feature={feature}
+            />
+          )
+        }
+        if (isMaalinnoitusRajausFeature(feature)) {
+          return (
+            <MaalinnoitusRajausPanel
+              key={panelId}
+              titleClickAction={titleClickAction}
+              isOpen={openPanelId === panelId}
+              onToggleOpen={() => onTogglePanelOpen(panelId)}
+              feature={feature}
+            />
+          )
+        }
       })}
     </div>
   )

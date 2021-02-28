@@ -16,7 +16,13 @@ import {
   MaisemanMuistiFeatureProperties,
   Language,
   MuinaisjaannosTyyppi,
-  HelsinkiLayer
+  HelsinkiLayer,
+  MaalinnoitusFeature,
+  isMaalinnoitusYksikkoFeature,
+  isMaalinnoitusKohdeFeature,
+  MaalinnoitusKohdetyyppi,
+  isMaalinnoitusRajausFeature,
+  MaalinnoitusRajaustyyppi
 } from "../types"
 
 export const isKiinteäMuinaisjäännös = (
@@ -31,7 +37,10 @@ export const isMuuKulttuuriperintökohde = (
   return trim(feature.attributes.laji) === "muu kulttuuriperintökohde"
 }
 
-export const getFeatureName = (t: TFunction, feature: ArgisFeature): string => {
+export const getArgisFeatureName = (
+  t: TFunction,
+  feature: ArgisFeature
+): string => {
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
     case MuseovirastoLayer.Muinaisjaannokset_alue:
@@ -62,6 +71,23 @@ export const getFeatureName = (t: TFunction, feature: ArgisFeature): string => {
         feature.attributes.Namn
       )}`
   }
+}
+
+export const getMaalinnoitusFeatureName = (
+  feature: MaalinnoitusFeature
+): string => {
+  if (isMaalinnoitusYksikkoFeature(feature)) {
+    return `${feature.properties.lajinumero} ${feature.properties.laji} ${
+      feature.properties.yksikko ?? ""
+    }`
+  }
+  if (isMaalinnoitusKohdeFeature(feature)) {
+    return `${feature.properties.tukikohtanumero} ${feature.properties.kohdetyyppi}`
+  }
+  if (isMaalinnoitusRajausFeature(feature)) {
+    return `${feature.properties.tukikohtanumero} ${feature.properties.rajaustyyppi}`
+  }
+  return ""
 }
 
 export const getFeatureTypeName = (
@@ -122,7 +148,7 @@ export const getTypeIconURL = (
   has3dModels: boolean = false
 ) => `images/${imageName}${has3dModels ? "_3d" : ""}.png`
 
-export const getFeatureTypeIconURL = (
+export const getArgisFeatureTypeIconURL = (
   feature: ArgisFeature
 ): string | undefined => {
   const has3dModels = feature.models.length > 0
@@ -165,6 +191,35 @@ export const getFeatureTypeIconURL = (
     default:
       return undefined
   }
+}
+
+export const getMaalinnoitusFeatureIconUrl = (
+  feature: MaalinnoitusFeature
+): string | undefined => {
+  if (isMaalinnoitusYksikkoFeature(feature)) {
+    return getTypeIconURL("maalinnoitus-yksikko", false)
+  }
+  if (isMaalinnoitusKohdeFeature(feature)) {
+    switch (feature.properties.kohdetyyppi) {
+      case MaalinnoitusKohdetyyppi.Asema:
+        return getTypeIconURL("maalinnoitus-asema", false)
+      case MaalinnoitusKohdetyyppi.Luola:
+        return getTypeIconURL("maalinnoitus-luola", false)
+      case MaalinnoitusKohdetyyppi.Tykkipatteri:
+        return getTypeIconURL("maalinnoitus-tykkipatteri", false)
+      case MaalinnoitusKohdetyyppi.Tykkitie:
+        return getTypeIconURL("maalinnoitus-tykkitie", false)
+    }
+  }
+  if (isMaalinnoitusRajausFeature(feature)) {
+    switch (feature.properties.rajaustyyppi) {
+      case MaalinnoitusRajaustyyppi.Tukikohta:
+        return getTypeIconURL("maalinnoitus-tukikohdan-raja", false)
+      case MaalinnoitusRajaustyyppi.Puolustusasema:
+        return getTypeIconURL("maalinnoitus-puolustusaseman-raja", false)
+    }
+  }
+  return undefined
 }
 
 export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
@@ -389,7 +444,7 @@ export const getFeatureMunicipality = (
   }
 }
 
-export const getFeatureLocation = (
+export const getArgisFeatureLocation = (
   feature: ArgisFeature
 ): [number, number] | undefined => {
   switch (feature.geometryType) {
@@ -412,6 +467,19 @@ export const getGeoJSONFeatureLocation = (
       return feature.geometry.coordinates
     case "Polygon":
       return feature.geometry.coordinates[0][0]
+  }
+}
+
+export const getMaalinnoitusFeatureLocation = (
+  feature: MaalinnoitusFeature
+): [number, number] => {
+  switch (feature.geometry.type) {
+    case "Point":
+      return feature.geometry.coordinates
+    case "Polygon":
+      return feature.geometry.coordinates[0]
+    case "LineString":
+      return feature.geometry.coordinates[0]
   }
 }
 

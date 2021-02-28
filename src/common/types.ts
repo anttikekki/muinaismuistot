@@ -623,6 +623,13 @@ export type MaalinnoitusYksikkoFeature = {
   }
 }
 
+export enum MaalinnoitusKohdetyyppi {
+  Asema = "asema (hauta,suojahuone, tulipesäke)",
+  Luola = "luola",
+  Tykkitie = "tykkitie",
+  Tykkipatteri = "tykkipatteri"
+}
+
 export type MaalinnoitusKohdeFeature = {
   type: "Feature"
   id: string // "Maalinnoitus_kohteet.25625"
@@ -633,7 +640,7 @@ export type MaalinnoitusKohdeFeature = {
     /**
      * Kohdetyyppi kertoo minkälaisesta maalinnoitus kohteesta on kyse.
      */
-    kohdetyyppi: string // "tykkitie"
+    kohdetyyppi: MaalinnoitusKohdetyyppi
     /**
      * Tukikohtanumero. Kertoo pääosin roomalaisin numeroin mistä tukikohdasta on kyse.
      */
@@ -649,6 +656,11 @@ export type MaalinnoitusKohdeFeature = {
     datanomistaja: string // "Helsingin kaupunki, KYMP"
     paivitetty_tietopalveluun: string // "2021-02-01"
   }
+}
+
+export enum MaalinnoitusRajaustyyppi {
+  Tukikohta = "tukikohta",
+  Puolustusasema = "laji"
 }
 
 export type MaalinnoitusRajausFeature = {
@@ -669,7 +681,7 @@ export type MaalinnoitusRajausFeature = {
     /**
      * Kertoo koskeeko rajaus tukikohtaa vai lajia.
      */
-    rajaustyyppi: string | null // "tukikohta"
+    rajaustyyppi: MaalinnoitusRajaustyyppi | null // "tukikohta"
     datanomistaja: string // "Helsingin kaupunki, KYMP"
     paivitetty_tietopalveluun: string // "2020-12-15"
   }
@@ -716,4 +728,33 @@ export type MaalinnoitusFeature =
 export type MaalinnoitusWmsFeatureInfoResult = {
   type: "FeatureCollection"
   features: Array<MaalinnoitusFeature>
+  totalFeatures: "unknown"
+  numberReturned: number
+  timeStamp: string // "2021-02-28T18:56:20.579Z"
+  crs: {
+    type: "name"
+    properties: {
+      name: "urn:ogc:def:crs:EPSG::3067"
+    }
+  }
 }
+
+export const isMaalinnoitusYksikkoFeature = (
+  feature: MaalinnoitusFeature
+): feature is MaalinnoitusYksikkoFeature =>
+  feature.id.startsWith("Maalinnoitus_yksikot.")
+
+export const isMaalinnoitusKohdeFeature = (
+  feature: MaalinnoitusFeature
+): feature is MaalinnoitusKohdeFeature =>
+  feature.id.startsWith("Maalinnoitus_kohteet.")
+
+export const isMaalinnoitusRajausFeature = (
+  feature: MaalinnoitusFeature
+): feature is MaalinnoitusRajausFeature =>
+  feature.id.startsWith("Maalinnoitus_rajaukset.")
+
+export const isMaalinnoitusKarttatekstiFeature = (
+  feature: MaalinnoitusFeature
+): feature is MaalinnoitusKarttatekstiFeature =>
+  feature.id.startsWith("Maalinnoitus_karttatekstit.")
