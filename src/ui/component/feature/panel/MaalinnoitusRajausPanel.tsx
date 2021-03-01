@@ -21,6 +21,8 @@ export const MaalinnoitusRajausPanel: React.FC<Props> = ({
   feature
 }) => {
   const { t } = useTranslation()
+  const { tukikohtanumero, lajinumero, rajaustyyppi } = feature.properties
+
   return (
     <MaalinnoitusFeatureCollapsePanel
       titleClickAction={titleClickAction}
@@ -30,16 +32,18 @@ export const MaalinnoitusRajausPanel: React.FC<Props> = ({
     >
       <form>
         <Field
-          label={t(`details.field.tukikohta`)}
-          value={feature.properties.tukikohtanumero}
+          label={t(`details.field.maalinnoitus.tukikohta`)}
+          value={tukikohtanumero}
         />
         <Field
-          label={t(`details.field.puolustusasema`)}
-          value={feature.properties.lajinumero}
+          label={t(`details.field.maalinnoitus.puolustusasema`)}
+          value={lajinumero}
         />
         <Field
-          label={t(`details.field.tyyppi`)}
-          value={feature.properties.rajaustyyppi}
+          label={t(`details.field.maalinnoitus.rajauksenTyyppi`)}
+          value={t(`data.helsinki.rajaustyyppi.${rajaustyyppi}`, {
+            defaultValue: rajaustyyppi
+          })}
         />
       </form>
     </MaalinnoitusFeatureCollapsePanel>

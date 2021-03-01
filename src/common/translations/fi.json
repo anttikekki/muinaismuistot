@@ -139,7 +139,20 @@
       "precision": "Tarkkuus",
       "legislation": "Laki",
       "featureType": "Laji",
-      "protectionGroup": "Suojeluryhmä"
+      "protectionGroup": "Suojeluryhmä",
+      "maalinnoitus": {
+        "tukikohta": "Tukikohta",
+        "puolustusasema": "Puolustusasema",
+        "olotila": "Olotila",
+        "mittaustieto": "Mittaustieto",
+        "yksikkö": "Yksikkö",
+        "yksikönTyyppi": "Yksikön tyyppi",
+        "yksikkönumero": "Yksikkönumero",
+        "rakennustapa": "Rakennustapa",
+        "rakennushistoria": "Rakennushistoria",
+        "kohteenTyyppi": "Kohtee tyyppi",
+        "rajauksenTyyppi": "Rajauksen tyyppi"
+      }
     },
     "3d": {
       "title": "Kohteen 3D-mallit",
@@ -204,8 +217,8 @@
     },
     "helsinki": {
       "layer": {
-        "Maalinnoitus_karttatekstit": "Kohteiden nimet",
-        "Maalinnoitus_yksikot": "Kohteiden numerointi",
+        "Maalinnoitus_karttatekstit": "Yksiköiden nimet",
+        "Maalinnoitus_yksikot": "Yksiköt ja niiden numerot",
         "Maalinnoitus_kohteet": "Kohteet",
         "Maalinnoitus_rajaukset": "Rajat"
       },

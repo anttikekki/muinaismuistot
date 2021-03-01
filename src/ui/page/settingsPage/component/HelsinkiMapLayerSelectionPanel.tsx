@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { HelsinkiLayer, LayerGroup } from "../../../../common/types"
@@ -67,12 +67,15 @@ export const HelsinkiMapLayerSelectionPanel: React.FC = () => {
     },
     [dispatch, selectedLayers]
   )
-
-  return (
-    <Panel title={t(`settings.helsinki.title`)}>
-      <form>
-        <h5>{t(`data.register.maalinnoitus`)}</h5>
-        {Object.values(HelsinkiLayer).map((layer) => (
+  const checkboxes = useMemo(
+    () =>
+      Object.values(HelsinkiLayer)
+        .sort((a, b) =>
+          t(`data.helsinki.layer.${a}`).localeCompare(
+            t(`data.helsinki.layer.${b}`)
+          )
+        )
+        .map((layer) => (
           <LayerCheckbox
             key={layer}
             label={t(`data.helsinki.layer.${layer}`)}
@@ -83,7 +86,15 @@ export const HelsinkiMapLayerSelectionPanel: React.FC = () => {
           >
             <FeatureLabelsForLayer layer={layer} />
           </LayerCheckbox>
-        ))}
+        )),
+    [selectedLayers, onSelectLayer]
+  )
+
+  return (
+    <Panel title={t(`settings.helsinki.title`)}>
+      <form>
+        <h5>{t(`data.register.maalinnoitus`)}</h5>
+        {checkboxes}
 
         <LayerTransparencyInput
           opacity={opacity}

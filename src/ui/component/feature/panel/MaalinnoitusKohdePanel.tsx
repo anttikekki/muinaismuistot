@@ -21,6 +21,13 @@ export const MaalinnoitusKohdePanel: React.FC<Props> = ({
   feature
 }) => {
   const { t } = useTranslation()
+  const {
+    tukikohtanumero,
+    kohdetyyppi,
+    olotila,
+    mittaustieto
+  } = feature.properties
+
   return (
     <MaalinnoitusFeatureCollapsePanel
       titleClickAction={titleClickAction}
@@ -30,20 +37,22 @@ export const MaalinnoitusKohdePanel: React.FC<Props> = ({
     >
       <form>
         <Field
-          label={t(`details.field.tukikohta`)}
-          value={feature.properties.tukikohtanumero}
+          label={t(`details.field.maalinnoitus.tukikohta`)}
+          value={tukikohtanumero}
         />
         <Field
-          label={t(`details.field.tyyppi`)}
-          value={feature.properties.kohdetyyppi}
+          label={t(`details.field.maalinnoitus.kohteenTyyppi`)}
+          value={t(`data.helsinki.kohdetyyppi.${kohdetyyppi}`, {
+            defaultValue: kohdetyyppi
+          })}
         />
         <Field
-          label={t(`details.field.olotila`)}
-          value={feature.properties.olotila}
+          label={t(`details.field.maalinnoitus.olotila`)}
+          value={olotila}
         />
         <Field
-          label={t(`details.field.mittaustieto`)}
-          value={feature.properties.mittaustieto}
+          label={t(`details.field.maalinnoitus.mittaustieto`)}
+          value={mittaustieto}
         />
       </form>
     </MaalinnoitusFeatureCollapsePanel>

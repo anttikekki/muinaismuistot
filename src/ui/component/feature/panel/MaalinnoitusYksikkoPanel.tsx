@@ -21,6 +21,18 @@ export const MaalinnoitusYksikkoPanel: React.FC<Props> = ({
   feature
 }) => {
   const { t } = useTranslation()
+  const {
+    tukikohtanumero,
+    lajinumero,
+    laji,
+    yksikko,
+    yksikkonumero,
+    ajoitus,
+    ajoitushuom,
+    rakennustapa,
+    rakennushistoria
+  } = feature.properties
+
   return (
     <MaalinnoitusFeatureCollapsePanel
       titleClickAction={titleClickAction}
@@ -30,38 +42,40 @@ export const MaalinnoitusYksikkoPanel: React.FC<Props> = ({
     >
       <form>
         <Field
-          label={t(`details.field.tukikohta`)}
-          value={feature.properties.tukikohtanumero}
+          label={t(`details.field.maalinnoitus.tukikohta`)}
+          value={tukikohtanumero}
         />
         <Field
-          label={t(`details.field.puolustusasema`)}
-          value={feature.properties.lajinumero}
+          label={t(`details.field.maalinnoitus.puolustusasema`)}
+          value={lajinumero}
         />
         <Field
-          label={t(`details.field.tyyppi`)}
-          value={feature.properties.laji}
+          label={t(`details.field.maalinnoitus.yksikönTyyppi`)}
+          value={t(`data.helsinki.yksikkoLaji.${laji}`, {
+            defaultValue: laji
+          })}
         />
         <Field
-          label={t(`details.field.yksikkö`)}
-          value={feature.properties.yksikko}
+          label={t(`details.field.maalinnoitus.yksikkö`)}
+          value={t(`data.helsinki.yksikko.${yksikko}`, {
+            defaultValue: yksikko
+          })}
         />
         <Field
-          label={t(`details.field.yksikkönumero`)}
-          value={feature.properties.yksikkonumero}
+          label={t(`details.field.maalinnoitus.yksikkönumero`)}
+          value={yksikkonumero}
         />
         <Field
-          label={t(`details.field.ajoitus`)}
-          value={[feature.properties.ajoitus, feature.properties.ajoitushuom]
-            .filter((x) => !!x)
-            .join(", ")}
+          label={t(`details.field.dating`)}
+          value={[ajoitus, ajoitushuom].filter((x) => !!x).join(", ")}
         />
         <Field
-          label={t(`details.field.rakennustapa`)}
-          value={feature.properties.rakennustapa}
+          label={t(`details.field.maalinnoitus.rakennustapa`)}
+          value={rakennustapa}
         />
         <Field
-          label={t(`details.field.rakennushistoria`)}
-          value={feature.properties.rakennushistoria}
+          label={t(`details.field.maalinnoitus.rakennushistoria`)}
+          value={rakennushistoria}
         />
       </form>
     </MaalinnoitusFeatureCollapsePanel>
