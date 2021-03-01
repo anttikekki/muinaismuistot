@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { HelsinkiLayer, LayerGroup } from "../../../../common/types"
 import { selectHelsinkiLayer } from "../../../../store/actionCreators"
@@ -93,7 +93,12 @@ export const HelsinkiMapLayerSelectionPanel: React.FC = () => {
   return (
     <Panel title={t(`settings.helsinki.title`)}>
       <form>
-        <h5>{t(`data.register.maalinnoitus`)}</h5>
+        <h5>
+          <Trans
+            i18nKey={`data.register.maalinnoitus`}
+            components={{ a: <a /> }}
+          />
+        </h5>
         {checkboxes}
 
         <LayerTransparencyInput
