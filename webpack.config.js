@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin
-const JSONMinifyPlugin = require("node-json-minify")
 
 const SHOW_BUNDLE_ANALYZER = process.env.SHOW_BUNDLE_ANALYZER !== undefined
 
@@ -75,14 +74,14 @@ module.exports = {
           from: "src/3d/3d.json",
           to: "3d",
           transform: function (content) {
-            return JSONMinifyPlugin(content.toString())
+            return JSON.stringify(JSON.parse(content.toString()))
           }
         },
         {
           from: "src/maisemanmuisti/maisemanmuisti.json",
           to: "maisemanmuisti",
           transform: function (content) {
-            return JSONMinifyPlugin(content.toString())
+            return JSON.stringify(JSON.parse(content.toString()))
           }
         },
         { from: "src/maisemanmuisti/images", to: "maisemanmuisti/images" }
