@@ -124,6 +124,52 @@ export const MapSymbolPanel: React.FC = () => {
 
       <div>
         <h5>
+          <Trans
+            i18nKey={`data.register.maalinnoitus`}
+            components={{ a: <a /> }}
+          />
+        </h5>
+
+        <div className="checkbox sub-layer-select-checkbox-container">
+          <img className="feature-icon" src="images/maalinnoitus-asema.png" />
+          <span>{t(`data.helsinki.feature.asema`)}</span>
+        </div>
+        <div className="checkbox sub-layer-select-checkbox-container">
+          <img className="feature-icon" src="images/maalinnoitus-luola.png" />
+          <span>{t(`data.helsinki.feature.luola`)}</span>
+        </div>
+        <div className="checkbox sub-layer-select-checkbox-container">
+          <img
+            className="feature-icon"
+            src="images/maalinnoitus-tykkitie.png"
+          />
+          <span>{t(`data.helsinki.feature.tykkitie`)}</span>
+        </div>
+        <div className="checkbox sub-layer-select-checkbox-container">
+          <img
+            className="feature-icon"
+            src="images/maalinnoitus-tykkipatteri.png"
+          />
+          <span>{t(`data.helsinki.feature.tykkipatteri`)}</span>
+        </div>
+        <div className="checkbox sub-layer-select-checkbox-container">
+          <img
+            className="feature-icon"
+            src="images/maalinnoitus-puolustusaseman-raja.png"
+          />
+          <span>{t(`data.helsinki.feature.puolustusasemanRaja`)}</span>
+        </div>
+        <div className="checkbox sub-layer-select-checkbox-container">
+          <img
+            className="feature-icon"
+            src="images/maalinnoitus-tukikohdan-raja.png"
+          />
+          <span>{t(`data.helsinki.feature.tukikohdanRaja`)}</span>
+        </div>
+      </div>
+
+      <div>
+        <h5>
           <Trans i18nKey="data.register.3Dmodels" components={{ a: <a /> }} />
         </h5>
 
