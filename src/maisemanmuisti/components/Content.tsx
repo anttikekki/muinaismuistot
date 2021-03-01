@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import { TableOfContent } from "./TableOfContent"
 import { DatabaseStructure } from "./DatabaseStructure"
 import { Download } from "./Download"
@@ -11,11 +11,11 @@ import {
 import { DatabaseIntro } from "./DatabaseIntro"
 
 export const Content: React.FC = () => {
-  const [features, setFeatures] = React.useState<
+  const [features, setFeatures] = useState<
     Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
   >([])
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch("maisemanmuisti.json")
       .then((response) => response.json())
       .then((data) => data as GeoJSONResponse<MaisemanMuistiFeatureProperties>)

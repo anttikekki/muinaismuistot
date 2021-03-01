@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react"
 
 export const Registers: React.FC = () => {
   return (
@@ -39,7 +39,7 @@ export const Registers: React.FC = () => {
         </li>
       </ul>
 
-      <b>Ahvenamaan paikallishallinto</b>
+      <b>Ahvenanmaan paikallishallinto</b>
       <ul>
         <li>
           <a
@@ -59,5 +59,5 @@ export const Registers: React.FC = () => {
         </li>
       </ul>
     </>
-  );
-};
+  )
+}

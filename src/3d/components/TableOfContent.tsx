@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react"
 
 export const TableOfContent: React.FC = () => {
   return (
@@ -31,5 +31,5 @@ export const TableOfContent: React.FC = () => {
         </li>
       </ol>
     </>
-  );
-};
+  )
+}

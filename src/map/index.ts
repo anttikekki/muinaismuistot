@@ -37,6 +37,7 @@ import {
   clickedMapFeatureIdentificationComplete,
   showLoadingAnimation
 } from "../store/actionCreators"
+import HelsinkiTileLayer from "./layer/HelsinkiTileLayer"
 
 let store: Store<Settings, ActionTypes>
 let map: Map
@@ -49,6 +50,7 @@ let positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
 let modelsLayer: ModelsLayer
 let maisemanMuistiLayer: MaisemanMuistiLayer
 let gtkLayer: GtkTileLayer
+let helsinkiLayer: HelsinkiTileLayer
 let tileLoadingCounter: number = 0
 
 export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
@@ -114,6 +116,14 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     }
   )
 
+  helsinkiLayer = new HelsinkiTileLayer(
+    store,
+    updateTileLoadingStatus,
+    (createdLayer) => {
+      map.getLayers().insertAt(6, createdLayer)
+    }
+  )
+
   maisemanMuistiLayer = new MaisemanMuistiLayer(store)
   modelsLayer = new ModelsLayer(store)
   positionAndSelectedLocation = new CurrentPositionAndSelectedLocationMarkerLayer()
@@ -122,9 +132,9 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     maisemanMuistiLayer.createLayer(),
     modelsLayer.createLayer()
   ]).then(([maisemanMuistiLayer, modelsLayer]) => {
-    map.getLayers().insertAt(6, maisemanMuistiLayer)
-    map.getLayers().insertAt(7, modelsLayer)
-    map.getLayers().insertAt(8, positionAndSelectedLocation.getLayer())
+    map.getLayers().insertAt(7, maisemanMuistiLayer)
+    map.getLayers().insertAt(8, modelsLayer)
+    map.getLayers().insertAt(9, positionAndSelectedLocation.getLayer())
   })
 
   map.on("singleclick", indentifyFeaturesOnClickedCoordinate)
@@ -194,6 +204,12 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
     map.getView().calculateExtent(mapSize)
   )
 
+  const maalinnoitusQuery = helsinkiLayer.identifyFeaturesAt(
+    e.coordinate,
+    view.getResolution(),
+    view.getProjection()
+  )
+
   const modelsResult = getFeaturesAtPixelAtGeoJsonLayer<ModelFeatureProperties>(
     e.pixel,
     modelsLayer.getLayer()
@@ -204,28 +220,31 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
     maisemanMuistiLayer.getLayer()
   )
 
-  Promise.all([ahvenanmaaQuery, museovirastoQuery]).then(
-    ([ahvenanmaaResult, museovirastoResult]) => {
+  Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery]).then(
+    ([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {
       showLoadingAnimationInUI(false)
       const allFeatures = ahvenanmaaResult.results
         .concat(museovirastoResult.results)
         .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
         .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
 
+      const maisemanMuistiFeatures = maisemanMuistiResult.filter((feature) => {
+        // Do not show Maiseman muisti feature if there is Argis feature for it in search results
+        const id = feature.properties.id.toString()
+        return !allFeatures.some(
+          (argisFeature) =>
+            argisFeature.layerName ===
+              MuseovirastoLayer.Muinaisjaannokset_piste &&
+            argisFeature.attributes.mjtunnus === id
+        )
+      })
+
       store.dispatch(
         clickedMapFeatureIdentificationComplete({
           features: allFeatures,
           models: modelsResult,
-          maisemanMuistiFeatures: maisemanMuistiResult.filter((feature) => {
-            // Do not show Maiseman muisti feature if there is Argis feature for it in search results
-            const id = feature.properties.id.toString()
-            return !allFeatures.some(
-              (argisFeature) =>
-                argisFeature.layerName ===
-                  MuseovirastoLayer.Muinaisjaannokset_piste &&
-                argisFeature.attributes.mjtunnus === id
-            )
-          })
+          maisemanMuistiFeatures,
+          maalinnoitusFeatures
         })
       )
     }
@@ -275,6 +294,9 @@ export const selectedFeatureLayersChanged = (
     case LayerGroup.Ahvenanmaa:
       ahvenanmaaTileLayer.selectedFeatureLayersChanged()
       break
+    case LayerGroup.Helsinki:
+      helsinkiLayer.selectedFeatureLayersChanged()
+      break
     case LayerGroup.Models:
       modelsLayer.selectedFeatureLayersChanged()
       break
@@ -315,8 +337,21 @@ export const selectedMaanmittauslaitosLayerChanged = () => {
   maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged()
 }
 
-export const gtkLayerOpacityChanged = () => {
-  gtkLayer.opacityChanged()
+export const layerOpacityChanged = (changedLayerGroup: LayerGroup): void => {
+  switch (changedLayerGroup) {
+    case LayerGroup.GTK:
+      gtkLayer.opacityChanged()
+      break
+    case LayerGroup.Museovirasto:
+      museovirastoTileLayer.opacityChanged()
+      break
+    case LayerGroup.Ahvenanmaa:
+      ahvenanmaaTileLayer.opacityChanged()
+      break
+    case LayerGroup.Helsinki:
+      helsinkiLayer.opacityChanged()
+      break
+  }
 }
 
 export const setMapLocation = (coordinates: Coordinate) => {

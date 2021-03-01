@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import {
   GeoJSONFeature,
   MaisemanMuistiFeatureProperties
@@ -11,15 +11,13 @@ interface Props {
 }
 
 export const FeatureTable: React.FC<Props> = ({ features }) => {
-  const [sortedFeatures, setSortedFeatures] = React.useState<
+  const [sortedFeatures, setSortedFeatures] = useState<
     Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
   >([])
-  const [sortColumn, setSortColumn] = React.useState<string>("Lisätty")
-  const [sortDirection, setSortDirection] = React.useState<"asc" | "desc">(
-    "desc"
-  )
+  const [sortColumn, setSortColumn] = useState<string>("Lisätty")
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc")
 
-  React.useEffect(() => setSortedFeatures(features), [features])
+  useEffect(() => setSortedFeatures(features), [features])
 
   const onSortClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,

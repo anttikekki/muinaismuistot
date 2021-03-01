@@ -111,6 +111,14 @@ export const updateSettingsToURL = (
     "museovirastoLayer"
   )
 
+  // Museovirasto opacity
+  state = updateParam(
+    state,
+    initialSettings.museovirasto.opacity,
+    currentSettings.museovirasto.opacity,
+    "museovirastoOpacity"
+  )
+
   // Museovirasto muinaisjaannos types
   state = updateParams(
     state,
@@ -133,6 +141,30 @@ export const updateSettingsToURL = (
     initialSettings.ahvenanmaa.selectedLayers,
     currentSettings.ahvenanmaa.selectedLayers,
     "ahvenanmaaLayer"
+  )
+
+  // Ahvenanmaa opacity
+  state = updateParam(
+    state,
+    initialSettings.ahvenanmaa.opacity,
+    currentSettings.ahvenanmaa.opacity,
+    "ahvenanmaaOpacity"
+  )
+
+  // Helsinki layers
+  state = updateParams(
+    state,
+    initialSettings.helsinki.selectedLayers,
+    currentSettings.helsinki.selectedLayers,
+    "helsinkiLayer"
+  )
+
+  // Helsinki opacity
+  state = updateParam(
+    state,
+    initialSettings.helsinki.opacity,
+    currentSettings.helsinki.opacity,
+    "helsinkiOpacity"
   )
 
   // 3D models

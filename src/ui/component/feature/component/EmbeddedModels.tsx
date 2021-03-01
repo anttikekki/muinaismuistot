@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import {
   GeoJSONFeature,
@@ -11,7 +11,7 @@ interface Props {
 
 export const Info: React.FC = () => {
   const { t } = useTranslation()
-  const [infoOpen, setInfoOpen] = React.useState(false)
+  const [infoOpen, setInfoOpen] = useState(false)
 
   const onInfoHeadingClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>

@@ -21,7 +21,7 @@
     },
     "organization": {
       "Museovirasto": "Museiverket",
-      "Ahvenamaan paikallishallinto": "Ålands landskapsregering"
+      "Ahvenanmaan paikallishallinto": "Ålands landskapsregering"
     }
   },
   "info": {
@@ -56,6 +56,7 @@
       "ahvenanmaa": "Ålands landskapsregerings register hämtas från <a href='https://www.kartor.ax/datasets'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0</a>).",
       "maanmittauslaitos": "Bakgrundskarta, flygfoto och terrängskarta hämtas från Lantmäteriverkets <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0</a>).",
       "gtk": "Materialet över fornstränder hämtas från Geologiska forskningscentralens <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/'>öppet WMS-gränssnitt</a> (platsdata har publicerats med <a href='https://www.gtk.fi/sv/grundlicens/'>grundlicens</a>, tillstånd för användning av materialet beviljades 15.1.2021).",
+      "helsinki": "Materialet rörande landfästningar runt Helsingfors under första världskriget hämtas från Helsingfors stads <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset'>öppna WMS-gränssnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0</a>).",
       "maisemanmuisti": "Platsdata från boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset hämtas från <a href='./maisemanmuisti/'>en databas</a> som sammanställer samtliga 205 objekt i boken. Upphovsrätten till boken tillhör Museiverket, som har godkänt att informationen används.",
       "3DModels": "3D-modeller hämtas från öppen <a href='./3d/'>databas</a>, som sammanställer modeller från privata och offentliga aktörer (museer, Museiverket, Ålands landskapsregering). Licensuppgifter över modellerna har sammanställts enligt respektive modell i databasen.",
       "sourceCode": "Denna webbplats använder <a href='https://github.com/anttikekki/muinaismuistot'>öppen källkod</a> av licensen <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE'>MIT</a>."
@@ -63,6 +64,9 @@
   },
   "settings": {
     "title": "Inställningar",
+    "common": {
+      "transparency": "Transparens (%)"
+    },
     "mml": {
       "title": "Lantmäteriverkets material",
       "maastokartta": "Terrängkarta",
@@ -72,7 +76,6 @@
     },
     "gtk": {
       "title": "Geologiska forskningscentralens material",
-      "transparency": "Transparens (%)",
       "licence": "GTK Jordmån/Fornstränder © Geologiska forskningscentralen 2021"
     },
     "museovirasto": {
@@ -82,6 +85,10 @@
     "ahvenanmaa": {
       "title": "Ålands landskapsregerings registerdata",
       "licence": "Fornminnen © Ålands landskapsregering 2021"
+    },
+    "helsinki": {
+      "title": "Helsingfors stads material",
+      "licence": "Landfästningar runt Helsingfors under första världskriget © Helsingfors stad 2021"
     },
     "other": {
       "title": "Andra källor"
@@ -132,7 +139,20 @@
       "precision": "Precision",
       "legislation": "Lagstiftning",
       "featureType": "Skyddsstatus",
-      "protectionGroup": "Skyddskategori"
+      "protectionGroup": "Skyddskategori",
+      "maalinnoitus": {
+        "tukikohta": "Anläggning",
+        "puolustusasema": "Försvarslinje",
+        "olotila": "Status",
+        "mittaustieto": "Mätuppgift",
+        "yksikkö": "Enhet",
+        "yksikönTyyppi": "Enhetstyp",
+        "yksikkönumero": "Enhetsnummer",
+        "rakennustapa": "Byggnadssätt",
+        "rakennushistoria": "Byggnadshistoria",
+        "kohteenTyyppi": "Objekttyp",
+        "rajauksenTyyppi": "Avgränsning"
+      }
     },
     "3d": {
       "title": "3D-modeller över objektet",
@@ -156,10 +176,11 @@
       "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Byggda kulturmiljöer av riksintresse (RKY)",
       "Maailmanperintökohteet": "Världsarv",
       "Rakennusperintörekisteri": "Register över byggnadsarv",
-      "Ahvenamaan muinaisjäännösrekisteri": "Fornminnesregister för Åland",
-      "Ahvenamaan merellinen kulttuuriperintörekisteri": "Register över maritimt kulturarv på Åland",
+      "Ahvenanmaan muinaisjäännösrekisteri": "Fornminnesregister för Åland",
+      "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Register över maritimt kulturarv på Åland",
       "3Dmodels": "3D-modeller (<a href='./3d/' target='_blank'>information</a>)",
-      "maisemanMuisti": "Boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>information</a>)"
+      "maisemanMuisti": "Boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>information</a>)",
+      "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>information</a>)"
     },
     "featureType": {
       "Kiinteä muinaisjäännös": "Fast fornlämning",
@@ -171,7 +192,8 @@
       "Maailmanperintökohde": "Världsarvs",
       "Rakennusperintökohde": "Byggandsarv",
       "Ahvenanmaan muinaisjäännösrekisterin kohde": "Fast fornlämning i fornminnesregister för Åland",
-      "Ahvenamaan merellisen kulttuuriperintörekisterin kohde": "Objekt i register över maritimt kulturarv på Åland"
+      "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde": "Objekt i register över maritimt kulturarv på Åland",
+      "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget"
     },
     "timespan": {
       "prehistoric": "8600 f.v.t. - 1200 e.v.t.",
@@ -191,6 +213,52 @@
         "supra-akvaattinen": "Supraakvatiskt, dvs. yta som efter istiden blivit ovan havsytan",
         "yoldia": "Yta som täckts av Yoldiahavet eller Ancylussjön (11 600 - 7 200 f.v.t.)",
         "litorina": "Yta som täckts av Litorinahavet (8 500 – 4 000 f.v.t.)"
+      }
+    },
+    "helsinki": {
+      "layer": {
+        "Maalinnoitus_karttatekstit": "Enheternas namn",
+        "Maalinnoitus_yksikot": "Enheterna och deras numrering",
+        "Maalinnoitus_kohteet": "Objekt",
+        "Maalinnoitus_rajaukset": "Gränser"
+      },
+      "feature": {
+        "asema": "Skyttegrav, skyddsrum, eldställning",
+        "luola": "Bergrum",
+        "tykkipatteri": "Artilleribatteri",
+        "tykkitie": "Kanonväg",
+        "puolustusasemanRaja": "Gränsen för försvarslinje",
+        "tukikohdanRaja": "Gränsen för militär anläggning"
+      },
+      "featureType": {
+        "kohde": "objetk",
+        "yksikkö": "enhet",
+        "rajaus": "avgränsning"
+      },
+      "yksikkoLaji": {
+        "asema": "Ställning",
+        "tykkipatteri": "Artilleribatteri",
+        "tykkitie": "Kanonväg"
+      },
+      "yksikko": {
+        "tulipesäke": "Eldställning",
+        "suojahuone": "Skyddsrum",
+        "kuoppa": "Skyttevärn",
+        "tykkiasema": "Eldställning",
+        "rakenne": "Anläggning",
+        "hauta": "Skyttegrav",
+        "luola": "Bergrum",
+        "jalusta": "Kanonställning"
+      },
+      "kohdetyyppi": {
+        "asema (hauta,suojahuone, tulipesäke)": "Ställning (skyttegrav, skyddsrum, eldställning)",
+        "luola": "Bergrum",
+        "tykkitie": "Kanonväg",
+        "tykkipatteri": "Artilleribatteri"
+      },
+      "rajaustyyppi": {
+        "tukikohta": "Militär anläggning",
+        "laji": "Försvarslinje"
       }
     },
     "museovirasto": {

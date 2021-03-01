@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { GeoJSONFeature, ModelFeatureProperties } from "../../common/types"
 import {
@@ -13,15 +13,13 @@ interface Props {
 
 export const ModelsTable: React.FC<Props> = ({ models }) => {
   const { t } = useTranslation()
-  const [sortedModels, setSortedModels] = React.useState<
+  const [sortedModels, setSortedModels] = useState<
     Array<GeoJSONFeature<ModelFeatureProperties>>
   >([])
-  const [sortColumn, setSortColumn] = React.useState<string>("Lisätty")
-  const [sortDirection, setSortDirection] = React.useState<"asc" | "desc">(
-    "desc"
-  )
+  const [sortColumn, setSortColumn] = useState<string>("Lisätty")
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc")
 
-  React.useEffect(() => setSortedModels(models), [models])
+  useEffect(() => setSortedModels(models), [models])
 
   const onSortClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,

@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import { useTranslation } from "react-i18next"
 import { Page } from "../Page"
 import { FeatureList } from "../../component/feature/FeatureList"
@@ -18,6 +18,9 @@ export const FeatureDetailsPage: React.FC = () => {
     (settings: Settings) =>
       settings.selectedFeaturesOnMap.maisemanMuistiFeatures
   )
+  const maalinnoitusFeatures = useSelector(
+    (settings: Settings) => settings.selectedFeaturesOnMap.maalinnoitusFeatures
+  )
 
   return (
     <Page title={t(`details.title`)} pageId={PageId.Details}>
@@ -26,6 +29,7 @@ export const FeatureDetailsPage: React.FC = () => {
         features={features}
         models={models}
         maisemanMuistiFeatures={maisemanMuistiFeatures}
+        maalinnoitusFeatures={maalinnoitusFeatures}
       />
     </Page>
   )

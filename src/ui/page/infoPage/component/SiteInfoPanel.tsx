@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import { Trans, useTranslation } from "react-i18next"
 import regexifyString from "regexify-string"
 import { Panel } from "../../../component/Panel"
@@ -44,14 +44,14 @@ export const SiteInfoPanel: React.FC = () => {
         </li>
       </ul>
 
-      <h5>{t(`common.organization.Ahvenamaan paikallishallinto`)}</h5>
+      <h5>{t(`common.organization.Ahvenanmaan paikallishallinto`)}</h5>
       <ul>
         <li>
           <a
             href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret"
             target="_blank"
           >
-            {t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)}
+            {t(`data.register.Ahvenanmaan muinaisjäännösrekisteri`)}
           </a>
         </li>
         <li>
@@ -59,7 +59,9 @@ export const SiteInfoPanel: React.FC = () => {
             href="https://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/marinarkeologi"
             target="_blank"
           >
-            {t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)}
+            {t(
+              `data.register.Ahvenanmaan merellinen kulttuuriperintörekisteri`
+            )}
           </a>
         </li>
       </ul>
@@ -71,7 +73,11 @@ export const SiteInfoPanel: React.FC = () => {
           pattern: /ICON/gm,
           decorator: (match) => {
             return (
-              <span className="glyphicon glyphicon-link" aria-hidden="true" />
+              <span
+                key={match}
+                className="glyphicon glyphicon-link"
+                aria-hidden="true"
+              />
             )
           },
           input: t(`info.siteInfo.info2`)
@@ -92,6 +98,7 @@ export const SiteInfoPanel: React.FC = () => {
           decorator: (match) => {
             return (
               <span
+                key={match}
                 className="glyphicon glyphicon-screenshot"
                 aria-hidden="true"
               />
@@ -109,13 +116,14 @@ export const SiteInfoPanel: React.FC = () => {
             if (match === "SEARCH_ICON") {
               return (
                 <span
+                  key={match}
                   className="glyphicon glyphicon-search"
                   aria-hidden="true"
                 />
               )
             }
             if (match === "PIN_ICON") {
-              return <img src="images/map-pin-small.png" />
+              return <img key={match} src="images/map-pin-small.png" />
             }
             return ""
           },
@@ -129,7 +137,11 @@ export const SiteInfoPanel: React.FC = () => {
           pattern: /ICON/gm,
           decorator: (match) => {
             return (
-              <span className="glyphicon glyphicon-cog" aria-hidden="true" />
+              <span
+                key={match}
+                className="glyphicon glyphicon-cog"
+                aria-hidden="true"
+              />
             )
           },
           input: t(`info.siteInfo.settingsInfo`)

@@ -161,7 +161,7 @@ export default class ModelsLayer {
   public getDataLatestUpdateDate = async (): Promise<Date> => {
     const settings = this.store.getState()
     if (this.dataLatestUpdateDate) {
-      return Promise.resolve(this.dataLatestUpdateDate)
+      return this.dataLatestUpdateDate
     }
     const data = await this.fetchGeoJson(settings)
     return getGeoJSONDataLatestUpdateDate(data.features)

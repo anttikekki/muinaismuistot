@@ -15,7 +15,14 @@ import {
   MaisemanMuistiLayer,
   MaisemanMuistiFeatureProperties,
   Language,
-  MuinaisjaannosTyyppi
+  MuinaisjaannosTyyppi,
+  HelsinkiLayer,
+  MaalinnoitusFeature,
+  isMaalinnoitusYksikkoFeature,
+  isMaalinnoitusKohdeFeature,
+  MaalinnoitusKohdetyyppi,
+  isMaalinnoitusRajausFeature,
+  MaalinnoitusRajaustyyppi
 } from "../types"
 
 export const isKiinteäMuinaisjäännös = (
@@ -30,7 +37,10 @@ export const isMuuKulttuuriperintökohde = (
   return trim(feature.attributes.laji) === "muu kulttuuriperintökohde"
 }
 
-export const getFeatureName = (t: TFunction, feature: ArgisFeature): string => {
+export const getArgisFeatureName = (
+  t: TFunction,
+  feature: ArgisFeature
+): string => {
   switch (feature.layerName) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
     case MuseovirastoLayer.Muinaisjaannokset_alue:
@@ -63,7 +73,38 @@ export const getFeatureName = (t: TFunction, feature: ArgisFeature): string => {
   }
 }
 
-export const getFeatureTypeName = (
+export const getMaalinnoitusFeatureName = (
+  t: TFunction,
+  feature: MaalinnoitusFeature
+): string => {
+  if (isMaalinnoitusYksikkoFeature(feature)) {
+    const { laji, lajinumero, yksikko } = feature.properties
+    const lajiTranslation = t(`data.helsinki.yksikkoLaji.${laji}`, {
+      defaultValue: laji
+    })
+    return `${lajinumero} ${t(`data.helsinki.yksikko.${yksikko}`, {
+      defaultValue: yksikko ?? lajiTranslation
+    })}`.trim()
+  }
+  if (isMaalinnoitusKohdeFeature(feature)) {
+    const { tukikohtanumero, kohdetyyppi } = feature.properties
+    return `${tukikohtanumero} ${t(`data.helsinki.kohdetyyppi.${kohdetyyppi}`, {
+      defaultValue: kohdetyyppi
+    })}`
+  }
+  if (isMaalinnoitusRajausFeature(feature)) {
+    const { tukikohtanumero, lajinumero, rajaustyyppi } = feature.properties
+    return `${lajinumero ?? tukikohtanumero} ${t(
+      `data.helsinki.rajaustyyppi.${rajaustyyppi}`,
+      {
+        defaultValue: rajaustyyppi
+      }
+    )}`
+  }
+  return ""
+}
+
+export const getArgisFeatureTypeName = (
   t: TFunction,
   feature: ArgisFeature
 ): string | undefined => {
@@ -109,11 +150,33 @@ export const getFeatureTypeName = (
       return t(`data.featureType.Ahvenanmaan muinaisjäännösrekisterin kohde`)
     case AhvenanmaaLayer.MaritimtKulturarv:
       return t(
-        `data.featureType.Ahvenamaan merellisen kulttuuriperintörekisterin kohde`
+        `data.featureType.Ahvenanmaan merellisen kulttuuriperintörekisterin kohde`
       )
     default:
       return undefined
   }
+}
+
+export const getMaalinnoitusFeatureTypeName = (
+  t: TFunction,
+  feature: MaalinnoitusFeature
+): string => {
+  if (isMaalinnoitusYksikkoFeature(feature)) {
+    return `${t(`data.featureType.maalinnoitus`)}, ${t(
+      `data.helsinki.featureType.yksikkö`
+    )}`
+  }
+  if (isMaalinnoitusKohdeFeature(feature)) {
+    return `${t(`data.featureType.maalinnoitus`)}, ${t(
+      `data.helsinki.featureType.kohde`
+    )}`
+  }
+  if (isMaalinnoitusRajausFeature(feature)) {
+    return `${t(`data.featureType.maalinnoitus`)}, ${t(
+      `data.helsinki.featureType.rajaus`
+    )}`
+  }
+  return ""
 }
 
 export const getTypeIconURL = (
@@ -121,7 +184,7 @@ export const getTypeIconURL = (
   has3dModels: boolean = false
 ) => `images/${imageName}${has3dModels ? "_3d" : ""}.png`
 
-export const getFeatureTypeIconURL = (
+export const getArgisFeatureTypeIconURL = (
   feature: ArgisFeature
 ): string | undefined => {
   const has3dModels = feature.models.length > 0
@@ -166,6 +229,35 @@ export const getFeatureTypeIconURL = (
   }
 }
 
+export const getMaalinnoitusFeatureIconUrl = (
+  feature: MaalinnoitusFeature
+): string | undefined => {
+  if (isMaalinnoitusYksikkoFeature(feature)) {
+    return getTypeIconURL("maalinnoitus-yksikko", false)
+  }
+  if (isMaalinnoitusKohdeFeature(feature)) {
+    switch (feature.properties.kohdetyyppi) {
+      case MaalinnoitusKohdetyyppi.Asema:
+        return getTypeIconURL("maalinnoitus-asema", false)
+      case MaalinnoitusKohdetyyppi.Luola:
+        return getTypeIconURL("maalinnoitus-luola", false)
+      case MaalinnoitusKohdetyyppi.Tykkipatteri:
+        return getTypeIconURL("maalinnoitus-tykkipatteri", false)
+      case MaalinnoitusKohdetyyppi.Tykkitie:
+        return getTypeIconURL("maalinnoitus-tykkitie", false)
+    }
+  }
+  if (isMaalinnoitusRajausFeature(feature)) {
+    switch (feature.properties.rajaustyyppi) {
+      case MaalinnoitusRajaustyyppi.Tukikohta:
+        return getTypeIconURL("maalinnoitus-tukikohdan-raja", false)
+      case MaalinnoitusRajaustyyppi.Puolustusasema:
+        return getTypeIconURL("maalinnoitus-puolustusaseman-raja", false)
+    }
+  }
+  return undefined
+}
+
 export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
   switch (layer) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
@@ -200,6 +292,22 @@ export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
       return ["images/3d_malli_circle.png", "images/3d_malli_square.png"]
     case MaisemanMuistiLayer.MaisemanMuisti:
       return ["images/maiseman-muisti.png"]
+    case HelsinkiLayer.Maalinnoitus_kohteet:
+      return [
+        "images/maalinnoitus-asema.png",
+        "images/maalinnoitus-luola.png",
+        "images/maalinnoitus-tykkitie.png",
+        "images/maalinnoitus-tykkipatteri.png"
+      ]
+    case HelsinkiLayer.Maalinnoitus_rajaukset:
+      return [
+        "images/maalinnoitus-tukikohdan-raja.png",
+        "images/maalinnoitus-puolustusaseman-raja.png"
+      ]
+    case HelsinkiLayer.Maalinnoitus_karttatekstit:
+      return ["images/maalinnoitus-teksti-viite.png"]
+    case HelsinkiLayer.Maalinnoitus_yksikot:
+      return ["images/maalinnoitus-yksikko.png"]
   }
 }
 
@@ -349,9 +457,9 @@ export const getLayerRegisterName = (
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
       return t(`data.register.Rakennusperintörekisteri`)
     case AhvenanmaaLayer.Fornminnen:
-      return t(`data.register.Ahvenamaan muinaisjäännösrekisteri`)
+      return t(`data.register.Ahvenanmaan muinaisjäännösrekisteri`)
     case AhvenanmaaLayer.MaritimtKulturarv:
-      return t(`data.register.Ahvenamaan merellinen kulttuuriperintörekisteri`)
+      return t(`data.register.Ahvenanmaan merellinen kulttuuriperintörekisteri`)
   }
 }
 
@@ -372,7 +480,7 @@ export const getFeatureMunicipality = (
   }
 }
 
-export const getFeatureLocation = (
+export const getArgisFeatureLocation = (
   feature: ArgisFeature
 ): [number, number] | undefined => {
   switch (feature.geometryType) {
@@ -395,6 +503,19 @@ export const getGeoJSONFeatureLocation = (
       return feature.geometry.coordinates
     case "Polygon":
       return feature.geometry.coordinates[0][0]
+  }
+}
+
+export const getMaalinnoitusFeatureLocation = (
+  feature: MaalinnoitusFeature
+): [number, number] => {
+  switch (feature.geometry.type) {
+    case "Point":
+      return feature.geometry.coordinates
+    case "Polygon":
+      return feature.geometry.coordinates[0]
+    case "LineString":
+      return feature.geometry.coordinates[0]
   }
 }
 

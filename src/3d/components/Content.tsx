@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
 import fiTranslations from "../../common/translations/fi.json"
@@ -27,19 +27,19 @@ i18n.use(initReactI18next).init({
 })
 
 export const Content: React.FC = () => {
-  const [models, setModels] = React.useState<
+  const [models, setModels] = useState<
     Array<GeoJSONFeature<ModelFeatureProperties>>
   >([])
-  const [latestUpdateDate, setLatestUpdateDate] = React.useState<Date>()
+  const [latestUpdateDate, setLatestUpdateDate] = useState<Date>()
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch("3d.json")
       .then((response) => response.json())
       .then((data) => data as GeoJSONResponse<ModelFeatureProperties>)
       .then((data) => setModels(data.features))
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     setLatestUpdateDate(getGeoJSONDataLatestUpdateDate(models))
   }, [models])
 

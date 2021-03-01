@@ -4,7 +4,9 @@ import {
   DataLatestUpdateDates,
   GeoJSONFeature,
   GtkLayer,
+  HelsinkiLayer,
   Language,
+  MaalinnoitusFeature,
   MaanmittauslaitosLayer,
   MaisemanMuistiFeatureProperties,
   MaisemanMuistiLayer,
@@ -26,6 +28,7 @@ export interface SelectedFeaturesOnMap {
   features: Array<ArgisFeature>
   models: Array<GeoJSONFeature<ModelFeatureProperties>>
   maisemanMuistiFeatures: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
+  maalinnoitusFeatures: Array<MaalinnoitusFeature>
 }
 
 export interface Settings {
@@ -55,6 +58,7 @@ export interface Settings {
       find: string
       updateDate: string
     }
+    opacity: number
   }
   ahvenanmaa: {
     selectedLayers: Array<AhvenanmaaLayer>
@@ -66,6 +70,7 @@ export interface Settings {
       forminnenUpdateDate: string
       maritimtKulturarvUpdateDate: string
     }
+    opacity: number
   }
   models: {
     selectedLayers: Array<ModelLayer>
@@ -83,6 +88,13 @@ export interface Settings {
     selectedLayers: Array<GtkLayer>
     url: {
       export: string
+    }
+    opacity: number
+  }
+  helsinki: {
+    selectedLayers: Array<HelsinkiLayer>
+    url: {
+      wms: string
     }
     opacity: number
   }

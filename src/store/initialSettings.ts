@@ -7,7 +7,8 @@ import {
   ModelLayer,
   MaisemanMuistiLayer,
   Language,
-  GtkLayer
+  GtkLayer,
+  HelsinkiLayer
 } from "../common/types"
 import { Settings } from "./storeTypes"
 
@@ -25,7 +26,8 @@ export const initialSettings: Settings = {
   selectedFeaturesOnMap: {
     features: [],
     models: [],
-    maisemanMuistiFeatures: []
+    maisemanMuistiFeatures: [],
+    maalinnoitusFeatures: []
   },
   search: {
     searchResults: undefined
@@ -60,7 +62,8 @@ export const initialSettings: Settings = {
        * that browser can fetch the XML file from https://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml
        */
       updateDate: "https://dkfgv6jxivsxz.cloudfront.net/MV_inspire_atom.xml"
-    }
+    },
+    opacity: 0.7
   },
   ahvenanmaa: {
     selectedLayers: Object.values(AhvenanmaaLayer),
@@ -77,7 +80,8 @@ export const initialSettings: Settings = {
         "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Afornminnen",
       maritimtKulturarvUpdateDate:
         "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Amaritimt-kulturarv-vrak"
-    }
+    },
+    opacity: 0.7
   },
   models: {
     selectedLayers: Object.values(ModelLayer),
@@ -98,5 +102,12 @@ export const initialSettings: Settings = {
         "https://gtkdata.gtk.fi/arcgis/rest/services/Rajapinnat/GTK_Maapera_WMS/MapServer/export"
     },
     opacity: 0.7
+  },
+  helsinki: {
+    selectedLayers: Object.values(HelsinkiLayer),
+    url: {
+      wms: "https://kartta.hel.fi/ws/geoserver/avoindata/wms"
+    },
+    opacity: 1.0
   }
 }

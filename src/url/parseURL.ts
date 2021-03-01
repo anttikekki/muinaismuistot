@@ -7,18 +7,23 @@ import {
   ModelLayer,
   MaisemanMuistiLayer,
   Language,
-  GtkLayer
+  GtkLayer,
+  HelsinkiLayer
 } from "../common/types"
 import { parseURLParams } from "../common/util/URLHashHelper"
 import { Settings } from "../store/storeTypes"
 import {
+  updateAhvenanmaaLayerOpacity,
   updateAhvenanmaaSelectedLayers,
   updateGtkLayerOpacity,
   updateGtkSelectedLayers,
+  updateHelsinkiLayerOpacity,
+  updateHelsinkiSelectedLayers,
   updateLanguage,
   updateMaanmittauslaitosSelectedLayer,
   updateMaisemanMuistiSelectedLayers,
   updateModelSelectedLayers,
+  updateMuseovirastoLayerOpacity,
   updateMuseovirastoSelectedLayers,
   updateSelectMuinaisjaannosDatings,
   updateSelectMuinaisjaannosTypes
@@ -64,9 +69,13 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
     gtkLayer,
     gtkOpacity,
     museovirastoLayer,
+    museovirastoOpacity,
     muinaisjaannosTypes,
     muinaisjaannosDatings,
     ahvenanmaaLayer,
+    ahvenanmaaOpacity,
+    helsinkiLayer,
+    helsinkiOpacity,
     modelsLayer,
     maisemanMuistiLayer
   } = parseURLParams() as URLSettings
@@ -114,6 +123,14 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
     )
   }
 
+  // Museovirasto opacity
+  if (museovirastoOpacity !== undefined) {
+    newSettings = updateMuseovirastoLayerOpacity(
+      newSettings,
+      museovirastoOpacity
+    )
+  }
+
   // Museovirasto muinaisjaannos types
   if (muinaisjaannosTypes) {
     newSettings = validateAndUpdateUrlParamToSettings(
@@ -142,6 +159,26 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
       ahvenanmaaLayer,
       updateAhvenanmaaSelectedLayers
     )
+  }
+
+  // Ahvenanmaa opacity
+  if (ahvenanmaaOpacity !== undefined) {
+    newSettings = updateAhvenanmaaLayerOpacity(newSettings, ahvenanmaaOpacity)
+  }
+
+  // Helsinki layers
+  if (helsinkiLayer) {
+    newSettings = validateAndUpdateUrlParamToSettings(
+      newSettings,
+      HelsinkiLayer,
+      helsinkiLayer,
+      updateHelsinkiSelectedLayers
+    )
+  }
+
+  // Helsinki opacity
+  if (helsinkiOpacity !== undefined) {
+    newSettings = updateHelsinkiLayerOpacity(newSettings, helsinkiOpacity)
   }
 
   // 3D models

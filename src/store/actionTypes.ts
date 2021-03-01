@@ -3,7 +3,9 @@ import {
   ArgisFeature,
   DataLatestUpdateDates,
   GtkLayer,
+  HelsinkiLayer,
   Language,
+  LayerGroup,
   MaanmittauslaitosLayer,
   MaisemanMuistiLayer,
   ModelLayer,
@@ -26,12 +28,13 @@ export const CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE =
 export const SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER =
   "SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER"
 export const SELECT_VISIBLE_GTK_LAYERS = "SELECT_VISIBLE_GTK_LAYERS"
-export const CHANGE_GTK_LAYER_OPACITY = "CHANGE_GTK_LAYER_OPACITY"
+export const CHANGE_LAYER_OPACITY = "CHANGE_LAYER_OPACITY"
 export const SELECT_VISIBLE_MUSEOVIRASTO_LAYERS =
   "SELECT_VISIBLE_MUSEOVIRASTO_LAYERS"
 export const SELECT_VISIBLE_AHVENANMAA_LAYERS =
   "SELECT_VISIBLE_AHVENANMAA_LAYERS"
 export const SELECT_VISIBLE_MODELS_LAYERS = "SELECT_VISIBLE_MODELS_LAYERS"
+export const SELECT_VISIBLE_HELSINKI_LAYERS = "SELECT_VISIBLE_HELSINKI_LAYERS"
 export const SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS =
   "SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS"
 export const SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE =
@@ -88,9 +91,10 @@ export interface SelectVisibleGTKLayersAction {
   layers: Array<GtkLayer>
 }
 
-export interface ChangeGTKLayerOpacityAction {
-  type: typeof CHANGE_GTK_LAYER_OPACITY
+export interface ChangeLayerOpacityAction {
+  type: typeof CHANGE_LAYER_OPACITY
   opacity: number
+  layerGroup: LayerGroup
 }
 
 export interface SelectVisibleMuseovirastoLayersAction {
@@ -101,6 +105,11 @@ export interface SelectVisibleMuseovirastoLayersAction {
 export interface SelectVisibleAhvenanmaaLayersAction {
   type: typeof SELECT_VISIBLE_AHVENANMAA_LAYERS
   layers: Array<AhvenanmaaLayer>
+}
+
+export interface SelectVisibleHelsinkiLayersAction {
+  type: typeof SELECT_VISIBLE_HELSINKI_LAYERS
+  layers: Array<HelsinkiLayer>
 }
 
 export interface SelectVisibleModelsLayersAction {
@@ -149,9 +158,10 @@ export type ActionTypes =
   | ClickedMapFeatureIdentificationCompleteAction
   | SelectVisibleMaanmittauslaitosLayerAction
   | SelectVisibleGTKLayersAction
-  | ChangeGTKLayerOpacityAction
+  | ChangeLayerOpacityAction
   | SelectVisibleMuseovirastoLayersAction
   | SelectVisibleAhvenanmaaLayersAction
+  | SelectVisibleHelsinkiLayersAction
   | SelectVisibleModelsLayersAction
   | SelectVisibleMaisemanMuistiLayersAction
   | SelectVisibleMuinaisjäännösTypeAction

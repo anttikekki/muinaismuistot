@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Panel } from "../../../component/Panel"
 
@@ -23,6 +23,10 @@ export const DataAndLicencesPanel: React.FC = () => {
 
       <p>
         <Trans i18nKey="info.licences.gtk" components={{ a: <a /> }} />
+      </p>
+
+      <p>
+        <Trans i18nKey="info.licences.helsinki" components={{ a: <a /> }} />
       </p>
 
       <p>

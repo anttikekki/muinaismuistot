@@ -21,7 +21,7 @@
     },
     "organization": {
       "Museovirasto": "Museovirasto",
-      "Ahvenamaan paikallishallinto": "Ahvenamaan paikallishallinto"
+      "Ahvenanmaan paikallishallinto": "Ahvenanmaan paikallishallinto"
     }
   },
   "info": {
@@ -56,6 +56,7 @@
       "ahvenanmaa": "Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href='https://www.kartor.ax/datasets'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "maanmittauslaitos": "Tausta-, ortokuva- ja peruskartta haetaan Maanmittauslaitoksen <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "gtk": "Muinaisrantojen aineisto haetaan Geologian tutkimuskeskuksen <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://www.gtk.fi/peruslisenssi/'>Peruslisenssillä</a>, erillislupa aineiston käyttöön saatu 15.1.2021).",
+      "helsinki": "Helsingin ensimmäisen maailmansodan aikaisten maalinnoitusten aineisto haetaan Helsingin kaupungin <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "maisemanmuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset -kirjan paikkatieto on <a href='./maisemanmuisti/'>tietokannasta</a> johon on koottu kirjan listaamat 205 kohdetta. Kirjan sisällön tekijanoikeus on Museovirastolla, jolta on kysytty lupa aineiston käyttöön.",
       "3DModels": "3D-mallit ovat avoimesta <a href='./3d/'>tietokannasta</a>, joka listaa harrastajien sekä virallisen toimijoiden (museot, Museovirasto, Ahvenanmaan paikallioshallinto) tekemiä 3D-mallinnuksia. Mallien lisenssit on listattu tietokannassa mallikohtaisesti.",
       "sourceCode": "Tämän sivuston tekninen toteutus on <a href='https://github.com/anttikekki/muinaismuistot'>avointa lähdekoodia</a>, lisenssinä on <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE'>MIT</a>."
@@ -63,6 +64,9 @@
   },
   "settings": {
     "title": "Asetukset",
+    "common": {
+      "transparency": "Läpinäkyvyys (%)"
+    },
     "mml": {
       "title": "Maanmittauslaitoksen aineistot",
       "maastokartta": "Maastokartta",
@@ -72,7 +76,6 @@
     },
     "gtk": {
       "title": "Geologian tutkimuskeskuksen aineistot",
-      "transparency": "Läpinäkyvyys (%)",
       "licence": "GTK Maaperä/Muinaisrannat © Geologian tutkimuskeskus 2021"
     },
     "museovirasto": {
@@ -82,6 +85,10 @@
     "ahvenanmaa": {
       "title": "Ahvenanmaan paikallishallinnon aineistot",
       "licence": "Fornminnen © Ålands landskapsregering 2021"
+    },
+    "helsinki": {
+      "title": "Helsingin kaupungin aineistot",
+      "licence": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset © Helsingin kaupunki 2021"
     },
     "other": {
       "title": "Muut aineistot"
@@ -132,7 +139,20 @@
       "precision": "Tarkkuus",
       "legislation": "Laki",
       "featureType": "Laji",
-      "protectionGroup": "Suojeluryhmä"
+      "protectionGroup": "Suojeluryhmä",
+      "maalinnoitus": {
+        "tukikohta": "Tukikohta",
+        "puolustusasema": "Puolustusasema",
+        "olotila": "Olotila",
+        "mittaustieto": "Mittaustieto",
+        "yksikkö": "Yksikkö",
+        "yksikönTyyppi": "Yksikön tyyppi",
+        "yksikkönumero": "Yksikkönumero",
+        "rakennustapa": "Rakennustapa",
+        "rakennushistoria": "Rakennushistoria",
+        "kohteenTyyppi": "Kohtee tyyppi",
+        "rajauksenTyyppi": "Rajauksen tyyppi"
+      }
     },
     "3d": {
       "title": "Kohteen 3D-mallit",
@@ -156,10 +176,11 @@
       "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt",
       "Maailmanperintökohteet": "Maailmanperintökohteet",
       "Rakennusperintörekisteri": "Rakennusperintörekisteri",
-      "Ahvenamaan muinaisjäännösrekisteri": "Ahvenamaan muinaisjäännösrekisteri",
-      "Ahvenamaan merellinen kulttuuriperintörekisteri": "Ahvenamaan merellinen kulttuuriperintörekisteri",
+      "Ahvenanmaan muinaisjäännösrekisteri": "Ahvenanmaan muinaisjäännösrekisteri",
+      "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Ahvenanmaan merellinen kulttuuriperintörekisteri",
       "3Dmodels": "3D-mallit (<a href='./3d/' target='_blank'>lisätietoa</a>)",
-      "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>lisätietoa</a>)"
+      "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>lisätietoa</a>)",
+      "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>lisätietoa</a>)"
     },
     "featureType": {
       "Kiinteä muinaisjäännös": "Kiinteä muinaisjäännös",
@@ -171,7 +192,8 @@
       "Maailmanperintökohde": "Maailmanperintökohde",
       "Rakennusperintökohde": "Rakennusperintökohde",
       "Ahvenanmaan muinaisjäännösrekisterin kohde": "Ahvenanmaan muinaisjäännösrekisterin kohde",
-      "Ahvenamaan merellisen kulttuuriperintörekisterin kohde": "Ahvenamaan merellisen kulttuuriperintörekisterin kohde"
+      "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde": "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde",
+      "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset"
     },
     "timespan": {
       "prehistoric": "8600 eaa. - 1200 jaa.",
@@ -191,6 +213,52 @@
         "supra-akvaattinen": "Supra-akvaattinen, jääkauden jälkeen vedenpinnan yläpuolelle jäänyt alue",
         "yoldia": "Yoldiameren tai Ancylusjärven peittämä alue (11 600 – 7 200 eaa.)",
         "litorina": "Litorinameren peittämä alue (8 500 – 4 000 eaa.)"
+      }
+    },
+    "helsinki": {
+      "layer": {
+        "Maalinnoitus_karttatekstit": "Yksiköiden nimet",
+        "Maalinnoitus_yksikot": "Yksiköt ja niiden numerot",
+        "Maalinnoitus_kohteet": "Kohteet",
+        "Maalinnoitus_rajaukset": "Rajat"
+      },
+      "feature": {
+        "asema": "Juoksuhauta, suojahuone, tuliasema",
+        "luola": "Luola",
+        "tykkipatteri": "Tykkipatteri",
+        "tykkitie": "Tykkitie",
+        "puolustusasemanRaja": "Puolustusaseman raja",
+        "tukikohdanRaja": "Tukikohdan raja"
+      },
+      "featureType": {
+        "kohde": "kohde",
+        "yksikkö": "yksikkö",
+        "rajaus": "rajaus"
+      },
+      "yksikkoLaji": {
+        "asema": "Asema",
+        "tykkipatteri": "Tykkipatteri",
+        "tykkitie": "Tykkitie"
+      },
+      "yksikko": {
+        "tulipesäke": "Tulipesäke",
+        "suojahuone": "Suojahuone",
+        "kuoppa": "Kuoppa",
+        "tykkiasema": "Tykkiasema",
+        "rakenne": "Rakenne",
+        "hauta": "Juoksuhauta",
+        "luola": "Luola",
+        "jalusta": "Jalusta"
+      },
+      "kohdetyyppi": {
+        "asema (hauta,suojahuone, tulipesäke)": "Asema (juoksuhauta, suojahuone, tulipesäke)",
+        "luola": "Luola",
+        "tykkitie": "Tykkitie",
+        "tykkipatteri": "Tykkipatteri"
+      },
+      "rajaustyyppi": {
+        "tukikohta": "Tukikohta",
+        "laji": "Puolustusasema"
       }
     },
     "museovirasto": {

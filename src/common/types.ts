@@ -8,6 +8,7 @@ export enum LayerGroup {
   GTK = "GTK",
   Museovirasto = "Museovirasto",
   Ahvenanmaa = "Ahvenanmaa",
+  Helsinki = "Helsinki",
   Models = "Models",
   MaisemanMuisti = "MaisemanMuisti"
 }
@@ -63,11 +64,19 @@ export enum GtkLayer {
   // merialue = "merialue" //(25)
 }
 
+export enum HelsinkiLayer {
+  Maalinnoitus_yksikot = "Maalinnoitus_yksikot",
+  Maalinnoitus_kohteet = "Maalinnoitus_kohteet",
+  Maalinnoitus_rajaukset = "Maalinnoitus_rajaukset",
+  Maalinnoitus_karttatekstit = "Maalinnoitus_karttatekstit"
+}
+
 export type FeatureLayer =
   | MuseovirastoLayer
   | AhvenanmaaLayer
   | ModelLayer
   | MaisemanMuistiLayer
+  | HelsinkiLayer
 
 export type MuseovirastoLayerId = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
 
@@ -543,3 +552,226 @@ export type GeoJSONResponse<PROPERTIES> = {
   type: "FeatureCollection"
   features: Array<GeoJSONFeature<PROPERTIES>>
 }
+
+export type WmsGeometryPoint = {
+  type: "Point"
+  coordinates: [number, number]
+}
+
+export type WmsGeometryLineString = {
+  type: "LineString"
+  coordinates: Array<[number, number]>
+}
+
+export type WmsGeometryPolygon = {
+  type: "Polygon"
+  coordinates: Array<[number, number]>
+}
+
+export type WmsGeometry =
+  | WmsGeometryPoint
+  | WmsGeometryLineString
+  | WmsGeometryPolygon
+
+export enum MaalinnoitusYksikkoLaji {
+  Asema = "asema",
+  Tykkipatteri = "tykkipatteri",
+  Tykkitie = "tykkitie"
+}
+
+export enum MaalinnoitusYksikko {
+  Tulipesäke = "tulipesäke",
+  Suojahuone = "suojahuone",
+  Kuoppa = "kuoppa",
+  Tykkiasema = "tykkiasema",
+  Rakenne = "rakenne",
+  Juoksuhauta = "hauta",
+  Luola = "luola",
+  Jalusta = "jalusta"
+}
+
+export type MaalinnoitusYksikkoFeature = {
+  type: "Feature"
+  id: string // "Maalinnoitus_yksikot.444"
+  geometry: WmsGeometry
+  geometry_name: "geom"
+  properties: {
+    id: number // 444
+    /**
+     * Muoto tukikohtanumero:lajinumero/yksikkönumero,yksilöivä tunniste
+     */
+    tunnistenumero: string // "XXI:6/11"
+    /**
+     * Tukikohtanumero. Kertoo pääosin roomalaisin numeroin mistä tukikohdasta on kyse.
+     */
+    tukikohtanumero: string // "XXI"
+    /**
+     * Muoto tukikohtanumero:juokseva numero; erottelee tukikohtien alaiset tutkimusalueet
+     */
+    lajinumero: string | null // "XXI:6"
+    /**
+     * Kertoo mikä on kohteen tyyppi, esim.asema, tykkipatteri
+     */
+    laji: MaalinnoitusYksikkoLaji | null // "asema"
+    /**
+     * Yksikön numero, ks.tunnistenumero
+     */
+    yksikkonumero: string | null // "11"
+    /**
+     * Yksikön lajityyppi, esim.tulipesäke, suojahuone, kuoppa
+     */
+    yksikko: MaalinnoitusYksikko | null // "kuoppa"
+    /**
+     * Lisätiedot yksiköstä, esim.yksihuoneinen, avoin/katettu
+     */
+    yksikkotyyppi: string | null
+    /**
+     * Kertoo mille vuodelle kohde sijoittuu
+     */
+    ajoitus: number | null // 1915
+    /**
+     * Mahdollinen lisähuomio ajoitus-tietoon.
+     */
+    ajoitushuom: string | null // "alkuvuosi"
+    rakennustapa: string | null // "kallioon louhittu, koko n. 6m x 6m"
+    rakennushistoria: string | null
+    datanomistaja: string // "Helsingin kaupunki, KYMP"
+    paivitetty_tietopalveluun: string // "2020-12-15"
+  }
+}
+
+export enum MaalinnoitusKohdetyyppi {
+  Asema = "asema (hauta,suojahuone, tulipesäke)",
+  Luola = "luola",
+  Tykkitie = "tykkitie",
+  Tykkipatteri = "tykkipatteri"
+}
+
+export type MaalinnoitusKohdeFeature = {
+  type: "Feature"
+  id: string // "Maalinnoitus_kohteet.25625"
+  geometry: WmsGeometry
+  geometry_name: "geom"
+  properties: {
+    id: number // 25625
+    /**
+     * Kohdetyyppi kertoo minkälaisesta maalinnoitus kohteesta on kyse.
+     */
+    kohdetyyppi: MaalinnoitusKohdetyyppi
+    /**
+     * Tukikohtanumero. Kertoo pääosin roomalaisin numeroin mistä tukikohdasta on kyse.
+     */
+    tukikohtanumero: string // "XXI"
+    /**
+     * Olotila kertoo kohteen tilanteesta.
+     */
+    olotila: string | null // "olemassaoleva, täytetty/peitetty"
+    /**
+     * Mittaustieto kertoo onko kohdetta mitattu.
+     */
+    mittaustieto: string | null // "mitattu"
+    datanomistaja: string // "Helsingin kaupunki, KYMP"
+    paivitetty_tietopalveluun: string // "2021-02-01"
+  }
+}
+
+export enum MaalinnoitusRajaustyyppi {
+  Tukikohta = "tukikohta",
+  Puolustusasema = "laji"
+}
+
+export type MaalinnoitusRajausFeature = {
+  type: "Feature"
+  id: string // "Maalinnoitus_rajaukset.26516"
+  geometry: WmsGeometry
+  geometry_name: "geom"
+  properties: {
+    id: number // 26516
+    /**
+     * Muoto tukikohtanumero:juokseva numero; erottelee tukikohtien alaiset tutkimusalueet
+     */
+    lajinumero: string | null
+    /**
+     * Tukikohtanumero. Kertoo pääosin roomalaisin numeroin mistä tukikohdasta on kyse.
+     */
+    tukikohtanumero: string | null // "XXI"
+    /**
+     * Kertoo koskeeko rajaus tukikohtaa vai lajia.
+     */
+    rajaustyyppi: MaalinnoitusRajaustyyppi | null // "tukikohta"
+    datanomistaja: string // "Helsingin kaupunki, KYMP"
+    paivitetty_tietopalveluun: string // "2020-12-15"
+  }
+}
+
+export type MaalinnoitusKarttatekstiFeature = {
+  type: "Feature"
+  id: string // "Maalinnoitus_karttatekstit.764"
+  geometry: WmsGeometry
+  geometry_name: "geom"
+  properties: {
+    id: number // 764
+    /**
+     * Tukikohtanumero. Kertoo mistä tukikohdasta on kyse.
+     */
+    tukikohtanumero: string | null
+    /**
+     * Tasolla näkyvät tekstit.
+     */
+    teksti: string | null // "tulipesäke"
+    /**
+     * Kertoo miten teksti on aseteltu tasolle.
+     */
+    tekstisuunta: number // 0
+    /**
+     * Tekstikoko kertoo minkä kokoinen teksti on.
+     */
+    tekstikoko: number // 3
+    datanomistaja: string // "Helsingin kaupunki, KYMP"
+    paivitetty_tietopalveluun: string // "2020-12-15"
+  }
+}
+
+/**
+ * Feature propeties documentation:
+ * @see https://www.hel.fi/hel2/tietokeskus/data/dokumentit/Helsingin_ensimmaisen_maailmansodan_aikaiset_maalinnoitukset_ominaisuustietojen_kuvaus.pdf
+ */
+export type MaalinnoitusFeature =
+  | MaalinnoitusYksikkoFeature
+  | MaalinnoitusKohdeFeature
+  | MaalinnoitusRajausFeature
+  | MaalinnoitusKarttatekstiFeature
+
+export type MaalinnoitusWmsFeatureInfoResult = {
+  type: "FeatureCollection"
+  features: Array<MaalinnoitusFeature>
+  totalFeatures: "unknown"
+  numberReturned: number
+  timeStamp: string // "2021-02-28T18:56:20.579Z"
+  crs: {
+    type: "name"
+    properties: {
+      name: "urn:ogc:def:crs:EPSG::3067"
+    }
+  }
+}
+
+export const isMaalinnoitusYksikkoFeature = (
+  feature: MaalinnoitusFeature
+): feature is MaalinnoitusYksikkoFeature =>
+  feature.id.startsWith("Maalinnoitus_yksikot.")
+
+export const isMaalinnoitusKohdeFeature = (
+  feature: MaalinnoitusFeature
+): feature is MaalinnoitusKohdeFeature =>
+  feature.id.startsWith("Maalinnoitus_kohteet.")
+
+export const isMaalinnoitusRajausFeature = (
+  feature: MaalinnoitusFeature
+): feature is MaalinnoitusRajausFeature =>
+  feature.id.startsWith("Maalinnoitus_rajaukset.")
+
+export const isMaalinnoitusKarttatekstiFeature = (
+  feature: MaalinnoitusFeature
+): feature is MaalinnoitusKarttatekstiFeature =>
+  feature.id.startsWith("Maalinnoitus_karttatekstit.")

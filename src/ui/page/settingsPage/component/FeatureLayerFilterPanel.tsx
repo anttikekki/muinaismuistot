@@ -185,18 +185,18 @@ export const FeatureLayerFilterPanel: React.FC = () => {
         decorator: (match) => {
           if (match === "PISTE_ICONS") {
             return (
-              <>
+              <React.Fragment key={match}>
                 <img src="images/muinaisjaannos_kohde.png" />
                 <img src="images/muu_kulttuuriperintokohde_kohde.png" />
-              </>
+              </React.Fragment>
             )
           }
           if (match === "ALUE_ICONS") {
             return (
-              <>
+              <React.Fragment key={match}>
                 <img src="images/muinaisjaannos_alue.png" />
                 <img src="images/muu-kulttuuriperintokohde-alue.png" />
-              </>
+              </React.Fragment>
             )
           }
           return ""

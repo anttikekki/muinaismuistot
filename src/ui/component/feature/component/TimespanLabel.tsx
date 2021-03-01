@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import { useTranslation } from "react-i18next"
 import { MuinaisjaannosAjoitus } from "../../../../common/types"
 import { getTimespanInYearsForTimingName } from "../../../../common/util/featureParser"

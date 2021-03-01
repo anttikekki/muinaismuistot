@@ -3,7 +3,9 @@ import {
   ArgisFeature,
   DataLatestUpdateDates,
   GtkLayer,
+  HelsinkiLayer,
   Language,
+  LayerGroup,
   MaanmittauslaitosLayer,
   MaisemanMuistiLayer,
   ModelLayer,
@@ -14,9 +16,9 @@ import {
 import {
   CenterMapToCurrentPositionAction,
   CENTER_MAP_TO_CURRENT_POSITION,
-  ChangeGTKLayerOpacityAction,
+  ChangeLayerOpacityAction,
   ChangeLanguageAction,
-  CHANGE_GTK_LAYER_OPACITY,
+  CHANGE_LAYER_OPACITY,
   CHANGE_LANGUAGE,
   ClickedMapFeatureIdentificationCompleteAction,
   CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
@@ -51,7 +53,9 @@ import {
   ZoomInAction,
   ZoomOutAction,
   ZOOM_IN,
-  ZOOM_OUT
+  ZOOM_OUT,
+  SelectVisibleHelsinkiLayersAction,
+  SELECT_VISIBLE_HELSINKI_LAYERS
 } from "./actionTypes"
 import { PageId, SelectedFeaturesOnMap } from "./storeTypes"
 
@@ -131,12 +135,14 @@ export const selectGTKLayer = (
   }
 }
 
-export const changeGtkLayerOpacity = (
-  opacity: number
-): ChangeGTKLayerOpacityAction => {
+export const changeLayerOpacity = (
+  opacity: number,
+  layerGroup: LayerGroup
+): ChangeLayerOpacityAction => {
   return {
-    type: CHANGE_GTK_LAYER_OPACITY,
-    opacity
+    type: CHANGE_LAYER_OPACITY,
+    opacity,
+    layerGroup
   }
 }
 
@@ -154,6 +160,15 @@ export const selectAhvenanmaaLayers = (
 ): SelectVisibleAhvenanmaaLayersAction => {
   return {
     type: SELECT_VISIBLE_AHVENANMAA_LAYERS,
+    layers
+  }
+}
+
+export const selectHelsinkiLayer = (
+  layers: Array<HelsinkiLayer>
+): SelectVisibleHelsinkiLayersAction => {
+  return {
+    type: SELECT_VISIBLE_HELSINKI_LAYERS,
     layers
   }
 }

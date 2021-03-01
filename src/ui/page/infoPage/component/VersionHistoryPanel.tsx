@@ -1,9 +1,22 @@
-import * as React from "react"
+import React from "react"
 import { Panel } from "../../../component/Panel"
 
 export const VersionHistoryPanel: React.FC = () => {
   return (
     <Panel title="Versiohistoria">
+      <h5>Maaliskuu 2021</h5>
+      <p>
+        Lisätty Helsingin kaupungin{" "}
+        <a
+          href="https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset"
+          target="_blank"
+        >
+          Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset
+        </a>
+        -aineisto karttatasona.
+      </p>
+
+      <br />
       <h5>Helmikuu 2021</h5>
       <p>
         Lisätty{" "}
