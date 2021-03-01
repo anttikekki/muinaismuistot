@@ -230,6 +230,11 @@
         "puolustusasemanRaja": "Puolustusaseman raja",
         "tukikohdanRaja": "Tukikohdan raja"
       },
+      "featureType": {
+        "kohde": "kohde",
+        "yksikkö": "yksikkö",
+        "rajaus": "rajaus"
+      },
       "yksikkoLaji": {
         "asema": "Asema",
         "tykkipatteri": "Tykkipatteri",

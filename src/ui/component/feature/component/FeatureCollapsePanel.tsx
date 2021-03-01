@@ -10,7 +10,7 @@ import {
 } from "../../../../common/types"
 import {
   getArgisFeatureTypeIconURL,
-  getFeatureTypeName,
+  getArgisFeatureTypeName,
   getArgisFeatureLocation,
   getArgisFeatureName,
   getGeoJSONFeatureLocation,
@@ -18,7 +18,8 @@ import {
   getFeatureMunicipality,
   getMaalinnoitusFeatureName,
   getMaalinnoitusFeatureIconUrl,
-  getMaalinnoitusFeatureLocation
+  getMaalinnoitusFeatureLocation,
+  getMaalinnoitusFeatureTypeName
 } from "../../../../common/util/featureParser"
 import { createLocationHash } from "../../../../common/util/URLHashHelper"
 import { showPage } from "../../../../store/actionCreators"
@@ -151,7 +152,7 @@ export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps>
   )
   const featureTypeName = useMemo(() => {
     const municipality = getFeatureMunicipality(feature)
-    const name = getFeatureTypeName(t, feature)
+    const name = getArgisFeatureTypeName(t, feature)
     const suffix =
       titleClickAction === FeatureTitleClickAction.ClosePageAndPinOnMap &&
       municipality
@@ -242,7 +243,7 @@ export const MaalinnoitusFeatureCollapsePanel: React.FC<MaalinnoitusFeatureColla
   }, [feature])
   const featureName = getMaalinnoitusFeatureName(t, feature)
   const featureTypeIconURL = getMaalinnoitusFeatureIconUrl(feature)
-  const featureTypeName = t(`data.featureType.maalinnoitus`)
+  const featureTypeName = getMaalinnoitusFeatureTypeName(t, feature)
 
   return (
     <FeatureCollapsePanel

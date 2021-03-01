@@ -104,7 +104,7 @@ export const getMaalinnoitusFeatureName = (
   return ""
 }
 
-export const getFeatureTypeName = (
+export const getArgisFeatureTypeName = (
   t: TFunction,
   feature: ArgisFeature
 ): string | undefined => {
@@ -155,6 +155,28 @@ export const getFeatureTypeName = (
     default:
       return undefined
   }
+}
+
+export const getMaalinnoitusFeatureTypeName = (
+  t: TFunction,
+  feature: MaalinnoitusFeature
+): string => {
+  if (isMaalinnoitusYksikkoFeature(feature)) {
+    return `${t(`data.featureType.maalinnoitus`)}, ${t(
+      `data.helsinki.featureType.yksikkö`
+    )}`
+  }
+  if (isMaalinnoitusKohdeFeature(feature)) {
+    return `${t(`data.featureType.maalinnoitus`)}, ${t(
+      `data.helsinki.featureType.kohde`
+    )}`
+  }
+  if (isMaalinnoitusRajausFeature(feature)) {
+    return `${t(`data.featureType.maalinnoitus`)}, ${t(
+      `data.helsinki.featureType.rajaus`
+    )}`
+  }
+  return ""
 }
 
 export const getTypeIconURL = (
