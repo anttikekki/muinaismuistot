@@ -81,7 +81,7 @@ export const initialSettings: Settings = {
       maritimtKulturarvUpdateDate:
         "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Amaritimt-kulturarv-vrak"
     },
-    opacity: 0.7
+    opacity: 0.8
   },
   models: {
     selectedLayers: Object.values(ModelLayer),
@@ -101,13 +101,17 @@ export const initialSettings: Settings = {
       export:
         "https://gtkdata.gtk.fi/arcgis/rest/services/Rajapinnat/GTK_Maapera_WMS/MapServer/export"
     },
-    opacity: 0.7
+    opacity: 0.8
   },
   helsinki: {
-    selectedLayers: Object.values(HelsinkiLayer),
+    selectedLayers: Object.values([
+      HelsinkiLayer.Maalinnoitus_karttatekstit,
+      HelsinkiLayer.Maalinnoitus_kohteet,
+      HelsinkiLayer.Maalinnoitus_yksikot
+    ]),
     url: {
       wms: "https://kartta.hel.fi/ws/geoserver/avoindata/wms"
     },
-    opacity: 1.0
+    opacity: 0.8
   }
 }
