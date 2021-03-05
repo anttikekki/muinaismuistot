@@ -6,6 +6,11 @@ import {
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
 import { useTranslation } from "react-i18next"
+import { Link } from "../../Link"
+import {
+  getNovisionLinkForMaalinnoitusYksikko,
+  getNovisionLinkForMaalinnoitusYksikkoLaji
+} from "../../../../common/util/maalinnoitusLinkHelper"
 
 interface Props {
   titleClickAction: FeatureTitleClickAction
@@ -49,18 +54,22 @@ export const MaalinnoitusYksikkoPanel: React.FC<Props> = ({
           label={t(`details.field.maalinnoitus.puolustusasema`)}
           value={lajinumero}
         />
-        <Field
-          label={t(`details.field.maalinnoitus.yksikönTyyppi`)}
-          value={t(`data.helsinki.yksikkoLaji.${laji}`, {
-            defaultValue: laji
-          })}
-        />
-        <Field
-          label={t(`details.field.maalinnoitus.yksikkö`)}
-          value={t(`data.helsinki.yksikko.${yksikko}`, {
-            defaultValue: yksikko
-          })}
-        />
+        <Field label={t(`details.field.maalinnoitus.yksikönTyyppi`)}>
+          <Link
+            text={t(`data.helsinki.yksikkoLaji.${laji}`, {
+              defaultValue: laji
+            })}
+            url={getNovisionLinkForMaalinnoitusYksikkoLaji(laji)}
+          />
+        </Field>
+        <Field label={t(`details.field.maalinnoitus.yksikkö`)}>
+          <Link
+            text={t(`data.helsinki.yksikko.${yksikko}`, {
+              defaultValue: yksikko
+            })}
+            url={getNovisionLinkForMaalinnoitusYksikko(yksikko)}
+          />
+        </Field>
         <Field
           label={t(`details.field.maalinnoitus.yksikkönumero`)}
           value={yksikkonumero}

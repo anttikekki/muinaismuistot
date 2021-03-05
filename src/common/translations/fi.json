@@ -238,7 +238,8 @@
       "yksikkoLaji": {
         "asema": "Asema",
         "tykkipatteri": "Tykkipatteri",
-        "tykkitie": "Tykkitie"
+        "tykkitie": "Tykkitie",
+        "muu": "Muu"
       },
       "yksikko": {
         "tulipesäke": "Tulipesäke",
@@ -248,7 +249,8 @@
         "rakenne": "Rakenne",
         "hauta": "Juoksuhauta",
         "luola": "Luola",
-        "jalusta": "Jalusta"
+        "jalusta": "Jalusta",
+        "suojavalli": "Suojavalli"
       },
       "kohdetyyppi": {
         "asema (hauta,suojahuone, tulipesäke)": "Asema (juoksuhauta, suojahuone, tulipesäke)",

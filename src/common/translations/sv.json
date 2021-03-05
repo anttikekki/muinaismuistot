@@ -238,7 +238,8 @@
       "yksikkoLaji": {
         "asema": "Ställning",
         "tykkipatteri": "Artilleribatteri",
-        "tykkitie": "Kanonväg"
+        "tykkitie": "Kanonväg",
+        "muu": "Övrig"
       },
       "yksikko": {
         "tulipesäke": "Eldställning",
@@ -248,7 +249,8 @@
         "rakenne": "Anläggning",
         "hauta": "Skyttegrav",
         "luola": "Bergrum",
-        "jalusta": "Kanonställning"
+        "jalusta": "Kanonställning",
+        "suojavalli": "Bålverk"
       },
       "kohdetyyppi": {
         "asema (hauta,suojahuone, tulipesäke)": "Ställning (skyttegrav, skyddsrum, eldställning)",

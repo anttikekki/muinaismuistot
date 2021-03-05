@@ -6,6 +6,8 @@ import {
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
 import { useTranslation } from "react-i18next"
+import { Link } from "../../Link"
+import { getNovisionLinkForMaalinnoitusKohdetyyppi } from "../../../../common/util/maalinnoitusLinkHelper"
 
 interface Props {
   titleClickAction: FeatureTitleClickAction
@@ -40,12 +42,14 @@ export const MaalinnoitusKohdePanel: React.FC<Props> = ({
           label={t(`details.field.maalinnoitus.tukikohta`)}
           value={tukikohtanumero}
         />
-        <Field
-          label={t(`details.field.maalinnoitus.kohteenTyyppi`)}
-          value={t(`data.helsinki.kohdetyyppi.${kohdetyyppi}`, {
-            defaultValue: kohdetyyppi
-          })}
-        />
+        <Field label={t(`details.field.maalinnoitus.kohteenTyyppi`)}>
+          <Link
+            text={t(`data.helsinki.kohdetyyppi.${kohdetyyppi}`, {
+              defaultValue: kohdetyyppi
+            })}
+            url={getNovisionLinkForMaalinnoitusKohdetyyppi(kohdetyyppi)}
+          />
+        </Field>
         <Field
           label={t(`details.field.maalinnoitus.olotila`)}
           value={olotila}

@@ -576,7 +576,8 @@ export type WmsGeometry =
 export enum MaalinnoitusYksikkoLaji {
   Asema = "asema",
   Tykkipatteri = "tykkipatteri",
-  Tykkitie = "tykkitie"
+  Tykkitie = "tykkitie",
+  Muu = "muu"
 }
 
 export enum MaalinnoitusYksikko {
@@ -587,7 +588,8 @@ export enum MaalinnoitusYksikko {
   Rakenne = "rakenne",
   Juoksuhauta = "hauta",
   Luola = "luola",
-  Jalusta = "jalusta"
+  Jalusta = "jalusta",
+  Suojavalli = "suojavalli"
 }
 
 export type MaalinnoitusYksikkoFeature = {

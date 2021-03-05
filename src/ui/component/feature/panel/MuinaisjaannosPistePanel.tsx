@@ -14,6 +14,7 @@ import {
   getArkeologisenKulttuuriperinnonOpasLinkForSubType,
   getArkeologisenKulttuuriperinnonOpasLinkForType
 } from "../../../../common/util/wikiLinkHelper"
+import { Link } from "../../Link"
 
 interface Props {
   titleClickAction: FeatureTitleClickAction
@@ -77,29 +78,23 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         </Field>
         <Field label={t(`details.field.type`)}>
           {renderList(tyyppiSplitted, (tyyppi) => {
-            const link = getArkeologisenKulttuuriperinnonOpasLinkForType(tyyppi)
-            const name = t(`data.museovirasto.type.${tyyppi}`, tyyppi)
-            return link ? (
-              <a href={link} target="_blank">
-                {name}
-              </a>
-            ) : (
-              <>{name}</>
+            return (
+              <Link
+                text={t(`data.museovirasto.type.${tyyppi}`, tyyppi)}
+                url={getArkeologisenKulttuuriperinnonOpasLinkForType(tyyppi)}
+              />
             )
           })}
         </Field>
         <Field label={t(`details.field.subType`)}>
           {renderList(alatyyppiSplitted, (alatyyppi) => {
-            const link = getArkeologisenKulttuuriperinnonOpasLinkForSubType(
-              alatyyppi
-            )
-            const name = t(`data.museovirasto.subtype.${alatyyppi}`, alatyyppi)
-            return link ? (
-              <a href={link} target="_blank">
-                {name}
-              </a>
-            ) : (
-              <>{name}</>
+            return (
+              <Link
+                text={t(`data.museovirasto.subtype.${alatyyppi}`, alatyyppi)}
+                url={getArkeologisenKulttuuriperinnonOpasLinkForSubType(
+                  alatyyppi
+                )}
+              />
             )
           })}
         </Field>
