@@ -20,6 +20,7 @@
   "dependencies": {
     "bootstrap": "3.4.1",
     "core-js": "3.9.0",
+    "downshift": "6.1.0",
     "elm-pep": "1.0.6",
     "i18next": "19.9.0",
     "ol": "6.5.0",

@@ -7,6 +7,7 @@ import { FeatureTitleClickAction } from "../../component/feature/component/Featu
 import { useDispatch, useSelector } from "react-redux"
 import { searchFeatures } from "../../../store/actionCreators"
 import { PageId, Settings } from "../../../store/storeTypes"
+import { MunicipalitySelect } from "./component/MunicipalitySelect"
 
 interface ResultsProps {
   features?: Array<ArgisFeature>
@@ -100,6 +101,7 @@ export const SearchPage: React.FC = () => {
             </button>
           </span>
         </div>
+        <MunicipalitySelect />
       </form>
 
       <Results features={searchResultFeatures} />
