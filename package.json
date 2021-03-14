@@ -9,7 +9,7 @@
     "prod": "NODE_ENV=production webpack serve --mode=production --https --host 0.0.0.0 --port 8091 --progress --hot --inline",
     "profile-size": "NODE_ENV=production SHOW_BUNDLE_ANALYZER=true webpack --progress",
     "addDataToMaisemanMuisti": "node scripts/addDataToMaisemanMuisti.js",
-    "processMunicipalityCSVtoJSON": "node scripts/processMunicipalityCSVtoJSON.js"
+    "updateMunicipalities": "node scripts/processMunicipalityCSVtoJSON.js"
   },
   "author": "Antti Kekki",
   "license": "MIT",
