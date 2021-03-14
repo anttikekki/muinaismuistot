@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useCombobox, useMultipleSelection } from "downshift"
 import municipalities from "../../../../common/municipality.json"
+import { useTranslation } from "react-i18next"
+import { Language } from "../../../../common/types"
 
 interface Municipality {
   nameFI: string
@@ -9,9 +11,14 @@ interface Municipality {
   regionNameSE: string
 }
 
+const itemToString = (item: Municipality | null, lang: string): string =>
+  (item && (lang === Language.SV ? item.nameSE : item.nameFI)) || ""
+
 export const MunicipalitySelect: React.FC = () => {
+  const { t, i18n } = useTranslation()
   const items = municipalities as Array<Municipality>
   const [inputValue, setInputValue] = useState<string | undefined>("")
+
   const {
     getSelectedItemProps,
     getDropdownProps,
@@ -24,34 +31,21 @@ export const MunicipalitySelect: React.FC = () => {
       (item) =>
         selectedItems.indexOf(item) < 0 &&
         inputValue &&
-        item.nameFI.toLowerCase().startsWith(inputValue.toLowerCase())
+        itemToString(item, i18n.language)
+          .toLowerCase()
+          .startsWith(inputValue.toLowerCase())
     )
   const {
     isOpen,
-    getToggleButtonProps,
-    getLabelProps,
     getMenuProps,
     getInputProps,
     getComboboxProps,
-    highlightedIndex,
-    getItemProps,
-    selectItem
+    getItemProps
   } = useCombobox({
     inputValue,
     selectedItem: null,
+    itemToString: (item) => itemToString(item, i18n.language), // For accessibility features
     items: getFilteredItems(items),
-    stateReducer: (state, actionAndChanges) => {
-      const { changes, type } = actionAndChanges
-      switch (type) {
-        case useCombobox.stateChangeTypes.InputKeyDownEnter:
-        case useCombobox.stateChangeTypes.ItemClick:
-          return {
-            ...changes,
-            isOpen: true // keep the menu open after selection.
-          }
-      }
-      return changes
-    },
     onStateChange: ({ inputValue, type, selectedItem }) => {
       switch (type) {
         case useCombobox.stateChangeTypes.InputChange:
@@ -93,7 +87,7 @@ export const MunicipalitySelect: React.FC = () => {
                 key={`${item.nameFI}${index}`}
                 {...getItemProps({ item, index })}
               >
-                <a href="#">{item.nameFI}</a>
+                <a href="#">{itemToString(item, i18n.language)}</a>
               </li>
             ))}
         </ul>
@@ -102,10 +96,11 @@ export const MunicipalitySelect: React.FC = () => {
       <div>
         {selectedItems.map((selectedItem, index) => (
           <span
+            className="label label-primary"
             key={`selected-item-${index}`}
             {...getSelectedItemProps({ selectedItem, index })}
           >
-            {selectedItem.nameFI}
+            {itemToString(selectedItem, i18n.language)}
             <span onClick={() => removeSelectedItem(selectedItem)}>
               &#10005;
             </span>
