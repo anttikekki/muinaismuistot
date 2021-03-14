@@ -3,84 +3,115 @@ import { useCombobox, useMultipleSelection } from "downshift"
 import municipalities from "../../../../common/municipality.json"
 
 interface Municipality {
-    nameFI: string,
-    nameSE: string,
-    regionNameFI: string,
-    regionNameSE: string
+  nameFI: string
+  nameSE: string
+  regionNameFI: string
+  regionNameSE: string
 }
 
 export const MunicipalitySelect: React.FC = () => {
-    const items = municipalities as Array<Municipality>
-    const [inputValue, setInputValue] = useState('')
+  const items = municipalities as Array<Municipality>
+  const [inputValue, setInputValue] = useState<string | undefined>("")
   const {
     getSelectedItemProps,
     getDropdownProps,
     addSelectedItem,
     removeSelectedItem,
-    selectedItems,
-  } = useMultipleSelection({initialSelectedItems: [items[0], items[1]]})
+    selectedItems
+  } = useMultipleSelection<Municipality>()
   const getFilteredItems = (items: Array<Municipality>): Array<Municipality> =>
     items.filter(
-      item =>
+      (item) =>
         selectedItems.indexOf(item) < 0 &&
-        item.nameFI.toLowerCase().startsWith(inputValue.toLowerCase()),
+        inputValue &&
+        item.nameFI.toLowerCase().startsWith(inputValue.toLowerCase())
     )
-    const {
-        isOpen,
-        getToggleButtonProps,
-        getLabelProps,
-        getMenuProps,
-        getInputProps,
-        getComboboxProps,
-        highlightedIndex,
-        getItemProps,
-        selectItem,
-      } = useCombobox({
-        inputValue,
-        items: getFilteredItems(items),
-        onStateChange: ({inputValue, type, selectedItem}) => {console.log(inputValue, type, selectItem)},
-      })
+  const {
+    isOpen,
+    getToggleButtonProps,
+    getLabelProps,
+    getMenuProps,
+    getInputProps,
+    getComboboxProps,
+    highlightedIndex,
+    getItemProps,
+    selectItem
+  } = useCombobox({
+    inputValue,
+    selectedItem: null,
+    items: getFilteredItems(items),
+    stateReducer: (state, actionAndChanges) => {
+      const { changes, type } = actionAndChanges
+      switch (type) {
+        case useCombobox.stateChangeTypes.InputKeyDownEnter:
+        case useCombobox.stateChangeTypes.ItemClick:
+          return {
+            ...changes,
+            isOpen: true // keep the menu open after selection.
+          }
+      }
+      return changes
+    },
+    onStateChange: ({ inputValue, type, selectedItem }) => {
+      switch (type) {
+        case useCombobox.stateChangeTypes.InputChange:
+          setInputValue(inputValue)
+          break
+        case useCombobox.stateChangeTypes.InputKeyDownEnter:
+        case useCombobox.stateChangeTypes.ItemClick:
+        case useCombobox.stateChangeTypes.InputBlur:
+          if (selectedItem) {
+            setInputValue("")
+            addSelectedItem(selectedItem)
+          }
+          break
+        default:
+          break
+      }
+    }
+  })
 
-      return (
-        <div>
-          <label {...getLabelProps()}>Choose some elements:</label>
-          <div>
-            {selectedItems.map((selectedItem, index) => (
-              <span
-                key={`selected-item-${index}`}
-                {...getSelectedItemProps({selectedItem, index})}
-              >
-                {selectedItem}
-                <span
-                  onClick={() => removeSelectedItem(selectedItem)}
-                >
-                  &#10005;
-                </span>
-              </span>
-            ))}
-            <div {...getComboboxProps()}>
-              <input
-                {...getInputProps(getDropdownProps({preventKeyAction: isOpen}))}
-              />
-              <button {...getToggleButtonProps()} aria-label={'toggle menu'}>
-                &#8595;
-              </button>
-            </div>
-          </div>
-          <ul {...getMenuProps()}>
-            {isOpen &&
-              getFilteredItems(items).map((item, index) => (
-                <li
-                  style={
-                    highlightedIndex === index ? {backgroundColor: '#bde4ff'} : {}
-                  }
-                  key={`${item}${index}`}
-                  {...getItemProps({item, index})}
-                >
-                  {item}
-                </li>
-              ))}
-          </ul>
+  return (
+    <div className="form-group">
+      <label htmlFor="municipalityDropdown">Kunta</label>
+      <div className="dropdown">
+        <div {...getComboboxProps()}>
+          <input
+            id="municipalityDropdown"
+            class="form-control dropdown-toggle"
+            {...getInputProps(getDropdownProps({ preventKeyAction: isOpen }))}
+          />
         </div>
-      )
+        <ul
+          className={`dropdown-menu ${isOpen ? "show" : ""}`}
+          style={{ width: "100%" }}
+          {...getMenuProps()}
+        >
+          {isOpen &&
+            getFilteredItems(items).map((item, index) => (
+              <li
+                key={`${item.nameFI}${index}`}
+                {...getItemProps({ item, index })}
+              >
+                <a href="#">{item.nameFI}</a>
+              </li>
+            ))}
+        </ul>
+      </div>
+
+      <div>
+        {selectedItems.map((selectedItem, index) => (
+          <span
+            key={`selected-item-${index}`}
+            {...getSelectedItemProps({ selectedItem, index })}
+          >
+            {selectedItem.nameFI}
+            <span onClick={() => removeSelectedItem(selectedItem)}>
+              &#10005;
+            </span>
+          </span>
+        ))}
+      </div>
+    </div>
+  )
 }
