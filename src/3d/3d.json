@@ -11,6 +11,31 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [383343.31460000016, 6680844.850400001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XIX:2 (Maununneva)",
+          "id": 1000013741,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013741",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Juoksuhauta",
+          "url": "https://sketchfab.com/models/1e7281f5b9304787933201e3584573f1"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-03-31"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [233148.12420000043, 6806723.169100001]
       },
       "properties": {
