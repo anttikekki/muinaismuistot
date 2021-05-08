@@ -78,21 +78,21 @@ export type FeatureLayer =
   | MaisemanMuistiLayer
   | HelsinkiLayer
 
-export type MuseovirastoLayerId = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+export type MuseovirastoLayerId = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 
 export const museovirastoLayerIdMap: Record<
   MuseovirastoLayer,
   MuseovirastoLayerId
 > = {
-  [MuseovirastoLayer.Muinaisjaannokset_piste]: 7,
-  [MuseovirastoLayer.Muinaisjaannokset_alue]: 8,
+  [MuseovirastoLayer.Muinaisjaannokset_piste]: 0,
+  [MuseovirastoLayer.Muinaisjaannokset_alue]: 1,
   [MuseovirastoLayer.Suojellut_rakennukset_piste]: 2,
   [MuseovirastoLayer.Suojellut_rakennukset_alue]: 3,
   [MuseovirastoLayer.RKY_alue]: 4,
   [MuseovirastoLayer.RKY_piste]: 5,
   [MuseovirastoLayer.RKY_viiva]: 6,
-  [MuseovirastoLayer.Maailmanperinto_piste]: 9,
-  [MuseovirastoLayer.Maailmanperinto_alue]: 10
+  [MuseovirastoLayer.Maailmanperinto_piste]: 7,
+  [MuseovirastoLayer.Maailmanperinto_alue]: 8
 }
 
 export type AhvenanmaaLayerId = 1 | 5
