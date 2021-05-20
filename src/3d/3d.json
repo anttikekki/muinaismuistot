@@ -11,6 +11,306 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sammallahdenmäki",
+          "id": 406010010,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.406010010",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 5 ja 5A",
+          "url": "https://sketchfab.com/models/b22a8667f5f94ebfaf28326f43171bd6"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-05-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sammallahdenmäki",
+          "id": 406010010,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.406010010",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 6, Huilun pitkä raunio",
+          "url": "https://sketchfab.com/models/cb2441f66ab24aa6806a9eb1072dff64"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-05-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sammallahdenmäki",
+          "id": 406010010,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.406010010",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 7",
+          "url": "https://sketchfab.com/models/a61e1737f0d2414a97c3f300ebe6ddd6"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-05-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sammallahdenmäki",
+          "id": 406010010,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.406010010",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 10",
+          "url": "https://sketchfab.com/models/2a0f146ed9844b60b4a6f4a956b316b6"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-05-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sammallahdenmäki",
+          "id": 406010010,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.406010010",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 11",
+          "url": "https://sketchfab.com/models/6359d7b346c5445594c4bf2a43eb3c3a"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-05-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sammallahdenmäki",
+          "id": 406010010,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.406010010",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 12",
+          "url": "https://sketchfab.com/models/c37ba473023a4d31bf1702c0c65044bd"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-05-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sammallahdenmäki",
+          "id": 406010010,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.406010010",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 14",
+          "url": "https://sketchfab.com/models/6ece377b014f4701a555abf9e2fa93fc"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-05-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sammallahdenmäki",
+          "id": 406010010,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.406010010",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 20",
+          "url": "https://sketchfab.com/models/6b3c73cfb1a64354a30a8b760f0cb060"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-05-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sammallahdenmäki",
+          "id": 406010010,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.406010010",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 21, Kirkonlaattia",
+          "url": "https://sketchfab.com/models/8bde79af8f70421baac9c359472367b7"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-05-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sammallahdenmäki",
+          "id": 406010010,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.406010010",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 22 ja 23",
+          "url": "https://sketchfab.com/models/5b57369695084cec9b79336a69498dea"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-05-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sammallahdenmäki",
+          "id": 406010010,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.406010010",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 25 ja 26",
+          "url": "https://sketchfab.com/models/23d1a50fad5a41699312ed88baecb502"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-05-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218665.02579999994, 6787137.963100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sammallahdenmäki",
+          "id": 406010010,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.406010010",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 29 ja 30",
+          "url": "https://sketchfab.com/models/c8adf945af5b4304999305108745a4e7"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-05-20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [383343.31460000016, 6680844.850400001]
       },
       "properties": {
