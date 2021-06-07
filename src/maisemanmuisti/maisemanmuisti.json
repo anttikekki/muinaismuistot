@@ -1200,24 +1200,6 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [210258.42129999958, 6783892.2337]
-      },
-      "properties": {
-        "id": 684010036,
-        "number": 46,
-        "name": "Kylmäkorvenkallion pronssikautiset hautaröykkiöt, muut kiviröykkiöt ja kivipöydät",
-        "municipality": "Rauma",
-        "region": "Satakunta",
-        "registerName": "Lauri",
-        "type": "hautapaikat, kivirakenteet",
-        "subtype": "hautaröykkiöt, kivipöydät",
-        "dating": "pronssikautinen"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
         "coordinates": [210082.4913999997, 6783727.2914]
       },
       "properties": {

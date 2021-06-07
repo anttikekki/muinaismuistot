@@ -11,6 +11,881 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [239035, 6784941]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Pappilan ja Lähteenojan mylly",
+          "id": 1000022945,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000022945",
+          "municipality": "Eura"
+        },
+        "model": {
+          "name": "Pappilan ja Lähteenojan mylly",
+          "url": "https://sketchfab.com/models/0755b52c1fb84797938d187e37fb4e66"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [239069, 6784965]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Isomylly",
+          "id": 1000022944,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000022944",
+          "municipality": "Eura"
+        },
+        "model": {
+          "name": "Isomylly",
+          "url": "https://sketchfab.com/models/cfa75dfb94fa4d90acf77270ec642597"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [238330.1372999996, 6786836.1776]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Käräjämäki-Osmanmäki",
+          "id": 50010027,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.50010027",
+          "municipality": "Eura"
+        },
+        "model": {
+          "name": "Kahdeksan hautakuoppaa",
+          "url": "https://sketchfab.com/models/b493738b30804e279df9de09505c3c43"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [235735.07789999992, 6807317.938299999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kivitie",
+          "id": 79010022,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.79010022",
+          "municipality": "Harjavalta"
+        },
+        "model": {
+          "name": "Röykkiö (pohjoinen)",
+          "url": "https://sketchfab.com/models/05e5150bdfbc45eabf400ef421c5233a"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [235735.07789999992, 6807317.938299999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kivitie",
+          "id": 79010022,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.79010022",
+          "municipality": "Harjavalta"
+        },
+        "model": {
+          "name": "Röykkiö (eteläinen)",
+          "url": "https://sketchfab.com/models/0f741ff726ab4d62b550865838f8c8f3"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [239675.61560000014, 6782031.1138]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Harola",
+          "id": 50010019,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.50010019",
+          "municipality": "Eura"
+        },
+        "model": {
+          "name": "Röykkiö 4 (kivitie)",
+          "url": "https://sketchfab.com/models/ea68e486872842ca90eea0fb2521cbde"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [239675.61560000014, 6782031.1138]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Harola",
+          "id": 50010019,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.50010019",
+          "municipality": "Eura"
+        },
+        "model": {
+          "name": "Röykkiö 3",
+          "url": "https://sketchfab.com/models/3970c33ddd05493fa0b325faca911da1"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [239675.61560000014, 6782031.1138]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Harola",
+          "id": 50010019,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.50010019",
+          "municipality": "Eura"
+        },
+        "model": {
+          "name": "Röykkiö 2",
+          "url": "https://sketchfab.com/models/1330bdc2596a4d768c62527e5421803b"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [239675.61560000014, 6782031.1138]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Harola",
+          "id": 50010019,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.50010019",
+          "municipality": "Eura"
+        },
+        "model": {
+          "name": "Röykkiö 1",
+          "url": "https://sketchfab.com/models/b2e43e1e69564113bf93b35a123284c7"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [238596.03729999997, 6785033.9001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Luistari",
+          "id": 50010032,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.50010032",
+          "municipality": "Eura"
+        },
+        "model": {
+          "name": "Röykkiö 2",
+          "url": "https://sketchfab.com/models/aefdde9007584f49bcba1b7447e0bffe"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [238596.03729999997, 6785033.9001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Luistari",
+          "id": 50010032,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.50010032",
+          "municipality": "Eura"
+        },
+        "model": {
+          "name": "Röykkiö 1",
+          "url": "https://sketchfab.com/models/3f26141f567f4d4a9dae6f450e4ce9b7"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [251638, 6801615]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Perävainionmäki",
+          "id": 271010015,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.271010015",
+          "municipality": "Kokemäki"
+        },
+        "model": {
+          "name": "Röykkiö",
+          "url": "https://sketchfab.com/models/45074466b80c4a6cb48798535fff96a3"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [249874.42669999972, 6802569.913699999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Orjapaadenkallio",
+          "id": 271010036,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.271010036",
+          "municipality": "Kokemäki"
+        },
+        "model": {
+          "name": "Röykkiö",
+          "url": "https://sketchfab.com/models/b52a9a5aa88b4c7889e6377a1ec8255c"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [230153.3744000001, 6795174.7894]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Toukola (Sepänmäki)",
+          "id": 262010005,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.262010005",
+          "municipality": "Eura"
+        },
+        "model": {
+          "name": "Kaksi röykkiötä",
+          "url": "https://sketchfab.com/models/a672e9a033f245188286dabae360d51a"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [233811.85929999966, 6806732.170600001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuumoonmäki A ja B",
+          "id": 79010002,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.79010002",
+          "municipality": "Harjavalta"
+        },
+        "model": {
+          "name": "Kahdeksan röykkiötä",
+          "url": "https://sketchfab.com/models/6c689ae026c841b192070377c30a8013"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [233811.85929999966, 6806732.170600001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kuumoonmäki A ja B",
+          "id": 79010002,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.79010002",
+          "municipality": "Harjavalta"
+        },
+        "model": {
+          "name": "Röykkiö",
+          "url": "https://sketchfab.com/models/c78b6bd9dfb64482a6a588ec036fa9cf"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [234319.9199000001, 6806129.5143]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Jutintie N",
+          "id": 79010005,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.79010005",
+          "municipality": "Harjavalta"
+        },
+        "model": {
+          "name": "Röykkiö",
+          "url": "https://sketchfab.com/models/cacd7a9cc0004535b1b665175d0cbf20"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [208981.7209999999, 6830012.708000001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Linjaharju",
+          "id": 609010001,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.609010001",
+          "municipality": "Pori"
+        },
+        "model": {
+          "name": "Röykkiö 6",
+          "url": "https://sketchfab.com/models/75efeb4ed51d4575a0447481206e8759"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [208981.7209999999, 6830012.708000001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Linjaharju",
+          "id": 609010001,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.609010001",
+          "municipality": "Pori"
+        },
+        "model": {
+          "name": "Röykkiö 5",
+          "url": "https://sketchfab.com/models/6e9e86e35c894a7a96f4c124bff6cb56"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [208981.7209999999, 6830012.708000001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Linjaharju",
+          "id": 609010001,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.609010001",
+          "municipality": "Pori"
+        },
+        "model": {
+          "name": "Röykkiö 4",
+          "url": "https://sketchfab.com/models/53a2ead6ca7b4d6194625d7b852e1f38"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [208981.7209999999, 6830012.708000001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Linjaharju",
+          "id": 609010001,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.609010001",
+          "municipality": "Pori"
+        },
+        "model": {
+          "name": "Röykkiö 2",
+          "url": "https://sketchfab.com/models/fbb04a4af1a742e2b14dfc6c0de26bff"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [215415.16679999977, 6823620.300500002]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Linjaharju",
+          "id": 609010001,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.609010001",
+          "municipality": "Pori"
+        },
+        "model": {
+          "name": "Röykkiö 1",
+          "url": "https://sketchfab.com/models/def8483984d845429c4ecc2851038552"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [215415.16679999977, 6823620.300500002]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Hiittenmäki",
+          "id": 609010007,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.609010007",
+          "municipality": "Pori"
+        },
+        "model": {
+          "name": "Röykkiö 5",
+          "url": "https://sketchfab.com/models/f94d17a137684579b345db288d27781f"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [215415.16679999977, 6823620.300500002]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Hiittenmäki",
+          "id": 609010007,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.609010007",
+          "municipality": "Pori"
+        },
+        "model": {
+          "name": "Röykkiö 4",
+          "url": "https://sketchfab.com/models/2d9a644defca4326bee509c200969e82"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [215415.16679999977, 6823620.300500002]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Hiittenmäki",
+          "id": 609010007,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.609010007",
+          "municipality": "Pori"
+        },
+        "model": {
+          "name": "Röykkiö 3",
+          "url": "https://sketchfab.com/models/e281ea9c05664b5cb104a70cf51cd1cf"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [215415.16679999977, 6823620.300500002]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Hiittenmäki",
+          "id": 609010007,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.609010007",
+          "municipality": "Pori"
+        },
+        "model": {
+          "name": "Röykkiö 2",
+          "url": "https://sketchfab.com/models/11ab016800da464892cb0e6882810516"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [215415.16679999977, 6823620.300500002]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Hiittenmäki",
+          "id": 609010007,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.609010007",
+          "municipality": "Pori"
+        },
+        "model": {
+          "name": "Röykkiö 1",
+          "url": "https://sketchfab.com/models/a48abea548824fae84762dd6e91baae2"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [210082.4913999997, 6783727.2914]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kylmäkorvenkallio",
+          "id": 684010037,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010037",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Kivipöytä 2 ja 3",
+          "url": "https://sketchfab.com/models/21a4d2b3c62949b68184759095dd33d0"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [210082.4913999997, 6783727.2914]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kylmäkorvenkallio",
+          "id": 684010037,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010037",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Kivipöytä 1",
+          "url": "https://sketchfab.com/models/34935953ebf4459396837e2ceef4108c"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [210082.4913999997, 6783727.2914]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kylmäkorvenkallio",
+          "id": 684010037,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010037",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 5",
+          "url": "https://sketchfab.com/models/54cc1a5e9f0449f0bebb2c0a4a60282f"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [210082.4913999997, 6783727.2914]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kylmäkorvenkallio",
+          "id": 684010037,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010037",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 4 (kehäröykkiö)",
+          "url": "https://sketchfab.com/models/73b2051759aa415d9ada46717a98951c"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [210082.4913999997, 6783727.2914]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kylmäkorvenkallio",
+          "id": 684010037,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010037",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 3",
+          "url": "https://sketchfab.com/models/c62ecdefb05f4b189e66e7e618f52724"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [210082.4913999997, 6783727.2914]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kylmäkorvenkallio",
+          "id": 684010037,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010037",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 2",
+          "url": "https://sketchfab.com/models/430be8cdf8e24392a0f6383531838f95"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [210082.4913999997, 6783727.2914]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kylmäkorvenkallio",
+          "id": 684010037,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010037",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Röykkiö 1",
+          "url": "https://sketchfab.com/models/5c648c6a1531421b989b8a6e87082977"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [237292.03949999996, 6645548.9165]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Metskär",
+          "id": 1512,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1512",
+          "municipality": "Kemiönsaari"
+        },
+        "model": {
+          "name": "Wreck of Metskär, Örö FI",
+          "url": "https://sketchfab.com/models/53caefdaedac44e1b129aaea47648a57"
+        },
+        "author": "Nautic Club Urheilusukeltajat ry",
+        "authorUrl": "https://sketchfab.com/nauticclubry",
+        "licence": "Copyright (C) Nautic Club Urheilusukeltajat ry",
+        "licenceUrl": "",
+        "createdDate": "2021-06-07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [218665.02579999994, 6787137.963100001]
       },
       "properties": {
