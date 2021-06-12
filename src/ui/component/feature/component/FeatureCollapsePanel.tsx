@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
-import { dispatch } from "rxjs/internal/observable/pairs"
 import {
   ArgisFeature,
   GeoJSONFeature,

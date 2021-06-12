@@ -31,7 +31,7 @@ function renderList<T extends string>(
     return null
   }
   if (data.length === 1) {
-    return <p>{contentFn(data[0])}</p>
+    return contentFn(data[0])
   }
 
   return (
@@ -70,10 +70,10 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         <Field label={t(`details.field.municipality`)} value={kunta} />
         <Field label={t(`details.field.dating`)}>
           {renderList(ajoitusSplitted, (ajoitus) => (
-            <>
+            <p>
               <span>{t(`data.museovirasto.dating.${ajoitus}`, ajoitus)}</span>{" "}
               <TimespanLabel dating={ajoitus} />
-            </>
+            </p>
           ))}
         </Field>
         <Field label={t(`details.field.type`)}>
