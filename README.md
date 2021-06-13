@@ -4,6 +4,55 @@ A web page to show ancient monuments of Finland in mobile friendly map.
 
 ![muinaismuistot.info screenshot](./docs/muinaismuistot-screenshot.png "muinaismuistot.info screenshot")
 
+## Main features
+
+- Displays [Finnish Heritage Agency](https://www.museovirasto.fi/en) and [Government of Åland](https://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret) ancient monuments open data on map from the [National Land Survey of Finland](https://www.maanmittauslaitos.fi/en)
+- Scales from mobile device to desktop screen
+- Get more info from sites by clicking it
+- Select background map type (background map, topografic map, aerial image)
+- Displays your current location on map if you allow it
+- Search sites by search term
+- Filter sites on map by type and dating
+- Share selected site map coordinates and filter settings by copying the URL
+- UI test translations to finnish and swedish
+- Displays linked ancient monuments 3D models from [Sketchfab](https://sketchfab.com)
+- Shows data latest update dates from source servers
+
+## Data
+
+- [National Land Survey of Finland](https://www.maanmittauslaitos.fi/en)
+  - Background map, topografic map and aerial image [open map data](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/topographic-data-and-how-acquire-it)
+  - Free to use [WMTS Map tile API](https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml)
+  - Map data licence is [Creative Commons CC By 4.0](https://creativecommons.org/licenses/by/4.0/)
+- [Finnish Heritage Agency](https://www.museovirasto.fi/en)
+  - Ancient monuments and architectural heritage [open map data](https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot)
+  - Free to use [ArcGIS WMS Map tile REST API](https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer)
+  - Map data licence is [Creative Commons CC By 4.0](https://creativecommons.org/licenses/by/4.0/)
+- [Government of Åland](https://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret)
+  - Ancient monuments [open map data](https://www.kartor.ax/datasets/aland::fornminnen/about)
+  - Free to use [ArcGIS WMS Map tile REST API](https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer)
+  - Map data licence is [Creative Commons CC By 4.0](https://creativecommons.org/licenses/by/4.0/)
+- [Geological Survey of Finland](https://www.gtk.fi/en/front-page/)
+  - [Ancient shorelines](https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html)
+  - [ArcGIS WMS Map tile REST API](https://gtkdata.gtk.fi/arcgis/rest/services/Rajapinnat/GTK_Maapera_WMS/MapServer/7)
+  - Restricted [base licence](https://www.gtk.fi/peruslisenssi/), permission to use the API on this site acquired at 15.1.2021.
+- [Helsinki Urban Environment Division](https://www.hel.fi/kaupunkiymparisto/en)
+  - Fortifications on land during First World War in Helsinki [open map data](<(https://hri.fi/data/en_GB/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset)>)
+  - Free to use [WMS Map tile API](https://kartta.hel.fi/ws/geoserver/avoindata/wms)
+  - Map data licence is [Creative Commons CC By 4.0](https://creativecommons.org/licenses/by/4.0/)
+- [Own 3D models database](https://muinaismuistot.info/3d/)
+  - Links [Sketchfab](https://sketchfab.com) 3D models to ancient monuments location and register info to map
+  - Free to use [GeoJSON file](https://muinaismuistot.info/3d/3d.json)
+  - Every 3D model has separate licence
+- [Own "Maiseman muisti" book ancient monuments database](https://muinaismuistot.info/maisemanmuisti/)
+  - "Maiseman muisti" book (Finnish Heritage Agency, 2001) ancient monuments locations
+  - Free to use [GeoJSON file](https://muinaismuistot.info/maisemanmuisti/maisemanmuisti.json)
+  - Permission asked from Finnish Heritage Agency to list the ancient monuments included in the book
+
+## Version history
+
+See [GitHub releases](https://github.com/anttikekki/muinaismuistot/releases)
+
 ## Technologies
 
 - UI
