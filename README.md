@@ -1,6 +1,6 @@
 # Muinaismuistot.info
 
-A web page to show ancient monuments of Finland in mobile friendly map.
+A web page to show ancient monuments of Finland in mobile friendly map. Enter the site: [muinaismuistot.info](https://muinaismuistot.info/).
 
 ![muinaismuistot.info screenshot](./docs/muinaismuistot-screenshot.png "muinaismuistot.info screenshot")
 
