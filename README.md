@@ -53,6 +53,10 @@ A web page to show ancient monuments of Finland in mobile friendly map.
 
 See [GitHub releases](https://github.com/anttikekki/muinaismuistot/releases)
 
+## Licence
+
+[MIT License](https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE)
+
 ## Technologies
 
 - UI
