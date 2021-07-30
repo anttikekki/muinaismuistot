@@ -19,7 +19,7 @@ module.exports = {
   output: {
     path: __dirname + "/dist", // Required by CleanWebpackPlugin, default for Webpack 5
     filename: "[name]-[contenthash].js",
-    assetModuleFilename: "fonts/[name].[ext]"
+    assetModuleFilename: "fonts/[name][ext]"
   },
   module: {
     rules: [
