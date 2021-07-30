@@ -11,6 +11,281 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [383771, 6674108]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Humallahti",
+          "id": 91010019,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.91010019",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Humallahti",
+          "url": "https://sketchfab.com/models/e32187f4d0b84012993e9f7f40ae9651"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-07-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [309061.3158999998, 6664390.7228]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sjösäng 7",
+          "id": 606010033,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.606010033",
+          "municipality": "Raasepori"
+        },
+        "model": {
+          "name": "Sjösäng 7",
+          "url": "https://sketchfab.com/models/ca85766f9c9945b3a13f3ef7c6b9be00"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-07-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [309641.0843000002, 6664574.6439]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Sjösäng 9",
+          "id": 606010035,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.606010035",
+          "municipality": "Raasepori"
+        },
+        "model": {
+          "name": "Sjösäng 9",
+          "url": "https://sketchfab.com/models/96e0030cd8254cd39241948de3cfd531"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-07-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [285383.76860000007, 6677570.3024]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Karpinmäki 2",
+          "id": 586010073,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.586010073",
+          "municipality": "Salo"
+        },
+        "model": {
+          "name": "Karpinmäki 2",
+          "url": "https://sketchfab.com/models/38582ff5fb5a486ea1b256744aaf22bd"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-07-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [285216.8304000003, 6677638.2699]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Karpinmäki 1",
+          "id": 586010072,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.586010072",
+          "municipality": "Salo"
+        },
+        "model": {
+          "name": "Karpinmäki 1",
+          "url": "https://sketchfab.com/models/a9eb4ff514074efcab347b1bfb5ee2af"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-07-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [313081.7279000003, 6659012.904100001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Rullarsböle Kasberget 2",
+          "id": 835010093,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.835010093",
+          "municipality": "Raasepori"
+        },
+        "model": {
+          "name": "Rullarsböle Kasberget 3",
+          "url": "https://sketchfab.com/models/4d579975c60f4162aaf564a86fd9cfe2"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-07-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [313006.75430000015, 6659125.8541]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Rullarsböle Kasberget",
+          "id": 835010092,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.835010092",
+          "municipality": "Raasepori"
+        },
+        "model": {
+          "name": "Rullarsböle Kasberget 2",
+          "url": "https://sketchfab.com/models/7f416173a8254a2e82bec024623e29af"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-07-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [313006.75430000015, 6659125.8541]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Rullarsböle Kasberget",
+          "id": 835010092,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.835010092",
+          "municipality": "Raasepori"
+        },
+        "model": {
+          "name": "Rullarsböle Kasberget 1",
+          "url": "https://sketchfab.com/models/f96d7e38fe3e4fa19c5f381dd7fe70bc"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-07-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [284149, 6697739]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Viitamäki",
+          "id": 734010012,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.734010012",
+          "municipality": "Salo"
+        },
+        "model": {
+          "name": "Viitamäki 3",
+          "url": "https://sketchfab.com/models/02d884b24deb40ff855e0443073c6169"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-07-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [284149, 6697739]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Viitamäki",
+          "id": 734010012,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.734010012",
+          "municipality": "Salo"
+        },
+        "model": {
+          "name": "Viitamäki 2",
+          "url": "https://sketchfab.com/models/dfc63a57373a4e5484c8025f696d99fc"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-07-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [284149, 6697739]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Viitamäki",
+          "id": 734010012,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.734010012",
+          "municipality": "Salo"
+        },
+        "model": {
+          "name": "Viitamäki 1",
+          "url": "https://sketchfab.com/models/1a75801642cf404db4b78fc697b9ccc1"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-07-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [244342, 6983897]
       },
       "properties": {
