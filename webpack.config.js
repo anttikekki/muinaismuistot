@@ -2,8 +2,8 @@ const webpack = require("webpack")
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-  .BundleAnalyzerPlugin
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 
 const SHOW_BUNDLE_ANALYZER = process.env.SHOW_BUNDLE_ANALYZER !== undefined
 
@@ -18,30 +18,23 @@ module.exports = {
   },
   output: {
     path: __dirname + "/dist", // Required by CleanWebpackPlugin, default for Webpack 5
-    filename: "[name]-[contenthash].js"
+    filename: "[name]-[contenthash].js",
+    assetModuleFilename: "fonts/[name].[ext]"
   },
   module: {
     rules: [
       {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "ts-loader"
-          }
-        ]
+        loader: "ts-loader"
       },
       {
         test: /\.css$/,
         use: [{ loader: "style-loader" }, { loader: "css-loader" }]
       },
       {
-        test: [/\.svg$/, /\.woff2?$/, /\.ttf$/, /\.eot$/],
-        loader: "file-loader",
-        options: {
-          name: "[name].[ext]",
-          outputPath: "fonts"
-        }
+        test: [/\.svg$/, /\.woff(2?)$/, /\.ttf$/, /\.eot$/],
+        type: "asset/resource"
       }
     ]
   },

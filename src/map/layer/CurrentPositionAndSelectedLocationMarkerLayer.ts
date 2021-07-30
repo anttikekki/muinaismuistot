@@ -8,12 +8,13 @@ import Icon from "ol/style/Icon"
 import Feature from "ol/Feature"
 import Point from "ol/geom/Point"
 import { Coordinate } from "ol/coordinate"
+import Geometry from "ol/geom/Geometry"
 
 export default class CurrentPositionAndSelectedLocationMarkerLayer {
-  private layer: VectorLayer
-  private source: VectorSource
-  private currentPositionFeature?: Feature
-  private selectedLocationFeature?: Feature
+  private layer: VectorLayer<VectorSource<Geometry>>
+  private source: VectorSource<Geometry>
+  private currentPositionFeature?: Feature<Geometry>
+  private selectedLocationFeature?: Feature<Geometry>
 
   public constructor() {
     this.source = new VectorSource({})
@@ -73,5 +74,5 @@ export default class CurrentPositionAndSelectedLocationMarkerLayer {
     this.source.addFeature(this.selectedLocationFeature)
   }
 
-  public getLayer = (): VectorLayer => this.layer
+  public getLayer = (): VectorLayer<VectorSource<Geometry>> => this.layer
 }

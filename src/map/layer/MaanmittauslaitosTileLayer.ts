@@ -9,16 +9,16 @@ import { ActionTypes } from "../../store/actionTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (
-  mmlMaastokarttaLayer: TileLayer,
-  mmlTaustakarttaLayer: TileLayer,
-  mmlOrtokuvaLayer: TileLayer
+  mmlMaastokarttaLayer: TileLayer<WMTSSource>,
+  mmlTaustakarttaLayer: TileLayer<WMTSSource>,
+  mmlOrtokuvaLayer: TileLayer<WMTSSource>
 ) => void
 
 export default class MaanmittauslaitosTileLayer {
   private store: Store<Settings, ActionTypes>
-  private mmlMaastokarttaLayer?: TileLayer
-  private mmlTaustakarttaLayer?: TileLayer
-  private mmlOrtokuvaLayer?: TileLayer
+  private mmlMaastokarttaLayer?: TileLayer<WMTSSource>
+  private mmlTaustakarttaLayer?: TileLayer<WMTSSource>
+  private mmlOrtokuvaLayer?: TileLayer<WMTSSource>
   private maastokarttaLayerSource?: WMTSSource
   private taustakarttaLayerSource?: WMTSSource
   private ortokuvaLayerSource?: WMTSSource

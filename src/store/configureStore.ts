@@ -9,7 +9,12 @@ export const configureStore = (
   initialSettings: Settings,
   rootReducer: Reducer<Settings, ActionTypes>
 ): Store<Settings, ActionTypes> => {
-  const epicMiddleware = createEpicMiddleware()
+  const epicMiddleware = createEpicMiddleware<
+    ActionTypes,
+    ActionTypes,
+    Settings,
+    any
+  >()
 
   const store = createStore(
     rootReducer,

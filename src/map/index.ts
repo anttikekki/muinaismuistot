@@ -38,6 +38,8 @@ import {
   showLoadingAnimation
 } from "../store/actionCreators"
 import HelsinkiTileLayer from "./layer/HelsinkiTileLayer"
+import VectorSource from "ol/source/Vector"
+import Geometry from "ol/geom/Geometry"
 
 let store: Store<Settings, ActionTypes>
 let map: Map
@@ -126,7 +128,8 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
 
   maisemanMuistiLayer = new MaisemanMuistiLayer(store)
   modelsLayer = new ModelsLayer(store)
-  positionAndSelectedLocation = new CurrentPositionAndSelectedLocationMarkerLayer()
+  positionAndSelectedLocation =
+    new CurrentPositionAndSelectedLocationMarkerLayer()
 
   Promise.all([
     maisemanMuistiLayer.createLayer(),
@@ -162,7 +165,7 @@ const showLoadingAnimationInUI = (show: boolean) => {
 
 const getFeaturesAtPixelAtGeoJsonLayer = <T>(
   pixel: Pixel,
-  geoJsonLayer?: VectorLayer
+  geoJsonLayer?: VectorLayer<VectorSource<Geometry>>
 ): Array<GeoJSONFeature<T>> => {
   return map
     .getFeaturesAtPixel(pixel, {
@@ -185,7 +188,7 @@ const getFeaturesAtPixelAtGeoJsonLayer = <T>(
     })
 }
 
-const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
+const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent<UIEvent>) => {
   showLoadingAnimationInUI(true)
   const mapSize = map.getSize()
   if (!mapSize) {
@@ -215,10 +218,11 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
     modelsLayer.getLayer()
   )
 
-  const maisemanMuistiResult = getFeaturesAtPixelAtGeoJsonLayer<MaisemanMuistiFeatureProperties>(
-    e.pixel,
-    maisemanMuistiLayer.getLayer()
-  )
+  const maisemanMuistiResult =
+    getFeaturesAtPixelAtGeoJsonLayer<MaisemanMuistiFeatureProperties>(
+      e.pixel,
+      maisemanMuistiLayer.getLayer()
+    )
 
   Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery]).then(
     ([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {
@@ -379,32 +383,33 @@ export const zoomOut = () => {
   zoom(-1)
 }
 
-export const fetchDataLatestUpdateDatesFromMapLayers = async (): Promise<DataLatestUpdateDates> => {
-  try {
-    const [
-      museovirastoResult,
-      ahvenanmaaForminnenResult,
-      ahvenanmaaMaritimtKulturarvResult,
-      modelsResult
-    ] = await Promise.all([
-      museovirastoTileLayer.getDataLatestUpdateDate(),
-      ahvenanmaaTileLayer.getForminnenDataLatestUpdateDate(),
-      ahvenanmaaTileLayer.getMaritimtKulturarvDataLatestUpdateDate(),
-      modelsLayer.getDataLatestUpdateDate()
-    ])
+export const fetchDataLatestUpdateDatesFromMapLayers =
+  async (): Promise<DataLatestUpdateDates> => {
+    try {
+      const [
+        museovirastoResult,
+        ahvenanmaaForminnenResult,
+        ahvenanmaaMaritimtKulturarvResult,
+        modelsResult
+      ] = await Promise.all([
+        museovirastoTileLayer.getDataLatestUpdateDate(),
+        ahvenanmaaTileLayer.getForminnenDataLatestUpdateDate(),
+        ahvenanmaaTileLayer.getMaritimtKulturarvDataLatestUpdateDate(),
+        modelsLayer.getDataLatestUpdateDate()
+      ])
 
-    return {
-      museovirasto: museovirastoResult,
-      ahvenanmaaForminnen: ahvenanmaaForminnenResult,
-      ahvenanmaaMaritimtKulturarv: ahvenanmaaMaritimtKulturarvResult,
-      models: modelsResult
-    }
-  } catch (e) {
-    return {
-      museovirasto: null,
-      ahvenanmaaForminnen: null,
-      ahvenanmaaMaritimtKulturarv: null,
-      models: null
+      return {
+        museovirasto: museovirastoResult,
+        ahvenanmaaForminnen: ahvenanmaaForminnenResult,
+        ahvenanmaaMaritimtKulturarv: ahvenanmaaMaritimtKulturarvResult,
+        models: modelsResult
+      }
+    } catch (e) {
+      return {
+        museovirasto: null,
+        ahvenanmaaForminnen: null,
+        ahvenanmaaMaritimtKulturarv: null,
+        models: null
+      }
     }
   }
-}

@@ -20,11 +20,13 @@ import { Store } from "redux"
 import { ActionTypes } from "../../store/actionTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
-export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
+export type OnLayersCreatedCallbackFn = (
+  layer: TileLayer<TileArcGISRestSource>
+) => void
 
 export default class MuseovirastoTileLayer {
   private source?: TileArcGISRestSource
-  private layer?: TileLayer
+  private layer?: TileLayer<TileArcGISRestSource>
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
@@ -245,32 +247,30 @@ export default class MuseovirastoTileLayer {
   ): Promise<ArgisIdentifyResult> => {
     const result: ArgisIdentifyResult = {
       ...data,
-      results: data.results?.map(
-        (result): ArgisFeature => {
-          if (result.layerName === MuseovirastoLayer.Muinaisjaannokset_piste) {
-            return {
-              ...result,
-              attributes: {
-                ...result.attributes,
-                tyyppiSplitted: trim(result.attributes.tyyppi)
-                  .replace("taide, muistomerkit", "taide-muistomerkit")
-                  .split(", ")
-                  .map((t) =>
-                    t === "taide-muistomerkit" ? "taide, muistomerkit" : t
-                  ) as Array<MuinaisjaannosTyyppi>,
-                ajoitusSplitted: trim(result.attributes.ajoitus).split(
-                  ", "
-                ) as Array<MuinaisjaannosAjoitus>,
-                alatyyppiSplitted: trim(result.attributes.alatyyppi)
-                  .replace("rajamerkit, puu", "rajamerkit-puu")
-                  .split(", ")
-                  .map((t) => (t === "rajamerkit-puu" ? "rajamerkit, puu" : t))
-              }
+      results: data.results?.map((result): ArgisFeature => {
+        if (result.layerName === MuseovirastoLayer.Muinaisjaannokset_piste) {
+          return {
+            ...result,
+            attributes: {
+              ...result.attributes,
+              tyyppiSplitted: trim(result.attributes.tyyppi)
+                .replace("taide, muistomerkit", "taide-muistomerkit")
+                .split(", ")
+                .map((t) =>
+                  t === "taide-muistomerkit" ? "taide, muistomerkit" : t
+                ) as Array<MuinaisjaannosTyyppi>,
+              ajoitusSplitted: trim(result.attributes.ajoitus).split(
+                ", "
+              ) as Array<MuinaisjaannosAjoitus>,
+              alatyyppiSplitted: trim(result.attributes.alatyyppi)
+                .replace("rajamerkit, puu", "rajamerkit-puu")
+                .split(", ")
+                .map((t) => (t === "rajamerkit-puu" ? "rajamerkit, puu" : t))
             }
           }
-          return result
         }
-      )
+        return result
+      })
     }
     return result
   }

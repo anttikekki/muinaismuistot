@@ -15,11 +15,11 @@ import {
 } from "../../common/types"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
-export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
+export type OnLayersCreatedCallbackFn = (layer: TileLayer<TileWMS>) => void
 
 export default class HelsinkiTileLayer {
   private source?: TileWMS
-  private layer?: TileLayer
+  private layer?: TileLayer<TileWMS>
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
@@ -41,9 +41,7 @@ export default class HelsinkiTileLayer {
     this.layer = new TileLayer({
       // Extent from EPSG:3067 https://kartta.hel.fi/ws/geoserver/avoindata/wms?request=getCapabilities
       extent: [
-        375492.90815974085,
-        6653540.407044016,
-        405531.7569803879,
+        375492.90815974085, 6653540.407044016, 405531.7569803879,
         6689393.357339721
       ],
       source: this.source,
@@ -100,9 +98,10 @@ export default class HelsinkiTileLayer {
      * Maalinnoitus_karttatekstit layer does not provide any usefull data so
      * let's remove it from identify call
      */
-    const selectedLayersWithoutTextLayer = settings.helsinki.selectedLayers.filter(
-      (layer) => layer !== HelsinkiLayer.Maalinnoitus_karttatekstit
-    )
+    const selectedLayersWithoutTextLayer =
+      settings.helsinki.selectedLayers.filter(
+        (layer) => layer !== HelsinkiLayer.Maalinnoitus_karttatekstit
+      )
 
     if (
       !extent ||
@@ -131,7 +130,8 @@ export default class HelsinkiTileLayer {
       if (url) {
         try {
           const response = await fetch(String(url))
-          const result = (await response.json()) as MaalinnoitusWmsFeatureInfoResult
+          const result =
+            (await response.json()) as MaalinnoitusWmsFeatureInfoResult
           return this.removeDuplicateIdentifyFeatures(result.features)
         } catch (e) {
           return []

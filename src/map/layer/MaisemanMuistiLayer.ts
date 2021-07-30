@@ -15,11 +15,12 @@ import { getFeatureID } from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
 import { Store } from "redux"
 import { ActionTypes } from "../../store/actionTypes"
+import Geometry from "ol/geom/Geometry"
 
 export default class MaisemanMuistiLayer {
   private store: Store<Settings, ActionTypes>
-  private layer?: VectorLayer
-  private source?: VectorSource
+  private layer?: VectorLayer<VectorSource<Geometry>>
+  private source?: VectorSource<Geometry>
   private style: Style
   private featuresForRegisterId = new Map<
     string,
@@ -52,7 +53,9 @@ export default class MaisemanMuistiLayer {
     return data as GeoJSONResponse<MaisemanMuistiFeatureProperties>
   }
 
-  public createLayer = async (): Promise<VectorLayer> => {
+  public createLayer = async (): Promise<
+    VectorLayer<VectorSource<Geometry>>
+  > => {
     const settings = this.store.getState()
     const geojsonObject = await this.fetchGeoJson(settings)
 
@@ -100,5 +103,6 @@ export default class MaisemanMuistiLayer {
     this.layer?.setVisible(settings.maisemanMuisti.selectedLayers.length > 0)
   }
 
-  public getLayer = (): VectorLayer | undefined => this.layer
+  public getLayer = (): VectorLayer<VectorSource<Geometry>> | undefined =>
+    this.layer
 }

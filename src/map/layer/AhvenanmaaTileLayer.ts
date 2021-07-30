@@ -19,11 +19,13 @@ import { Store } from "redux"
 import { ActionTypes } from "../../store/actionTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
-export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
+export type OnLayersCreatedCallbackFn = (
+  layer: TileLayer<TileArcGISRestSource>
+) => void
 
 export default class AhvenanmaaTileLayer {
   private source?: TileArcGISRestSource
-  private layer?: TileLayer
+  private layer?: TileLayer<TileArcGISRestSource>
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
@@ -181,25 +183,23 @@ export default class AhvenanmaaTileLayer {
     const typeAndDatingMap = await this.getTypeAndDatingData()
     const result: ArgisIdentifyResult = {
       ...data,
-      results: data.results.map(
-        (result): ArgisFeature => {
-          if (result.layerName === AhvenanmaaLayer.Fornminnen) {
-            const typeAndDating = typeAndDatingMap.get(
-              result.attributes["Fornlämnings ID"]
-            )
-            if (typeAndDating) {
-              return {
-                ...result,
-                attributes: {
-                  ...result.attributes,
-                  typeAndDating
-                }
+      results: data.results.map((result): ArgisFeature => {
+        if (result.layerName === AhvenanmaaLayer.Fornminnen) {
+          const typeAndDating = typeAndDatingMap.get(
+            result.attributes["Fornlämnings ID"]
+          )
+          if (typeAndDating) {
+            return {
+              ...result,
+              attributes: {
+                ...result.attributes,
+                typeAndDating
               }
             }
           }
-          return result
         }
-      )
+        return result
+      })
     }
     return result
   }
@@ -219,7 +219,8 @@ export default class AhvenanmaaTileLayer {
 
     try {
       const response = await fetch(settings.ahvenanmaa.url.typeAndDating)
-      const data = (await response.json()) as GeoJSONResponse<AhvenanmaaTypeAndDatingFeatureProperties>
+      const data =
+        (await response.json()) as GeoJSONResponse<AhvenanmaaTypeAndDatingFeatureProperties>
 
       data.features.forEach((feature) => {
         const id = feature.properties.FornID

@@ -111,7 +111,7 @@ export const SiteInfoPanel: React.FC = () => {
       <h5>{t(`info.siteInfo.searchTitle`)}</h5>
       <p>
         {regexifyString({
-          pattern: /SEARCH_ICON|ALUE_ICONS/gm,
+          pattern: /SEARCH_ICON|PIN_ICON/gm,
           decorator: (match) => {
             if (match === "SEARCH_ICON") {
               return (

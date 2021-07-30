@@ -22,11 +22,12 @@ import Fill from "ol/style/Fill"
 import { Settings } from "../../store/storeTypes"
 import { Store } from "redux"
 import { ActionTypes } from "../../store/actionTypes"
+import Geometry from "ol/geom/Geometry"
 
 export default class ModelsLayer {
   private store: Store<Settings, ActionTypes>
-  private layer?: VectorLayer
-  private source?: VectorSource
+  private layer?: VectorLayer<VectorSource<Geometry>>
+  private source?: VectorSource<Geometry>
   private stylePointCircle: Style
   private stylePointSquare: Style
   private stylePolygon: Style
@@ -106,7 +107,9 @@ export default class ModelsLayer {
     }
   }
 
-  public createLayer = async (): Promise<VectorLayer> => {
+  public createLayer = async (): Promise<
+    VectorLayer<VectorSource<Geometry>>
+  > => {
     const settings = this.store.getState()
     const geojsonObject = await this.fetchGeoJson(settings)
 
@@ -156,7 +159,8 @@ export default class ModelsLayer {
     this.layer?.setVisible(settings.models.selectedLayers.length > 0)
   }
 
-  public getLayer = (): VectorLayer | undefined => this.layer
+  public getLayer = (): VectorLayer<VectorSource<Geometry>> | undefined =>
+    this.layer
 
   public getDataLatestUpdateDate = async (): Promise<Date> => {
     const settings = this.store.getState()

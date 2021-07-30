@@ -7,11 +7,13 @@ import { Store } from "redux"
 import { ActionTypes } from "../../store/actionTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
-export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
+export type OnLayersCreatedCallbackFn = (
+  layer: TileLayer<TileArcGISRestSource>
+) => void
 
 export default class GtkTileLayer {
   private source?: TileArcGISRestSource
-  private layer?: TileLayer
+  private layer?: TileLayer<TileArcGISRestSource>
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
