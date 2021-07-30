@@ -1,6 +1,6 @@
 {
   "name": "muinaismuistot",
-  "version": "1.11.2",
+  "version": "1.11.3",
   "description": "Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa.",
   "scripts": {
     "build:prod": "NODE_ENV=production webpack --mode=production --progress",
