@@ -20,7 +20,7 @@ export const OpenSearchPageButton: React.FunctionComponent = () => {
         title={t(`common.button.search`)}
         onClick={onClick}
       >
-        <span className="glyphicon glyphicon-search" aria-hidden="true" />
+        <i className="bi bi-search"></i>
       </button>
     </div>
   )

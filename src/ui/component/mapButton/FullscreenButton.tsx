@@ -22,7 +22,7 @@ export const FullscreenButton: React.FunctionComponent<Props> = ({
         title={t(`common.button.fullscreen`)}
         onClick={onClick}
       >
-        <span className="glyphicon glyphicon-fullscreen" aria-hidden="true" />
+        <i className="bi bi-arrows-fullscreen"></i>
       </button>
     </div>
   )

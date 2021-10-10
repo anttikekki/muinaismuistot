@@ -6,9 +6,10 @@ import { centerToCurrentPosition } from "../../../store/actionCreators"
 export const CenterToCurrentPositionButton: React.FunctionComponent = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const onClick = useCallback(() => dispatch(centerToCurrentPosition()), [
-    dispatch
-  ])
+  const onClick = useCallback(
+    () => dispatch(centerToCurrentPosition()),
+    [dispatch]
+  )
 
   return (
     <div id="map-button-position" className="map-button">
@@ -18,7 +19,7 @@ export const CenterToCurrentPositionButton: React.FunctionComponent = () => {
         title={t(`common.button.positioning`)}
         onClick={onClick}
       >
-        <span className="glyphicon glyphicon-screenshot" aria-hidden="true" />
+        <i className="bi bi-geo-alt-fill"></i>
       </button>
     </div>
   )
