@@ -11,6 +11,181 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [213517.10140000004, 6786225.306400001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Hongisto",
+          "id": 684010027,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010027",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Hongisto (pohjoinen)",
+          "url": "https://sketchfab.com/models/cb5305e08c6e44009ae173bacee25b86"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-10-10"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [213517.10140000004, 6786225.306400001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Hongisto",
+          "id": 684010027,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010027",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Hongisto (eteläinen)",
+          "url": "https://sketchfab.com/models/74703c00af264d3687209b64c8ef3067"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-10-10"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [212840.37100000028, 6786840.057100002]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kaupinvuori",
+          "id": 684010026,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010026",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Kaupinvuori (läntinen)",
+          "url": "https://sketchfab.com/models/db7ecf9529114b5a9310f0d89ff7ef70"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-10-10"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [212840.37100000028, 6786840.057100002]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kaupinvuori",
+          "id": 684010026,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010026",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Kaupinvuori (itäinen)",
+          "url": "https://sketchfab.com/models/5d43fa2f55db48eeb823ff0fd1740465"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-10-10"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [202749, 6791809]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Karhulinna",
+          "id": 1000023377,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000023377",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Karhulinna",
+          "url": "https://sketchfab.com/models/b563a38ab21e459eb10e6f9122a05b20"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-10-10"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [204807.58160000015, 6789323.024099998]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Pyhän kolminaisuuden kirkon raunio",
+          "id": 1000014882,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000014882",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Pyhän kolminaisuuden kirkon raunio",
+          "url": "https://sketchfab.com/models/954694e5a61345169f07ebb1ba9a461b"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-10-10"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [354318, 6662988]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kasaberget 1",
+          "id": 257010026,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.257010026",
+          "municipality": "Kirkkonummi"
+        },
+        "model": {
+          "name": "Kasaberget 1",
+          "url": "https://sketchfab.com/models/15b8ac6a561f424ab8c6793eea0e12ac"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2021-10-10"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [383771, 6674108]
       },
       "properties": {
