@@ -51,21 +51,23 @@ export default class MaanmittauslaitosTileLayer {
     const parser = new WMTSCapabilities()
     const capabilities = parser.read(WMTSCapabilitiesXml)
 
-    this.maastokarttaLayerSource = new WMTSSource(
-      optionsFromCapabilities(capabilities, {
-        layer: MaanmittauslaitosLayer.Maastokartta
-      })
-    )
-    this.taustakarttaLayerSource = new WMTSSource(
-      optionsFromCapabilities(capabilities, {
-        layer: MaanmittauslaitosLayer.Taustakartta
-      })
-    )
-    this.ortokuvaLayerSource = new WMTSSource(
-      optionsFromCapabilities(capabilities, {
-        layer: MaanmittauslaitosLayer.Ortokuva
-      })
-    )
+    const maastokarttaOptions = optionsFromCapabilities(capabilities, {
+      layer: MaanmittauslaitosLayer.Maastokartta
+    })
+    const taustakarttaOptions = optionsFromCapabilities(capabilities, {
+      layer: MaanmittauslaitosLayer.Taustakartta
+    })
+    const ortokuvaOptions = optionsFromCapabilities(capabilities, {
+      layer: MaanmittauslaitosLayer.Ortokuva
+    })
+
+    if (!maastokarttaOptions || !taustakarttaOptions || !ortokuvaOptions) {
+      return
+    }
+
+    this.maastokarttaLayerSource = new WMTSSource(maastokarttaOptions)
+    this.taustakarttaLayerSource = new WMTSSource(taustakarttaOptions)
+    this.ortokuvaLayerSource = new WMTSSource(ortokuvaOptions)
 
     // Add MML api key to all layers. This API key is just for avoin-karttakuva.maanmittauslaitos.fi
     ;[
