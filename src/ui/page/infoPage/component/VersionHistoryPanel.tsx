@@ -17,6 +17,7 @@ export const VersionHistoryPanel: React.FC = () => {
         -tuki. Nyt sivustoon voi lisätä pikakuvakkeen älylaitteen työpöydälle,
         josta aukeutuvassa versiossa ei näy selaimen osoitepalkkia.
       </p>
+      <p>Yritetty korjata <a href="https://github.com/openlayers/openlayers/issues/12908" target="_blank">sivuston kaatumista</a> iOS 15 Safari -selaimella.</p>
       <br />
 
       <h5>Maaliskuu 2021</h5>
