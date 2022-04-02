@@ -65,7 +65,7 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
   registerProj4(proj4)
 
   const extent: Extent = [50199.4814, 6582464.0358, 761274.6247, 7799839.8902]
-  getProjection("EPSG:3067").setExtent(extent)
+  getProjection("EPSG:3067")?.setExtent(extent)
 
   view = new View({
     center: [385249.63630000036, 6672695.7579],

@@ -88,7 +88,7 @@ There is no hosted backend server. Browser calls directly data providers map ser
 
 ### Requirements
 
-- [Node.js](https://nodejs.org/en/) v14 installed. Exact required version is defined in [`package.json`](./package.json) `engines` field.
+- [Node.js](https://nodejs.org/en/) v16 installed. Exact required version is defined in [`package.json`](./package.json) `engines` field.
 - Only MacOS is tested, Linux should also work. `package.json` scripts use `PARAM=value` type parameters that require different syntax on Windows.
 
 ### Environment setup

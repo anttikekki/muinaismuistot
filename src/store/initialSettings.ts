@@ -7,7 +7,6 @@ import {
   ModelLayer,
   MaisemanMuistiLayer,
   Language,
-  GtkLayer,
   HelsinkiLayer
 } from "../common/types"
 import { Settings } from "./storeTypes"
@@ -55,8 +54,7 @@ export const initialSettings: Settings = {
         "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/export",
       identify:
         "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/identify",
-      find:
-        "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/find",
+      find: "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/find",
       /**
        * Custom reverse proxy is required to add Cross origin policy headers to the request so
        * that browser can fetch the XML file from https://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml
@@ -72,8 +70,7 @@ export const initialSettings: Settings = {
         "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/export",
       identify:
         "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/identify",
-      find:
-        "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/find",
+      find: "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/find",
       typeAndDating:
         "https://opendata.arcgis.com/datasets/4fa828b46a0740b18960cf3e91d35431_2.geojson",
       forminnenUpdateDate:
