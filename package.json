@@ -5,8 +5,8 @@
   "scripts": {
     "build:prod": "NODE_ENV=production webpack --mode=production --progress",
     "build:dev": "webpack --mode=development --progress --devtool source-map",
-    "dev": "webpack serve --mode=development --https --host 0.0.0.0 --port 8091 --progress --hot --open",
-    "prod": "NODE_ENV=production webpack serve --mode=production --https --host 0.0.0.0 --port 8091 --progress --hot --open",
+    "dev": "webpack serve --mode=development --server-type https --host 0.0.0.0 --port 8091 --allowed-hosts all --progress --hot --open",
+    "prod": "NODE_ENV=production webpack serve --mode=production --server-type https --host 0.0.0.0 --port 8091 --allowed-hosts all --progress --hot --open",
     "profile-size": "NODE_ENV=production SHOW_BUNDLE_ANALYZER=true webpack --progress",
     "addDataToMaisemanMuisti": "node scripts/addDataToMaisemanMuisti.js"
   },
