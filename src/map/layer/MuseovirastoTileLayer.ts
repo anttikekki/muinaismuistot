@@ -1,4 +1,4 @@
-import TileLayer from "ol/layer/Tile"
+import TileLayer from "ol/layer/WebGLTile"
 import TileArcGISRestSource from "ol/source/TileArcGISRest"
 import { TileSourceEvent } from "ol/source/Tile"
 import { Coordinate } from "ol/coordinate"
@@ -21,12 +21,12 @@ import { ActionTypes } from "../../store/actionTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (
-  layer: TileLayer<TileArcGISRestSource>
+  layer: TileLayer
 ) => void
 
 export default class MuseovirastoTileLayer {
   private source?: TileArcGISRestSource
-  private layer?: TileLayer<TileArcGISRestSource>
+  private layer?: TileLayer
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
@@ -47,7 +47,12 @@ export default class MuseovirastoTileLayer {
     const settings = this.store.getState()
     this.source = this.createSource()
     this.layer = new TileLayer({
-      source: this.source
+      source: this.source,
+      /**
+       * Limit cache size to fix iOS 15 Safari crash
+       * @see https://github.com/openlayers/openlayers/issues/12908#issuecomment-1023572875
+       */
+      cacheSize: 128
     })
     this.layer.setOpacity(settings.museovirasto.opacity)
 
