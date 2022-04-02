@@ -4,6 +4,21 @@ import { Panel } from "../../../component/Panel"
 export const VersionHistoryPanel: React.FC = () => {
   return (
     <Panel title="Versiohistoria">
+      <h5>Huhtikuu 2022</h5>
+      <p>Korjattu Ahvenanmaan aineistojen päivityspäivämäärien haku.</p>
+      <p>
+        Lisätty{" "}
+        <a
+          href="https://en.wikipedia.org/wiki/Progressive_web_application"
+          target="_blank"
+        >
+          Progressive web application
+        </a>{" "}
+        -tuki. Nyt sivustoon voi lisätä pikakuvakkeen älylaitteen työpöydälle,
+        josta aukeutuvassa versiossa ei näy selaimen osoitepalkkia.
+      </p>
+      <br />
+
       <h5>Maaliskuu 2021</h5>
       <p>
         Lisätty Helsingin kaupungin{" "}
