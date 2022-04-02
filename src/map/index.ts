@@ -385,31 +385,17 @@ export const zoomOut = () => {
 
 export const fetchDataLatestUpdateDatesFromMapLayers =
   async (): Promise<DataLatestUpdateDates> => {
-    try {
-      const [
-        museovirastoResult,
-        ahvenanmaaForminnenResult,
-        ahvenanmaaMaritimtKulturarvResult,
-        modelsResult
-      ] = await Promise.all([
-        museovirastoTileLayer.getDataLatestUpdateDate(),
-        ahvenanmaaTileLayer.getForminnenDataLatestUpdateDate(),
-        ahvenanmaaTileLayer.getMaritimtKulturarvDataLatestUpdateDate(),
-        modelsLayer.getDataLatestUpdateDate()
-      ])
+    const museovirastoResult = museovirastoTileLayer.getDataLatestUpdateDate()
+    const ahvenanmaaForminnenResult =
+      ahvenanmaaTileLayer.getForminnenDataLatestUpdateDate()
+    const ahvenanmaaMaritimtKulturarvResult =
+      ahvenanmaaTileLayer.getMaritimtKulturarvDataLatestUpdateDate()
+    const modelsResult = modelsLayer.getDataLatestUpdateDate()
 
-      return {
-        museovirasto: museovirastoResult,
-        ahvenanmaaForminnen: ahvenanmaaForminnenResult,
-        ahvenanmaaMaritimtKulturarv: ahvenanmaaMaritimtKulturarvResult,
-        models: modelsResult
-      }
-    } catch (e) {
-      return {
-        museovirasto: null,
-        ahvenanmaaForminnen: null,
-        ahvenanmaaMaritimtKulturarv: null,
-        models: null
-      }
+    return {
+      museovirasto: await museovirastoResult,
+      ahvenanmaaForminnen: await ahvenanmaaForminnenResult,
+      ahvenanmaaMaritimtKulturarv: await ahvenanmaaMaritimtKulturarvResult,
+      models: await modelsResult
     }
   }

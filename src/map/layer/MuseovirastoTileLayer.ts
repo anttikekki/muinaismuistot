@@ -30,7 +30,7 @@ export default class MuseovirastoTileLayer {
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
-  private dataLatestUpdateDate?: Date
+  private dataLatestUpdateDate?: Date | null
 
   public constructor(
     store: Store<Settings, ActionTypes>,
@@ -277,7 +277,7 @@ export default class MuseovirastoTileLayer {
 
   // http://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml
   // https://www.avoindata.fi/data/fi/dataset/museoviraston-paikkatietojen-tiedostolataus
-  public getDataLatestUpdateDate = (): Promise<Date> => {
+  public getDataLatestUpdateDate = (): Promise<Date | null> => {
     const settings = this.store.getState()
     if (this.dataLatestUpdateDate) {
       return Promise.resolve(this.dataLatestUpdateDate)
@@ -291,7 +291,7 @@ export default class MuseovirastoTileLayer {
 
   private parseSuunnitteluaineistoUpdatedDate = (
     doc: Document
-  ): Promise<Date> => {
+  ): Promise<Date | null> => {
     let date: string | null | undefined
 
     // IE 11 does not support Document.evaluate() XPath so we need to use query selectors
@@ -308,7 +308,7 @@ export default class MuseovirastoTileLayer {
       this.dataLatestUpdateDate = new Date(date)
       return Promise.resolve(this.dataLatestUpdateDate)
     }
-    return Promise.reject(new Error("Museovirasto updated date not found"))
+    return Promise.resolve(null)
   }
 
   public opacityChanged = () => {

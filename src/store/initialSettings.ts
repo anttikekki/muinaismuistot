@@ -74,9 +74,9 @@ export const initialSettings: Settings = {
       typeAndDating:
         "https://opendata.arcgis.com/datasets/4fa828b46a0740b18960cf3e91d35431_2.geojson",
       forminnenUpdateDate:
-        "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Afornminnen",
+        "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Afornminnen-1",
       maritimtKulturarvUpdateDate:
-        "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Amaritimt-kulturarv-vrak"
+        "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Amaritimt-kulturarv"
     },
     opacity: 0.7
   },

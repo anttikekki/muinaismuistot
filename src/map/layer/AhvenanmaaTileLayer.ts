@@ -29,8 +29,8 @@ export default class AhvenanmaaTileLayer {
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
-  private forminnenDataLatestUpdateDate?: Date
-  private maritimtKulturarvDataLatestUpdateDate?: Date
+  private forminnenDataLatestUpdateDate?: Date | null
+  private maritimtKulturarvDataLatestUpdateDate?: Date | null
   private typeAndDatingMap?: ReadonlyMap<
     string,
     Array<AhvenanmaaTypeAndDatingFeatureProperties>
@@ -238,8 +238,8 @@ export default class AhvenanmaaTileLayer {
     }
   }
 
-  // Fetch URL is from https://www.kartor.ax/datasets/fornminnen
-  public getForminnenDataLatestUpdateDate = (): Promise<Date> => {
+  // Fetch URL is from https://www.kartor.ax/datasets/aland::fornminnen-1/about
+  public getForminnenDataLatestUpdateDate = (): Promise<Date | null> => {
     const settings = this.store.getState()
     if (this.forminnenDataLatestUpdateDate) {
       return Promise.resolve(this.forminnenDataLatestUpdateDate)
@@ -254,23 +254,24 @@ export default class AhvenanmaaTileLayer {
       })
   }
 
-  // Fetch URL is from https://www.kartor.ax/datasets/maritimt-kulturarv-vrak
-  public getMaritimtKulturarvDataLatestUpdateDate = (): Promise<Date> => {
-    const settings = this.store.getState()
-    if (this.maritimtKulturarvDataLatestUpdateDate) {
-      return Promise.resolve(this.maritimtKulturarvDataLatestUpdateDate)
+  // Fetch URL is from https://www.kartor.ax/datasets/aland::maritimt-kulturarv/about
+  public getMaritimtKulturarvDataLatestUpdateDate =
+    (): Promise<Date | null> => {
+      const settings = this.store.getState()
+      if (this.maritimtKulturarvDataLatestUpdateDate) {
+        return Promise.resolve(this.maritimtKulturarvDataLatestUpdateDate)
+      }
+
+      return fetch(settings.ahvenanmaa.url.maritimtKulturarvUpdateDate)
+        .then((response) => response.json())
+        .then(this.parseUpdatedDate)
+        .then((date) => {
+          this.maritimtKulturarvDataLatestUpdateDate = date
+          return date
+        })
     }
 
-    return fetch(settings.ahvenanmaa.url.maritimtKulturarvUpdateDate)
-      .then((response) => response.json())
-      .then(this.parseUpdatedDate)
-      .then((date) => {
-        this.maritimtKulturarvDataLatestUpdateDate = date
-        return date
-      })
-  }
-
-  private parseUpdatedDate = (doc: any): Promise<Date> => {
+  private parseUpdatedDate = (doc: any): Promise<Date | null> => {
     const data = doc?.data
     const date =
       Array.isArray(data) && data.length > 0
@@ -280,7 +281,7 @@ export default class AhvenanmaaTileLayer {
     if (date) {
       return Promise.resolve(new Date(date))
     }
-    return Promise.reject(new Error("Ahvenanmaan updated date not found"))
+    return Promise.resolve(null)
   }
 
   public opacityChanged = () => {
