@@ -395,7 +395,7 @@ export const getFeatureRegisterURL = (
     }
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
-      return "https://" + feature.attributes.url
+      return `https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_kohde_det.aspx?KOHDE_ID=${feature.attributes.kohdeID}`
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_viiva:
     case MuseovirastoLayer.RKY_piste: {
