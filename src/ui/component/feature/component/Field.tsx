@@ -1,9 +1,10 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import { trim } from "../../../../common/util/featureParser"
 
 interface Props {
   label: string
   value?: string | null
+  children?: ReactNode
 }
 
 export const Field: React.FC<Props> = ({ label, value, children }) => {

@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import "../css/muinaismuistot.css"
 import React from "react"
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
 import fiTranslations from "../common/translations/fi.json"
@@ -47,7 +47,8 @@ export const createUI = (store: Store<Settings, ActionTypes>) => {
     }
   })
 
-  ReactDOM.render(
+  const root = createRoot(document.getElementById("ui")!)
+  root.render(
     <Provider store={store}>
       <LoadingAnimation />
       <ZoomInButton />
@@ -65,7 +66,6 @@ export const createUI = (store: Store<Settings, ActionTypes>) => {
       <SearchPage />
       <InfoPage />
       <SettingsPage />
-    </Provider>,
-    document.getElementById("ui")
+    </Provider>
   )
 }

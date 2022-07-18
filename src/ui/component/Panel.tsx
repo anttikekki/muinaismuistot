@@ -1,7 +1,8 @@
-import React from "react"
+import React, { ReactNode } from "react"
 
 interface Props {
   title: string
+  children: ReactNode
 }
 
 export const Panel: React.FC<Props> = ({ title, children }) => {

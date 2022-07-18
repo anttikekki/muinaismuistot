@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react"
+import React, { ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import {
@@ -36,6 +36,7 @@ interface FeatureCollapsePanelProps {
   featureName: string
   featureTypeIconURL: string | undefined
   featureTypeName: string | undefined
+  children: ReactNode
 }
 
 const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
@@ -127,24 +128,21 @@ interface ArgisFeatureCollapsePanelProps {
   isOpen: boolean
   onToggleOpen: () => void
   feature: ArgisFeature
+  children: ReactNode
 }
 
-export const ArgisFeatureCollapsePanel: React.FC<ArgisFeatureCollapsePanelProps> = ({
-  titleClickAction,
-  isOpen,
-  onToggleOpen,
-  feature,
-  children
-}) => {
+export const ArgisFeatureCollapsePanel: React.FC<
+  ArgisFeatureCollapsePanelProps
+> = ({ titleClickAction, isOpen, onToggleOpen, feature, children }) => {
   const { t, i18n } = useTranslation()
   const permanentLink = useMemo(() => {
     const coordinates = getArgisFeatureLocation(feature)
     return coordinates && createLocationHash(coordinates)
   }, [i18n.language, feature])
-  const featureName = useMemo(() => getArgisFeatureName(t, feature), [
-    i18n.language,
-    feature
-  ])
+  const featureName = useMemo(
+    () => getArgisFeatureName(t, feature),
+    [i18n.language, feature]
+  )
   const featureTypeIconURL = useMemo(
     () => getArgisFeatureTypeIconURL(feature),
     [feature]
@@ -182,9 +180,12 @@ interface MaisemanMuistiFeatureCollapsePanelProps {
   onToggleOpen: () => void
   feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>
   has3dModels?: boolean
+  children: ReactNode
 }
 
-export const MaisemanMuistiFeatureCollapsePanel: React.FC<MaisemanMuistiFeatureCollapsePanelProps> = ({
+export const MaisemanMuistiFeatureCollapsePanel: React.FC<
+  MaisemanMuistiFeatureCollapsePanelProps
+> = ({
   titleClickAction,
   isOpen,
   onToggleOpen,
@@ -226,15 +227,12 @@ interface MaalinnoitusFeatureCollapsePanelProps {
   isOpen: boolean
   onToggleOpen: () => void
   feature: MaalinnoitusFeature
+  children: ReactNode
 }
 
-export const MaalinnoitusFeatureCollapsePanel: React.FC<MaalinnoitusFeatureCollapsePanelProps> = ({
-  titleClickAction,
-  isOpen,
-  onToggleOpen,
-  feature,
-  children
-}) => {
+export const MaalinnoitusFeatureCollapsePanel: React.FC<
+  MaalinnoitusFeatureCollapsePanelProps
+> = ({ titleClickAction, isOpen, onToggleOpen, feature, children }) => {
   const { t } = useTranslation()
   const permanentLink = useMemo(() => {
     const coordinates = getMaalinnoitusFeatureLocation(feature)

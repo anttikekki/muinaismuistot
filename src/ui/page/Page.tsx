@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { ReactNode, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { Language } from "../../common/types"
@@ -39,16 +39,15 @@ const LangSelection: React.FC<LangSelectionProps> = ({
 interface Props {
   title: string
   pageId: PageId
+  children: ReactNode
 }
 
 export const Page: React.FC<Props> = ({ title, pageId, children }) => {
   const { t, i18n } = useTranslation()
   const dispatch = useDispatch()
   const visiblePage = useSelector((settings: Settings) => settings.visiblePage)
-  const [
-    pageClosingAnimationTimeoutID,
-    setPageClosingAnimationTimeoutID
-  ] = useState<number | undefined>()
+  const [pageClosingAnimationTimeoutID, setPageClosingAnimationTimeoutID] =
+    useState<number | undefined>()
   const [pageVisibility, setPageVisibility] = useState<PageVisibility>(
     PageVisibility.Hidden
   )
