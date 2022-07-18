@@ -11,6 +11,331 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [283657.72559999954, 6702393.6778]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Halikon kirkko",
+          "id": 200443,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200443",
+          "municipality": "Salo"
+        },
+        "model": {
+          "name": "Halikon kirkko",
+          "url": "https://sketchfab.com/models/6ddb0e6428b6429ca21344ffa8a596e6"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [258589.25349999964, 6664736.8093]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Västanfjärdin kirkko",
+          "id": 200905,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200905",
+          "municipality": "Kemiönsaari"
+        },
+        "model": {
+          "name": "Västanfjärdin kirkko",
+          "url": "https://sketchfab.com/models/8766d38950014c548bdbb0392171cdc0"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [224675.2999999998, 6724286.959000001]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Lemun kirkko",
+          "id": 200473,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200473",
+          "municipality": "Masku"
+        },
+        "model": {
+          "name": "Lemun kirkko",
+          "url": "https://sketchfab.com/models/a216f55309a74938866ce70d4a7559a0"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [236498.4221999999, 6702180.7061]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kakskerran kirkko",
+          "id": 200529,
+          "type": "Suojellut_rakennukset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=130.200529",
+          "municipality": "Turku"
+        },
+        "model": {
+          "name": "Kakskerran kirkko",
+          "url": "https://sketchfab.com/models/401693204d9a4944924c782d474384ee"
+        },
+        "author": "Lassi Kaukonen",
+        "authorUrl": "https://sketchfab.com/thesidekick",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [390463, 6674442]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Hitsaajankadun ja Itäväylän väli",
+          "id": 91010021,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.91010021",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Röykkiö",
+          "url": "https://sketchfab.com/models/7563c891c3264a7eb3e3efd6a800c7bf"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [390914.5, 6673916.25]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Herttoniemen satama",
+          "id": 91010022,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.91010022",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Röykkiö",
+          "url": "https://sketchfab.com/models/01098da5cd204791bd817b44db7ae938"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [211141.1880999999, 6757802.7115]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Vainionmäki",
+          "id": 400010150,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.400010150",
+          "municipality": "Laitila"
+        },
+        "model": {
+          "name": "Vainionmäki polttokalmisto A",
+          "url": "https://sketchfab.com/models/5c811b84ba26491e91d1abd7a37989ae"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [207776, 6780015]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Salisuonmäki",
+          "id": 684010047,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010047",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Salisuonmäki röykkiö numero 35",
+          "url": "https://sketchfab.com/models/92a08c91ab5f4b3397184ce41e039953"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [207776, 6780015]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Salisuonmäki",
+          "id": 684010047,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010047",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Salisuonmäki röykkiö numero 28",
+          "url": "https://sketchfab.com/models/b93febf39b6d4f9c8ba9b68df56acfcc"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [207776, 6780015]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Salisuonmäki",
+          "id": 684010047,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010047",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Salisuonmäki röykkiö numero 8",
+          "url": "https://sketchfab.com/models/db8da6ccf25347c69b95357d1aa1e797"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [209158, 6764503]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Untamalan kirkko",
+          "id": 400010252,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.400010252",
+          "municipality": "Laitila"
+        },
+        "model": {
+          "name": "Kalevanpojan viikatteentikku",
+          "url": "https://sketchfab.com/models/2ec4ff0633fe4fe9a4e3e1060124021d"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [529018.1376999998, 6812382.2322]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Astuvansalmi",
+          "id": 696010003,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.696010003",
+          "municipality": "Mikkeli"
+        },
+        "model": {
+          "name": "Astuvansalmi",
+          "url": "https://sketchfab.com/models/ed74daa3bb054beea13ed274132cf049"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [379890.7627999997, 6679113.1592]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXVIII:1 (Lintuvaara)",
+          "id": 1000007744,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000007744",
+          "municipality": "Espoo"
+        },
+        "model": {
+          "name": "Juoksuhauta",
+          "url": "https://sketchfab.com/models/a8dab5e6fbd74139accfe5745e780c88"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2022-07-18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [213517.10140000004, 6786225.306400001]
       },
       "properties": {
