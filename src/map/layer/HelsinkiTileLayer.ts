@@ -1,4 +1,4 @@
-import TileLayer from "ol/layer/WebGLTile"
+import TileLayer from "ol/layer/Tile"
 import TileWMS, { Options } from "ol/source/TileWMS"
 import { TileSourceEvent } from "ol/source/Tile"
 import { Settings } from "../../store/storeTypes"
@@ -15,11 +15,11 @@ import {
 } from "../../common/types"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
-export type OnLayersCreatedCallbackFn = (layer: TileLayer) => void
+export type OnLayersCreatedCallbackFn = (layer: TileLayer<TileWMS>) => void
 
 export default class HelsinkiTileLayer {
   private source?: TileWMS
-  private layer?: TileLayer
+  private layer?: TileLayer<TileWMS>
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
@@ -45,12 +45,7 @@ export default class HelsinkiTileLayer {
         6689393.357339721
       ],
       source: this.source,
-      visible: settings.helsinki.selectedLayers.length > 0,
-      /**
-       * Limit cache size to fix iOS 15 Safari crash
-       * @see https://github.com/openlayers/openlayers/issues/12908#issuecomment-1023572875
-       */
-      cacheSize: 128
+      visible: settings.helsinki.selectedLayers.length > 0
     })
     this.layer.setOpacity(settings.helsinki.opacity)
 

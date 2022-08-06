@@ -1,4 +1,4 @@
-import TileLayer from "ol/layer/WebGLTile"
+import TileLayer from "ol/layer/Tile"
 import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest"
 import { TileSourceEvent } from "ol/source/Tile"
 import { GtkLayer, getGtkLayerId, GtkLayerId } from "../../common/types"
@@ -8,12 +8,12 @@ import { ActionTypes } from "../../store/actionTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (
-  layer: TileLayer
+  layer: TileLayer<TileArcGISRestSource>
 ) => void
 
 export default class GtkTileLayer {
   private source?: TileArcGISRestSource
-  private layer?: TileLayer
+  private layer?: TileLayer<TileArcGISRestSource>
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
@@ -34,12 +34,7 @@ export default class GtkTileLayer {
     this.source = this.createSource()
     this.layer = new TileLayer({
       source: this.source,
-      visible: settings.gtk.selectedLayers.length > 0,
-      /**
-       * Limit cache size to fix iOS 15 Safari crash
-       * @see https://github.com/openlayers/openlayers/issues/12908#issuecomment-1023572875
-       */
-      cacheSize: 128
+      visible: settings.gtk.selectedLayers.length > 0
     })
     this.layer.setOpacity(settings.gtk.opacity)
 

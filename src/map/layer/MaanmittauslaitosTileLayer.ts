@@ -1,4 +1,4 @@
-import TileLayer from "ol/layer/WebGLTile"
+import TileLayer from "ol/layer/Tile"
 import WMTSCapabilities from "ol/format/WMTSCapabilities"
 import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS"
 import { MaanmittauslaitosLayer } from "../../common/types"
@@ -9,16 +9,16 @@ import { ActionTypes } from "../../store/actionTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (
-  mmlMaastokarttaLayer: TileLayer,
-  mmlTaustakarttaLayer: TileLayer,
-  mmlOrtokuvaLayer: TileLayer
+  mmlMaastokarttaLayer: TileLayer<WMTSSource>,
+  mmlTaustakarttaLayer: TileLayer<WMTSSource>,
+  mmlOrtokuvaLayer: TileLayer<WMTSSource>
 ) => void
 
 export default class MaanmittauslaitosTileLayer {
   private store: Store<Settings, ActionTypes>
-  private mmlMaastokarttaLayer?: TileLayer
-  private mmlTaustakarttaLayer?: TileLayer
-  private mmlOrtokuvaLayer?: TileLayer
+  private mmlMaastokarttaLayer?: TileLayer<WMTSSource>
+  private mmlTaustakarttaLayer?: TileLayer<WMTSSource>
+  private mmlOrtokuvaLayer?: TileLayer<WMTSSource>
   private maastokarttaLayerSource?: WMTSSource
   private taustakarttaLayerSource?: WMTSSource
   private ortokuvaLayerSource?: WMTSSource
@@ -87,30 +87,15 @@ export default class MaanmittauslaitosTileLayer {
     const selectedLayer = settings.maanmittauslaitos.selectedLayer
     this.mmlMaastokarttaLayer = new TileLayer({
       source: this.maastokarttaLayerSource,
-      visible: selectedLayer === MaanmittauslaitosLayer.Maastokartta,
-      /**
-       * Limit cache size to fix iOS 15 Safari crash
-       * @see https://github.com/openlayers/openlayers/issues/12908#issuecomment-1023572875
-       */
-      cacheSize: 128
+      visible: selectedLayer === MaanmittauslaitosLayer.Maastokartta
     })
     this.mmlTaustakarttaLayer = new TileLayer({
       source: this.taustakarttaLayerSource,
-      visible: selectedLayer === MaanmittauslaitosLayer.Taustakartta,
-      /**
-       * Limit cache size to fix iOS 15 Safari crash
-       * @see https://github.com/openlayers/openlayers/issues/12908#issuecomment-1023572875
-       */
-      cacheSize: 128
+      visible: selectedLayer === MaanmittauslaitosLayer.Taustakartta
     })
     this.mmlOrtokuvaLayer = new TileLayer({
       source: this.ortokuvaLayerSource,
-      visible: selectedLayer === MaanmittauslaitosLayer.Ortokuva,
-      /**
-       * Limit cache size to fix iOS 15 Safari crash
-       * @see https://github.com/openlayers/openlayers/issues/12908#issuecomment-1023572875
-       */
-      cacheSize: 128
+      visible: selectedLayer === MaanmittauslaitosLayer.Ortokuva
     })
 
     this.updateLoadingAnimationOnLayerSourceTileLoad(
