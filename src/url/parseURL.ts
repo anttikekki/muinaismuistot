@@ -30,18 +30,18 @@ import {
 } from "../store/reducers"
 import { EMPTY_SELECTION, URLSettings } from "./types"
 
-const isEnumValue = <ENUM>(
+const isEnumValue = <ENUM extends Record<string, unknown>>(
   enumObj: ENUM,
   value: any
 ): value is ENUM[keyof ENUM] => Object.values(enumObj).some((v) => v === value)
 
-const isEnumArray = <ENUM>(
+const isEnumArray = <ENUM extends Record<string, unknown>>(
   enumObj: ENUM,
   valueArray: Array<any>
 ): valueArray is Array<ENUM[keyof ENUM]> =>
   valueArray.every((v) => isEnumValue(enumObj, v))
 
-const validateAndUpdateUrlParamToSettings = <ENUM>(
+const validateAndUpdateUrlParamToSettings = <ENUM extends Record<string, unknown>>(
   settings: Settings,
   enumObj: ENUM,
   value: string | Array<string>,

@@ -1,6 +1,6 @@
 {
   "name": "muinaismuistot",
-  "version": "1.11.9",
+  "version": "1.12.0",
   "description": "Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa.",
   "scripts": {
     "build:prod": "NODE_ENV=production webpack --mode=production --progress",
@@ -18,42 +18,40 @@
   },
   "dependencies": {
     "bootstrap": "3.4.1",
-    "core-js": "3.24.1",
-    "elm-pep": "1.0.6",
-    "i18next": "21.8.16",
-    "ol": "6.15.1",
+    "i18next": "22.0.4",
+    "ol": "7.1.0",
     "proj4": "2.8.0",
     "query-string": "7.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-i18next": "11.18.3",
-    "react-redux": "8.0.2",
+    "react-i18next": "12.0.0",
+    "react-redux": "8.0.4",
     "redux": "4.2.0",
-    "@redux-devtools/extension": "3.2.2",
+    "@redux-devtools/extension": "3.2.3",
     "redux-observable": "2.0.0",
     "regexify-string": "1.0.19",
-    "rxjs": "7.5.6",
+    "rxjs": "7.5.7",
     "tslib": "2.4.0"
   },
   "devDependencies": {
     "@types/proj4": "2.5.2",
-    "@types/react": "18.0.15",
-    "@types/react-dom": "18.0.6",
+    "@types/react": "18.0.24",
+    "@types/react-dom": "18.0.8",
     "clean-webpack-plugin": "4.0.0",
     "copy-webpack-plugin": "11.0.0",
     "css-loader": "6.7.1",
     "html-webpack-plugin": "5.5.0",
     "prettier": "2.7.1",
     "style-loader": "3.3.1",
-    "ts-loader": "9.3.1",
-    "typescript": "4.7.4",
+    "ts-loader": "9.4.1",
+    "typescript": "4.8.4",
     "url-loader": "4.1.1",
     "webpack": "5.74.0",
-    "webpack-bundle-analyzer": "4.5.0",
+    "webpack-bundle-analyzer": "4.7.0",
     "webpack-cli": "4.10.0",
-    "webpack-dev-server": "4.9.3"
+    "webpack-dev-server": "4.11.1"
   },
   "engines": {
-    "node": "v16.16.0"
+    "node": "v16.18.0"
   }
 }

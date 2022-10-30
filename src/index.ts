@@ -1,6 +1,3 @@
-import "core-js/stable"
-import "elm-pep"
-
 import {
   centerToCurrentPositions,
   createMap,

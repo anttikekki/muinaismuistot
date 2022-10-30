@@ -88,9 +88,12 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     store,
     updateTileLoadingStatus,
     (mmlMaastokarttaLayer, mmlTaustakarttaLayer, mmlOrtokuvaLayer) => {
-      map.getLayers().insertAt(0, mmlMaastokarttaLayer)
-      map.getLayers().insertAt(1, mmlTaustakarttaLayer)
-      map.getLayers().insertAt(2, mmlOrtokuvaLayer)
+      mmlMaastokarttaLayer.setZIndex(0)
+      mmlTaustakarttaLayer.setZIndex(1)
+      mmlOrtokuvaLayer.setZIndex(2)
+      map.getLayers().push(mmlMaastokarttaLayer)
+      map.getLayers().push(mmlTaustakarttaLayer)
+      map.getLayers().push(mmlOrtokuvaLayer)
     }
   )
 
@@ -98,7 +101,8 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     store,
     updateTileLoadingStatus,
     (createdLayer) => {
-      map.getLayers().insertAt(3, createdLayer)
+      createdLayer.setZIndex(3)
+      map.getLayers().push(createdLayer)
     }
   )
 
@@ -106,7 +110,8 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     store,
     updateTileLoadingStatus,
     (createdLayer) => {
-      map.getLayers().insertAt(4, createdLayer)
+      createdLayer.setZIndex(4)
+      map.getLayers().push(createdLayer)
     }
   )
 
@@ -114,7 +119,8 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     store,
     updateTileLoadingStatus,
     (createdLayer) => {
-      map.getLayers().insertAt(5, createdLayer)
+      createdLayer.setZIndex(5)
+      map.getLayers().push(createdLayer)
     }
   )
 
@@ -122,7 +128,8 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     store,
     updateTileLoadingStatus,
     (createdLayer) => {
-      map.getLayers().insertAt(6, createdLayer)
+      createdLayer.setZIndex(6)
+      map.getLayers().push(createdLayer)
     }
   )
 
@@ -135,9 +142,12 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     maisemanMuistiLayer.createLayer(),
     modelsLayer.createLayer()
   ]).then(([maisemanMuistiLayer, modelsLayer]) => {
-    map.getLayers().insertAt(7, maisemanMuistiLayer)
-    map.getLayers().insertAt(8, modelsLayer)
-    map.getLayers().insertAt(9, positionAndSelectedLocation.getLayer())
+    maisemanMuistiLayer.setZIndex(7)
+    modelsLayer.setZIndex(8)
+    positionAndSelectedLocation.getLayer().setZIndex(9)
+    map.getLayers().push(maisemanMuistiLayer)
+    map.getLayers().push(modelsLayer)
+    map.getLayers().push(positionAndSelectedLocation.getLayer())
   })
 
   map.on("singleclick", indentifyFeaturesOnClickedCoordinate)
