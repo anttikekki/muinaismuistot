@@ -11,6 +11,31 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [384195.574, 6680028.233899999]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tukikohta XXIII:1 (Maununneva)",
+          "id": 1000013823,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013823",
+          "municipality": "Helsinki"
+        },
+        "model": {
+          "name": "Kaponieeri",
+          "url": "https://sketchfab.com/models/d3f143450fe1475fa46a9c052940d0f5"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2023-01-22"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [283657.72559999954, 6702393.6778]
       },
       "properties": {
