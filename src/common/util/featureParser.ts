@@ -131,26 +131,33 @@ export const getArgisFeatureTypeName = (
         .join(", ")
     case MuseovirastoLayer.Muinaisjaannokset_alue:
       if (isKiinteäMuinaisjäännös(feature)) {
-        return t(`data.featureType.Kiinteä muinaisjäännös (alue)`)
+        return t(`data.featureType.Kiinteä muinaisjäännös (alue)`) ?? undefined
       } else if (isMuuKulttuuriperintökohde(feature)) {
-        return t(`data.featureType.Muu kulttuuriperintökohde (alue)`)
+        return (
+          t(`data.featureType.Muu kulttuuriperintökohde (alue)`) ?? undefined
+        )
       }
       break
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_piste:
     case MuseovirastoLayer.RKY_viiva:
-      return t(`data.featureType.Rakennettu kulttuuriympäristö`)
+      return t(`data.featureType.Rakennettu kulttuuriympäristö`) ?? undefined
     case MuseovirastoLayer.Maailmanperinto_piste:
     case MuseovirastoLayer.Maailmanperinto_alue:
-      return t(`data.featureType.Maailmanperintökohde`)
+      return t(`data.featureType.Maailmanperintökohde`) ?? undefined
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
-      return t(`data.featureType.Rakennusperintökohde`)
+      return t(`data.featureType.Rakennusperintökohde`) ?? undefined
     case AhvenanmaaLayer.Fornminnen:
-      return t(`data.featureType.Ahvenanmaan muinaisjäännösrekisterin kohde`)
+      return (
+        t(`data.featureType.Ahvenanmaan muinaisjäännösrekisterin kohde`) ??
+        undefined
+      )
     case AhvenanmaaLayer.MaritimtKulturarv:
-      return t(
-        `data.featureType.Ahvenanmaan merellisen kulttuuriperintörekisterin kohde`
+      return (
+        t(
+          `data.featureType.Ahvenanmaan merellisen kulttuuriperintörekisterin kohde`
+        ) ?? undefined
       )
     default:
       return undefined
@@ -564,29 +571,34 @@ export const getAhvenanmaaForminnenTypeText = (
 ): string | undefined => {
   switch (typeId) {
     case 0:
-      return t(`data.ahvenanmaa.type.Uppgifter saknas`)
+      return t(`data.ahvenanmaa.type.Uppgifter saknas`) ?? undefined
     case 1:
-      return t(`data.ahvenanmaa.type.Agrara lämningar`)
+      return t(`data.ahvenanmaa.type.Agrara lämningar`) ?? undefined
     case 2:
-      return t(`data.ahvenanmaa.type.Bebyggelselämningar`)
+      return t(`data.ahvenanmaa.type.Bebyggelselämningar`) ?? undefined
     case 3:
-      return t(`data.ahvenanmaa.type.Befästningsanläggningar`)
+      return t(`data.ahvenanmaa.type.Befästningsanläggningar`) ?? undefined
     case 4:
-      return t(`data.ahvenanmaa.type.Boplatser`)
+      return t(`data.ahvenanmaa.type.Boplatser`) ?? undefined
     case 5:
-      return t(`data.ahvenanmaa.type.Gravar`)
+      return t(`data.ahvenanmaa.type.Gravar`) ?? undefined
     case 6:
-      return t(`data.ahvenanmaa.type.Industriell-/produktionsplatser`)
+      return (
+        t(`data.ahvenanmaa.type.Industriell-/produktionsplatser`) ?? undefined
+      )
     case 7:
-      return t(`data.ahvenanmaa.type.Jakt och fångst`)
+      return t(`data.ahvenanmaa.type.Jakt och fångst`) ?? undefined
     case 8:
-      return t(`data.ahvenanmaa.type.Kommunikations-/maritima lämningar`)
+      return (
+        t(`data.ahvenanmaa.type.Kommunikations-/maritima lämningar`) ??
+        undefined
+      )
     case 9:
-      return t(`data.ahvenanmaa.type.Kult, offer och folktro`)
+      return t(`data.ahvenanmaa.type.Kult, offer och folktro`) ?? undefined
     case 10:
-      return t(`data.ahvenanmaa.type.Ristningar och minnesmärken`)
+      return t(`data.ahvenanmaa.type.Ristningar och minnesmärken`) ?? undefined
     case 11:
-      return t(`data.ahvenanmaa.type.Övriga lämningar`)
+      return t(`data.ahvenanmaa.type.Övriga lämningar`) ?? undefined
     default:
       return undefined
   }
@@ -602,21 +614,21 @@ export const getAhvenanmaaForminneDatingText = (
 ): string | undefined => {
   switch (datingId) {
     case 0:
-      return t(`data.ahvenanmaa.dating.Förhistorisk tid`)
+      return t(`data.ahvenanmaa.dating.Förhistorisk tid`) ?? undefined
     case 1:
-      return t(`data.ahvenanmaa.dating.Historisk tid`)
+      return t(`data.ahvenanmaa.dating.Historisk tid`) ?? undefined
     case 2:
-      return t(`data.ahvenanmaa.dating.Stenålder`)
+      return t(`data.ahvenanmaa.dating.Stenålder`) ?? undefined
     case 3:
-      return t(`data.ahvenanmaa.dating.Bronsålder`)
+      return t(`data.ahvenanmaa.dating.Bronsålder`) ?? undefined
     case 4:
-      return t(`data.ahvenanmaa.dating.Järnålder`)
+      return t(`data.ahvenanmaa.dating.Järnålder`) ?? undefined
     case 5:
-      return t(`data.ahvenanmaa.dating.Medeltid`)
+      return t(`data.ahvenanmaa.dating.Medeltid`) ?? undefined
     case 6:
-      return t(`data.ahvenanmaa.dating.Sentid`)
+      return t(`data.ahvenanmaa.dating.Sentid`) ?? undefined
     case 99:
-      return t(`data.ahvenanmaa.dating.Uppgifter saknas`)
+      return t(`data.ahvenanmaa.dating.Uppgifter saknas`) ?? undefined
     default:
       return undefined
   }

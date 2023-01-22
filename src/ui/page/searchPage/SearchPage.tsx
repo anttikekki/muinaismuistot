@@ -89,7 +89,7 @@ export const SearchPage: React.FC = () => {
             type="text"
             ref={inputRef}
             className="form-control"
-            placeholder={t(`search.placeholder`)}
+            placeholder={t(`search.placeholder`) ?? undefined}
             value={searchText}
             aria-describedby="helpBlock"
             onChange={(e) => setSearchText(e.target.value)}

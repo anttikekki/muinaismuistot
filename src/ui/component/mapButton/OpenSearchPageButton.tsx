@@ -17,7 +17,7 @@ export const OpenSearchPageButton: React.FunctionComponent = () => {
       <button
         type="button"
         className="btn btn-primary"
-        title={t(`common.button.search`)}
+        title={t(`common.button.search`) ?? undefined}
         onClick={onClick}
       >
         <span className="glyphicon glyphicon-search" aria-hidden="true" />
