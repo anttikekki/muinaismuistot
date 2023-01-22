@@ -1,0 +1,23 @@
+MAP
+    NAME "sample"
+    EXTENT -113500.830402 5857147.169600 1214504.830400 7965502.830400
+    SIZE 1000 2000
+    LAYER
+        NAME "issjohav_1"
+        TYPE POLYGON
+        STATUS ON
+        CONNECTIONTYPE OGR
+        CONNECTION "strandforskjutning_1_900.gpkg"
+        DATA "issjohav_1"
+        EXTENT -113500.830402 5857147.169600 1214504.830400 7965502.830400
+        PROCESSING "CLOSE_CONNECTION=DEFER"
+        CLASS
+            NAME "Maankohoama 1"
+            STYLE
+                COLOR 200 200 200
+                OUTLINECOLOR 0 0 0
+                WIDTH 0.1
+            END #style
+        END #class
+    END #layer
+END #map
