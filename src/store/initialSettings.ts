@@ -76,7 +76,7 @@ export const initialSettings: Settings = {
       forminnenUpdateDate:
         "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Afornminnen-1",
       maritimtKulturarvUpdateDate:
-        "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Amaritimt-kulturarv"
+        "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Amaritimt-kulturarv-vrak-1"
     },
     opacity: 0.7
   },
