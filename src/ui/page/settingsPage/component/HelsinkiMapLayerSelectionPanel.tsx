@@ -95,7 +95,7 @@ export const HelsinkiMapLayerSelectionPanel: React.FC = () => {
       <form>
         <h5>
           <Trans
-            i18nKey={`data.register.maalinnoitus`}
+            i18nKey={`data.register.nameWithLink.maalinnoitus`}
             components={{ a: <a /> }}
           />
         </h5>

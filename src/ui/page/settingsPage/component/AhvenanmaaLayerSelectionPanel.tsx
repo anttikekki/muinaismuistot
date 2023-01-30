@@ -1,7 +1,7 @@
 import React, { useCallback } from "react"
 import { AhvenanmaaLayer, LayerGroup } from "../../../../common/types"
 import { Panel } from "../../../component/Panel"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { Settings } from "../../../../store/storeTypes"
 import { toggleSelection } from "../../../util"
@@ -29,7 +29,12 @@ export const AhvenanmaaLayerSelectionPanel: React.FC = () => {
   return (
     <Panel title={t(`settings.ahvenanmaa.title`)}>
       <form>
-        <h5>{t(`data.register.Ahvenanmaan muinaisjäännösrekisteri`)}</h5>
+        <h5>
+          <Trans
+            i18nKey={`data.register.nameWithLink.Ahvenanmaan muinaisjäännösrekisteri`}
+            components={{ a: <a /> }}
+          />
+        </h5>
         <LayerCheckbox
           label={t(`common.features.Kohde`)}
           layer={AhvenanmaaLayer.Fornminnen}
@@ -38,7 +43,10 @@ export const AhvenanmaaLayerSelectionPanel: React.FC = () => {
         />
 
         <h5>
-          {t(`data.register.Ahvenanmaan merellinen kulttuuriperintörekisteri`)}
+          <Trans
+            i18nKey={`data.register.nameWithLink.Ahvenanmaan merellinen kulttuuriperintörekisteri`}
+            components={{ a: <a /> }}
+          />
         </h5>
         <LayerCheckbox
           label={t(`common.features.Kohde`)}

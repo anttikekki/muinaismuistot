@@ -21,14 +21,15 @@
     },
     "organization": {
       "Museovirasto": "Museovirasto",
-      "Ahvenanmaan paikallishallinto": "Ahvenanmaan paikallishallinto"
+      "Ahvenanmaan paikallishallinto": "Ahvenanmaan paikallishallinto",
+      "Geologian tutkimuskeskus": "Geologian tutkimuskeskus",
+      "Helsingin kaupunki": "Helsingin kaupunki"
     }
   },
   "info": {
     "title": "Lisätietoja sivustosta",
     "dataUpdates": {
       "title": "Aineisto päivitetty viimeksi",
-      "Museoviraston aineistot": "Museoviraston aineistot",
       "loading": "Tietoa selvitetään parhaillaan...",
       "error": "Päivityshetkeä ei valitettavasti saatu selville"
     },
@@ -172,15 +173,29 @@
   },
   "data": {
     "register": {
-      "Muinaisjäännösrekisteri": "Muinaisjäännösrekisteri",
-      "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt",
-      "Maailmanperintökohteet": "Maailmanperintökohteet",
-      "Rakennusperintörekisteri": "Rakennusperintörekisteri",
-      "Ahvenanmaan muinaisjäännösrekisteri": "Ahvenanmaan muinaisjäännösrekisteri",
-      "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Ahvenanmaan merellinen kulttuuriperintörekisteri",
-      "3Dmodels": "3D-mallit (<a href='./3d/' target='_blank'>lisätietoa</a>)",
-      "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>lisätietoa</a>)",
-      "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>lisätietoa</a>)"
+      "name": {
+        "Muinaisjäännösrekisteri": "Muinaisjäännösrekisteri",
+        "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt",
+        "Maailmanperintökohteet": "Maailmanperintökohteet",
+        "Rakennusperintörekisteri": "Rakennusperintörekisteri",
+        "Ahvenanmaan muinaisjäännösrekisteri": "Ahvenanmaan muinaisjäännösrekisteri",
+        "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Ahvenanmaan merellinen kulttuuriperintörekisteri",
+        "3Dmodels": "3D-mallit",
+        "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset",
+        "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset",
+        "muinaisrannat": "Muinaisrannat"
+      },
+      "nameWithLink": {
+        "Muinaisjäännösrekisteri": "Muinaisjäännösrekisterit (<a href='https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx' target='_blank'>lisätietoa</a>)",
+        "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt (<a href='http://www.rky.fi/' target='_blank'>lisätietoa</a>)",
+        "Maailmanperintökohteet": "Maailmanperintökohteet (<a href='https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa' target='_blank'>lisätietoa</a>)",
+        "Rakennusperintörekisteri": "Rakennusperintörekisteri (<a href='https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_default.aspx' target='_blank'>lisätietoa</a>)",
+        "Ahvenanmaan muinaisjäännösrekisteri": "Ahvenanmaan muinaisjäännösrekisteri (<a href='https://hub.arcgis.com/datasets/aland::fornminnen-1/' target='_blank'>lisätietoa</a>)",
+        "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Ahvenanmaan merellinen kulttuuriperintörekisteri (<a href='https://hub.arcgis.com/datasets/aland::maritimt-kulturarv-vrak-1/' target='_blank'>lisätietoa</a>)",
+        "3Dmodels": "3D-mallit (<a href='./3d/' target='_blank'>lisätietoa</a>)",
+        "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>lisätietoa</a>)",
+        "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>lisätietoa</a>)"
+      }
     },
     "featureType": {
       "Kiinteä muinaisjäännös": "Kiinteä muinaisjäännös",

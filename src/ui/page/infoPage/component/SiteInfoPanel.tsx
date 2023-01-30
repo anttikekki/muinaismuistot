@@ -16,7 +16,7 @@ export const SiteInfoPanel: React.FC = () => {
             href="https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx"
             target="_blank"
           >
-            {t(`data.register.Muinaisjäännösrekisteri`)}
+            {t(`data.register.name.Muinaisjäännösrekisteri`)}
           </a>
         </li>
         <li>
@@ -24,7 +24,7 @@ export const SiteInfoPanel: React.FC = () => {
             href="https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_default.aspx"
             target="_blank"
           >
-            {t(`data.register.Rakennusperintörekisteri`)}
+            {t(`data.register.name.Rakennusperintörekisteri`)}
           </a>
         </li>
         <li>
@@ -32,13 +32,13 @@ export const SiteInfoPanel: React.FC = () => {
             href="https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa"
             target="_blank"
           >
-            {t(`data.register.Maailmanperintökohteet`)}
+            {t(`data.register.name.Maailmanperintökohteet`)}
           </a>
         </li>
         <li>
           <a href="http://www.rky.fi/" target="_blank">
             {t(
-              `data.register.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`
+              `data.register.name.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`
             )}
           </a>
         </li>
@@ -48,20 +48,44 @@ export const SiteInfoPanel: React.FC = () => {
       <ul>
         <li>
           <a
-            href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret"
+            href="https://hub.arcgis.com/datasets/aland::fornminnen-1/"
             target="_blank"
           >
-            {t(`data.register.Ahvenanmaan muinaisjäännösrekisteri`)}
+            {t(`data.register.name.Ahvenanmaan muinaisjäännösrekisteri`)}
           </a>
         </li>
         <li>
           <a
-            href="https://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/marinarkeologi"
+            href="https://hub.arcgis.com/datasets/aland::maritimt-kulturarv-vrak-1/"
             target="_blank"
           >
             {t(
-              `data.register.Ahvenanmaan merellinen kulttuuriperintörekisteri`
+              `data.register.name.Ahvenanmaan merellinen kulttuuriperintörekisteri`
             )}
+          </a>
+        </li>
+      </ul>
+
+      <h5>{t(`common.organization.Geologian tutkimuskeskus`)}</h5>
+      <ul>
+        <li>
+          <a
+            href="https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html"
+            target="_blank"
+          >
+            {t(`data.register.name.muinaisrannat`)}
+          </a>
+        </li>
+      </ul>
+
+      <h5>{t(`common.organization.Helsingin kaupunki`)}</h5>
+      <ul>
+        <li>
+          <a
+            href="https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset"
+            target="_blank"
+          >
+            {t(`data.register.name.maalinnoitus`)}
           </a>
         </li>
       </ul>
@@ -85,7 +109,10 @@ export const SiteInfoPanel: React.FC = () => {
       </p>
 
       <h5>
-        <Trans i18nKey="data.register.3Dmodels" components={{ a: <a /> }} />
+        <Trans
+          i18nKey="data.register.nameWithLink.3Dmodels"
+          components={{ a: <a /> }}
+        />
       </h5>
       <p>
         <Trans i18nKey="info.siteInfo.3DModelsInfo" components={{ a: <a /> }} />

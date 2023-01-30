@@ -21,14 +21,15 @@
     },
     "organization": {
       "Museovirasto": "Museiverket",
-      "Ahvenanmaan paikallishallinto": "Ålands landskapsregering"
+      "Ahvenanmaan paikallishallinto": "Ålands landskapsregering",
+      "Geologian tutkimuskeskus": "Geologiska forskningscentralen",
+      "Helsingin kaupunki": "Helsingfors stad"
     }
   },
   "info": {
     "title": "Information om webbsidan",
     "dataUpdates": {
       "title": "Senast uppdaterad",
-      "Museoviraston aineistot": "Museiverkets material",
       "loading": "Information hämtas...",
       "error": "Informationen inte tillgänglig"
     },
@@ -172,15 +173,29 @@
   },
   "data": {
     "register": {
-      "Muinaisjäännösrekisteri": "Fornlämningsregister",
-      "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Byggda kulturmiljöer av riksintresse (RKY)",
-      "Maailmanperintökohteet": "Världsarv",
-      "Rakennusperintörekisteri": "Register över byggnadsarv",
-      "Ahvenanmaan muinaisjäännösrekisteri": "Fornminnesregister för Åland",
-      "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Register över maritimt kulturarv på Åland",
-      "3Dmodels": "3D-modeller (<a href='./3d/' target='_blank'>information</a>)",
-      "maisemanMuisti": "Boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>information</a>)",
-      "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>information</a>)"
+      "name": {
+        "Muinaisjäännösrekisteri": "Fornlämningsregister",
+        "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Byggda kulturmiljöer av riksintresse (RKY)",
+        "Maailmanperintökohteet": "Världsarv",
+        "Rakennusperintörekisteri": "Register över byggnadsarv",
+        "Ahvenanmaan muinaisjäännösrekisteri": "Fornminnesregister för Åland",
+        "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Register över maritimt kulturarv på Åland",
+        "3Dmodels": "3D-modeller",
+        "maisemanMuisti": "Boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset",
+        "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget",
+        "muinaisrannat": "Fornstränder"
+      },
+      "nameWithLink": {
+        "Muinaisjäännösrekisteri": "Fornlämningsregister (<a href='https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx' target='_blank'>information</a>)",
+        "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Byggda kulturmiljöer av riksintresse (RKY) (<a href='http://www.rky.fi/' target='_blank'>information</a>)",
+        "Maailmanperintökohteet": "Världsarv (<a href='https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa' target='_blank'>information</a>)",
+        "Rakennusperintörekisteri": "Register över byggnadsarv (<a href='https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_default.aspx' target='_blank'>information</a>)",
+        "Ahvenanmaan muinaisjäännösrekisteri": "Fornminnesregister för Åland (<a href='https://hub.arcgis.com/datasets/aland::fornminnen-1/' target='_blank'>information</a>)",
+        "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Register över maritimt kulturarv på Åland (<a href='https://hub.arcgis.com/datasets/aland::maritimt-kulturarv-vrak-1/' target='_blank'>information</a>)",
+        "3Dmodels": "3D-modeller (<a href='./3d/' target='_blank'>information</a>)",
+        "maisemanMuisti": "Boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>information</a>)",
+        "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>information</a>)"
+      }
     },
     "featureType": {
       "Kiinteä muinaisjäännös": "Fast fornlämning",

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react"
 import { LayerGroup, MuseovirastoLayer } from "../../../../common/types"
 import { Panel } from "../../../component/Panel"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { Settings } from "../../../../store/storeTypes"
 import { selectMuseovirastoLayers } from "../../../../store/actionCreators"
@@ -32,9 +32,10 @@ export const MuseovirastoLayerSelectionPanel: React.FC = () => {
     () => (
       <form>
         <h5>
-          {t(
-            `data.register.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`
-          )}
+          <Trans
+            i18nKey={`data.register.nameWithLink.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`}
+            components={{ a: <a /> }}
+          />
         </h5>
         <LayerCheckbox
           label={t(`common.features.Alue`)}
@@ -55,7 +56,12 @@ export const MuseovirastoLayerSelectionPanel: React.FC = () => {
           onSelectLayer={onSelectMuseovirastoLayer}
         />
 
-        <h5>{t(`data.register.Maailmanperintökohteet`)}</h5>
+        <h5>
+          <Trans
+            i18nKey={`data.register.nameWithLink.Maailmanperintökohteet`}
+            components={{ a: <a /> }}
+          />
+        </h5>
         <LayerCheckbox
           label={t(`common.features.Alue`)}
           layer={MuseovirastoLayer.Maailmanperinto_alue}
@@ -69,7 +75,12 @@ export const MuseovirastoLayerSelectionPanel: React.FC = () => {
           onSelectLayer={onSelectMuseovirastoLayer}
         />
 
-        <h5>{t(`data.register.Rakennusperintörekisteri`)}</h5>
+        <h5>
+          <Trans
+            i18nKey={`data.register.nameWithLink.Rakennusperintörekisteri`}
+            components={{ a: <a /> }}
+          />
+        </h5>
         <LayerCheckbox
           label={t(`common.features.Rakennettu alue`)}
           layer={MuseovirastoLayer.Suojellut_rakennukset_alue}
@@ -83,7 +94,12 @@ export const MuseovirastoLayerSelectionPanel: React.FC = () => {
           onSelectLayer={onSelectMuseovirastoLayer}
         />
 
-        <h5>{t(`data.register.Muinaisjäännösrekisteri`)}</h5>
+        <h5>
+          <Trans
+            i18nKey={`data.register.nameWithLink.Muinaisjäännösrekisteri`}
+            components={{ a: <a /> }}
+          />
+        </h5>
         <LayerCheckbox
           label={t(`common.features.Alue`)}
           layer={MuseovirastoLayer.Muinaisjaannokset_alue}

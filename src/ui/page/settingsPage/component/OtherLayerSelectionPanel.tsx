@@ -39,7 +39,10 @@ export const OtherLayerSelectionPanel: React.FC = () => {
     <Panel title={t(`settings.other.title`)}>
       <form>
         <h5>
-          <Trans i18nKey="data.register.3Dmodels" components={{ a: <a /> }} />
+          <Trans
+            i18nKey="data.register.nameWithLink.3Dmodels"
+            components={{ a: <a /> }}
+          />
         </h5>
         <LayerCheckbox
           label={t(`common.features.3D-malli`)}
@@ -50,7 +53,7 @@ export const OtherLayerSelectionPanel: React.FC = () => {
 
         <h5>
           <Trans
-            i18nKey="data.register.maisemanMuisti"
+            i18nKey="data.register.nameWithLink.maisemanMuisti"
             components={{ a: <a /> }}
           />
         </h5>

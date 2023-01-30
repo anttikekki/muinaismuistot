@@ -15,7 +15,6 @@ import {
   MaisemanMuistiLayer,
   MaisemanMuistiFeatureProperties,
   Language,
-  MuinaisjaannosTyyppi,
   HelsinkiLayer,
   MaalinnoitusFeature,
   isMaalinnoitusYksikkoFeature,
@@ -450,23 +449,25 @@ export const getLayerRegisterName = (
   switch (layer) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
     case MuseovirastoLayer.Muinaisjaannokset_alue:
-      return t(`data.register.Muinaisjäännösrekisteri`)
+      return t(`data.register.name.Muinaisjäännösrekisteri`)
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_viiva:
     case MuseovirastoLayer.RKY_piste:
       return t(
-        `data.register.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`
+        `data.register.name.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`
       )
     case MuseovirastoLayer.Maailmanperinto_alue:
     case MuseovirastoLayer.Maailmanperinto_piste:
-      return t(`data.register.Maailmanperintökohteet`)
+      return t(`data.register.name.Maailmanperintökohteet`)
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
-      return t(`data.register.Rakennusperintörekisteri`)
+      return t(`data.register.name.Rakennusperintörekisteri`)
     case AhvenanmaaLayer.Fornminnen:
-      return t(`data.register.Ahvenanmaan muinaisjäännösrekisteri`)
+      return t(`data.register.name.Ahvenanmaan muinaisjäännösrekisteri`)
     case AhvenanmaaLayer.MaritimtKulturarv:
-      return t(`data.register.Ahvenanmaan merellinen kulttuuriperintörekisteri`)
+      return t(
+        `data.register.name.Ahvenanmaan merellinen kulttuuriperintörekisteri`
+      )
   }
 }
 

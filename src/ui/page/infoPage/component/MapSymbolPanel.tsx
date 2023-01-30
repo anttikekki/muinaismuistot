@@ -9,9 +9,10 @@ export const MapSymbolPanel: React.FC = () => {
       <div>
         <div>
           <h5>
-            {t(
-              `data.register.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`
-            )}
+            <Trans
+              i18nKey={`data.register.nameWithLink.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`}
+              components={{ a: <a /> }}
+            />
           </h5>
 
           <div className="checkbox sub-layer-select-checkbox-container">
@@ -31,7 +32,12 @@ export const MapSymbolPanel: React.FC = () => {
         </div>
 
         <div>
-          <h5>{t(`data.register.Maailmanperintökohteet`)}</h5>
+          <h5>
+            <Trans
+              i18nKey={`data.register.nameWithLink.Maailmanperintökohteet`}
+              components={{ a: <a /> }}
+            />
+          </h5>
 
           <div className="checkbox sub-layer-select-checkbox-container">
             <img
@@ -51,7 +57,12 @@ export const MapSymbolPanel: React.FC = () => {
         </div>
 
         <div>
-          <h5>{t(`data.register.Rakennusperintörekisteri`)}</h5>
+          <h5>
+            <Trans
+              i18nKey={`data.register.nameWithLink.Rakennusperintörekisteri`}
+              components={{ a: <a /> }}
+            />
+          </h5>
 
           <div className="checkbox sub-layer-select-checkbox-container">
             <img
@@ -70,7 +81,12 @@ export const MapSymbolPanel: React.FC = () => {
           </div>
         </div>
 
-        <h5>{t(`data.register.Muinaisjäännösrekisteri`)}</h5>
+        <h5>
+          <Trans
+            i18nKey={`data.register.nameWithLink.Muinaisjäännösrekisteri`}
+            components={{ a: <a /> }}
+          />
+        </h5>
 
         <div className="checkbox sub-layer-select-checkbox-container">
           <img className="feature-icon" src="images/muinaisjaannos_kohde.png" />
@@ -100,7 +116,12 @@ export const MapSymbolPanel: React.FC = () => {
       </div>
 
       <div>
-        <h5>{t(`data.register.Ahvenanmaan muinaisjäännösrekisteri`)}</h5>
+        <h5>
+          <Trans
+            i18nKey={`data.register.nameWithLink.Ahvenanmaan muinaisjäännösrekisteri`}
+            components={{ a: <a /> }}
+          />
+        </h5>
 
         <div className="checkbox sub-layer-select-checkbox-container">
           <img
@@ -113,7 +134,10 @@ export const MapSymbolPanel: React.FC = () => {
 
       <div>
         <h5>
-          {t(`data.register.Ahvenanmaan merellinen kulttuuriperintörekisteri`)}
+          <Trans
+            i18nKey={`data.register.nameWithLink.Ahvenanmaan merellinen kulttuuriperintörekisteri`}
+            components={{ a: <a /> }}
+          />
         </h5>
 
         <div className="checkbox sub-layer-select-checkbox-container">
@@ -125,7 +149,7 @@ export const MapSymbolPanel: React.FC = () => {
       <div>
         <h5>
           <Trans
-            i18nKey={`data.register.maalinnoitus`}
+            i18nKey={`data.register.nameWithLink.maalinnoitus`}
             components={{ a: <a /> }}
           />
         </h5>
@@ -170,7 +194,10 @@ export const MapSymbolPanel: React.FC = () => {
 
       <div>
         <h5>
-          <Trans i18nKey="data.register.3Dmodels" components={{ a: <a /> }} />
+          <Trans
+            i18nKey="data.register.nameWithLink.3Dmodels"
+            components={{ a: <a /> }}
+          />
         </h5>
 
         <div className="checkbox sub-layer-select-checkbox-container">
@@ -183,7 +210,7 @@ export const MapSymbolPanel: React.FC = () => {
       <div>
         <h5>
           <Trans
-            i18nKey="data.register.maisemanMuisti"
+            i18nKey="data.register.nameWithLink.maisemanMuisti"
             components={{ a: <a /> }}
           />
         </h5>
