@@ -1,7 +1,18 @@
 MAP
-    NAME "sample"
+    NAME "Maankohoaminen"
     EXTENT -113500.830402 5857147.169600 1214504.830400 7965502.830400
     SIZE 1000 2000
+    PROJECTION
+        "init=epsg:3006"
+    END
+    WEB
+        METADATA
+            "wms_title"           "WMS Maankohoaminen Server"
+            "wms_onlineresource"  "http://localhost:8080/?map=/etc/mapserver/mapserver.map"
+            "wms_srs"             "EPSG:3006"
+            "wms_enable_request"  "GetMap GetFeatureInfo GetCapabilities"
+        END
+    END
     LAYER
         NAME "issjohav_1"
         TYPE POLYGON
@@ -11,6 +22,9 @@ MAP
         DATA "issjohav_1"
         EXTENT -113500.830402 5857147.169600 1214504.830400 7965502.830400
         PROCESSING "CLOSE_CONNECTION=DEFER"
+        METADATA
+            "wms_title"           "Vuosi 1 jaa"
+        END
         CLASS
             NAME "Maankohoama 1"
             STYLE
