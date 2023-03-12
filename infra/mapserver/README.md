@@ -72,3 +72,9 @@ WMS:
 ```
 http://localhost:8080/?map=/etc/mapserver/mapserver.map&service=WMS&version=1.3.0&request=GetMap&width=1000&height=1000&styles=&layers=issjohav_1&format=image/png&crs=EPSG:3067&bbox=50199.4814,6582464.0358,761274.6247,7320000.0000
 ```
+
+WMS Get Capabilities:
+
+```
+http://localhost:8080/?map=/etc/mapserver/mapserver.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities
+```

@@ -19,6 +19,10 @@ export enum MaanmittauslaitosLayer {
   Ortokuva = "ortokuva"
 }
 
+export enum MaankohoaminenLayer {
+  Vuosi_1_jaa = "issjohav_1"
+}
+
 export enum MuseovirastoLayer {
   Muinaisjaannokset_piste = "Muinaisjaannokset_piste",
   Muinaisjaannokset_alue = "Muinaisjaannokset_alue",

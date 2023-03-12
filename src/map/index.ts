@@ -40,12 +40,14 @@ import {
 import HelsinkiTileLayer from "./layer/HelsinkiTileLayer"
 import VectorSource from "ol/source/Vector"
 import Geometry from "ol/geom/Geometry"
+import MaankohoaminenTileLayer from "./layer/MaankohoaminenTileLayer"
 
 let store: Store<Settings, ActionTypes>
 let map: Map
 let view: View
 let geolocation: Geolocation | undefined
 let maanmittauslaitosTileLayer: MaanmittauslaitosTileLayer
+let maankohoaminenTileLayer: MaankohoaminenTileLayer
 let museovirastoTileLayer: MuseovirastoTileLayer
 let ahvenanmaaTileLayer: AhvenanmaaTileLayer
 let positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
@@ -149,6 +151,15 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     map.getLayers().push(modelsLayer)
     map.getLayers().push(positionAndSelectedLocation.getLayer())
   })
+
+  maankohoaminenTileLayer = new MaankohoaminenTileLayer(
+    store,
+    updateTileLoadingStatus,
+    (createdLayer) => {
+      createdLayer.setZIndex(10)
+      map.getLayers().push(createdLayer)
+    }
+  )
 
   map.on("singleclick", indentifyFeaturesOnClickedCoordinate)
 }

@@ -7,6 +7,7 @@ import {
   HelsinkiLayer,
   Language,
   MaalinnoitusFeature,
+  MaankohoaminenLayer,
   MaanmittauslaitosLayer,
   MaisemanMuistiFeatureProperties,
   MaisemanMuistiLayer,
@@ -47,6 +48,13 @@ export interface Settings {
       WMTSCapabilities: string
     }
     apiKey: string
+  }
+  maankohoaminen: {
+    selectedLayer: MaankohoaminenLayer
+    url: {
+      wms: string
+    }
+    opacity: number
   }
   museovirasto: {
     selectedLayers: Array<MuseovirastoLayer>

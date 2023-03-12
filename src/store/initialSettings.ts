@@ -7,7 +7,8 @@ import {
   ModelLayer,
   MaisemanMuistiLayer,
   Language,
-  HelsinkiLayer
+  HelsinkiLayer,
+  MaankohoaminenLayer
 } from "../common/types"
 import { Settings } from "./storeTypes"
 
@@ -44,6 +45,13 @@ export const initialSettings: Settings = {
      * This API key is just for avoin-karttakuva.maanmittauslaitos.fi
      */
     apiKey: "0593cc3c-e12f-489c-b8d6-c9a6965b4bfe"
+  },
+  maankohoaminen: {
+    selectedLayer: MaankohoaminenLayer.Vuosi_1_jaa,
+    url: {
+      wms: "http://localhost:8080"
+    },
+    opacity: 0.8
   },
   museovirasto: {
     selectedLayers: Object.values(MuseovirastoLayer),
