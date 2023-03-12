@@ -1,15 +1,15 @@
 MAP
     NAME "Maankohoaminen"
-    EXTENT -113500.830402 5857147.169600 1214504.830400 7965502.830400
+    EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
     SIZE 1000 2000
     PROJECTION
-        "init=epsg:3006"
+        "init=epsg:3067"
     END
     WEB
         METADATA
             "wms_title"           "WMS Maankohoaminen Server"
             "wms_onlineresource"  "http://localhost:8080/?map=/etc/mapserver/mapserver.map"
-            "wms_srs"             "EPSG:3006"
+            "wms_srs"             " EPSG:3067"
             "wms_enable_request"  "GetMap GetFeatureInfo GetCapabilities"
         END
     END
@@ -18,9 +18,9 @@ MAP
         TYPE POLYGON
         STATUS ON
         CONNECTIONTYPE OGR
-        CONNECTION "strandforskjutning_1_900.gpkg"
+        CONNECTION "strandforskjutning_1_900_EPSG-3067_cropped-3.gpkg"
         DATA "issjohav_1"
-        EXTENT -113500.830402 5857147.169600 1214504.830400 7965502.830400
+        EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
         PROCESSING "CLOSE_CONNECTION=DEFER"
         METADATA
             "wms_title"           "Vuosi 1 jaa"
