@@ -1,21 +1,18 @@
 import React, { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
-import {
-  maankohoaminenAddYears,
-  maankohoaminenDecreaseYears
-} from "../../../store/actionCreators"
+import { maankohoaminenChangeYear } from "../../../store/actionCreators"
 
 export const MaankohoaminenButtons: React.FunctionComponent = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
   const onClickAddYears = useCallback(() => {
-    dispatch(maankohoaminenAddYears())
+    dispatch(maankohoaminenChangeYear(100))
   }, [dispatch])
 
   const onClickDecreaseYears = useCallback(() => {
-    dispatch(maankohoaminenDecreaseYears())
+    dispatch(maankohoaminenChangeYear(-100))
   }, [dispatch])
 
   return (

@@ -18,7 +18,8 @@ import {
   SELECT_VISIBLE_MUSEOVIRASTO_LAYERS,
   SHOW_LOADING_ANIMATION,
   SHOW_PAGE,
-  SELECT_VISIBLE_HELSINKI_LAYERS
+  SELECT_VISIBLE_HELSINKI_LAYERS,
+  MAANKOHOAMINEN_CHANGE_YEAR
 } from "./actionTypes"
 import {
   MaanmittauslaitosLayer,
@@ -31,7 +32,9 @@ import {
   Language,
   GtkLayer,
   LayerGroup,
-  HelsinkiLayer
+  HelsinkiLayer,
+  getNextMaankohoaminenLayer,
+  MaankohoaminenLayer
 } from "../common/types"
 
 export const updateLanguage = (
@@ -213,6 +216,22 @@ export const updateSelectMuinaisjaannosDatings = (
   }
 }
 
+export const updateMaankohoaminenLayer = (
+  settings: Settings,
+  addYears: 100 | -100
+): Settings => {
+  return {
+    ...settings,
+    maankohoaminen: {
+      ...settings.maankohoaminen,
+      selectedLayer: getNextMaankohoaminenLayer(
+        addYears,
+        settings.maankohoaminen.selectedLayer ?? MaankohoaminenLayer.Vuosi_1_jaa
+      )
+    }
+  }
+}
+
 export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
   if (state == undefined) {
     throw new Error("State must be defined")
@@ -294,6 +313,8 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
       ...state,
       visiblePage: action.pageId
     }
+  } else if (action.type === MAANKOHOAMINEN_CHANGE_YEAR) {
+    return updateMaankohoaminenLayer(state, action.addYears)
   }
   return state
 }

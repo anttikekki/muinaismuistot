@@ -16,6 +16,7 @@ import { selectVisibleModelsLayerEpic } from "./modelsLayer"
 import { updateUrlParametersEpic } from "./url"
 import { changeLayerOpacityEpic } from "./opacity"
 import { selectVisibleHelsinkiLayersEpic } from "./helsinkiLayer"
+import { selectVisibleMaankohoaminenLayersEpic } from "./maankohoaminenLayers"
 
 export const rootEpic = combineEpics(
   zoomInEpic,
@@ -33,5 +34,6 @@ export const rootEpic = combineEpics(
   selectVisibleMuinaisjäännösTypeEpic,
   selectVisibleMuinaisjäännösDatingEpic,
   updateUrlParametersEpic,
-  selectVisibleHelsinkiLayersEpic
+  selectVisibleHelsinkiLayersEpic,
+  selectVisibleMaankohoaminenLayersEpic
 )

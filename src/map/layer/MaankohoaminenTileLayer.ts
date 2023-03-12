@@ -67,6 +67,12 @@ export default class MaankohoaminenTileLayer {
   private updateLayerSource = () => {
     if (this.layer) {
       const settings = this.store.getState()
+      const newLayer = settings.maankohoaminen.selectedLayer
+      const oldLayer = this.source?.getParams()?.LAYERS
+      if (newLayer === oldLayer) {
+        return
+      }
+
       this.source = this.createSource()
       this.layer.setSource(this.source)
       this.layer.setVisible(!!settings.maankohoaminen.selectedLayer)

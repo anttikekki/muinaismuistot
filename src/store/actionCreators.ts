@@ -56,10 +56,8 @@ import {
   ZOOM_OUT,
   SelectVisibleHelsinkiLayersAction,
   SELECT_VISIBLE_HELSINKI_LAYERS,
-  MAANKOHOAMINEN_ADD_YEARS,
-  MAANKOHOAMINEN_DECREASE_YEARS,
-  MaankohoaminenAddYearsAction,
-  MaankohoaminenDecreaseYearsAction
+  MaankohoaminenChangeYearAction,
+  MAANKOHOAMINEN_CHANGE_YEAR
 } from "./actionTypes"
 import { PageId, SelectedFeaturesOnMap } from "./storeTypes"
 
@@ -237,15 +235,11 @@ export const showPage = (pageId?: PageId): ShowPageAction => {
   }
 }
 
-export const maankohoaminenAddYears = (): MaankohoaminenAddYearsAction => {
+export const maankohoaminenChangeYear = (
+  addYears: 100 | -100
+): MaankohoaminenChangeYearAction => {
   return {
-    type: MAANKOHOAMINEN_ADD_YEARS
+    type: MAANKOHOAMINEN_CHANGE_YEAR,
+    addYears
   }
 }
-
-export const maankohoaminenDecreaseYears =
-  (): MaankohoaminenDecreaseYearsAction => {
-    return {
-      type: MAANKOHOAMINEN_DECREASE_YEARS
-    }
-  }

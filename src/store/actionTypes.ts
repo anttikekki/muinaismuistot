@@ -44,8 +44,7 @@ export const SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING =
 export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE"
 export const SHOW_LOADING_ANIMATION = "SHOW_LOADING_ANIMATION"
 export const SHOW_PAGE = "SHOW_PAGE"
-export const MAANKOHOAMINEN_ADD_YEARS = "MAANKOHOAMINEN_ADD_YEARS"
-export const MAANKOHOAMINEN_DECREASE_YEARS = "MAANKOHOAMINEN_DECREASE_YEARS"
+export const MAANKOHOAMINEN_CHANGE_YEAR = "MAANKOHOAMINEN_CHANGE_YEAR"
 
 export interface ZoomInAction {
   type: typeof ZOOM_IN
@@ -149,12 +148,9 @@ export interface ShowPageAction {
   pageId?: PageId
 }
 
-export interface MaankohoaminenAddYearsAction {
-  type: typeof MAANKOHOAMINEN_ADD_YEARS
-}
-
-export interface MaankohoaminenDecreaseYearsAction {
-  type: typeof MAANKOHOAMINEN_DECREASE_YEARS
+export interface MaankohoaminenChangeYearAction {
+  type: typeof MAANKOHOAMINEN_CHANGE_YEAR
+  addYears: 100 | -100
 }
 
 export type ActionTypes =
@@ -179,5 +175,4 @@ export type ActionTypes =
   | ChangeLanguageAction
   | ShowLoadingAnimationAction
   | ShowPageAction
-  | MaankohoaminenAddYearsAction
-  | MaankohoaminenDecreaseYearsAction
+  | MaankohoaminenChangeYearAction

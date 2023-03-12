@@ -20,11 +20,6 @@ export enum MaanmittauslaitosLayer {
   Ortokuva = "ortokuva"
 }
 
-export enum MaankohoaminenLayer {
-  Vuosi_1_jaa = "issjohav_1",
-  Vuosi_500_jaa = "issjohav_500"
-}
-
 export enum MuseovirastoLayer {
   Muinaisjaannokset_piste = "Muinaisjaannokset_piste",
   Muinaisjaannokset_alue = "Muinaisjaannokset_alue",
@@ -174,6 +169,44 @@ export const getGtkLayerId = (layer: GtkLayer): GtkLayerId => {
       return 25
       */
   }
+}
+
+export enum MaankohoaminenLayer {
+  Vuosi_1_jaa = "issjohav_1",
+  Vuosi_100_jaa = "issjohav_100",
+  Vuosi_200_jaa = "issjohav_200",
+  Vuosi_300_jaa = "issjohav_300",
+  Vuosi_400_jaa = "issjohav_400",
+  Vuosi_500_jaa = "issjohav_500"
+}
+
+export const maankohoaminenLayerYears: Array<{
+  year: number
+  layer: MaankohoaminenLayer
+}> = [
+  { year: 0, layer: MaankohoaminenLayer.Vuosi_1_jaa },
+  { year: 100, layer: MaankohoaminenLayer.Vuosi_100_jaa },
+  { year: 200, layer: MaankohoaminenLayer.Vuosi_200_jaa },
+  { year: 300, layer: MaankohoaminenLayer.Vuosi_300_jaa },
+  { year: 400, layer: MaankohoaminenLayer.Vuosi_400_jaa },
+  { year: 500, layer: MaankohoaminenLayer.Vuosi_500_jaa }
+]
+
+export const getNextMaankohoaminenLayer = (
+  addYears: 100 | -100,
+  currrentLayer: MaankohoaminenLayer
+): MaankohoaminenLayer => {
+  const currentYear = maankohoaminenLayerYears.find(
+    (v) => v.layer === currrentLayer
+  )?.year
+  if (currentYear === undefined) {
+    throw Error("Configuration error")
+  }
+  const nextYear = currentYear + addYears
+  const nextLayer = maankohoaminenLayerYears.find(
+    (v) => v.year === nextYear
+  )?.layer
+  return nextLayer ?? currrentLayer
 }
 
 export enum MuinaisjaannosTyyppi {
