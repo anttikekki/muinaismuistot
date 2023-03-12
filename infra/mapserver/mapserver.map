@@ -30,7 +30,7 @@ MAP
             STYLE
                 COLOR "#c9ecfa"
                 OUTLINECOLOR 0 0 0
-                WIDTH 0.1
+                WIDTH 1
             END #style
         END #class
     END #layer

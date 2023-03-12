@@ -49,9 +49,9 @@ export const initialSettings: Settings = {
   maankohoaminen: {
     selectedLayer: MaankohoaminenLayer.Vuosi_1_jaa,
     url: {
-      wms: "http://localhost:8080"
+      wms: "http://localhost:8080/?map=/etc/mapserver/mapserver.map"
     },
-    opacity: 0.8
+    opacity: 1.0
   },
   museovirasto: {
     selectedLayers: Object.values(MuseovirastoLayer),
