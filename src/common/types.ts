@@ -10,7 +10,8 @@ export enum LayerGroup {
   Ahvenanmaa = "Ahvenanmaa",
   Helsinki = "Helsinki",
   Models = "Models",
-  MaisemanMuisti = "MaisemanMuisti"
+  MaisemanMuisti = "MaisemanMuisti",
+  Maankohoaminen = "Maankohoaminen"
 }
 
 export enum MaanmittauslaitosLayer {
@@ -20,7 +21,8 @@ export enum MaanmittauslaitosLayer {
 }
 
 export enum MaankohoaminenLayer {
-  Vuosi_1_jaa = "issjohav_1"
+  Vuosi_1_jaa = "issjohav_1",
+  Vuosi_500_jaa = "issjohav_500"
 }
 
 export enum MuseovirastoLayer {

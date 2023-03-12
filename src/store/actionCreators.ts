@@ -55,7 +55,11 @@ import {
   ZOOM_IN,
   ZOOM_OUT,
   SelectVisibleHelsinkiLayersAction,
-  SELECT_VISIBLE_HELSINKI_LAYERS
+  SELECT_VISIBLE_HELSINKI_LAYERS,
+  MAANKOHOAMINEN_ADD_YEARS,
+  MAANKOHOAMINEN_DECREASE_YEARS,
+  MaankohoaminenAddYearsAction,
+  MaankohoaminenDecreaseYearsAction
 } from "./actionTypes"
 import { PageId, SelectedFeaturesOnMap } from "./storeTypes"
 
@@ -77,11 +81,12 @@ export const centerToCurrentPosition = (): CenterMapToCurrentPositionAction => {
   }
 }
 
-export const fetchDataLatestUpdateDates = (): FetchDataLatestUpdateDatesAction => {
-  return {
-    type: FETCH_DATA_LATESTS_UPDATE_DATES
+export const fetchDataLatestUpdateDates =
+  (): FetchDataLatestUpdateDatesAction => {
+    return {
+      type: FETCH_DATA_LATESTS_UPDATE_DATES
+    }
   }
-}
 
 export const fetchDataLatestUpdateDatesComplete = (
   payload: DataLatestUpdateDates
@@ -231,3 +236,16 @@ export const showPage = (pageId?: PageId): ShowPageAction => {
     pageId
   }
 }
+
+export const maankohoaminenAddYears = (): MaankohoaminenAddYearsAction => {
+  return {
+    type: MAANKOHOAMINEN_ADD_YEARS
+  }
+}
+
+export const maankohoaminenDecreaseYears =
+  (): MaankohoaminenDecreaseYearsAction => {
+    return {
+      type: MAANKOHOAMINEN_DECREASE_YEARS
+    }
+  }

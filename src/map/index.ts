@@ -328,6 +328,9 @@ export const selectedFeatureLayersChanged = (
     case LayerGroup.MaisemanMuisti:
       maisemanMuistiLayer.selectedFeatureLayersChanged()
       break
+    case LayerGroup.Maankohoaminen:
+      maankohoaminenTileLayer.selectedFeatureLayersChanged()
+      break
   }
 }
 
@@ -375,6 +378,9 @@ export const layerOpacityChanged = (changedLayerGroup: LayerGroup): void => {
       break
     case LayerGroup.Helsinki:
       helsinkiLayer.opacityChanged()
+      break
+    case LayerGroup.Maankohoaminen:
+      maankohoaminenTileLayer.opacityChanged()
       break
   }
 }

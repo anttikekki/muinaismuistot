@@ -26,7 +26,26 @@ MAP
             "wms_title"           "Vuosi 1 jaa"
         END
         CLASS
-            NAME "Maankohoama 1"
+            STYLE
+                COLOR "#c9ecfa"
+                OUTLINECOLOR 0 0 0
+                WIDTH 1
+            END #style
+        END #class
+    END #layer
+    LAYER
+        NAME "issjohav_500"
+        TYPE POLYGON
+        STATUS ON
+        CONNECTIONTYPE OGR
+        CONNECTION "strandforskjutning_1_900_EPSG-3067_cropped-3.gpkg"
+        DATA "issjohav_1"
+        EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
+        PROCESSING "CLOSE_CONNECTION=DEFER"
+        METADATA
+            "wms_title"           "Vuosi 500 jaa"
+        END
+        CLASS
             STYLE
                 COLOR "#c9ecfa"
                 OUTLINECOLOR 0 0 0

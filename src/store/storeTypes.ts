@@ -50,7 +50,7 @@ export interface Settings {
     apiKey: string
   }
   maankohoaminen: {
-    selectedLayer: MaankohoaminenLayer
+    selectedLayer: MaankohoaminenLayer | undefined
     url: {
       wms: string
     }

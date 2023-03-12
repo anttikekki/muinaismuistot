@@ -69,7 +69,7 @@ export default class MaankohoaminenTileLayer {
       const settings = this.store.getState()
       this.source = this.createSource()
       this.layer.setSource(this.source)
-      this.layer.setVisible(settings.helsinki.selectedLayers.length > 0)
+      this.layer.setVisible(!!settings.maankohoaminen.selectedLayer)
     }
   }
 

@@ -23,6 +23,7 @@ import { Store } from "redux"
 import { Provider } from "react-redux"
 import { ActionTypes } from "../store/actionTypes"
 import { Settings } from "../store/storeTypes"
+import { MaankohoaminenButtons } from "./component/mapButton/MaankohoaminenButtons"
 
 const toggleFullscreen = () => {
   if (!document.fullscreenElement) {
@@ -57,6 +58,7 @@ export const createUI = (store: Store<Settings, ActionTypes>) => {
       <OpenSearchPageButton />
       <ShowInfoPageButton />
       <OpenSettingsPage />
+      <MaankohoaminenButtons />
       <FullscreenButton
         onClick={toggleFullscreen}
         fullscreenPossible={document.fullscreenEnabled}
