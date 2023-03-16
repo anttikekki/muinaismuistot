@@ -1,0 +1,16 @@
+FROM camptocamp/mapserver:8.0
+
+COPY ./3-cropped-gpkg/strandforskjutning_1_900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_1000_1900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_2000_2900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_3000_3900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_4000_4900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_5000_5900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_6000_6900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_7000_7900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_8000_8900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_9000_9900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_10000_10900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_11000_11900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_12000_12900.gpkg /etc/mapserver/
+COPY ./3-cropped-gpkg/strandforskjutning_13000_13500.gpkg /etc/mapserver/

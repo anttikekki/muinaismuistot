@@ -78,3 +78,11 @@ WMS Get Capabilities:
 ```
 http://localhost:8080/?map=/etc/mapserver/mapserver.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities
 ```
+
+```
+docker build --tag maannousu-base:2023-03-16 --file Dockerfile.base .
+
+docker run --rm -p 8080:80 --name maannousu-base maannousu-base:2023-03-16
+
+docker exec -it maannousu-base bash
+```
