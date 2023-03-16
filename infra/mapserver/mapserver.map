@@ -1,7 +1,6 @@
 MAP
     NAME "Maankohoaminen"
     EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-    SIZE 1000 2000
     PROJECTION
         "init=epsg:3067"
     END
