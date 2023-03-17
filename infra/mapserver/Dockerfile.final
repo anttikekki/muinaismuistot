@@ -1,0 +1,3 @@
+FROM maannousu-base:2023-03-16
+
+COPY ./mapserver.map /etc/mapserver/

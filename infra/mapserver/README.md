@@ -80,9 +80,11 @@ http://localhost:8080/?map=/etc/mapserver/mapserver.map&SERVICE=WMS&VERSION=1.1.
 ```
 
 ```
-docker build --tag maannousu-base:2023-03-16 --file Dockerfile.base .
+docker build --tag maannousu-base:2023-03-16 --tag maannousu-base:latest --file Dockerfile.base .
 
-docker run --rm -p 8080:80 --name maannousu-base maannousu-base:2023-03-16
+docker build --tag maannousu-final:2023-03-17 --tag maannousu-final:latest --file Dockerfile.final .
+
+docker run --rm -p 8080:80 --name maannousu-final maannousu-final:latest
 
 docker exec -it maannousu-base bash
 ```

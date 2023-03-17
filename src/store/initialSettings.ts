@@ -8,7 +8,7 @@ import {
   MaisemanMuistiLayer,
   Language,
   HelsinkiLayer,
-  MaankohoaminenLayer
+  defaultMaankohoaminenLayer
 } from "../common/types"
 import { Settings } from "./storeTypes"
 
@@ -47,7 +47,7 @@ export const initialSettings: Settings = {
     apiKey: "0593cc3c-e12f-489c-b8d6-c9a6965b4bfe"
   },
   maankohoaminen: {
-    selectedLayer: MaankohoaminenLayer.Vuosi_1_jaa,
+    selectedLayer: defaultMaankohoaminenLayer,
     url: {
       wms: "http://localhost:8080/?map=/etc/mapserver/mapserver.map"
     },

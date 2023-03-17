@@ -33,8 +33,7 @@ import {
   GtkLayer,
   LayerGroup,
   HelsinkiLayer,
-  getNextMaankohoaminenLayer,
-  MaankohoaminenLayer
+  getNextMaankohoaminenLayer
 } from "../common/types"
 
 export const updateLanguage = (
@@ -220,13 +219,17 @@ export const updateMaankohoaminenLayer = (
   settings: Settings,
   addYears: 100 | -100
 ): Settings => {
+  if (!settings.maankohoaminen.selectedLayer) {
+    return settings
+  }
+
   return {
     ...settings,
     maankohoaminen: {
       ...settings.maankohoaminen,
       selectedLayer: getNextMaankohoaminenLayer(
         addYears,
-        settings.maankohoaminen.selectedLayer ?? MaankohoaminenLayer.Vuosi_1_jaa
+        settings.maankohoaminen.selectedLayer
       )
     }
   }

@@ -7,7 +7,6 @@ import {
   HelsinkiLayer,
   Language,
   MaalinnoitusFeature,
-  MaankohoaminenLayer,
   MaanmittauslaitosLayer,
   MaisemanMuistiFeatureProperties,
   MaisemanMuistiLayer,
@@ -50,7 +49,7 @@ export interface Settings {
     apiKey: string
   }
   maankohoaminen: {
-    selectedLayer: MaankohoaminenLayer | undefined
+    selectedLayer: string | undefined
     url: {
       wms: string
     }
