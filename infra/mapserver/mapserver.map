@@ -15,6 +15,27 @@ MAP
     END
     
   LAYER
+      NAME "issjohav_1"
+      TYPE POLYGON
+      STATUS ON
+      CONNECTIONTYPE OGR
+      CONNECTION "strandforskjutning_1_900.gpkg"
+      DATA "issjohav_1"
+      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
+      PROCESSING "CLOSE_CONNECTION=DEFER"
+      METADATA
+          "wms_title"           "Vuosi 1950 jaa."
+      END
+      CLASS
+          STYLE
+              COLOR "#c9ecfa"
+              OUTLINECOLOR 0 0 0
+              WIDTH 1
+          END #style
+      END #class
+  END #layer
+
+  LAYER
       NAME "issjohav_100"
       TYPE POLYGON
       STATUS ON
@@ -208,33 +229,12 @@ MAP
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_1_900.gpkg"
+      CONNECTION "strandforskjutning_1000_1900.gpkg"
       DATA "issjohav_1000"
       EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
       PROCESSING "CLOSE_CONNECTION=DEFER"
       METADATA
           "wms_title"           "Vuosi 950 jaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
-      NAME "issjohav_1100"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_1000_1900.gpkg"
-      DATA "issjohav_1100"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 850 jaa."
       END
       CLASS
           STYLE
@@ -418,7 +418,7 @@ MAP
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_1000_1900.gpkg"
+      CONNECTION "strandforskjutning_2000_2900.gpkg"
       DATA "issjohav_2000"
       EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
       PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -628,7 +628,7 @@ MAP
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_2000_2900.gpkg"
+      CONNECTION "strandforskjutning_3000_3900.gpkg"
       DATA "issjohav_3000"
       EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
       PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -838,7 +838,7 @@ MAP
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_3000_3900.gpkg"
+      CONNECTION "strandforskjutning_4000_4900.gpkg"
       DATA "issjohav_4000"
       EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
       PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1048,7 +1048,7 @@ MAP
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_4000_4900.gpkg"
+      CONNECTION "strandforskjutning_5000_5900.gpkg"
       DATA "issjohav_5000"
       EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
       PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1258,7 +1258,7 @@ MAP
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_5000_5900.gpkg"
+      CONNECTION "strandforskjutning_6000_6900.gpkg"
       DATA "issjohav_6000"
       EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
       PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1468,7 +1468,7 @@ MAP
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_6000_6900.gpkg"
+      CONNECTION "strandforskjutning_7000_7900.gpkg"
       DATA "issjohav_7000"
       EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
       PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1537,27 +1537,6 @@ MAP
       PROCESSING "CLOSE_CONNECTION=DEFER"
       METADATA
           "wms_title"           "Vuosi 5350 eaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
-      NAME "issjohav_7400"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_7000_7900.gpkg"
-      DATA "issjohav_7400"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 5450 eaa."
       END
       CLASS
           STYLE
@@ -1674,48 +1653,6 @@ MAP
   END #layer
 
   LAYER
-      NAME "issjohav_8000"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_7000_7900.gpkg"
-      DATA "issjohav_8000"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 6050 eaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
-      NAME "issjohav_8100"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_8000_8900.gpkg"
-      DATA "issjohav_8100"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 6150 eaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
       NAME "issjohav_8200"
       TYPE POLYGON
       STATUS ON
@@ -1747,48 +1684,6 @@ MAP
       PROCESSING "CLOSE_CONNECTION=DEFER"
       METADATA
           "wms_title"           "Vuosi 6350 eaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
-      NAME "issjohav_8400"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_8000_8900.gpkg"
-      DATA "issjohav_8400"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 6450 eaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
-      NAME "issjohav_8500"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_8000_8900.gpkg"
-      DATA "issjohav_8500"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 6550 eaa."
       END
       CLASS
           STYLE
@@ -1888,7 +1783,7 @@ MAP
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_8000_8900.gpkg"
+      CONNECTION "strandforskjutning_9000_9900.gpkg"
       DATA "issjohav_9000"
       EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
       PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -1989,48 +1884,6 @@ MAP
   END #layer
 
   LAYER
-      NAME "issjohav_9500"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_9000_9900.gpkg"
-      DATA "issjohav_9500"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 7550 eaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
-      NAME "issjohav_9600"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_9000_9900.gpkg"
-      DATA "issjohav_9600"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 7650 eaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
       NAME "issjohav_9700"
       TYPE POLYGON
       STATUS ON
@@ -2098,7 +1951,7 @@ MAP
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_9000_9900.gpkg"
+      CONNECTION "strandforskjutning_10000_10900.gpkg"
       DATA "issjohav_10000"
       EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
       PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2308,7 +2161,7 @@ MAP
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_10000_10900.gpkg"
+      CONNECTION "strandforskjutning_11000_11900.gpkg"
       DATA "issjohav_11000"
       EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
       PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2518,7 +2371,7 @@ MAP
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_11000_11900.gpkg"
+      CONNECTION "strandforskjutning_12000_12900.gpkg"
       DATA "issjohav_12000"
       EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
       PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2728,7 +2581,7 @@ MAP
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_12000_12900.gpkg"
+      CONNECTION "strandforskjutning_13000_13500.gpkg"
       DATA "issjohav_13000"
       EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
       PROCESSING "CLOSE_CONNECTION=DEFER"
@@ -2839,111 +2692,6 @@ MAP
       PROCESSING "CLOSE_CONNECTION=DEFER"
       METADATA
           "wms_title"           "Vuosi 11550 eaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
-      NAME "issjohav_13600"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_13000_13500.gpkg"
-      DATA "issjohav_13600"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 11650 eaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
-      NAME "issjohav_13700"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_13000_13500.gpkg"
-      DATA "issjohav_13700"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 11750 eaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
-      NAME "issjohav_13800"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_13000_13500.gpkg"
-      DATA "issjohav_13800"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 11850 eaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
-      NAME "issjohav_13900"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_13000_13500.gpkg"
-      DATA "issjohav_13900"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 11950 eaa."
-      END
-      CLASS
-          STYLE
-              COLOR "#c9ecfa"
-              OUTLINECOLOR 0 0 0
-              WIDTH 1
-          END #style
-      END #class
-  END #layer
-
-  LAYER
-      NAME "issjohav_14000"
-      TYPE POLYGON
-      STATUS ON
-      CONNECTIONTYPE OGR
-      CONNECTION "strandforskjutning_13000_13500.gpkg"
-      DATA "issjohav_14000"
-      EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
-      PROCESSING "CLOSE_CONNECTION=DEFER"
-      METADATA
-          "wms_title"           "Vuosi 12050 eaa."
       END
       CLASS
           STYLE

@@ -17,20 +17,32 @@ const fileNames = [
   { file: "strandforskjutning_10000_10900.gpkg", min: 10000, max: 10900 },
   { file: "strandforskjutning_11000_11900.gpkg", min: 11000, max: 11900 },
   { file: "strandforskjutning_12000_12900.gpkg", min: 12000, max: 12900 },
-  { file: "strandforskjutning_13000_13500.gpkg", min: 13000, max: 13900 }
+  { file: "strandforskjutning_13000_13500.gpkg", min: 13000, max: 13500 }
+]
+const missingOrBrokenLayers = [
+  // Layer issjohav_1100 is missing from strandforskjutning_1000_1900.gpkg
+  "issjohav_1100",
+  // Following layers are broken from ogr2org crop
+  "issjohav_7400",
+  "issjohav_8000",
+  "issjohav_8100",
+  "issjohav_8400",
+  "issjohav_8500",
+  "issjohav_9500",
+  "issjohav_9600"
 ]
 const extent = "50199.4814 6582464.0358 761274.6247 7320000.0000"
 
-const createLayerDefinition = (fileName, yearFrom1950, year) => {
+const createLayerDefinition = (fileName, layerName, year) => {
   const yearName = year < 0 ? `${-year} eaa.` : `${year} jaa.`
   return `
   LAYER
-      NAME "issjohav_${yearFrom1950}"
+      NAME "${layerName}"
       TYPE POLYGON
       STATUS ON
       CONNECTIONTYPE OGR
       CONNECTION "${fileName}"
-      DATA "issjohav_${yearFrom1950}"
+      DATA "${layerName}"
       EXTENT ${extent}
       PROCESSING "CLOSE_CONNECTION=DEFER"
       METADATA
@@ -54,12 +66,23 @@ let layerDefs = ""
 
 for (const { file, max } of fileNames) {
   while (yearsFrom1950 <= max) {
-    yearsFrom1950 += layerStepYears
+    let layerSuffix = yearsFrom1950
+
+    // There is no issjohav_0 but there is issjohav_1
+    if (layerSuffix === 0) {
+      layerSuffix = 1
+    }
+    const layerName = `issjohav_${layerSuffix}`
+    if (missingOrBrokenLayers.includes(layerName)) {
+      yearsFrom1950 += layerStepYears
+      continue
+    }
     layerDefs += createLayerDefinition(
       file,
-      yearsFrom1950,
+      layerName,
       startYear - yearsFrom1950
     )
+    yearsFrom1950 += layerStepYears
   }
 }
 
