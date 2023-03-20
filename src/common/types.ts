@@ -171,60 +171,6 @@ export const getGtkLayerId = (layer: GtkLayer): GtkLayerId => {
   }
 }
 
-export const defaultMaankohoaminenLayer = "issjohav_1000"
-const maankohoainenLayerPrefix = "issjohav_"
-const maankohoaminenMinLayerYear = 0
-const maankohoaminenMaxLayerYear = 14000
-const missingOrBrokenMaankohoaminenLayers = [
-  // Layer issjohav_1100 is missing from strandforskjutning_1000_1900.gpkg
-  "issjohav_1100",
-  // Following layers are broken from ogr2org crop
-  "issjohav_7400",
-  "issjohav_8000",
-  "issjohav_8100",
-  "issjohav_8400",
-  "issjohav_8500",
-  "issjohav_9500",
-  "issjohav_9600"
-]
-
-export const getNextMaankohoaminenLayer = (
-  addYears: 100 | -100,
-  currentLayer: string
-): string => {
-  let currentLayerYear = parseInt(
-    currentLayer.replace(maankohoainenLayerPrefix, "")
-  )
-  if (isNaN(currentLayerYear)) {
-    throw Error("Configuration error")
-  }
-
-  // issjohav_1 means year 0 from 1950
-  if (currentLayerYear === 1) {
-    currentLayerYear = 0
-  }
-
-  let nextLayerYear = currentLayerYear + addYears
-  if (
-    nextLayerYear < maankohoaminenMinLayerYear ||
-    nextLayerYear > maankohoaminenMaxLayerYear
-  ) {
-    return currentLayer
-  }
-
-  // issjohav_1 means year 0 from 1950
-  if (nextLayerYear === 0) {
-    nextLayerYear = 1
-  }
-
-  const nextLayerName = maankohoainenLayerPrefix + nextLayerYear
-  if (missingOrBrokenMaankohoaminenLayers.includes(nextLayerName)) {
-    return getNextMaankohoaminenLayer(addYears, nextLayerName)
-  }
-
-  return nextLayerName
-}
-
 export enum MuinaisjaannosTyyppi {
   eiMääritelty = "ei määritelty",
   alustenHylyt = "alusten hylyt",

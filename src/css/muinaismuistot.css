@@ -80,13 +80,8 @@ body,
   left: 20px;
 }
 
-#map-button-maankohoaminen-add-years {
-  bottom: 80px;
-  left: 20px;
-}
-
-#map-button-maankohoaminen-decrease-years {
-  bottom: 40px;
+#map-button-maankohoaminen {
+  bottom: 50px;
   left: 20px;
 }
 

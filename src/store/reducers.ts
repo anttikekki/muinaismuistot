@@ -32,9 +32,9 @@ import {
   Language,
   GtkLayer,
   LayerGroup,
-  HelsinkiLayer,
-  getNextMaankohoaminenLayer
+  HelsinkiLayer
 } from "../common/types"
+import { getNextMaankohoaminenLayer } from "../common/maankohoaminen"
 
 export const updateLanguage = (
   settings: Settings,

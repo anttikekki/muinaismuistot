@@ -1,3 +1,4 @@
+import { defaultMaankohoaminenLayer } from "../common/maankohoaminen"
 import {
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
@@ -7,8 +8,7 @@ import {
   ModelLayer,
   MaisemanMuistiLayer,
   Language,
-  HelsinkiLayer,
-  defaultMaankohoaminenLayer
+  HelsinkiLayer
 } from "../common/types"
 import { Settings } from "./storeTypes"
 
