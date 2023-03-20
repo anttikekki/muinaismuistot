@@ -1,7 +1,10 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { geMaankohoaminenLayerName } from "../../../common/maankohoaminen"
+import {
+  geMaankohoaminenLayerName,
+  hasNextMaankohoaminenLayer
+} from "../../../common/maankohoaminen"
 import { maankohoaminenChangeYear } from "../../../store/actionCreators"
 import { Settings } from "../../../store/storeTypes"
 
@@ -12,13 +15,28 @@ export const MaankohoaminenButtons: React.FunctionComponent = () => {
     (settings: Settings) => settings.maankohoaminen.selectedLayer
   )
 
-  const onClickAddYearsFrom1950 = useCallback(() => {
+  const onClickNextPastLayer = useCallback(() => {
+    dispatch(maankohoaminenChangeYear(-100))
+  }, [dispatch])
+
+  const onClickNextFutureLayer = useCallback(() => {
     dispatch(maankohoaminenChangeYear(100))
   }, [dispatch])
 
-  const onClickDecreaseYearsFrom1950 = useCallback(() => {
-    dispatch(maankohoaminenChangeYear(-100))
-  }, [dispatch])
+  const hasFutureLayer = useMemo(
+    () =>
+      selectedLayer ? hasNextMaankohoaminenLayer(100, selectedLayer) : false,
+    [selectedLayer]
+  )
+  const hasPastLayer = useMemo(
+    () =>
+      selectedLayer ? hasNextMaankohoaminenLayer(-100, selectedLayer) : false,
+    [selectedLayer]
+  )
+  const layerName = useMemo(
+    () => (selectedLayer ? geMaankohoaminenLayerName(selectedLayer) : ""),
+    [selectedLayer]
+  )
 
   return (
     <div
@@ -30,18 +48,20 @@ export const MaankohoaminenButtons: React.FunctionComponent = () => {
         type="button"
         className="btn btn-primary"
         title={t(`common.button.info`) ?? undefined}
-        onClick={onClickDecreaseYearsFrom1950}
+        onClick={onClickNextFutureLayer}
+        disabled={!hasFutureLayer}
       >
         <span className="glyphicon glyphicon-chevron-up" aria-hidden="true" />
       </button>
       <button type="button" className="btn btn-default" disabled={true}>
-        {selectedLayer ? geMaankohoaminenLayerName(selectedLayer) : ""}
+        {layerName}
       </button>
       <button
         type="button"
         className="btn btn-primary"
         title={t(`common.button.info`) ?? undefined}
-        onClick={onClickAddYearsFrom1950}
+        onClick={onClickNextPastLayer}
+        disabled={!hasPastLayer}
       >
         <span className="glyphicon glyphicon-chevron-down" aria-hidden="true" />
       </button>
