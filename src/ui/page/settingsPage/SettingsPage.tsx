@@ -9,6 +9,7 @@ import { MuseovirastoLayerSelectionPanel } from "./component/MuseovirastoLayerSe
 import { AhvenanmaaLayerSelectionPanel } from "./component/AhvenanmaaLayerSelectionPanel"
 import { PageId } from "../../../store/storeTypes"
 import { HelsinkiMapLayerSelectionPanel } from "./component/HelsinkiMapLayerSelectionPanel"
+import { MaankohoaminenLayerSelectionPanel } from "./component/MaankohoaminenLayerSelectionPanel"
 
 export const SettingsPage: React.FC = () => {
   const { t } = useTranslation()
@@ -16,6 +17,7 @@ export const SettingsPage: React.FC = () => {
     <Page title={t(`settings.title`)} pageId={PageId.Settings}>
       <MMLMapLayerSelectionPanel />
       <GTKMapLayerSelectionPanel />
+      <MaankohoaminenLayerSelectionPanel />
       <MuseovirastoLayerSelectionPanel />
       <AhvenanmaaLayerSelectionPanel />
       <HelsinkiMapLayerSelectionPanel />

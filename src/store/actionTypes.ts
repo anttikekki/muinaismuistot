@@ -157,7 +157,7 @@ export interface MaankohoaminenChangeYearAction {
 
 export interface SelectVisibleMaankohoaminenLayer {
   type: typeof SELECT_VISIBLE_MAANKOHOAMINEN_LAYER
-  layer: string
+  layer: string | undefined
 }
 
 export type ActionTypes =

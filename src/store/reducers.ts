@@ -241,9 +241,9 @@ const updateMaankohoaminenLayerFromAddYears = (
 
 export const updateMaankohoaminenLayer = (
   settings: Settings,
-  layer: string
+  layer: string | undefined
 ): Settings => {
-  if (!maankohoaminenLayers.find((l) => l.layer === layer)) {
+  if (layer && !maankohoaminenLayers.find((l) => l.layer === layer)) {
     return settings
   }
 

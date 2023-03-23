@@ -91,6 +91,10 @@
       "title": "Helsingin kaupungin aineistot",
       "licence": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset © Helsingin kaupunki 2021"
     },
+    "maankohoaminen": {
+      "title": "Maankohoaminen",
+      "licence": "Foofoo 2023"
+    },
     "other": {
       "title": "Muut aineistot"
     },
@@ -606,6 +610,11 @@
         "yngre järnålder": "myöhäisrautakausi",
         "Äldre järnålder": "varhaisrautakausi",
         "äldre järnålder": "varhaisrautakausi"
+      }
+    },
+    "maankohoaminen": {
+      "layer": {
+        "maankohoaminen": "Maankohoaminen"
       }
     }
   }

@@ -57,7 +57,9 @@ import {
   SelectVisibleHelsinkiLayersAction,
   SELECT_VISIBLE_HELSINKI_LAYERS,
   MaankohoaminenChangeYearAction,
-  MAANKOHOAMINEN_CHANGE_YEAR
+  MAANKOHOAMINEN_CHANGE_YEAR,
+  SelectVisibleMaankohoaminenLayer,
+  SELECT_VISIBLE_MAANKOHOAMINEN_LAYER
 } from "./actionTypes"
 import { PageId, SelectedFeaturesOnMap } from "./storeTypes"
 
@@ -241,5 +243,14 @@ export const maankohoaminenChangeYear = (
   return {
     type: MAANKOHOAMINEN_CHANGE_YEAR,
     addYears
+  }
+}
+
+export const selectMaankohoaminenLayer = (
+  layer: string | undefined
+): SelectVisibleMaankohoaminenLayer => {
+  return {
+    type: SELECT_VISIBLE_MAANKOHOAMINEN_LAYER,
+    layer
   }
 }
