@@ -16,6 +16,8 @@ export interface URLSettings {
   helsinkiOpacity?: number
   modelsLayer?: string | Array<string>
   maisemanMuistiLayer?: string | Array<string>
+  maankohoaminenLayer?: string
+  maankohoaminenOpacity?: number
 }
 
 export const EMPTY_SELECTION = "none"

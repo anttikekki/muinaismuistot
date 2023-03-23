@@ -45,6 +45,8 @@ export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE"
 export const SHOW_LOADING_ANIMATION = "SHOW_LOADING_ANIMATION"
 export const SHOW_PAGE = "SHOW_PAGE"
 export const MAANKOHOAMINEN_CHANGE_YEAR = "MAANKOHOAMINEN_CHANGE_YEAR"
+export const SELECT_VISIBLE_MAANKOHOAMINEN_LAYER =
+  "SELECT_VISIBLE_MAANKOHOAMINEN_LAYER"
 
 export interface ZoomInAction {
   type: typeof ZOOM_IN
@@ -153,6 +155,11 @@ export interface MaankohoaminenChangeYearAction {
   addYears: 100 | -100
 }
 
+export interface SelectVisibleMaankohoaminenLayer {
+  type: typeof SELECT_VISIBLE_MAANKOHOAMINEN_LAYER
+  layer: string
+}
+
 export type ActionTypes =
   | ZoomInAction
   | ZoomOutAction
@@ -176,3 +183,4 @@ export type ActionTypes =
   | ShowLoadingAnimationAction
   | ShowPageAction
   | MaankohoaminenChangeYearAction
+  | SelectVisibleMaankohoaminenLayer

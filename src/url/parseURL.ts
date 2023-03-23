@@ -20,6 +20,8 @@ import {
   updateHelsinkiLayerOpacity,
   updateHelsinkiSelectedLayers,
   updateLanguage,
+  updateMaankohoaminenLayer,
+  updateMaankohoaminenOpacity,
   updateMaanmittauslaitosSelectedLayer,
   updateMaisemanMuistiSelectedLayers,
   updateModelSelectedLayers,
@@ -41,7 +43,9 @@ const isEnumArray = <ENUM extends Record<string, unknown>>(
 ): valueArray is Array<ENUM[keyof ENUM]> =>
   valueArray.every((v) => isEnumValue(enumObj, v))
 
-const validateAndUpdateUrlParamToSettings = <ENUM extends Record<string, unknown>>(
+const validateAndUpdateUrlParamToSettings = <
+  ENUM extends Record<string, unknown>
+>(
   settings: Settings,
   enumObj: ENUM,
   value: string | Array<string>,
@@ -77,7 +81,9 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
     helsinkiLayer,
     helsinkiOpacity,
     modelsLayer,
-    maisemanMuistiLayer
+    maisemanMuistiLayer,
+    maankohoaminenLayer,
+    maankohoaminenOpacity
   } = parseURLParams() as URLSettings
 
   // Map initial zoom
@@ -198,6 +204,19 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
       MaisemanMuistiLayer,
       maisemanMuistiLayer,
       updateMaisemanMuistiSelectedLayers
+    )
+  }
+
+  // Maankohoaminen layer
+  if (maankohoaminenLayer) {
+    newSettings = updateMaankohoaminenLayer(newSettings, maankohoaminenLayer)
+  }
+
+  // Maankohoaminen opacity
+  if (maankohoaminenOpacity !== undefined) {
+    newSettings = updateMaankohoaminenOpacity(
+      newSettings,
+      maankohoaminenOpacity
     )
   }
 

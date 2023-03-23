@@ -38,6 +38,10 @@ export const MaankohoaminenButtons: React.FunctionComponent = () => {
     [selectedLayer]
   )
 
+  if (!selectedLayer) {
+    return <></>
+  }
+
   return (
     <div
       className="btn-group-vertical map-button"

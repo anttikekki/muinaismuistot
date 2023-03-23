@@ -19,7 +19,8 @@ import {
   SHOW_LOADING_ANIMATION,
   SHOW_PAGE,
   SELECT_VISIBLE_HELSINKI_LAYERS,
-  MAANKOHOAMINEN_CHANGE_YEAR
+  MAANKOHOAMINEN_CHANGE_YEAR,
+  SELECT_VISIBLE_MAANKOHOAMINEN_LAYER
 } from "./actionTypes"
 import {
   MaanmittauslaitosLayer,
@@ -34,7 +35,10 @@ import {
   LayerGroup,
   HelsinkiLayer
 } from "../common/types"
-import { getNextMaankohoaminenLayer } from "../common/maankohoaminen"
+import {
+  getNextMaankohoaminenLayer,
+  maankohoaminenLayers
+} from "../common/maankohoaminen"
 
 export const updateLanguage = (
   settings: Settings,
@@ -215,7 +219,7 @@ export const updateSelectMuinaisjaannosDatings = (
   }
 }
 
-export const updateMaankohoaminenLayer = (
+const updateMaankohoaminenLayerFromAddYears = (
   settings: Settings,
   addYears: 100 | -100
 ): Settings => {
@@ -231,6 +235,40 @@ export const updateMaankohoaminenLayer = (
         addYears,
         settings.maankohoaminen.selectedLayer
       )
+    }
+  }
+}
+
+export const updateMaankohoaminenLayer = (
+  settings: Settings,
+  layer: string
+): Settings => {
+  if (!maankohoaminenLayers.find((l) => l.layer === layer)) {
+    return settings
+  }
+
+  return {
+    ...settings,
+    maankohoaminen: {
+      ...settings.maankohoaminen,
+      selectedLayer: layer
+    }
+  }
+}
+
+export const updateMaankohoaminenOpacity = (
+  settings: Settings,
+  opacity: number
+): Settings => {
+  if (opacity < 0 || opacity > 1) {
+    return settings
+  }
+
+  return {
+    ...settings,
+    maankohoaminen: {
+      ...settings.maankohoaminen,
+      opacity
     }
   }
 }
@@ -289,6 +327,8 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
         return updateAhvenanmaaLayerOpacity(state, action.opacity)
       case LayerGroup.Helsinki:
         return updateHelsinkiLayerOpacity(state, action.opacity)
+      case LayerGroup.Maankohoaminen:
+        return updateMaankohoaminenOpacity(state, action.opacity)
     }
   } else if (action.type === SELECT_VISIBLE_HELSINKI_LAYERS) {
     return updateHelsinkiSelectedLayers(state, action.layers)
@@ -317,7 +357,9 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
       visiblePage: action.pageId
     }
   } else if (action.type === MAANKOHOAMINEN_CHANGE_YEAR) {
-    return updateMaankohoaminenLayer(state, action.addYears)
+    return updateMaankohoaminenLayerFromAddYears(state, action.addYears)
+  } else if (action.type === SELECT_VISIBLE_MAANKOHOAMINEN_LAYER) {
+    return updateMaankohoaminenLayer(state, action.layer)
   }
   return state
 }

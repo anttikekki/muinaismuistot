@@ -183,6 +183,22 @@ export const updateSettingsToURL = (
     "maisemanMuistiLayer"
   )
 
+  // Maamkohoaminen layer
+  state = updateParam(
+    state,
+    initialSettings.maankohoaminen.selectedLayer,
+    currentSettings.maankohoaminen.selectedLayer,
+    "maankohoaminenLayer"
+  )
+
+  // Maamkohoaminen opacity
+  state = updateParam(
+    state,
+    initialSettings.maankohoaminen.opacity,
+    currentSettings.maankohoaminen.opacity,
+    "maankohoaminenOpacity"
+  )
+
   window.location.hash = stringifyURLParamsToHash({
     ...state.old,
     ...state.next
