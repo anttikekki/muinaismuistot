@@ -88,13 +88,21 @@ http://localhost:8080/?map=/etc/mapserver/mapserver.map&SERVICE=WMS&VERSION=1.1.
 ```
 docker pull camptocamp/mapserver:8.0
 
-docker build --tag maannousu-base:latest --file Dockerfile.base .
+docker build --tag maankohoaminen-base:latest --file Dockerfile.base .
 
-docker build --tag maannousu-final:latest --file Dockerfile.final .
+docker build --tag maankohoaminen-final:latest --file Dockerfile.final .
 
-docker run --rm -p 8080:80 --name maannousu-final maannousu-final:latest
+docker run --rm -p 8080:80 --name maankohoaminen-final maankohoaminen-final:latest
 
-docker exec -it maannousu-base bash
+docker exec -it maankohoaminen-base bash
+```
+
+````
+aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 350000102793.dkr.ecr.eu-central-1.amazonaws.com
+
+docker tag maankohoaminen-final:latest 350000102793.dkr.ecr.eu-central-1.amazonaws.com/maankohoaminen:latest
+
+docker push 350000102793.dkr.ecr.eu-central-1.amazonaws.com/maankohoaminen:latest
 ```
 
 issjohav_7400
@@ -104,3 +112,4 @@ issjohav_8400
 issjohav_8500
 issjohav_9500
 issjohav_9600
+````

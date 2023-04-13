@@ -1,3 +1,3 @@
-FROM maannousu-base:latest
+FROM maankohoaminen-base:latest
 
 COPY ./mapserver.map /etc/mapserver/
