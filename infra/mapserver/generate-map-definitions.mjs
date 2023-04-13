@@ -48,6 +48,7 @@ const createLayerDefinition = (fileName, layerName, year) => {
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi ${yearName}"
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle ${yearName}"
       END
       CLASS
           NAME "Meri"
@@ -100,17 +101,20 @@ for (const { file, max } of fileNames) {
 
 const result = `
 MAP
-    NAME "Maankohoaminen"
+    NAME "SGU rannannousumalli WMS-palvelin"
     EXTENT ${extent}
     PROJECTION
         "init=epsg:3067"
     END
     WEB
         METADATA
-            "wms_title"           "WMS Maankohoaminen Server"
-            "wms_onlineresource"  "http://localhost:8080/?map=/etc/mapserver/mapserver.map"
-            "wms_srs"             "EPSG:3067"
-            "wms_enable_request"  "GetMap GetFeatureInfo GetCapabilities"
+            "wms_title"                         "SGU rannannousumalli WMS-palvelin"
+            "wms_abstract"                      "Geological Survey of Sweden (SGU) rannanousumallin muokattu versio. Lisenssi: Creative Commons Nimeä 4.0. Alkuperäinen aineisto: https://www.sgu.se/produkter-och-tjanster/geologiska-data/oppna-data/jordarter-oppna-data/strandforskjutningsmodell/"
+            "wms_onlineresource"                "http://localhost:8080/?map=/etc/mapserver/mapserver.map"
+            "wms_srs"                           "EPSG:3067"
+            "wms_enable_request"                "*"
+            "wms_contactperson"                 "Antti Kekki"
+            "wms_contactelectronicmailaddress"  "antti.kekki@gmail.com"
         END
     END
     ${layerDefs}

@@ -1,16 +1,19 @@
 
 MAP
-    NAME "Maankohoaminen"
+    NAME "SGU rannannousumalli WMS-palvelin"
     EXTENT 50199.4814 6582464.0358 761274.6247 7320000.0000
     PROJECTION
         "init=epsg:3067"
     END
     WEB
         METADATA
-            "wms_title"           "WMS Maankohoaminen Server"
-            "wms_onlineresource"  "http://localhost:8080/?map=/etc/mapserver/mapserver.map"
-            "wms_srs"             "EPSG:3067"
-            "wms_enable_request"  "GetMap GetFeatureInfo GetCapabilities"
+            "wms_title"                         "SGU rannannousumalli WMS-palvelin"
+            "wms_abstract"                      "Geological Survey of Sweden (SGU) rannanousumallin muokattu versio. Lisenssi: Creative Commons Nimeä 4.0. Alkuperäinen aineisto: https://www.sgu.se/produkter-och-tjanster/geologiska-data/oppna-data/jordarter-oppna-data/strandforskjutningsmodell/"
+            "wms_onlineresource"                "http://localhost:8080/?map=/etc/mapserver/mapserver.map"
+            "wms_srs"                           "EPSG:3067"
+            "wms_enable_request"                "*"
+            "wms_contactperson"                 "Antti Kekki"
+            "wms_contactelectronicmailaddress"  "antti.kekki@gmail.com"
         END
     END
     
@@ -26,6 +29,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1950 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1950 jaa."
       END
       CLASS
           NAME "Meri"
@@ -59,6 +63,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1850 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1850 jaa."
       END
       CLASS
           NAME "Meri"
@@ -92,6 +97,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1750 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1750 jaa."
       END
       CLASS
           NAME "Meri"
@@ -125,6 +131,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1650 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1650 jaa."
       END
       CLASS
           NAME "Meri"
@@ -158,6 +165,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1550 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1550 jaa."
       END
       CLASS
           NAME "Meri"
@@ -191,6 +199,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1450 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1450 jaa."
       END
       CLASS
           NAME "Meri"
@@ -224,6 +233,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1350 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1350 jaa."
       END
       CLASS
           NAME "Meri"
@@ -257,6 +267,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1250 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1250 jaa."
       END
       CLASS
           NAME "Meri"
@@ -290,6 +301,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1150 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1150 jaa."
       END
       CLASS
           NAME "Meri"
@@ -323,6 +335,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1050 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1050 jaa."
       END
       CLASS
           NAME "Meri"
@@ -356,6 +369,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 950 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 950 jaa."
       END
       CLASS
           NAME "Meri"
@@ -389,6 +403,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 750 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 750 jaa."
       END
       CLASS
           NAME "Meri"
@@ -422,6 +437,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 650 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 650 jaa."
       END
       CLASS
           NAME "Meri"
@@ -455,6 +471,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 550 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 550 jaa."
       END
       CLASS
           NAME "Meri"
@@ -488,6 +505,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 450 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 450 jaa."
       END
       CLASS
           NAME "Meri"
@@ -521,6 +539,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 350 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 350 jaa."
       END
       CLASS
           NAME "Meri"
@@ -554,6 +573,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 250 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 250 jaa."
       END
       CLASS
           NAME "Meri"
@@ -587,6 +607,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 150 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 150 jaa."
       END
       CLASS
           NAME "Meri"
@@ -620,6 +641,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 50 jaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 50 jaa."
       END
       CLASS
           NAME "Meri"
@@ -653,6 +675,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 50 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 50 eaa."
       END
       CLASS
           NAME "Meri"
@@ -686,6 +709,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 150 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 150 eaa."
       END
       CLASS
           NAME "Meri"
@@ -719,6 +743,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 250 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 250 eaa."
       END
       CLASS
           NAME "Meri"
@@ -752,6 +777,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 350 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 350 eaa."
       END
       CLASS
           NAME "Meri"
@@ -785,6 +811,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 450 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 450 eaa."
       END
       CLASS
           NAME "Meri"
@@ -818,6 +845,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 550 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 550 eaa."
       END
       CLASS
           NAME "Meri"
@@ -851,6 +879,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 650 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 650 eaa."
       END
       CLASS
           NAME "Meri"
@@ -884,6 +913,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 750 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 750 eaa."
       END
       CLASS
           NAME "Meri"
@@ -917,6 +947,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 850 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 850 eaa."
       END
       CLASS
           NAME "Meri"
@@ -950,6 +981,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 950 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 950 eaa."
       END
       CLASS
           NAME "Meri"
@@ -983,6 +1015,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1050 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1050 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1016,6 +1049,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1150 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1150 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1049,6 +1083,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1250 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1250 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1082,6 +1117,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1350 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1350 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1115,6 +1151,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1450 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1450 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1148,6 +1185,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1550 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1550 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1181,6 +1219,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1650 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1650 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1214,6 +1253,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1750 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1750 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1247,6 +1287,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1850 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1850 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1280,6 +1321,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 1950 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 1950 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1313,6 +1355,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 2050 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 2050 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1346,6 +1389,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 2150 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 2150 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1379,6 +1423,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 2250 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 2250 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1412,6 +1457,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 2350 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 2350 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1445,6 +1491,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 2450 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 2450 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1478,6 +1525,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 2550 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 2550 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1511,6 +1559,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 2650 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 2650 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1544,6 +1593,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 2750 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 2750 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1577,6 +1627,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 2850 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 2850 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1610,6 +1661,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 2950 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 2950 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1643,6 +1695,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 3050 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 3050 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1676,6 +1729,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 3150 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 3150 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1709,6 +1763,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 3250 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 3250 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1742,6 +1797,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 3350 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 3350 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1775,6 +1831,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 3450 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 3450 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1808,6 +1865,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 3550 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 3550 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1841,6 +1899,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 3650 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 3650 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1874,6 +1933,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 3750 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 3750 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1907,6 +1967,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 3850 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 3850 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1940,6 +2001,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 3950 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 3950 eaa."
       END
       CLASS
           NAME "Meri"
@@ -1973,6 +2035,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 4050 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 4050 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2006,6 +2069,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 4150 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 4150 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2039,6 +2103,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 4250 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 4250 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2072,6 +2137,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 4350 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 4350 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2105,6 +2171,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 4450 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 4450 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2138,6 +2205,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 4550 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 4550 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2171,6 +2239,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 4650 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 4650 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2204,6 +2273,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 4750 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 4750 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2237,6 +2307,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 4850 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 4850 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2270,6 +2341,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 4950 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 4950 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2303,6 +2375,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 5050 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 5050 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2336,6 +2409,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 5150 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 5150 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2369,6 +2443,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 5250 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 5250 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2402,6 +2477,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 5350 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 5350 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2435,6 +2511,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 5550 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 5550 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2468,6 +2545,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 5650 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 5650 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2501,6 +2579,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 5750 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 5750 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2534,6 +2613,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 5850 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 5850 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2567,6 +2647,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 5950 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 5950 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2600,6 +2681,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 6250 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 6250 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2633,6 +2715,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 6350 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 6350 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2666,6 +2749,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 6650 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 6650 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2699,6 +2783,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 6750 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 6750 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2732,6 +2817,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 6850 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 6850 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2765,6 +2851,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 6950 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 6950 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2798,6 +2885,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 7050 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 7050 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2831,6 +2919,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 7150 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 7150 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2864,6 +2953,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 7250 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 7250 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2897,6 +2987,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 7350 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 7350 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2930,6 +3021,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 7450 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 7450 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2963,6 +3055,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 7750 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 7750 eaa."
       END
       CLASS
           NAME "Meri"
@@ -2996,6 +3089,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 7850 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 7850 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3029,6 +3123,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 7950 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 7950 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3062,6 +3157,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 8050 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 8050 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3095,6 +3191,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 8150 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 8150 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3128,6 +3225,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 8250 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 8250 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3161,6 +3259,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 8350 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 8350 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3194,6 +3293,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 8450 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 8450 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3227,6 +3327,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 8550 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 8550 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3260,6 +3361,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 8650 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 8650 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3293,6 +3395,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 8750 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 8750 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3326,6 +3429,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 8850 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 8850 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3359,6 +3463,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 8950 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 8950 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3392,6 +3497,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 9050 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 9050 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3425,6 +3531,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 9150 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 9150 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3458,6 +3565,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 9250 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 9250 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3491,6 +3599,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 9350 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 9350 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3524,6 +3633,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 9450 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 9450 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3557,6 +3667,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 9550 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 9550 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3590,6 +3701,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 9650 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 9650 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3623,6 +3735,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 9750 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 9750 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3656,6 +3769,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 9850 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 9850 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3689,6 +3803,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 9950 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 9950 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3722,6 +3837,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 10050 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 10050 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3755,6 +3871,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 10150 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 10150 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3788,6 +3905,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 10250 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 10250 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3821,6 +3939,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 10350 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 10350 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3854,6 +3973,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 10450 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 10450 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3887,6 +4007,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 10550 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 10550 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3920,6 +4041,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 10650 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 10650 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3953,6 +4075,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 10750 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 10750 eaa."
       END
       CLASS
           NAME "Meri"
@@ -3986,6 +4109,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 10850 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 10850 eaa."
       END
       CLASS
           NAME "Meri"
@@ -4019,6 +4143,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 10950 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 10950 eaa."
       END
       CLASS
           NAME "Meri"
@@ -4052,6 +4177,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 11050 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 11050 eaa."
       END
       CLASS
           NAME "Meri"
@@ -4085,6 +4211,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 11150 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 11150 eaa."
       END
       CLASS
           NAME "Meri"
@@ -4118,6 +4245,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 11250 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 11250 eaa."
       END
       CLASS
           NAME "Meri"
@@ -4151,6 +4279,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 11350 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 11350 eaa."
       END
       CLASS
           NAME "Meri"
@@ -4184,6 +4313,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 11450 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 11450 eaa."
       END
       CLASS
           NAME "Meri"
@@ -4217,6 +4347,7 @@ MAP
       CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi 11550 eaa."
+          "wms_abstract"        "Geological Survey of Sweden (SGU) rannanousumallin taso vuodelle 11550 eaa."
       END
       CLASS
           NAME "Meri"

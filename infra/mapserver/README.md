@@ -79,6 +79,12 @@ WMS Get Capabilities:
 http://localhost:8080/?map=/etc/mapserver/mapserver.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetCapabilities
 ```
 
+WMS Legend:
+
+```
+http://localhost:8080/?map=/etc/mapserver/mapserver.map&SERVICE=WMS&VERSION=1.1.1&REQUEST=getlegendgraphic&FORMAT=image/png
+```
+
 ```
 docker pull camptocamp/mapserver:8.0
 
