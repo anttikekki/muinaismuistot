@@ -45,12 +45,24 @@ const createLayerDefinition = (fileName, layerName, year) => {
       DATA "${layerName}"
       EXTENT ${extent}
       PROCESSING "CLOSE_CONNECTION=DEFER"
+      CLASSITEM "Code" #Sarakkeen nimi tason datassa
       METADATA
           "wms_title"           "Vuosi ${yearName}"
       END
       CLASS
+          NAME "Meri"
+          EXPRESSION {1,2,3,4} #Code-sarakkeen arvot merelle
           STYLE
-              COLOR "#c9ecfa"
+              COLOR "#C9ECFA"
+              OUTLINECOLOR 0 0 0
+              WIDTH 1
+          END #style
+      END #class
+      CLASS
+          NAME "Jäätikkö"
+          EXPRESSION "5" #Code-sarakkeen arvo jäälle
+          STYLE
+              COLOR "#FFFFFF"
               OUTLINECOLOR 0 0 0
               WIDTH 1
           END #style
