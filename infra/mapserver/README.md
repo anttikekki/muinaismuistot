@@ -80,6 +80,8 @@ http://localhost:8080/?map=/etc/mapserver/mapserver.map&SERVICE=WMS&VERSION=1.1.
 ```
 
 ```
+docker pull camptocamp/mapserver:8.0
+
 docker build --tag maannousu-base:latest --file Dockerfile.base .
 
 docker build --tag maannousu-final:latest --file Dockerfile.final .
