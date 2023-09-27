@@ -522,7 +522,7 @@
         "municipality": "Halikko",
         "region": "Varsinais-Suomi",
         "registerName": "Rikalanmäki",
-        "type": "asuinpaikat,  , hautapaikat, kultti- ja tarinapaikat",
+        "type": "asuinpaikat, hautapaikat, kultti- ja tarinapaikat",
         "subtype": "ei määritelty, kuppikivet, polttokenttäkalmistot, ruumiskalmistot",
         "dating": "pronssikautinen, rautakautinen"
       }
@@ -768,7 +768,7 @@
         "municipality": "Perniö",
         "region": "Varsinais-Suomi",
         "registerName": "Tiikkinummi",
-        "type": "asuinpaikat,  , hautapaikat, kultti- ja tarinapaikat",
+        "type": "asuinpaikat, hautapaikat, kultti- ja tarinapaikat",
         "subtype": "ei määritelty, kivilatomukset, kuppikivet, polttokenttäkalmistot",
         "dating": "rautakautinen"
       }
@@ -786,7 +786,7 @@
         "municipality": "Piikkiö",
         "region": "Varsinais-Suomi",
         "registerName": "Rungon Koskenhaka",
-        "type": "asuinpaikat,  , hautapaikat",
+        "type": "asuinpaikat, hautapaikat",
         "subtype": "ei määritelty, hautaröykkiöt, tarhakalmistot",
         "dating": "rautakautinen"
       }
@@ -924,7 +924,7 @@
         "municipality": "Eura",
         "region": "Satakunta",
         "registerName": "Luistari",
-        "type": "asuinpaikat,  , hautapaikat",
+        "type": "asuinpaikat, hautapaikat",
         "subtype": "ei määritelty, hautaröykkiöt, ruumiskalmistot",
         "dating": "pronssikautinen, rautakautinen"
       }
@@ -1533,7 +1533,7 @@
         "municipality": "Hauho",
         "region": "Häme",
         "registerName": "Kalomäki 2",
-        "type": "asuinpaikat,  , hautapaikat",
+        "type": "asuinpaikat, hautapaikat",
         "subtype": "ei määritelty, polttokenttäkalmistot, ruumiskalmistot",
         "dating": "rautakautinen"
       }
@@ -4842,18 +4842,18 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [288863.7176999999, 7055476.509100001]
+        "coordinates": [305874.9749999996, 7031792.084100001]
       },
       "properties": {
-        "id": 599010016,
+        "id": 621010016,
         "number": 150,
         "name": "Hundbackenin/Myllykankaan kivikautinen asuinpaikka",
         "municipality": "Pedersöre",
         "region": "Pohjanmaa",
-        "registerName": "Pedersöre-Tegelstensbacken",
-        "type": "hautapaikat",
-        "subtype": "hautaröykkiöt",
-        "dating": "rautakautinen"
+        "registerName": "Purmo-Hundbacken/Myllykangas",
+        "type": "asuinpaikat, työ- ja valmistuspaikat",
+        "subtype": "asumuspainanteet, pyyntikuopat",
+        "dating": "kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -5046,7 +5046,7 @@
         "municipality": "Haukipudas",
         "region": "Pohjois-Pohjanmaa",
         "registerName": "Rajakangas",
-        "type": "asuinpaikat,  , kivirakenteet",
+        "type": "asuinpaikat, kivirakenteet",
         "subtype": "ei määritelty, jätinkirkot, röykkiöt",
         "dating": "kivikautinen"
       }
@@ -5202,7 +5202,7 @@
         "municipality": "Raahe",
         "region": "Pohjois-Pohjanmaa",
         "registerName": "Kastelli Linnakangas",
-        "type": "asuinpaikat,  , kivirakenteet",
+        "type": "asuinpaikat, kivirakenteet",
         "subtype": "asumuspainanteet, jätinkirkot, röykkiöt",
         "dating": "kivikautinen"
       }
@@ -5348,7 +5348,7 @@
         "registerName": "Vonkka 2",
         "type": "asuinpaikat",
         "subtype": "asumuspainanteet",
-        "dating": "esihistoriallinen,  , kivikautinen, varhaismetallikautinen"
+        "dating": "esihistoriallinen, kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -5366,7 +5366,7 @@
         "registerName": "Vonkka 1",
         "type": "asuinpaikat",
         "subtype": "ei määritelty",
-        "dating": "esihistoriallinen,  , kivikautinen, varhaismetallikautinen"
+        "dating": "esihistoriallinen, kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -5519,7 +5519,7 @@
         "registerName": "Kiikarusniemi",
         "type": "asuinpaikat",
         "subtype": "ei määritelty",
-        "dating": "esihistoriallinen,  , kivikautinen, varhaismetallikautinen"
+        "dating": "esihistoriallinen, kivikautinen, varhaismetallikautinen"
       }
     },
     {
@@ -5555,7 +5555,7 @@
         "registerName": "Kalmosärkkä",
         "type": "asuinpaikat, hautapaikat, puolustusvarustukset",
         "subtype": "ei määritelty, taistelukaivannot",
-        "dating": "historiallinen,  , kivikautinen, moderni"
+        "dating": "historiallinen, kivikautinen, moderni"
       }
     },
     {
@@ -5591,7 +5591,7 @@
         "registerName": "Vanha Kirkkosaari",
         "type": "asuinpaikat, hautapaikat, työ- ja valmistuspaikat",
         "subtype": "ei määritelty, hautasaaret, hiilimiilut",
-        "dating": "historiallinen,  , kivikautinen, rautakautinen"
+        "dating": "historiallinen, kivikautinen, rautakautinen"
       }
     },
     {
@@ -5786,7 +5786,7 @@
         "registerName": "Nimisjärvi Järventaka",
         "type": "asuinpaikat",
         "subtype": "ei määritelty",
-        "dating": "esihistoriallinen,  , kivikautinen, varhaismetallikautinen"
+        "dating": "esihistoriallinen, kivikautinen, varhaismetallikautinen"
       }
     },
     {
