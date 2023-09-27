@@ -51,7 +51,7 @@ export const initialSettings: Settings = {
     selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
     url: {
       export:
-        "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/export",
+        "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer",
       identify:
         "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/identify",
       find: "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/find",
@@ -67,7 +67,7 @@ export const initialSettings: Settings = {
     selectedLayers: Object.values(AhvenanmaaLayer),
     url: {
       export:
-        "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/export",
+        "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer",
       identify:
         "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/identify",
       find: "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/find",
@@ -96,7 +96,7 @@ export const initialSettings: Settings = {
     selectedLayers: [],
     url: {
       export:
-        "https://gtkdata.gtk.fi/arcgis/rest/services/Rajapinnat/GTK_Maapera_WMS/MapServer/export"
+        "https://gtkdata.gtk.fi/arcgis/rest/services/Rajapinnat/GTK_Maapera_WMS/MapServer"
     },
     opacity: 0.7
   },
