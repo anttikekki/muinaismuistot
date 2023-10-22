@@ -11,6 +11,31 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [273688.99459999986, 6976464.0002]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Vittinki (Silfverberg, Hopiavuori)",
+          "id": 1000013168,
+          "type": "Muinaisjaannokset_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000013168",
+          "municipality": "Seinäjoki"
+        },
+        "model": {
+          "name": "Iron mine in Vittinki, Finland",
+          "url": "https://sketchfab.com/models/d53ad6738b454dafa8ff33b5f695475b"
+        },
+        "author": "Janne Rantanen",
+        "authorUrl": "https://sketchfab.com/jhrant",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2023-10-22"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [384195.574, 6680028.233899999]
       },
       "properties": {
