@@ -213,8 +213,8 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent<UIEvent>) => {
 
   const museovirastoQuery = museovirastoTileLayer.identifyFeaturesAt(
     e.coordinate,
-    mapSize,
-    map.getView().calculateExtent(mapSize)
+    view.getResolution(),
+    view.getProjection()
   )
 
   const maalinnoitusQuery = helsinkiLayer.identifyFeaturesAt(

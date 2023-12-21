@@ -53,9 +53,7 @@ export interface Settings {
     selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
     selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>
     url: {
-      export: string
-      identify: string
-      find: string
+      wms: string
       updateDate: string
     }
     opacity: number

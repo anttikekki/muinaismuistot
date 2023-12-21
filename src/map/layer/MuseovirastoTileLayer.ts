@@ -1,32 +1,27 @@
 import TileLayer from "ol/layer/Tile"
-import TileArcGISRestSource from "ol/source/TileArcGISRest"
 import { TileSourceEvent } from "ol/source/Tile"
 import { Coordinate } from "ol/coordinate"
 import { Size } from "ol/size"
 import { Extent } from "ol/extent"
-import {
-  museovirastoLayerIdMap,
-  MuseovirastoLayer,
-  MuinaisjaannosTyyppi,
-  MuinaisjaannosAjoitus,
-  MuseovirastoLayerId,
-  ArgisIdentifyResult,
-  ArgisFindResult,
-  ArgisFeature
-} from "../../common/types"
+import { MuseovirastoLayer } from "../../common/types"
 import { trim } from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
 import { Store } from "redux"
 import { ActionTypes } from "../../store/actionTypes"
+import TileWMS, { Options } from "ol/source/TileWMS"
+import { Projection } from "ol/proj"
+import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi,
+  MuseovirastoWmsFeatureInfoResult
+} from "../../common/museovirasto.types"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
-export type OnLayersCreatedCallbackFn = (
-  layer: TileLayer<TileArcGISRestSource>
-) => void
+export type OnLayersCreatedCallbackFn = (layer: TileLayer<TileWMS>) => void
 
 export default class MuseovirastoTileLayer {
-  private source?: TileArcGISRestSource
-  private layer?: TileLayer<TileArcGISRestSource>
+  private source?: TileWMS
+  private layer?: TileLayer<TileWMS>
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
@@ -56,13 +51,15 @@ export default class MuseovirastoTileLayer {
 
   private createSource = () => {
     const settings = this.store.getState()
-    const newSource = new TileArcGISRestSource({
-      urls: [settings.museovirasto.url.export],
+    const options: Options = {
+      urls: [settings.museovirasto.url.wms],
       params: {
-        layers: this.getSourceLayerSelectionSettings(),
-        layerDefs: this.getSourceLayerDefinitionFilterParams()
-      }
-    })
+        LAYERS: settings.museovirasto.selectedLayers.join(","),
+        TILED: true
+      },
+      serverType: "geoserver"
+    }
+    const newSource = new TileWMS(options)
 
     newSource.on("tileloadstart", (evt: TileSourceEvent) => {
       this.updateTileLoadingStatus(true)
@@ -170,38 +167,42 @@ export default class MuseovirastoTileLayer {
 
   public identifyFeaturesAt = async (
     coordinate: Coordinate,
-    mapSize: Size,
-    mapExtent: Extent
-  ): Promise<ArgisIdentifyResult> => {
+    resolution: number | undefined,
+    projection: Projection
+  ): Promise<MuseovirastoWmsFeatureInfoResult> => {
     const settings = this.store.getState()
-    const visibleLayerIds =
-      settings.museovirasto.selectedLayers.length > 0
-        ? this.toLayerIds(settings.museovirasto.selectedLayers)
-        : [-1]
 
-    const urlParams = new URLSearchParams({
-      geometry: coordinate.join(","),
-      geometryType: "esriGeometryPoint",
-      tolerance: "10",
-      imageDisplay: mapSize.join(",") + ",96",
-      mapExtent: mapExtent.join(","),
-      layers: "visible:" + visibleLayerIds.join(","),
-      f: "json",
-      returnGeometry: "true"
-    })
+    if (this.source && resolution !== undefined) {
+      const url = this.source.getFeatureInfoUrl(
+        coordinate,
+        resolution,
+        projection,
+        {
+          INFO_FORMAT: "application/json",
+          QUERY_LAYERS: settings.museovirasto.selectedLayers.join(","),
+          FEATURE_COUNT: 100,
+          /**
+           * Geoserver vendor specific param to extend the search radius pixels. Similar to ArcGis tolerance.
+           * @see https://docs.geoserver.org/latest/en/user/services/wms/vendor.html#buffer
+           */
+          BUFFER: 15
+        }
+      )
+      if (url) {
+        const response = await fetch(String(url))
+        const result =
+          (await response.json()) as MuseovirastoWmsFeatureInfoResult
 
-    const url = new URL(settings.museovirasto.url.identify)
-    url.search = String(urlParams)
-
-    const response = await fetch(String(url))
-    const result = (await response.json()) as ArgisIdentifyResult
-
-    return this.trimAnsSplitMultivalueFields(result)
+        return this.trimAnsSplitMultivalueFields(result)
+      }
+    }
+    return Promise.reject()
   }
 
   public findFeatures = async (
     searchText: string
   ): Promise<ArgisFindResult> => {
+    /*
     const settings = this.store.getState()
     let selectedLayers = settings.museovirasto.selectedLayers
 
@@ -240,6 +241,8 @@ export default class MuseovirastoTileLayer {
     const result = (await response.json()) as ArgisFindResult
 
     return this.trimAnsSplitMultivalueFields(result)
+    */
+    return Promise.reject()
   }
 
   private trimAnsSplitMultivalueFields = async (

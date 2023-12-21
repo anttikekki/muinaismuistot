@@ -2,7 +2,7 @@ import { TFunction } from "i18next"
 import {
   ArgisFeature,
   MuinaisjaannosPisteArgisFeature,
-  MuinaisjaannosAlueArgisFeature,
+  MuinaisjaannosAlueWmsFeature,
   MuinaisjaannosAjoitus,
   MaailmanperintoAlueArgisFeature,
   MaailmanperintoPisteArgisFeature,
@@ -25,13 +25,13 @@ import {
 } from "../types"
 
 export const isKiinteäMuinaisjäännös = (
-  feature: MuinaisjaannosPisteArgisFeature | MuinaisjaannosAlueArgisFeature
+  feature: MuinaisjaannosPisteArgisFeature | MuinaisjaannosAlueWmsFeature
 ): boolean => {
   return trim(feature.attributes.laji) === "kiinteä muinaisjäännös"
 }
 
 export const isMuuKulttuuriperintökohde = (
-  feature: MuinaisjaannosPisteArgisFeature | MuinaisjaannosAlueArgisFeature
+  feature: MuinaisjaannosPisteArgisFeature | MuinaisjaannosAlueWmsFeature
 ): boolean => {
   return trim(feature.attributes.laji) === "muu kulttuuriperintökohde"
 }

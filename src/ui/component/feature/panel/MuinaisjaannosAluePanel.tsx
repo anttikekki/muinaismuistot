@@ -1,6 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { MuinaisjaannosAlueArgisFeature } from "../../../../common/types"
+import { MuinaisjaannosAlueWmsFeature } from "../../../../common/types"
 import {
   ArgisFeatureCollapsePanel,
   FeatureTitleClickAction
@@ -12,7 +12,7 @@ interface Props {
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
-  feature: MuinaisjaannosAlueArgisFeature
+  feature: MuinaisjaannosAlueWmsFeature
 }
 
 export const MuinaisjaannosAluePanel: React.FC<Props> = ({
