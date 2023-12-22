@@ -5,14 +5,6 @@ import Circle from "ol/style/Circle"
 import RegularShape from "ol/style/RegularShape"
 import Style from "ol/style/Style"
 import GeoJSON from "ol/format/GeoJSON"
-import {
-  GeoJSONResponse,
-  GeoJSONFeature,
-  ModelFeatureProperties,
-  MuseovirastoLayer,
-  ArgisFeature,
-  ArgisFeatureLayer
-} from "../../common/types"
 import { FeatureLike } from "ol/Feature"
 import {
   getFeatureID,
@@ -23,6 +15,9 @@ import { Settings } from "../../store/storeTypes"
 import { Store } from "redux"
 import { ActionTypes } from "../../store/actionTypes"
 import Geometry from "ol/geom/Geometry"
+import { ModelFeatureProperties } from "../../common/3dModels.types"
+import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
+import { MuseovirastoLayer } from "../../common/types"
 
 export default class ModelsLayer {
   private store: Store<Settings, ActionTypes>

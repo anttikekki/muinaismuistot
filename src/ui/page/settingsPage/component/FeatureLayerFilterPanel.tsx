@@ -5,7 +5,7 @@ import regexifyString from "regexify-string"
 import {
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus
-} from "../../../../common/types"
+} from "../../../../common/museovirasto.types"
 import {
   selectMuinaisjaannosDating,
   selectMuinaisjaannosType

@@ -12,12 +12,8 @@ import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
 import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositionAndSelectedLocationMarkerLayer"
 import {
-  ArgisFeature,
   DataLatestUpdateDates,
-  ModelFeatureProperties,
   LayerGroup,
-  GeoJSONFeature,
-  MaisemanMuistiFeatureProperties,
   MuseovirastoLayer
 } from "../common/types"
 import MapBrowserEvent from "ol/MapBrowserEvent"
@@ -40,6 +36,9 @@ import {
 import HelsinkiTileLayer from "./layer/HelsinkiTileLayer"
 import VectorSource from "ol/source/Vector"
 import Geometry from "ol/geom/Geometry"
+import { GeoJSONFeature } from "../common/geojson.types"
+import { ModelFeatureProperties } from "../common/3dModels.types"
+import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
 
 let store: Store<Settings, ActionTypes>
 let map: Map
@@ -237,25 +236,29 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent<UIEvent>) => {
   Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery]).then(
     ([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {
       showLoadingAnimationInUI(false)
-      const allFeatures = ahvenanmaaResult.results
-        .concat(museovirastoResult.results)
+
+      const ahvenanmaaFeatures = ahvenanmaaResult.results
+        .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
+        .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
+
+      const museovirastoFeatures = museovirastoResult.features
         .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
         .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
 
       const maisemanMuistiFeatures = maisemanMuistiResult.filter((feature) => {
-        // Do not show Maiseman muisti feature if there is Argis feature for it in search results
-        const id = feature.properties.id.toString()
-        return !allFeatures.some(
-          (argisFeature) =>
+        // Do not show Maiseman muisti feature if there is Wms/ArcGis feature for it in search results
+        return !museovirastoFeatures.some(
+          (feature) =>
             argisFeature.layerName ===
               MuseovirastoLayer.Muinaisjaannokset_piste &&
-            argisFeature.attributes.mjtunnus === id
+            argisFeature.attributes.mjtunnus === feature.properties.id
         )
       })
 
       store.dispatch(
         clickedMapFeatureIdentificationComplete({
-          features: allFeatures,
+          museovirastoFeatures,
+          ahvenanmaaFeatures,
           models: modelsResult,
           maisemanMuistiFeatures,
           maalinnoitusFeatures
@@ -321,11 +324,11 @@ export const selectedFeatureLayersChanged = (
 }
 
 export const selectedMuinaisjaannosTypesChanged = (): void => {
-  museovirastoTileLayer.selectedMuinaisjaannosTypesChanged()
+  //museovirastoTileLayer.selectedMuinaisjaannosTypesChanged()
 }
 
 export const selectedMuinaisjaannosDatingsChanged = (): void => {
-  museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged()
+  //museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged()
 }
 
 export const searchFeaturesFromMapLayers = async (

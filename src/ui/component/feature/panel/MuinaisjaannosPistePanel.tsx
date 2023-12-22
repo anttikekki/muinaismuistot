@@ -1,5 +1,5 @@
 import React from "react"
-import { MuinaisjaannosPisteArgisFeature } from "../../../../common/types"
+import { MuinaisjaannosPisteWmsFeature } from "../../../../common/museovirasto.types"
 import {
   ArgisFeatureCollapsePanel,
   FeatureTitleClickAction
@@ -20,7 +20,7 @@ interface Props {
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
-  feature: MuinaisjaannosPisteArgisFeature
+  feature: MuinaisjaannosPisteWmsFeature
 }
 
 function renderList<T extends string>(
@@ -57,7 +57,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
     tyyppiSplitted,
     alatyyppiSplitted,
     laji
-  } = feature.attributes
+  } = feature.properties
   return (
     <ArgisFeatureCollapsePanel
       titleClickAction={titleClickAction}

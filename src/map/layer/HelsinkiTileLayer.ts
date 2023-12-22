@@ -7,12 +7,12 @@ import { ActionTypes } from "../../store/actionTypes"
 import { Coordinate } from "ol/coordinate"
 import { containsCoordinate } from "ol/extent"
 import Projection from "ol/proj/Projection"
+import { HelsinkiLayer } from "../../common/types"
 import {
-  MaalinnoitusWmsFeatureInfoResult,
   MaalinnoitusFeature,
-  isMaalinnoitusKohdeFeature,
-  HelsinkiLayer
-} from "../../common/types"
+  MaalinnoitusWmsFeatureInfoResult,
+  isMaalinnoitusKohdeFeature
+} from "../../common/maalinnoitusHelsinki.types"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer<TileWMS>) => void

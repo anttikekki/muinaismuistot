@@ -1,5 +1,6 @@
 import { GeometryTypePolygon, PolygonGeometry } from "./arcgis.type"
 import { FeatureSupplementaryData } from "./featureSupplementaryData.types"
+import { MapFeature } from "./mapFeature.types"
 import { AhvenanmaaLayer } from "./types"
 
 export interface AhvenanmaaTypeAndDatingFeatureProperties {
@@ -68,4 +69,26 @@ export const getAhvenanmaaLayerId = (
     case AhvenanmaaLayer.MaritimtKulturarv:
       return 5
   }
+}
+
+export type AhvenanmaaArcgisFeature =
+  | AhvenanmaaForminnenArgisFeature
+  | AhvenanmaaMaritimtKulturarvArgisFeature
+
+export interface AhvenanmaaArcgisIdentifyResult {
+  results: Array<AhvenanmaaArcgisFeature>
+}
+
+export interface AhvenanmaaArcgisFindResult {
+  results: Array<AhvenanmaaArcgisFeature>
+}
+
+export const isAhvenanmaaArcgisFeature = (
+  feature: MapFeature
+): feature is AhvenanmaaArcgisFeature => {
+  return (
+    "layerName" in feature &&
+    (feature.layerName === AhvenanmaaLayer.Fornminnen ||
+      feature.layerName === AhvenanmaaLayer.MaritimtKulturarv)
+  )
 }

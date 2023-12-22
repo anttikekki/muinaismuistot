@@ -1,3 +1,6 @@
+import { AhvenanmaaArcgisFeature } from "./ahvenanmaa.types"
+import { MuseovirastoWmsFeature } from "./museovirasto.types"
+
 export enum Language {
   FI = "fi",
   SV = "sv"

@@ -1,8 +1,10 @@
 import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
+} from "../common/museovirasto.types"
+import {
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
-  MuinaisjaannosTyyppi,
-  MuinaisjaannosAjoitus,
   AhvenanmaaLayer,
   ModelLayer,
   MaisemanMuistiLayer,

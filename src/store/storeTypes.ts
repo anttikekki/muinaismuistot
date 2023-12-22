@@ -1,19 +1,22 @@
+import { ModelFeatureProperties } from "../common/3dModels.types"
+import { AhvenanmaaArcgisFeature } from "../common/ahvenanmaa.types"
+import { GeoJSONFeature } from "../common/geojson.types"
+import { MaalinnoitusFeature } from "../common/maalinnoitusHelsinki.types"
+import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
+import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi,
+  MuseovirastoWmsFeature
+} from "../common/museovirasto.types"
 import {
   AhvenanmaaLayer,
-  ArgisFeature,
   DataLatestUpdateDates,
-  GeoJSONFeature,
   GtkLayer,
   HelsinkiLayer,
   Language,
-  MaalinnoitusFeature,
   MaanmittauslaitosLayer,
-  MaisemanMuistiFeatureProperties,
   MaisemanMuistiLayer,
-  ModelFeatureProperties,
   ModelLayer,
-  MuinaisjaannosAjoitus,
-  MuinaisjaannosTyyppi,
   MuseovirastoLayer
 } from "../common/types"
 
@@ -25,7 +28,8 @@ export enum PageId {
 }
 
 export interface SelectedFeaturesOnMap {
-  features: Array<ArgisFeature>
+  museovirastoFeatures: Array<MuseovirastoWmsFeature>
+  ahvenanmaaFeatures: Array<AhvenanmaaArcgisFeature>
   models: Array<GeoJSONFeature<ModelFeatureProperties>>
   maisemanMuistiFeatures: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
   maalinnoitusFeatures: Array<MaalinnoitusFeature>
@@ -36,7 +40,8 @@ export interface Settings {
   visiblePage?: PageId
   selectedFeaturesOnMap: SelectedFeaturesOnMap
   search: {
-    searchResults?: Array<ArgisFeature>
+    museovirastoFeatures: Array<MuseovirastoWmsFeature>
+    ahvenanmaaFeatures: Array<AhvenanmaaArcgisFeature>
   }
   dataLatestUpdateDates?: DataLatestUpdateDates
   initialMapZoom: number

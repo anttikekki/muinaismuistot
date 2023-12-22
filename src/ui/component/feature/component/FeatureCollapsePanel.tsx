@@ -2,16 +2,10 @@ import React, { ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import {
-  ArgisFeature,
-  GeoJSONFeature,
-  MaalinnoitusFeature,
-  MaisemanMuistiFeatureProperties
-} from "../../../../common/types"
-import {
   getArgisFeatureTypeIconURL,
-  getArgisFeatureTypeName,
+  getFeatureTypeName,
   getArgisFeatureLocation,
-  getArgisFeatureName,
+  getFeatureName,
   getGeoJSONFeatureLocation,
   getTypeIconURL,
   getFeatureMunicipality,
@@ -22,6 +16,10 @@ import {
 } from "../../../../common/util/featureParser"
 import { createLocationHash } from "../../../../common/util/URLHashHelper"
 import { showPage } from "../../../../store/actionCreators"
+import { MapFeature } from "../../../../common/mapFeature.types"
+import { MaisemanMuistiFeatureProperties } from "../../../../common/maisemanMuisti.types"
+import { GeoJSONFeature } from "../../../../common/geojson.types"
+import { MaalinnoitusFeature } from "../../../../common/maalinnoitusHelsinki.types"
 
 export enum FeatureTitleClickAction {
   OpenDetails = "openDetails",
@@ -127,7 +125,7 @@ interface ArgisFeatureCollapsePanelProps {
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
-  feature: ArgisFeature
+  feature: MapFeature
   children: ReactNode
 }
 
@@ -140,7 +138,7 @@ export const ArgisFeatureCollapsePanel: React.FC<
     return coordinates && createLocationHash(coordinates)
   }, [i18n.language, feature])
   const featureName = useMemo(
-    () => getArgisFeatureName(t, feature),
+    () => getFeatureName(t, feature),
     [i18n.language, feature]
   )
   const featureTypeIconURL = useMemo(
@@ -149,7 +147,7 @@ export const ArgisFeatureCollapsePanel: React.FC<
   )
   const featureTypeName = useMemo(() => {
     const municipality = getFeatureMunicipality(feature)
-    const name = getArgisFeatureTypeName(t, feature)
+    const name = getFeatureTypeName(t, feature)
     const suffix =
       titleClickAction === FeatureTitleClickAction.ClosePageAndPinOnMap &&
       municipality

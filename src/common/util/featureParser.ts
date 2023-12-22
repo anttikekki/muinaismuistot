@@ -1,75 +1,84 @@
 import { TFunction } from "i18next"
 import {
-  ArgisFeature,
-  MuinaisjaannosPisteArgisFeature,
-  MuinaisjaannosAlueWmsFeature,
-  MuinaisjaannosAjoitus,
-  MaailmanperintoAlueArgisFeature,
-  MaailmanperintoPisteArgisFeature,
   MuseovirastoLayer,
   AhvenanmaaLayer,
-  ModelFeatureProperties,
-  GeoJSONFeature,
   FeatureLayer,
   ModelLayer,
   MaisemanMuistiLayer,
-  MaisemanMuistiFeatureProperties,
   Language,
-  HelsinkiLayer,
-  MaalinnoitusFeature,
-  isMaalinnoitusYksikkoFeature,
-  isMaalinnoitusKohdeFeature,
-  MaalinnoitusKohdetyyppi,
-  isMaalinnoitusRajausFeature,
-  MaalinnoitusRajaustyyppi
+  HelsinkiLayer
 } from "../types"
+import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosAlueWmsFeature,
+  MuinaisjaannosPisteWmsFeature,
+  isMaailmanperintoAlueWmsFeature,
+  isMaailmanperintoPisteWmsFeature,
+  isMuinaisjaannosAlueWmsFeature,
+  isMuinaisjaannosPisteWmsFeature,
+  isMuseovirastoWmsFeature,
+  isRKYAlueWmsFeature,
+  isRKYPisteWmsFeature,
+  isRKYViivaWmsFeature
+} from "../museovirasto.types"
+import {
+  MaalinnoitusFeature,
+  MaalinnoitusKohdetyyppi,
+  MaalinnoitusRajaustyyppi,
+  isMaalinnoitusKohdeFeature,
+  isMaalinnoitusRajausFeature,
+  isMaalinnoitusYksikkoFeature
+} from "../maalinnoitusHelsinki.types"
+import { GeoJSONFeature } from "../geojson.types"
+import { ModelFeatureProperties } from "../3dModels.types"
+import { MaisemanMuistiFeatureProperties } from "../maisemanMuisti.types"
+import { isAhvenanmaaArcgisFeature } from "../ahvenanmaa.types"
+import { MapFeature } from "../mapFeature.types"
 
 export const isKiinteäMuinaisjäännös = (
-  feature: MuinaisjaannosPisteArgisFeature | MuinaisjaannosAlueWmsFeature
+  feature: MuinaisjaannosPisteWmsFeature | MuinaisjaannosAlueWmsFeature
 ): boolean => {
-  return trim(feature.attributes.laji) === "kiinteä muinaisjäännös"
+  return trim(feature.properties.laji) === "kiinteä muinaisjäännös"
 }
 
 export const isMuuKulttuuriperintökohde = (
-  feature: MuinaisjaannosPisteArgisFeature | MuinaisjaannosAlueWmsFeature
+  feature: MuinaisjaannosPisteWmsFeature | MuinaisjaannosAlueWmsFeature
 ): boolean => {
-  return trim(feature.attributes.laji) === "muu kulttuuriperintökohde"
+  return trim(feature.properties.laji) === "muu kulttuuriperintökohde"
 }
 
-export const getArgisFeatureName = (
-  t: TFunction,
-  feature: ArgisFeature
-): string => {
-  switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjaannokset_piste:
-    case MuseovirastoLayer.Muinaisjaannokset_alue:
-    case MuseovirastoLayer.RKY_alue:
-    case MuseovirastoLayer.RKY_piste:
-    case MuseovirastoLayer.RKY_viiva:
-    case MuseovirastoLayer.Suojellut_rakennukset_piste:
-    case MuseovirastoLayer.Suojellut_rakennukset_alue:
-      return trim(feature.attributes.kohdenimi)
-    case MuseovirastoLayer.Maailmanperinto_piste:
-    case MuseovirastoLayer.Maailmanperinto_alue:
-      return trim(feature.attributes.Nimi)
-    case AhvenanmaaLayer.Fornminnen: {
-      const id = trim(feature.attributes["Fornlämnings ID"])
-      const name = trim(feature.attributes.Namn)
-      const types =
-        feature.attributes.typeAndDating
-          ?.map(({ Und_typ: subType }) =>
-            t(`data.ahvenanmaa.subType.${subType}`, subType ?? "")
-          )
-          .filter((v) => !!v)
-          .join(", ") ?? ""
-      const suffix = [name, types].filter((v) => !!v).join(", ")
-      return `${id} ${suffix}`
+export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
+  if (isMuseovirastoWmsFeature(feature)) {
+    if (
+      isMaailmanperintoAlueWmsFeature(feature) ||
+      isMaailmanperintoPisteWmsFeature(feature)
+    ) {
+      return trim(feature.properties.Nimi)
+    } else {
+      return trim(feature.properties.kohdenimi)
     }
-    case AhvenanmaaLayer.MaritimtKulturarv:
-      return `${trim(feature.attributes.FornID)} ${trim(
-        feature.attributes.Namn
-      )}`
+  } else if (isAhvenanmaaArcgisFeature(feature)) {
+    switch (feature.layerName) {
+      case AhvenanmaaLayer.Fornminnen: {
+        const id = trim(feature.attributes["Fornlämnings ID"])
+        const name = trim(feature.attributes.Namn)
+        const types =
+          feature.attributes.typeAndDating
+            ?.map(({ Und_typ: subType }) =>
+              t(`data.ahvenanmaa.subType.${subType}`, subType ?? "")
+            )
+            .filter((v) => !!v)
+            .join(", ") ?? ""
+        const suffix = [name, types].filter((v) => !!v).join(", ")
+        return `${id} ${suffix}`
+      }
+      case AhvenanmaaLayer.MaritimtKulturarv:
+        return `${trim(feature.attributes.FornID)} ${trim(
+          feature.attributes.Namn
+        )}`
+    }
   }
+  return ""
 }
 
 export const getMaalinnoitusFeatureName = (
@@ -103,12 +112,12 @@ export const getMaalinnoitusFeatureName = (
   return ""
 }
 
-export const getArgisFeatureTypeName = (
+export const getFeatureTypeName = (
   t: TFunction,
-  feature: ArgisFeature
-): string | undefined => {
-  switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjaannokset_piste:
+  feature: MapFeature
+): string => {
+  if (isMuseovirastoWmsFeature(feature)) {
+    if (isMuinaisjaannosPisteWmsFeature(feature)) {
       return [
         isKiinteäMuinaisjäännös(feature)
           ? t(`data.featureType.Kiinteä muinaisjäännös`)
@@ -116,10 +125,10 @@ export const getArgisFeatureTypeName = (
         isMuuKulttuuriperintökohde(feature)
           ? t(`data.featureType.Muu kulttuuriperintökohde`)
           : undefined,
-        feature.attributes.tyyppiSplitted[0]
+        feature.properties.tyyppiSplitted[0]
           ? t(
-              `data.museovirasto.type.${feature.attributes.tyyppiSplitted[0]}`,
-              feature.attributes.tyyppiSplitted[0]
+              `data.museovirasto.type.${feature.properties.tyyppiSplitted[0]}`,
+              feature.properties.tyyppiSplitted[0]
             )
           : undefined,
         feature.maisemanMuisti.length > 0
@@ -128,39 +137,39 @@ export const getArgisFeatureTypeName = (
       ]
         .filter((v) => !!v)
         .join(", ")
-    case MuseovirastoLayer.Muinaisjaannokset_alue:
-      if (isKiinteäMuinaisjäännös(feature)) {
-        return t(`data.featureType.Kiinteä muinaisjäännös (alue)`) ?? undefined
-      } else if (isMuuKulttuuriperintökohde(feature)) {
+    }
+    if (isMuinaisjaannosAlueWmsFeature(feature)) {
+      return t(`data.featureType.Muu kulttuuriperintökohde (alue)`)
+    }
+    if (
+      isRKYAlueWmsFeature(feature) ||
+      isRKYPisteWmsFeature(feature) ||
+      isRKYViivaWmsFeature(feature)
+    ) {
+      return t(`data.featureType.Rakennettu kulttuuriympäristö`)
+    }
+    if (
+      isMaailmanperintoAlueWmsFeature(feature) ||
+      isMaailmanperintoPisteWmsFeature(feature)
+    ) {
+      return t(`data.featureType.Maailmanperintökohde`)
+    }
+  } else if (isAhvenanmaaArcgisFeature(feature)) {
+    switch (feature.layerName) {
+      case AhvenanmaaLayer.Fornminnen:
         return (
-          t(`data.featureType.Muu kulttuuriperintökohde (alue)`) ?? undefined
+          t(`data.featureType.Ahvenanmaan muinaisjäännösrekisterin kohde`) ??
+          undefined
         )
-      }
-      break
-    case MuseovirastoLayer.RKY_alue:
-    case MuseovirastoLayer.RKY_piste:
-    case MuseovirastoLayer.RKY_viiva:
-      return t(`data.featureType.Rakennettu kulttuuriympäristö`) ?? undefined
-    case MuseovirastoLayer.Maailmanperinto_piste:
-    case MuseovirastoLayer.Maailmanperinto_alue:
-      return t(`data.featureType.Maailmanperintökohde`) ?? undefined
-    case MuseovirastoLayer.Suojellut_rakennukset_piste:
-    case MuseovirastoLayer.Suojellut_rakennukset_alue:
-      return t(`data.featureType.Rakennusperintökohde`) ?? undefined
-    case AhvenanmaaLayer.Fornminnen:
-      return (
-        t(`data.featureType.Ahvenanmaan muinaisjäännösrekisterin kohde`) ??
-        undefined
-      )
-    case AhvenanmaaLayer.MaritimtKulturarv:
-      return (
-        t(
-          `data.featureType.Ahvenanmaan merellisen kulttuuriperintörekisterin kohde`
-        ) ?? undefined
-      )
-    default:
-      return undefined
+      case AhvenanmaaLayer.MaritimtKulturarv:
+        return (
+          t(
+            `data.featureType.Ahvenanmaan merellisen kulttuuriperintörekisterin kohde`
+          ) ?? undefined
+        )
+    }
   }
+  return ""
 }
 
 export const getMaalinnoitusFeatureTypeName = (

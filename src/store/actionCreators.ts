@@ -1,6 +1,9 @@
 import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
+} from "../common/museovirasto.types"
+import {
   AhvenanmaaLayer,
-  ArgisFeature,
   DataLatestUpdateDates,
   GtkLayer,
   HelsinkiLayer,
@@ -9,8 +12,6 @@ import {
   MaanmittauslaitosLayer,
   MaisemanMuistiLayer,
   ModelLayer,
-  MuinaisjaannosAjoitus,
-  MuinaisjaannosTyyppi,
   MuseovirastoLayer
 } from "../common/types"
 import {
@@ -77,11 +78,12 @@ export const centerToCurrentPosition = (): CenterMapToCurrentPositionAction => {
   }
 }
 
-export const fetchDataLatestUpdateDates = (): FetchDataLatestUpdateDatesAction => {
-  return {
-    type: FETCH_DATA_LATESTS_UPDATE_DATES
+export const fetchDataLatestUpdateDates =
+  (): FetchDataLatestUpdateDatesAction => {
+    return {
+      type: FETCH_DATA_LATESTS_UPDATE_DATES
+    }
   }
-}
 
 export const fetchDataLatestUpdateDatesComplete = (
   payload: DataLatestUpdateDates

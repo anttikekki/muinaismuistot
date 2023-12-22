@@ -1,16 +1,13 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import {
-  AhvenanmaaForminnenArgisFeature,
-  ModelFeatureProperties
-} from "../../../../common/types"
-import {
   ArgisFeatureCollapsePanel,
   FeatureTitleClickAction
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import { AhvenanmaaTypeAndDatingField } from "../component/AhvenanmaaTypeAndDatingField"
+import { AhvenanmaaForminnenArgisFeature } from "../../../../common/ahvenanmaa.types"
 
 interface Props {
   titleClickAction: FeatureTitleClickAction

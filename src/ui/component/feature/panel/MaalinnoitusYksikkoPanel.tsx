@@ -1,5 +1,5 @@
 import React from "react"
-import { MaalinnoitusYksikkoFeature } from "../../../../common/types"
+import { MaalinnoitusYksikkoFeature } from "../../../../common/maalinnoitusHelsinki.types"
 import {
   FeatureTitleClickAction,
   MaalinnoitusFeatureCollapsePanel

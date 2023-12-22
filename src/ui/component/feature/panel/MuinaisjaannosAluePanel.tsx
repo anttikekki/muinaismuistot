@@ -1,6 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { MuinaisjaannosAlueWmsFeature } from "../../../../common/types"
+import { MuinaisjaannosAlueWmsFeature } from "../../../../common/museovirasto.types"
 import {
   ArgisFeatureCollapsePanel,
   FeatureTitleClickAction
@@ -22,7 +22,7 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
   feature
 }) => {
   const { t } = useTranslation()
-  const { kohdenimi, kunta, laji } = feature.attributes
+  const { kohdenimi, kunta, laji } = feature.properties
   return (
     <ArgisFeatureCollapsePanel
       titleClickAction={titleClickAction}

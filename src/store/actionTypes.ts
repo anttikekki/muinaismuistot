@@ -1,6 +1,9 @@
 import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
+} from "../common/museovirasto.types"
+import {
   AhvenanmaaLayer,
-  ArgisFeature,
   DataLatestUpdateDates,
   GtkLayer,
   HelsinkiLayer,
@@ -9,8 +12,6 @@ import {
   MaanmittauslaitosLayer,
   MaisemanMuistiLayer,
   ModelLayer,
-  MuinaisjaannosAjoitus,
-  MuinaisjaannosTyyppi,
   MuseovirastoLayer
 } from "../common/types"
 import { PageId, SelectedFeaturesOnMap } from "./storeTypes"

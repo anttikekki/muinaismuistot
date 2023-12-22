@@ -1,17 +1,5 @@
 import React, { useCallback, useState } from "react"
-import { useTranslation } from "react-i18next"
-import {
-  ArgisFeature,
-  ModelFeatureProperties,
-  MuseovirastoLayer,
-  AhvenanmaaLayer,
-  GeoJSONFeature,
-  MaisemanMuistiFeatureProperties,
-  MaalinnoitusFeature,
-  isMaalinnoitusYksikkoFeature,
-  isMaalinnoitusKohdeFeature,
-  isMaalinnoitusRajausFeature
-} from "../../../common/types"
+import { MuseovirastoLayer, AhvenanmaaLayer } from "../../../common/types"
 import { MuinaisjaannosPistePanel } from "../../component/feature/panel/MuinaisjaannosPistePanel"
 import {
   getFeatureID,
@@ -28,6 +16,15 @@ import { FeatureTitleClickAction } from "./component/FeatureCollapsePanel"
 import { MaalinnoitusYksikkoPanel } from "./panel/MaalinnoitusYksikkoPanel"
 import { MaalinnoitusKohdePanel } from "./panel/MaalinnoitusKohdePanel"
 import { MaalinnoitusRajausPanel } from "./panel/MaalinnoitusRajausPanel"
+import { GeoJSONFeature } from "../../../common/geojson.types"
+import { ModelFeatureProperties } from "../../../common/3dModels.types"
+import { MaisemanMuistiFeatureProperties } from "../../../common/maisemanMuisti.types"
+import {
+  MaalinnoitusFeature,
+  isMaalinnoitusKohdeFeature,
+  isMaalinnoitusRajausFeature,
+  isMaalinnoitusYksikkoFeature
+} from "../../../common/maalinnoitusHelsinki.types"
 
 interface FeatureListProps {
   titleClickAction: FeatureTitleClickAction

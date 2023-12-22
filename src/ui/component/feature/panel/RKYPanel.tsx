@@ -1,12 +1,5 @@
 import React from "react"
 import {
-  RKYPisteArgisFeature,
-  RKYAlueArgisFeature,
-  RKYViivaArgisFeature,
-  MuseovirastoLayer,
-  ModelFeatureProperties
-} from "../../../../common/types"
-import {
   ArgisFeatureCollapsePanel,
   FeatureTitleClickAction
 } from "../component/FeatureCollapsePanel"
@@ -14,12 +7,18 @@ import { Field } from "../component/Field"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import { useTranslation } from "react-i18next"
+import {
+  RKYAlueWmsFeature,
+  RKYPisteWmsFeature,
+  RKYViivaWmsFeature,
+  isRKYAlueWmsFeature
+} from "../../../../common/museovirasto.types"
 
 interface Props {
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
-  feature: RKYPisteArgisFeature | RKYAlueArgisFeature | RKYViivaArgisFeature
+  feature: RKYPisteWmsFeature | RKYAlueWmsFeature | RKYViivaWmsFeature
 }
 
 export const RKYPanel: React.FC<Props> = ({
@@ -39,12 +38,12 @@ export const RKYPanel: React.FC<Props> = ({
       <form>
         <Field
           label={t(`details.field.featureName`)}
-          value={feature.attributes.kohdenimi}
+          value={feature.properties.kohdenimi}
         />
-        {feature.layerName === MuseovirastoLayer.RKY_alue && (
+        {isRKYAlueWmsFeature(feature) && (
           <Field
             label={t(`details.field.name`)}
-            value={feature.attributes.nimi}
+            value={feature.properties.nimi}
           />
         )}
         <MuseovirastoLink feature={feature} />

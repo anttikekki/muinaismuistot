@@ -23,8 +23,6 @@ import {
 import {
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
-  MuinaisjaannosTyyppi,
-  MuinaisjaannosAjoitus,
   AhvenanmaaLayer,
   ModelLayer,
   MaisemanMuistiLayer,
@@ -33,6 +31,10 @@ import {
   LayerGroup,
   HelsinkiLayer
 } from "../common/types"
+import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
+} from "../common/museovirasto.types"
 
 export const updateLanguage = (
   settings: Settings,

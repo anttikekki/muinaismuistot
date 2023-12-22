@@ -1,5 +1,5 @@
 import React from "react"
-import { MaalinnoitusKohdeFeature } from "../../../../common/types"
+import { MaalinnoitusKohdeFeature } from "../../../../common/maalinnoitusHelsinki.types"
 import {
   FeatureTitleClickAction,
   MaalinnoitusFeatureCollapsePanel
@@ -23,12 +23,8 @@ export const MaalinnoitusKohdePanel: React.FC<Props> = ({
   feature
 }) => {
   const { t } = useTranslation()
-  const {
-    tukikohtanumero,
-    kohdetyyppi,
-    olotila,
-    mittaustieto
-  } = feature.properties
+  const { tukikohtanumero, kohdetyyppi, olotila, mittaustieto } =
+    feature.properties
 
   return (
     <MaalinnoitusFeatureCollapsePanel
