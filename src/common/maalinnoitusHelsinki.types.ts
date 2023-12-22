@@ -220,5 +220,5 @@ export const getMaalinnoitusWmsFeatureLayerName = (
   if (isMaalinnoitusKarttatekstiFeature(feature)) {
     return HelsinkiLayer.Maalinnoitus_karttatekstit
   }
-  throw new Error(`Tuntematon WMS Feature: ${feature}`)
+  throw new Error(`Tuntematon WMS Feature: ${JSON.stringify(feature)}`)
 }

@@ -26,7 +26,6 @@ import {
   isSuojellutRakennuksetPisteWmsFeature
 } from "../museovirasto.types"
 import {
-  MaalinnoitusWmsFeature,
   MaalinnoitusKohdetyyppi,
   MaalinnoitusRajaustyyppi,
   isMaalinnoitusKohdeFeature,
@@ -38,18 +37,17 @@ import { ModelFeatureProperties } from "../3dModels.types"
 import { MaisemanMuistiFeatureProperties } from "../maisemanMuisti.types"
 import { isAhvenanmaaArcgisFeature } from "../ahvenanmaa.types"
 import { MapFeature, isArcGisFeature, isWmsFeature } from "../mapFeature.types"
-import { ArcGisFeatureGeometryData } from "../arcgis.type"
 
 export const isKiinteäMuinaisjäännös = (
   feature: MuinaisjaannosPisteWmsFeature | MuinaisjaannosAlueWmsFeature
 ): boolean => {
-  return trim(feature.properties.laji) === "kiinteä muinaisjäännös"
+  return trim(feature.properties.Laji) === "kiinteä muinaisjäännös"
 }
 
 export const isMuuKulttuuriperintökohde = (
   feature: MuinaisjaannosPisteWmsFeature | MuinaisjaannosAlueWmsFeature
 ): boolean => {
-  return trim(feature.properties.laji) === "muu kulttuuriperintökohde"
+  return trim(feature.properties.Laji) === "muu kulttuuriperintökohde"
 }
 
 export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
@@ -208,9 +206,7 @@ export const getTypeIconURL = (
   has3dModels: boolean = false
 ) => `images/${imageName}${has3dModels ? "_3d" : ""}.png`
 
-export const getFeatureTypeIconURL = (
-  feature: MapFeature
-): string | undefined => {
+export const getFeatureTypeIconURL = (feature: MapFeature): string => {
   const has3dModels = feature.models.length > 0
   if (isWmsFeature(feature)) {
     if (isMuinaisjaannosPisteWmsFeature(feature)) {
@@ -282,6 +278,7 @@ export const getFeatureTypeIconURL = (
         return getTypeIconURL("ahvenanmaa_hylky", has3dModels)
     }
   }
+  throw new Error(`Tuntematon feature: ${JSON.stringify(feature)}`)
 }
 
 export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
@@ -350,19 +347,19 @@ export const getFeatureID = (feature: MapFeature): string => {
       isRKYPisteWmsFeature(feature) ||
       isRKYViivaWmsFeature(feature)
     ) {
-      return feature.properties.ID
+      return String(feature.properties.ID)
     }
     if (
       isMaailmanperintoAlueWmsFeature(feature) ||
       isMaailmanperintoPisteWmsFeature(feature)
     ) {
-      return feature.properties.OBJECTID // Not a real stabile register id but data set is really small
+      return String(feature.properties.OBJECTID) // Not a real stabile register id but data set is really small
     }
     if (
       isSuojellutRakennuksetAlueWmsFeature(feature) ||
       isSuojellutRakennuksetPisteWmsFeature(feature)
     ) {
-      return String(feature.properties.kohdeID)
+      return String(feature.properties.KOHDEID)
     }
     if (
       isMaalinnoitusYksikkoFeature(feature) ||
@@ -379,7 +376,7 @@ export const getFeatureID = (feature: MapFeature): string => {
         return feature.attributes.FornID
     }
   }
-  throw new Error(`Tuntematon feature: ${feature}`)
+  throw new Error(`Tuntematon feature: ${JSON.stringify(feature)}`)
 }
 
 export const getModelsForMaisemanMuistiFeature = (
@@ -467,7 +464,7 @@ export const getFeatureRegisterURL = (
       isSuojellutRakennuksetAlueWmsFeature(feature) ||
       isSuojellutRakennuksetPisteWmsFeature(feature)
     ) {
-      return `https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_kohde_det.aspx?KOHDE_ID=${feature.properties.kohdeID}`
+      return `https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_kohde_det.aspx?KOHDE_ID=${feature.properties.KOHDEID}`
     }
   }
   return undefined

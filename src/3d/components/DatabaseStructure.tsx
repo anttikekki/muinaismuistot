@@ -111,78 +111,15 @@ export const DatabaseStructure: React.FC = () => {
               <br />
               Museoviraston aineistot:
               <ul>
-                <li>
-                  <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/9"
-                    target="_blank"
-                  >
-                    Muinaisjaannokset_piste
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/10"
-                    target="_blank"
-                  >
-                    Muinaisjaannokset_alue
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/2"
-                    target="_blank"
-                  >
-                    Suojellut_rakennukset_piste
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/3"
-                    target="_blank"
-                  >
-                    Suojellut_rakennukset_alue
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/4"
-                    target="_blank"
-                  >
-                    RKY_alue
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/5"
-                    target="_blank"
-                  >
-                    RKY_piste
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/6"
-                    target="_blank"
-                  >
-                    RKY_viiva
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/11"
-                    target="_blank"
-                  >
-                    Maailmanperinto_piste
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="http://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/12"
-                    target="_blank"
-                  >
-                    Maailmanperinto_alue
-                  </a>
-                </li>
+                <li>rajapinta:muinaisjaannos_piste</li>
+                <li>rajapinta_suojellut:muinaisjaannos_alue</li>
+                <li>rajapinta_suojellut:suojellut_rakennukset_piste</li>
+                <li>rajapinta_suojellut:suojellut_rakennukset_alue</li>
+                <li>rajapinta_suojellut:rky_alue</li>
+                <li>rajapinta_suojellut:rky_piste</li>
+                <li>rajapinta_suojellut:rky_viiva</li>
+                <li>rajapinta_suojellut:maailmanperinto_piste</li>
+                <li>rajapinta_suojellut:maailmanperinto_alue</li>
               </ul>
               <br />
               Ahvenanmaan paikallishallinnon aineisto:
@@ -377,7 +314,7 @@ export const DatabaseStructure: React.FC = () => {
       "registryItem": {
         "name": "Tukikohta IV:10 (Kivikko)",
         "id": 1000011245,
-        "type": "Muinaisjaannokset_piste",
+        "type": "rajapinta:muinaisjaannos_piste",
         "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245",
         "municipality": "Helsinki"
       },

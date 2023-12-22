@@ -25,8 +25,8 @@ export enum MaanmittauslaitosLayer {
 export enum MuseovirastoLayer {
   Muinaisjaannokset_piste = "rajapinta:muinaisjaannos_piste",
   Muinaisjaannokset_alue = "rajapinta_suojellut:muinaisjaannos_alue",
-  Suojellut_rakennukset_piste = "rajapinta_suojellut:suojellut_rakennukset_alue",
-  Suojellut_rakennukset_alue = "rajapinta_suojellut:suojellut_rakennukset_piste",
+  Suojellut_rakennukset_piste = "rajapinta_suojellut:suojellut_rakennukset_piste",
+  Suojellut_rakennukset_alue = "rajapinta_suojellut:suojellut_rakennukset_alue",
   RKY_alue = "rajapinta_suojellut:rky_alue",
   RKY_piste = "rajapinta_suojellut:rky_piste",
   RKY_viiva = "rajapinta_suojellut:rky_viiva",

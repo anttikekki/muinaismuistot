@@ -54,7 +54,7 @@ export interface MuinaisjaannosPisteWmsFeature
     inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1279_P38962";
     kohdenimi: string // "Melkki länsiranta";
     kunta: string // "Helsinki"
-    laji: MuinaisjaannosLaji // "kiinteä muinaisjäännös";
+    Laji: MuinaisjaannosLaji // "kiinteä muinaisjäännös";
     tyyppi: string // "alusten hylyt, kivirakenteet";
     alatyyppi: string // "hylyt (puu), hautakummut";
     ajoitus: string // "ei määritelty, keskiaikainen";
@@ -90,7 +90,7 @@ export interface MuinaisjaannosAlueWmsFeature
     inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000007642_A9190";
     kohdenimi: string // "Tukikohta I:tie (Mustavuori)                                                                        ";
     kunta: string // "Helsinki                                                                                            ";
-    laji: MuinaisjaannosLaji // "kiinteä muinaisjäännös                                                                              ";
+    Laji: MuinaisjaannosLaji // "kiinteä muinaisjäännös                                                                              ";
     lähdetiedon_ajoitus: string // "1979";
     digipvm: string // "12.3.2007 15:02:19";
     digimk: string // "PerusCD";
@@ -105,8 +105,8 @@ export interface SuojellutRakennuksetPisteWmsFeature
   id: `suojellut_rakennukset_piste.${number}`
   properties: {
     OBJECTID: number // "2843";
-    kohdeID: number // "200928";
-    rakennusID: string // "305349";
+    KOHDEID: number // "200928";
+    rakennusID: number // "305349";
     inspireID: string // "http://paikkatiedot.fi/so/1000000/ps/ProtectedSite/305349_2843";
     vtj_prt: string // "103247805B               ";
     kohdenimi: string // "Meilahden kirkko";
@@ -115,9 +115,8 @@ export interface SuojellutRakennuksetPisteWmsFeature
     suojeluryhmä: string // "Kirkkolaki,  ,  ,  ";
     suojelun_tila: string // "Suojeltu                                                                                            ";
     url: string // "www.kyppi.fi/to.aspx?id=130.200928";
-    x: string // "383802.548";
-    y: string // "6674739.466";
-    Shape: string // "Point";
+    x: number // "383802.548";
+    y: number // "6674739.466";
   }
 }
 
@@ -127,14 +126,13 @@ export interface SuojellutRakennuksetAlueWmsFeature
   id: `suojellut_rakennukset_alue.${number}`
   properties: {
     OBJECTID: number // "2843";
-    kohdeID: number // "200928";
+    KOHDEID: number // "200928";
     inspireID: string // "http://paikkatiedot.fi/so/1000000/ps/ProtectedSite/305349_2843";
     kohdenimi: string // "Meilahden kirkko";
     kunta: string // "Helsinki                                                                                            ";
     suojeluryhmä: string // "Kirkkolaki,  ,  ,  ";
     suojelun_tila: string // "Suojeltu                                                                                            ";
     url: string // "www.kyppi.fi/to.aspx?id=130.200928";
-    Shape: string // "Polygon";
   }
 }
 
@@ -144,12 +142,11 @@ export interface RKYAlueWmsFeature
   id: `rky_alue.${number}`
   properties: {
     OBJECTID: number // "1632";
-    ID: string // "1570";
+    ID: number // "1570";
     inspireID: string // "http://paikkatiedot.fi/so/1000034/ps/ProtectedSite/1570_A1632";
     kohdenimi: string // "Pääkaupunkiseudun I maailmansodan linnoitteet";
     nimi: string // "Itä-Villinki";
     url: string // "http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=1570";
-    SHAPE: string // "Polygon";
   }
 }
 
@@ -163,7 +160,6 @@ export interface RKYPisteWmsFeature
     inspireID: string //"http://paikkatiedot.fi/so/1000034/ps/ProtectedSite/4255_P31";
     kohdenimi: string //"Struven astemittausketju";
     url: string //"http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=4255";
-    Shape: string //"Point";
   }
 }
 
@@ -198,11 +194,10 @@ export interface MaailmanperintoAlueWmsFeature
     WmsFeature {
   id: `maailmanperinto_alue.${number}`
   properties: {
-    Shape: string // "Polygon";
-    OBJECTID: string // "429";
+    OBJECTID: number // 429;
     Nimi: string // "Suomenllinna";
     URL: string // "http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa#suomenlinna";
-    Alue: string // "Suoja-alue";
+    Alue: string | null // "Suoja-alue";
   }
 }
 
@@ -309,5 +304,5 @@ export const getMuseovirastoWmsFeatureLayerName = (
   if (isMaailmanperintoPisteWmsFeature(feature)) {
     return MuseovirastoLayer.Maailmanperinto_piste
   }
-  throw new Error(`Tuntematon WMS Feature: ${feature}`)
+  throw new Error(`Tuntematon WMS Feature: ${JSON.stringify(feature)}`)
 }

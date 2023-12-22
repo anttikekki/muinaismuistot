@@ -56,7 +56,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
     ajoitusSplitted,
     tyyppiSplitted,
     alatyyppiSplitted,
-    laji
+    Laji
   } = feature.properties
   return (
     <MapFeatureCollapsePanel
@@ -100,7 +100,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         </Field>
         <Field
           label={t(`details.field.featureType`)}
-          value={t(`data.museovirasto.featureType.${laji}`, laji)}
+          value={t(`data.museovirasto.featureType.${Laji}`, Laji)}
         />
 
         {feature.maisemanMuisti.length > 0 && (

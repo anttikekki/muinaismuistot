@@ -40,5 +40,5 @@ export const getFeatureLayerName = (feature: MapFeature): FeatureLayer => {
   if (isAhvenanmaaArcgisFeature(feature)) {
     return feature.layerName
   }
-  throw new Error(`Tuntematon feature ${feature}`)
+  throw new Error(`Tuntematon feature ${JSON.stringify(feature)}`)
 }

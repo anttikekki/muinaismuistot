@@ -20,7 +20,6 @@ import { GeoJSONFeature } from "../../../common/geojson.types"
 import { ModelFeatureProperties } from "../../../common/3dModels.types"
 import { MaisemanMuistiFeatureProperties } from "../../../common/maisemanMuisti.types"
 import {
-  MaalinnoitusWmsFeature,
   isMaalinnoitusKohdeFeature,
   isMaalinnoitusRajausFeature,
   isMaalinnoitusYksikkoFeature
@@ -66,10 +65,10 @@ export const FeatureList: React.FC<FeatureListProps> = ({
 
   return (
     <div className="panel-group" role="tablist" aria-multiselectable="true">
-      {features.map((feature) => {
+      {features.map((feature, i) => {
         const panelId = `${getFeatureLayerName(feature)}-${getFeatureID(
           feature
-        )}`
+        )}-${i}`
         const params = {
           key: panelId,
           titleClickAction,

@@ -11,11 +11,7 @@ import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer"
 import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
 import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositionAndSelectedLocationMarkerLayer"
-import {
-  DataLatestUpdateDates,
-  LayerGroup,
-  MuseovirastoLayer
-} from "../common/types"
+import { DataLatestUpdateDates, LayerGroup } from "../common/types"
 import MapBrowserEvent from "ol/MapBrowserEvent"
 import { Coordinate } from "ol/coordinate"
 import { Extent } from "ol/extent"
