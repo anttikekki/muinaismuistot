@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { ArgisFeature } from "../../../common/types"
 import { Page } from "../Page"
 import { FeatureList } from "../../component/feature/FeatureList"
 import { FeatureTitleClickAction } from "../../component/feature/component/FeatureCollapsePanel"
 import { useDispatch, useSelector } from "react-redux"
 import { searchFeatures } from "../../../store/actionCreators"
 import { PageId, Settings } from "../../../store/storeTypes"
+import { MapFeature } from "../../../common/mapFeature.types"
 
 interface ResultsProps {
-  features?: Array<ArgisFeature>
+  features?: Array<MapFeature>
 }
 
 const Results: React.FC<ResultsProps> = ({ features }) => {
@@ -49,7 +49,7 @@ export const SearchPage: React.FC = () => {
   const [showSearchTextError, setShowSearchTextError] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
   const searchResultFeatures = useSelector(
-    (settings: Settings) => settings.search.searchResults
+    (settings: Settings) => settings.search.features
   )
   const visiblePage = useSelector((settings: Settings) => settings.visiblePage)
 

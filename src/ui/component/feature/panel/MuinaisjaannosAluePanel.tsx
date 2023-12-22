@@ -2,7 +2,7 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 import { MuinaisjaannosAlueWmsFeature } from "../../../../common/museovirasto.types"
 import {
-  ArgisFeatureCollapsePanel,
+  MapFeatureCollapsePanel,
   FeatureTitleClickAction
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
@@ -24,7 +24,7 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
   const { t } = useTranslation()
   const { kohdenimi, kunta, laji } = feature.properties
   return (
-    <ArgisFeatureCollapsePanel
+    <MapFeatureCollapsePanel
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
@@ -39,6 +39,6 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
         />
         <MuseovirastoLink feature={feature} />
       </form>
-    </ArgisFeatureCollapsePanel>
+    </MapFeatureCollapsePanel>
   )
 }

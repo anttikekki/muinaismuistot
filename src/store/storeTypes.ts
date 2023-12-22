@@ -1,12 +1,10 @@
 import { ModelFeatureProperties } from "../common/3dModels.types"
-import { AhvenanmaaArcgisFeature } from "../common/ahvenanmaa.types"
 import { GeoJSONFeature } from "../common/geojson.types"
-import { MaalinnoitusFeature } from "../common/maalinnoitusHelsinki.types"
 import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
+import { MapFeature } from "../common/mapFeature.types"
 import {
   MuinaisjaannosAjoitus,
-  MuinaisjaannosTyyppi,
-  MuseovirastoWmsFeature
+  MuinaisjaannosTyyppi
 } from "../common/museovirasto.types"
 import {
   AhvenanmaaLayer,
@@ -28,11 +26,9 @@ export enum PageId {
 }
 
 export interface SelectedFeaturesOnMap {
-  museovirastoFeatures: Array<MuseovirastoWmsFeature>
-  ahvenanmaaFeatures: Array<AhvenanmaaArcgisFeature>
+  features: Array<MapFeature>
   models: Array<GeoJSONFeature<ModelFeatureProperties>>
   maisemanMuistiFeatures: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
-  maalinnoitusFeatures: Array<MaalinnoitusFeature>
 }
 
 export interface Settings {
@@ -40,8 +36,7 @@ export interface Settings {
   visiblePage?: PageId
   selectedFeaturesOnMap: SelectedFeaturesOnMap
   search: {
-    museovirastoFeatures: Array<MuseovirastoWmsFeature>
-    ahvenanmaaFeatures: Array<AhvenanmaaArcgisFeature>
+    features: Array<MapFeature>
   }
   dataLatestUpdateDates?: DataLatestUpdateDates
   initialMapZoom: number

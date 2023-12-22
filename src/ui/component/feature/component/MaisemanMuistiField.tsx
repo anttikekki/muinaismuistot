@@ -1,9 +1,7 @@
 import React from "react"
 import { Trans } from "react-i18next"
-import {
-  GeoJSONFeature,
-  MaisemanMuistiFeatureProperties
-} from "../../../../common/types"
+import { MaisemanMuistiFeatureProperties } from "../../../../common/maisemanMuisti.types"
+import { GeoJSONFeature } from "../../../../common/geojson.types"
 
 interface Props {
   feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>

@@ -1,7 +1,7 @@
 import React from "react"
 import { MuinaisjaannosPisteWmsFeature } from "../../../../common/museovirasto.types"
 import {
-  ArgisFeatureCollapsePanel,
+  MapFeatureCollapsePanel,
   FeatureTitleClickAction
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
@@ -59,7 +59,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
     laji
   } = feature.properties
   return (
-    <ArgisFeatureCollapsePanel
+    <MapFeatureCollapsePanel
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
@@ -111,6 +111,6 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
 
         {isOpen && <EmbeddedModels models={feature.models} />}
       </form>
-    </ArgisFeatureCollapsePanel>
+    </MapFeatureCollapsePanel>
   )
 }

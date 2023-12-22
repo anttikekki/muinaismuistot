@@ -1,7 +1,7 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import {
-  ArgisFeatureCollapsePanel,
+  MapFeatureCollapsePanel,
   FeatureTitleClickAction
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
@@ -24,7 +24,7 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
   return (
-    <ArgisFeatureCollapsePanel
+    <MapFeatureCollapsePanel
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
@@ -59,6 +59,6 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
 
         {isOpen && <EmbeddedModels models={feature.models} />}
       </form>
-    </ArgisFeatureCollapsePanel>
+    </MapFeatureCollapsePanel>
   )
 }

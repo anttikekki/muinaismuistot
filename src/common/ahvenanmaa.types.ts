@@ -1,4 +1,8 @@
-import { GeometryTypePolygon, PolygonGeometry } from "./arcgis.type"
+import {
+  ArcGisPolygonGeometryFeature,
+  GeometryTypePolygon,
+  PolygonGeometry
+} from "./arcgis.type"
 import { FeatureSupplementaryData } from "./featureSupplementaryData.types"
 import { MapFeature } from "./mapFeature.types"
 import { AhvenanmaaLayer } from "./types"
@@ -13,7 +17,8 @@ export interface AhvenanmaaTypeAndDatingFeatureProperties {
 }
 
 export interface AhvenanmaaForminnenArgisFeature
-  extends FeatureSupplementaryData {
+  extends FeatureSupplementaryData,
+    ArcGisPolygonGeometryFeature {
   layerId: 1
   layerName: AhvenanmaaLayer.Fornminnen
   attributes: {
@@ -40,7 +45,8 @@ export interface AhvenanmaaForminnenArgisFeature
 }
 
 export interface AhvenanmaaMaritimtKulturarvArgisFeature
-  extends FeatureSupplementaryData {
+  extends FeatureSupplementaryData,
+    ArcGisPolygonGeometryFeature {
   layerId: 5
   layerName: AhvenanmaaLayer.MaritimtKulturarv
   attributes: {

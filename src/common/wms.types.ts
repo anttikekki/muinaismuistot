@@ -24,12 +24,12 @@ export type WmsGeometry =
   | WmsGeometryPolygon
   | WmsGeometryMultiPolygon
 
-export interface WmsFeature<Id, WmsFeatureProperties> {
+export interface WmsFeature {
   type: "Feature"
-  id: Id
+  id: string
   geometry: WmsGeometry
   geometry_name: "geom" | "Shape"
-  properties: WmsFeatureProperties
+  properties: Record<string, unknown>
 }
 
 export interface WmsFeatureInfoResult<WmsFeatureType> {

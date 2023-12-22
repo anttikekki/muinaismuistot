@@ -1,3 +1,4 @@
+import { MapFeature } from "../common/mapFeature.types"
 import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi
@@ -74,7 +75,7 @@ export interface SearchFeaturesAction {
 
 export interface SearchFeaturesCompleteAction {
   type: typeof SEARCH_FEATURES_COMPLETE
-  searchResultFeatures: Array<ArgisFeature>
+  searchResultFeatures: Array<MapFeature>
 }
 
 export interface ClickedMapFeatureIdentificationCompleteAction {

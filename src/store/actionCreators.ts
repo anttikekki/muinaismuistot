@@ -1,3 +1,4 @@
+import { MapFeature } from "../common/mapFeature.types"
 import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi
@@ -102,7 +103,7 @@ export const searchFeatures = (searchText: string): SearchFeaturesAction => {
 }
 
 export const searchFeaturesComplete = (
-  searchResultFeatures: Array<ArgisFeature>
+  searchResultFeatures: Array<MapFeature>
 ): SearchFeaturesCompleteAction => {
   return {
     type: SEARCH_FEATURES_COMPLETE,

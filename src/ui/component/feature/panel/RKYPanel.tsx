@@ -1,6 +1,6 @@
 import React from "react"
 import {
-  ArgisFeatureCollapsePanel,
+  MapFeatureCollapsePanel,
   FeatureTitleClickAction
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
@@ -29,7 +29,7 @@ export const RKYPanel: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
   return (
-    <ArgisFeatureCollapsePanel
+    <MapFeatureCollapsePanel
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
@@ -49,6 +49,6 @@ export const RKYPanel: React.FC<Props> = ({
         <MuseovirastoLink feature={feature} />
         {isOpen && <EmbeddedModels models={feature.models} />}
       </form>
-    </ArgisFeatureCollapsePanel>
+    </MapFeatureCollapsePanel>
   )
 }

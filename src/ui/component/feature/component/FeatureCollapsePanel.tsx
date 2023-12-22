@@ -2,24 +2,20 @@ import React, { ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import {
-  getArgisFeatureTypeIconURL,
+  getFeatureTypeIconURL,
   getFeatureTypeName,
-  getArgisFeatureLocation,
   getFeatureName,
   getGeoJSONFeatureLocation,
   getTypeIconURL,
   getFeatureMunicipality,
-  getMaalinnoitusFeatureName,
-  getMaalinnoitusFeatureIconUrl,
-  getMaalinnoitusFeatureLocation,
-  getMaalinnoitusFeatureTypeName
+  getFeatureLocation
 } from "../../../../common/util/featureParser"
 import { createLocationHash } from "../../../../common/util/URLHashHelper"
 import { showPage } from "../../../../store/actionCreators"
 import { MapFeature } from "../../../../common/mapFeature.types"
 import { MaisemanMuistiFeatureProperties } from "../../../../common/maisemanMuisti.types"
 import { GeoJSONFeature } from "../../../../common/geojson.types"
-import { MaalinnoitusFeature } from "../../../../common/maalinnoitusHelsinki.types"
+import { MaalinnoitusWmsFeature } from "../../../../common/maalinnoitusHelsinki.types"
 
 export enum FeatureTitleClickAction {
   OpenDetails = "openDetails",
@@ -121,7 +117,7 @@ const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
   )
 }
 
-interface ArgisFeatureCollapsePanelProps {
+interface MapFeatureCollapsePanelProps {
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
@@ -129,12 +125,12 @@ interface ArgisFeatureCollapsePanelProps {
   children: ReactNode
 }
 
-export const ArgisFeatureCollapsePanel: React.FC<
-  ArgisFeatureCollapsePanelProps
+export const MapFeatureCollapsePanel: React.FC<
+  MapFeatureCollapsePanelProps
 > = ({ titleClickAction, isOpen, onToggleOpen, feature, children }) => {
   const { t, i18n } = useTranslation()
   const permanentLink = useMemo(() => {
-    const coordinates = getArgisFeatureLocation(feature)
+    const coordinates = getFeatureLocation(feature)
     return coordinates && createLocationHash(coordinates)
   }, [i18n.language, feature])
   const featureName = useMemo(
@@ -142,7 +138,7 @@ export const ArgisFeatureCollapsePanel: React.FC<
     [i18n.language, feature]
   )
   const featureTypeIconURL = useMemo(
-    () => getArgisFeatureTypeIconURL(feature),
+    () => getFeatureTypeIconURL(feature),
     [feature]
   )
   const featureTypeName = useMemo(() => {
@@ -204,41 +200,6 @@ export const MaisemanMuistiFeatureCollapsePanel: React.FC<
   const featureTypeName = `${t(`data.featureType.Kiinteä muinaisjäännös`)}, ${t(
     `data.featureType.Valtakunnallisesti merkittävä muinaisjäännös`
   )}`
-
-  return (
-    <FeatureCollapsePanel
-      titleClickAction={titleClickAction}
-      isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
-      permanentLink={permanentLink}
-      featureName={featureName}
-      featureTypeIconURL={featureTypeIconURL}
-      featureTypeName={featureTypeName}
-    >
-      {children}
-    </FeatureCollapsePanel>
-  )
-}
-
-interface MaalinnoitusFeatureCollapsePanelProps {
-  titleClickAction: FeatureTitleClickAction
-  isOpen: boolean
-  onToggleOpen: () => void
-  feature: MaalinnoitusFeature
-  children: ReactNode
-}
-
-export const MaalinnoitusFeatureCollapsePanel: React.FC<
-  MaalinnoitusFeatureCollapsePanelProps
-> = ({ titleClickAction, isOpen, onToggleOpen, feature, children }) => {
-  const { t } = useTranslation()
-  const permanentLink = useMemo(() => {
-    const coordinates = getMaalinnoitusFeatureLocation(feature)
-    return coordinates && createLocationHash(coordinates)
-  }, [feature])
-  const featureName = getMaalinnoitusFeatureName(t, feature)
-  const featureTypeIconURL = getMaalinnoitusFeatureIconUrl(feature)
-  const featureTypeName = getMaalinnoitusFeatureTypeName(t, feature)
 
   return (
     <FeatureCollapsePanel

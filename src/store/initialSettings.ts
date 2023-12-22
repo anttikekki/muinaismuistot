@@ -27,11 +27,10 @@ export const initialSettings: Settings = {
   selectedFeaturesOnMap: {
     features: [],
     models: [],
-    maisemanMuistiFeatures: [],
-    maalinnoitusFeatures: []
+    maisemanMuistiFeatures: []
   },
   search: {
-    searchResults: undefined
+    features: []
   },
   dataLatestUpdateDates: undefined,
   initialMapZoom: 8,

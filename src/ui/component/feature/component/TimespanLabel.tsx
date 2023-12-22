@@ -1,7 +1,7 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { MuinaisjaannosAjoitus } from "../../../../common/types"
 import { getTimespanInYearsForTimingName } from "../../../../common/util/featureParser"
+import { MuinaisjaannosAjoitus } from "../../../../common/museovirasto.types"
 
 interface Props {
   dating: MuinaisjaannosAjoitus

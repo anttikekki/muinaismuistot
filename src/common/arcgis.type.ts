@@ -1,7 +1,7 @@
 export type GeometryTypePoint = "esriGeometryPoint"
 export type GeometryTypePolygon = "esriGeometryPolygon"
 export type GeometryTypePolyline = "esriGeometryPolyline"
-export type GeometryType =
+export type ArcGisGeometryType =
   | GeometryTypePoint
   | GeometryTypePolygon
   | GeometryTypePolyline
@@ -17,4 +17,30 @@ export interface PolygonGeometry {
 
 export interface PolylineGeometry {
   paths: Array<Array<[number, number]>>
+}
+
+export interface ArcGisPointGeometryFeature {
+  geometryType: GeometryTypePoint
+  geometry: PointGeometry
+}
+
+export interface ArcGisPolygonGeometryFeature {
+  geometryType: GeometryTypePolygon
+  geometry: PolygonGeometry
+}
+
+export interface ArcGisPolylineGeometryFeature {
+  geometryType: GeometryTypePolyline
+  geometry: PolylineGeometry
+}
+
+export type ArcGisFeatureGeometryData =
+  | ArcGisPointGeometryFeature
+  | ArcGisPolygonGeometryFeature
+  | ArcGisPolylineGeometryFeature
+
+export interface ArcGisFeature {
+  layerId: number
+  layerName: string
+  attributes: Record<string, unknown>
 }

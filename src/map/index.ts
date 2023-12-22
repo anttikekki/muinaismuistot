@@ -39,6 +39,8 @@ import Geometry from "ol/geom/Geometry"
 import { GeoJSONFeature } from "../common/geojson.types"
 import { ModelFeatureProperties } from "../common/3dModels.types"
 import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
+import { MapFeature, isWmsFeature } from "../common/mapFeature.types"
+import { isMuinaisjaannosPisteWmsFeature } from "../common/museovirasto.types"
 
 let store: Store<Settings, ActionTypes>
 let map: Map
@@ -237,31 +239,29 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent<UIEvent>) => {
     ([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {
       showLoadingAnimationInUI(false)
 
-      const ahvenanmaaFeatures = ahvenanmaaResult.results
-        .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
-        .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
-
-      const museovirastoFeatures = museovirastoResult.features
+      const features: Array<MapFeature> = [
+        ...ahvenanmaaResult.results,
+        ...museovirastoResult.features,
+        ...maalinnoitusFeatures
+      ]
         .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
         .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
 
       const maisemanMuistiFeatures = maisemanMuistiResult.filter((feature) => {
-        // Do not show Maiseman muisti feature if there is Wms/ArcGis feature for it in search results
-        return !museovirastoFeatures.some(
-          (feature) =>
-            argisFeature.layerName ===
-              MuseovirastoLayer.Muinaisjaannokset_piste &&
-            argisFeature.attributes.mjtunnus === feature.properties.id
+        // Do not show Maiseman muisti feature if there is Muinaisjäännös piste feature for it in search results
+        return !features.some(
+          (mapFeature) =>
+            isWmsFeature(mapFeature) &&
+            isMuinaisjaannosPisteWmsFeature(mapFeature) &&
+            mapFeature.properties.mjtunnus === feature.properties.id
         )
       })
 
       store.dispatch(
         clickedMapFeatureIdentificationComplete({
-          museovirastoFeatures,
-          ahvenanmaaFeatures,
+          features,
           models: modelsResult,
-          maisemanMuistiFeatures,
-          maalinnoitusFeatures
+          maisemanMuistiFeatures
         })
       )
     }

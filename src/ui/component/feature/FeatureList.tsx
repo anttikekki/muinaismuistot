@@ -20,28 +20,43 @@ import { GeoJSONFeature } from "../../../common/geojson.types"
 import { ModelFeatureProperties } from "../../../common/3dModels.types"
 import { MaisemanMuistiFeatureProperties } from "../../../common/maisemanMuisti.types"
 import {
-  MaalinnoitusFeature,
+  MaalinnoitusWmsFeature,
   isMaalinnoitusKohdeFeature,
   isMaalinnoitusRajausFeature,
   isMaalinnoitusYksikkoFeature
 } from "../../../common/maalinnoitusHelsinki.types"
+import {
+  MapFeature,
+  getFeatureLayerName,
+  isWmsFeature
+} from "../../../common/mapFeature.types"
+import {
+  isMaailmanperintoAlueWmsFeature,
+  isMaailmanperintoPisteWmsFeature,
+  isMuinaisjaannosAlueWmsFeature,
+  isMuinaisjaannosPisteWmsFeature,
+  isRKYAlueWmsFeature,
+  isRKYPisteWmsFeature,
+  isRKYViivaWmsFeature,
+  isSuojellutRakennuksetAlueWmsFeature,
+  isSuojellutRakennuksetPisteWmsFeature
+} from "../../../common/museovirasto.types"
+import { isAhvenanmaaArcgisFeature } from "../../../common/ahvenanmaa.types"
 
 interface FeatureListProps {
   titleClickAction: FeatureTitleClickAction
-  features?: Array<ArgisFeature>
+  features?: Array<MapFeature>
   models?: Array<GeoJSONFeature<ModelFeatureProperties>>
   maisemanMuistiFeatures?: Array<
     GeoJSONFeature<MaisemanMuistiFeatureProperties>
   >
-  maalinnoitusFeatures?: Array<MaalinnoitusFeature>
 }
 
 export const FeatureList: React.FC<FeatureListProps> = ({
   titleClickAction,
   features = [],
   models = [],
-  maisemanMuistiFeatures = [],
-  maalinnoitusFeatures = []
+  maisemanMuistiFeatures = []
 }) => {
   const [openPanelId, setOpenPanelId] = useState("")
   const onTogglePanelOpen = useCallback(
@@ -52,7 +67,9 @@ export const FeatureList: React.FC<FeatureListProps> = ({
   return (
     <div className="panel-group" role="tablist" aria-multiselectable="true">
       {features.map((feature) => {
-        const panelId = `${feature.layerName}-${getFeatureID(feature)}`
+        const panelId = `${getFeatureLayerName(feature)}-${getFeatureID(
+          feature
+        )}`
         const params = {
           key: panelId,
           titleClickAction,
@@ -60,27 +77,79 @@ export const FeatureList: React.FC<FeatureListProps> = ({
           onToggleOpen: () => onTogglePanelOpen(panelId)
         }
 
-        switch (feature.layerName) {
-          case MuseovirastoLayer.Muinaisjaannokset_piste:
+        if (isWmsFeature(feature)) {
+          if (isMuinaisjaannosPisteWmsFeature(feature)) {
             return <MuinaisjaannosPistePanel feature={feature} {...params} />
-          case MuseovirastoLayer.Muinaisjaannokset_alue:
+          }
+          if (isMuinaisjaannosAlueWmsFeature(feature)) {
             return <MuinaisjaannosAluePanel feature={feature} {...params} />
-          case MuseovirastoLayer.RKY_alue:
-          case MuseovirastoLayer.RKY_viiva:
-          case MuseovirastoLayer.RKY_piste:
+          }
+          if (
+            isRKYAlueWmsFeature(feature) ||
+            isRKYPisteWmsFeature(feature) ||
+            isRKYViivaWmsFeature(feature)
+          ) {
             return <RKYPanel feature={feature} {...params} />
-          case MuseovirastoLayer.Maailmanperinto_alue:
-          case MuseovirastoLayer.Maailmanperinto_piste:
+          }
+          if (
+            isMaailmanperintoAlueWmsFeature(feature) ||
+            isMaailmanperintoPisteWmsFeature(feature)
+          ) {
             return <MaailmanperintokohdePanel feature={feature} {...params} />
-          case MuseovirastoLayer.Suojellut_rakennukset_alue:
-          case MuseovirastoLayer.Suojellut_rakennukset_piste:
+          }
+          if (
+            isSuojellutRakennuksetAlueWmsFeature(feature) ||
+            isSuojellutRakennuksetPisteWmsFeature(feature)
+          ) {
             return <SuojellutRakennuksetPanel feature={feature} {...params} />
-          case AhvenanmaaLayer.Fornminnen:
-            return <AhvenanmaaForminnenPanel feature={feature} {...params} />
-          case AhvenanmaaLayer.MaritimtKulturarv:
+          }
+
+          if (isMaalinnoitusYksikkoFeature(feature)) {
             return (
-              <AhvenanmaaMaritimtKulturarvPanel feature={feature} {...params} />
+              <MaalinnoitusYksikkoPanel
+                key={panelId}
+                titleClickAction={titleClickAction}
+                isOpen={openPanelId === panelId}
+                onToggleOpen={() => onTogglePanelOpen(panelId)}
+                feature={feature}
+              />
             )
+          }
+          if (isMaalinnoitusKohdeFeature(feature)) {
+            return (
+              <MaalinnoitusKohdePanel
+                key={panelId}
+                titleClickAction={titleClickAction}
+                isOpen={openPanelId === panelId}
+                onToggleOpen={() => onTogglePanelOpen(panelId)}
+                feature={feature}
+              />
+            )
+          }
+          if (isMaalinnoitusRajausFeature(feature)) {
+            return (
+              <MaalinnoitusRajausPanel
+                key={panelId}
+                titleClickAction={titleClickAction}
+                isOpen={openPanelId === panelId}
+                onToggleOpen={() => onTogglePanelOpen(panelId)}
+                feature={feature}
+              />
+            )
+          }
+        }
+        if (isAhvenanmaaArcgisFeature(feature)) {
+          switch (feature.layerName) {
+            case AhvenanmaaLayer.Fornminnen:
+              return <AhvenanmaaForminnenPanel feature={feature} {...params} />
+            case AhvenanmaaLayer.MaritimtKulturarv:
+              return (
+                <AhvenanmaaMaritimtKulturarvPanel
+                  feature={feature}
+                  {...params}
+                />
+              )
+          }
         }
       })}
       {maisemanMuistiFeatures.map((feature) => {
@@ -95,43 +164,6 @@ export const FeatureList: React.FC<FeatureListProps> = ({
             models={getModelsForMaisemanMuistiFeature(feature, models)}
           />
         )
-      })}
-      {maalinnoitusFeatures.map((feature) => {
-        const panelId = feature.id // Contains type prefix and unique id
-
-        if (isMaalinnoitusYksikkoFeature(feature)) {
-          return (
-            <MaalinnoitusYksikkoPanel
-              key={panelId}
-              titleClickAction={titleClickAction}
-              isOpen={openPanelId === panelId}
-              onToggleOpen={() => onTogglePanelOpen(panelId)}
-              feature={feature}
-            />
-          )
-        }
-        if (isMaalinnoitusKohdeFeature(feature)) {
-          return (
-            <MaalinnoitusKohdePanel
-              key={panelId}
-              titleClickAction={titleClickAction}
-              isOpen={openPanelId === panelId}
-              onToggleOpen={() => onTogglePanelOpen(panelId)}
-              feature={feature}
-            />
-          )
-        }
-        if (isMaalinnoitusRajausFeature(feature)) {
-          return (
-            <MaalinnoitusRajausPanel
-              key={panelId}
-              titleClickAction={titleClickAction}
-              isOpen={openPanelId === panelId}
-              onToggleOpen={() => onTogglePanelOpen(panelId)}
-              feature={feature}
-            />
-          )
-        }
       })}
     </div>
   )

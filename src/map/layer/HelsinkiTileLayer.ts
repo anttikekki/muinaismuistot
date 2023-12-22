@@ -9,7 +9,7 @@ import { containsCoordinate } from "ol/extent"
 import Projection from "ol/proj/Projection"
 import { HelsinkiLayer } from "../../common/types"
 import {
-  MaalinnoitusFeature,
+  MaalinnoitusWmsFeature,
   MaalinnoitusWmsFeatureInfoResult,
   isMaalinnoitusKohdeFeature
 } from "../../common/maalinnoitusHelsinki.types"
@@ -90,7 +90,7 @@ export default class HelsinkiTileLayer {
     coordinate: Coordinate,
     resolution: number | undefined,
     projection: Projection
-  ): Promise<Array<MaalinnoitusFeature>> => {
+  ): Promise<Array<MaalinnoitusWmsFeature>> => {
     const settings = this.store.getState()
     const extent = this.layer?.getExtent()
 
@@ -142,8 +142,8 @@ export default class HelsinkiTileLayer {
   }
 
   private removeDuplicateIdentifyFeatures = (
-    features: Array<MaalinnoitusFeature>
-  ): Array<MaalinnoitusFeature> => {
+    features: Array<MaalinnoitusWmsFeature>
+  ): Array<MaalinnoitusWmsFeature> => {
     const allKohdeFeatures = features.filter(isMaalinnoitusKohdeFeature)
 
     return features.filter((f) => {

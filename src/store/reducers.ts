@@ -224,8 +224,7 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     const selectedFeaturesOnMap = action.payload
     if (
       selectedFeaturesOnMap.features.length === 0 &&
-      selectedFeaturesOnMap.maisemanMuistiFeatures.length === 0 &&
-      selectedFeaturesOnMap.maalinnoitusFeatures.length === 0
+      selectedFeaturesOnMap.maisemanMuistiFeatures.length === 0
     ) {
       return state
     }
