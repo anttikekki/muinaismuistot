@@ -28,9 +28,7 @@ export const isArcGisFeature = (
   feature: MapFeature
 ): feature is AhvenanmaaArcgisFeature => isAhvenanmaaArcgisFeature(feature)
 
-export const getFeatureLayerName = (
-  feature: MapFeature
-): FeatureLayer | undefined => {
+export const getFeatureLayerName = (feature: MapFeature): FeatureLayer => {
   if (isWmsFeature(feature)) {
     if (isMuseovirastoWmsFeature(feature)) {
       return getMuseovirastoWmsFeatureLayerName(feature)
@@ -42,4 +40,5 @@ export const getFeatureLayerName = (
   if (isAhvenanmaaArcgisFeature(feature)) {
     return feature.layerName
   }
+  throw new Error(`Tuntematon feature ${feature}`)
 }

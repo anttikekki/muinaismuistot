@@ -3,12 +3,9 @@ import { TableOfContent } from "./TableOfContent"
 import { DatabaseStructure } from "./DatabaseStructure"
 import { Download } from "./Download"
 import { FeatureTable } from "./FeatureTable"
-import {
-  GeoJSONFeature,
-  GeoJSONResponse,
-  MaisemanMuistiFeatureProperties
-} from "../../common/types"
 import { DatabaseIntro } from "./DatabaseIntro"
+import { MaisemanMuistiFeatureProperties } from "../../common/maisemanMuisti.types"
+import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
 
 export const Content: React.FC = () => {
   const [features, setFeatures] = useState<

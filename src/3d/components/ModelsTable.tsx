@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { GeoJSONFeature, ModelFeatureProperties } from "../../common/types"
 import {
   getLayerRegisterName,
   getGeoJSONFeatureLocation
 } from "../../common/util/featureParser"
 import { createLocationHash } from "../../common/util/URLHashHelper"
+import { ModelFeatureProperties } from "../../common/3dModels.types"
+import { GeoJSONFeature } from "../../common/geojson.types"
 
 interface Props {
   models: Array<GeoJSONFeature<ModelFeatureProperties>>

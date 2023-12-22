@@ -244,8 +244,8 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent<UIEvent>) => {
         ...museovirastoResult.features,
         ...maalinnoitusFeatures
       ]
-        .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
-        .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
+        .map((f) => modelsLayer.addModelsToFeature(f))
+        .map((f) => maisemanMuistiLayer.addMaisemanMuistiFeaturesToFeature(f))
 
       const maisemanMuistiFeatures = maisemanMuistiResult.filter((feature) => {
         // Do not show Maiseman muisti feature if there is Muinaisjäännös piste feature for it in search results
@@ -333,10 +333,10 @@ export const selectedMuinaisjaannosDatingsChanged = (): void => {
 
 export const searchFeaturesFromMapLayers = async (
   searchText: string
-): Promise<Array<ArgisFeature>> => {
+): Promise<Array<MapFeature>> => {
   showLoadingAnimationInUI(true)
   const ahvenanmaaQuery = ahvenanmaaTileLayer.findFeatures(searchText)
-  const museovirastoQuery = museovirastoTileLayer.findFeatures(searchText)
+  const museovirastoQuery = Promise.resolve({ results: [] }) //museovirastoTileLayer.findFeatures(searchText)
 
   const [ahvenanmaaResult, museovirastoResult] = await Promise.all([
     ahvenanmaaQuery,
@@ -346,8 +346,8 @@ export const searchFeaturesFromMapLayers = async (
 
   return ahvenanmaaResult.results
     .concat(museovirastoResult.results)
-    .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
-    .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
+    .map((f) => modelsLayer.addModelsToFeature(f))
+    .map((f) => maisemanMuistiLayer.addMaisemanMuistiFeaturesToFeature(f))
 }
 
 export const selectedMaanmittauslaitosLayerChanged = () => {

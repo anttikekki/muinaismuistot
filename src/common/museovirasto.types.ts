@@ -102,7 +102,7 @@ export interface MuinaisjaannosAlueWmsFeature
 export interface SuojellutRakennuksetPisteWmsFeature
   extends FeatureSupplementaryData,
     WmsFeature {
-  id: `foo1`
+  id: `suojellut_rakennukset_piste.${number}`
   properties: {
     OBJECTID: number // "2843";
     kohdeID: number // "200928";
@@ -124,7 +124,7 @@ export interface SuojellutRakennuksetPisteWmsFeature
 export interface SuojellutRakennuksetAlueWmsFeature
   extends FeatureSupplementaryData,
     WmsFeature {
-  id: `foo2`
+  id: `suojellut_rakennukset_alue.${number}`
   properties: {
     OBJECTID: number // "2843";
     kohdeID: number // "200928";
@@ -141,7 +141,7 @@ export interface SuojellutRakennuksetAlueWmsFeature
 export interface RKYAlueWmsFeature
   extends FeatureSupplementaryData,
     WmsFeature {
-  id: `foo3`
+  id: `rky_alue.${number}`
   properties: {
     OBJECTID: number // "1632";
     ID: string // "1570";
@@ -156,7 +156,7 @@ export interface RKYAlueWmsFeature
 export interface RKYPisteWmsFeature
   extends FeatureSupplementaryData,
     WmsFeature {
-  id: `foo4`
+  id: `rky_piste.${number}`
   properties: {
     OBJECTID: number //"31";
     ID: string //"4255";
@@ -170,7 +170,7 @@ export interface RKYPisteWmsFeature
 export interface RKYViivaWmsFeature
   extends FeatureSupplementaryData,
     WmsFeature {
-  id: `foo5`
+  id: `rky_viiva.${number}`
   properties: {
     OBJECTID: string //"69";
     ID: string //"2117";
@@ -184,7 +184,7 @@ export interface RKYViivaWmsFeature
 export interface MaailmanperintoPisteWmsFeature
   extends FeatureSupplementaryData,
     WmsFeature {
-  id: `foo6`
+  id: `maailmanperinto_piste.${number}`
   properties: {
     Shape: string // "Point";
     OBJECTID: string // "2";
@@ -196,7 +196,7 @@ export interface MaailmanperintoPisteWmsFeature
 export interface MaailmanperintoAlueWmsFeature
   extends FeatureSupplementaryData,
     WmsFeature {
-  id: `foo7`
+  id: `maailmanperinto_alue.${number}`
   properties: {
     Shape: string // "Polygon";
     OBJECTID: string // "429";
@@ -233,32 +233,34 @@ export const isMuinaisjaannosAlueWmsFeature = (
 export const isSuojellutRakennuksetPisteWmsFeature = (
   feature: WmsFeature
 ): feature is SuojellutRakennuksetPisteWmsFeature =>
-  feature.id.startsWith("foo.")
+  feature.id.startsWith("suojellut_rakennukset_piste.")
 
 export const isSuojellutRakennuksetAlueWmsFeature = (
   feature: WmsFeature
 ): feature is SuojellutRakennuksetAlueWmsFeature =>
-  feature.id.startsWith("foo.")
+  feature.id.startsWith("suojellut_rakennukset_alue.")
 
 export const isRKYAlueWmsFeature = (
   feature: WmsFeature
-): feature is RKYAlueWmsFeature => feature.id.startsWith("foo.")
+): feature is RKYAlueWmsFeature => feature.id.startsWith("rky_alue.")
 
 export const isRKYPisteWmsFeature = (
   feature: WmsFeature
-): feature is RKYPisteWmsFeature => feature.id.startsWith("foo.")
+): feature is RKYPisteWmsFeature => feature.id.startsWith("rky_piste.")
 
 export const isRKYViivaWmsFeature = (
   feature: WmsFeature
-): feature is RKYViivaWmsFeature => feature.id.startsWith("foo.")
+): feature is RKYViivaWmsFeature => feature.id.startsWith("rky_viiva.")
 
 export const isMaailmanperintoPisteWmsFeature = (
   feature: WmsFeature
-): feature is MaailmanperintoPisteWmsFeature => feature.id.startsWith("foo.")
+): feature is MaailmanperintoPisteWmsFeature =>
+  feature.id.startsWith("maailmanperinto_piste.")
 
 export const isMaailmanperintoAlueWmsFeature = (
   feature: WmsFeature
-): feature is MaailmanperintoAlueWmsFeature => feature.id.startsWith("foo.")
+): feature is MaailmanperintoAlueWmsFeature =>
+  feature.id.startsWith("maailmanperinto_alue.")
 
 export const isMuseovirastoWmsFeature = (
   feature: MapFeature

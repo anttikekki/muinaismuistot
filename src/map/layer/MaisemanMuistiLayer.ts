@@ -12,6 +12,7 @@ import { ActionTypes } from "../../store/actionTypes"
 import Geometry from "ol/geom/Geometry"
 import { MaisemanMuistiFeatureProperties } from "../../common/maisemanMuisti.types"
 import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
+import { MapFeature } from "../../common/mapFeature.types"
 
 export default class MaisemanMuistiLayer {
   private store: Store<Settings, ActionTypes>
@@ -85,7 +86,9 @@ export default class MaisemanMuistiLayer {
     return this.featuresForRegisterId.get(id) || []
   }
 
-  public addFeaturesForArgisFeature = (feature: ArgisFeature): ArgisFeature => {
+  public addMaisemanMuistiFeaturesToFeature = (
+    feature: MapFeature
+  ): MapFeature => {
     return {
       ...feature,
       maisemanMuisti: this.getFeaturesForFeatureRegisterId(

@@ -1,4 +1,4 @@
-import { MuinaisjaannosTyyppi } from "../types"
+import { MuinaisjaannosTyyppi } from "../museovirasto.types"
 
 export const getArkeologisenKulttuuriperinnonOpasLinkForType = (
   type: MuinaisjaannosTyyppi

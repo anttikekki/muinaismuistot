@@ -18,7 +18,7 @@ import Geometry from "ol/geom/Geometry"
 import { ModelFeatureProperties } from "../../common/3dModels.types"
 import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
 import { FeatureLayer, MuseovirastoLayer } from "../../common/types"
-import { MapFeature } from "../../common/mapFeature.types"
+import { MapFeature, getFeatureLayerName } from "../../common/mapFeature.types"
 
 export default class ModelsLayer {
   private store: Store<Settings, ActionTypes>
@@ -140,12 +140,12 @@ export default class ModelsLayer {
     return models.filter((m) => m.properties.registryItem.type === layer)
   }
 
-  public addFeaturesForArgisFeature = (feature: MapFeature): MapFeature => {
+  public addModelsToFeature = (feature: MapFeature): MapFeature => {
     return {
       ...feature,
       models: this.getFeaturesForFeatureRegisterId(
         getFeatureID(feature),
-        getLayer
+        getFeatureLayerName(feature)
       )
     }
   }
