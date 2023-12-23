@@ -5,7 +5,6 @@ import {
   CHANGE_LAYER_OPACITY,
   CHANGE_LANGUAGE,
   CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
-  FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
   SEARCH_FEATURES,
   SEARCH_FEATURES_COMPLETE,
   SELECT_VISIBLE_AHVENANMAA_LAYERS,
@@ -232,11 +231,6 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
       ...state,
       visiblePage: PageId.Details,
       selectedFeaturesOnMap
-    }
-  } else if (action.type === FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE) {
-    return {
-      ...state,
-      dataLatestUpdateDates: action.payload
     }
   } else if (action.type === SEARCH_FEATURES) {
     return {

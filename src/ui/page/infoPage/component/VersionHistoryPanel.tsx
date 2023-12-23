@@ -4,6 +4,18 @@ import { Panel } from "../../../component/Panel"
 export const VersionHistoryPanel: React.FC = () => {
   return (
     <Panel title="Versiohistoria">
+      <h5>Joulukuu 2023</h5>
+      <p>
+        Vaihdettu Museoviraston karttapalvelin suljetusta ArcGIS{" "}
+        <a href="https://kartta.nba.fi">kartta.nba.fi</a> palvelimesta uuteen{" "}
+        <a href="https://geoserver.museovirasto.fi:8443/geoserver/ows">
+          geoserver.museovirasto.fi
+        </a>{" "}
+        palvelieen. Osa sivuston toiminnoista on yhä rikki Museoviraston datan
+        osalta (haku, kohteiden filtteröinti kartalla).
+      </p>
+      <br />
+
       <h5>Huhtikuu 2022</h5>
       <p>Korjattu Ahvenanmaan aineistojen päivityspäivämäärien haku.</p>
       <p>
@@ -17,7 +29,16 @@ export const VersionHistoryPanel: React.FC = () => {
         -tuki. Nyt sivustoon voi lisätä pikakuvakkeen älylaitteen työpöydälle,
         josta aukeutuvassa versiossa ei näy selaimen osoitepalkkia.
       </p>
-      <p>Yritetty korjata <a href="https://github.com/openlayers/openlayers/issues/12908" target="_blank">sivuston kaatumista</a> iOS 15 Safari -selaimella.</p>
+      <p>
+        Yritetty korjata{" "}
+        <a
+          href="https://github.com/openlayers/openlayers/issues/12908"
+          target="_blank"
+        >
+          sivuston kaatumista
+        </a>{" "}
+        iOS 15 Safari -selaimella.
+      </p>
       <br />
 
       <h5>Maaliskuu 2021</h5>

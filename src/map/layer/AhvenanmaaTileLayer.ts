@@ -238,52 +238,6 @@ export default class AhvenanmaaTileLayer {
     }
   }
 
-  // Fetch URL is from https://www.kartor.ax/datasets/aland::fornminnen-1/about
-  public getForminnenDataLatestUpdateDate = (): Promise<Date | null> => {
-    const settings = this.store.getState()
-    if (this.forminnenDataLatestUpdateDate) {
-      return Promise.resolve(this.forminnenDataLatestUpdateDate)
-    }
-
-    return fetch(settings.ahvenanmaa.url.forminnenUpdateDate)
-      .then((response) => response.json())
-      .then(this.parseUpdatedDate)
-      .then((date) => {
-        this.forminnenDataLatestUpdateDate = date
-        return date
-      })
-  }
-
-  // Fetch URL is from https://www.kartor.ax/datasets/aland::maritimt-kulturarv/about
-  public getMaritimtKulturarvDataLatestUpdateDate =
-    (): Promise<Date | null> => {
-      const settings = this.store.getState()
-      if (this.maritimtKulturarvDataLatestUpdateDate) {
-        return Promise.resolve(this.maritimtKulturarvDataLatestUpdateDate)
-      }
-
-      return fetch(settings.ahvenanmaa.url.maritimtKulturarvUpdateDate)
-        .then((response) => response.json())
-        .then(this.parseUpdatedDate)
-        .then((date) => {
-          this.maritimtKulturarvDataLatestUpdateDate = date
-          return date
-        })
-    }
-
-  private parseUpdatedDate = (doc: any): Promise<Date | null> => {
-    const data = doc?.data
-    const date =
-      Array.isArray(data) && data.length > 0
-        ? data[0]?.attributes?.modified
-        : undefined
-
-    if (date) {
-      return Promise.resolve(new Date(date))
-    }
-    return Promise.resolve(null)
-  }
-
   public opacityChanged = () => {
     if (this.layer) {
       const settings = this.store.getState()

@@ -8,7 +8,6 @@ import {
 } from "../common/museovirasto.types"
 import {
   AhvenanmaaLayer,
-  DataLatestUpdateDates,
   GtkLayer,
   HelsinkiLayer,
   Language,
@@ -38,7 +37,6 @@ export interface Settings {
   search: {
     features: Array<MapFeature>
   }
-  dataLatestUpdateDates?: DataLatestUpdateDates
   initialMapZoom: number
   language: Language
   maanmittauslaitos: {

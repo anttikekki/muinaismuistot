@@ -82,10 +82,3 @@ export type FeatureLayer =
   | HelsinkiLayer
 
 export type ArgisFeatureLayer = AhvenanmaaLayer
-
-export interface DataLatestUpdateDates {
-  museovirasto: Date | null
-  ahvenanmaaForminnen: Date | null
-  ahvenanmaaMaritimtKulturarv: Date | null
-  models: Date | null
-}

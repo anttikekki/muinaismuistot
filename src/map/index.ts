@@ -11,7 +11,7 @@ import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer"
 import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
 import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositionAndSelectedLocationMarkerLayer"
-import { DataLatestUpdateDates, LayerGroup } from "../common/types"
+import { LayerGroup } from "../common/types"
 import MapBrowserEvent from "ol/MapBrowserEvent"
 import { Coordinate } from "ol/coordinate"
 import { Extent } from "ol/extent"
@@ -391,20 +391,3 @@ export const zoomIn = () => {
 export const zoomOut = () => {
   zoom(-1)
 }
-
-export const fetchDataLatestUpdateDatesFromMapLayers =
-  async (): Promise<DataLatestUpdateDates> => {
-    const museovirastoResult = museovirastoTileLayer.getDataLatestUpdateDate()
-    const ahvenanmaaForminnenResult =
-      ahvenanmaaTileLayer.getForminnenDataLatestUpdateDate()
-    const ahvenanmaaMaritimtKulturarvResult =
-      ahvenanmaaTileLayer.getMaritimtKulturarvDataLatestUpdateDate()
-    const modelsResult = modelsLayer.getDataLatestUpdateDate()
-
-    return {
-      museovirasto: await museovirastoResult,
-      ahvenanmaaForminnen: await ahvenanmaaForminnenResult,
-      ahvenanmaaMaritimtKulturarv: await ahvenanmaaMaritimtKulturarvResult,
-      models: await modelsResult
-    }
-  }

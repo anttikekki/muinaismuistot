@@ -32,7 +32,6 @@ export const initialSettings: Settings = {
   search: {
     features: []
   },
-  dataLatestUpdateDates: undefined,
   initialMapZoom: 8,
   language: getInitialLang(),
   maanmittauslaitos: {

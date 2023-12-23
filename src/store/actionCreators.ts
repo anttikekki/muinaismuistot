@@ -5,7 +5,6 @@ import {
 } from "../common/museovirasto.types"
 import {
   AhvenanmaaLayer,
-  DataLatestUpdateDates,
   GtkLayer,
   HelsinkiLayer,
   Language,
@@ -24,10 +23,6 @@ import {
   CHANGE_LANGUAGE,
   ClickedMapFeatureIdentificationCompleteAction,
   CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
-  FetchDataLatestUpdateDatesAction,
-  FetchDataLatestUpdateDatesCompleteAction,
-  FETCH_DATA_LATESTS_UPDATE_DATES,
-  FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
   SearchFeaturesAction,
   SearchFeaturesCompleteAction,
   SEARCH_FEATURES,
@@ -76,22 +71,6 @@ export const zoomOut = (): ZoomOutAction => {
 export const centerToCurrentPosition = (): CenterMapToCurrentPositionAction => {
   return {
     type: CENTER_MAP_TO_CURRENT_POSITION
-  }
-}
-
-export const fetchDataLatestUpdateDates =
-  (): FetchDataLatestUpdateDatesAction => {
-    return {
-      type: FETCH_DATA_LATESTS_UPDATE_DATES
-    }
-  }
-
-export const fetchDataLatestUpdateDatesComplete = (
-  payload: DataLatestUpdateDates
-): FetchDataLatestUpdateDatesCompleteAction => {
-  return {
-    type: FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
-    payload
   }
 }
 

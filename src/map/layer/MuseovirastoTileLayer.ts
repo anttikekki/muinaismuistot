@@ -198,42 +198,6 @@ export default class MuseovirastoTileLayer {
     return result
   }
 
-  // http://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml
-  // https://www.avoindata.fi/data/fi/dataset/museoviraston-paikkatietojen-tiedostolataus
-  public getDataLatestUpdateDate = (): Promise<Date | null> => {
-    const settings = this.store.getState()
-    if (this.dataLatestUpdateDate) {
-      return Promise.resolve(this.dataLatestUpdateDate)
-    }
-
-    return fetch(settings.museovirasto.url.updateDate)
-      .then((response) => response.text())
-      .then((str) => new DOMParser().parseFromString(str, "text/xml"))
-      .then(this.parseSuunnitteluaineistoUpdatedDate)
-  }
-
-  private parseSuunnitteluaineistoUpdatedDate = (
-    doc: Document
-  ): Promise<Date | null> => {
-    let date: string | null | undefined
-
-    // IE 11 does not support Document.evaluate() XPath so we need to use query selectors
-    doc.querySelectorAll("entry").forEach((value: Element) => {
-      if (
-        value.querySelector("id")?.textContent ===
-        "http://paikkatieto.nba.fi/aineistot/suunnitteluaineisto"
-      ) {
-        date = value.querySelector("updated")?.textContent
-      }
-    })
-
-    if (date) {
-      this.dataLatestUpdateDate = new Date(date)
-      return Promise.resolve(this.dataLatestUpdateDate)
-    }
-    return Promise.resolve(null)
-  }
-
   public opacityChanged = () => {
     if (this.layer) {
       const settings = this.store.getState()
