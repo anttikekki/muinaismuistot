@@ -17,7 +17,7 @@ import { ActionTypes } from "../../store/actionTypes"
 import Geometry from "ol/geom/Geometry"
 import { ModelFeatureProperties } from "../../common/3dModels.types"
 import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
-import { FeatureLayer, MuseovirastoLayer } from "../../common/types"
+import { FeatureLayer, MuseovirastoLayer } from "../../common/layers.types"
 import { MapFeature, getFeatureLayerName } from "../../common/mapFeature.types"
 
 export default class ModelsLayer {

@@ -1,7 +1,7 @@
 import React, { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
-import { LayerGroup } from "../../../../common/types"
+import { LayerGroup } from "../../../../common/layers.types"
 import { changeLayerOpacity } from "../../../../store/actionCreators"
 
 interface Props {

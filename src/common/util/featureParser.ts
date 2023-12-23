@@ -7,7 +7,7 @@ import {
   MaisemanMuistiLayer,
   Language,
   HelsinkiLayer
-} from "../types"
+} from "../layers.types"
 import {
   MaailmanperintoAlueWmsFeature,
   MaailmanperintoPisteWmsFeature,

@@ -7,7 +7,7 @@ import {
   Language,
   GtkLayer,
   HelsinkiLayer
-} from "../common/types"
+} from "../common/layers.types"
 import { parseURLParams } from "../common/util/URLHashHelper"
 import { Settings } from "../store/storeTypes"
 import {

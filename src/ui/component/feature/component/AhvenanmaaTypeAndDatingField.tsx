@@ -1,6 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { Language } from "../../../../common/types"
+import { Language } from "../../../../common/layers.types"
 import {
   getAhvenanmaaForminneDatingText,
   getAhvenanmaaForminnenTypeText

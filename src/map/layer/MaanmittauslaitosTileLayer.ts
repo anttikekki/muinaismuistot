@@ -1,7 +1,7 @@
 import TileLayer from "ol/layer/Tile"
 import WMTSCapabilities from "ol/format/WMTSCapabilities"
 import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS"
-import { MaanmittauslaitosLayer } from "../../common/types"
+import { MaanmittauslaitosLayer } from "../../common/layers.types"
 import { TileSourceEvent } from "ol/source/Tile"
 import { Settings } from "../../store/storeTypes"
 import { Store } from "redux"

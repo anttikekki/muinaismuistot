@@ -15,7 +15,7 @@ import {
   MaisemanMuistiLayer,
   ModelLayer,
   MuseovirastoLayer
-} from "../common/types"
+} from "../common/layers.types"
 
 export enum PageId {
   Search = "searchPage",

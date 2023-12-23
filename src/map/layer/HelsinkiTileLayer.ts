@@ -7,7 +7,7 @@ import { ActionTypes } from "../../store/actionTypes"
 import { Coordinate } from "ol/coordinate"
 import { containsCoordinate } from "ol/extent"
 import Projection from "ol/proj/Projection"
-import { HelsinkiLayer } from "../../common/types"
+import { HelsinkiLayer } from "../../common/layers.types"
 import {
   MaalinnoitusWmsFeature,
   MaalinnoitusWmsFeatureInfoResult,

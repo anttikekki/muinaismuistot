@@ -11,7 +11,7 @@ import {
   selectedMuinaisjaannosDatingsChanged,
   selectedMuinaisjaannosTypesChanged
 } from "../map"
-import { LayerGroup } from "../common/types"
+import { LayerGroup } from "../common/layers.types"
 
 export const selectVisibleMuseovirastoLayerEpic: Epic<ActionTypes> = (
   action$

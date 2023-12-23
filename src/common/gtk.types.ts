@@ -1,4 +1,4 @@
-import { GtkLayer } from "./types"
+import { GtkLayer } from "./layers.types"
 
 export type GtkLayerId =
   | 7

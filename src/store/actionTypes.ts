@@ -13,7 +13,7 @@ import {
   MaisemanMuistiLayer,
   ModelLayer,
   MuseovirastoLayer
-} from "../common/types"
+} from "../common/layers.types"
 import { PageId, SelectedFeaturesOnMap } from "./storeTypes"
 
 export const ZOOM_IN = "ZOOM_IN"

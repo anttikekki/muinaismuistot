@@ -10,7 +10,7 @@ import {
   MaisemanMuistiLayer,
   Language,
   HelsinkiLayer
-} from "../common/types"
+} from "../common/layers.types"
 import { Settings } from "./storeTypes"
 
 const getInitialLang = (): Language => {

@@ -1,4 +1,4 @@
-import { AhvenanmaaLayer, MuseovirastoLayer } from "./types"
+import { AhvenanmaaLayer, MuseovirastoLayer } from "./layers.types"
 
 export interface ModelFeatureProperties {
   registryItem: {

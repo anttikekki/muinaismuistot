@@ -1,6 +1,6 @@
 import { FeatureSupplementaryData } from "./featureSupplementaryData.types"
 import { MapFeature } from "./mapFeature.types"
-import { MuseovirastoLayer } from "./types"
+import { MuseovirastoLayer } from "./layers.types"
 import { WmsFeature, WmsFeatureInfoResult } from "./wms.types"
 
 export enum MuinaisjaannosTyyppi {

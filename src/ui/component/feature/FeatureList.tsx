@@ -1,5 +1,8 @@
 import React, { useCallback, useState } from "react"
-import { MuseovirastoLayer, AhvenanmaaLayer } from "../../../common/types"
+import {
+  MuseovirastoLayer,
+  AhvenanmaaLayer
+} from "../../../common/layers.types"
 import { MuinaisjaannosPistePanel } from "../../component/feature/panel/MuinaisjaannosPistePanel"
 import {
   getFeatureID,

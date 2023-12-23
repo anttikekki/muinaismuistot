@@ -15,7 +15,7 @@ import {
   AhvenanmaaTypeAndDatingFeatureProperties,
   getAhvenanmaaLayerId
 } from "../../common/ahvenanmaa.types"
-import { AhvenanmaaLayer } from "../../common/types"
+import { AhvenanmaaLayer } from "../../common/layers.types"
 import { GeoJSONResponse } from "../../common/geojson.types"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void

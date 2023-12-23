@@ -1,6 +1,6 @@
 import { FeatureSupplementaryData } from "./featureSupplementaryData.types"
 import { MapFeature } from "./mapFeature.types"
-import { HelsinkiLayer } from "./types"
+import { HelsinkiLayer } from "./layers.types"
 import { WmsFeature, WmsFeatureInfoResult } from "./wms.types"
 
 export enum MaalinnoitusYksikkoLaji {

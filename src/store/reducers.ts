@@ -29,7 +29,7 @@ import {
   GtkLayer,
   LayerGroup,
   HelsinkiLayer
-} from "../common/types"
+} from "../common/layers.types"
 import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi

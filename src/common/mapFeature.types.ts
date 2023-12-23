@@ -12,7 +12,7 @@ import {
   getMuseovirastoWmsFeatureLayerName,
   isMuseovirastoWmsFeature
 } from "./museovirasto.types"
-import { FeatureLayer } from "./types"
+import { FeatureLayer } from "./layers.types"
 
 export type MapFeature =
   | MuseovirastoWmsFeature

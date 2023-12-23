@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { MaanmittauslaitosLayer } from "../../../../common/types"
+import { MaanmittauslaitosLayer } from "../../../../common/layers.types"
 import { selectMaanmittauslaitosLayer } from "../../../../store/actionCreators"
 import { Settings } from "../../../../store/storeTypes"
 import { Panel } from "../../../component/Panel"

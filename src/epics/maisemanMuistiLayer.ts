@@ -5,7 +5,7 @@ import {
 } from "../store/actionTypes"
 import { tap, ignoreElements } from "rxjs/operators"
 import { selectedFeatureLayersChanged } from "../map"
-import { LayerGroup } from "../common/types"
+import { LayerGroup } from "../common/layers.types"
 
 export const selectVisibleMaisemanMuistiLayerEpic: Epic<ActionTypes> = (
   action$

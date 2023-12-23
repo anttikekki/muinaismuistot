@@ -13,7 +13,7 @@ import {
   MaisemanMuistiLayer,
   ModelLayer,
   MuseovirastoLayer
-} from "../common/types"
+} from "../common/layers.types"
 import {
   CenterMapToCurrentPositionAction,
   CENTER_MAP_TO_CURRENT_POSITION,

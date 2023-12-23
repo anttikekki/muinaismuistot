@@ -5,7 +5,7 @@ import {
 } from "./arcgis.type"
 import { FeatureSupplementaryData } from "./featureSupplementaryData.types"
 import { MapFeature } from "./mapFeature.types"
-import { AhvenanmaaLayer } from "./types"
+import { AhvenanmaaLayer } from "./layers.types"
 
 export interface AhvenanmaaTypeAndDatingFeatureProperties {
   FornID: string // "Jo 18.10"
