@@ -7,12 +7,12 @@ import { ActionTypes } from "../../store/actionTypes"
 import { Coordinate } from "ol/coordinate"
 import { containsCoordinate } from "ol/extent"
 import Projection from "ol/proj/Projection"
+import { HelsinkiLayer } from "../../common/layers.types"
 import {
+  MaalinnoitusWmsFeature,
   MaalinnoitusWmsFeatureInfoResult,
-  MaalinnoitusFeature,
-  isMaalinnoitusKohdeFeature,
-  HelsinkiLayer
-} from "../../common/types"
+  isMaalinnoitusKohdeFeature
+} from "../../common/maalinnoitusHelsinki.types"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer<TileWMS>) => void
@@ -90,7 +90,7 @@ export default class HelsinkiTileLayer {
     coordinate: Coordinate,
     resolution: number | undefined,
     projection: Projection
-  ): Promise<Array<MaalinnoitusFeature>> => {
+  ): Promise<Array<MaalinnoitusWmsFeature>> => {
     const settings = this.store.getState()
     const extent = this.layer?.getExtent()
 
@@ -142,8 +142,8 @@ export default class HelsinkiTileLayer {
   }
 
   private removeDuplicateIdentifyFeatures = (
-    features: Array<MaalinnoitusFeature>
-  ): Array<MaalinnoitusFeature> => {
+    features: Array<MaalinnoitusWmsFeature>
+  ): Array<MaalinnoitusWmsFeature> => {
     const allKohdeFeatures = features.filter(isMaalinnoitusKohdeFeature)
 
     return features.filter((f) => {

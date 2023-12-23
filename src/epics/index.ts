@@ -1,6 +1,5 @@
 import { combineEpics } from "redux-observable"
 import { centerMapEpic } from "./centerMap"
-import { dataUpdateDatesEpic } from "./dataUpdateDates"
 import { zoomInEpic, zoomOutEpic } from "./zoom"
 import { searchFeaturesEpic } from "./searchFeatures"
 import { selectVisibleMaanmittauslaitosLayerEpic } from "./maanmittauslaitosLayer"
@@ -21,7 +20,6 @@ export const rootEpic = combineEpics(
   zoomInEpic,
   zoomOutEpic,
   centerMapEpic,
-  dataUpdateDatesEpic,
   searchFeaturesEpic,
   selectVisibleMaanmittauslaitosLayerEpic,
   selectVisibleGtkLayersEpic,

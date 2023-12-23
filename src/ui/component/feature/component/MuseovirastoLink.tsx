@@ -1,10 +1,11 @@
 import React from "react"
 import { Trans, useTranslation } from "react-i18next"
-import { ArgisFeature, Language } from "../../../../common/types"
+import { Language } from "../../../../common/layers.types"
 import {
   getFeatureRegisterURL,
   getFeatureRegisterName
 } from "../../../../common/util/featureParser"
+import { MuseovirastoWmsFeature } from "../../../../common/museovirasto.types"
 
 interface MuseovirastoLinkDirectProps {
   url: string
@@ -27,7 +28,7 @@ export const MuseovirastoLinkDirect: React.FC<MuseovirastoLinkDirectProps> = ({
 }
 
 interface MuseovirastoLinkProps {
-  feature: ArgisFeature
+  feature: MuseovirastoWmsFeature
 }
 
 export const MuseovirastoLink: React.FC<MuseovirastoLinkProps> = ({

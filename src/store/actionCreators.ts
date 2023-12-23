@@ -1,7 +1,10 @@
+import { MapFeature } from "../common/mapFeature.types"
+import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
+} from "../common/museovirasto.types"
 import {
   AhvenanmaaLayer,
-  ArgisFeature,
-  DataLatestUpdateDates,
   GtkLayer,
   HelsinkiLayer,
   Language,
@@ -9,10 +12,8 @@ import {
   MaanmittauslaitosLayer,
   MaisemanMuistiLayer,
   ModelLayer,
-  MuinaisjaannosAjoitus,
-  MuinaisjaannosTyyppi,
   MuseovirastoLayer
-} from "../common/types"
+} from "../common/layers.types"
 import {
   CenterMapToCurrentPositionAction,
   CENTER_MAP_TO_CURRENT_POSITION,
@@ -22,10 +23,6 @@ import {
   CHANGE_LANGUAGE,
   ClickedMapFeatureIdentificationCompleteAction,
   CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
-  FetchDataLatestUpdateDatesAction,
-  FetchDataLatestUpdateDatesCompleteAction,
-  FETCH_DATA_LATESTS_UPDATE_DATES,
-  FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
   SearchFeaturesAction,
   SearchFeaturesCompleteAction,
   SEARCH_FEATURES,
@@ -77,21 +74,6 @@ export const centerToCurrentPosition = (): CenterMapToCurrentPositionAction => {
   }
 }
 
-export const fetchDataLatestUpdateDates = (): FetchDataLatestUpdateDatesAction => {
-  return {
-    type: FETCH_DATA_LATESTS_UPDATE_DATES
-  }
-}
-
-export const fetchDataLatestUpdateDatesComplete = (
-  payload: DataLatestUpdateDates
-): FetchDataLatestUpdateDatesCompleteAction => {
-  return {
-    type: FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
-    payload
-  }
-}
-
 export const searchFeatures = (searchText: string): SearchFeaturesAction => {
   return {
     type: SEARCH_FEATURES,
@@ -100,7 +82,7 @@ export const searchFeatures = (searchText: string): SearchFeaturesAction => {
 }
 
 export const searchFeaturesComplete = (
-  searchResultFeatures: Array<ArgisFeature>
+  searchResultFeatures: Array<MapFeature>
 ): SearchFeaturesCompleteAction => {
   return {
     type: SEARCH_FEATURES_COMPLETE,

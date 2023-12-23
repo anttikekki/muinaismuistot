@@ -4,19 +4,19 @@ import { containsCoordinate, Extent } from "ol/extent"
 import { Coordinate } from "ol/coordinate"
 import { TileSourceEvent } from "ol/source/Tile"
 import { Size } from "ol/size"
-import {
-  ArgisIdentifyResult,
-  ArgisFindResult,
-  AhvenanmaaLayerId,
-  getAhvenanmaaLayerId,
-  AhvenanmaaLayer,
-  GeoJSONResponse,
-  AhvenanmaaTypeAndDatingFeatureProperties,
-  ArgisFeature
-} from "../../common/types"
 import { Settings } from "../../store/storeTypes"
 import { Store } from "redux"
 import { ActionTypes } from "../../store/actionTypes"
+import {
+  AhvenanmaaArcgisFeature,
+  AhvenanmaaArcgisFindResult,
+  AhvenanmaaArcgisIdentifyResult,
+  AhvenanmaaLayerId,
+  AhvenanmaaTypeAndDatingFeatureProperties,
+  getAhvenanmaaLayerId
+} from "../../common/ahvenanmaa.types"
+import { AhvenanmaaLayer } from "../../common/layers.types"
+import { GeoJSONResponse } from "../../common/geojson.types"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (
@@ -116,7 +116,7 @@ export default class AhvenanmaaTileLayer {
     coordinate: Coordinate,
     mapSize: Size,
     mapExtent: Extent
-  ): Promise<ArgisIdentifyResult> => {
+  ): Promise<AhvenanmaaArcgisIdentifyResult> => {
     const settings = this.store.getState()
     const extent = this.layer?.getExtent()
 
@@ -145,14 +145,14 @@ export default class AhvenanmaaTileLayer {
     url.search = String(urlParams)
 
     const response = await fetch(String(url))
-    const result = (await response.json()) as ArgisIdentifyResult
+    const result = (await response.json()) as AhvenanmaaArcgisIdentifyResult
 
     return this.addTypeAndDatingToResult(result)
   }
 
   public findFeatures = async (
     searchText: string
-  ): Promise<ArgisFindResult> => {
+  ): Promise<AhvenanmaaArcgisFindResult> => {
     const settings = this.store.getState()
     if (settings.ahvenanmaa.selectedLayers.length === 0) {
       return { results: [] }
@@ -172,18 +172,18 @@ export default class AhvenanmaaTileLayer {
     url.search = String(urlParams)
 
     const response = await fetch(String(url))
-    const result = (await response.json()) as ArgisFindResult
+    const result = (await response.json()) as AhvenanmaaArcgisFindResult
 
     return this.addTypeAndDatingToResult(result)
   }
 
   private addTypeAndDatingToResult = async (
-    data: ArgisIdentifyResult
-  ): Promise<ArgisIdentifyResult> => {
+    data: AhvenanmaaArcgisIdentifyResult
+  ): Promise<AhvenanmaaArcgisIdentifyResult> => {
     const typeAndDatingMap = await this.getTypeAndDatingData()
-    const result: ArgisIdentifyResult = {
+    const result: AhvenanmaaArcgisIdentifyResult = {
       ...data,
-      results: data.results.map((result): ArgisFeature => {
+      results: data.results.map((result): AhvenanmaaArcgisFeature => {
         if (result.layerName === AhvenanmaaLayer.Fornminnen) {
           const typeAndDating = typeAndDatingMap.get(
             result.attributes["Fornlämnings ID"]
@@ -236,52 +236,6 @@ export default class AhvenanmaaTileLayer {
     } catch {
       return map
     }
-  }
-
-  // Fetch URL is from https://www.kartor.ax/datasets/aland::fornminnen-1/about
-  public getForminnenDataLatestUpdateDate = (): Promise<Date | null> => {
-    const settings = this.store.getState()
-    if (this.forminnenDataLatestUpdateDate) {
-      return Promise.resolve(this.forminnenDataLatestUpdateDate)
-    }
-
-    return fetch(settings.ahvenanmaa.url.forminnenUpdateDate)
-      .then((response) => response.json())
-      .then(this.parseUpdatedDate)
-      .then((date) => {
-        this.forminnenDataLatestUpdateDate = date
-        return date
-      })
-  }
-
-  // Fetch URL is from https://www.kartor.ax/datasets/aland::maritimt-kulturarv/about
-  public getMaritimtKulturarvDataLatestUpdateDate =
-    (): Promise<Date | null> => {
-      const settings = this.store.getState()
-      if (this.maritimtKulturarvDataLatestUpdateDate) {
-        return Promise.resolve(this.maritimtKulturarvDataLatestUpdateDate)
-      }
-
-      return fetch(settings.ahvenanmaa.url.maritimtKulturarvUpdateDate)
-        .then((response) => response.json())
-        .then(this.parseUpdatedDate)
-        .then((date) => {
-          this.maritimtKulturarvDataLatestUpdateDate = date
-          return date
-        })
-    }
-
-  private parseUpdatedDate = (doc: any): Promise<Date | null> => {
-    const data = doc?.data
-    const date =
-      Array.isArray(data) && data.length > 0
-        ? data[0]?.attributes?.modified
-        : undefined
-
-    if (date) {
-      return Promise.resolve(new Date(date))
-    }
-    return Promise.resolve(null)
   }
 
   public opacityChanged = () => {

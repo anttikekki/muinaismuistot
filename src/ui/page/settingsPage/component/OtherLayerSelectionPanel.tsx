@@ -1,5 +1,8 @@
 import React, { useCallback } from "react"
-import { ModelLayer, MaisemanMuistiLayer } from "../../../../common/types"
+import {
+  ModelLayer,
+  MaisemanMuistiLayer
+} from "../../../../common/layers.types"
 import { Panel } from "../../../component/Panel"
 import { Trans, useTranslation } from "react-i18next"
 import { LayerCheckbox } from "./LayerCheckbox"

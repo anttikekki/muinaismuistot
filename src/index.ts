@@ -40,7 +40,6 @@ const setMapLocationFromURLHash = () => {
 const settings = getSettingsFromURL(initialSettings)
 const store = configureStore(settings, rootReducer)
 
-/*
 createMap(store)
 createUI(store)
 
@@ -49,4 +48,3 @@ window.onhashchange = () => {
 }
 
 determineStartLocation()
-*/

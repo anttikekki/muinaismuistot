@@ -3,7 +3,7 @@ import {
   MaalinnoitusYksikko,
   MaalinnoitusYksikkoLaji,
   MaalinnoitusRajaustyyppi
-} from "../types"
+} from "../maalinnoitusHelsinki.types"
 
 export const getNovisionLinkForMaalinnoitusRajaustyyppi = (
   rajaus: MaalinnoitusRajaustyyppi | null

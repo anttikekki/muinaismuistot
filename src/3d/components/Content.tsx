@@ -7,13 +7,10 @@ import { DatabaseStructure } from "./DatabaseStructure"
 import { Registers } from "./Registers"
 import { Download } from "./Download"
 import { ModelsTable } from "./ModelsTable"
-import {
-  GeoJSONFeature,
-  GeoJSONResponse,
-  ModelFeatureProperties
-} from "../../common/types"
 import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser"
 import { DatabaseIntro } from "./DatabaseIntro"
+import { ModelFeatureProperties } from "../../common/3dModels.types"
+import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
 
 i18n.use(initReactI18next).init({
   resources: {

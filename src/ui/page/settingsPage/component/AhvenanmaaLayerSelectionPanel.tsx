@@ -1,5 +1,5 @@
 import React, { useCallback } from "react"
-import { AhvenanmaaLayer, LayerGroup } from "../../../../common/types"
+import { AhvenanmaaLayer, LayerGroup } from "../../../../common/layers.types"
 import { Panel } from "../../../component/Panel"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"

@@ -1,9 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import {
-  AhvenanmaaForminnenArgisFeature,
-  Language
-} from "../../../../common/types"
+import { Language } from "../../../../common/layers.types"
 import {
   getAhvenanmaaForminneDatingText,
   getAhvenanmaaForminnenTypeText
@@ -13,6 +10,7 @@ import {
   getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaSubType
 } from "../../../../common/util/wikiLinkHelper"
 import { Field } from "./Field"
+import { AhvenanmaaForminnenArgisFeature } from "../../../../common/ahvenanmaa.types"
 
 interface Props {
   feature: AhvenanmaaForminnenArgisFeature
@@ -31,16 +29,14 @@ export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {
         Antal: count
       }) => {
         const type = getAhvenanmaaForminnenTypeText(t, typeId)
-        const typeLink = getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaType(
-          type
-        )
+        const typeLink =
+          getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaType(type)
         const subTypeName = t(
           `data.ahvenanmaa.subType.${subType}`,
           subType ?? ""
         )
-        const subTypeLink = getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaSubType(
-          subType
-        )
+        const subTypeLink =
+          getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaSubType(subType)
         const dating = getAhvenanmaaForminneDatingText(t, datingId)
 
         return [

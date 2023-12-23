@@ -1,7 +1,7 @@
 import React from "react"
-import { MuinaisjaannosPisteArgisFeature } from "../../../../common/types"
+import { MuinaisjaannosPisteWmsFeature } from "../../../../common/museovirasto.types"
 import {
-  ArgisFeatureCollapsePanel,
+  MapFeatureCollapsePanel,
   FeatureTitleClickAction
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
@@ -20,7 +20,7 @@ interface Props {
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
-  feature: MuinaisjaannosPisteArgisFeature
+  feature: MuinaisjaannosPisteWmsFeature
 }
 
 function renderList<T extends string>(
@@ -56,10 +56,10 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
     ajoitusSplitted,
     tyyppiSplitted,
     alatyyppiSplitted,
-    laji
-  } = feature.attributes
+    Laji
+  } = feature.properties
   return (
-    <ArgisFeatureCollapsePanel
+    <MapFeatureCollapsePanel
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
@@ -100,7 +100,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         </Field>
         <Field
           label={t(`details.field.featureType`)}
-          value={t(`data.museovirasto.featureType.${laji}`, laji)}
+          value={t(`data.museovirasto.featureType.${Laji}`, Laji)}
         />
 
         {feature.maisemanMuisti.length > 0 && (
@@ -111,6 +111,6 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
 
         {isOpen && <EmbeddedModels models={feature.models} />}
       </form>
-    </ArgisFeatureCollapsePanel>
+    </MapFeatureCollapsePanel>
   )
 }

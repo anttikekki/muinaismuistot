@@ -1,4 +1,4 @@
-import { Language } from "../common/types"
+import { Language } from "../common/layers.types"
 
 export interface URLSettings {
   zoom?: number

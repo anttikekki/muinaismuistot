@@ -1,32 +1,26 @@
 import TileLayer from "ol/layer/Tile"
-import TileArcGISRestSource from "ol/source/TileArcGISRest"
 import { TileSourceEvent } from "ol/source/Tile"
 import { Coordinate } from "ol/coordinate"
-import { Size } from "ol/size"
-import { Extent } from "ol/extent"
-import {
-  museovirastoLayerIdMap,
-  MuseovirastoLayer,
-  MuinaisjaannosTyyppi,
-  MuinaisjaannosAjoitus,
-  MuseovirastoLayerId,
-  ArgisIdentifyResult,
-  ArgisFindResult,
-  ArgisFeature
-} from "../../common/types"
 import { trim } from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
 import { Store } from "redux"
 import { ActionTypes } from "../../store/actionTypes"
+import TileWMS, { Options } from "ol/source/TileWMS"
+import { Projection } from "ol/proj"
+import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi,
+  MuseovirastoWmsFeature,
+  MuseovirastoWmsFeatureInfoResult,
+  isMuinaisjaannosPisteWmsFeature
+} from "../../common/museovirasto.types"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
-export type OnLayersCreatedCallbackFn = (
-  layer: TileLayer<TileArcGISRestSource>
-) => void
+export type OnLayersCreatedCallbackFn = (layer: TileLayer<TileWMS>) => void
 
 export default class MuseovirastoTileLayer {
-  private source?: TileArcGISRestSource
-  private layer?: TileLayer<TileArcGISRestSource>
+  private source?: TileWMS
+  private layer?: TileLayer<TileWMS>
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
@@ -56,13 +50,15 @@ export default class MuseovirastoTileLayer {
 
   private createSource = () => {
     const settings = this.store.getState()
-    const newSource = new TileArcGISRestSource({
-      urls: [settings.museovirasto.url.export],
+    const options: Options = {
+      urls: [settings.museovirasto.url.wms],
       params: {
-        layers: this.getSourceLayerSelectionSettings(),
-        layerDefs: this.getSourceLayerDefinitionFilterParams()
-      }
-    })
+        LAYERS: settings.museovirasto.selectedLayers.join(","),
+        TILED: true
+      },
+      serverType: "geoserver"
+    }
+    const newSource = new TileWMS(options)
 
     newSource.on("tileloadstart", (evt: TileSourceEvent) => {
       this.updateTileLoadingStatus(true)
@@ -84,124 +80,48 @@ export default class MuseovirastoTileLayer {
     }
   }
 
-  private getSourceLayerSelectionSettings = (): string | undefined => {
-    const settings = this.store.getState()
-    const allLayers: Array<MuseovirastoLayer> = Object.values(MuseovirastoLayer)
-    if (allLayers.length === settings.museovirasto.selectedLayers.length) {
-      // All layers are selected. No need to filter.
-      return undefined
-    }
-    const selectedLayerIds = this.toLayerIds(
-      settings.museovirasto.selectedLayers
-    )
-
-    if (selectedLayerIds.length > 0) {
-      return "show:" + selectedLayerIds.join(",")
-    } else {
-      // No selected layers. Hide all.
-      // "hide:" dows not work for all layers. Let's just try to display invalid layer.
-      return "show:-1"
-    }
-  }
-
-  private getSourceLayerDefinitionFilterParams = () => {
-    const settings = this.store.getState()
-    const layerDefinitions: Array<string> = []
-
-    const selectedTypes = settings.museovirasto.selectedMuinaisjaannosTypes
-    if (
-      selectedTypes.length > 0 &&
-      selectedTypes.length != Object.values(MuinaisjaannosTyyppi).length
-    ) {
-      const layerDefinition = selectedTypes
-        .sort()
-        .map((tyyppi) => "tyyppi LIKE '%" + tyyppi + "%'")
-        .join(" OR ")
-      layerDefinitions.push("(" + layerDefinition + ")")
-    }
-    if (selectedTypes.length === 0) {
-      layerDefinitions.push("(tyyppi LIKE 'NONE')")
-    }
-
-    const selectedDatings = settings.museovirasto.selectedMuinaisjaannosDatings
-    if (
-      selectedDatings.length > 0 &&
-      selectedDatings.length != Object.values(MuinaisjaannosAjoitus).length
-    ) {
-      const layerDefinition = selectedDatings
-        .sort()
-        .map((ajoitus) => "ajoitus LIKE '%" + ajoitus + "%'")
-        .join(" OR ")
-      layerDefinitions.push("(" + layerDefinition + ")")
-    }
-    if (selectedDatings.length === 0) {
-      layerDefinitions.push("(ajoitus LIKE 'NONE')")
-    }
-
-    if (layerDefinitions.length > 0) {
-      return (
-        museovirastoLayerIdMap[MuseovirastoLayer.Muinaisjaannokset_piste] +
-        ":" +
-        layerDefinitions.join(" AND ")
-      )
-    }
-    return undefined
-  }
-
-  private toLayerIds = (
-    layers: Array<MuseovirastoLayer>
-  ): Array<MuseovirastoLayerId> => {
-    return layers
-      .map((layer) => museovirastoLayerIdMap[layer])
-      .sort((a, b) => a - b)
-  }
-
   public selectedFeatureLayersChanged = () => {
-    this.updateLayerSource()
-  }
-
-  public selectedMuinaisjaannosTypesChanged = () => {
-    this.updateLayerSource()
-  }
-
-  public selectedMuinaisjaannosDatingsChanged = () => {
     this.updateLayerSource()
   }
 
   public identifyFeaturesAt = async (
     coordinate: Coordinate,
-    mapSize: Size,
-    mapExtent: Extent
-  ): Promise<ArgisIdentifyResult> => {
+    resolution: number | undefined,
+    projection: Projection
+  ): Promise<MuseovirastoWmsFeatureInfoResult> => {
     const settings = this.store.getState()
-    const visibleLayerIds =
-      settings.museovirasto.selectedLayers.length > 0
-        ? this.toLayerIds(settings.museovirasto.selectedLayers)
-        : [-1]
 
-    const urlParams = new URLSearchParams({
-      geometry: coordinate.join(","),
-      geometryType: "esriGeometryPoint",
-      tolerance: "10",
-      imageDisplay: mapSize.join(",") + ",96",
-      mapExtent: mapExtent.join(","),
-      layers: "visible:" + visibleLayerIds.join(","),
-      f: "json",
-      returnGeometry: "true"
-    })
+    if (this.source && resolution !== undefined) {
+      const url = this.source.getFeatureInfoUrl(
+        coordinate,
+        resolution,
+        projection,
+        {
+          INFO_FORMAT: "application/json",
+          QUERY_LAYERS: settings.museovirasto.selectedLayers.join(","),
+          FEATURE_COUNT: 100,
+          /**
+           * Geoserver vendor specific param to extend the search radius pixels. Similar to ArcGis tolerance.
+           * @see https://docs.geoserver.org/latest/en/user/services/wms/vendor.html#buffer
+           */
+          BUFFER: 15
+        }
+      )
+      if (url) {
+        const response = await fetch(String(url))
+        const result =
+          (await response.json()) as MuseovirastoWmsFeatureInfoResult
 
-    const url = new URL(settings.museovirasto.url.identify)
-    url.search = String(urlParams)
-
-    const response = await fetch(String(url))
-    const result = (await response.json()) as ArgisIdentifyResult
-
-    return this.trimAnsSplitMultivalueFields(result)
+        return this.trimAnsSplitMultivalueFields(result)
+      }
+    }
+    return Promise.reject()
   }
-
+  /*
   public findFeatures = async (
     searchText: string
   ): Promise<ArgisFindResult> => {
+    
     const settings = this.store.getState()
     let selectedLayers = settings.museovirasto.selectedLayers
 
@@ -240,75 +160,42 @@ export default class MuseovirastoTileLayer {
     const result = (await response.json()) as ArgisFindResult
 
     return this.trimAnsSplitMultivalueFields(result)
+  
+    return Promise.reject()
   }
+    */
 
   private trimAnsSplitMultivalueFields = async (
-    data: ArgisIdentifyResult
-  ): Promise<ArgisIdentifyResult> => {
-    const result: ArgisIdentifyResult = {
+    data: MuseovirastoWmsFeatureInfoResult
+  ): Promise<MuseovirastoWmsFeatureInfoResult> => {
+    const result: MuseovirastoWmsFeatureInfoResult = {
       ...data,
-      results: data.results?.map((result): ArgisFeature => {
-        if (result.layerName === MuseovirastoLayer.Muinaisjaannokset_piste) {
+      features: data.features?.map((feature): MuseovirastoWmsFeature => {
+        if (isMuinaisjaannosPisteWmsFeature(feature)) {
           return {
-            ...result,
-            attributes: {
-              ...result.attributes,
-              tyyppiSplitted: trim(result.attributes.tyyppi)
+            ...feature,
+            properties: {
+              ...feature.properties,
+              tyyppiSplitted: trim(feature.properties.tyyppi)
                 .replace("taide, muistomerkit", "taide-muistomerkit")
                 .split(", ")
                 .map((t) =>
                   t === "taide-muistomerkit" ? "taide, muistomerkit" : t
                 ) as Array<MuinaisjaannosTyyppi>,
-              ajoitusSplitted: trim(result.attributes.ajoitus).split(
+              ajoitusSplitted: trim(feature.properties.ajoitus).split(
                 ", "
               ) as Array<MuinaisjaannosAjoitus>,
-              alatyyppiSplitted: trim(result.attributes.alatyyppi)
+              alatyyppiSplitted: trim(feature.properties.alatyyppi)
                 .replace("rajamerkit, puu", "rajamerkit-puu")
                 .split(", ")
                 .map((t) => (t === "rajamerkit-puu" ? "rajamerkit, puu" : t))
             }
           }
         }
-        return result
+        return feature
       })
     }
     return result
-  }
-
-  // http://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml
-  // https://www.avoindata.fi/data/fi/dataset/museoviraston-paikkatietojen-tiedostolataus
-  public getDataLatestUpdateDate = (): Promise<Date | null> => {
-    const settings = this.store.getState()
-    if (this.dataLatestUpdateDate) {
-      return Promise.resolve(this.dataLatestUpdateDate)
-    }
-
-    return fetch(settings.museovirasto.url.updateDate)
-      .then((response) => response.text())
-      .then((str) => new DOMParser().parseFromString(str, "text/xml"))
-      .then(this.parseSuunnitteluaineistoUpdatedDate)
-  }
-
-  private parseSuunnitteluaineistoUpdatedDate = (
-    doc: Document
-  ): Promise<Date | null> => {
-    let date: string | null | undefined
-
-    // IE 11 does not support Document.evaluate() XPath so we need to use query selectors
-    doc.querySelectorAll("entry").forEach((value: Element) => {
-      if (
-        value.querySelector("id")?.textContent ===
-        "http://paikkatieto.nba.fi/aineistot/suunnitteluaineisto"
-      ) {
-        date = value.querySelector("updated")?.textContent
-      }
-    })
-
-    if (date) {
-      this.dataLatestUpdateDate = new Date(date)
-      return Promise.resolve(this.dataLatestUpdateDate)
-    }
-    return Promise.resolve(null)
   }
 
   public opacityChanged = () => {

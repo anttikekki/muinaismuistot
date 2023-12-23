@@ -1,114 +1,131 @@
 import { TFunction } from "i18next"
 import {
-  ArgisFeature,
-  MuinaisjaannosPisteArgisFeature,
-  MuinaisjaannosAlueArgisFeature,
-  MuinaisjaannosAjoitus,
-  MaailmanperintoAlueArgisFeature,
-  MaailmanperintoPisteArgisFeature,
   MuseovirastoLayer,
   AhvenanmaaLayer,
-  ModelFeatureProperties,
-  GeoJSONFeature,
   FeatureLayer,
   ModelLayer,
   MaisemanMuistiLayer,
-  MaisemanMuistiFeatureProperties,
   Language,
-  HelsinkiLayer,
-  MaalinnoitusFeature,
-  isMaalinnoitusYksikkoFeature,
-  isMaalinnoitusKohdeFeature,
+  HelsinkiLayer
+} from "../layers.types"
+import {
+  MaailmanperintoAlueWmsFeature,
+  MaailmanperintoPisteWmsFeature,
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosAlueWmsFeature,
+  MuinaisjaannosPisteWmsFeature,
+  isMaailmanperintoAlueWmsFeature,
+  isMaailmanperintoPisteWmsFeature,
+  isMuinaisjaannosAlueWmsFeature,
+  isMuinaisjaannosPisteWmsFeature,
+  isMuseovirastoWmsFeature,
+  isRKYAlueWmsFeature,
+  isRKYPisteWmsFeature,
+  isRKYViivaWmsFeature,
+  isSuojellutRakennuksetAlueWmsFeature,
+  isSuojellutRakennuksetPisteWmsFeature
+} from "../museovirasto.types"
+import {
   MaalinnoitusKohdetyyppi,
+  MaalinnoitusRajaustyyppi,
+  isMaalinnoitusKohdeFeature,
   isMaalinnoitusRajausFeature,
-  MaalinnoitusRajaustyyppi
-} from "../types"
+  isMaalinnoitusYksikkoFeature
+} from "../maalinnoitusHelsinki.types"
+import { GeoJSONFeature } from "../geojson.types"
+import { ModelFeatureProperties } from "../3dModels.types"
+import { MaisemanMuistiFeatureProperties } from "../maisemanMuisti.types"
+import { isAhvenanmaaArcgisFeature } from "../ahvenanmaa.types"
+import { MapFeature, isArcGisFeature, isWmsFeature } from "../mapFeature.types"
 
 export const isKiinteäMuinaisjäännös = (
-  feature: MuinaisjaannosPisteArgisFeature | MuinaisjaannosAlueArgisFeature
+  feature: MuinaisjaannosPisteWmsFeature | MuinaisjaannosAlueWmsFeature
 ): boolean => {
-  return trim(feature.attributes.laji) === "kiinteä muinaisjäännös"
+  return trim(feature.properties.Laji) === "kiinteä muinaisjäännös"
 }
 
 export const isMuuKulttuuriperintökohde = (
-  feature: MuinaisjaannosPisteArgisFeature | MuinaisjaannosAlueArgisFeature
+  feature: MuinaisjaannosPisteWmsFeature | MuinaisjaannosAlueWmsFeature
 ): boolean => {
-  return trim(feature.attributes.laji) === "muu kulttuuriperintökohde"
+  return trim(feature.properties.Laji) === "muu kulttuuriperintökohde"
 }
 
-export const getArgisFeatureName = (
-  t: TFunction,
-  feature: ArgisFeature
-): string => {
-  switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjaannokset_piste:
-    case MuseovirastoLayer.Muinaisjaannokset_alue:
-    case MuseovirastoLayer.RKY_alue:
-    case MuseovirastoLayer.RKY_piste:
-    case MuseovirastoLayer.RKY_viiva:
-    case MuseovirastoLayer.Suojellut_rakennukset_piste:
-    case MuseovirastoLayer.Suojellut_rakennukset_alue:
-      return trim(feature.attributes.kohdenimi)
-    case MuseovirastoLayer.Maailmanperinto_piste:
-    case MuseovirastoLayer.Maailmanperinto_alue:
-      return trim(feature.attributes.Nimi)
-    case AhvenanmaaLayer.Fornminnen: {
-      const id = trim(feature.attributes["Fornlämnings ID"])
-      const name = trim(feature.attributes.Namn)
-      const types =
-        feature.attributes.typeAndDating
-          ?.map(({ Und_typ: subType }) =>
-            t(`data.ahvenanmaa.subType.${subType}`, subType ?? "")
-          )
-          .filter((v) => !!v)
-          .join(", ") ?? ""
-      const suffix = [name, types].filter((v) => !!v).join(", ")
-      return `${id} ${suffix}`
+export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
+  if (isWmsFeature(feature)) {
+    if (
+      isMaailmanperintoAlueWmsFeature(feature) ||
+      isMaailmanperintoPisteWmsFeature(feature)
+    ) {
+      return trim(feature.properties.Nimi)
     }
-    case AhvenanmaaLayer.MaritimtKulturarv:
-      return `${trim(feature.attributes.FornID)} ${trim(
-        feature.attributes.Namn
+    if (
+      isMuinaisjaannosPisteWmsFeature(feature) ||
+      isMuinaisjaannosAlueWmsFeature(feature) ||
+      isRKYAlueWmsFeature(feature) ||
+      isRKYPisteWmsFeature(feature) ||
+      isRKYViivaWmsFeature(feature) ||
+      isSuojellutRakennuksetAlueWmsFeature(feature) ||
+      isSuojellutRakennuksetPisteWmsFeature(feature)
+    ) {
+      return trim(feature.properties.kohdenimi)
+    }
+    if (isMaalinnoitusYksikkoFeature(feature)) {
+      const { laji, lajinumero, yksikko } = feature.properties
+      const lajiTranslation = t(`data.helsinki.yksikkoLaji.${laji}`, {
+        defaultValue: laji
+      })
+      return `${lajinumero} ${t(`data.helsinki.yksikko.${yksikko}`, {
+        defaultValue: yksikko ?? lajiTranslation
+      })}`.trim()
+    }
+    if (isMaalinnoitusKohdeFeature(feature)) {
+      const { tukikohtanumero, kohdetyyppi } = feature.properties
+      return `${tukikohtanumero} ${t(
+        `data.helsinki.kohdetyyppi.${kohdetyyppi}`,
+        {
+          defaultValue: kohdetyyppi
+        }
       )}`
-  }
-}
-
-export const getMaalinnoitusFeatureName = (
-  t: TFunction,
-  feature: MaalinnoitusFeature
-): string => {
-  if (isMaalinnoitusYksikkoFeature(feature)) {
-    const { laji, lajinumero, yksikko } = feature.properties
-    const lajiTranslation = t(`data.helsinki.yksikkoLaji.${laji}`, {
-      defaultValue: laji
-    })
-    return `${lajinumero} ${t(`data.helsinki.yksikko.${yksikko}`, {
-      defaultValue: yksikko ?? lajiTranslation
-    })}`.trim()
-  }
-  if (isMaalinnoitusKohdeFeature(feature)) {
-    const { tukikohtanumero, kohdetyyppi } = feature.properties
-    return `${tukikohtanumero} ${t(`data.helsinki.kohdetyyppi.${kohdetyyppi}`, {
-      defaultValue: kohdetyyppi
-    })}`
-  }
-  if (isMaalinnoitusRajausFeature(feature)) {
-    const { tukikohtanumero, lajinumero, rajaustyyppi } = feature.properties
-    return `${lajinumero ?? tukikohtanumero} ${t(
-      `data.helsinki.rajaustyyppi.${rajaustyyppi}`,
-      {
-        defaultValue: rajaustyyppi
+    }
+    if (isMaalinnoitusRajausFeature(feature)) {
+      const { tukikohtanumero, lajinumero, rajaustyyppi } = feature.properties
+      return `${lajinumero ?? tukikohtanumero} ${t(
+        `data.helsinki.rajaustyyppi.${rajaustyyppi}`,
+        {
+          defaultValue: rajaustyyppi
+        }
+      )}`
+    }
+  } else if (isAhvenanmaaArcgisFeature(feature)) {
+    switch (feature.layerName) {
+      case AhvenanmaaLayer.Fornminnen: {
+        const id = trim(feature.attributes["Fornlämnings ID"])
+        const name = trim(feature.attributes.Namn)
+        const types =
+          feature.attributes.typeAndDating
+            ?.map(({ Und_typ: subType }) =>
+              t(`data.ahvenanmaa.subType.${subType}`, subType ?? "")
+            )
+            .filter((v) => !!v)
+            .join(", ") ?? ""
+        const suffix = [name, types].filter((v) => !!v).join(", ")
+        return `${id} ${suffix}`
       }
-    )}`
+      case AhvenanmaaLayer.MaritimtKulturarv:
+        return `${trim(feature.attributes.FornID)} ${trim(
+          feature.attributes.Namn
+        )}`
+    }
   }
   return ""
 }
 
-export const getArgisFeatureTypeName = (
+export const getFeatureTypeName = (
   t: TFunction,
-  feature: ArgisFeature
-): string | undefined => {
-  switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjaannokset_piste:
+  feature: MapFeature
+): string => {
+  if (isWmsFeature(feature)) {
+    if (isMuinaisjaannosPisteWmsFeature(feature)) {
       return [
         isKiinteäMuinaisjäännös(feature)
           ? t(`data.featureType.Kiinteä muinaisjäännös`)
@@ -116,10 +133,10 @@ export const getArgisFeatureTypeName = (
         isMuuKulttuuriperintökohde(feature)
           ? t(`data.featureType.Muu kulttuuriperintökohde`)
           : undefined,
-        feature.attributes.tyyppiSplitted[0]
+        feature.properties.tyyppiSplitted[0]
           ? t(
-              `data.museovirasto.type.${feature.attributes.tyyppiSplitted[0]}`,
-              feature.attributes.tyyppiSplitted[0]
+              `data.museovirasto.type.${feature.properties.tyyppiSplitted[0]}`,
+              feature.properties.tyyppiSplitted[0]
             )
           : undefined,
         feature.maisemanMuisti.length > 0
@@ -128,59 +145,58 @@ export const getArgisFeatureTypeName = (
       ]
         .filter((v) => !!v)
         .join(", ")
-    case MuseovirastoLayer.Muinaisjaannokset_alue:
-      if (isKiinteäMuinaisjäännös(feature)) {
-        return t(`data.featureType.Kiinteä muinaisjäännös (alue)`) ?? undefined
-      } else if (isMuuKulttuuriperintökohde(feature)) {
+    }
+    if (isMuinaisjaannosAlueWmsFeature(feature)) {
+      return t(`data.featureType.Muu kulttuuriperintökohde (alue)`)
+    }
+    if (
+      isRKYAlueWmsFeature(feature) ||
+      isRKYPisteWmsFeature(feature) ||
+      isRKYViivaWmsFeature(feature)
+    ) {
+      return t(`data.featureType.Rakennettu kulttuuriympäristö`)
+    }
+    if (
+      isMaailmanperintoAlueWmsFeature(feature) ||
+      isMaailmanperintoPisteWmsFeature(feature)
+    ) {
+      return t(`data.featureType.Maailmanperintökohde`)
+    }
+    if (
+      isSuojellutRakennuksetAlueWmsFeature(feature) ||
+      isSuojellutRakennuksetPisteWmsFeature(feature)
+    ) {
+      return t(`data.featureType.Rakennusperintökohde`)
+    }
+    if (isMaalinnoitusYksikkoFeature(feature)) {
+      return `${t(`data.featureType.maalinnoitus`)}, ${t(
+        `data.helsinki.featureType.yksikkö`
+      )}`
+    }
+    if (isMaalinnoitusKohdeFeature(feature)) {
+      return `${t(`data.featureType.maalinnoitus`)}, ${t(
+        `data.helsinki.featureType.kohde`
+      )}`
+    }
+    if (isMaalinnoitusRajausFeature(feature)) {
+      return `${t(`data.featureType.maalinnoitus`)}, ${t(
+        `data.helsinki.featureType.rajaus`
+      )}`
+    }
+  } else if (isAhvenanmaaArcgisFeature(feature)) {
+    switch (feature.layerName) {
+      case AhvenanmaaLayer.Fornminnen:
         return (
-          t(`data.featureType.Muu kulttuuriperintökohde (alue)`) ?? undefined
+          t(`data.featureType.Ahvenanmaan muinaisjäännösrekisterin kohde`) ??
+          undefined
         )
-      }
-      break
-    case MuseovirastoLayer.RKY_alue:
-    case MuseovirastoLayer.RKY_piste:
-    case MuseovirastoLayer.RKY_viiva:
-      return t(`data.featureType.Rakennettu kulttuuriympäristö`) ?? undefined
-    case MuseovirastoLayer.Maailmanperinto_piste:
-    case MuseovirastoLayer.Maailmanperinto_alue:
-      return t(`data.featureType.Maailmanperintökohde`) ?? undefined
-    case MuseovirastoLayer.Suojellut_rakennukset_piste:
-    case MuseovirastoLayer.Suojellut_rakennukset_alue:
-      return t(`data.featureType.Rakennusperintökohde`) ?? undefined
-    case AhvenanmaaLayer.Fornminnen:
-      return (
-        t(`data.featureType.Ahvenanmaan muinaisjäännösrekisterin kohde`) ??
-        undefined
-      )
-    case AhvenanmaaLayer.MaritimtKulturarv:
-      return (
-        t(
-          `data.featureType.Ahvenanmaan merellisen kulttuuriperintörekisterin kohde`
-        ) ?? undefined
-      )
-    default:
-      return undefined
-  }
-}
-
-export const getMaalinnoitusFeatureTypeName = (
-  t: TFunction,
-  feature: MaalinnoitusFeature
-): string => {
-  if (isMaalinnoitusYksikkoFeature(feature)) {
-    return `${t(`data.featureType.maalinnoitus`)}, ${t(
-      `data.helsinki.featureType.yksikkö`
-    )}`
-  }
-  if (isMaalinnoitusKohdeFeature(feature)) {
-    return `${t(`data.featureType.maalinnoitus`)}, ${t(
-      `data.helsinki.featureType.kohde`
-    )}`
-  }
-  if (isMaalinnoitusRajausFeature(feature)) {
-    return `${t(`data.featureType.maalinnoitus`)}, ${t(
-      `data.helsinki.featureType.rajaus`
-    )}`
+      case AhvenanmaaLayer.MaritimtKulturarv:
+        return (
+          t(
+            `data.featureType.Ahvenanmaan merellisen kulttuuriperintörekisterin kohde`
+          ) ?? undefined
+        )
+    }
   }
   return ""
 }
@@ -190,12 +206,10 @@ export const getTypeIconURL = (
   has3dModels: boolean = false
 ) => `images/${imageName}${has3dModels ? "_3d" : ""}.png`
 
-export const getArgisFeatureTypeIconURL = (
-  feature: ArgisFeature
-): string | undefined => {
+export const getFeatureTypeIconURL = (feature: MapFeature): string => {
   const has3dModels = feature.models.length > 0
-  switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjaannokset_piste:
+  if (isWmsFeature(feature)) {
+    if (isMuinaisjaannosPisteWmsFeature(feature)) {
       if (isKiinteäMuinaisjäännös(feature)) {
         if (feature.maisemanMuisti.length > 0) {
           return getTypeIconURL("maiseman-muisti", has3dModels)
@@ -204,64 +218,67 @@ export const getArgisFeatureTypeIconURL = (
       } else if (isMuuKulttuuriperintökohde(feature)) {
         return getTypeIconURL("muu_kulttuuriperintokohde_kohde", has3dModels)
       }
-      break
-    case MuseovirastoLayer.Muinaisjaannokset_alue:
+    }
+    if (isMuinaisjaannosAlueWmsFeature(feature)) {
       if (isKiinteäMuinaisjäännös(feature)) {
         return getTypeIconURL("muinaisjaannos_alue", has3dModels)
       } else if (isMuuKulttuuriperintökohde(feature)) {
         return getTypeIconURL("muu-kulttuuriperintokohde-alue", has3dModels)
       }
-      break
-    case MuseovirastoLayer.RKY_alue:
+    }
+    if (isRKYAlueWmsFeature(feature)) {
       return getTypeIconURL("rky_alue", has3dModels)
-    case MuseovirastoLayer.RKY_viiva:
-      return getTypeIconURL("rky_viiva", has3dModels)
-    case MuseovirastoLayer.RKY_piste:
+    }
+    if (isRKYPisteWmsFeature(feature)) {
       return getTypeIconURL("rky_piste", has3dModels)
-    case MuseovirastoLayer.Maailmanperinto_alue:
+    }
+    if (isRKYViivaWmsFeature(feature)) {
+      return getTypeIconURL("rky_viiva", has3dModels)
+    }
+    if (isMaailmanperintoAlueWmsFeature(feature)) {
       return getTypeIconURL("maailmanperinto_alue", has3dModels)
-    case MuseovirastoLayer.Maailmanperinto_piste:
+    }
+    if (isMaailmanperintoPisteWmsFeature(feature)) {
       return getTypeIconURL("maailmanperinto_piste", has3dModels)
-    case MuseovirastoLayer.Suojellut_rakennukset_alue:
+    }
+    if (isSuojellutRakennuksetAlueWmsFeature(feature)) {
       return getTypeIconURL("rakennusperintorekisteri_alue", has3dModels)
-    case MuseovirastoLayer.Suojellut_rakennukset_piste:
+    }
+    if (isSuojellutRakennuksetPisteWmsFeature(feature)) {
       return getTypeIconURL("rakennusperintorekisteri_rakennus", has3dModels)
-    case AhvenanmaaLayer.Fornminnen:
-      return getTypeIconURL("ahvenanmaa_muinaisjaannos", has3dModels)
-    case AhvenanmaaLayer.MaritimtKulturarv:
-      return getTypeIconURL("ahvenanmaa_hylky", has3dModels)
-    default:
-      return undefined
-  }
-}
-
-export const getMaalinnoitusFeatureIconUrl = (
-  feature: MaalinnoitusFeature
-): string | undefined => {
-  if (isMaalinnoitusYksikkoFeature(feature)) {
-    return getTypeIconURL("maalinnoitus-yksikko", false)
-  }
-  if (isMaalinnoitusKohdeFeature(feature)) {
-    switch (feature.properties.kohdetyyppi) {
-      case MaalinnoitusKohdetyyppi.Asema:
-        return getTypeIconURL("maalinnoitus-asema", false)
-      case MaalinnoitusKohdetyyppi.Luola:
-        return getTypeIconURL("maalinnoitus-luola", false)
-      case MaalinnoitusKohdetyyppi.Tykkipatteri:
-        return getTypeIconURL("maalinnoitus-tykkipatteri", false)
-      case MaalinnoitusKohdetyyppi.Tykkitie:
-        return getTypeIconURL("maalinnoitus-tykkitie", false)
+    }
+    if (isMaalinnoitusYksikkoFeature(feature)) {
+      return getTypeIconURL("maalinnoitus-yksikko", false)
+    }
+    if (isMaalinnoitusKohdeFeature(feature)) {
+      switch (feature.properties.kohdetyyppi) {
+        case MaalinnoitusKohdetyyppi.Asema:
+          return getTypeIconURL("maalinnoitus-asema", false)
+        case MaalinnoitusKohdetyyppi.Luola:
+          return getTypeIconURL("maalinnoitus-luola", false)
+        case MaalinnoitusKohdetyyppi.Tykkipatteri:
+          return getTypeIconURL("maalinnoitus-tykkipatteri", false)
+        case MaalinnoitusKohdetyyppi.Tykkitie:
+          return getTypeIconURL("maalinnoitus-tykkitie", false)
+      }
+    }
+    if (isMaalinnoitusRajausFeature(feature)) {
+      switch (feature.properties.rajaustyyppi) {
+        case MaalinnoitusRajaustyyppi.Tukikohta:
+          return getTypeIconURL("maalinnoitus-tukikohdan-raja", false)
+        case MaalinnoitusRajaustyyppi.Puolustusasema:
+          return getTypeIconURL("maalinnoitus-puolustusaseman-raja", false)
+      }
+    }
+  } else if (isAhvenanmaaArcgisFeature(feature)) {
+    switch (feature.layerName) {
+      case AhvenanmaaLayer.Fornminnen:
+        return getTypeIconURL("ahvenanmaa_muinaisjaannos", has3dModels)
+      case AhvenanmaaLayer.MaritimtKulturarv:
+        return getTypeIconURL("ahvenanmaa_hylky", has3dModels)
     }
   }
-  if (isMaalinnoitusRajausFeature(feature)) {
-    switch (feature.properties.rajaustyyppi) {
-      case MaalinnoitusRajaustyyppi.Tukikohta:
-        return getTypeIconURL("maalinnoitus-tukikohdan-raja", false)
-      case MaalinnoitusRajaustyyppi.Puolustusasema:
-        return getTypeIconURL("maalinnoitus-puolustusaseman-raja", false)
-    }
-  }
-  return undefined
+  throw new Error(`Tuntematon feature: ${JSON.stringify(feature)}`)
 }
 
 export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
@@ -317,26 +334,49 @@ export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
   }
 }
 
-export const getFeatureID = (feature: ArgisFeature): string => {
-  switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjaannokset_piste:
-    case MuseovirastoLayer.Muinaisjaannokset_alue:
-      return feature.attributes.mjtunnus
-    case MuseovirastoLayer.RKY_alue:
-    case MuseovirastoLayer.RKY_viiva:
-    case MuseovirastoLayer.RKY_piste:
-      return feature.attributes.ID
-    case MuseovirastoLayer.Maailmanperinto_alue:
-    case MuseovirastoLayer.Maailmanperinto_piste:
-      return feature.attributes.OBJECTID // Not a real stabile register id but data set is really small
-    case MuseovirastoLayer.Suojellut_rakennukset_alue:
-    case MuseovirastoLayer.Suojellut_rakennukset_piste:
-      return feature.attributes.kohdeID
-    case AhvenanmaaLayer.Fornminnen:
-      return feature.attributes["Fornlämnings ID"]
-    case AhvenanmaaLayer.MaritimtKulturarv:
-      return feature.attributes.FornID
+export const getFeatureID = (feature: MapFeature): string => {
+  if (isWmsFeature(feature)) {
+    if (
+      isMuinaisjaannosPisteWmsFeature(feature) ||
+      isMuinaisjaannosAlueWmsFeature(feature)
+    ) {
+      return String(feature.properties.mjtunnus)
+    }
+    if (
+      isRKYAlueWmsFeature(feature) ||
+      isRKYPisteWmsFeature(feature) ||
+      isRKYViivaWmsFeature(feature)
+    ) {
+      return String(feature.properties.ID)
+    }
+    if (
+      isMaailmanperintoAlueWmsFeature(feature) ||
+      isMaailmanperintoPisteWmsFeature(feature)
+    ) {
+      return String(feature.properties.OBJECTID) // Not a real stabile register id but data set is really small
+    }
+    if (
+      isSuojellutRakennuksetAlueWmsFeature(feature) ||
+      isSuojellutRakennuksetPisteWmsFeature(feature)
+    ) {
+      return String(feature.properties.KOHDEID)
+    }
+    if (
+      isMaalinnoitusYksikkoFeature(feature) ||
+      isMaalinnoitusKohdeFeature(feature) ||
+      isMaalinnoitusRajausFeature(feature)
+    ) {
+      return String(feature.properties.id)
+    }
+  } else if (isAhvenanmaaArcgisFeature(feature)) {
+    switch (feature.layerName) {
+      case AhvenanmaaLayer.Fornminnen:
+        return feature.attributes["Fornlämnings ID"]
+      case AhvenanmaaLayer.MaritimtKulturarv:
+        return feature.attributes.FornID
+    }
   }
+  throw new Error(`Tuntematon feature: ${JSON.stringify(feature)}`)
 }
 
 export const getModelsForMaisemanMuistiFeature = (
@@ -357,10 +397,10 @@ export const getModelsForMaisemanMuistiFeature = (
 }
 
 const getMaailmanperintoUrl = (
-  feature: MaailmanperintoPisteArgisFeature | MaailmanperintoAlueArgisFeature,
+  feature: MaailmanperintoPisteWmsFeature | MaailmanperintoAlueWmsFeature,
   lang: Language
 ): string => {
-  let url = feature.attributes.URL
+  let url = feature.properties.URL
 
   const hashStartIndex = url.indexOf("#")
   let hash = ""
@@ -387,25 +427,26 @@ const getMaailmanperintoUrl = (
 }
 
 export const getFeatureRegisterURL = (
-  feature: ArgisFeature,
+  feature: MapFeature,
   lang: Language
 ): string | undefined => {
-  switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjaannokset_piste:
-    case MuseovirastoLayer.Muinaisjaannokset_alue: {
-      let url = `https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=${feature.attributes.mjtunnus}`
+  if (isMuseovirastoWmsFeature(feature)) {
+    if (
+      isMuinaisjaannosPisteWmsFeature(feature) ||
+      isMuinaisjaannosAlueWmsFeature(feature)
+    ) {
+      let url = `https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=${feature.properties.mjtunnus}`
       if (lang === Language.SV) {
         url = url.replace("r_kohde_det.aspx", "rsv_kohde_det.aspx")
       }
       return url
     }
-    case MuseovirastoLayer.Suojellut_rakennukset_alue:
-    case MuseovirastoLayer.Suojellut_rakennukset_piste:
-      return `https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_kohde_det.aspx?KOHDE_ID=${feature.attributes.kohdeID}`
-    case MuseovirastoLayer.RKY_alue:
-    case MuseovirastoLayer.RKY_viiva:
-    case MuseovirastoLayer.RKY_piste: {
-      let url = feature.attributes.url
+    if (
+      isRKYAlueWmsFeature(feature) ||
+      isRKYPisteWmsFeature(feature) ||
+      isRKYViivaWmsFeature(feature)
+    ) {
+      let url = feature.properties.url
       if (lang === Language.SV) {
         url = url
           .replace("www.rky.fi", "www.kulturmiljo.fi")
@@ -413,33 +454,54 @@ export const getFeatureRegisterURL = (
       }
       return url
     }
-    case MuseovirastoLayer.Maailmanperinto_alue:
-    case MuseovirastoLayer.Maailmanperinto_piste:
+    if (
+      isMaailmanperintoAlueWmsFeature(feature) ||
+      isMaailmanperintoPisteWmsFeature(feature)
+    ) {
       return getMaailmanperintoUrl(feature, lang)
+    }
+    if (
+      isSuojellutRakennuksetAlueWmsFeature(feature) ||
+      isSuojellutRakennuksetPisteWmsFeature(feature)
+    ) {
+      return `https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_kohde_det.aspx?KOHDE_ID=${feature.properties.KOHDEID}`
+    }
   }
+  return undefined
 }
 
 export const getFeatureRegisterName = (
   t: TFunction,
-  feature: ArgisFeature
+  feature: MapFeature
 ): string => {
-  switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjaannokset_piste:
-    case MuseovirastoLayer.Muinaisjaannokset_alue:
+  if (isMuseovirastoWmsFeature(feature)) {
+    if (
+      isMuinaisjaannosPisteWmsFeature(feature) ||
+      isMuinaisjaannosAlueWmsFeature(feature)
+    ) {
       return t(`details.registerLink.fromMuinaisjaannos`)
-    case MuseovirastoLayer.RKY_alue:
-    case MuseovirastoLayer.RKY_viiva:
-    case MuseovirastoLayer.RKY_piste:
+    }
+    if (
+      isRKYAlueWmsFeature(feature) ||
+      isRKYPisteWmsFeature(feature) ||
+      isRKYViivaWmsFeature(feature)
+    ) {
       return t(`details.registerLink.fromRKY`)
-    case MuseovirastoLayer.Maailmanperinto_alue:
-    case MuseovirastoLayer.Maailmanperinto_piste:
+    }
+    if (
+      isMaailmanperintoAlueWmsFeature(feature) ||
+      isMaailmanperintoPisteWmsFeature(feature)
+    ) {
       return t(`details.registerLink.fromMaailmanperinto`)
-    case MuseovirastoLayer.Suojellut_rakennukset_alue:
-    case MuseovirastoLayer.Suojellut_rakennukset_piste:
+    }
+    if (
+      isSuojellutRakennuksetAlueWmsFeature(feature) ||
+      isSuojellutRakennuksetPisteWmsFeature(feature)
+    ) {
       return t(`details.registerLink.fromRakennusperintö`)
-    default:
-      return ""
+    }
   }
+  return ""
 }
 
 export const getLayerRegisterName = (
@@ -472,32 +534,48 @@ export const getLayerRegisterName = (
 }
 
 export const getFeatureMunicipality = (
-  feature: ArgisFeature
+  feature: MapFeature
 ): string | undefined => {
-  switch (feature.layerName) {
-    case MuseovirastoLayer.Muinaisjaannokset_piste:
-    case MuseovirastoLayer.Muinaisjaannokset_alue:
-    case MuseovirastoLayer.Suojellut_rakennukset_alue:
-    case MuseovirastoLayer.Suojellut_rakennukset_piste:
-      return feature.attributes.kunta
-    case AhvenanmaaLayer.Fornminnen:
-    case AhvenanmaaLayer.MaritimtKulturarv:
-      return feature.attributes.Kommun
-    default:
-      return undefined
+  if (isMuseovirastoWmsFeature(feature)) {
+    if (
+      isMuinaisjaannosPisteWmsFeature(feature) ||
+      isMuinaisjaannosAlueWmsFeature(feature) ||
+      isSuojellutRakennuksetAlueWmsFeature(feature) ||
+      isSuojellutRakennuksetPisteWmsFeature(feature)
+    ) {
+      return feature.properties.kunta
+    }
+  } else if (isAhvenanmaaArcgisFeature(feature)) {
+    return feature.attributes.Kommun
   }
+  return undefined
 }
 
-export const getArgisFeatureLocation = (
-  feature: ArgisFeature
+export const getFeatureLocation = (
+  feature: MapFeature
 ): [number, number] | undefined => {
-  switch (feature.geometryType) {
-    case "esriGeometryPolygon":
-      return feature.geometry.rings[0][0]
-    case "esriGeometryPoint":
-      return [feature.geometry.x, feature.geometry.y]
-    case "esriGeometryPolyline":
-      return feature.geometry.paths[0][0]
+  if (isWmsFeature(feature)) {
+    switch (feature.geometry.type) {
+      case "Point":
+        return feature.geometry.coordinates
+      case "Polygon":
+        return feature.geometry.coordinates[0]
+      case "LineString":
+        return feature.geometry.coordinates[0]
+      case "MultiPolygon":
+        return feature.geometry.coordinates[0][0]
+    }
+  } else if (isArcGisFeature(feature)) {
+    switch (feature.geometryType) {
+      case "esriGeometryPolygon":
+        return feature.geometry.rings[0][0]
+      /*
+      case "esriGeometryPoint":
+        return [feature.geometry.x, feature.geometry.y]
+      case "esriGeometryPolyline":
+        return feature.geometry.paths[0][0]
+        */
+    }
   }
 }
 
@@ -511,19 +589,6 @@ export const getGeoJSONFeatureLocation = (
       return feature.geometry.coordinates
     case "Polygon":
       return feature.geometry.coordinates[0][0]
-  }
-}
-
-export const getMaalinnoitusFeatureLocation = (
-  feature: MaalinnoitusFeature
-): [number, number] => {
-  switch (feature.geometry.type) {
-    case "Point":
-      return feature.geometry.coordinates
-    case "Polygon":
-      return feature.geometry.coordinates[0]
-    case "LineString":
-      return feature.geometry.coordinates[0]
   }
 }
 

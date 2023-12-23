@@ -1,8 +1,8 @@
 import React from "react"
-import { MaalinnoitusRajausFeature } from "../../../../common/types"
+import { MaalinnoitusRajausFeature } from "../../../../common/maalinnoitusHelsinki.types"
 import {
   FeatureTitleClickAction,
-  MaalinnoitusFeatureCollapsePanel
+  MapFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
 import { useTranslation } from "react-i18next"
@@ -26,7 +26,7 @@ export const MaalinnoitusRajausPanel: React.FC<Props> = ({
   const { tukikohtanumero, lajinumero, rajaustyyppi } = feature.properties
 
   return (
-    <MaalinnoitusFeatureCollapsePanel
+    <MapFeatureCollapsePanel
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
@@ -50,6 +50,6 @@ export const MaalinnoitusRajausPanel: React.FC<Props> = ({
           />
         </Field>
       </form>
-    </MaalinnoitusFeatureCollapsePanel>
+    </MapFeatureCollapsePanel>
   )
 }

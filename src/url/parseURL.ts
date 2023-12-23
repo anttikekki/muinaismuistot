@@ -1,15 +1,13 @@
 import {
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
-  MuinaisjaannosTyyppi,
-  MuinaisjaannosAjoitus,
   AhvenanmaaLayer,
   ModelLayer,
   MaisemanMuistiLayer,
   Language,
   GtkLayer,
   HelsinkiLayer
-} from "../common/types"
+} from "../common/layers.types"
 import { parseURLParams } from "../common/util/URLHashHelper"
 import { Settings } from "../store/storeTypes"
 import {
@@ -29,6 +27,10 @@ import {
   updateSelectMuinaisjaannosTypes
 } from "../store/reducers"
 import { EMPTY_SELECTION, URLSettings } from "./types"
+import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
+} from "../common/museovirasto.types"
 
 const isEnumValue = <ENUM extends Record<string, unknown>>(
   enumObj: ENUM,
@@ -41,7 +43,9 @@ const isEnumArray = <ENUM extends Record<string, unknown>>(
 ): valueArray is Array<ENUM[keyof ENUM]> =>
   valueArray.every((v) => isEnumValue(enumObj, v))
 
-const validateAndUpdateUrlParamToSettings = <ENUM extends Record<string, unknown>>(
+const validateAndUpdateUrlParamToSettings = <
+  ENUM extends Record<string, unknown>
+>(
   settings: Settings,
   enumObj: ENUM,
   value: string | Array<string>,

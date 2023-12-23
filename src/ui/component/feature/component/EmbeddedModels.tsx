@@ -1,9 +1,7 @@
 import React, { useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
-import {
-  GeoJSONFeature,
-  ModelFeatureProperties
-} from "../../../../common/types"
+import { GeoJSONFeature } from "../../../../common/geojson.types"
+import { ModelFeatureProperties } from "../../../../common/3dModels.types"
 
 interface Props {
   models: Array<GeoJSONFeature<ModelFeatureProperties>>

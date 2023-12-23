@@ -1,10 +1,5 @@
 import React from "react"
 import {
-  ModelFeatureProperties,
-  GeoJSONFeature,
-  MaisemanMuistiFeatureProperties
-} from "../../../../common/types"
-import {
   FeatureTitleClickAction,
   MaisemanMuistiFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
@@ -15,6 +10,9 @@ import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
 import { trim } from "../../../../common/util/featureParser"
 import { TimespanLabel } from "../component/TimespanLabel"
 import { useTranslation } from "react-i18next"
+import { GeoJSONFeature } from "../../../../common/geojson.types"
+import { MaisemanMuistiFeatureProperties } from "../../../../common/maisemanMuisti.types"
+import { ModelFeatureProperties } from "../../../../common/3dModels.types"
 
 interface Props {
   titleClickAction: FeatureTitleClickAction

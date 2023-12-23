@@ -1,21 +1,21 @@
+import { ModelFeatureProperties } from "../common/3dModels.types"
+import { GeoJSONFeature } from "../common/geojson.types"
+import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
+import { MapFeature } from "../common/mapFeature.types"
+import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
+} from "../common/museovirasto.types"
 import {
   AhvenanmaaLayer,
-  ArgisFeature,
-  DataLatestUpdateDates,
-  GeoJSONFeature,
   GtkLayer,
   HelsinkiLayer,
   Language,
-  MaalinnoitusFeature,
   MaanmittauslaitosLayer,
-  MaisemanMuistiFeatureProperties,
   MaisemanMuistiLayer,
-  ModelFeatureProperties,
   ModelLayer,
-  MuinaisjaannosAjoitus,
-  MuinaisjaannosTyyppi,
   MuseovirastoLayer
-} from "../common/types"
+} from "../common/layers.types"
 
 export enum PageId {
   Search = "searchPage",
@@ -25,10 +25,9 @@ export enum PageId {
 }
 
 export interface SelectedFeaturesOnMap {
-  features: Array<ArgisFeature>
+  features: Array<MapFeature>
   models: Array<GeoJSONFeature<ModelFeatureProperties>>
   maisemanMuistiFeatures: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
-  maalinnoitusFeatures: Array<MaalinnoitusFeature>
 }
 
 export interface Settings {
@@ -36,9 +35,8 @@ export interface Settings {
   visiblePage?: PageId
   selectedFeaturesOnMap: SelectedFeaturesOnMap
   search: {
-    searchResults?: Array<ArgisFeature>
+    features: Array<MapFeature>
   }
-  dataLatestUpdateDates?: DataLatestUpdateDates
   initialMapZoom: number
   language: Language
   maanmittauslaitos: {
@@ -53,9 +51,7 @@ export interface Settings {
     selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
     selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>
     url: {
-      export: string
-      identify: string
-      find: string
+      wms: string
       updateDate: string
     }
     opacity: number

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react"
-import { FeatureLayer } from "../../../../common/types"
+import { FeatureLayer } from "../../../../common/layers.types"
 import { getLayerIconURLs } from "../../../../common/util/featureParser"
 
 interface LayerCheckboxProps<T extends FeatureLayer> {

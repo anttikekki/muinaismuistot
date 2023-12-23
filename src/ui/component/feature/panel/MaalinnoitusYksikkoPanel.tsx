@@ -1,8 +1,8 @@
 import React from "react"
-import { MaalinnoitusYksikkoFeature } from "../../../../common/types"
+import { MaalinnoitusYksikkoFeature } from "../../../../common/maalinnoitusHelsinki.types"
 import {
   FeatureTitleClickAction,
-  MaalinnoitusFeatureCollapsePanel
+  MapFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
 import { useTranslation } from "react-i18next"
@@ -39,7 +39,7 @@ export const MaalinnoitusYksikkoPanel: React.FC<Props> = ({
   } = feature.properties
 
   return (
-    <MaalinnoitusFeatureCollapsePanel
+    <MapFeatureCollapsePanel
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
@@ -87,6 +87,6 @@ export const MaalinnoitusYksikkoPanel: React.FC<Props> = ({
           value={rakennushistoria}
         />
       </form>
-    </MaalinnoitusFeatureCollapsePanel>
+    </MapFeatureCollapsePanel>
   )
 }

@@ -5,14 +5,6 @@ import Circle from "ol/style/Circle"
 import RegularShape from "ol/style/RegularShape"
 import Style from "ol/style/Style"
 import GeoJSON from "ol/format/GeoJSON"
-import {
-  GeoJSONResponse,
-  GeoJSONFeature,
-  ModelFeatureProperties,
-  MuseovirastoLayer,
-  ArgisFeature,
-  ArgisFeatureLayer
-} from "../../common/types"
 import { FeatureLike } from "ol/Feature"
 import {
   getFeatureID,
@@ -23,6 +15,10 @@ import { Settings } from "../../store/storeTypes"
 import { Store } from "redux"
 import { ActionTypes } from "../../store/actionTypes"
 import Geometry from "ol/geom/Geometry"
+import { ModelFeatureProperties } from "../../common/3dModels.types"
+import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
+import { FeatureLayer, MuseovirastoLayer } from "../../common/layers.types"
+import { MapFeature, getFeatureLayerName } from "../../common/mapFeature.types"
 
 export default class ModelsLayer {
   private store: Store<Settings, ActionTypes>
@@ -138,18 +134,18 @@ export default class ModelsLayer {
 
   public getFeaturesForFeatureRegisterId = (
     id: string,
-    layer: ArgisFeatureLayer
+    layer: FeatureLayer
   ): Array<GeoJSONFeature<ModelFeatureProperties>> => {
     const models = this.featuresForRegisterId.get(id) || []
     return models.filter((m) => m.properties.registryItem.type === layer)
   }
 
-  public addFeaturesForArgisFeature = (feature: ArgisFeature): ArgisFeature => {
+  public addModelsToFeature = (feature: MapFeature): MapFeature => {
     return {
       ...feature,
       models: this.getFeaturesForFeatureRegisterId(
         getFeatureID(feature),
-        feature.layerName
+        getFeatureLayerName(feature)
       )
     }
   }

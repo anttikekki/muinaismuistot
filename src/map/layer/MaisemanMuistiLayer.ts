@@ -3,12 +3,6 @@ import VectorSource from "ol/source/Vector"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
 import GeoJSON from "ol/format/GeoJSON"
-import {
-  ArgisFeature,
-  GeoJSONFeature,
-  GeoJSONResponse,
-  MaisemanMuistiFeatureProperties
-} from "../../common/types"
 import Fill from "ol/style/Fill"
 import RegularShape from "ol/style/RegularShape"
 import { getFeatureID } from "../../common/util/featureParser"
@@ -16,6 +10,9 @@ import { Settings } from "../../store/storeTypes"
 import { Store } from "redux"
 import { ActionTypes } from "../../store/actionTypes"
 import Geometry from "ol/geom/Geometry"
+import { MaisemanMuistiFeatureProperties } from "../../common/maisemanMuisti.types"
+import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
+import { MapFeature } from "../../common/mapFeature.types"
 
 export default class MaisemanMuistiLayer {
   private store: Store<Settings, ActionTypes>
@@ -89,7 +86,9 @@ export default class MaisemanMuistiLayer {
     return this.featuresForRegisterId.get(id) || []
   }
 
-  public addFeaturesForArgisFeature = (feature: ArgisFeature): ArgisFeature => {
+  public addMaisemanMuistiFeaturesToFeature = (
+    feature: MapFeature
+  ): MapFeature => {
     return {
       ...feature,
       maisemanMuisti: this.getFeaturesForFeatureRegisterId(

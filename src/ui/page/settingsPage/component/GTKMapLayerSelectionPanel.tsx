@@ -1,7 +1,7 @@
 import React, { useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { GtkLayer, LayerGroup } from "../../../../common/types"
+import { GtkLayer, LayerGroup } from "../../../../common/layers.types"
 import { selectGTKLayer } from "../../../../store/actionCreators"
 import { Settings } from "../../../../store/storeTypes"
 import { Panel } from "../../../component/Panel"

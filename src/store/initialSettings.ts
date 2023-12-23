@@ -1,14 +1,16 @@
 import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
+} from "../common/museovirasto.types"
+import {
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
-  MuinaisjaannosTyyppi,
-  MuinaisjaannosAjoitus,
   AhvenanmaaLayer,
   ModelLayer,
   MaisemanMuistiLayer,
   Language,
   HelsinkiLayer
-} from "../common/types"
+} from "../common/layers.types"
 import { Settings } from "./storeTypes"
 
 const getInitialLang = (): Language => {
@@ -25,13 +27,11 @@ export const initialSettings: Settings = {
   selectedFeaturesOnMap: {
     features: [],
     models: [],
-    maisemanMuistiFeatures: [],
-    maalinnoitusFeatures: []
+    maisemanMuistiFeatures: []
   },
   search: {
-    searchResults: undefined
+    features: []
   },
-  dataLatestUpdateDates: undefined,
   initialMapZoom: 8,
   language: getInitialLang(),
   maanmittauslaitos: {
@@ -50,11 +50,7 @@ export const initialSettings: Settings = {
     selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
     selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
     url: {
-      export:
-        "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer",
-      identify:
-        "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/identify",
-      find: "https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer/find",
+      wms: "https://geoserver.museovirasto.fi:8443/geoserver/ows",
       /**
        * Custom reverse proxy is required to add Cross origin policy headers to the request so
        * that browser can fetch the XML file from https://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml

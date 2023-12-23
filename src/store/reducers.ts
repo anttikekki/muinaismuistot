@@ -5,7 +5,6 @@ import {
   CHANGE_LAYER_OPACITY,
   CHANGE_LANGUAGE,
   CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
-  FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE,
   SEARCH_FEATURES,
   SEARCH_FEATURES_COMPLETE,
   SELECT_VISIBLE_AHVENANMAA_LAYERS,
@@ -23,8 +22,6 @@ import {
 import {
   MaanmittauslaitosLayer,
   MuseovirastoLayer,
-  MuinaisjaannosTyyppi,
-  MuinaisjaannosAjoitus,
   AhvenanmaaLayer,
   ModelLayer,
   MaisemanMuistiLayer,
@@ -32,7 +29,11 @@ import {
   GtkLayer,
   LayerGroup,
   HelsinkiLayer
-} from "../common/types"
+} from "../common/layers.types"
+import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
+} from "../common/museovirasto.types"
 
 export const updateLanguage = (
   settings: Settings,
@@ -222,8 +223,7 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     const selectedFeaturesOnMap = action.payload
     if (
       selectedFeaturesOnMap.features.length === 0 &&
-      selectedFeaturesOnMap.maisemanMuistiFeatures.length === 0 &&
-      selectedFeaturesOnMap.maalinnoitusFeatures.length === 0
+      selectedFeaturesOnMap.maisemanMuistiFeatures.length === 0
     ) {
       return state
     }
@@ -231,11 +231,6 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
       ...state,
       visiblePage: PageId.Details,
       selectedFeaturesOnMap
-    }
-  } else if (action.type === FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE) {
-    return {
-      ...state,
-      dataLatestUpdateDates: action.payload
     }
   } else if (action.type === SEARCH_FEATURES) {
     return {

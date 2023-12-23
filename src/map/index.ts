@@ -11,15 +11,7 @@ import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer"
 import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
 import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositionAndSelectedLocationMarkerLayer"
-import {
-  ArgisFeature,
-  DataLatestUpdateDates,
-  ModelFeatureProperties,
-  LayerGroup,
-  GeoJSONFeature,
-  MaisemanMuistiFeatureProperties,
-  MuseovirastoLayer
-} from "../common/types"
+import { LayerGroup } from "../common/layers.types"
 import MapBrowserEvent from "ol/MapBrowserEvent"
 import { Coordinate } from "ol/coordinate"
 import { Extent } from "ol/extent"
@@ -40,6 +32,11 @@ import {
 import HelsinkiTileLayer from "./layer/HelsinkiTileLayer"
 import VectorSource from "ol/source/Vector"
 import Geometry from "ol/geom/Geometry"
+import { GeoJSONFeature } from "../common/geojson.types"
+import { ModelFeatureProperties } from "../common/3dModels.types"
+import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
+import { MapFeature, isWmsFeature } from "../common/mapFeature.types"
+import { isMuinaisjaannosPisteWmsFeature } from "../common/museovirasto.types"
 
 let store: Store<Settings, ActionTypes>
 let map: Map
@@ -213,8 +210,8 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent<UIEvent>) => {
 
   const museovirastoQuery = museovirastoTileLayer.identifyFeaturesAt(
     e.coordinate,
-    mapSize,
-    map.getView().calculateExtent(mapSize)
+    view.getResolution(),
+    view.getProjection()
   )
 
   const maalinnoitusQuery = helsinkiLayer.identifyFeaturesAt(
@@ -237,28 +234,30 @@ const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent<UIEvent>) => {
   Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery]).then(
     ([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {
       showLoadingAnimationInUI(false)
-      const allFeatures = ahvenanmaaResult.results
-        .concat(museovirastoResult.results)
-        .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
-        .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
+
+      const features: Array<MapFeature> = [
+        ...ahvenanmaaResult.results,
+        ...museovirastoResult.features,
+        ...maalinnoitusFeatures
+      ]
+        .map((f) => modelsLayer.addModelsToFeature(f))
+        .map((f) => maisemanMuistiLayer.addMaisemanMuistiFeaturesToFeature(f))
 
       const maisemanMuistiFeatures = maisemanMuistiResult.filter((feature) => {
-        // Do not show Maiseman muisti feature if there is Argis feature for it in search results
-        const id = feature.properties.id.toString()
-        return !allFeatures.some(
-          (argisFeature) =>
-            argisFeature.layerName ===
-              MuseovirastoLayer.Muinaisjaannokset_piste &&
-            argisFeature.attributes.mjtunnus === id
+        // Do not show Maiseman muisti feature if there is Muinaisjäännös piste feature for it in search results
+        return !features.some(
+          (mapFeature) =>
+            isWmsFeature(mapFeature) &&
+            isMuinaisjaannosPisteWmsFeature(mapFeature) &&
+            mapFeature.properties.mjtunnus === feature.properties.id
         )
       })
 
       store.dispatch(
         clickedMapFeatureIdentificationComplete({
-          features: allFeatures,
+          features,
           models: modelsResult,
-          maisemanMuistiFeatures,
-          maalinnoitusFeatures
+          maisemanMuistiFeatures
         })
       )
     }
@@ -321,19 +320,19 @@ export const selectedFeatureLayersChanged = (
 }
 
 export const selectedMuinaisjaannosTypesChanged = (): void => {
-  museovirastoTileLayer.selectedMuinaisjaannosTypesChanged()
+  //museovirastoTileLayer.selectedMuinaisjaannosTypesChanged()
 }
 
 export const selectedMuinaisjaannosDatingsChanged = (): void => {
-  museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged()
+  //museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged()
 }
 
 export const searchFeaturesFromMapLayers = async (
   searchText: string
-): Promise<Array<ArgisFeature>> => {
+): Promise<Array<MapFeature>> => {
   showLoadingAnimationInUI(true)
   const ahvenanmaaQuery = ahvenanmaaTileLayer.findFeatures(searchText)
-  const museovirastoQuery = museovirastoTileLayer.findFeatures(searchText)
+  const museovirastoQuery = Promise.resolve({ results: [] }) //museovirastoTileLayer.findFeatures(searchText)
 
   const [ahvenanmaaResult, museovirastoResult] = await Promise.all([
     ahvenanmaaQuery,
@@ -343,8 +342,8 @@ export const searchFeaturesFromMapLayers = async (
 
   return ahvenanmaaResult.results
     .concat(museovirastoResult.results)
-    .map((f) => modelsLayer.addFeaturesForArgisFeature(f))
-    .map((f) => maisemanMuistiLayer.addFeaturesForArgisFeature(f))
+    .map((f) => modelsLayer.addModelsToFeature(f))
+    .map((f) => maisemanMuistiLayer.addMaisemanMuistiFeaturesToFeature(f))
 }
 
 export const selectedMaanmittauslaitosLayerChanged = () => {
@@ -392,20 +391,3 @@ export const zoomIn = () => {
 export const zoomOut = () => {
   zoom(-1)
 }
-
-export const fetchDataLatestUpdateDatesFromMapLayers =
-  async (): Promise<DataLatestUpdateDates> => {
-    const museovirastoResult = museovirastoTileLayer.getDataLatestUpdateDate()
-    const ahvenanmaaForminnenResult =
-      ahvenanmaaTileLayer.getForminnenDataLatestUpdateDate()
-    const ahvenanmaaMaritimtKulturarvResult =
-      ahvenanmaaTileLayer.getMaritimtKulturarvDataLatestUpdateDate()
-    const modelsResult = modelsLayer.getDataLatestUpdateDate()
-
-    return {
-      museovirasto: await museovirastoResult,
-      ahvenanmaaForminnen: await ahvenanmaaForminnenResult,
-      ahvenanmaaMaritimtKulturarv: await ahvenanmaaMaritimtKulturarvResult,
-      models: await modelsResult
-    }
-  }

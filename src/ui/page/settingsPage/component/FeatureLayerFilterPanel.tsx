@@ -5,7 +5,7 @@ import regexifyString from "regexify-string"
 import {
   MuinaisjaannosTyyppi,
   MuinaisjaannosAjoitus
-} from "../../../../common/types"
+} from "../../../../common/museovirasto.types"
 import {
   selectMuinaisjaannosDating,
   selectMuinaisjaannosType
@@ -17,11 +17,13 @@ import { toggleSelection } from "../../../util"
 interface TypeToggleAllCheckboxProps {
   selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
   onSelectTypes: (types: Array<MuinaisjaannosTyyppi>) => void
+  disabled?: boolean
 }
 
 const TypeToggleAllCheckbox: React.FC<TypeToggleAllCheckboxProps> = ({
   selectedMuinaisjaannosTypes,
-  onSelectTypes
+  onSelectTypes,
+  disabled
 }) => {
   const { t } = useTranslation()
   const allTypes = useMemo(() => Object.values(MuinaisjaannosTyyppi), [])
@@ -36,6 +38,7 @@ const TypeToggleAllCheckbox: React.FC<TypeToggleAllCheckboxProps> = ({
           type="checkbox"
           onChange={() => onSelectTypes(isAllSelected ? [] : allTypes)}
           checked={isAllSelected}
+          disabled={disabled}
         />{" "}
         {t(`settings.filters.type`)}
       </label>
@@ -47,12 +50,14 @@ interface TypeCheckboxProps {
   type: MuinaisjaannosTyyppi
   selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
   onSelectType: (type: MuinaisjaannosTyyppi) => void
+  disabled?: boolean
 }
 
 const TypeCheckbox: React.FC<TypeCheckboxProps> = ({
   type,
   selectedMuinaisjaannosTypes,
-  onSelectType
+  onSelectType,
+  disabled
 }) => {
   const { t } = useTranslation()
   const isSelected = selectedMuinaisjaannosTypes.includes(type)
@@ -64,6 +69,7 @@ const TypeCheckbox: React.FC<TypeCheckboxProps> = ({
           type="checkbox"
           onChange={() => onSelectType(type)}
           checked={isSelected}
+          disabled={disabled}
         />
         {t(`data.museovirasto.type.${type}`)}
       </label>
@@ -74,11 +80,13 @@ const TypeCheckbox: React.FC<TypeCheckboxProps> = ({
 interface DatingToggleAllCheckboxProps {
   selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>
   onSelectDatings: (dating: Array<MuinaisjaannosAjoitus>) => void
+  disabled?: boolean
 }
 
 const DatingToggleAllCheckbox: React.FC<DatingToggleAllCheckboxProps> = ({
   selectedMuinaisjaannosDatings,
-  onSelectDatings
+  onSelectDatings,
+  disabled
 }) => {
   const { t } = useTranslation()
   const allDatings = useMemo(() => Object.values(MuinaisjaannosAjoitus), [])
@@ -93,6 +101,7 @@ const DatingToggleAllCheckbox: React.FC<DatingToggleAllCheckboxProps> = ({
           type="checkbox"
           onChange={() => onSelectDatings(isAllSelected ? [] : allDatings)}
           checked={isAllSelected}
+          disabled={disabled}
         />{" "}
         {t(`settings.filters.dating`)}
       </label>
@@ -104,12 +113,14 @@ interface DatingCheckboxProps {
   dating: MuinaisjaannosAjoitus
   selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>
   onSelectDating: (dating: MuinaisjaannosAjoitus) => void
+  disabled?: boolean
 }
 
 const DatingCheckbox: React.FC<DatingCheckboxProps> = ({
   dating,
   selectedMuinaisjaannosDatings,
-  onSelectDating
+  onSelectDating,
+  disabled
 }) => {
   const { t } = useTranslation()
   const isSelected = selectedMuinaisjaannosDatings.includes(dating)
@@ -121,22 +132,12 @@ const DatingCheckbox: React.FC<DatingCheckboxProps> = ({
           type="checkbox"
           onChange={() => onSelectDating(dating)}
           checked={isSelected}
+          disabled={disabled}
         />{" "}
         {t(`data.museovirasto.dating.${dating}`)}
       </label>
     </div>
   )
-}
-
-interface Props {
-  selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
-  selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>
-  onSelectMuinaisjaannosType: (
-    layer: MuinaisjaannosTyyppi | Array<MuinaisjaannosTyyppi>
-  ) => void
-  onSelectMuinaisjaannosDating: (
-    layer: MuinaisjaannosAjoitus | Array<MuinaisjaannosAjoitus>
-  ) => void
 }
 
 export const FeatureLayerFilterPanel: React.FC = () => {
@@ -214,6 +215,7 @@ export const FeatureLayerFilterPanel: React.FC = () => {
           type={type}
           selectedMuinaisjaannosTypes={selectedMuinaisjaannosTypes}
           onSelectType={onSelectMuinaisjaannosType}
+          disabled={true}
         />
       )),
     [selectedMuinaisjaannosTypes, i18n.language]
@@ -227,6 +229,7 @@ export const FeatureLayerFilterPanel: React.FC = () => {
           dating={dating}
           selectedMuinaisjaannosDatings={selectedMuinaisjaannosDatings}
           onSelectDating={onSelectMuinaisjaannosDating}
+          disabled={true}
         />
       )),
     [selectedMuinaisjaannosDatings, i18n.language]
@@ -235,11 +238,15 @@ export const FeatureLayerFilterPanel: React.FC = () => {
   return (
     <Panel title={t(`settings.filters.title`)}>
       <form>
-        <div className="well well-sm">{infoText}</div>
+        <div className="well well-sm">
+          12/2023: nämä rajoitteet ovat väliaikaisesti poissa käytöstä
+          Museoviraston karttapalvelimen rajapinnan muuttumisen seurauksena.
+        </div>
 
         <TypeToggleAllCheckbox
           selectedMuinaisjaannosTypes={selectedMuinaisjaannosTypes}
           onSelectTypes={onToggleAllMuinaisjaannosTypes}
+          disabled={true}
         />
         {typeCheckboxes}
 
@@ -248,6 +255,7 @@ export const FeatureLayerFilterPanel: React.FC = () => {
         <DatingToggleAllCheckbox
           selectedMuinaisjaannosDatings={selectedMuinaisjaannosDatings}
           onSelectDatings={onToggleAllMuinaisjaannosDatings}
+          disabled={true}
         />
         {datingCheckboxes}
       </form>

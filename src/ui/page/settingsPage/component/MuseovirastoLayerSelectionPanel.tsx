@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react"
-import { LayerGroup, MuseovirastoLayer } from "../../../../common/types"
+import { LayerGroup, MuseovirastoLayer } from "../../../../common/layers.types"
 import { Panel } from "../../../component/Panel"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"

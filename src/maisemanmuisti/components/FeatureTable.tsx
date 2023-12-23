@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react"
-import {
-  GeoJSONFeature,
-  MaisemanMuistiFeatureProperties
-} from "../../common/types"
 import { getGeoJSONFeatureLocation } from "../../common/util/featureParser"
 import { createLocationHash } from "../../common/util/URLHashHelper"
+import { GeoJSONFeature } from "../../common/geojson.types"
+import { MaisemanMuistiFeatureProperties } from "../../common/maisemanMuisti.types"
 
 interface Props {
   features: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>

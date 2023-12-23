@@ -1,7 +1,7 @@
 import React, { ReactNode, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { Language } from "../../common/types"
+import { Language } from "../../common/layers.types"
 import { changeLanguage, showPage } from "../../store/actionCreators"
 import { PageId, Settings } from "../../store/storeTypes"
 

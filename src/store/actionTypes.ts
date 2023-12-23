@@ -1,7 +1,10 @@
+import { MapFeature } from "../common/mapFeature.types"
+import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
+} from "../common/museovirasto.types"
 import {
   AhvenanmaaLayer,
-  ArgisFeature,
-  DataLatestUpdateDates,
   GtkLayer,
   HelsinkiLayer,
   Language,
@@ -9,18 +12,13 @@ import {
   MaanmittauslaitosLayer,
   MaisemanMuistiLayer,
   ModelLayer,
-  MuinaisjaannosAjoitus,
-  MuinaisjaannosTyyppi,
   MuseovirastoLayer
-} from "../common/types"
+} from "../common/layers.types"
 import { PageId, SelectedFeaturesOnMap } from "./storeTypes"
 
 export const ZOOM_IN = "ZOOM_IN"
 export const ZOOM_OUT = "ZOOM_OUT"
 export const CENTER_MAP_TO_CURRENT_POSITION = "CENTER_MAP_TO_CURRENT_POSITION"
-export const FETCH_DATA_LATESTS_UPDATE_DATES = "FETCH_DATA_LATESTS_UPDATE_DATES"
-export const FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE =
-  "FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE"
 export const SEARCH_FEATURES = "SEARCH_FEATURES"
 export const SEARCH_FEATURES_COMPLETE = "SEARCH_FEATURES_COMPLETE"
 export const CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE =
@@ -57,15 +55,6 @@ export interface CenterMapToCurrentPositionAction {
   type: typeof CENTER_MAP_TO_CURRENT_POSITION
 }
 
-export interface FetchDataLatestUpdateDatesAction {
-  type: typeof FETCH_DATA_LATESTS_UPDATE_DATES
-}
-
-export interface FetchDataLatestUpdateDatesCompleteAction {
-  type: typeof FETCH_DATA_LATESTS_UPDATE_DATES_COMPLETE
-  payload: DataLatestUpdateDates
-}
-
 export interface SearchFeaturesAction {
   type: typeof SEARCH_FEATURES
   searchText: string
@@ -73,7 +62,7 @@ export interface SearchFeaturesAction {
 
 export interface SearchFeaturesCompleteAction {
   type: typeof SEARCH_FEATURES_COMPLETE
-  searchResultFeatures: Array<ArgisFeature>
+  searchResultFeatures: Array<MapFeature>
 }
 
 export interface ClickedMapFeatureIdentificationCompleteAction {
@@ -151,8 +140,6 @@ export type ActionTypes =
   | ZoomInAction
   | ZoomOutAction
   | CenterMapToCurrentPositionAction
-  | FetchDataLatestUpdateDatesAction
-  | FetchDataLatestUpdateDatesCompleteAction
   | SearchFeaturesAction
   | SearchFeaturesCompleteAction
   | ClickedMapFeatureIdentificationCompleteAction

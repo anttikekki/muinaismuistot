@@ -1,8 +1,8 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { MuinaisjaannosAlueArgisFeature } from "../../../../common/types"
+import { MuinaisjaannosAlueWmsFeature } from "../../../../common/museovirasto.types"
 import {
-  ArgisFeatureCollapsePanel,
+  MapFeatureCollapsePanel,
   FeatureTitleClickAction
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
@@ -12,7 +12,7 @@ interface Props {
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
-  feature: MuinaisjaannosAlueArgisFeature
+  feature: MuinaisjaannosAlueWmsFeature
 }
 
 export const MuinaisjaannosAluePanel: React.FC<Props> = ({
@@ -22,9 +22,9 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
   feature
 }) => {
   const { t } = useTranslation()
-  const { kohdenimi, kunta, laji } = feature.attributes
+  const { kohdenimi, kunta, Laji } = feature.properties
   return (
-    <ArgisFeatureCollapsePanel
+    <MapFeatureCollapsePanel
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
@@ -35,10 +35,10 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
         <Field label={t(`details.field.municipality`)} value={kunta} />
         <Field
           label={t(`details.field.featureType`)}
-          value={t(`data.museovirasto.featureType.${laji}`, laji)}
+          value={t(`data.museovirasto.featureType.${Laji}`, Laji)}
         />
         <MuseovirastoLink feature={feature} />
       </form>
-    </ArgisFeatureCollapsePanel>
+    </MapFeatureCollapsePanel>
   )
 }

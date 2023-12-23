@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { HelsinkiLayer, LayerGroup } from "../../../../common/types"
+import { HelsinkiLayer, LayerGroup } from "../../../../common/layers.types"
 import { selectHelsinkiLayer } from "../../../../store/actionCreators"
 import { Settings } from "../../../../store/storeTypes"
 import { Panel } from "../../../component/Panel"

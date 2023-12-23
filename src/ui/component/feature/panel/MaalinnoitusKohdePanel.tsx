@@ -1,8 +1,8 @@
 import React from "react"
-import { MaalinnoitusKohdeFeature } from "../../../../common/types"
+import { MaalinnoitusKohdeFeature } from "../../../../common/maalinnoitusHelsinki.types"
 import {
   FeatureTitleClickAction,
-  MaalinnoitusFeatureCollapsePanel
+  MapFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
 import { useTranslation } from "react-i18next"
@@ -23,15 +23,11 @@ export const MaalinnoitusKohdePanel: React.FC<Props> = ({
   feature
 }) => {
   const { t } = useTranslation()
-  const {
-    tukikohtanumero,
-    kohdetyyppi,
-    olotila,
-    mittaustieto
-  } = feature.properties
+  const { tukikohtanumero, kohdetyyppi, olotila, mittaustieto } =
+    feature.properties
 
   return (
-    <MaalinnoitusFeatureCollapsePanel
+    <MapFeatureCollapsePanel
       titleClickAction={titleClickAction}
       isOpen={isOpen}
       onToggleOpen={onToggleOpen}
@@ -59,6 +55,6 @@ export const MaalinnoitusKohdePanel: React.FC<Props> = ({
           value={mittaustieto}
         />
       </form>
-    </MaalinnoitusFeatureCollapsePanel>
+    </MapFeatureCollapsePanel>
   )
 }
