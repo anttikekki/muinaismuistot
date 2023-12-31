@@ -111,7 +111,7 @@ export const DatabaseStructure: React.FC = () => {
               <br />
               Museoviraston aineistot:
               <ul>
-                <li>rajapinta:muinaisjaannos_piste</li>
+                <li>rajapinta_suojellut:muinaisjaannos_piste</li>
                 <li>rajapinta_suojellut:muinaisjaannos_alue</li>
                 <li>rajapinta_suojellut:suojellut_rakennukset_piste</li>
                 <li>rajapinta_suojellut:suojellut_rakennukset_alue</li>
@@ -314,7 +314,7 @@ export const DatabaseStructure: React.FC = () => {
       "registryItem": {
         "name": "Tukikohta IV:10 (Kivikko)",
         "id": 1000011245,
-        "type": "rajapinta:muinaisjaannos_piste",
+        "type": "rajapinta_suojellut:muinaisjaannos_piste",
         "url": "https://www.kyppi.fi/to.aspx?id=112.1000011245",
         "municipality": "Helsinki"
       },

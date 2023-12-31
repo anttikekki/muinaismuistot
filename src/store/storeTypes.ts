@@ -52,7 +52,7 @@ export interface Settings {
     selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>
     url: {
       wms: string
-      updateDate: string
+      wfs: string
     }
     opacity: number
   }
@@ -63,8 +63,6 @@ export interface Settings {
       identify: string
       find: string
       typeAndDating: string
-      forminnenUpdateDate: string
-      maritimtKulturarvUpdateDate: string
     }
     opacity: number
   }

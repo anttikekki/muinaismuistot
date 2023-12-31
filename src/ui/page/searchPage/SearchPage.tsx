@@ -82,11 +82,6 @@ export const SearchPage: React.FC = () => {
       >
         {showSearchTextError && <ValidationError />}
 
-        <div className="well well-sm">
-          12/2023: Museoviraston datan kohteiden haku on väliaikaisesti poissa
-          käytöstä Museoviraston karttapalvelimen rajapinnan muuttumisen
-          seurauksena.
-        </div>
         <span id="helpBlock" className="help-block">
           {t(`search.info`)}
         </span>

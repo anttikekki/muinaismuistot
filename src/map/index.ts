@@ -332,7 +332,7 @@ export const searchFeaturesFromMapLayers = async (
 ): Promise<Array<MapFeature>> => {
   showLoadingAnimationInUI(true)
   const ahvenanmaaQuery = ahvenanmaaTileLayer.findFeatures(searchText)
-  const museovirastoQuery = Promise.resolve({ results: [] }) //museovirastoTileLayer.findFeatures(searchText)
+  const museovirastoQuery = museovirastoTileLayer.findFeatures(searchText)
 
   const [ahvenanmaaResult, museovirastoResult] = await Promise.all([
     ahvenanmaaQuery,
@@ -340,10 +340,14 @@ export const searchFeaturesFromMapLayers = async (
   ])
   showLoadingAnimationInUI(false)
 
-  return ahvenanmaaResult.results
-    .concat(museovirastoResult.results)
+  const features: Array<MapFeature> = [
+    ...ahvenanmaaResult.results,
+    ...museovirastoResult.features
+  ]
     .map((f) => modelsLayer.addModelsToFeature(f))
     .map((f) => maisemanMuistiLayer.addMaisemanMuistiFeaturesToFeature(f))
+
+  return features
 }
 
 export const selectedMaanmittauslaitosLayerChanged = () => {

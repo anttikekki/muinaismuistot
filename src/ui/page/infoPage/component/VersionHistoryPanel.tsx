@@ -7,12 +7,18 @@ export const VersionHistoryPanel: React.FC = () => {
       <h5>Joulukuu 2023</h5>
       <p>
         Vaihdettu Museoviraston karttapalvelin suljetusta ArcGIS{" "}
-        <a href="https://kartta.nba.fi">kartta.nba.fi</a> palvelimesta uuteen{" "}
-        <a href="https://geoserver.museovirasto.fi:8443/geoserver/ows">
+        <a href="https://kartta.nba.fi" target="_blank">
+          kartta.nba.fi
+        </a>{" "}
+        palvelimesta uuteen{" "}
+        <a
+          href="https://geoserver.museovirasto.fi:8443/geoserver"
+          target="_blank"
+        >
           geoserver.museovirasto.fi
         </a>{" "}
-        palvelieen. Osa sivuston toiminnoista on yhä rikki Museoviraston datan
-        osalta (haku, kohteiden filtteröinti kartalla).
+        palvelieen. Kiinteiden muinaisjäännösten filtteröinti kartalla on yhä
+        rikki.
       </p>
       <br />
 
@@ -28,16 +34,6 @@ export const VersionHistoryPanel: React.FC = () => {
         </a>{" "}
         -tuki. Nyt sivustoon voi lisätä pikakuvakkeen älylaitteen työpöydälle,
         josta aukeutuvassa versiossa ei näy selaimen osoitepalkkia.
-      </p>
-      <p>
-        Yritetty korjata{" "}
-        <a
-          href="https://github.com/openlayers/openlayers/issues/12908"
-          target="_blank"
-        >
-          sivuston kaatumista
-        </a>{" "}
-        iOS 15 Safari -selaimella.
       </p>
       <br />
 

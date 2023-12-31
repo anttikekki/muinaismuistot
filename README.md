@@ -14,9 +14,8 @@ A web page to show ancient monuments of Finland in mobile friendly map. Enter th
 - Search sites by search term
 - Filter sites on map by type and dating
 - Share selected site map coordinates and filter settings by copying the URL
-- UI test translations to finnish and swedish
+- UI text translations to finnish and swedish
 - Displays linked ancient monuments 3D models from [Sketchfab](https://sketchfab.com)
-- Shows data latest update dates from source servers
 
 ## Data
 

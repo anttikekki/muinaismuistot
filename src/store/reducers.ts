@@ -236,16 +236,14 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     return {
       ...state,
       search: {
-        ...state.search,
-        searchResults: undefined
+        features: []
       }
     }
   } else if (action.type === SEARCH_FEATURES_COMPLETE) {
     return {
       ...state,
       search: {
-        ...state.search,
-        searchResults: action.searchResultFeatures
+        features: action.searchResultFeatures
       }
     }
   } else if (action.type === SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER) {

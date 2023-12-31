@@ -14,6 +14,7 @@ import {
   MuseovirastoWmsFeatureInfoResult,
   isMuinaisjaannosPisteWmsFeature
 } from "../../common/museovirasto.types"
+import { MuseovirastoLayer } from "../../common/layers.types"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer<TileWMS>) => void
@@ -117,12 +118,12 @@ export default class MuseovirastoTileLayer {
     }
     return Promise.reject()
   }
-  /*
+
   public findFeatures = async (
     searchText: string
-  ): Promise<ArgisFindResult> => {
-    
+  ): Promise<MuseovirastoWmsFeatureInfoResult> => {
     const settings = this.store.getState()
+    /*
     let selectedLayers = settings.museovirasto.selectedLayers
 
     //Muinaismustot areas always have same name as main point so do not search those
@@ -142,28 +143,36 @@ export default class MuseovirastoTileLayer {
       searchFields = "mjtunnus, kohdeID, ID"
       contains = "false"
     }
+    */
+
+    // https://geoserver.museovirasto.fi:8443/geoserver/ows?service=WFS&acceptversions=2.0.0&request=GetFeature&typeNames=rajapinta_suojellut:muinaisjaannos_piste&count=20&outputFormat=application/json&filter=<Filter><PropertyIsLike wildCard="*" singleChar="." escape="!"><PropertyName>kohdenimi</PropertyName><Literal>*Kissa*</Literal></PropertyIsLike></Filter>
 
     const urlParams = new URLSearchParams({
-      searchText,
-      contains,
-      searchFields,
-      layers: this.toLayerIds(selectedLayers).join(","),
-      f: "json",
-      returnGeometry: "true",
-      returnZ: "false"
+      service: "WFS",
+      acceptversions: "2.0.0",
+      request: "GetFeature",
+      typeNames: MuseovirastoLayer.Muinaisjaannokset_piste,
+      count: "50",
+      outputFormat: "application/json",
+      filter: `
+      <Filter>
+        <Or>
+          <PropertyIsLike wildCard="*" singleChar="." escape="!">
+            <PropertyName>kohdenimi</PropertyName>
+            <Literal>*${searchText}*</Literal>
+          </PropertyIsLike>
+        </Or>
+      </Filter>`
     })
 
-    const url = new URL(settings.museovirasto.url.find)
+    const url = new URL(settings.museovirasto.url.wfs)
     url.search = String(urlParams)
 
     const response = await fetch(String(url))
-    const result = (await response.json()) as ArgisFindResult
+    const result = (await response.json()) as MuseovirastoWmsFeatureInfoResult
 
     return this.trimAnsSplitMultivalueFields(result)
-  
-    return Promise.reject()
   }
-    */
 
   private trimAnsSplitMultivalueFields = async (
     data: MuseovirastoWmsFeatureInfoResult

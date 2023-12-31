@@ -51,11 +51,7 @@ export const initialSettings: Settings = {
     selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
     url: {
       wms: "https://geoserver.museovirasto.fi:8443/geoserver/ows",
-      /**
-       * Custom reverse proxy is required to add Cross origin policy headers to the request so
-       * that browser can fetch the XML file from https://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml
-       */
-      updateDate: "https://dkfgv6jxivsxz.cloudfront.net/MV_inspire_atom.xml"
+      wfs: "https://geoserver.museovirasto.fi:8443/geoserver/ows"
     },
     opacity: 0.7
   },
@@ -68,11 +64,7 @@ export const initialSettings: Settings = {
         "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/identify",
       find: "https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer/find",
       typeAndDating:
-        "https://opendata.arcgis.com/datasets/4fa828b46a0740b18960cf3e91d35431_2.geojson",
-      forminnenUpdateDate:
-        "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Afornminnen-1",
-      maritimtKulturarvUpdateDate:
-        "https://opendata.arcgis.com/api/v3/datasets?filter%5Bslug%5D=aland%3A%3Amaritimt-kulturarv-vrak-1"
+        "https://opendata.arcgis.com/datasets/4fa828b46a0740b18960cf3e91d35431_2.geojson"
     },
     opacity: 0.7
   },
