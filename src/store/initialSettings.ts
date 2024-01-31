@@ -50,8 +50,8 @@ export const initialSettings: Settings = {
     selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
     selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
     url: {
-      wms: "https://geoserver.museovirasto.fi:8443/geoserver/ows",
-      wfs: "https://geoserver.museovirasto.fi:8443/geoserver/ows"
+      wms: "https://geoserver.museovirasto.fi/geoserver/rajapinta_suojellut/wms",
+      wfs: "https://geoserver.museovirasto.fi/geoserver/rajapinta_suojellut/wfs"
     },
     opacity: 0.7
   },

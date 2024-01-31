@@ -28,7 +28,9 @@ export enum MuseovirastoLayer {
   RKY_piste = "rajapinta_suojellut:rky_piste",
   RKY_viiva = "rajapinta_suojellut:rky_viiva",
   Maailmanperinto_piste = "rajapinta_suojellut:maailmanperinto_piste",
-  Maailmanperinto_alue = "rajapinta_suojellut:maailmanperinto_alue"
+  Maailmanperinto_alue = "rajapinta_suojellut:maailmanperinto_alue",
+  Muu_kulttuuriperintokohde_alue = "rajapinta_suojellut:muu_kulttuuriperintokohde_alue",
+  Muu_kulttuuriperintokohde_piste = "rajapinta_suojellut:muu_kulttuuriperintokohde_piste"
 }
 
 export enum AhvenanmaaLayer {

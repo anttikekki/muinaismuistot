@@ -1,5 +1,8 @@
 import React from "react"
-import { MuinaisjaannosPisteWmsFeature } from "../../../../common/museovirasto.types"
+import {
+  MuinaisjaannosPisteWmsFeature,
+  MuuKulttuuriperintokohdePisteWmsFeature
+} from "../../../../common/museovirasto.types"
 import {
   MapFeatureCollapsePanel,
   FeatureTitleClickAction
@@ -20,7 +23,9 @@ interface Props {
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
-  feature: MuinaisjaannosPisteWmsFeature
+  feature:
+    | MuinaisjaannosPisteWmsFeature
+    | MuuKulttuuriperintokohdePisteWmsFeature
 }
 
 function renderList<T extends string>(
@@ -98,10 +103,6 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
             )
           })}
         </Field>
-        <Field
-          label={t(`details.field.featureType`)}
-          value={t(`data.museovirasto.featureType.${Laji}`, Laji)}
-        />
 
         {feature.maisemanMuisti.length > 0 && (
           <MaisemanMuistiField feature={feature.maisemanMuisti[0]} />

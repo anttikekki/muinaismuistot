@@ -12,7 +12,8 @@ import {
   MuinaisjaannosTyyppi,
   MuseovirastoWmsFeature,
   MuseovirastoWmsFeatureInfoResult,
-  isMuinaisjaannosPisteWmsFeature
+  isMuinaisjaannosPisteWmsFeature,
+  isMuuKulttuuriperintokohdePisteWmsFeature
 } from "../../common/museovirasto.types"
 import { MuseovirastoLayer } from "../../common/layers.types"
 
@@ -145,7 +146,7 @@ export default class MuseovirastoTileLayer {
     }
     */
 
-    // https://geoserver.museovirasto.fi:8443/geoserver/ows?service=WFS&acceptversions=2.0.0&request=GetFeature&typeNames=rajapinta_suojellut:muinaisjaannos_piste&count=20&outputFormat=application/json&filter=<Filter><PropertyIsLike wildCard="*" singleChar="." escape="!"><PropertyName>kohdenimi</PropertyName><Literal>*Kissa*</Literal></PropertyIsLike></Filter>
+    // https://geoserver.museovirasto.fi/geoserver/ows?service=WFS&acceptversions=2.0.0&request=GetFeature&typeNames=rajapinta_suojellut:muinaisjaannos_piste&count=20&outputFormat=application/json&filter=<Filter><PropertyIsLike wildCard="*" singleChar="." escape="!"><PropertyName>kohdenimi</PropertyName><Literal>*Kissa*</Literal></PropertyIsLike></Filter>
 
     const urlParams = new URLSearchParams({
       service: "WFS",
@@ -180,26 +181,27 @@ export default class MuseovirastoTileLayer {
     const result: MuseovirastoWmsFeatureInfoResult = {
       ...data,
       features: data.features?.map((feature): MuseovirastoWmsFeature => {
-        if (isMuinaisjaannosPisteWmsFeature(feature)) {
-          return {
-            ...feature,
-            properties: {
-              ...feature.properties,
-              tyyppiSplitted: trim(feature.properties.tyyppi)
-                .replace("taide, muistomerkit", "taide-muistomerkit")
-                .split(", ")
-                .map((t) =>
-                  t === "taide-muistomerkit" ? "taide, muistomerkit" : t
-                ) as Array<MuinaisjaannosTyyppi>,
-              ajoitusSplitted: trim(feature.properties.ajoitus).split(
-                ", "
-              ) as Array<MuinaisjaannosAjoitus>,
-              alatyyppiSplitted: trim(feature.properties.alatyyppi)
-                .replace("rajamerkit, puu", "rajamerkit-puu")
-                .split(", ")
-                .map((t) => (t === "rajamerkit-puu" ? "rajamerkit, puu" : t))
-            }
-          }
+        if (
+          isMuinaisjaannosPisteWmsFeature(feature) ||
+          isMuuKulttuuriperintokohdePisteWmsFeature(feature)
+        ) {
+          feature.properties.tyyppiSplitted = trim(feature.properties.tyyppi)
+            .replace("taide, muistomerkit", "taide-muistomerkit")
+            .split(", ")
+            .map((t) =>
+              t === "taide-muistomerkit" ? "taide, muistomerkit" : t
+            ) as Array<MuinaisjaannosTyyppi>
+          feature.properties.ajoitusSplitted = trim(
+            feature.properties.ajoitus
+          ).split(", ") as Array<MuinaisjaannosAjoitus>
+          feature.properties.alatyyppiSplitted = trim(
+            feature.properties.alatyyppi
+          )
+            .replace("rajamerkit, puu", "rajamerkit-puu")
+            .split(", ")
+            .map((t) => (t === "rajamerkit-puu" ? "rajamerkit, puu" : t))
+
+          return feature
         }
         return feature
       })

@@ -1,6 +1,9 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { MuinaisjaannosAlueWmsFeature } from "../../../../common/museovirasto.types"
+import {
+  MuinaisjaannosAlueWmsFeature,
+  MuuKulttuuriperintokohdeAlueWmsFeature
+} from "../../../../common/museovirasto.types"
 import {
   MapFeatureCollapsePanel,
   FeatureTitleClickAction
@@ -12,7 +15,7 @@ interface Props {
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
   onToggleOpen: () => void
-  feature: MuinaisjaannosAlueWmsFeature
+  feature: MuinaisjaannosAlueWmsFeature | MuuKulttuuriperintokohdeAlueWmsFeature
 }
 
 export const MuinaisjaannosAluePanel: React.FC<Props> = ({
@@ -33,10 +36,6 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
       <form>
         <Field label={t(`details.field.name`)} value={kohdenimi} />
         <Field label={t(`details.field.municipality`)} value={kunta} />
-        <Field
-          label={t(`details.field.featureType`)}
-          value={t(`data.museovirasto.featureType.${Laji}`, Laji)}
-        />
         <MuseovirastoLink feature={feature} />
       </form>
     </MapFeatureCollapsePanel>

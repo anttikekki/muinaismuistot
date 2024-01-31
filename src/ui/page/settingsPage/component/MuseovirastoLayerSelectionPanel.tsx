@@ -101,14 +101,26 @@ export const MuseovirastoLayerSelectionPanel: React.FC = () => {
           />
         </h5>
         <LayerCheckbox
-          label={t(`common.features.Alue`)}
+          label={t(`data.featureType.Kiinteä muinaisjäännös (alue)`)}
           layer={MuseovirastoLayer.Muinaisjaannokset_alue}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
         />
         <LayerCheckbox
-          label={t(`common.features.Kohde`)}
+          label={t(`data.featureType.Muu kulttuuriperintökohde (alue)`)}
+          layer={MuseovirastoLayer.Muu_kulttuuriperintokohde_alue}
+          selectedLayers={selectedMuseovirastoLayers}
+          onSelectLayer={onSelectMuseovirastoLayer}
+        />
+        <LayerCheckbox
+          label={t(`data.featureType.Kiinteä muinaisjäännös`)}
           layer={MuseovirastoLayer.Muinaisjaannokset_piste}
+          selectedLayers={selectedMuseovirastoLayers}
+          onSelectLayer={onSelectMuseovirastoLayer}
+        />
+        <LayerCheckbox
+          label={t(`data.featureType.Muu kulttuuriperintökohde`)}
+          layer={MuseovirastoLayer.Muu_kulttuuriperintokohde_piste}
           selectedLayers={selectedMuseovirastoLayers}
           onSelectLayer={onSelectMuseovirastoLayer}
         />

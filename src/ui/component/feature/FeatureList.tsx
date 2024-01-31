@@ -37,6 +37,8 @@ import {
   isMaailmanperintoPisteWmsFeature,
   isMuinaisjaannosAlueWmsFeature,
   isMuinaisjaannosPisteWmsFeature,
+  isMuuKulttuuriperintokohdeAlueWmsFeature,
+  isMuuKulttuuriperintokohdePisteWmsFeature,
   isRKYAlueWmsFeature,
   isRKYPisteWmsFeature,
   isRKYViivaWmsFeature,
@@ -80,10 +82,16 @@ export const FeatureList: React.FC<FeatureListProps> = ({
         }
 
         if (isWmsFeature(feature)) {
-          if (isMuinaisjaannosPisteWmsFeature(feature)) {
+          if (
+            isMuinaisjaannosPisteWmsFeature(feature) ||
+            isMuuKulttuuriperintokohdePisteWmsFeature(feature)
+          ) {
             return <MuinaisjaannosPistePanel feature={feature} {...params} />
           }
-          if (isMuinaisjaannosAlueWmsFeature(feature)) {
+          if (
+            isMuinaisjaannosAlueWmsFeature(feature) ||
+            isMuuKulttuuriperintokohdeAlueWmsFeature(feature)
+          ) {
             return <MuinaisjaannosAluePanel feature={feature} {...params} />
           }
           if (

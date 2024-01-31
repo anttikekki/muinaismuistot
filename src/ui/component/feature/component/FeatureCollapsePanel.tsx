@@ -15,7 +15,6 @@ import { showPage } from "../../../../store/actionCreators"
 import { MapFeature } from "../../../../common/mapFeature.types"
 import { MaisemanMuistiFeatureProperties } from "../../../../common/maisemanMuisti.types"
 import { GeoJSONFeature } from "../../../../common/geojson.types"
-import { MaalinnoitusWmsFeature } from "../../../../common/maalinnoitusHelsinki.types"
 
 export enum FeatureTitleClickAction {
   OpenDetails = "openDetails",

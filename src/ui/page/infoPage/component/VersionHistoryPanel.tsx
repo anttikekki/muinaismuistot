@@ -4,6 +4,15 @@ import { Panel } from "../../../component/Panel"
 export const VersionHistoryPanel: React.FC = () => {
   return (
     <Panel title="Versiohistoria">
+      <h5>Tammikuu 2024</h5>
+      <p>
+        Lisätty Museoviraston Muu kulttuuperintökohde -karttataso pisteille ja
+        alueille. Nämä sisältyivät vanhalla karttapalvelimella Kiinteät
+        muinaisjäännökset -karttatasolle mutta uudess palvelimessa ne ovat
+        erillinen taso.
+      </p>
+      <br />
+
       <h5>Joulukuu 2023</h5>
       <p>
         Vaihdettu Museoviraston karttapalvelin suljetusta ArcGIS{" "}
@@ -11,13 +20,10 @@ export const VersionHistoryPanel: React.FC = () => {
           kartta.nba.fi
         </a>{" "}
         palvelimesta uuteen{" "}
-        <a
-          href="https://geoserver.museovirasto.fi:8443/geoserver"
-          target="_blank"
-        >
+        <a href="https://geoserver.museovirasto.fi/geoserver" target="_blank">
           geoserver.museovirasto.fi
         </a>{" "}
-        palvelieen. Kiinteiden muinaisjäännösten filtteröinti kartalla on yhä
+        palvelimeen. Kiinteiden muinaisjäännösten filtteröinti kartalla on yhä
         rikki.
       </p>
       <br />

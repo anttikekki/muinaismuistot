@@ -40,10 +40,6 @@ export enum MuinaisjaannosAjoitus {
   eiMääritelty = "ei määritelty"
 }
 
-export type MuinaisjaannosLaji =
-  | "kiinteä muinaisjäännös"
-  | "muu kulttuuriperintökohde"
-
 export interface MuinaisjaannosPisteWmsFeature
   extends FeatureSupplementaryData,
     WmsFeature {
@@ -54,7 +50,7 @@ export interface MuinaisjaannosPisteWmsFeature
     inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1279_P38962";
     kohdenimi: string // "Melkki länsiranta";
     kunta: string // "Helsinki"
-    Laji: MuinaisjaannosLaji // "kiinteä muinaisjäännös";
+    Laji: "kiinteä muinaisjäännös" // "kiinteä muinaisjäännös";
     tyyppi: string // "alusten hylyt, kivirakenteet";
     alatyyppi: string // "hylyt (puu), hautakummut";
     ajoitus: string // "ei määritelty, keskiaikainen";
@@ -90,7 +86,60 @@ export interface MuinaisjaannosAlueWmsFeature
     inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000007642_A9190";
     kohdenimi: string // "Tukikohta I:tie (Mustavuori)                                                                        ";
     kunta: string // "Helsinki                                                                                            ";
-    Laji: MuinaisjaannosLaji // "kiinteä muinaisjäännös                                                                              ";
+    Laji: "kiinteä muinaisjäännös" // "kiinteä muinaisjäännös                                                                              ";
+    lähdetiedon_ajoitus: string // "1979";
+    digipvm: string // "12.3.2007 15:02:19";
+    digimk: string // "PerusCD";
+    Muutospvm: string // "18.3.2008 09:30:12";
+    url: string // "https://www.museoverkko.fi/netsovellus/esri/broker.aspx?taulu=mjreki.dbo.T_KOHDE&tunnus=1000001634"
+  }
+}
+
+export interface MuuKulttuuriperintokohdePisteWmsFeature
+  extends FeatureSupplementaryData,
+    WmsFeature {
+  id: `muu_kulttuuriperintokohde_piste.${number}`
+  properties: {
+    OBJECTID: number // 130459;
+    mjtunnus: number // 1000030753;
+    inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000030753_P130459";
+    kohdenimi: string // ""Luola G 22 (Herttoniemen yritysalue)";
+    kunta: string // "Helsinki"
+    Laji: "muu kulttuuriperintökohde" // "muu kulttuuriperintökohde"
+    tyyppi: string // "puolustusvarustukset,  ,  ,  ";
+    alatyyppi: string // "luolat,  ,  ,  ";
+    ajoitus: string // "historiallinen, moderni,  ,  ";
+    vedenalainen: "k" | "e" // "E"
+    KOHDE_APVM: string // "2003-04-03T00:00:00Z",
+    KOHDE_MPVM: string // "2008-04-02T16:29:02.283Z",
+    luontipvm: string // "2003-04-03T00:00:00Z"
+    muutospvm: string // "2011-01-28T00:00:00Z"
+    paikannustapa: string | null // "Tarkastus";
+    paikannustarkkuus: string | null // "Tarkka (< 10 m)";
+    selite: string // "Koordinaatit luolan edestä Helsingin kantakartasta";
+    url: string // "www.kyppi.fi/to.aspx?id=112.1000030753";
+    x: number // 391239
+    y: number // 6674656
+    /**
+     * trimmed and splitted values for easier usage
+     */
+    tyyppiSplitted: Array<MuinaisjaannosTyyppi>
+    ajoitusSplitted: Array<MuinaisjaannosAjoitus>
+    alatyyppiSplitted: Array<string>
+  }
+}
+
+export interface MuuKulttuuriperintokohdeAlueWmsFeature
+  extends FeatureSupplementaryData,
+    WmsFeature {
+  id: `muu_kulttuuriperintokohde_alue.${number}`
+  properties: {
+    OBJECTID: number // 9190
+    mjtunnus: number // 1000007642
+    inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000007642_A9190";
+    kohdenimi: string // "Tukikohta I:tie (Mustavuori)                                                                        ";
+    kunta: string // "Helsinki                                                                                            ";
+    Laji: "muu kulttuuriperintökohde" // "muu kulttuuriperintökohde                                                                           ";
     lähdetiedon_ajoitus: string // "1979";
     digipvm: string // "12.3.2007 15:02:19";
     digimk: string // "PerusCD";
@@ -204,6 +253,8 @@ export interface MaailmanperintoAlueWmsFeature
 export type MuseovirastoWmsFeature =
   | MuinaisjaannosPisteWmsFeature
   | MuinaisjaannosAlueWmsFeature
+  | MuuKulttuuriperintokohdePisteWmsFeature
+  | MuuKulttuuriperintokohdeAlueWmsFeature
   | SuojellutRakennuksetPisteWmsFeature
   | SuojellutRakennuksetAlueWmsFeature
   | RKYAlueWmsFeature
@@ -224,6 +275,16 @@ export const isMuinaisjaannosAlueWmsFeature = (
   feature: WmsFeature
 ): feature is MuinaisjaannosAlueWmsFeature =>
   feature.id.startsWith("muinaisjaannos_alue.")
+
+export const isMuuKulttuuriperintokohdePisteWmsFeature = (
+  feature: WmsFeature
+): feature is MuuKulttuuriperintokohdePisteWmsFeature =>
+  feature.id.startsWith("muu_kulttuuriperintokohde_piste.")
+
+export const isMuuKulttuuriperintokohdeAlueWmsFeature = (
+  feature: WmsFeature
+): feature is MuuKulttuuriperintokohdeAlueWmsFeature =>
+  feature.id.startsWith("muu_kulttuuriperintokohde_alue.")
 
 export const isSuojellutRakennuksetPisteWmsFeature = (
   feature: WmsFeature
@@ -264,6 +325,8 @@ export const isMuseovirastoWmsFeature = (
     "id" in feature &&
     (isMuinaisjaannosPisteWmsFeature(feature) ||
       isMuinaisjaannosAlueWmsFeature(feature) ||
+      isMuuKulttuuriperintokohdePisteWmsFeature(feature) ||
+      isMuuKulttuuriperintokohdeAlueWmsFeature(feature) ||
       isSuojellutRakennuksetPisteWmsFeature(feature) ||
       isSuojellutRakennuksetAlueWmsFeature(feature) ||
       isRKYAlueWmsFeature(feature) ||
@@ -282,6 +345,12 @@ export const getMuseovirastoWmsFeatureLayerName = (
   }
   if (isMuinaisjaannosAlueWmsFeature(feature)) {
     return MuseovirastoLayer.Muinaisjaannokset_alue
+  }
+  if (isMuuKulttuuriperintokohdePisteWmsFeature(feature)) {
+    return MuseovirastoLayer.Muu_kulttuuriperintokohde_piste
+  }
+  if (isMuuKulttuuriperintokohdeAlueWmsFeature(feature)) {
+    return MuseovirastoLayer.Muu_kulttuuriperintokohde_alue
   }
   if (isSuojellutRakennuksetPisteWmsFeature(feature)) {
     return MuseovirastoLayer.Suojellut_rakennukset_piste
