@@ -5,7 +5,7 @@ import Circle from "ol/style/Circle"
 import RegularShape from "ol/style/RegularShape"
 import Style from "ol/style/Style"
 import GeoJSON from "ol/format/GeoJSON"
-import { FeatureLike } from "ol/Feature"
+import Feature, { FeatureLike } from "ol/Feature"
 import {
   getFeatureID,
   getGeoJSONDataLatestUpdateDate
@@ -22,8 +22,8 @@ import { MapFeature, getFeatureLayerName } from "../../common/mapFeature.types"
 
 export default class ModelsLayer {
   private store: Store<Settings, ActionTypes>
-  private layer?: VectorLayer<VectorSource<Geometry>>
-  private source?: VectorSource<Geometry>
+  private layer?: VectorLayer<VectorSource<Feature<Geometry>>>
+  private source?: VectorSource<Feature<Geometry>>
   private stylePointCircle: Style
   private stylePointSquare: Style
   private stylePolygon: Style
@@ -104,7 +104,7 @@ export default class ModelsLayer {
   }
 
   public createLayer = async (): Promise<
-    VectorLayer<VectorSource<Geometry>>
+    VectorLayer<VectorSource<Feature<Geometry>>>
   > => {
     const settings = this.store.getState()
     const geojsonObject = await this.fetchGeoJson(settings)
@@ -155,7 +155,7 @@ export default class ModelsLayer {
     this.layer?.setVisible(settings.models.selectedLayers.length > 0)
   }
 
-  public getLayer = (): VectorLayer<VectorSource<Geometry>> | undefined =>
+  public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> | undefined =>
     this.layer
 
   public getDataLatestUpdateDate = async (): Promise<Date> => {

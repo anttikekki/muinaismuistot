@@ -32,6 +32,7 @@ import {
 import HelsinkiTileLayer from "./layer/HelsinkiTileLayer"
 import VectorSource from "ol/source/Vector"
 import Geometry from "ol/geom/Geometry"
+import Feature from "ol/Feature"
 import { GeoJSONFeature } from "../common/geojson.types"
 import { ModelFeatureProperties } from "../common/3dModels.types"
 import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
@@ -172,7 +173,7 @@ const showLoadingAnimationInUI = (show: boolean) => {
 
 const getFeaturesAtPixelAtGeoJsonLayer = <T>(
   pixel: Pixel,
-  geoJsonLayer?: VectorLayer<VectorSource<Geometry>>
+  geoJsonLayer?: VectorLayer<VectorSource<Feature<Geometry>>>
 ): Array<GeoJSONFeature<T>> => {
   return map
     .getFeaturesAtPixel(pixel, {
