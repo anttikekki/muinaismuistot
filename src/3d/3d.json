@@ -67,7 +67,7 @@
         "registryItem": {
           "name": "Halikon kirkko",
           "id": 200443,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200443",
           "municipality": "Salo"
         },
@@ -92,7 +92,7 @@
         "registryItem": {
           "name": "Västanfjärdin kirkko",
           "id": 200905,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200905",
           "municipality": "Kemiönsaari"
         },
@@ -117,7 +117,7 @@
         "registryItem": {
           "name": "Lemun kirkko",
           "id": 200473,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200473",
           "municipality": "Masku"
         },
@@ -142,7 +142,7 @@
         "registryItem": {
           "name": "Kakskerran kirkko",
           "id": 200529,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200529",
           "municipality": "Turku"
         },
@@ -2267,7 +2267,7 @@
         "registryItem": {
           "name": "Nousiaisten kirkko",
           "id": 200494,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200494",
           "municipality": "Nousiainen"
         },
@@ -2392,7 +2392,7 @@
         "registryItem": {
           "name": "Maskun kirkko",
           "id": 200480,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200480",
           "municipality": "Masku"
         },
@@ -2717,7 +2717,7 @@
         "registryItem": {
           "name": "Paraisten kirkko",
           "id": 200498,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200498",
           "municipality": "Parainen"
         },
@@ -2942,7 +2942,7 @@
         "registryItem": {
           "name": "Paimion kirkko",
           "id": 200497,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200497",
           "municipality": "Paimio"
         },
@@ -2967,7 +2967,7 @@
         "registryItem": {
           "name": "Paattisen kirkko",
           "id": 200496,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200496",
           "municipality": "Turku"
         },
@@ -2992,7 +2992,7 @@
         "registryItem": {
           "name": "Raision kirkko",
           "id": 200513,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200513",
           "municipality": "Raisio"
         },
@@ -4150,7 +4150,7 @@
         "registryItem": {
           "name": "Louhisaaren kartano",
           "id": 200265,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200265",
           "municipality": "Masku"
         },
@@ -4175,7 +4175,7 @@
         "registryItem": {
           "name": "Kuusiston kirkko",
           "id": 200533,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200533",
           "municipality": "Kaarina"
         },
@@ -4878,7 +4878,7 @@
         "registryItem": {
           "name": "Mietoisten kirkko",
           "id": 200485,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200485",
           "municipality": "Turku"
         },
@@ -5187,7 +5187,7 @@
         "registryItem": {
           "name": "Turun Tuomiokirkko",
           "id": 200528,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200528",
           "municipality": "Turku"
         },
@@ -5212,7 +5212,7 @@
         "registryItem": {
           "name": "Maarian kirkko",
           "id": 200534,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200534",
           "municipality": "Turku"
         },
@@ -5262,7 +5262,7 @@
         "registryItem": {
           "name": "Turun linna",
           "id": 200284,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200284",
           "municipality": "Turku"
         },
@@ -5287,7 +5287,7 @@
         "registryItem": {
           "name": "Liedon kirkko",
           "id": 200474,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200474",
           "municipality": "Lieto"
         },
@@ -5312,7 +5312,7 @@
         "registryItem": {
           "name": "Mikaelinkirkko",
           "id": 200532,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200532",
           "municipality": "Turku"
         },
@@ -5337,7 +5337,7 @@
         "registryItem": {
           "name": "Kuusiston kartano",
           "id": 200082,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200082",
           "municipality": "Kaarina"
         },
@@ -5387,7 +5387,7 @@
         "registryItem": {
           "name": "Piikkiön kirkko",
           "id": 200504,
-          "type": "rajapinta_suojellut:suojellut_rakennukset_alue",
+          "type": "rajapinta_suojellut:suojellut_rakennukset_piste",
           "url": "https://www.kyppi.fi/to.aspx?id=130.200504",
           "municipality": "Kaarina"
         },
