@@ -11,6 +11,31 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [284193.63475, 6696966.25155]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Tampaltankruunu",
+          "id": 734010013,
+          "type": "rajapinta_suojellut:muinaisjaannos_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.734010013",
+          "municipality": "Salo"
+        },
+        "model": {
+          "name": "Tampaltankruunu",
+          "url": "https://sketchfab.com/models/07f12d80503444bd9dee3c83e48d4cae"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2024-04-22"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [273688.99459999986, 6976464.0002]
       },
       "properties": {

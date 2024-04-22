@@ -826,7 +826,10 @@
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [284204.1431, 6696976.5] },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [284193.63475, 6696966.25155]
+      },
       "properties": {
         "id": 734010013,
         "number": 29,
