@@ -11,6 +11,56 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [251829.6468, 6800230.8668]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Teljä",
+          "id": 271010019,
+          "type": "rajapinta_suojellut:muinaisjaannos_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.271010019",
+          "municipality": "Kokemäki"
+        },
+        "model": {
+          "name": "Pyhän Henrikin saarnahuone",
+          "url": "https://sketchfab.com/models/9105376134a845a59e7f051cd4091e4f"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2024-05-21"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [230247.3057, 6803262.5432]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Röyskän kalliot",
+          "id": 262010039,
+          "type": "rajapinta_suojellut:muinaisjaannos_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.262010039",
+          "municipality": "Eura"
+        },
+        "model": {
+          "name": "Röyskän kalliot röykkiö nro. 3",
+          "url": "https://sketchfab.com/models/93f8532a0c234bcd802adf8810734885"
+        },
+        "author": "Antti Kekki",
+        "authorUrl": "https://sketchfab.com/antti.kekki",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2024-05-21"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [284193.63475, 6696966.25155]
       },
       "properties": {
