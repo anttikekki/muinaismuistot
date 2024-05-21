@@ -22,6 +22,7 @@ const getInitialLang = (): Language => {
 }
 
 export const initialSettings: Settings = {
+  concurrentPendingJobsCounter: 0,
   showLoadingAnimation: false,
   visiblePage: undefined,
   selectedFeaturesOnMap: {

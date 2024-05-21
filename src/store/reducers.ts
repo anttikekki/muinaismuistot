@@ -214,6 +214,20 @@ export const updateSelectMuinaisjaannosDatings = (
   }
 }
 
+const updateLoadingAnimation = (
+  settings: Settings,
+  showLoadingAnimation: boolean
+): Settings => {
+  const concurrentPendingJobsCounter = showLoadingAnimation
+    ? settings.concurrentPendingJobsCounter + 1
+    : settings.concurrentPendingJobsCounter - 1
+  return {
+    ...settings,
+    concurrentPendingJobsCounter,
+    showLoadingAnimation: concurrentPendingJobsCounter > 0
+  }
+}
+
 export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
   if (state == undefined) {
     throw new Error("State must be defined")
@@ -278,10 +292,7 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
   } else if (action.type === CHANGE_LANGUAGE) {
     return updateLanguage(state, action.language)
   } else if (action.type === SHOW_LOADING_ANIMATION) {
-    return {
-      ...state,
-      showLoadingAnimation: action.show
-    }
+    return updateLoadingAnimation(state, action.show)
   } else if (action.type === SHOW_PAGE) {
     return {
       ...state,

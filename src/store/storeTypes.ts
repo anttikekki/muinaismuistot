@@ -31,6 +31,7 @@ export interface SelectedFeaturesOnMap {
 }
 
 export interface Settings {
+  concurrentPendingJobsCounter: number
   showLoadingAnimation: boolean
   visiblePage?: PageId
   selectedFeaturesOnMap: SelectedFeaturesOnMap
