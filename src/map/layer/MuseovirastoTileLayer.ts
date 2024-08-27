@@ -26,7 +26,6 @@ export default class MuseovirastoTileLayer {
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
-  private dataLatestUpdateDate?: Date | null
 
   public constructor(
     store: Store<Settings, ActionTypes>,
@@ -39,7 +38,7 @@ export default class MuseovirastoTileLayer {
     this.addLayer()
   }
 
-  private addLayer = () => {
+  private addLayer = (): void => {
     const settings = this.store.getState()
     this.source = this.createSource()
     this.layer = new TileLayer({
@@ -50,13 +49,15 @@ export default class MuseovirastoTileLayer {
     this.onLayerCreatedCallbackFn(this.layer)
   }
 
-  private createSource = () => {
-    const settings = this.store.getState()
+  private createSource = (): TileWMS => {
+    const { url, selectedLayers } = this.store.getState().museovirasto
+
     const options: Options = {
-      urls: [settings.museovirasto.url.wms],
+      urls: [url.wms],
       params: {
-        LAYERS: settings.museovirasto.selectedLayers.join(","),
-        TILED: true
+        LAYERS: selectedLayers.join(","),
+        TILED: true,
+        CQL_FILTER: this.getLayerFilter()
       },
       serverType: "geoserver"
     }
@@ -75,14 +76,22 @@ export default class MuseovirastoTileLayer {
     return newSource
   }
 
-  private updateLayerSource = () => {
+  private updateLayerSource = (): void => {
     if (this.layer) {
       this.source = this.createSource()
       this.layer.setSource(this.source)
     }
   }
 
-  public selectedFeatureLayersChanged = () => {
+  public selectedFeatureLayersChanged = (): void => {
+    this.updateLayerSource()
+  }
+
+  public selectedMuinaisjaannosTypesChanged = (): void => {
+    this.updateLayerSource()
+  }
+
+  public selectedMuinaisjaannosDatingsChanged = (): void => {
     this.updateLayerSource()
   }
 
@@ -175,10 +184,10 @@ export default class MuseovirastoTileLayer {
     return this.trimAnsSplitMultivalueFields(result)
   }
 
-  private trimAnsSplitMultivalueFields = async (
+  private trimAnsSplitMultivalueFields = (
     data: MuseovirastoWmsFeatureInfoResult
-  ): Promise<MuseovirastoWmsFeatureInfoResult> => {
-    const result: MuseovirastoWmsFeatureInfoResult = {
+  ): MuseovirastoWmsFeatureInfoResult => {
+    return {
       ...data,
       features: data.features?.map((feature): MuseovirastoWmsFeature => {
         if (
@@ -190,10 +199,10 @@ export default class MuseovirastoTileLayer {
             .split(", ")
             .map((t) =>
               t === "taide-muistomerkit" ? "taide, muistomerkit" : t
-            ) as Array<MuinaisjaannosTyyppi>
+            ) as MuinaisjaannosTyyppi[]
           feature.properties.ajoitusSplitted = trim(
             feature.properties.ajoitus
-          ).split(", ") as Array<MuinaisjaannosAjoitus>
+          ).split(", ") as MuinaisjaannosAjoitus[]
           feature.properties.alatyyppiSplitted = trim(
             feature.properties.alatyyppi
           )
@@ -206,13 +215,57 @@ export default class MuseovirastoTileLayer {
         return feature
       })
     }
-    return result
   }
 
-  public opacityChanged = () => {
+  public opacityChanged = (): void => {
     if (this.layer) {
       const settings = this.store.getState()
       this.layer.setOpacity(settings.museovirasto.opacity)
     }
+  }
+
+  private getLayerFilter = (): string => {
+    const {
+      selectedLayers,
+      selectedMuinaisjaannosDatings,
+      selectedMuinaisjaannosTypes
+    } = this.store.getState().museovirasto
+
+    const hasDatingsFilter =
+      selectedMuinaisjaannosDatings.length !=
+      Object.values(MuinaisjaannosAjoitus).length
+
+    const hasTypeFilter =
+      selectedMuinaisjaannosTypes.length !=
+      Object.values(MuinaisjaannosTyyppi).length
+
+    if (hasDatingsFilter || hasTypeFilter) {
+      return selectedLayers
+        .map((layer) => {
+          if (layer === MuseovirastoLayer.Muinaisjaannokset_piste) {
+            const filters: Array<string> = []
+            if (hasDatingsFilter) {
+              // Add '%' prefix and postfix wildcard because values are like 'keskiaikainen, rautakautinen, , ,'
+              const filter = selectedMuinaisjaannosDatings
+                .map((dating) => `ajoitus LIKE '%${dating}%'`)
+                .join(" OR ")
+              filters.push(`(${filter})`)
+            }
+            if (hasTypeFilter) {
+              // Add '%' prefix and postfix wildcard because values are like 'hautapaikat, työ- ja valmistuspaikat, , '
+              const filter = selectedMuinaisjaannosTypes
+                .map((type) => `tyyppi LIKE '%${type}%'`)
+                .join(" OR ")
+              filters.push(`(${filter})`)
+            }
+
+            return filters.join(" AND ")
+          }
+          // No filter for this layer, include all values
+          return "INCLUDE"
+        })
+        .join(";")
+    }
+    return ""
   }
 }

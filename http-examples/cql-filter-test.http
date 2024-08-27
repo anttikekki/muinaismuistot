@@ -1,0 +1,25 @@
+
+
+GET https://geoserver.museovirasto.fi/geoserver/rajapinta_suojellut/wms
+?REQUEST=GetMap
+&SERVICE=WMS
+&VERSION=1.3.0
+&FORMAT=image%2Fpng
+&STYLES=
+&TRANSPARENT=true
+#&LAYERS=rajapinta_suojellut%3Amuinaisjaannos_piste%2Crajapinta_suojellut%3Amuinaisjaannos_alue%2Crajapinta_suojellut%3Asuojellut_rakennukset_piste%2Crajapinta_suojellut%3Asuojellut_rakennukset_alue%2Crajapinta_suojellut%3Arky_alue%2Crajapinta_suojellut%3Arky_piste%2Crajapinta_suojellut%3Arky_viiva%2Crajapinta_suojellut%3Amaailmanperinto_piste%2Crajapinta_suojellut%3Amaailmanperinto_alue%2Crajapinta_suojellut%3Amuu_kulttuuriperintokohde_alue%2Crajapinta_suojellut%3Amuu_kulttuuriperintokohde_piste
+&LAYERS=rajapinta_suojellut%3Amuinaisjaannos_piste%2Crajapinta_suojellut%3Amuinaisjaannos_alue
+&TILED=true
+&FORMAT_OPTIONS=dpi%3A200
+&WIDTH=569
+&HEIGHT=569
+&CRS=EPSG%3A3067
+&BBOX=380103.5825679689%2C6677868.735326953%2C380400.793469922%2C6678165.9462289065
+# ajoitus IN ('kivikautinen','varhaismetallikautinen','keskiaikainen','historiallinen','moderni','ajoittamaton','ei määritelty','rautakautinen ja/tai keskiaikainen','rautakautinen','pronssikautinen','esihistoriallinen');INCLUDE
+#&CQL_FILTER=ajoitus%20IN%20%28%27kivikautinen%27%2C%27varhaismetallikautinen%27%2C%27keskiaikainen%27%2C%27historiallinen%27%2C%27moderni%27%2C%27ajoittamaton%27%2C%27ei%20m%C3%A4%C3%A4ritelty%27%2C%27rautakautinen%20ja%2Ftai%20keskiaikainen%27%2C%27rautakautinen%27%2C%27pronssikautinen%27%2C%27esihistoriallinen%27%29%3BINCLUDE
+#
+# ajoitus LIKE 'historiallinen%';INCLUDE
+&CQL_FILTER=ajoitus%20LIKE%20%27historiallinen%25%27%3BINCLUDE
+
+
+

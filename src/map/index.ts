@@ -321,11 +321,11 @@ export const selectedFeatureLayersChanged = (
 }
 
 export const selectedMuinaisjaannosTypesChanged = (): void => {
-  //museovirastoTileLayer.selectedMuinaisjaannosTypesChanged()
+  museovirastoTileLayer.selectedMuinaisjaannosTypesChanged()
 }
 
 export const selectedMuinaisjaannosDatingsChanged = (): void => {
-  //museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged()
+  museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged()
 }
 
 export const searchFeaturesFromMapLayers = async (

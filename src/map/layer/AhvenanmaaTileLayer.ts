@@ -29,8 +29,6 @@ export default class AhvenanmaaTileLayer {
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
-  private forminnenDataLatestUpdateDate?: Date | null
-  private maritimtKulturarvDataLatestUpdateDate?: Date | null
   private typeAndDatingMap?: ReadonlyMap<
     string,
     Array<AhvenanmaaTypeAndDatingFeatureProperties>

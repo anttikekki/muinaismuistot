@@ -215,7 +215,6 @@ export const FeatureLayerFilterPanel: React.FC = () => {
           type={type}
           selectedMuinaisjaannosTypes={selectedMuinaisjaannosTypes}
           onSelectType={onSelectMuinaisjaannosType}
-          disabled={true}
         />
       )),
     [selectedMuinaisjaannosTypes, i18n.language]
@@ -229,7 +228,6 @@ export const FeatureLayerFilterPanel: React.FC = () => {
           dating={dating}
           selectedMuinaisjaannosDatings={selectedMuinaisjaannosDatings}
           onSelectDating={onSelectMuinaisjaannosDating}
-          disabled={true}
         />
       )),
     [selectedMuinaisjaannosDatings, i18n.language]
@@ -238,15 +236,11 @@ export const FeatureLayerFilterPanel: React.FC = () => {
   return (
     <Panel title={t(`settings.filters.title`)}>
       <form>
-        <div className="well well-sm">
-          12/2023: nämä rajoitteet ovat väliaikaisesti poissa käytöstä
-          Museoviraston karttapalvelimen rajapinnan muuttumisen seurauksena.
-        </div>
+        <div className="well well-sm">{infoText}</div>
 
         <TypeToggleAllCheckbox
           selectedMuinaisjaannosTypes={selectedMuinaisjaannosTypes}
           onSelectTypes={onToggleAllMuinaisjaannosTypes}
-          disabled={true}
         />
         {typeCheckboxes}
 
@@ -255,7 +249,6 @@ export const FeatureLayerFilterPanel: React.FC = () => {
         <DatingToggleAllCheckbox
           selectedMuinaisjaannosDatings={selectedMuinaisjaannosDatings}
           onSelectDatings={onToggleAllMuinaisjaannosDatings}
-          disabled={true}
         />
         {datingCheckboxes}
       </form>
