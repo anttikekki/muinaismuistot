@@ -1,0 +1,27 @@
+GET https://geoserver.museovirasto.fi/geoserver/ows
+?REQUEST=GetFeatureInfo
+&QUERY_LAYERS=rajapinta%3Amuinaisjaannos_piste%2Crajapinta_suojellut%3Amuinaisjaannos_alue%2Crajapinta_suojellut%3Asuojellut_rakennukset_alue%2Crajapinta_suojellut%3Asuojellut_rakennukset_piste%2Crajapinta_suojellut%3Arky_alue%2Crajapinta_suojellut%3Arky_piste%2Crajapinta_suojellut%3Arky_viiva%2Crajapinta_suojellut%3Amaailmanperinto_piste%2Crajapinta_suojellut%3Amaailmanperinto_alue
+&SERVICE=WMS
+&VERSION=1.3.0
+&LAYERS=rajapinta%3Amuinaisjaannos_piste%2Crajapinta_suojellut%3Amuinaisjaannos_alue%2Crajapinta_suojellut%3Asuojellut_rakennukset_alue%2Crajapinta_suojellut%3Asuojellut_rakennukset_piste%2Crajapinta_suojellut%3Arky_alue%2Crajapinta_suojellut%3Arky_piste%2Crajapinta_suojellut%3Arky_viiva%2Crajapinta_suojellut%3Amaailmanperinto_piste%2Crajapinta_suojellut%3Amaailmanperinto_alue
+&INFO_FORMAT=application%2Fjson
+&FEATURE_COUNT=100
+&BUFFER=15
+&I=91
+&J=120
+&WIDTH=256
+&HEIGHT=256
+&CRS=EPSG%3A3067
+&BBOX=340277.32170625014%2C6672816.149993749%2C345032.6961375001%2C6677571.524424999
+
+
+
+#####
+
+GET https://geoserver.museovirasto.fi/geoserver/rajapinta_suojellut/wms
+?REQUEST=GetMap&SERVICE=WMS&VERSION=1.3.0
+&FORMAT=image%2Fpng&STYLES=&TRANSPARENT=true
+&LAYERS=rajapinta_suojellut%3Amuinaisjaannos_piste
+&TILED=true
+&CQL_FILTER=(ajoitus%20LIKE%20%27%25historiallinen%25%27)
+&FORMAT_OPTIONS=dpi%3A180&WIDTH=512&HEIGHT=512&CRS=EPSG%3A3067&BBOX=373564.94272500015%2C6672816.149993749%2C378320.3171562501%2C6677571.524424999

@@ -133,46 +133,73 @@ export default class MuseovirastoTileLayer {
     searchText: string
   ): Promise<MuseovirastoWmsFeatureInfoResult> => {
     const settings = this.store.getState()
-    /*
+
     let selectedLayers = settings.museovirasto.selectedLayers
 
-    //Muinaismustot areas always have same name as main point so do not search those
-    if (selectedLayers.includes(MuseovirastoLayer.Muinaisjaannokset_alue)) {
+    //Muinaismustot areas always have same name as main point so do not search the areas
+    if (
+      selectedLayers.includes(MuseovirastoLayer.Muinaisjaannokset_alue) &&
+      selectedLayers.includes(MuseovirastoLayer.Muinaisjaannokset_piste)
+    ) {
       selectedLayers = selectedLayers.filter(
         (l) => l !== MuseovirastoLayer.Muinaisjaannokset_alue
       )
     }
-    if (selectedLayers.length === 0) {
-      return { results: [] }
-    }
 
-    let searchFields = "Kohdenimi, Nimi, KOHDENIMI"
-    let contains = "true"
+    let filter = ""
+
+    // Search text is number, search by id
     if (!isNaN(parseInt(searchText))) {
-      // Search text is number, search by id
-      searchFields = "mjtunnus, kohdeID, ID"
-      contains = "false"
-    }
-    */
+      // Maailmanperintö-features do not have any id field, so drop those layers from search
+      selectedLayers = selectedLayers.filter(
+        (layer) =>
+          layer != MuseovirastoLayer.Maailmanperinto_piste &&
+          layer != MuseovirastoLayer.Maailmanperinto_alue
+      )
 
-    // https://geoserver.museovirasto.fi/geoserver/ows?service=WFS&acceptversions=2.0.0&request=GetFeature&typeNames=rajapinta_suojellut:muinaisjaannos_piste&count=20&outputFormat=application/json&filter=<Filter><PropertyIsLike wildCard="*" singleChar="." escape="!"><PropertyName>kohdenimi</PropertyName><Literal>*Kissa*</Literal></PropertyIsLike></Filter>
+      filter = selectedLayers
+        .map((layer) => {
+          let idField = "mjtunnus"
+          if (
+            layer === MuseovirastoLayer.Suojellut_rakennukset_piste ||
+            layer === MuseovirastoLayer.Suojellut_rakennukset_alue
+          ) {
+            idField = "kohdeID"
+          }
+          if (
+            layer === MuseovirastoLayer.RKY_piste ||
+            layer === MuseovirastoLayer.RKY_viiva ||
+            layer === MuseovirastoLayer.RKY_alue
+          ) {
+            idField = "id"
+          }
+          return `${idField} = '${searchText}'`
+        })
+        .join(";")
+    } else {
+      // Search by name
+      filter = selectedLayers
+        .map((layer) => {
+          let nameField = "kohdenimi"
+          if (
+            layer === MuseovirastoLayer.Maailmanperinto_piste ||
+            layer === MuseovirastoLayer.Maailmanperinto_alue
+          ) {
+            nameField = "nimi"
+          }
+          return `${nameField} LIKE '%${searchText}%'`
+        })
+        .join(";")
+    }
 
     const urlParams = new URLSearchParams({
       service: "WFS",
       acceptversions: "2.0.0",
       request: "GetFeature",
-      typeNames: MuseovirastoLayer.Muinaisjaannokset_piste,
+      typeNames: selectedLayers.join(","),
       count: "50",
       outputFormat: "application/json",
-      filter: `
-      <Filter>
-        <Or>
-          <PropertyIsLike wildCard="*" singleChar="." escape="!">
-            <PropertyName>kohdenimi</PropertyName>
-            <Literal>*${searchText}*</Literal>
-          </PropertyIsLike>
-        </Or>
-      </Filter>`
+      CQL_FILTER: filter
     })
 
     const url = new URL(settings.museovirasto.url.wfs)
@@ -224,6 +251,7 @@ export default class MuseovirastoTileLayer {
     }
   }
 
+  // ECQL reference: https://docs.geoserver.org/latest/en/user/filter/ecql_reference.html#filter-ecql-reference
   private getLayerFilter = (): string => {
     const {
       selectedLayers,
