@@ -2,8 +2,8 @@ import React, { useCallback, useMemo } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { HelsinkiLayer, LayerGroup } from "../../../../common/layers.types"
-import { selectHelsinkiLayer } from "../../../../store/actionCreators"
-import { Settings } from "../../../../store/storeTypes"
+import { AppDispatch, Settings } from "../../../../store/storeTypes"
+import { selectVisibleHelsinkiLayersThunk } from "../../../../store/thunks/helsinkiLayer"
 import { Panel } from "../../../component/Panel"
 import { toggleSelection } from "../../../util"
 import { FeatureImageAndLabel } from "./FeatureImageAndLabel"
@@ -56,14 +56,16 @@ const FeatureLabelsForLayer: React.FC<{ layer: HelsinkiLayer }> = ({
 
 export const HelsinkiMapLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const selectedLayers = useSelector(
     (settings: Settings) => settings.helsinki.selectedLayers
   )
   const opacity = useSelector((settings: Settings) => settings.helsinki.opacity)
   const onSelectLayer = useCallback(
     (layer: HelsinkiLayer) => {
-      dispatch(selectHelsinkiLayer(toggleSelection(layer, selectedLayers)))
+      dispatch(
+        selectVisibleHelsinkiLayersThunk(toggleSelection(layer, selectedLayers))
+      )
     },
     [dispatch, selectedLayers]
   )

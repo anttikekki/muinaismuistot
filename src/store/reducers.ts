@@ -1,39 +1,21 @@
 import { Reducer } from "redux"
-import { PageId, Settings } from "./storeTypes"
 import {
-  ActionTypes,
-  CHANGE_LAYER_OPACITY,
-  CHANGE_LANGUAGE,
-  CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
-  SEARCH_FEATURES,
-  SEARCH_FEATURES_COMPLETE,
-  SELECT_VISIBLE_AHVENANMAA_LAYERS,
-  SELECT_VISIBLE_GTK_LAYERS,
-  SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER,
-  SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS,
-  SELECT_VISIBLE_MODELS_LAYERS,
-  SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING,
-  SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE,
-  SELECT_VISIBLE_MUSEOVIRASTO_LAYERS,
-  SHOW_LOADING_ANIMATION,
-  SHOW_PAGE,
-  SELECT_VISIBLE_HELSINKI_LAYERS
-} from "./actionTypes"
-import {
-  MaanmittauslaitosLayer,
-  MuseovirastoLayer,
   AhvenanmaaLayer,
-  ModelLayer,
-  MaisemanMuistiLayer,
-  Language,
   GtkLayer,
+  HelsinkiLayer,
+  Language,
   LayerGroup,
-  HelsinkiLayer
+  MaanmittauslaitosLayer,
+  MaisemanMuistiLayer,
+  ModelLayer,
+  MuseovirastoLayer
 } from "../common/layers.types"
 import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi
 } from "../common/museovirasto.types"
+import { ActionTypeEnum, ActionTypes } from "./actionTypes"
+import { PageId, Settings } from "./storeTypes"
 
 export const updateLanguage = (
   settings: Settings,
@@ -233,71 +215,91 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     throw new Error("State must be defined")
   }
 
-  if (action.type === CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE) {
-    const selectedFeaturesOnMap = action.payload
-    if (
-      selectedFeaturesOnMap.features.length === 0 &&
-      selectedFeaturesOnMap.maisemanMuistiFeatures.length === 0
-    ) {
+  switch (action.type) {
+    case ActionTypeEnum.CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE: {
+      const selectedFeaturesOnMap = action.payload
+      if (
+        selectedFeaturesOnMap.features.length === 0 &&
+        selectedFeaturesOnMap.maisemanMuistiFeatures.length === 0
+      ) {
+        return state
+      }
+      return {
+        ...state,
+        visiblePage: PageId.Details,
+        selectedFeaturesOnMap
+      }
+    }
+    case ActionTypeEnum.SEARCH_FEATURES: {
+      return {
+        ...state,
+        search: {
+          features: []
+        }
+      }
+    }
+    case ActionTypeEnum.SEARCH_FEATURES_COMPLETE: {
+      return {
+        ...state,
+        search: {
+          features: action.searchResultFeatures
+        }
+      }
+    }
+    case ActionTypeEnum.SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER: {
+      return updateMaanmittauslaitosSelectedLayer(state, action.layer)
+    }
+    case ActionTypeEnum.SELECT_VISIBLE_GTK_LAYERS: {
+      return updateGtkSelectedLayers(state, action.layers)
+    }
+    case ActionTypeEnum.CHANGE_LAYER_OPACITY: {
+      switch (action.layerGroup) {
+        case LayerGroup.GTK:
+          return updateGtkLayerOpacity(state, action.opacity)
+        case LayerGroup.Museovirasto:
+          return updateMuseovirastoLayerOpacity(state, action.opacity)
+        case LayerGroup.Ahvenanmaa:
+          return updateAhvenanmaaLayerOpacity(state, action.opacity)
+        case LayerGroup.Helsinki:
+          return updateHelsinkiLayerOpacity(state, action.opacity)
+        default:
+          return state
+      }
+    }
+    case ActionTypeEnum.SELECT_VISIBLE_HELSINKI_LAYERS: {
+      return updateHelsinkiSelectedLayers(state, action.layers)
+    }
+    case ActionTypeEnum.SELECT_VISIBLE_MUSEOVIRASTO_LAYERS: {
+      return updateMuseovirastoSelectedLayers(state, action.layers)
+    }
+    case ActionTypeEnum.SELECT_VISIBLE_AHVENANMAA_LAYERS: {
+      return updateAhvenanmaaSelectedLayers(state, action.layers)
+    }
+    case ActionTypeEnum.SELECT_VISIBLE_MODELS_LAYERS: {
+      return updateModelSelectedLayers(state, action.layers)
+    }
+    case ActionTypeEnum.SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS: {
+      return updateMaisemanMuistiSelectedLayers(state, action.layers)
+    }
+    case ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE: {
+      return updateSelectMuinaisjaannosTypes(state, action.types)
+    }
+    case ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING: {
+      return updateSelectMuinaisjaannosDatings(state, action.datings)
+    }
+    case ActionTypeEnum.CHANGE_LANGUAGE: {
+      return updateLanguage(state, action.language)
+    }
+    case ActionTypeEnum.SHOW_LOADING_ANIMATION: {
+      return updateLoadingAnimation(state, action.show)
+    }
+    case ActionTypeEnum.SHOW_PAGE: {
+      return {
+        ...state,
+        visiblePage: action.pageId
+      }
+    }
+    default:
       return state
-    }
-    return {
-      ...state,
-      visiblePage: PageId.Details,
-      selectedFeaturesOnMap
-    }
-  } else if (action.type === SEARCH_FEATURES) {
-    return {
-      ...state,
-      search: {
-        features: []
-      }
-    }
-  } else if (action.type === SEARCH_FEATURES_COMPLETE) {
-    return {
-      ...state,
-      search: {
-        features: action.searchResultFeatures
-      }
-    }
-  } else if (action.type === SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER) {
-    return updateMaanmittauslaitosSelectedLayer(state, action.layer)
-  } else if (action.type === SELECT_VISIBLE_GTK_LAYERS) {
-    return updateGtkSelectedLayers(state, action.layers)
-  } else if (action.type === CHANGE_LAYER_OPACITY) {
-    switch (action.layerGroup) {
-      case LayerGroup.GTK:
-        return updateGtkLayerOpacity(state, action.opacity)
-      case LayerGroup.Museovirasto:
-        return updateMuseovirastoLayerOpacity(state, action.opacity)
-      case LayerGroup.Ahvenanmaa:
-        return updateAhvenanmaaLayerOpacity(state, action.opacity)
-      case LayerGroup.Helsinki:
-        return updateHelsinkiLayerOpacity(state, action.opacity)
-    }
-  } else if (action.type === SELECT_VISIBLE_HELSINKI_LAYERS) {
-    return updateHelsinkiSelectedLayers(state, action.layers)
-  } else if (action.type === SELECT_VISIBLE_MUSEOVIRASTO_LAYERS) {
-    return updateMuseovirastoSelectedLayers(state, action.layers)
-  } else if (action.type === SELECT_VISIBLE_AHVENANMAA_LAYERS) {
-    return updateAhvenanmaaSelectedLayers(state, action.layers)
-  } else if (action.type === SELECT_VISIBLE_MODELS_LAYERS) {
-    return updateModelSelectedLayers(state, action.layers)
-  } else if (action.type === SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS) {
-    return updateMaisemanMuistiSelectedLayers(state, action.layers)
-  } else if (action.type === SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE) {
-    return updateSelectMuinaisjaannosTypes(state, action.types)
-  } else if (action.type === SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING) {
-    return updateSelectMuinaisjaannosDatings(state, action.datings)
-  } else if (action.type === CHANGE_LANGUAGE) {
-    return updateLanguage(state, action.language)
-  } else if (action.type === SHOW_LOADING_ANIMATION) {
-    return updateLoadingAnimation(state, action.show)
-  } else if (action.type === SHOW_PAGE) {
-    return {
-      ...state,
-      visiblePage: action.pageId
-    }
   }
-  return state
 }

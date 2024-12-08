@@ -2,8 +2,9 @@ import React, { ReactNode, useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { Language } from "../../common/layers.types"
-import { changeLanguage, showPage } from "../../store/actionCreators"
-import { PageId, Settings } from "../../store/storeTypes"
+import { showPage } from "../../store/actionCreators"
+import { AppDispatch, PageId, Settings } from "../../store/storeTypes"
+import { changeLanguageThunk } from "../../store/thunks/language"
 
 export enum PageVisibility {
   Visible = "Visible",
@@ -44,7 +45,7 @@ interface Props {
 
 export const Page: React.FC<Props> = ({ title, pageId, children }) => {
   const { t, i18n } = useTranslation()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const visiblePage = useSelector((settings: Settings) => settings.visiblePage)
   const [pageClosingAnimationTimeoutID, setPageClosingAnimationTimeoutID] =
     useState<number | undefined>()
@@ -99,7 +100,7 @@ export const Page: React.FC<Props> = ({ title, pageId, children }) => {
   const onLanguageChange = useCallback(
     (language: Language) => {
       i18n.changeLanguage(language)
-      dispatch(changeLanguage(language))
+      dispatch(changeLanguageThunk(language))
     },
     [dispatch, i18n]
   )

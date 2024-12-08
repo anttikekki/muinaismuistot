@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import regexifyString from "regexify-string"
 import {
-  MuinaisjaannosTyyppi,
-  MuinaisjaannosAjoitus
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
 } from "../../../../common/museovirasto.types"
+import { AppDispatch, Settings } from "../../../../store/storeTypes"
 import {
-  selectMuinaisjaannosDating,
-  selectMuinaisjaannosType
-} from "../../../../store/actionCreators"
-import { Settings } from "../../../../store/storeTypes"
+  selectVisibleMuinaisjäännösDatingThunk,
+  selectVisibleMuinaisjäännösTypeThunk
+} from "../../../../store/thunks/museovirastoLayer"
 import { Panel } from "../../../component/Panel"
 import { toggleSelection } from "../../../util"
 
@@ -142,7 +142,7 @@ const DatingCheckbox: React.FC<DatingCheckboxProps> = ({
 
 export const FeatureLayerFilterPanel: React.FC = () => {
   const { t, i18n } = useTranslation()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   const selectedMuinaisjaannosTypes = useSelector(
     (settings: Settings) => settings.museovirasto.selectedMuinaisjaannosTypes
@@ -153,7 +153,7 @@ export const FeatureLayerFilterPanel: React.FC = () => {
   const onSelectMuinaisjaannosType = useCallback(
     (type: MuinaisjaannosTyyppi) =>
       dispatch(
-        selectMuinaisjaannosType(
+        selectVisibleMuinaisjäännösTypeThunk(
           toggleSelection(type, selectedMuinaisjaannosTypes)
         )
       ),
@@ -161,13 +161,13 @@ export const FeatureLayerFilterPanel: React.FC = () => {
   )
   const onToggleAllMuinaisjaannosTypes = useCallback(
     (types: Array<MuinaisjaannosTyyppi>) =>
-      dispatch(selectMuinaisjaannosType(types)),
+      dispatch(selectVisibleMuinaisjäännösTypeThunk(types)),
     [dispatch]
   )
   const onSelectMuinaisjaannosDating = useCallback(
     (dating: MuinaisjaannosAjoitus) =>
       dispatch(
-        selectMuinaisjaannosDating(
+        selectVisibleMuinaisjäännösDatingThunk(
           toggleSelection(dating, selectedMuinaisjaannosDatings)
         )
       ),
@@ -175,7 +175,7 @@ export const FeatureLayerFilterPanel: React.FC = () => {
   )
   const onToggleAllMuinaisjaannosDatings = useCallback(
     (types: Array<MuinaisjaannosAjoitus>) =>
-      dispatch(selectMuinaisjaannosDating(types)),
+      dispatch(selectVisibleMuinaisjäännösDatingThunk(types)),
     [dispatch]
   )
 

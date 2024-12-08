@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Page } from "../Page"
+import { useDispatch, useSelector } from "react-redux"
+import { MapFeature } from "../../../common/mapFeature.types"
+import { AppDispatch, PageId, Settings } from "../../../store/storeTypes"
+import { searchFeaturesThunk } from "../../../store/thunks/searchFeatures"
 import { FeatureList } from "../../component/feature/FeatureList"
 import { FeatureTitleClickAction } from "../../component/feature/component/FeatureCollapsePanel"
-import { useDispatch, useSelector } from "react-redux"
-import { searchFeatures } from "../../../store/actionCreators"
-import { PageId, Settings } from "../../../store/storeTypes"
-import { MapFeature } from "../../../common/mapFeature.types"
+import { Page } from "../Page"
 
 interface ResultsProps {
   features?: Array<MapFeature>
@@ -44,7 +44,7 @@ const ValidationError: React.FC = () => {
 
 export const SearchPage: React.FC = () => {
   const { t } = useTranslation()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const [searchText, setSearchText] = useState("")
   const [showSearchTextError, setShowSearchTextError] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -69,7 +69,7 @@ export const SearchPage: React.FC = () => {
         return
       }
       setShowSearchTextError(false)
-      dispatch(searchFeatures(searchText))
+      dispatch(searchFeaturesThunk(searchText))
     },
     [dispatch, searchText]
   )

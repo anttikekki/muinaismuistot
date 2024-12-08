@@ -1,11 +1,6 @@
+import { ThunkAction, ThunkDispatch } from "@reduxjs/toolkit"
 import { ModelFeatureProperties } from "../common/3dModels.types"
 import { GeoJSONFeature } from "../common/geojson.types"
-import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
-import { MapFeature } from "../common/mapFeature.types"
-import {
-  MuinaisjaannosAjoitus,
-  MuinaisjaannosTyyppi
-} from "../common/museovirasto.types"
 import {
   AhvenanmaaLayer,
   GtkLayer,
@@ -16,6 +11,13 @@ import {
   ModelLayer,
   MuseovirastoLayer
 } from "../common/layers.types"
+import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
+import { MapFeature } from "../common/mapFeature.types"
+import {
+  MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi
+} from "../common/museovirasto.types"
+import { ActionTypes } from "./actionTypes"
 
 export enum PageId {
   Search = "searchPage",
@@ -94,3 +96,12 @@ export interface Settings {
     opacity: number
   }
 }
+
+export type RootState = Settings
+export type AppDispatch = ThunkDispatch<Settings, undefined, ActionTypes>
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  ActionTypes
+>

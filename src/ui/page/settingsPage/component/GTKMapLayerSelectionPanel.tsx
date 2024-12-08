@@ -2,8 +2,8 @@ import React, { useCallback } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { GtkLayer, LayerGroup } from "../../../../common/layers.types"
-import { selectGTKLayer } from "../../../../store/actionCreators"
-import { Settings } from "../../../../store/storeTypes"
+import { AppDispatch, Settings } from "../../../../store/storeTypes"
+import { selectVisibleGtkLayersThunk } from "../../../../store/thunks/gtkLayer"
 import { Panel } from "../../../component/Panel"
 import { toggleSelection } from "../../../util"
 import { FeatureImageAndLabel } from "./FeatureImageAndLabel"
@@ -11,14 +11,16 @@ import { LayerTransparencyInput } from "./LayerTransparencyInput"
 
 export const GTKMapLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const selectedLayers = useSelector(
     (settings: Settings) => settings.gtk.selectedLayers
   )
   const opacity = useSelector((settings: Settings) => settings.gtk.opacity)
   const onSelectLayer = useCallback(
     (layer: GtkLayer) => {
-      dispatch(selectGTKLayer(toggleSelection(layer, selectedLayers)))
+      dispatch(
+        selectVisibleGtkLayersThunk(toggleSelection(layer, selectedLayers))
+      )
     },
     [dispatch, selectedLayers]
   )

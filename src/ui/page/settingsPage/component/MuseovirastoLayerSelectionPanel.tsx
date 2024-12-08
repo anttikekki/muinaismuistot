@@ -1,17 +1,17 @@
 import React, { useCallback, useMemo } from "react"
-import { LayerGroup, MuseovirastoLayer } from "../../../../common/layers.types"
-import { Panel } from "../../../component/Panel"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { Settings } from "../../../../store/storeTypes"
-import { selectMuseovirastoLayers } from "../../../../store/actionCreators"
+import { LayerGroup, MuseovirastoLayer } from "../../../../common/layers.types"
+import { AppDispatch, Settings } from "../../../../store/storeTypes"
+import { selectVisibleMuseovirastoLayerThunk } from "../../../../store/thunks/museovirastoLayer"
+import { Panel } from "../../../component/Panel"
 import { toggleSelection } from "../../../util"
 import { LayerCheckbox } from "./LayerCheckbox"
 import { LayerTransparencyInput } from "./LayerTransparencyInput"
 
 export const MuseovirastoLayerSelectionPanel: React.FC = () => {
   const { t, i18n } = useTranslation()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const selectedMuseovirastoLayers = useSelector(
     (settings: Settings) => settings.museovirasto.selectedLayers
   )
@@ -21,7 +21,7 @@ export const MuseovirastoLayerSelectionPanel: React.FC = () => {
   const onSelectMuseovirastoLayer = useCallback(
     (layer: MuseovirastoLayer) =>
       dispatch(
-        selectMuseovirastoLayers(
+        selectVisibleMuseovirastoLayerThunk(
           toggleSelection(layer, selectedMuseovirastoLayers)
         )
       ),

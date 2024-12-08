@@ -2,8 +2,8 @@ import React, { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { MaanmittauslaitosLayer } from "../../../../common/layers.types"
-import { selectMaanmittauslaitosLayer } from "../../../../store/actionCreators"
-import { Settings } from "../../../../store/storeTypes"
+import { AppDispatch, Settings } from "../../../../store/storeTypes"
+import { selectVisibleMaanmittauslaitosLayerThunk } from "../../../../store/thunks/maanmittauslaitosLayer"
 import { Panel } from "../../../component/Panel"
 
 interface LayerButtonProps {
@@ -34,13 +34,13 @@ const LayerButton: React.FC<LayerButtonProps> = ({
 
 export const MMLMapLayerSelectionPanel: React.FC = () => {
   const { t, i18n } = useTranslation()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const selectedLayer = useSelector(
     (settings: Settings) => settings.maanmittauslaitos.selectedLayer
   )
   const onSelectLayer = useCallback(
     (layer: MaanmittauslaitosLayer) => {
-      dispatch(selectMaanmittauslaitosLayer(layer))
+      dispatch(selectVisibleMaanmittauslaitosLayerThunk(layer))
     },
     [dispatch]
   )

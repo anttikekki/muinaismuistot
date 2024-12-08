@@ -1,20 +1,21 @@
 import React, { ReactNode, useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
+import { GeoJSONFeature } from "../../../../common/geojson.types"
+import { MaisemanMuistiFeatureProperties } from "../../../../common/maisemanMuisti.types"
+import { MapFeature } from "../../../../common/mapFeature.types"
 import {
+  getFeatureLocation,
+  getFeatureMunicipality,
+  getFeatureName,
   getFeatureTypeIconURL,
   getFeatureTypeName,
-  getFeatureName,
   getGeoJSONFeatureLocation,
-  getTypeIconURL,
-  getFeatureMunicipality,
-  getFeatureLocation
+  getTypeIconURL
 } from "../../../../common/util/featureParser"
 import { createLocationHash } from "../../../../common/util/URLHashHelper"
 import { showPage } from "../../../../store/actionCreators"
-import { MapFeature } from "../../../../common/mapFeature.types"
-import { MaisemanMuistiFeatureProperties } from "../../../../common/maisemanMuisti.types"
-import { GeoJSONFeature } from "../../../../common/geojson.types"
+import { AppDispatch } from "../../../../store/storeTypes"
 
 export enum FeatureTitleClickAction {
   OpenDetails = "openDetails",
@@ -42,7 +43,7 @@ const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
   featureTypeName,
   children
 }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const hidePage = useCallback(() => {
     dispatch(showPage(undefined))
   }, [dispatch])

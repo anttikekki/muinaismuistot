@@ -2,7 +2,8 @@ import React, { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { LayerGroup } from "../../../../common/layers.types"
-import { changeLayerOpacity } from "../../../../store/actionCreators"
+import { AppDispatch } from "../../../../store/storeTypes"
+import { changeLayerOpacityThunk } from "../../../../store/thunks/opacity"
 
 interface Props {
   opacity: number
@@ -14,7 +15,7 @@ export const LayerTransparencyInput: React.FC<Props> = ({
   layerGroup
 }) => {
   const { t } = useTranslation()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   const transparency = Number((1 - opacity) * 100).toFixed(0)
   const onTransparencyInputChange = useCallback(
@@ -24,7 +25,7 @@ export const LayerTransparencyInput: React.FC<Props> = ({
         transparency = 100
       }
       const opacity = Number((1 - transparency / 100).toFixed(2))
-      dispatch(changeLayerOpacity(opacity, layerGroup))
+      dispatch(changeLayerOpacityThunk(opacity, layerGroup))
     },
     [dispatch, transparency, layerGroup]
   )

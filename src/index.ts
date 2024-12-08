@@ -1,15 +1,15 @@
+import { configureStore } from "@reduxjs/toolkit"
+import { parseCoordinatesFromURL } from "./common/util/URLHashHelper"
 import {
   centerToCurrentPositions,
   createMap,
   setMapLocation,
   showSelectedLocationMarker
 } from "./map"
-import { createUI } from "./ui"
-import { parseCoordinatesFromURL } from "./common/util/URLHashHelper"
-import { getSettingsFromURL } from "./url"
-import { configureStore } from "./store/configureStore"
-import { rootReducer } from "./store/reducers"
 import { initialSettings } from "./store/initialSettings"
+import { rootReducer } from "./store/reducers"
+import { createUI } from "./ui"
+import { getSettingsFromURL } from "./url"
 
 const determineStartLocation = () => {
   if (parseCoordinatesFromURL()) {
@@ -38,7 +38,10 @@ const setMapLocationFromURLHash = () => {
 }
 
 const settings = getSettingsFromURL(initialSettings)
-const store = configureStore(settings, rootReducer)
+const store = configureStore({
+  reducer: rootReducer,
+  preloadedState: settings
+})
 
 createMap(store)
 createUI(store)

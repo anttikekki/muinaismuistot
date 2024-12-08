@@ -1,22 +1,20 @@
 import React, { useCallback } from "react"
-import {
-  ModelLayer,
-  MaisemanMuistiLayer
-} from "../../../../common/layers.types"
-import { Panel } from "../../../component/Panel"
 import { Trans, useTranslation } from "react-i18next"
-import { LayerCheckbox } from "./LayerCheckbox"
 import { useDispatch, useSelector } from "react-redux"
-import { Settings } from "../../../../store/storeTypes"
-import { toggleSelection } from "../../../util"
 import {
-  selectMaisemanMuistiLayers,
-  selectModelLayers
-} from "../../../../store/actionCreators"
+  MaisemanMuistiLayer,
+  ModelLayer
+} from "../../../../common/layers.types"
+import { AppDispatch, Settings } from "../../../../store/storeTypes"
+import { selectVisibleMaisemanMuistiLayerThunk } from "../../../../store/thunks/maisemanMuistiLayer"
+import { selectVisibleModelsLayerThunk } from "../../../../store/thunks/modelsLayer"
+import { Panel } from "../../../component/Panel"
+import { toggleSelection } from "../../../util"
+import { LayerCheckbox } from "./LayerCheckbox"
 
 export const OtherLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const selectedModelLayers = useSelector(
     (settings: Settings) => settings.models.selectedLayers
   )
@@ -25,13 +23,17 @@ export const OtherLayerSelectionPanel: React.FC = () => {
   )
   const onSelectModelLayer = useCallback(
     (layer: ModelLayer) =>
-      dispatch(selectModelLayers(toggleSelection(layer, selectedModelLayers))),
+      dispatch(
+        selectVisibleModelsLayerThunk(
+          toggleSelection(layer, selectedModelLayers)
+        )
+      ),
     [dispatch, selectedModelLayers]
   )
   const onSelectMaisemanMuistiLayer = useCallback(
     (layer: MaisemanMuistiLayer) =>
       dispatch(
-        selectMaisemanMuistiLayers(
+        selectVisibleMaisemanMuistiLayerThunk(
           toggleSelection(layer, selectedMaisemanMuistiLayers)
         )
       ),
