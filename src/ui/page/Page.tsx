@@ -1,4 +1,5 @@
 import React, { ReactNode, useCallback, useEffect, useState } from "react"
+import { Button, ButtonGroup } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { Language } from "../../common/layers.types"
@@ -25,15 +26,14 @@ const LangSelection: React.FC<LangSelectionProps> = ({
   const isSelectedLang = i18n.language === lang
 
   return (
-    <label className={`btn btn-default ${isSelectedLang ? "active" : ""}`}>
-      <input
-        type="radio"
-        name="selectedLanguage"
-        checked={isSelectedLang}
-        onChange={() => onLanguageChange(lang)}
-      />
-      <b>{lang.toUpperCase()}</b>
-    </label>
+    <Button
+      variant="outline-dark"
+      size="sm"
+      active={isSelectedLang}
+      onClick={() => onLanguageChange(lang)}
+    >
+      {lang.toUpperCase()}
+    </Button>
   )
 }
 
@@ -129,7 +129,7 @@ export const Page: React.FC<Props> = ({ title, pageId, children }) => {
             className="col-xs-4 col-sm-3 col-md-3"
             style={{ textAlign: "right" }}
           >
-            <div className="btn-group" data-toggle="buttons">
+            <ButtonGroup aria-label="Kielivalinta">
               <LangSelection
                 lang={Language.FI}
                 onLanguageChange={onLanguageChange}
@@ -138,7 +138,7 @@ export const Page: React.FC<Props> = ({ title, pageId, children }) => {
                 lang={Language.SV}
                 onLanguageChange={onLanguageChange}
               />
-            </div>
+            </ButtonGroup>
           </div>
         </div>
       )}
