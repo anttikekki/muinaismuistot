@@ -22,29 +22,6 @@ body,
   right: 20px;
 }
 
-/* 
- Spinner CSS from Bootstrap 4: https://github.com/twbs/bootstrap/blob/main/scss/_spinners.scss
- MIT License
-*/
-.spinner {
-  display: inline-block;
-  width: 2.2rem;
-  height: 2.2rem;
-  vertical-align: text-bottom;
-  border: 0.25em solid currentColor;
-  border-right-color: transparent;
-  border-radius: 50%;
-  -webkit-animation: spinner 0.75s linear infinite;
-  animation: spinner 0.75s linear infinite;
-}
-
-@keyframes spinner {
-  to {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
 .map-button {
   z-index: 15;
   position: absolute;

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
+import { Spinner } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import { Settings } from "../../store/storeTypes"
 
@@ -9,9 +10,8 @@ export const LoadingAnimation: React.FC = () => {
   const loadingAnimationTimeoutIDRef = useRef(loadingAnimationTimeoutID)
   loadingAnimationTimeoutIDRef.current = loadingAnimationTimeoutID
 
-  const [renderLoadingAnimation, setRenderLoadingAnimation] = useState<boolean>(
-    false
-  )
+  const [renderLoadingAnimation, setRenderLoadingAnimation] =
+    useState<boolean>(false)
   const showLoadingAnimation = useSelector(
     (settings: Settings) => settings.showLoadingAnimation
   )
@@ -36,13 +36,18 @@ export const LoadingAnimation: React.FC = () => {
     }
   }, [showLoadingAnimation])
 
+  if (!renderLoadingAnimation) {
+    return <></>
+  }
+
   return (
-    <div
+    <Spinner
       id="loading-animation"
-      className={renderLoadingAnimation ? "" : "hidden"}
+      animation="border"
+      role="status"
       style={isPageOpen ? { right: "100px" } : undefined}
     >
-      <div className="spinner" role="status"></div>
-    </div>
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
   )
 }
