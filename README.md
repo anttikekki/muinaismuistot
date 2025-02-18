@@ -63,9 +63,8 @@ See [GitHub releases](https://github.com/anttikekki/muinaismuistot/releases)
   - [OpenLayers](https://openlayers.org/)
   - [React](https://reactjs.org/)
   - [Redux](https://redux.js.org/)
-  - [Redux Observable](https://redux-observable.js.org/)
-  - [RxJS](https://rxjs.dev/)
-  - [Bootstrap](https://getbootstrap.com/docs/3.3/)
+  - [Redux Toolkit](https://redux-toolkit.js.org/)
+  - [Bootstrap](https://getbootstrap.com/docs/)
   - [React i18next](https://react.i18next.com/)
 - Build
   - [Node.js](https://nodejs.org/en/)
@@ -73,13 +72,12 @@ See [GitHub releases](https://github.com/anttikekki/muinaismuistot/releases)
 - Infrastucture
   - [GitHub pages](https://pages.github.com/)
   - [Cloudflare](https://www.cloudflare.com)
-  - [AWS Lambda](https://aws.amazon.com/lambda/)
 
 ## Infrastructure
 
 The whole UI is just static `html` and `js` files from Webpack build that are hosted in [GitHub pages](https://pages.github.com/) of this repository: [https://anttikekki.github.io/muinaismuistot](https://anttikekki.github.io/muinaismuistot). [Cloudflare](https://www.cloudflare.com) is used as a reverse proxy to add HTTPS support.
 
-There is no hosted backend server. Browser calls directly data providers map servers to fetch map tile images and data. One [AWS Lambda](https://aws.amazon.com/lambda/) is used as reverse proxy to add [CORS headers](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing#Headers) to request to [http://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml](http://paikkatieto.nba.fi/aineistot/MV_inspire_atom.xml) so that UI in browser can acces it from different domain.
+There is no hosted backend server. Browser calls directly data providers map servers to fetch map tile images and data.
 
 ![muinaismuistot.info infrastructure](./docs/muinaismuistot.info.infra.png "muinaismuistot.info infrastructure")
 
