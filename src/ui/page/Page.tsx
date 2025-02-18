@@ -119,7 +119,7 @@ export const Page: React.FC<Props> = ({ title, pageId, children }) => {
               {t(`common.button.close`)}
             </Button>
           </Col>
-          <Col xs={6} sm={7} md={7} style={{ textAlign: "center" }}>
+          <Col xs={6} sm={7} md={7} className="text-center">
             <span className="pageHeaderText">{title}</span>
           </Col>
           <Col xs={4} sm={3} md={3} style={{ textAlign: "right" }}>
@@ -138,7 +138,7 @@ export const Page: React.FC<Props> = ({ title, pageId, children }) => {
       )}
 
       {pageVisibility !== PageVisibility.Hidden && (
-        <div className="pageContent">{children}</div>
+        <Container className="pageContent">{children}</Container>
       )}
     </Container>
   )
