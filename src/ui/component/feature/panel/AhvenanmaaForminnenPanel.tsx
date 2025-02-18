@@ -1,35 +1,25 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { AhvenanmaaForminnenArgisFeature } from "../../../../common/ahvenanmaa.types"
+import { AhvenanmaaTypeAndDatingField } from "../component/AhvenanmaaTypeAndDatingField"
+import { EmbeddedModels } from "../component/EmbeddedModels"
 import {
-  MapFeatureCollapsePanel,
-  FeatureTitleClickAction
+  FeatureCollapsePanelCommonExternalProps,
+  MapFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
-import { EmbeddedModels } from "../component/EmbeddedModels"
-import { AhvenanmaaTypeAndDatingField } from "../component/AhvenanmaaTypeAndDatingField"
-import { AhvenanmaaForminnenArgisFeature } from "../../../../common/ahvenanmaa.types"
 
-interface Props {
-  titleClickAction: FeatureTitleClickAction
-  isOpen: boolean
-  onToggleOpen: () => void
+interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature: AhvenanmaaForminnenArgisFeature
 }
 
 export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
-  titleClickAction,
-  isOpen,
-  onToggleOpen,
-  feature
+  feature,
+  ...commonProps
 }) => {
   const { t } = useTranslation()
   return (
-    <MapFeatureCollapsePanel
-      titleClickAction={titleClickAction}
-      isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
-      feature={feature}
-    >
+    <MapFeatureCollapsePanel feature={feature} {...commonProps}>
       <form>
         <Field
           label={t(`details.field.id`)}
@@ -57,7 +47,7 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
           value={feature.attributes.Topografi}
         />
 
-        {isOpen && <EmbeddedModels models={feature.models} />}
+        {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
       </form>
     </MapFeatureCollapsePanel>
   )

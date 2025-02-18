@@ -1,28 +1,25 @@
 import React from "react"
+import { useTranslation } from "react-i18next"
 import {
   MuinaisjaannosPisteWmsFeature,
   MuuKulttuuriperintokohdePisteWmsFeature
 } from "../../../../common/museovirasto.types"
 import {
-  MapFeatureCollapsePanel,
-  FeatureTitleClickAction
-} from "../component/FeatureCollapsePanel"
-import { Field } from "../component/Field"
-import { TimespanLabel } from "../component/TimespanLabel"
-import { MuseovirastoLink } from "../component/MuseovirastoLink"
-import { EmbeddedModels } from "../component/EmbeddedModels"
-import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
-import { useTranslation } from "react-i18next"
-import {
   getArkeologisenKulttuuriperinnonOpasLinkForSubType,
   getArkeologisenKulttuuriperinnonOpasLinkForType
 } from "../../../../common/util/wikiLinkHelper"
 import { Link } from "../../Link"
+import { EmbeddedModels } from "../component/EmbeddedModels"
+import {
+  FeatureCollapsePanelCommonExternalProps,
+  MapFeatureCollapsePanel
+} from "../component/FeatureCollapsePanel"
+import { Field } from "../component/Field"
+import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
+import { MuseovirastoLink } from "../component/MuseovirastoLink"
+import { TimespanLabel } from "../component/TimespanLabel"
 
-interface Props {
-  titleClickAction: FeatureTitleClickAction
-  isOpen: boolean
-  onToggleOpen: () => void
+interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature:
     | MuinaisjaannosPisteWmsFeature
     | MuuKulttuuriperintokohdePisteWmsFeature
@@ -49,10 +46,8 @@ function renderList<T extends string>(
 }
 
 export const MuinaisjaannosPistePanel: React.FC<Props> = ({
-  titleClickAction,
-  isOpen,
-  onToggleOpen,
-  feature
+  feature,
+  ...commonProps
 }) => {
   const { t } = useTranslation()
   const {
@@ -60,16 +55,10 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
     kunta,
     ajoitusSplitted,
     tyyppiSplitted,
-    alatyyppiSplitted,
-    Laji
+    alatyyppiSplitted
   } = feature.properties
   return (
-    <MapFeatureCollapsePanel
-      titleClickAction={titleClickAction}
-      isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
-      feature={feature}
-    >
+    <MapFeatureCollapsePanel feature={feature} {...commonProps}>
       <form>
         <Field label={t(`details.field.featureName`)} value={kohdenimi} />
         <Field label={t(`details.field.municipality`)} value={kunta} />
@@ -110,7 +99,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
 
         <MuseovirastoLink feature={feature} />
 
-        {isOpen && <EmbeddedModels models={feature.models} />}
+        {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
       </form>
     </MapFeatureCollapsePanel>
   )

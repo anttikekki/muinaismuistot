@@ -1,4 +1,5 @@
 import React, { ReactNode, useCallback, useMemo } from "react"
+import { Accordion, Col, Container, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { GeoJSONFeature } from "../../../../common/geojson.types"
@@ -22,10 +23,15 @@ export enum FeatureTitleClickAction {
   ClosePageAndPinOnMap = "closePageAndPinOnMap"
 }
 
-interface FeatureCollapsePanelProps {
+export interface FeatureCollapsePanelCommonExternalProps {
   titleClickAction: FeatureTitleClickAction
   isOpen: boolean
+  panelId: string
   onToggleOpen: () => void
+}
+
+interface FeatureCollapsePanelProps
+  extends FeatureCollapsePanelCommonExternalProps {
   permanentLink: string | undefined
   featureName: string
   featureTypeIconURL: string | undefined
@@ -35,7 +41,7 @@ interface FeatureCollapsePanelProps {
 
 const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
   titleClickAction,
-  isOpen,
+  panelId,
   onToggleOpen,
   permanentLink,
   featureName,
@@ -60,74 +66,57 @@ const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
     }
   }
 
-  const onChevronClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    event.preventDefault()
-    onToggleOpen()
-  }
-
   const onPermanentLinkClick = () => {
     hidePage()
   }
 
   return (
-    <div className="panel panel-default">
-      <div className="panel-heading feature-collapse-panel-heading" role="tab">
-        <h4 className="panel-title">
-          <a role="button" href={permanentLink} onClick={onTitleClick}>
-            {featureName}
-          </a>
-          <a
-            role="button"
-            href=""
-            className="pull-right"
-            style={{ marginLeft: "10px" }}
-            onClick={onChevronClick}
-          >
-            <span
-              className={`glyphicon glyphicon-chevron-${
-                isOpen ? "up" : "down"
-              }`}
-              aria-hidden="true"
-            />
-          </a>
-          <a
-            className="pull-right"
-            href={permanentLink}
-            onClick={onPermanentLinkClick}
-          >
-            <span className="glyphicon glyphicon-link" aria-hidden="true" />
-          </a>
-        </h4>
-        <h6 className="panel-title">
-          <a role="button" href={permanentLink} onClick={onTitleClick}>
-            <img className="feature-icon" src={featureTypeIconURL} />
-            <span>{featureTypeName}</span>
-          </a>
-        </h6>
-      </div>
-      <div
-        className={`panel-collapse collapse ${isOpen ? "in" : ""}`}
-        role="tabpanel"
-      >
+    <Accordion.Item eventKey={panelId}>
+      <Accordion.Header onClick={onToggleOpen}>
+        <Container>
+          <Row>
+            <Col sm={10}>
+              <div>{featureName}</div>
+              <div>
+                <img className="feature-icon" src={featureTypeIconURL} />
+                <span>{featureTypeName}</span>
+              </div>
+            </Col>
+            <Col>
+              <a href={permanentLink} onClick={onPermanentLinkClick}>
+                <i
+                  className="bi bi-link-45deg"
+                  aria-hidden="true"
+                  style={{ fontSize: "2rem" }}
+                />
+              </a>
+            </Col>
+          </Row>
+        </Container>
+      </Accordion.Header>
+      <Accordion.Body>
         <div className="panel-body">{children}</div>
-      </div>
-    </div>
+      </Accordion.Body>
+    </Accordion.Item>
   )
 }
 
-interface MapFeatureCollapsePanelProps {
-  titleClickAction: FeatureTitleClickAction
-  isOpen: boolean
-  onToggleOpen: () => void
+interface MapFeatureCollapsePanelProps
+  extends FeatureCollapsePanelCommonExternalProps {
   feature: MapFeature
   children: ReactNode
 }
 
 export const MapFeatureCollapsePanel: React.FC<
   MapFeatureCollapsePanelProps
-> = ({ titleClickAction, isOpen, onToggleOpen, feature, children }) => {
+> = ({
+  titleClickAction,
+  isOpen,
+  panelId,
+  onToggleOpen,
+  feature,
+  children
+}) => {
   const { t, i18n } = useTranslation()
   const permanentLink = useMemo(() => {
     const coordinates = getFeatureLocation(feature)
@@ -157,6 +146,7 @@ export const MapFeatureCollapsePanel: React.FC<
     <FeatureCollapsePanel
       titleClickAction={titleClickAction}
       isOpen={isOpen}
+      panelId={panelId}
       onToggleOpen={onToggleOpen}
       permanentLink={permanentLink}
       featureName={featureName}
@@ -168,10 +158,8 @@ export const MapFeatureCollapsePanel: React.FC<
   )
 }
 
-interface MaisemanMuistiFeatureCollapsePanelProps {
-  titleClickAction: FeatureTitleClickAction
-  isOpen: boolean
-  onToggleOpen: () => void
+interface MaisemanMuistiFeatureCollapsePanelProps
+  extends FeatureCollapsePanelCommonExternalProps {
   feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>
   has3dModels?: boolean
   children: ReactNode
@@ -182,6 +170,7 @@ export const MaisemanMuistiFeatureCollapsePanel: React.FC<
 > = ({
   titleClickAction,
   isOpen,
+  panelId,
   onToggleOpen,
   feature,
   has3dModels,
@@ -205,6 +194,7 @@ export const MaisemanMuistiFeatureCollapsePanel: React.FC<
     <FeatureCollapsePanel
       titleClickAction={titleClickAction}
       isOpen={isOpen}
+      panelId={panelId}
       onToggleOpen={onToggleOpen}
       permanentLink={permanentLink}
       featureName={featureName}

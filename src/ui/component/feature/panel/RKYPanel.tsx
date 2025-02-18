@@ -1,11 +1,4 @@
 import React from "react"
-import {
-  MapFeatureCollapsePanel,
-  FeatureTitleClickAction
-} from "../component/FeatureCollapsePanel"
-import { Field } from "../component/Field"
-import { MuseovirastoLink } from "../component/MuseovirastoLink"
-import { EmbeddedModels } from "../component/EmbeddedModels"
 import { useTranslation } from "react-i18next"
 import {
   RKYAlueWmsFeature,
@@ -13,28 +6,22 @@ import {
   RKYViivaWmsFeature,
   isRKYAlueWmsFeature
 } from "../../../../common/museovirasto.types"
+import { EmbeddedModels } from "../component/EmbeddedModels"
+import {
+  FeatureCollapsePanelCommonExternalProps,
+  MapFeatureCollapsePanel
+} from "../component/FeatureCollapsePanel"
+import { Field } from "../component/Field"
+import { MuseovirastoLink } from "../component/MuseovirastoLink"
 
-interface Props {
-  titleClickAction: FeatureTitleClickAction
-  isOpen: boolean
-  onToggleOpen: () => void
+interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature: RKYPisteWmsFeature | RKYAlueWmsFeature | RKYViivaWmsFeature
 }
 
-export const RKYPanel: React.FC<Props> = ({
-  titleClickAction,
-  isOpen,
-  onToggleOpen,
-  feature
-}) => {
+export const RKYPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
   const { t } = useTranslation()
   return (
-    <MapFeatureCollapsePanel
-      titleClickAction={titleClickAction}
-      isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
-      feature={feature}
-    >
+    <MapFeatureCollapsePanel feature={feature} {...commonProps}>
       <form>
         <Field
           label={t(`details.field.featureName`)}
@@ -47,7 +34,7 @@ export const RKYPanel: React.FC<Props> = ({
           />
         )}
         <MuseovirastoLink feature={feature} />
-        {isOpen && <EmbeddedModels models={feature.models} />}
+        {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
       </form>
     </MapFeatureCollapsePanel>
   )

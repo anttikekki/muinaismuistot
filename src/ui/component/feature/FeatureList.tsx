@@ -1,32 +1,15 @@
 import React, { useCallback, useState } from "react"
-import {
-  MuseovirastoLayer,
-  AhvenanmaaLayer
-} from "../../../common/layers.types"
-import { MuinaisjaannosPistePanel } from "../../component/feature/panel/MuinaisjaannosPistePanel"
-import {
-  getFeatureID,
-  getModelsForMaisemanMuistiFeature
-} from "../../../common/util/featureParser"
-import { MuinaisjaannosAluePanel } from "../../component/feature/panel/MuinaisjaannosAluePanel"
-import { RKYPanel } from "../../component/feature/panel/RKYPanel"
-import { MaailmanperintokohdePanel } from "../../component/feature/panel/MaailmanperintokohdePanel"
-import { SuojellutRakennuksetPanel } from "../../component/feature/panel/SuojellutRakennuksetPanel"
-import { AhvenanmaaForminnenPanel } from "../../component/feature/panel/AhvenanmaaForminnenPanel"
-import { AhvenanmaaMaritimtKulturarvPanel } from "../../component/feature/panel/AhvenanmaaMaritimtKulturarvPanel"
-import { MaisemanMuistiPanel } from "../../component/feature/panel/MaisemanMuistiPanel"
-import { FeatureTitleClickAction } from "./component/FeatureCollapsePanel"
-import { MaalinnoitusYksikkoPanel } from "./panel/MaalinnoitusYksikkoPanel"
-import { MaalinnoitusKohdePanel } from "./panel/MaalinnoitusKohdePanel"
-import { MaalinnoitusRajausPanel } from "./panel/MaalinnoitusRajausPanel"
-import { GeoJSONFeature } from "../../../common/geojson.types"
+import { Accordion } from "react-bootstrap"
 import { ModelFeatureProperties } from "../../../common/3dModels.types"
-import { MaisemanMuistiFeatureProperties } from "../../../common/maisemanMuisti.types"
+import { isAhvenanmaaArcgisFeature } from "../../../common/ahvenanmaa.types"
+import { GeoJSONFeature } from "../../../common/geojson.types"
+import { AhvenanmaaLayer } from "../../../common/layers.types"
 import {
   isMaalinnoitusKohdeFeature,
   isMaalinnoitusRajausFeature,
   isMaalinnoitusYksikkoFeature
 } from "../../../common/maalinnoitusHelsinki.types"
+import { MaisemanMuistiFeatureProperties } from "../../../common/maisemanMuisti.types"
 import {
   MapFeature,
   getFeatureLayerName,
@@ -45,7 +28,25 @@ import {
   isSuojellutRakennuksetAlueWmsFeature,
   isSuojellutRakennuksetPisteWmsFeature
 } from "../../../common/museovirasto.types"
-import { isAhvenanmaaArcgisFeature } from "../../../common/ahvenanmaa.types"
+import {
+  getFeatureID,
+  getModelsForMaisemanMuistiFeature
+} from "../../../common/util/featureParser"
+import { AhvenanmaaForminnenPanel } from "../../component/feature/panel/AhvenanmaaForminnenPanel"
+import { AhvenanmaaMaritimtKulturarvPanel } from "../../component/feature/panel/AhvenanmaaMaritimtKulturarvPanel"
+import { MaailmanperintokohdePanel } from "../../component/feature/panel/MaailmanperintokohdePanel"
+import { MaisemanMuistiPanel } from "../../component/feature/panel/MaisemanMuistiPanel"
+import { MuinaisjaannosAluePanel } from "../../component/feature/panel/MuinaisjaannosAluePanel"
+import { MuinaisjaannosPistePanel } from "../../component/feature/panel/MuinaisjaannosPistePanel"
+import { RKYPanel } from "../../component/feature/panel/RKYPanel"
+import { SuojellutRakennuksetPanel } from "../../component/feature/panel/SuojellutRakennuksetPanel"
+import {
+  FeatureCollapsePanelCommonExternalProps,
+  FeatureTitleClickAction
+} from "./component/FeatureCollapsePanel"
+import { MaalinnoitusKohdePanel } from "./panel/MaalinnoitusKohdePanel"
+import { MaalinnoitusRajausPanel } from "./panel/MaalinnoitusRajausPanel"
+import { MaalinnoitusYksikkoPanel } from "./panel/MaalinnoitusYksikkoPanel"
 
 interface FeatureListProps {
   titleClickAction: FeatureTitleClickAction
@@ -67,18 +68,26 @@ export const FeatureList: React.FC<FeatureListProps> = ({
     (id: string) => setOpenPanelId(openPanelId === id ? "" : id),
     [openPanelId]
   )
+  const getCommonProps = (
+    panelId: string
+  ): FeatureCollapsePanelCommonExternalProps => {
+    return {
+      titleClickAction,
+      isOpen: openPanelId === panelId,
+      panelId,
+      onToggleOpen: () => onTogglePanelOpen(panelId)
+    }
+  }
 
   return (
-    <div className="panel-group" role="tablist" aria-multiselectable="true">
+    <Accordion defaultActiveKey={openPanelId} activeKey={openPanelId}>
       {features.map((feature, i) => {
         const panelId = `${getFeatureLayerName(feature)}-${getFeatureID(
           feature
         )}-${i}`
         const params = {
           key: panelId,
-          titleClickAction,
-          isOpen: openPanelId === panelId,
-          onToggleOpen: () => onTogglePanelOpen(panelId)
+          ...getCommonProps(panelId)
         }
 
         if (isWmsFeature(feature)) {
@@ -115,37 +124,13 @@ export const FeatureList: React.FC<FeatureListProps> = ({
           }
 
           if (isMaalinnoitusYksikkoFeature(feature)) {
-            return (
-              <MaalinnoitusYksikkoPanel
-                key={panelId}
-                titleClickAction={titleClickAction}
-                isOpen={openPanelId === panelId}
-                onToggleOpen={() => onTogglePanelOpen(panelId)}
-                feature={feature}
-              />
-            )
+            return <MaalinnoitusYksikkoPanel feature={feature} {...params} />
           }
           if (isMaalinnoitusKohdeFeature(feature)) {
-            return (
-              <MaalinnoitusKohdePanel
-                key={panelId}
-                titleClickAction={titleClickAction}
-                isOpen={openPanelId === panelId}
-                onToggleOpen={() => onTogglePanelOpen(panelId)}
-                feature={feature}
-              />
-            )
+            return <MaalinnoitusKohdePanel feature={feature} {...params} />
           }
           if (isMaalinnoitusRajausFeature(feature)) {
-            return (
-              <MaalinnoitusRajausPanel
-                key={panelId}
-                titleClickAction={titleClickAction}
-                isOpen={openPanelId === panelId}
-                onToggleOpen={() => onTogglePanelOpen(panelId)}
-                feature={feature}
-              />
-            )
+            return <MaalinnoitusRajausPanel feature={feature} {...params} />
           }
         }
         if (isAhvenanmaaArcgisFeature(feature)) {
@@ -167,14 +152,12 @@ export const FeatureList: React.FC<FeatureListProps> = ({
         return (
           <MaisemanMuistiPanel
             key={panelId}
-            titleClickAction={titleClickAction}
-            isOpen={openPanelId === panelId}
-            onToggleOpen={() => onTogglePanelOpen(panelId)}
+            {...getCommonProps(panelId)}
             feature={feature}
             models={getModelsForMaisemanMuistiFeature(feature, models)}
           />
         )
       })}
-    </div>
+    </Accordion>
   )
 }

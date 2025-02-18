@@ -1,42 +1,32 @@
 import React from "react"
+import { useTranslation } from "react-i18next"
+import { ModelFeatureProperties } from "../../../../common/3dModels.types"
+import { GeoJSONFeature } from "../../../../common/geojson.types"
+import { MaisemanMuistiFeatureProperties } from "../../../../common/maisemanMuisti.types"
+import { trim } from "../../../../common/util/featureParser"
+import { EmbeddedModels } from "../component/EmbeddedModels"
 import {
-  FeatureTitleClickAction,
+  FeatureCollapsePanelCommonExternalProps,
   MaisemanMuistiFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
-import { MuseovirastoLinkDirect } from "../component/MuseovirastoLink"
-import { EmbeddedModels } from "../component/EmbeddedModels"
 import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
-import { trim } from "../../../../common/util/featureParser"
+import { MuseovirastoLinkDirect } from "../component/MuseovirastoLink"
 import { TimespanLabel } from "../component/TimespanLabel"
-import { useTranslation } from "react-i18next"
-import { GeoJSONFeature } from "../../../../common/geojson.types"
-import { MaisemanMuistiFeatureProperties } from "../../../../common/maisemanMuisti.types"
-import { ModelFeatureProperties } from "../../../../common/3dModels.types"
 
-interface Props {
-  titleClickAction: FeatureTitleClickAction
-  isOpen: boolean
-  onToggleOpen: () => void
+interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>
   models?: Array<GeoJSONFeature<ModelFeatureProperties>>
 }
 
 export const MaisemanMuistiPanel: React.FC<Props> = ({
-  titleClickAction,
-  isOpen,
-  onToggleOpen,
   feature,
-  models = []
+  models = [],
+  ...commonProps
 }) => {
   const { t } = useTranslation()
   return (
-    <MaisemanMuistiFeatureCollapsePanel
-      titleClickAction={titleClickAction}
-      isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
-      feature={feature}
-    >
+    <MaisemanMuistiFeatureCollapsePanel feature={feature} {...commonProps}>
       <form>
         <Field
           label={t(`details.field.featureName`)}
@@ -70,7 +60,7 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
           registerName="Muinaisjäännösrekisteristä"
         />
 
-        {isOpen && <EmbeddedModels models={models} />}
+        {commonProps.isOpen && <EmbeddedModels models={models} />}
       </form>
     </MaisemanMuistiFeatureCollapsePanel>
   )

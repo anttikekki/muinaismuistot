@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
-import { Button, Col, Form, InputGroup, Row } from "react-bootstrap"
+import { Alert, Button, Col, Form, InputGroup, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { MapFeature } from "../../../common/mapFeature.types"
@@ -35,15 +35,6 @@ const Results: React.FC<ResultsProps> = ({ features }) => {
         maisemanMuistiFeatures={[]}
       />
     </>
-  )
-}
-
-const ValidationError: React.FC = () => {
-  const { t } = useTranslation()
-  return (
-    <div className="alert alert-danger" role="alert">
-      {t(`search.error`)}
-    </div>
   )
 }
 
@@ -84,7 +75,9 @@ export const SearchPage: React.FC = () => {
       <Row>
         <Col>
           <Form onSubmit={onSearchClick}>
-            {showSearchTextError && <ValidationError />}
+            {showSearchTextError && (
+              <Alert variant="danger">{t(`search.error`)}</Alert>
+            )}
 
             <Form.Label>{t(`search.info`)}</Form.Label>
             <InputGroup>

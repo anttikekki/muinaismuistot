@@ -1,37 +1,27 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import {
-  MapFeatureCollapsePanel,
-  FeatureTitleClickAction
-} from "../component/FeatureCollapsePanel"
-import { Field } from "../component/Field"
-import { MuseovirastoLink } from "../component/MuseovirastoLink"
-import {
   MaailmanperintoAlueWmsFeature,
   MaailmanperintoPisteWmsFeature
 } from "../../../../common/museovirasto.types"
+import {
+  FeatureCollapsePanelCommonExternalProps,
+  MapFeatureCollapsePanel
+} from "../component/FeatureCollapsePanel"
+import { Field } from "../component/Field"
+import { MuseovirastoLink } from "../component/MuseovirastoLink"
 
-interface Props {
-  titleClickAction: FeatureTitleClickAction
-  isOpen: boolean
-  onToggleOpen: () => void
+interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature: MaailmanperintoPisteWmsFeature | MaailmanperintoAlueWmsFeature
 }
 
 export const MaailmanperintokohdePanel: React.FC<Props> = ({
-  titleClickAction,
-  isOpen,
-  onToggleOpen,
-  feature
+  feature,
+  ...commonProps
 }) => {
   const { t } = useTranslation()
   return (
-    <MapFeatureCollapsePanel
-      titleClickAction={titleClickAction}
-      isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
-      feature={feature}
-    >
+    <MapFeatureCollapsePanel feature={feature} {...commonProps}>
       <form>
         <Field
           label={t(`details.field.name`)}
