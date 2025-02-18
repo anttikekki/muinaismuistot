@@ -17,7 +17,7 @@ export const ZoomInButton: React.FunctionComponent = () => {
         title={t(`common.button.zoomIn`) ?? undefined}
         onClick={onClick}
       >
-        <span className="glyphicon glyphicon-plus" aria-hidden="true" />
+        <i className="bi bi-zoom-in" aria-hidden="true" />
       </button>
     </div>
   )
