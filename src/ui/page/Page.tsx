@@ -1,5 +1,5 @@
 import React, { ReactNode, useCallback, useEffect, useState } from "react"
-import { Button, ButtonGroup } from "react-bootstrap"
+import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { Language } from "../../common/layers.types"
@@ -110,25 +110,19 @@ export const Page: React.FC<Props> = ({ title, pageId, children }) => {
   }, [dispatch])
 
   return (
-    <div className={`container page ${classes}`}>
+    <Container className={`page ${classes}`}>
       {pageVisibility !== PageVisibility.Hidden && (
-        <div className="row pageHeader">
-          <div className="col-xs-2 col-sm-2 col-md-2">
-            <button className="btn btn-primary btn-sm" onClick={onHidePage}>
-              <span className="glyphicon glyphicon-remove" aria-hidden="true" />
+        <Row className="pageHeader">
+          <Col xs={2} sm={2} md={2}>
+            <Button size="sm" onClick={onHidePage}>
+              <i className="bi bi-x" aria-hidden="true" />
               {t(`common.button.close`)}
-            </button>
-          </div>
-          <div
-            className="col-xs-6 col-sm-7 col-md-7"
-            style={{ textAlign: "center" }}
-          >
+            </Button>
+          </Col>
+          <Col xs={6} sm={7} md={7} style={{ textAlign: "center" }}>
             <span className="pageHeaderText">{title}</span>
-          </div>
-          <div
-            className="col-xs-4 col-sm-3 col-md-3"
-            style={{ textAlign: "right" }}
-          >
+          </Col>
+          <Col xs={4} sm={3} md={3} style={{ textAlign: "right" }}>
             <ButtonGroup aria-label="Kielivalinta">
               <LangSelection
                 lang={Language.FI}
@@ -139,13 +133,13 @@ export const Page: React.FC<Props> = ({ title, pageId, children }) => {
                 onLanguageChange={onLanguageChange}
               />
             </ButtonGroup>
-          </div>
-        </div>
+          </Col>
+        </Row>
       )}
 
       {pageVisibility !== PageVisibility.Hidden && (
         <div className="pageContent">{children}</div>
       )}
-    </div>
+    </Container>
   )
 }
