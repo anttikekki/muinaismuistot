@@ -62,83 +62,21 @@ body,
   right: 10px;
 }
 
-.page {
-  z-index: 20;
-  position: absolute;
-  top: 0px;
-  background-color: #fff;
-  height: 100%;
-  width: 100%;
-}
-
-.pageHeader {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.pageHeaderText {
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.pageContent {
-  height: 90%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.page-right-visible {
-  -webkit-transition: right 0.5s ease;
-  -moz-transition: right 0.5s ease;
-  -o-transition: right 0.5s ease;
-  transition: right 0.5s ease;
-  right: 0px;
-}
-
-.page-right-closing {
-  -webkit-transition: right 0.5s ease;
-  -moz-transition: right 0.5s ease;
-  -o-transition: right 0.5s ease;
-  transition: right 0.5s ease;
-  right: -100%;
-}
-
-.page-right-hidden {
-  right: -100%;
-  width: 0px;
-}
-
-@media (min-width: 768px) {
-  .page {
-  }
-  .page-right-hidden {
+@media (width < 576px) {
+  .offcanvas {
+    --bs-offcanvas-width: 100%;
   }
 }
 
-@media (min-width: 992px) {
-  .page {
-    width: 500px;
-  }
-  .page-right-closing {
-    right: -500px;
+@media (width >= 576px) {
+  .offcanvas {
+    --bs-offcanvas-width: 576px;
   }
 }
 
-@media (min-width: 1200px) {
-  .page {
-    width: 600px;
-  }
-  .page-right-closing {
-    right: -600px;
-  }
-}
-
-@media (min-width: 1400px) {
-  .page {
-    width: 700px;
-  }
-  .page-right-closing {
-    right: -700px;
+@media (width >= 768px) {
+  .offcanvas {
+    --bs-offcanvas-width: 700px;
   }
 }
 

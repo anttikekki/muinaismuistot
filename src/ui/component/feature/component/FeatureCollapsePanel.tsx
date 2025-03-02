@@ -76,7 +76,7 @@ const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
         <Container>
           <Row>
             <Col sm={10}>
-              <h6>{featureName}</h6>
+              <h6 className="mb-0">{featureName}</h6>
               <div>
                 <img className="feature-icon" src={featureTypeIconURL} />
                 <span>{featureTypeName}</span>
