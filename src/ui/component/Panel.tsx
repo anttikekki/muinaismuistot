@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react"
+import { Card } from "react-bootstrap"
 
 interface Props {
   title: string
@@ -7,9 +8,9 @@ interface Props {
 
 export const Panel: React.FC<Props> = ({ title, children }) => {
   return (
-    <div className="panel panel-default">
-      <div className="panel-heading">{title}</div>
-      <div className="panel-body">{children}</div>
-    </div>
+    <Card className="mb-4">
+      <Card.Header>{title}</Card.Header>
+      <Card.Body>{children}</Card.Body>
+    </Card>
   )
 }

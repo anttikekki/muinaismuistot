@@ -20,6 +20,7 @@
       "Valtakunnallisesti merkittävä muinaisjäännös": "Valtakunnallisesti merkittävä muinaisjäännös"
     },
     "organization": {
+      "Maanmittauslaitos": "Maanmittauslaitos",
       "Museovirasto": "Museovirasto",
       "Ahvenanmaan paikallishallinto": "Ahvenanmaan paikallishallinto",
       "Geologian tutkimuskeskus": "Geologian tutkimuskeskus",
@@ -73,23 +74,23 @@
       "maastokartta": "Maastokartta",
       "taustakartta": "Taustakartta",
       "ortokuva": "Ortokuva",
-      "licence": "Taustakarttasarja (rasteri), Maastokarttasarja (rasteri), ortokuva © Maanmittauslaitos 2021"
+      "licence": "Taustakarttasarja (rasteri), Maastokarttasarja (rasteri), ortokuva © Maanmittauslaitos"
     },
     "gtk": {
       "title": "Geologian tutkimuskeskuksen aineistot",
-      "licence": "GTK Maaperä/Muinaisrannat © Geologian tutkimuskeskus 2021"
+      "licence": "GTK Maaperä/Muinaisrannat © Geologian tutkimuskeskus"
     },
     "museovirasto": {
       "title": "Museoviraston aineistot",
-      "licence": "Kulttuuriympäristön tietoaineisto © Museovirasto 2021"
+      "licence": "Kulttuuriympäristön tietoaineisto © Museovirasto"
     },
     "ahvenanmaa": {
       "title": "Ahvenanmaan paikallishallinnon aineistot",
-      "licence": "Fornminnen © Ålands landskapsregering 2021"
+      "licence": "Fornminnen © Ålands landskapsregering"
     },
     "helsinki": {
       "title": "Helsingin kaupungin aineistot",
-      "licence": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset © Helsingin kaupunki 2021"
+      "licence": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset © Helsingin kaupunki"
     },
     "other": {
       "title": "Muut aineistot"

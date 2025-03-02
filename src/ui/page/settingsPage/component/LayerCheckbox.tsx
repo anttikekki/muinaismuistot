@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react"
+import { Form } from "react-bootstrap"
 import { FeatureLayer } from "../../../../common/layers.types"
 import { getLayerIconURLs } from "../../../../common/util/featureParser"
 
@@ -25,22 +26,24 @@ export const LayerCheckbox = <T extends FeatureLayer>(
   const isSelected = selectedLayers.includes(layer)
 
   return (
-    <div className="checkbox sub-layer-select-checkbox-container">
-      <label>
-        <input
-          type="checkbox"
-          onChange={() => onSelectLayer(layer)}
-          checked={isSelected}
-        />
-        {showIcon
-          ? getLayerIconURLs(layer).map((url, index) => (
-              <img className="feature-icon" key={index} src={url} />
-            ))
-          : null}
+    <Form.Check
+      type="checkbox"
+      className="ms-3"
+      id={label}
+      onChange={() => onSelectLayer(layer)}
+      checked={isSelected}
+      label={
+        <>
+          {showIcon
+            ? getLayerIconURLs(layer).map((url, index) => (
+                <img className="feature-icon" key={index} src={url} />
+              ))
+            : null}
 
-        <span>{label}</span>
-      </label>
-      {children}
-    </div>
+          <span>{label}</span>
+          {children}
+        </>
+      }
+    ></Form.Check>
   )
 }

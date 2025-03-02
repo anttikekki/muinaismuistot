@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo } from "react"
+import React, { useCallback } from "react"
+import { Button, ButtonGroup, Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { MaanmittauslaitosLayer } from "../../../../common/layers.types"
@@ -6,13 +7,13 @@ import { AppDispatch, Settings } from "../../../../store/storeTypes"
 import { selectVisibleMaanmittauslaitosLayerThunk } from "../../../../store/thunks/maanmittauslaitosLayer"
 import { Panel } from "../../../component/Panel"
 
-interface LayerButtonProps {
+interface MLLLayerButtonProps {
   layer: MaanmittauslaitosLayer
   selectedLayer: MaanmittauslaitosLayer
   onSelectLayer: (layer: MaanmittauslaitosLayer) => void
 }
 
-const LayerButton: React.FC<LayerButtonProps> = ({
+const MMLLayerButton: React.FC<MLLLayerButtonProps> = ({
   layer,
   selectedLayer,
   onSelectLayer
@@ -20,20 +21,19 @@ const LayerButton: React.FC<LayerButtonProps> = ({
   const { t } = useTranslation()
   const isSelected = layer === selectedLayer
   return (
-    <label className={`btn btn-default ${isSelected ? "active" : ""}`}>
-      <input
-        type="radio"
-        name="selectedMapLayer"
-        checked={isSelected}
-        onChange={() => onSelectLayer(layer)}
-      />
+    <Button
+      variant="outline-dark"
+      size="sm"
+      active={isSelected}
+      onClick={() => onSelectLayer(layer)}
+    >
       {t(`settings.mml.${layer}`)}
-    </label>
+    </Button>
   )
 }
 
 export const MMLMapLayerSelectionPanel: React.FC = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
   const selectedLayer = useSelector(
     (settings: Settings) => settings.maanmittauslaitos.selectedLayer
@@ -44,27 +44,24 @@ export const MMLMapLayerSelectionPanel: React.FC = () => {
     },
     [dispatch]
   )
-  const buttons = useMemo(() => {
-    return Object.values(MaanmittauslaitosLayer).map((l) => (
-      <LayerButton
-        key={l}
-        layer={l}
-        selectedLayer={selectedLayer}
-        onSelectLayer={onSelectLayer}
-      />
-    ))
-  }, [selectedLayer, onSelectLayer, i18n.language])
 
   return (
     <Panel title={t(`settings.mml.title`)}>
-      <form>
-        <div className="form-group">
-          <div className="btn-group" data-toggle="buttons">
-            {buttons}
-          </div>
+      <Form>
+        <div>
+          <ButtonGroup aria-label={t(`settings.mml.title`)}>
+            {Object.values(MaanmittauslaitosLayer).map((l) => (
+              <MMLLayerButton
+                key={l}
+                layer={l}
+                selectedLayer={selectedLayer}
+                onSelectLayer={onSelectLayer}
+              />
+            ))}
+          </ButtonGroup>
         </div>
-        <small className="pull-right">{t(`settings.mml.licence`)}</small>
-      </form>
+        <Form.Text>{t(`settings.mml.licence`)}</Form.Text>
+      </Form>
     </Panel>
   )
 }

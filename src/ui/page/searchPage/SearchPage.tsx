@@ -21,10 +21,10 @@ const Results: React.FC<ResultsProps> = ({ features }) => {
     <>
       <Row>
         <Col className="gy-3">
-          <h5>
+          <h6>
             <span>Hakutulokset</span>
             <small> ({features.length} kpl)</small>
-          </h5>
+          </h6>
         </Col>
       </Row>
 

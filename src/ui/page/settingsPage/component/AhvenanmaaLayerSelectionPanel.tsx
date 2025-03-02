@@ -1,4 +1,5 @@
 import React, { useCallback } from "react"
+import { Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { AhvenanmaaLayer, LayerGroup } from "../../../../common/layers.types"
@@ -30,40 +31,44 @@ export const AhvenanmaaLayerSelectionPanel: React.FC = () => {
 
   return (
     <Panel title={t(`settings.ahvenanmaa.title`)}>
-      <form>
-        <h5>
+      <Form>
+        <h6>
           <Trans
             i18nKey={`data.register.nameWithLink.Ahvenanmaan muinaisjäännösrekisteri`}
             components={{ a: <a /> }}
           />
-        </h5>
-        <LayerCheckbox
-          label={t(`common.features.Kohde`)}
-          layer={AhvenanmaaLayer.Fornminnen}
-          selectedLayers={selectedAhvenanmaaLayers}
-          onSelectLayer={onSelectAhvenanmaaLayer}
-        />
+        </h6>
+        <Form.Group className="mb-3">
+          <LayerCheckbox
+            label={t(`common.features.Kohde`)}
+            layer={AhvenanmaaLayer.Fornminnen}
+            selectedLayers={selectedAhvenanmaaLayers}
+            onSelectLayer={onSelectAhvenanmaaLayer}
+          />
+        </Form.Group>
 
-        <h5>
+        <h6>
           <Trans
             i18nKey={`data.register.nameWithLink.Ahvenanmaan merellinen kulttuuriperintörekisteri`}
             components={{ a: <a /> }}
           />
-        </h5>
-        <LayerCheckbox
-          label={t(`common.features.Kohde`)}
-          layer={AhvenanmaaLayer.MaritimaFornminnen}
-          selectedLayers={selectedAhvenanmaaLayers}
-          onSelectLayer={onSelectAhvenanmaaLayer}
+        </h6>
+        <Form.Group className="mb-3">
+          <LayerCheckbox
+            label={t(`common.features.Kohde`)}
+            layer={AhvenanmaaLayer.MaritimaFornminnen}
+            selectedLayers={selectedAhvenanmaaLayers}
+            onSelectLayer={onSelectAhvenanmaaLayer}
+          />
+        </Form.Group>
+
+        <LayerTransparencyInput
+          opacity={opacity}
+          layerGroup={LayerGroup.Ahvenanmaa}
         />
-      </form>
 
-      <LayerTransparencyInput
-        opacity={opacity}
-        layerGroup={LayerGroup.Ahvenanmaa}
-      />
-
-      <small className="pull-right">{t(`settings.ahvenanmaa.licence`)}</small>
+        <Form.Text>{t(`settings.ahvenanmaa.licence`)}</Form.Text>
+      </Form>
     </Panel>
   )
 }

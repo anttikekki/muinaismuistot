@@ -60,7 +60,7 @@ export const EmbeddedModels: React.FC<Props> = ({ models = [] }) => {
   return (
     <Row className="mt-2">
       <Col>
-        <h5>{t(`details.3d.title`)}</h5>
+        <h6>{t(`details.3d.title`)}</h6>
 
         <Info />
 

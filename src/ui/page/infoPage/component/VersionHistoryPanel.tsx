@@ -4,16 +4,15 @@ import { Panel } from "../../../component/Panel"
 export const VersionHistoryPanel: React.FC = () => {
   return (
     <Panel title="Versiohistoria">
-      <h5>Tammikuu 2024</h5>
+      <h6>Tammikuu 2024</h6>
       <p>
         Lisätty Museoviraston Muu kulttuuperintökohde -karttataso pisteille ja
         alueille. Nämä sisältyivät vanhalla karttapalvelimella Kiinteät
         muinaisjäännökset -karttatasolle mutta uudess palvelimessa ne ovat
         erillinen taso.
       </p>
-      <br />
 
-      <h5>Joulukuu 2023</h5>
+      <h6>Joulukuu 2023</h6>
       <p>
         Vaihdettu Museoviraston karttapalvelin suljetusta ArcGIS{" "}
         <a href="https://kartta.nba.fi" target="_blank">
@@ -26,9 +25,8 @@ export const VersionHistoryPanel: React.FC = () => {
         palvelimeen. Kiinteiden muinaisjäännösten filtteröinti kartalla on yhä
         rikki.
       </p>
-      <br />
 
-      <h5>Huhtikuu 2022</h5>
+      <h6>Huhtikuu 2022</h6>
       <p>Korjattu Ahvenanmaan aineistojen päivityspäivämäärien haku.</p>
       <p>
         Lisätty{" "}
@@ -41,9 +39,8 @@ export const VersionHistoryPanel: React.FC = () => {
         -tuki. Nyt sivustoon voi lisätä pikakuvakkeen älylaitteen työpöydälle,
         josta aukeutuvassa versiossa ei näy selaimen osoitepalkkia.
       </p>
-      <br />
 
-      <h5>Maaliskuu 2021</h5>
+      <h6>Maaliskuu 2021</h6>
       <p>
         Lisätty Helsingin kaupungin{" "}
         <a
@@ -55,8 +52,7 @@ export const VersionHistoryPanel: React.FC = () => {
         -aineisto karttatasona.
       </p>
 
-      <br />
-      <h5>Helmikuu 2021</h5>
+      <h6>Helmikuu 2021</h6>
       <p>
         Lisätty{" "}
         <a href="https://www.gtk.fi/" target="_blank">
@@ -71,8 +67,7 @@ export const VersionHistoryPanel: React.FC = () => {
         -aineisto karttatasona.
       </p>
 
-      <br />
-      <h5>Tammikuu 2021</h5>
+      <h6>Tammikuu 2021</h6>
       <p>
         Lisätty käännökset ruotsin kielelle (kiitos Jenni Lucenius ja Mikko
         Helminen!).
@@ -87,8 +82,7 @@ export const VersionHistoryPanel: React.FC = () => {
       </p>
       <p>Kokoruudun tila.</p>
 
-      <br />
-      <h5>Joulukuu 2020</h5>
+      <h6>Joulukuu 2020</h6>
       <p>
         Lisätty Ahvenanmaan muinaisjäännösrekisterin kohteisiin tyyppi, ajoitus
         ja alakohteiden lukumäärä.
@@ -98,8 +92,7 @@ export const VersionHistoryPanel: React.FC = () => {
         tunnuksella (esim. Sa 14.1).
       </p>
 
-      <br />
-      <h5>Marraskuu 2020</h5>
+      <h6>Marraskuu 2020</h6>
       <p>
         Lisätty{" "}
         <a href="./maisemanmuisti/" target="_blank">
@@ -118,8 +111,7 @@ export const VersionHistoryPanel: React.FC = () => {
         rekistereissä.
       </p>
 
-      <br />
-      <h5>Toukokuu 2020</h5>
+      <h6>Toukokuu 2020</h6>
       <p>
         Päivitetty Museoviraston{" "}
         <a
@@ -131,9 +123,7 @@ export const VersionHistoryPanel: React.FC = () => {
         WMS-karttatasojen nimet koska niistä poistuivat ääkköset.
       </p>
 
-      <br />
-
-      <h5>Huhtikuu 2020</h5>
+      <h6>Huhtikuu 2020</h6>
       <p>
         Lisätty 3D-mallien{" "}
         <a href="./3d/" target="_blank">
@@ -144,17 +134,14 @@ export const VersionHistoryPanel: React.FC = () => {
         löytyy 3D-malleja.
       </p>
 
-      <br />
-      <h5>Helmikuu 2020</h5>
+      <h6>Helmikuu 2020</h6>
       <p>
         Lisätty kartta-aineistojen viimeisin päivitysaika näkyviin "Lisätietoja
         sivustosta" -sivulle.
       </p>
       <p>Paikannus päivittää nyt automaattisesti omaa sijaintia kartalla.</p>
 
-      <br />
-
-      <h5>Elokuu 2019</h5>
+      <h6>Elokuu 2019</h6>
       <p>
         Siirrytty käyttämään Ahvenanmaan maakuntahallinnon uutta{" "}
         <a href="https://www.kartor.ax/datasets/fornminnen">kartor.ax</a>{" "}
@@ -166,17 +153,13 @@ export const VersionHistoryPanel: React.FC = () => {
         nimi. Listassa voi nyt myös olla monta saman tyyppistä kohdetta.
       </p>
 
-      <br />
-
-      <h5>Heinäkuu 2019</h5>
+      <h6>Heinäkuu 2019</h6>
       <p>
         Korjattu Museoviraston muinaisjäännösrekisterin pisteiden filtteröinti
         ajoituksen ja tyypin perusteella.
       </p>
 
-      <br />
-
-      <h5>Joulukuu 2018</h5>
+      <h6>Joulukuu 2018</h6>
       <p>
         Siirrytty käyttämään Maanmittauslaitoksen uutta{" "}
         <a href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17">
@@ -197,9 +180,7 @@ export const VersionHistoryPanel: React.FC = () => {
         -pisteet kartalle.
       </p>
 
-      <br />
-
-      <h5>Marraskuu 2017</h5>
+      <h6>Marraskuu 2017</h6>
       <p>
         Lisätty kartalle Ahvenanmaan maakuntahallinnon{" "}
         <a href="http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret">
@@ -208,9 +189,7 @@ export const VersionHistoryPanel: React.FC = () => {
         .
       </p>
 
-      <br />
-
-      <h5>Lokakuu 2015</h5>
+      <h6>Lokakuu 2015</h6>
       <p>Ensimmäinen versio julkaistu.</p>
     </Panel>
   )

@@ -1,4 +1,5 @@
 import React, { useCallback } from "react"
+import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { LayerGroup } from "../../../../common/layers.types"
@@ -32,21 +33,21 @@ export const LayerTransparencyInput: React.FC<Props> = ({
   const inputId = `${layerGroup}-transparancy-input`
 
   return (
-    <div className="form-group">
-      <label htmlFor={inputId} style={{ fontWeight: 500 }}>
-        {t(`settings.common.transparency`)}
-      </label>
-      <input
-        id={inputId}
-        className="form-control"
-        style={{ width: "auto" }}
-        type="number"
-        min="0"
-        max="100"
-        step="5"
-        onChange={onTransparencyInputChange}
-        value={transparency}
-      />
-    </div>
+    <>
+      <h6>{t(`settings.common.transparency`)}</h6>
+      <Form.Group>
+        <input
+          id={inputId}
+          className="form-control ms-3"
+          style={{ width: "auto" }}
+          type="number"
+          min="0"
+          max="100"
+          step="5"
+          onChange={onTransparencyInputChange}
+          value={transparency}
+        />
+      </Form.Group>
+    </>
   )
 }
