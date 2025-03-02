@@ -18,13 +18,17 @@ export const MuseovirastoLinkDirect: React.FC<MuseovirastoLinkDirectProps> = ({
   registerName
 }) => {
   return (
-    <Alert variant="light">
-      <Trans
-        i18nKey="details.finnishHeritageAgencyMoreInfoLink"
-        values={{ url, registerName }}
-        components={{ a: <Alert.Link /> }}
-      />
-    </Alert>
+    <Row className="mt-2">
+      <Col>
+        <Alert variant="light">
+          <Trans
+            i18nKey="details.finnishHeritageAgencyMoreInfoLink"
+            values={{ url, registerName }}
+            components={{ a: <Alert.Link /> }}
+          />
+        </Alert>
+      </Col>
+    </Row>
   )
 }
 
@@ -42,11 +46,5 @@ export const MuseovirastoLink: React.FC<MuseovirastoLinkProps> = ({
     return null
   }
 
-  return (
-    <Row className="mt-2">
-      <Col>
-        <MuseovirastoLinkDirect url={url} registerName={registerName} />
-      </Col>
-    </Row>
-  )
+  return <MuseovirastoLinkDirect url={url} registerName={registerName} />
 }

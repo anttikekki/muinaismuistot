@@ -18,15 +18,9 @@ export const Field: React.FC<Props> = ({ label, value, children }) => {
       <Form.Label column sm="3" className="fw-bold">
         {label}
       </Form.Label>
-      {children ? (
-        <Col sm="9">
-          <div className="form-control-plaintext">{children}</div>
-        </Col>
-      ) : (
-        <Col sm="9">
-          <Form.Control plaintext readOnly defaultValue={trimmedValue} />
-        </Col>
-      )}
+      <Col sm="9">
+        <div className="form-control-plaintext">{children ?? trimmedValue}</div>
+      </Col>
     </Form.Group>
   )
 }

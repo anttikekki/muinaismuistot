@@ -137,7 +137,7 @@ export const FeatureList: React.FC<FeatureListProps> = ({
           switch (feature.layerName) {
             case AhvenanmaaLayer.Fornminnen:
               return <AhvenanmaaForminnenPanel feature={feature} {...params} />
-            case AhvenanmaaLayer.MaritimtKulturarv:
+            case AhvenanmaaLayer.MaritimaFornminnen:
               return (
                 <AhvenanmaaMaritimtKulturarvPanel
                   feature={feature}

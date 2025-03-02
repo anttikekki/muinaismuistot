@@ -52,7 +52,7 @@ export const AhvenanmaaLayerSelectionPanel: React.FC = () => {
         </h5>
         <LayerCheckbox
           label={t(`common.features.Kohde`)}
-          layer={AhvenanmaaLayer.MaritimtKulturarv}
+          layer={AhvenanmaaLayer.MaritimaFornminnen}
           selectedLayers={selectedAhvenanmaaLayers}
           onSelectLayer={onSelectAhvenanmaaLayer}
         />

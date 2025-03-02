@@ -35,7 +35,7 @@ export enum MuseovirastoLayer {
 
 export enum AhvenanmaaLayer {
   Fornminnen = "Fornminnen",
-  MaritimtKulturarv = "Maritimt kulturarv; Vrak"
+  MaritimaFornminnen = "Maritima fornminnen"
 }
 
 export enum ModelLayer {

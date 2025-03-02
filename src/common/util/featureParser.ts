@@ -1,19 +1,29 @@
 import { TFunction } from "i18next"
+import { ModelFeatureProperties } from "../3dModels.types"
+import { isAhvenanmaaArcgisFeature } from "../ahvenanmaa.types"
+import { GeoJSONFeature } from "../geojson.types"
 import {
-  MuseovirastoLayer,
   AhvenanmaaLayer,
   FeatureLayer,
-  ModelLayer,
-  MaisemanMuistiLayer,
+  HelsinkiLayer,
   Language,
-  HelsinkiLayer
+  MaisemanMuistiLayer,
+  ModelLayer,
+  MuseovirastoLayer
 } from "../layers.types"
+import {
+  MaalinnoitusKohdetyyppi,
+  MaalinnoitusRajaustyyppi,
+  isMaalinnoitusKohdeFeature,
+  isMaalinnoitusRajausFeature,
+  isMaalinnoitusYksikkoFeature
+} from "../maalinnoitusHelsinki.types"
+import { MaisemanMuistiFeatureProperties } from "../maisemanMuisti.types"
+import { MapFeature, isArcGisFeature, isWmsFeature } from "../mapFeature.types"
 import {
   MaailmanperintoAlueWmsFeature,
   MaailmanperintoPisteWmsFeature,
   MuinaisjaannosAjoitus,
-  MuinaisjaannosAlueWmsFeature,
-  MuinaisjaannosPisteWmsFeature,
   isMaailmanperintoAlueWmsFeature,
   isMaailmanperintoPisteWmsFeature,
   isMuinaisjaannosAlueWmsFeature,
@@ -27,18 +37,6 @@ import {
   isSuojellutRakennuksetAlueWmsFeature,
   isSuojellutRakennuksetPisteWmsFeature
 } from "../museovirasto.types"
-import {
-  MaalinnoitusKohdetyyppi,
-  MaalinnoitusRajaustyyppi,
-  isMaalinnoitusKohdeFeature,
-  isMaalinnoitusRajausFeature,
-  isMaalinnoitusYksikkoFeature
-} from "../maalinnoitusHelsinki.types"
-import { GeoJSONFeature } from "../geojson.types"
-import { ModelFeatureProperties } from "../3dModels.types"
-import { MaisemanMuistiFeatureProperties } from "../maisemanMuisti.types"
-import { isAhvenanmaaArcgisFeature } from "../ahvenanmaa.types"
-import { MapFeature, isArcGisFeature, isWmsFeature } from "../mapFeature.types"
 
 export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
   if (isWmsFeature(feature)) {
@@ -103,7 +101,7 @@ export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
         const suffix = [name, types].filter((v) => !!v).join(", ")
         return `${id} ${suffix}`
       }
-      case AhvenanmaaLayer.MaritimtKulturarv:
+      case AhvenanmaaLayer.MaritimaFornminnen:
         return `${trim(feature.attributes.FornID)} ${trim(
           feature.attributes.Namn
         )}`
@@ -183,7 +181,7 @@ export const getFeatureTypeName = (
           t(`data.featureType.Ahvenanmaan muinaisjäännösrekisterin kohde`) ??
           undefined
         )
-      case AhvenanmaaLayer.MaritimtKulturarv:
+      case AhvenanmaaLayer.MaritimaFornminnen:
         return (
           t(
             `data.featureType.Ahvenanmaan merellisen kulttuuriperintörekisterin kohde`
@@ -271,7 +269,7 @@ export const getFeatureTypeIconURL = (feature: MapFeature): string => {
     switch (feature.layerName) {
       case AhvenanmaaLayer.Fornminnen:
         return getTypeIconURL("ahvenanmaa_muinaisjaannos", has3dModels)
-      case AhvenanmaaLayer.MaritimtKulturarv:
+      case AhvenanmaaLayer.MaritimaFornminnen:
         return getTypeIconURL("ahvenanmaa_hylky", has3dModels)
     }
   }
@@ -304,7 +302,7 @@ export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
       return ["images/rakennusperintorekisteri_rakennus.png"]
     case AhvenanmaaLayer.Fornminnen:
       return ["images/ahvenanmaa_muinaisjaannos.png"]
-    case AhvenanmaaLayer.MaritimtKulturarv:
+    case AhvenanmaaLayer.MaritimaFornminnen:
       return ["images/ahvenanmaa_hylky.png"]
     case ModelLayer.ModelLayer:
       return ["images/3d_malli_circle.png", "images/3d_malli_square.png"]
@@ -369,7 +367,7 @@ export const getFeatureID = (feature: MapFeature): string => {
     switch (feature.layerName) {
       case AhvenanmaaLayer.Fornminnen:
         return feature.attributes["Fornlämnings ID"]
-      case AhvenanmaaLayer.MaritimtKulturarv:
+      case AhvenanmaaLayer.MaritimaFornminnen:
         return feature.attributes.FornID
     }
   }
@@ -529,7 +527,7 @@ export const getLayerRegisterName = (
       return t(`data.register.name.Rakennusperintörekisteri`)
     case AhvenanmaaLayer.Fornminnen:
       return t(`data.register.name.Ahvenanmaan muinaisjäännösrekisteri`)
-    case AhvenanmaaLayer.MaritimtKulturarv:
+    case AhvenanmaaLayer.MaritimaFornminnen:
       return t(
         `data.register.name.Ahvenanmaan merellinen kulttuuriperintörekisteri`
       )
