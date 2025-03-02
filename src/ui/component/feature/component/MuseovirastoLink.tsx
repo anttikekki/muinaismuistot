@@ -1,5 +1,5 @@
 import React from "react"
-import { Alert } from "react-bootstrap"
+import { Alert, Col, Row } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { Language } from "../../../../common/layers.types"
 import { MuseovirastoWmsFeature } from "../../../../common/museovirasto.types"
@@ -42,5 +42,11 @@ export const MuseovirastoLink: React.FC<MuseovirastoLinkProps> = ({
     return null
   }
 
-  return <MuseovirastoLinkDirect url={url} registerName={registerName} />
+  return (
+    <Row className="mt-2">
+      <Col>
+        <MuseovirastoLinkDirect url={url} registerName={registerName} />
+      </Col>
+    </Row>
+  )
 }

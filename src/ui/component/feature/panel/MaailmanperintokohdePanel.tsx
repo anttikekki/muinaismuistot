@@ -1,4 +1,5 @@
 import React from "react"
+import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
   MaailmanperintoAlueWmsFeature,
@@ -22,13 +23,13 @@ export const MaailmanperintokohdePanel: React.FC<Props> = ({
   const { t } = useTranslation()
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
-      <form>
+      <Form>
         <Field
           label={t(`details.field.name`)}
           value={feature.properties.Nimi}
         />
         <MuseovirastoLink feature={feature} />
-      </form>
+      </Form>
     </MapFeatureCollapsePanel>
   )
 }

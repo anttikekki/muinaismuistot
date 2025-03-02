@@ -1,4 +1,5 @@
 import React from "react"
+import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
   SuojellutRakennuksetAlueWmsFeature,
@@ -26,7 +27,7 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
   const { t } = useTranslation()
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
-      <form>
+      <Form>
         <Field
           label={t(`details.field.featureName`)}
           value={feature.properties.kohdenimi}
@@ -47,7 +48,7 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
         />
         <MuseovirastoLink feature={feature} />
         {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
-      </form>
+      </Form>
     </MapFeatureCollapsePanel>
   )
 }

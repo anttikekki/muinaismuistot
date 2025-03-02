@@ -1,4 +1,5 @@
 import React from "react"
+import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
   RKYAlueWmsFeature,
@@ -22,7 +23,7 @@ export const RKYPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
   const { t } = useTranslation()
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
-      <form>
+      <Form>
         <Field
           label={t(`details.field.featureName`)}
           value={feature.properties.kohdenimi}
@@ -35,7 +36,7 @@ export const RKYPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
         )}
         <MuseovirastoLink feature={feature} />
         {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
-      </form>
+      </Form>
     </MapFeatureCollapsePanel>
   )
 }

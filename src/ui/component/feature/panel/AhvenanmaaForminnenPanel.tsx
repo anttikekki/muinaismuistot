@@ -1,4 +1,5 @@
 import React from "react"
+import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { AhvenanmaaForminnenArgisFeature } from "../../../../common/ahvenanmaa.types"
 import { AhvenanmaaTypeAndDatingField } from "../component/AhvenanmaaTypeAndDatingField"
@@ -20,7 +21,7 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
   const { t } = useTranslation()
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
-      <form>
+      <Form>
         <Field
           label={t(`details.field.id`)}
           value={feature.attributes["Fornlämnings ID"]}
@@ -48,7 +49,7 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
         />
 
         {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
-      </form>
+      </Form>
     </MapFeatureCollapsePanel>
   )
 }

@@ -1,4 +1,5 @@
 import React from "react"
+import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { MaalinnoitusKohdeFeature } from "../../../../common/maalinnoitusHelsinki.types"
 import { getNovisionLinkForMaalinnoitusKohdetyyppi } from "../../../../common/util/maalinnoitusLinkHelper"
@@ -23,7 +24,7 @@ export const MaalinnoitusKohdePanel: React.FC<Props> = ({
 
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
-      <form>
+      <Form>
         <Field
           label={t(`details.field.maalinnoitus.tukikohta`)}
           value={tukikohtanumero}
@@ -44,7 +45,7 @@ export const MaalinnoitusKohdePanel: React.FC<Props> = ({
           label={t(`details.field.maalinnoitus.mittaustieto`)}
           value={mittaustieto}
         />
-      </form>
+      </Form>
     </MapFeatureCollapsePanel>
   )
 }

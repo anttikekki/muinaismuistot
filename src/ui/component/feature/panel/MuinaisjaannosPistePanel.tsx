@@ -1,5 +1,5 @@
 import React from "react"
-import { Col, Form, Row } from "react-bootstrap"
+import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
   MuinaisjaannosPisteWmsFeature,
@@ -97,11 +97,8 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         {feature.maisemanMuisti.length > 0 && (
           <MaisemanMuistiField feature={feature.maisemanMuisti[0]} />
         )}
-        <Row className="mt-2">
-          <Col>
-            <MuseovirastoLink feature={feature} />
-          </Col>
-        </Row>
+
+        <MuseovirastoLink feature={feature} />
 
         {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
       </Form>
