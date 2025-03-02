@@ -1,4 +1,5 @@
 import React from "react"
+import { Col, Form, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
   MuinaisjaannosPisteWmsFeature,
@@ -59,15 +60,15 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
   } = feature.properties
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
-      <form>
+      <Form>
         <Field label={t(`details.field.featureName`)} value={kohdenimi} />
         <Field label={t(`details.field.municipality`)} value={kunta} />
         <Field label={t(`details.field.dating`)}>
           {renderList(ajoitusSplitted, (ajoitus) => (
-            <p>
-              <span>{t(`data.museovirasto.dating.${ajoitus}`, ajoitus)}</span>{" "}
+            <div>
+              <span>{t(`data.museovirasto.dating.${ajoitus}`, ajoitus)}</span>
               <TimespanLabel dating={ajoitus} />
-            </p>
+            </div>
           ))}
         </Field>
         <Field label={t(`details.field.type`)}>
@@ -96,11 +97,14 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         {feature.maisemanMuisti.length > 0 && (
           <MaisemanMuistiField feature={feature.maisemanMuisti[0]} />
         )}
-
-        <MuseovirastoLink feature={feature} />
+        <Row className="mt-2">
+          <Col>
+            <MuseovirastoLink feature={feature} />
+          </Col>
+        </Row>
 
         {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
-      </form>
+      </Form>
     </MapFeatureCollapsePanel>
   )
 }

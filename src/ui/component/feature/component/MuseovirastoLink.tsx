@@ -1,11 +1,12 @@
 import React from "react"
+import { Alert } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { Language } from "../../../../common/layers.types"
-import {
-  getFeatureRegisterURL,
-  getFeatureRegisterName
-} from "../../../../common/util/featureParser"
 import { MuseovirastoWmsFeature } from "../../../../common/museovirasto.types"
+import {
+  getFeatureRegisterName,
+  getFeatureRegisterURL
+} from "../../../../common/util/featureParser"
 
 interface MuseovirastoLinkDirectProps {
   url: string
@@ -17,13 +18,13 @@ export const MuseovirastoLinkDirect: React.FC<MuseovirastoLinkDirectProps> = ({
   registerName
 }) => {
   return (
-    <p className="well">
+    <Alert variant="light">
       <Trans
         i18nKey="details.finnishHeritageAgencyMoreInfoLink"
         values={{ url, registerName }}
-        components={{ a: <a /> }}
+        components={{ a: <Alert.Link /> }}
       />
-    </p>
+    </Alert>
   )
 }
 

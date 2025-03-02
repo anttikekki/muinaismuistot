@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React from "react"
+import { Accordion, Col, Form, Row } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
-import { GeoJSONFeature } from "../../../../common/geojson.types"
 import { ModelFeatureProperties } from "../../../../common/3dModels.types"
+import { GeoJSONFeature } from "../../../../common/geojson.types"
 
 interface Props {
   models: Array<GeoJSONFeature<ModelFeatureProperties>>
@@ -9,31 +10,15 @@ interface Props {
 
 export const Info: React.FC = () => {
   const { t } = useTranslation()
-  const [infoOpen, setInfoOpen] = useState(false)
-
-  const onInfoHeadingClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    event.preventDefault()
-    setInfoOpen(!infoOpen)
-  }
 
   return (
-    <div className="panel panel-default">
-      <div className="panel-heading feature-collapse-panel-heading" role="tab">
-        <a role="button" href="" onClick={onInfoHeadingClick}>
-          <span
-            className="glyphicon glyphicon-info-sign"
-            aria-hidden="true"
-          ></span>{" "}
+    <Accordion>
+      <Accordion.Item eventKey="1">
+        <Accordion.Header>
+          <i className="bi bi-info-circle pe-1" aria-hidden="true" />
           {t(`details.3d.infoHeading`)}
-        </a>
-      </div>
-      <div
-        className={`panel-collapse collapse ${infoOpen ? "in" : ""}`}
-        role="tabpanel"
-      >
-        <div className="panel-body">
+        </Accordion.Header>
+        <Accordion.Body>
           <p>
             <Trans i18nKey="details.3d.infoText1" components={{ a: <a /> }} />
           </p>
@@ -41,8 +26,8 @@ export const Info: React.FC = () => {
             <Trans
               i18nKey="details.3d.infoText2"
               components={{ kbd: <kbd /> }}
-            />{" "}
-            <img src="images/sketchfab-fullscreen.png" />
+            />
+            <i className="bi bi-arrows-angle-expand ps-1" aria-hidden="true" />
           </p>
           <p>{t(`details.3d.controls.title`)}:</p>
           <ul>
@@ -59,9 +44,9 @@ export const Info: React.FC = () => {
               {t(`details.3d.controls.zoom`)}
             </li>
           </ul>
-        </div>
-      </div>
-    </div>
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
   )
 }
 
@@ -73,28 +58,29 @@ export const EmbeddedModels: React.FC<Props> = ({ models = [] }) => {
   }
 
   return (
-    <>
-      <br />
-      <h4>{t(`details.3d.title`)}</h4>
+    <Row className="mt-2">
+      <Col>
+        <h5>{t(`details.3d.title`)}</h5>
 
-      <Info />
+        <Info />
 
-      {models.map((feature) => {
-        const { name, url } = feature.properties.model
-        return (
-          <div className="form-group" key={url}>
-            <label>{name}</label>
-            <iframe
-              title={name}
-              width="100%"
-              height="400"
-              src={`${url}/embed`}
-              allow="fullscreen"
-              allowFullScreen={true}
-            />
-          </div>
-        )
-      })}
-    </>
+        {models.map((feature) => {
+          const { name, url } = feature.properties.model
+          return (
+            <Form.Group className="pt-2" key={url} controlId={name}>
+              <Form.Label className="fw-bold">{name}</Form.Label>
+              <iframe
+                title={name}
+                width="100%"
+                height="400"
+                src={`${url}/embed`}
+                allow="fullscreen"
+                allowFullScreen={true}
+              />
+            </Form.Group>
+          )
+        })}
+      </Col>
+    </Row>
   )
 }
