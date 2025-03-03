@@ -7,7 +7,7 @@ interface Props {
 
 export const FeatureImageAndLabel: React.FC<Props> = ({ iconPath, label }) => {
   return (
-    <div className="checkbox sub-layer-select-checkbox-container">
+    <div className="ms-3">
       <img className="feature-icon" src={iconPath} />
       <span>{label}</span>
     </div>

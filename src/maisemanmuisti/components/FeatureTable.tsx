@@ -1,8 +1,32 @@
 import React, { useEffect, useState } from "react"
-import { getGeoJSONFeatureLocation } from "../../common/util/featureParser"
-import { createLocationHash } from "../../common/util/URLHashHelper"
+import { Table } from "react-bootstrap"
 import { GeoJSONFeature } from "../../common/geojson.types"
 import { MaisemanMuistiFeatureProperties } from "../../common/maisemanMuisti.types"
+import { getGeoJSONFeatureLocation } from "../../common/util/featureParser"
+import { createLocationHash } from "../../common/util/URLHashHelper"
+
+type SortDirection = "asc" | "desc"
+
+const ColumnHeader: React.FC<{
+  name: string
+  sortColumn: string
+  sortDirection: SortDirection
+  onClick: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
+}> = ({ name, sortColumn, sortDirection, onClick }) => {
+  return (
+    <th>
+      <a href={`#${name}`} onClick={onClick} style={{ whiteSpace: "nowrap" }}>
+        <span>{name} </span>
+        {name === sortColumn &&
+          (sortDirection === "desc" ? (
+            <i className="bi bi-caret-down-fill"></i>
+          ) : (
+            <i className="bi bi-caret-up-fill"></i>
+          ))}
+      </a>
+    </th>
+  )
+}
 
 interface Props {
   features: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
@@ -13,7 +37,7 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
     Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
   >([])
   const [sortColumn, setSortColumn] = useState<string>("Lisätty")
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc")
+  const [sortDirection, setSortDirection] = useState<SortDirection>("desc")
 
   useEffect(() => setSortedFeatures(features), [features])
 
@@ -44,46 +68,28 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
   const StringColumnHeader: React.FC<{
     name: string
     valueFn: (v: GeoJSONFeature<MaisemanMuistiFeatureProperties>) => string
-  }> = ({ name, valueFn }) => {
-    return (
-      <th>
-        <a
-          href={`#${name}`}
-          onClick={(e) =>
-            onSortClick(e, name, (a, b) => valueFn(a).localeCompare(valueFn(b)))
-          }
-          style={{ whiteSpace: "nowrap" }}
-        >
-          <span>{name} </span>
-          {name === sortColumn && (
-            <img src={`../images/${sortDirection}.png`} />
-          )}
-        </a>
-      </th>
-    )
-  }
+  }> = ({ name, valueFn }) => (
+    <ColumnHeader
+      name={name}
+      sortColumn={sortColumn}
+      sortDirection={sortDirection}
+      onClick={(e) =>
+        onSortClick(e, name, (a, b) => valueFn(a).localeCompare(valueFn(b)))
+      }
+    />
+  )
 
   const NumberColumnHeader: React.FC<{
     name: string
     valueFn: (v: GeoJSONFeature<MaisemanMuistiFeatureProperties>) => number
-  }> = ({ name, valueFn }) => {
-    return (
-      <th>
-        <a
-          href={`#${name}`}
-          onClick={(e) =>
-            onSortClick(e, name, (a, b) => valueFn(a) - valueFn(b))
-          }
-          style={{ whiteSpace: "nowrap" }}
-        >
-          <span>{name} </span>
-          {name === sortColumn && (
-            <img src={`../images/${sortDirection}.png`} />
-          )}
-        </a>
-      </th>
-    )
-  }
+  }> = ({ name, valueFn }) => (
+    <ColumnHeader
+      name={name}
+      sortColumn={sortColumn}
+      sortDirection={sortDirection}
+      onClick={(e) => onSortClick(e, name, (a, b) => valueFn(a) - valueFn(b))}
+    />
+  )
 
   return (
     <>
@@ -123,7 +129,7 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
         -sivustolta. Kohteet on merkitty punaisella tähdellä.
       </p>
 
-      <table className="table table-striped">
+      <Table striped bordered hover>
         <thead>
           <tr>
             <NumberColumnHeader
@@ -195,7 +201,7 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
             )
           })}
         </tbody>
-      </table>
+      </Table>
     </>
   )
 }

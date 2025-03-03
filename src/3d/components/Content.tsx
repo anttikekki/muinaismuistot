@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react"
 import i18n from "i18next"
+import React, { useEffect, useState } from "react"
+import { Container } from "react-bootstrap"
 import { initReactI18next } from "react-i18next"
-import fiTranslations from "../../common/translations/fi.json"
-import { TableOfContent } from "./TableOfContent"
-import { DatabaseStructure } from "./DatabaseStructure"
-import { Registers } from "./Registers"
-import { Download } from "./Download"
-import { ModelsTable } from "./ModelsTable"
-import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser"
-import { DatabaseIntro } from "./DatabaseIntro"
 import { ModelFeatureProperties } from "../../common/3dModels.types"
 import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
+import fiTranslations from "../../common/translations/fi.json"
+import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser"
+import { DatabaseIntro } from "./DatabaseIntro"
+import { DatabaseStructure } from "./DatabaseStructure"
+import { Download } from "./Download"
+import { ModelsTable } from "./ModelsTable"
+import { Registers } from "./Registers"
+import { TableOfContent } from "./TableOfContent"
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -42,11 +43,13 @@ export const Content: React.FC = () => {
 
   return (
     <>
-      <div className="jumbotron">
-        <div className="container">
-          <h1>Kulttuuriperinnön 3D-mallien tietokanta</h1>
+      <div className="p-5 rounded-3 bg-body-secondary mb-5">
+        <Container>
+          <h1 className="text-body-emphasis">
+            Kulttuuriperinnön 3D-mallien tietokanta
+          </h1>
 
-          <p>
+          <p className="lead">
             Tämä tietokanta yrittää kerätä Suomen arkeologisesta
             kulttuuriperinnöstä ja rakennetuista kulttuuriympäristöistä tehtyjä
             3D-malleja yhteen paikkaan helposti käytettävänä
@@ -71,9 +74,9 @@ export const Content: React.FC = () => {
               Näytä kartalla
             </a>
           </p>
-        </div>
+        </Container>
       </div>
-      <div className="container">
+      <Container>
         <TableOfContent />
         <DatabaseIntro />
         <Registers />
@@ -120,7 +123,7 @@ export const Content: React.FC = () => {
         </p>
 
         <ModelsTable models={models} />
-      </div>
+      </Container>
     </>
   )
 }

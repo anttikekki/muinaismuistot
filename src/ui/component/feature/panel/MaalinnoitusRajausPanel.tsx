@@ -1,38 +1,29 @@
 import React from "react"
+import { Form } from "react-bootstrap"
+import { useTranslation } from "react-i18next"
 import { MaalinnoitusRajausFeature } from "../../../../common/maalinnoitusHelsinki.types"
+import { getNovisionLinkForMaalinnoitusRajaustyyppi } from "../../../../common/util/maalinnoitusLinkHelper"
+import { Link } from "../../Link"
 import {
-  FeatureTitleClickAction,
+  FeatureCollapsePanelCommonExternalProps,
   MapFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
-import { useTranslation } from "react-i18next"
-import { Link } from "../../Link"
-import { getNovisionLinkForMaalinnoitusRajaustyyppi } from "../../../../common/util/maalinnoitusLinkHelper"
 
-interface Props {
-  titleClickAction: FeatureTitleClickAction
-  isOpen: boolean
-  onToggleOpen: () => void
+interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature: MaalinnoitusRajausFeature
 }
 
 export const MaalinnoitusRajausPanel: React.FC<Props> = ({
-  titleClickAction,
-  isOpen,
-  onToggleOpen,
-  feature
+  feature,
+  ...commonProps
 }) => {
   const { t } = useTranslation()
   const { tukikohtanumero, lajinumero, rajaustyyppi } = feature.properties
 
   return (
-    <MapFeatureCollapsePanel
-      titleClickAction={titleClickAction}
-      isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
-      feature={feature}
-    >
-      <form>
+    <MapFeatureCollapsePanel feature={feature} {...commonProps}>
+      <Form>
         <Field
           label={t(`details.field.maalinnoitus.tukikohta`)}
           value={tukikohtanumero}
@@ -49,7 +40,7 @@ export const MaalinnoitusRajausPanel: React.FC<Props> = ({
             url={getNovisionLinkForMaalinnoitusRajaustyyppi(rajaustyyppi)}
           />
         </Field>
-      </form>
+      </Form>
     </MapFeatureCollapsePanel>
   )
 }

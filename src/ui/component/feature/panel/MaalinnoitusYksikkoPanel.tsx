@@ -1,29 +1,25 @@
 import React from "react"
-import { MaalinnoitusYksikkoFeature } from "../../../../common/maalinnoitusHelsinki.types"
-import {
-  FeatureTitleClickAction,
-  MapFeatureCollapsePanel
-} from "../component/FeatureCollapsePanel"
-import { Field } from "../component/Field"
+import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
-import { Link } from "../../Link"
+import { MaalinnoitusYksikkoFeature } from "../../../../common/maalinnoitusHelsinki.types"
 import {
   getNovisionLinkForMaalinnoitusYksikko,
   getNovisionLinkForMaalinnoitusYksikkoLaji
 } from "../../../../common/util/maalinnoitusLinkHelper"
+import { Link } from "../../Link"
+import {
+  FeatureCollapsePanelCommonExternalProps,
+  MapFeatureCollapsePanel
+} from "../component/FeatureCollapsePanel"
+import { Field } from "../component/Field"
 
-interface Props {
-  titleClickAction: FeatureTitleClickAction
-  isOpen: boolean
-  onToggleOpen: () => void
+interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature: MaalinnoitusYksikkoFeature
 }
 
 export const MaalinnoitusYksikkoPanel: React.FC<Props> = ({
-  titleClickAction,
-  isOpen,
-  onToggleOpen,
-  feature
+  feature,
+  ...commonProps
 }) => {
   const { t } = useTranslation()
   const {
@@ -39,13 +35,8 @@ export const MaalinnoitusYksikkoPanel: React.FC<Props> = ({
   } = feature.properties
 
   return (
-    <MapFeatureCollapsePanel
-      titleClickAction={titleClickAction}
-      isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
-      feature={feature}
-    >
-      <form>
+    <MapFeatureCollapsePanel feature={feature} {...commonProps}>
+      <Form>
         <Field
           label={t(`details.field.maalinnoitus.tukikohta`)}
           value={tukikohtanumero}
@@ -86,7 +77,7 @@ export const MaalinnoitusYksikkoPanel: React.FC<Props> = ({
           label={t(`details.field.maalinnoitus.rakennushistoria`)}
           value={rakennushistoria}
         />
-      </form>
+      </Form>
     </MapFeatureCollapsePanel>
   )
 }

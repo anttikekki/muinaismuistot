@@ -1,4 +1,5 @@
 import React, { useCallback } from "react"
+import { Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -42,35 +43,39 @@ export const OtherLayerSelectionPanel: React.FC = () => {
 
   return (
     <Panel title={t(`settings.other.title`)}>
-      <form>
-        <h5>
+      <Form>
+        <h6>
           <Trans
             i18nKey="data.register.nameWithLink.3Dmodels"
             components={{ a: <a /> }}
           />
-        </h5>
-        <LayerCheckbox
-          label={t(`common.features.3D-malli`)}
-          layer={ModelLayer.ModelLayer}
-          selectedLayers={selectedModelLayers}
-          onSelectLayer={onSelectModelLayer}
-        />
+        </h6>
+        <Form.Group className="mb-3">
+          <LayerCheckbox
+            label={t(`common.features.3D-malli`)}
+            layer={ModelLayer.ModelLayer}
+            selectedLayers={selectedModelLayers}
+            onSelectLayer={onSelectModelLayer}
+          />
+        </Form.Group>
 
-        <h5>
+        <h6>
           <Trans
             i18nKey="data.register.nameWithLink.maisemanMuisti"
             components={{ a: <a /> }}
           />
-        </h5>
-        <LayerCheckbox
-          label={t(
-            `common.features.Valtakunnallisesti merkittävä muinaisjäännös`
-          )}
-          layer={MaisemanMuistiLayer.MaisemanMuisti}
-          selectedLayers={selectedMaisemanMuistiLayers}
-          onSelectLayer={onSelectMaisemanMuistiLayer}
-        />
-      </form>
+        </h6>
+        <Form.Group className="mb-3">
+          <LayerCheckbox
+            label={t(
+              `common.features.Valtakunnallisesti merkittävä muinaisjäännös`
+            )}
+            layer={MaisemanMuistiLayer.MaisemanMuisti}
+            selectedLayers={selectedMaisemanMuistiLayers}
+            onSelectLayer={onSelectMaisemanMuistiLayer}
+          />
+        </Form.Group>
+      </Form>
     </Panel>
   )
 }

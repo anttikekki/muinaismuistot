@@ -1,35 +1,26 @@
 import React from "react"
+import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
+import { AhvenanmaaMaritimtKulturarvArgisFeature } from "../../../../common/ahvenanmaa.types"
+import { EmbeddedModels } from "../component/EmbeddedModels"
 import {
-  MapFeatureCollapsePanel,
-  FeatureTitleClickAction
+  FeatureCollapsePanelCommonExternalProps,
+  MapFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
-import { EmbeddedModels } from "../component/EmbeddedModels"
-import { AhvenanmaaMaritimtKulturarvArgisFeature } from "../../../../common/ahvenanmaa.types"
 
-interface Props {
-  titleClickAction: FeatureTitleClickAction
-  isOpen: boolean
-  onToggleOpen: () => void
+interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature: AhvenanmaaMaritimtKulturarvArgisFeature
 }
 
 export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
-  titleClickAction,
-  isOpen,
-  onToggleOpen,
-  feature
+  feature,
+  ...commonProps
 }) => {
   const { t } = useTranslation()
   return (
-    <MapFeatureCollapsePanel
-      titleClickAction={titleClickAction}
-      isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
-      feature={feature}
-    >
-      <form>
+    <MapFeatureCollapsePanel feature={feature} {...commonProps}>
+      <Form>
         <Field
           label={t(`details.field.id`)}
           value={feature.attributes.FornID}
@@ -59,8 +50,8 @@ export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
           value={feature.attributes.Lagrum}
         />
 
-        {isOpen && <EmbeddedModels models={feature.models} />}
-      </form>
+        {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
+      </Form>
     </MapFeatureCollapsePanel>
   )
 }

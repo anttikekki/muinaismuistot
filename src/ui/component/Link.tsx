@@ -7,12 +7,10 @@ interface Props {
 
 export const Link: React.FC<Props> = ({ text, url }) => {
   return url ? (
-    <p>
-      <a href={url} target="_blank">
-        {text}
-      </a>
-    </p>
+    <a href={url} target="_blank">
+      {text}
+    </a>
   ) : (
-    <p>{text}</p>
+    <span>{text}</span>
   )
 }

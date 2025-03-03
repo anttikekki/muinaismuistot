@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
+import { Alert, Button, Col, Form, InputGroup, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { MapFeature } from "../../../common/mapFeature.types"
@@ -18,10 +19,14 @@ const Results: React.FC<ResultsProps> = ({ features }) => {
   }
   return (
     <>
-      <h5 id="search-result-header">
-        <span>Hakutulokset</span>
-        <small> ({features.length} kpl)</small>
-      </h5>
+      <Row>
+        <Col className="gy-3">
+          <h6>
+            <span>Hakutulokset</span>
+            <small> ({features.length} kpl)</small>
+          </h6>
+        </Col>
+      </Row>
 
       <FeatureList
         titleClickAction={FeatureTitleClickAction.ClosePageAndPinOnMap}
@@ -30,15 +35,6 @@ const Results: React.FC<ResultsProps> = ({ features }) => {
         maisemanMuistiFeatures={[]}
       />
     </>
-  )
-}
-
-const ValidationError: React.FC = () => {
-  const { t } = useTranslation()
-  return (
-    <div className="alert alert-danger" role="alert">
-      {t(`search.error`)}
-    </div>
   )
 }
 
@@ -76,32 +72,29 @@ export const SearchPage: React.FC = () => {
 
   return (
     <Page title={t(`search.title`)} pageId={PageId.Search}>
-      <form
-        className={showSearchTextError ? "has-error" : undefined}
-        onSubmit={onSearchClick}
-      >
-        {showSearchTextError && <ValidationError />}
+      <Row>
+        <Col>
+          <Form onSubmit={onSearchClick}>
+            {showSearchTextError && (
+              <Alert variant="danger">{t(`search.error`)}</Alert>
+            )}
 
-        <span id="helpBlock" className="help-block">
-          {t(`search.info`)}
-        </span>
-        <div className="input-group">
-          <input
-            type="text"
-            ref={inputRef}
-            className="form-control"
-            placeholder={t(`search.placeholder`) ?? undefined}
-            value={searchText}
-            aria-describedby="helpBlock"
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-          <span className="input-group-btn">
-            <button className="btn btn-default" type="submit">
-              {t(`search.searchButton`)}
-            </button>
-          </span>
-        </div>
-      </form>
+            <Form.Label>{t(`search.info`)}</Form.Label>
+            <InputGroup>
+              <Form.Control
+                type="text"
+                ref={inputRef}
+                placeholder={t(`search.placeholder`) ?? undefined}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+              <Button type="submit" variant="outline-secondary">
+                {t(`search.searchButton`)}
+              </Button>
+            </InputGroup>
+          </Form>
+        </Col>
+      </Row>
 
       <Results features={searchResultFeatures} />
     </Page>

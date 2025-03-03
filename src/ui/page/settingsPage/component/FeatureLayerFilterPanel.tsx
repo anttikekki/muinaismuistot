@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from "react"
+import { Alert, Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import regexifyString from "regexify-string"
@@ -30,19 +31,17 @@ const TypeToggleAllCheckbox: React.FC<TypeToggleAllCheckboxProps> = ({
   const isAllSelected = Object.values(allTypes).every((v) =>
     selectedMuinaisjaannosTypes.includes(v)
   )
-
   return (
-    <h5>
-      <label>
-        <input
-          type="checkbox"
-          onChange={() => onSelectTypes(isAllSelected ? [] : allTypes)}
-          checked={isAllSelected}
-          disabled={disabled}
-        />{" "}
-        {t(`settings.filters.type`)}
-      </label>
-    </h5>
+    <h6>
+      <Form.Check
+        type="checkbox"
+        id={t(`settings.filters.type`)}
+        onChange={() => onSelectTypes(isAllSelected ? [] : allTypes)}
+        checked={isAllSelected}
+        disabled={disabled}
+        label={t(`settings.filters.type`)}
+      />
+    </h6>
   )
 }
 
@@ -63,17 +62,15 @@ const TypeCheckbox: React.FC<TypeCheckboxProps> = ({
   const isSelected = selectedMuinaisjaannosTypes.includes(type)
 
   return (
-    <div className="checkbox">
-      <label>
-        <input
-          type="checkbox"
-          onChange={() => onSelectType(type)}
-          checked={isSelected}
-          disabled={disabled}
-        />
-        {t(`data.museovirasto.type.${type}`)}
-      </label>
-    </div>
+    <Form.Check
+      type="checkbox"
+      className="ms-3"
+      id={t(`data.museovirasto.type.${type}`)}
+      onChange={() => onSelectType(type)}
+      checked={isSelected}
+      disabled={disabled}
+      label={t(`data.museovirasto.type.${type}`)}
+    />
   )
 }
 
@@ -95,17 +92,16 @@ const DatingToggleAllCheckbox: React.FC<DatingToggleAllCheckboxProps> = ({
   )
 
   return (
-    <h5>
-      <label>
-        <input
-          type="checkbox"
-          onChange={() => onSelectDatings(isAllSelected ? [] : allDatings)}
-          checked={isAllSelected}
-          disabled={disabled}
-        />{" "}
-        {t(`settings.filters.dating`)}
-      </label>
-    </h5>
+    <h6>
+      <Form.Check
+        type="checkbox"
+        id={t(`settings.filters.dating`)}
+        onChange={() => onSelectDatings(isAllSelected ? [] : allDatings)}
+        checked={isAllSelected}
+        disabled={disabled}
+        label={t(`settings.filters.dating`)}
+      />
+    </h6>
   )
 }
 
@@ -126,17 +122,15 @@ const DatingCheckbox: React.FC<DatingCheckboxProps> = ({
   const isSelected = selectedMuinaisjaannosDatings.includes(dating)
 
   return (
-    <div className="checkbox">
-      <label>
-        <input
-          type="checkbox"
-          onChange={() => onSelectDating(dating)}
-          checked={isSelected}
-          disabled={disabled}
-        />{" "}
-        {t(`data.museovirasto.dating.${dating}`)}
-      </label>
-    </div>
+    <Form.Check
+      type="checkbox"
+      className="ms-3"
+      id={t(`data.museovirasto.dating.${dating}`)}
+      onChange={() => onSelectDating(dating)}
+      checked={isSelected}
+      disabled={disabled}
+      label={t(`data.museovirasto.dating.${dating}`)}
+    />
   )
 }
 
@@ -235,23 +229,21 @@ export const FeatureLayerFilterPanel: React.FC = () => {
 
   return (
     <Panel title={t(`settings.filters.title`)}>
-      <form>
-        <div className="well well-sm">{infoText}</div>
+      <Form>
+        <Alert variant="light">{infoText}</Alert>
 
         <TypeToggleAllCheckbox
           selectedMuinaisjaannosTypes={selectedMuinaisjaannosTypes}
           onSelectTypes={onToggleAllMuinaisjaannosTypes}
         />
-        {typeCheckboxes}
-
-        <br />
+        <Form.Group className="mb-3">{typeCheckboxes}</Form.Group>
 
         <DatingToggleAllCheckbox
           selectedMuinaisjaannosDatings={selectedMuinaisjaannosDatings}
           onSelectDatings={onToggleAllMuinaisjaannosDatings}
         />
-        {datingCheckboxes}
-      </form>
+        <Form.Group className="mb-3">{datingCheckboxes}</Form.Group>
+      </Form>
     </Panel>
   )
 }

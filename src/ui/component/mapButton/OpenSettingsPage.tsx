@@ -20,7 +20,7 @@ export const OpenSettingsPage: React.FunctionComponent = () => {
         title={t(`common.button.settings`) ?? undefined}
         onClick={onClick}
       >
-        <span className="glyphicon glyphicon-cog" aria-hidden="true" />
+        <i className="bi bi-gear" aria-hidden="true" />
       </button>
     </div>
   )

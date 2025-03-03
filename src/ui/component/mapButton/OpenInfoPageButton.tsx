@@ -20,7 +20,7 @@ export const ShowInfoPageButton: React.FunctionComponent = () => {
         title={t(`common.button.info`) ?? undefined}
         onClick={onClick}
       >
-        <span className="glyphicon glyphicon-info-sign" aria-hidden="true" />
+        <i className="bi bi-info-circle" aria-hidden="true" />
       </button>
     </div>
   )

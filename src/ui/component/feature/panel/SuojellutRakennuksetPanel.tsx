@@ -1,42 +1,33 @@
 import React from "react"
-import {
-  MapFeatureCollapsePanel,
-  FeatureTitleClickAction
-} from "../component/FeatureCollapsePanel"
-import { Field } from "../component/Field"
-import { MuseovirastoLink } from "../component/MuseovirastoLink"
-import { EmbeddedModels } from "../component/EmbeddedModels"
+import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
   SuojellutRakennuksetAlueWmsFeature,
   SuojellutRakennuksetPisteWmsFeature,
   isSuojellutRakennuksetPisteWmsFeature
 } from "../../../../common/museovirasto.types"
+import { EmbeddedModels } from "../component/EmbeddedModels"
+import {
+  FeatureCollapsePanelCommonExternalProps,
+  MapFeatureCollapsePanel
+} from "../component/FeatureCollapsePanel"
+import { Field } from "../component/Field"
+import { MuseovirastoLink } from "../component/MuseovirastoLink"
 
-interface Props {
-  titleClickAction: FeatureTitleClickAction
-  isOpen: boolean
-  onToggleOpen: () => void
+interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature:
     | SuojellutRakennuksetPisteWmsFeature
     | SuojellutRakennuksetAlueWmsFeature
 }
 
 export const SuojellutRakennuksetPanel: React.FC<Props> = ({
-  titleClickAction,
-  isOpen,
-  onToggleOpen,
-  feature
+  feature,
+  ...commonProps
 }) => {
   const { t } = useTranslation()
   return (
-    <MapFeatureCollapsePanel
-      titleClickAction={titleClickAction}
-      isOpen={isOpen}
-      onToggleOpen={onToggleOpen}
-      feature={feature}
-    >
-      <form>
+    <MapFeatureCollapsePanel feature={feature} {...commonProps}>
+      <Form>
         <Field
           label={t(`details.field.featureName`)}
           value={feature.properties.kohdenimi}
@@ -56,8 +47,8 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
           value={feature.properties.suojeluryhmä}
         />
         <MuseovirastoLink feature={feature} />
-        {isOpen && <EmbeddedModels models={feature.models} />}
-      </form>
+        {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
+      </Form>
     </MapFeatureCollapsePanel>
   )
 }

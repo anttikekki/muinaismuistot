@@ -4,8 +4,8 @@ import {
   PolygonGeometry
 } from "./arcgis.type"
 import { FeatureSupplementaryData } from "./featureSupplementaryData.types"
-import { MapFeature } from "./mapFeature.types"
 import { AhvenanmaaLayer } from "./layers.types"
+import { MapFeature } from "./mapFeature.types"
 
 export interface AhvenanmaaTypeAndDatingFeatureProperties {
   FornID: string // "Jo 18.10"
@@ -48,7 +48,7 @@ export interface AhvenanmaaMaritimtKulturarvArgisFeature
   extends FeatureSupplementaryData,
     ArcGisPolygonGeometryFeature {
   layerId: 5
-  layerName: AhvenanmaaLayer.MaritimtKulturarv
+  layerName: AhvenanmaaLayer.MaritimaFornminnen
   attributes: {
     OBJECTID: string //"482"
     FornID: string //"M1 Ha 443.2";
@@ -72,7 +72,7 @@ export const getAhvenanmaaLayerId = (
   switch (layer) {
     case AhvenanmaaLayer.Fornminnen:
       return 1
-    case AhvenanmaaLayer.MaritimtKulturarv:
+    case AhvenanmaaLayer.MaritimaFornminnen:
       return 5
   }
 }
@@ -95,6 +95,6 @@ export const isAhvenanmaaArcgisFeature = (
   return (
     "layerName" in feature &&
     (feature.layerName === AhvenanmaaLayer.Fornminnen ||
-      feature.layerName === AhvenanmaaLayer.MaritimtKulturarv)
+      feature.layerName === AhvenanmaaLayer.MaritimaFornminnen)
   )
 }

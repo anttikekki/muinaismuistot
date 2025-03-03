@@ -1,4 +1,5 @@
 import React from "react"
+import { Table } from "react-bootstrap"
 
 export const DatabaseStructure: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ export const DatabaseStructure: React.FC = () => {
         muodossa:
       </p>
 
-      <table className="table table-striped">
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>Kentän nimi</th>
@@ -229,7 +230,7 @@ export const DatabaseStructure: React.FC = () => {
             <td>Merkkijono</td>
           </tr>
         </tbody>
-      </table>
+      </Table>
 
       <p>Esimerkki GeoJSON-featuresta:</p>
       <pre>

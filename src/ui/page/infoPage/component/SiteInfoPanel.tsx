@@ -9,7 +9,7 @@ export const SiteInfoPanel: React.FC = () => {
     <Panel title={t(`info.siteInfo.title`)}>
       <p>{t(`info.siteInfo.registerInfo`)}:</p>
 
-      <h5>{t(`common.organization.Museovirasto`)}</h5>
+      <h6>{t(`common.organization.Museovirasto`)}</h6>
       <ul>
         <li>
           <a
@@ -44,7 +44,7 @@ export const SiteInfoPanel: React.FC = () => {
         </li>
       </ul>
 
-      <h5>{t(`common.organization.Ahvenanmaan paikallishallinto`)}</h5>
+      <h6>{t(`common.organization.Ahvenanmaan paikallishallinto`)}</h6>
       <ul>
         <li>
           <a
@@ -66,7 +66,7 @@ export const SiteInfoPanel: React.FC = () => {
         </li>
       </ul>
 
-      <h5>{t(`common.organization.Geologian tutkimuskeskus`)}</h5>
+      <h6>{t(`common.organization.Geologian tutkimuskeskus`)}</h6>
       <ul>
         <li>
           <a
@@ -78,7 +78,7 @@ export const SiteInfoPanel: React.FC = () => {
         </li>
       </ul>
 
-      <h5>{t(`common.organization.Helsingin kaupunki`)}</h5>
+      <h6>{t(`common.organization.Helsingin kaupunki`)}</h6>
       <ul>
         <li>
           <a
@@ -108,17 +108,17 @@ export const SiteInfoPanel: React.FC = () => {
         })}
       </p>
 
-      <h5>
+      <h6>
         <Trans
           i18nKey="data.register.nameWithLink.3Dmodels"
           components={{ a: <a /> }}
         />
-      </h5>
+      </h6>
       <p>
         <Trans i18nKey="info.siteInfo.3DModelsInfo" components={{ a: <a /> }} />
       </p>
 
-      <h5>{t(`info.siteInfo.positioningTitle`)}</h5>
+      <h6>{t(`info.siteInfo.positioningTitle`)}</h6>
       <p>
         {regexifyString({
           pattern: /ICON/gm,
@@ -135,7 +135,7 @@ export const SiteInfoPanel: React.FC = () => {
         })}
       </p>
 
-      <h5>{t(`info.siteInfo.searchTitle`)}</h5>
+      <h6>{t(`info.siteInfo.searchTitle`)}</h6>
       <p>
         {regexifyString({
           pattern: /SEARCH_ICON|PIN_ICON/gm,
@@ -158,7 +158,7 @@ export const SiteInfoPanel: React.FC = () => {
         })}
       </p>
 
-      <h5>{t(`info.siteInfo.settingsTitle`)}</h5>
+      <h6>{t(`info.siteInfo.settingsTitle`)}</h6>
       <p>
         {regexifyString({
           pattern: /ICON/gm,
@@ -175,12 +175,12 @@ export const SiteInfoPanel: React.FC = () => {
         })}
       </p>
 
-      <h5>{t(`info.siteInfo.feedbackTitle`)}</h5>
+      <h6>{t(`info.siteInfo.feedbackTitle`)}</h6>
       <p>
         <Trans i18nKey="info.siteInfo.feedbackInfo" components={{ a: <a /> }} />
       </p>
 
-      <h5>{t(`info.siteInfo.developersTitle`)}</h5>
+      <h6>{t(`info.siteInfo.developersTitle`)}</h6>
       <p>
         <Trans
           i18nKey="info.siteInfo.developersInfo"

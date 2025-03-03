@@ -17,7 +17,7 @@ export const CenterToCurrentPositionButton: React.FunctionComponent = () => {
         title={t(`common.button.positioning`) ?? undefined}
         onClick={onClick}
       >
-        <span className="glyphicon glyphicon-screenshot" aria-hidden="true" />
+        <i className="bi bi-crosshair" aria-hidden="true" />
       </button>
     </div>
   )

@@ -1,24 +1,21 @@
+import Feature, { FeatureLike } from "ol/Feature"
+import GeoJSON from "ol/format/GeoJSON"
+import Geometry from "ol/geom/Geometry"
 import VectorLayer from "ol/layer/Vector"
 import VectorSource from "ol/source/Vector"
-import Stroke from "ol/style/Stroke"
 import Circle from "ol/style/Circle"
-import RegularShape from "ol/style/RegularShape"
-import Style from "ol/style/Style"
-import GeoJSON from "ol/format/GeoJSON"
-import Feature, { FeatureLike } from "ol/Feature"
-import {
-  getFeatureID,
-  getGeoJSONDataLatestUpdateDate
-} from "../../common/util/featureParser"
 import Fill from "ol/style/Fill"
-import { Settings } from "../../store/storeTypes"
+import RegularShape from "ol/style/RegularShape"
+import Stroke from "ol/style/Stroke"
+import Style from "ol/style/Style"
 import { Store } from "redux"
-import { ActionTypes } from "../../store/actionTypes"
-import Geometry from "ol/geom/Geometry"
 import { ModelFeatureProperties } from "../../common/3dModels.types"
 import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
 import { FeatureLayer, MuseovirastoLayer } from "../../common/layers.types"
 import { MapFeature, getFeatureLayerName } from "../../common/mapFeature.types"
+import { getFeatureID } from "../../common/util/featureParser"
+import { ActionTypes } from "../../store/actionTypes"
+import { Settings } from "../../store/storeTypes"
 
 export default class ModelsLayer {
   private store: Store<Settings, ActionTypes>
@@ -155,15 +152,7 @@ export default class ModelsLayer {
     this.layer?.setVisible(settings.models.selectedLayers.length > 0)
   }
 
-  public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> | undefined =>
-    this.layer
-
-  public getDataLatestUpdateDate = async (): Promise<Date> => {
-    const settings = this.store.getState()
-    if (this.dataLatestUpdateDate) {
-      return this.dataLatestUpdateDate
-    }
-    const data = await this.fetchGeoJson(settings)
-    return getGeoJSONDataLatestUpdateDate(data.features)
-  }
+  public getLayer = ():
+    | VectorLayer<VectorSource<Feature<Geometry>>>
+    | undefined => this.layer
 }

@@ -1,43 +1,43 @@
-import "ol/ol.css"
-import proj4 from "proj4"
-import Map from "ol/Map"
-import View from "ol/View"
-import { register as registerProj4 } from "ol/proj/proj4"
-import { get as getProjection } from "ol/proj"
 import Collection from "ol/Collection"
-import { ScaleLine } from "ol/control"
+import Feature from "ol/Feature"
 import Geolocation from "ol/Geolocation"
-import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer"
-import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer"
-import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
-import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositionAndSelectedLocationMarkerLayer"
-import { LayerGroup } from "../common/layers.types"
+import Map from "ol/Map"
 import MapBrowserEvent from "ol/MapBrowserEvent"
+import View from "ol/View"
+import { ScaleLine } from "ol/control"
 import { Coordinate } from "ol/coordinate"
 import { Extent } from "ol/extent"
-import ModelsLayer from "./layer/ModelsLayer"
+import Geometry from "ol/geom/Geometry"
 import Layer from "ol/layer/Layer"
-import Source from "ol/source/Source"
-import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
-import { Pixel } from "ol/pixel"
 import VectorLayer from "ol/layer/Vector"
-import GtkTileLayer from "./layer/GtkTileLayer"
-import { Settings } from "../store/storeTypes"
+import "ol/ol.css"
+import { Pixel } from "ol/pixel"
+import { get as getProjection } from "ol/proj"
+import { register as registerProj4 } from "ol/proj/proj4"
+import Source from "ol/source/Source"
+import VectorSource from "ol/source/Vector"
+import proj4 from "proj4"
 import { Store } from "redux"
-import { ActionTypes } from "../store/actionTypes"
+import { ModelFeatureProperties } from "../common/3dModels.types"
+import { GeoJSONFeature } from "../common/geojson.types"
+import { LayerGroup } from "../common/layers.types"
+import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
+import { MapFeature, isWmsFeature } from "../common/mapFeature.types"
+import { isMuinaisjaannosPisteWmsFeature } from "../common/museovirasto.types"
 import {
   clickedMapFeatureIdentificationComplete,
   showLoadingAnimation
 } from "../store/actionCreators"
+import { ActionTypes } from "../store/actionTypes"
+import { Settings } from "../store/storeTypes"
+import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer"
+import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositionAndSelectedLocationMarkerLayer"
+import GtkTileLayer from "./layer/GtkTileLayer"
 import HelsinkiTileLayer from "./layer/HelsinkiTileLayer"
-import VectorSource from "ol/source/Vector"
-import Geometry from "ol/geom/Geometry"
-import Feature from "ol/Feature"
-import { GeoJSONFeature } from "../common/geojson.types"
-import { ModelFeatureProperties } from "../common/3dModels.types"
-import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
-import { MapFeature, isWmsFeature } from "../common/mapFeature.types"
-import { isMuinaisjaannosPisteWmsFeature } from "../common/museovirasto.types"
+import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer"
+import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
+import ModelsLayer from "./layer/ModelsLayer"
+import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
 
 let store: Store<Settings, ActionTypes>
 let map: Map
@@ -190,7 +190,13 @@ const getFeaturesAtPixelAtGeoJsonLayer = <T>(
           coordinates: [extent![0], extent![1]]
         },
         properties: {
-          ...(feature.getProperties() as T)
+          ...(feature.getProperties() as T),
+          /**
+           * Nollataan "geometry", ettei OpenLayersin sisäisiä tiloja tule mukaan
+           * dataan. Tämä aiheuttaa muuten virgeeb Reduxissa, koska geometry sisältää
+           * funktioita, joita ei voi serialisoida.
+           */
+          geometry: undefined
         }
       }
     })

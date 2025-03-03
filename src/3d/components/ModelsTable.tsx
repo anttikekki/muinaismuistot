@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react"
+import { Table } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
-import {
-  getLayerRegisterName,
-  getGeoJSONFeatureLocation
-} from "../../common/util/featureParser"
-import { createLocationHash } from "../../common/util/URLHashHelper"
 import { ModelFeatureProperties } from "../../common/3dModels.types"
 import { GeoJSONFeature } from "../../common/geojson.types"
+import {
+  getGeoJSONFeatureLocation,
+  getLayerRegisterName
+} from "../../common/util/featureParser"
+import { createLocationHash } from "../../common/util/URLHashHelper"
+
+type SortDirection = "asc" | "desc"
 
 interface Props {
   models: Array<GeoJSONFeature<ModelFeatureProperties>>
@@ -18,7 +21,7 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
     Array<GeoJSONFeature<ModelFeatureProperties>>
   >([])
   const [sortColumn, setSortColumn] = useState<string>("Lisätty")
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc")
+  const [sortDirection, setSortDirection] = useState<SortDirection>("desc")
 
   useEffect(() => setSortedModels(models), [models])
 
@@ -60,9 +63,12 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
           style={{ whiteSpace: "nowrap" }}
         >
           <span>{name} </span>
-          {name === sortColumn && (
-            <img src={`../images/${sortDirection}.png`} />
-          )}
+          {name === sortColumn &&
+            (sortDirection === "desc" ? (
+              <i className="bi bi-caret-down-fill"></i>
+            ) : (
+              <i className="bi bi-caret-up-fill"></i>
+            ))}
         </a>
       </th>
     )
@@ -105,7 +111,7 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
         kehyksellä.
       </p>
 
-      <table className="table table-striped">
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>#</th>
@@ -191,7 +197,7 @@ export const ModelsTable: React.FC<Props> = ({ models }) => {
             )
           })}
         </tbody>
-      </table>
+      </Table>
     </>
   )
 }

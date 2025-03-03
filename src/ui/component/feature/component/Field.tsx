@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react"
+import { Col, Form, Row } from "react-bootstrap"
 import { trim } from "../../../../common/util/featureParser"
 
 interface Props {
@@ -13,9 +14,13 @@ export const Field: React.FC<Props> = ({ label, value, children }) => {
     return null
   }
   return (
-    <div className="form-group">
-      <label>{label}</label>
-      {children ? children : <p>{trimmedValue}</p>}
-    </div>
+    <Form.Group as={Row} controlId={label}>
+      <Form.Label column sm="3" className="fw-bold">
+        {label}
+      </Form.Label>
+      <Col sm="9">
+        <div className="form-control-plaintext">{children ?? trimmedValue}</div>
+      </Col>
+    </Form.Group>
   )
 }

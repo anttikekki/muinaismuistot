@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from "react"
+import { Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { HelsinkiLayer, LayerGroup } from "../../../../common/layers.types"
@@ -94,22 +95,22 @@ export const HelsinkiMapLayerSelectionPanel: React.FC = () => {
 
   return (
     <Panel title={t(`settings.helsinki.title`)}>
-      <form>
-        <h5>
+      <Form>
+        <h6>
           <Trans
             i18nKey={`data.register.nameWithLink.maalinnoitus`}
             components={{ a: <a /> }}
           />
-        </h5>
-        {checkboxes}
+        </h6>
+        <Form.Group className="mb-3">{checkboxes}</Form.Group>
 
         <LayerTransparencyInput
           opacity={opacity}
           layerGroup={LayerGroup.Helsinki}
         />
 
-        <small className="pull-right">{t(`settings.helsinki.licence`)}</small>
-      </form>
+        <Form.Text>{t(`settings.helsinki.licence`)}</Form.Text>
+      </Form>
     </Panel>
   )
 }
