@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
@@ -28,7 +28,7 @@ interface Props extends FeatureCollapsePanelCommonExternalProps {
 
 function renderList<T extends string>(
   data: Array<T>,
-  contentFn: (row: T) => JSX.Element
+  contentFn: (row: T) => ReactNode
 ) {
   if (data.length === 0) {
     return null
