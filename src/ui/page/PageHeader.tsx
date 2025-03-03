@@ -47,9 +47,9 @@ export const PageHeader: React.FC<Props> = ({ title }) => {
   )
 
   return (
-    <Container>
+    <Container className="ps-0">
       <Row>
-        <Col xs={4} sm={3} md={3} className="text-start">
+        <Col xs={3} className="text-start">
           <ButtonGroup aria-label="Kielivalinta">
             <LangSelection
               lang={Language.FI}
@@ -61,7 +61,7 @@ export const PageHeader: React.FC<Props> = ({ title }) => {
             />
           </ButtonGroup>
         </Col>
-        <Col xs={6} sm={7} md={7} className="text-center">
+        <Col xs={7} className="text-center">
           <h5>{title}</h5>
         </Col>
       </Row>

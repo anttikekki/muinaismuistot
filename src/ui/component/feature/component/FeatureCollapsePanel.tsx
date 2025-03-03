@@ -73,16 +73,16 @@ const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
   return (
     <Accordion.Item eventKey={panelId}>
       <Accordion.Header onClick={onToggleOpen} as="div">
-        <Container>
+        <Container className="ps-0">
           <Row>
-            <Col sm={10}>
+            <Col xs={10}>
               <h6 className="mb-0">{featureName}</h6>
               <div>
                 <img className="feature-icon" src={featureTypeIconURL} />
                 <span>{featureTypeName}</span>
               </div>
             </Col>
-            <Col className="text-end">
+            <Col xs={2} className="text-end align-self-center">
               <a href={permanentLink} onClick={onPermanentLinkClick}>
                 <i
                   className="bi bi-link-45deg"

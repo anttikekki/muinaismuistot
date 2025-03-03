@@ -30,7 +30,7 @@ export const Page: React.FC<Props> = ({ title, pageId, children }) => {
         <PageHeader title={title} />
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <Container>{children}</Container>
+        <Container className="ps-0">{children}</Container>
       </Offcanvas.Body>
     </Offcanvas>
   )

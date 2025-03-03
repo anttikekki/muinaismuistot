@@ -236,13 +236,13 @@ export const FeatureLayerFilterPanel: React.FC = () => {
           selectedMuinaisjaannosTypes={selectedMuinaisjaannosTypes}
           onSelectTypes={onToggleAllMuinaisjaannosTypes}
         />
-        <p>{typeCheckboxes}</p>
+        <Form.Group className="mb-3">{typeCheckboxes}</Form.Group>
 
         <DatingToggleAllCheckbox
           selectedMuinaisjaannosDatings={selectedMuinaisjaannosDatings}
           onSelectDatings={onToggleAllMuinaisjaannosDatings}
         />
-        <p>{datingCheckboxes}</p>
+        <Form.Group className="mb-3">{datingCheckboxes}</Form.Group>
       </Form>
     </Panel>
   )
