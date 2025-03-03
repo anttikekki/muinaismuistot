@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
-import { TableOfContent } from "./TableOfContent"
+import { Col, Container, Row } from "react-bootstrap"
+import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
+import { MaisemanMuistiFeatureProperties } from "../../common/maisemanMuisti.types"
+import { DatabaseIntro } from "./DatabaseIntro"
 import { DatabaseStructure } from "./DatabaseStructure"
 import { Download } from "./Download"
 import { FeatureTable } from "./FeatureTable"
-import { DatabaseIntro } from "./DatabaseIntro"
-import { MaisemanMuistiFeatureProperties } from "../../common/maisemanMuisti.types"
-import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
+import { TableOfContent } from "./TableOfContent"
 
 export const Content: React.FC = () => {
   const [features, setFeatures] = useState<
@@ -21,14 +22,14 @@ export const Content: React.FC = () => {
 
   return (
     <>
-      <div className="jumbotron">
-        <div className="container">
-          <h1>Paikkatietoaineisto</h1>
+      <div className="p-5 rounded-3 bg-body-secondary mb-5">
+        <Container>
+          <h1 className="text-body-emphasis">Paikkatietoaineisto</h1>
           <h2>
             Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset
           </h2>
 
-          <p>
+          <p className="lead">
             Tälle sivulle on koostettu Museoviraston vuonna 2001 julkaiseman
             kirjan perusteella paikkatietoaineisto, joka mahdollistaa kohteiden
             näyttämisen karttasovelluksissa.
@@ -44,37 +45,36 @@ export const Content: React.FC = () => {
               Näytä kartalla
             </a>
           </p>
-        </div>
+        </Container>
       </div>
-      <div className="container">
-        <div>
-          <div className="row">
-            <div className="col-md-3">
-              <img src="images/maiseman-muisti-kansi.jpg" />
-            </div>
-            <div className="col-md-9">
-              <p>
-                <b>
-                  Maiseman muisti - Valtakunnallisesti merkittävät
-                  muinaisjäännökset
-                </b>
-              </p>
-              <p>Vastaava toimittaja: Paula Purhonen</p>
-              <p>Toimittajat: Pirjo Hamari ja Helena Ranta</p>
-              <p>
-                Julkaisija: Museovirasto, arkeologian osasto, PL 913, 00101
-                Helsinki
-              </p>
-              <p>
-                Kansikuva: Karjaan Junkarsborgin keskiaikainen linnoitus. Kuva
-                Museovirasto/Jukka Moisanen
-              </p>
-              <p>ISBN 951-616-071-9</p>
-              <p>Vammalan Kirjapaino Oy</p>
-              <p>2001</p>
-            </div>
-          </div>
-        </div>
+      <Container>
+        <Row>
+          <Col md={3}>
+            <img src="images/maiseman-muisti-kansi.jpg" />
+          </Col>
+          <Col md={9}>
+            <p>
+              <b>
+                Maiseman muisti - Valtakunnallisesti merkittävät
+                muinaisjäännökset
+              </b>
+            </p>
+            <p>Vastaava toimittaja: Paula Purhonen</p>
+            <p>Toimittajat: Pirjo Hamari ja Helena Ranta</p>
+            <p>
+              Julkaisija: Museovirasto, arkeologian osasto, PL 913, 00101
+              Helsinki
+            </p>
+            <p>
+              Kansikuva: Karjaan Junkarsborgin keskiaikainen linnoitus. Kuva
+              Museovirasto/Jukka Moisanen
+            </p>
+            <p>ISBN 951-616-071-9</p>
+            <p>Vammalan Kirjapaino Oy</p>
+            <p>2001</p>
+          </Col>
+        </Row>
+
         <TableOfContent />
         <DatabaseIntro />
 
@@ -108,7 +108,7 @@ export const Content: React.FC = () => {
         <Download />
 
         <FeatureTable features={features} />
-      </div>
+      </Container>
     </>
   )
 }

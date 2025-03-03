@@ -1,4 +1,5 @@
 import React from "react"
+import { Alert } from "react-bootstrap"
 
 export const Download: React.FC = () => {
   return (
@@ -24,12 +25,12 @@ export const Download: React.FC = () => {
         ).
       </p>
 
-      <div className="well">
+      <Alert variant="light">
         Lataa aineisto:{" "}
-        <a href="https://muinaismuistot.info/3d/3d.json">
+        <Alert.Link href="https://muinaismuistot.info/3d/3d.json">
           https://muinaismuistot.info/3d/3d.json
-        </a>
-      </div>
+        </Alert.Link>
+      </Alert>
 
       <p>
         Aineistoa voi myös käyttää suoraan yllä olevasta osoitteesta (eli esim.
