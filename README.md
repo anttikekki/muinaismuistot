@@ -65,6 +65,7 @@ See [GitHub releases](https://github.com/anttikekki/muinaismuistot/releases)
   - [Redux](https://redux.js.org/)
   - [Redux Toolkit](https://redux-toolkit.js.org/)
   - [Bootstrap](https://getbootstrap.com/docs/)
+  - [React Bootstrap](https://react-bootstrap.netlify.app/)
   - [React i18next](https://react.i18next.com/)
 - Build
   - [Node.js](https://nodejs.org/en/)
