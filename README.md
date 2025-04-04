@@ -20,12 +20,13 @@ A web page to show ancient monuments of Finland in mobile friendly map. Enter th
 ## Data
 
 - [National Land Survey of Finland](https://www.maanmittauslaitos.fi/en)
-  - Background map, topografic map and aerial image [open map data](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/topographic-data-and-how-acquire-it)
-  - Free to use [WMTS Map tile API](https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml)
+  - Background map, topografic map and aerial image [open map data](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/topographic-data-and-how-acquire-it) and [old maps](https://www.maanmittauslaitos.fi/ajankohtaista/yli-30-000-vanhaa-karttaa-jopa-150-vuoden-takaa-nyt-paikkatietona)
+  - Free to use [WMTS Map tile API](https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml) for ackground map, topografic map and aerial image
+  - Free to use [WMS Map tile API](https://paituli.csc.fi/webservices.html) for old maps
   - Map data licence is [Creative Commons CC By 4.0](https://creativecommons.org/licenses/by/4.0/)
 - [Finnish Heritage Agency](https://www.museovirasto.fi/en)
-  - Ancient monuments and architectural heritage [open map data](https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot)
-  - Free to use [ArcGIS WMS Map tile REST API](https://kartta.nba.fi/arcgis/rest/services/WMS/MV_KulttuuriymparistoSuojellut/MapServer)
+  - Ancient monuments and architectural heritage [open map data](https://www.museovirasto.fi/en/services-and-guidelines/data-systems/kulttuuriympaeristoen-tietojaerjestelmae/kulttuuriympaeristoen-paikkatietoaineistot)
+  - Free to use [WMS Map tile API](https://geoserver.museovirasto.fi/geoserver/rajapinta_suojellut/wms)
   - Map data licence is [Creative Commons CC By 4.0](https://creativecommons.org/licenses/by/4.0/)
 - [Government of Åland](https://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret)
   - Ancient monuments [open map data](https://www.kartor.ax/datasets/aland::fornminnen/about)
@@ -86,7 +87,7 @@ There is no hosted backend server. Browser calls directly data providers map ser
 
 ### Requirements
 
-- [Node.js](https://nodejs.org/en/) v16 installed. Exact required version is defined in [`package.json`](./package.json) `engines` field.
+- [Node.js](https://nodejs.org/en/) v20 or later installed. Exact required version is defined in [`package.json`](./package.json) `engines` field.
 - Only MacOS is tested, Linux should also work. `package.json` scripts use `PARAM=value` type parameters that require different syntax on Windows.
 
 ### Environment setup

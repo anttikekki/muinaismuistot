@@ -1,5 +1,5 @@
 import { HelsinkiLayer, LayerGroup } from "../../common/layers.types"
-import { selectedFeatureLayersChanged } from "../../map"
+import { layerGroupSelectedLayersChanged } from "../../map"
 import { updateSettingsToURL } from "../../url"
 import { ActionTypeEnum } from "../actionTypes"
 import { initialSettings } from "../initialSettings"
@@ -12,6 +12,6 @@ export const selectVisibleHelsinkiLayersThunk =
       type: ActionTypeEnum.SELECT_VISIBLE_HELSINKI_LAYERS,
       layers
     })
-    selectedFeatureLayersChanged(LayerGroup.Helsinki)
+    layerGroupSelectedLayersChanged(LayerGroup.Helsinki)
     updateSettingsToURL(initialSettings, getState())
   }

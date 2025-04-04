@@ -9,6 +9,7 @@ interface LayerCheckboxProps<T extends FeatureLayer> {
   selectedLayers: Array<T>
   onSelectLayer: (layer: T) => void
   showIcon?: boolean
+  disabled?: boolean
   children?: ReactNode
 }
 
@@ -21,6 +22,7 @@ export const LayerCheckbox = <T extends FeatureLayer>(
     selectedLayers,
     onSelectLayer,
     showIcon = true,
+    disabled,
     children
   } = props
   const isSelected = selectedLayers.includes(layer)
@@ -32,6 +34,7 @@ export const LayerCheckbox = <T extends FeatureLayer>(
       id={label}
       onChange={() => onSelectLayer(layer)}
       checked={isSelected}
+      disabled={disabled}
       label={
         <>
           {showIcon

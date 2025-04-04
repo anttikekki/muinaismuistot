@@ -5,6 +5,7 @@ export enum Language {
 
 export enum LayerGroup {
   Maanmittauslaitos = "Maanmittauslaitos",
+  MaanmittauslaitosVanhatKartat = "MaanmittauslaitosVanhatKartat",
   GTK = "GTK",
   Museovirasto = "Museovirasto",
   Ahvenanmaa = "Ahvenanmaa",
@@ -17,6 +18,34 @@ export enum MaanmittauslaitosLayer {
   Maastokartta = "maastokartta",
   Taustakartta = "taustakartta",
   Ortokuva = "ortokuva"
+}
+
+export enum MaanmittauslaitosVanhatKartatLayer {
+  Venäläinen_topografinen_kartta_1871_1919 = "mml_ven_topo_21k_1871_1919",
+  Venäläinen_topografinen_kartta_1870_1944 = "mml_ven_topo_42k_1870_1944",
+  Venäläinen_topografinen_kartta_192x = "mml_ven_topo_42k_192x",
+  Venäläinen_topografinen_kartta_1916_1917 = "mml_ven_topo_84k_1916-1917",
+  Yleiskartta_1863_1879 = "mml_yleiskartta_400k_1863-1879",
+  Yleiskartta_1880_1899 = "mml_yleiskartta_400k_1880-1899",
+  Yleiskartta_1900_1919 = "mml_yleiskartta_400k_1900-1919",
+  Yleiskartta_1920_1939 = "mml_yleiskartta_400k_1920-1939",
+  Yleiskartta_1940_1972 = "mml_yleiskartta_400k_1940-1972",
+  Yleiskartta_1954_1975 = "mml_yleiskartta_400k_1954-1975",
+  Yleiskartta_1983_1992 = "mml_yleiskartta_400k_1983-1992",
+  Yleiskartta_1996 = "mml_yleiskartta_500k_1996",
+  Yleiskartta_2000 = "mml_yleiskartta_500k_2000",
+  Pitäjäkartta_1912_1968 = "mml_pitajakartta_20k_1912-1968",
+  Taloudellinen_kartta_1911_1970 = "mml_taloudellinen_100k_1911-1970",
+  Maasto_perus_topografinen_kartta_100k_1928_1947 = "mml_topo_100k_1928_1947",
+  Maasto_perus_topografinen_kartta_100k_1948_1989 = "mml_topo_100k_1948_1989",
+  Maasto_perus_topografinen_kartta_20k_1924_1948 = "mml_topo_20k_1924-1948",
+  Maasto_perus_topografinen_kartta_20k_1947_1959 = "mml_topo_20k_1947-1959",
+  Maasto_perus_topografinen_kartta_20k_1960_1969 = "mml_topo_20k_1960-1969",
+  Maasto_perus_topografinen_kartta_20k_1970_1979 = "mml_topo_20k_1970-1979",
+  Maasto_perus_topografinen_kartta_20k_1980_1997 = "mml_topo_20k_1980-1997",
+  Maasto_perus_topografinen_kartta_50k_1922_1946 = "mml_topo_50k_1922-1946",
+  Maasto_perus_topografinen_kartta_50k_1964_2006 = "mml_topo_50k_1964-2006",
+  Maasto_perus_topografinen_kartta_50k_2005_2020 = "mml_topo_50k_2005-2020"
 }
 
 export enum MuseovirastoLayer {

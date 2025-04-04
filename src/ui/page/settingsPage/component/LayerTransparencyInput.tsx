@@ -9,11 +9,13 @@ import { changeLayerOpacityThunk } from "../../../../store/thunks/opacity"
 interface Props {
   opacity: number
   layerGroup: LayerGroup
+  disabled?: boolean
 }
 
 export const LayerTransparencyInput: React.FC<Props> = ({
   opacity,
-  layerGroup
+  layerGroup,
+  disabled
 }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
@@ -30,20 +32,15 @@ export const LayerTransparencyInput: React.FC<Props> = ({
     },
     [dispatch, transparency, layerGroup]
   )
-  const inputId = `${layerGroup}-transparancy-input`
 
   return (
     <>
       <h6>{t(`settings.common.transparency`)}</h6>
       <Form.Group>
-        <input
-          id={inputId}
-          className="form-control ms-3"
-          style={{ width: "auto" }}
-          type="number"
+        <Form.Range
           min="0"
           max="100"
-          step="5"
+          disabled={disabled}
           onChange={onTransparencyInputChange}
           value={transparency}
         />

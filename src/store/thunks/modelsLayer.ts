@@ -1,5 +1,5 @@
 import { LayerGroup, ModelLayer } from "../../common/layers.types"
-import { selectedFeatureLayersChanged } from "../../map"
+import { layerGroupSelectedLayersChanged } from "../../map"
 import { updateSettingsToURL } from "../../url"
 import { ActionTypeEnum } from "../actionTypes"
 import { initialSettings } from "../initialSettings"
@@ -12,6 +12,6 @@ export const selectVisibleModelsLayerThunk =
       type: ActionTypeEnum.SELECT_VISIBLE_MODELS_LAYERS,
       layers
     })
-    selectedFeatureLayersChanged(LayerGroup.Models)
+    layerGroupSelectedLayersChanged(LayerGroup.Models)
     updateSettingsToURL(initialSettings, getState())
   }

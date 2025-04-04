@@ -1,16 +1,17 @@
 import {
+  AhvenanmaaLayer,
+  HelsinkiLayer,
+  Language,
+  MaanmittauslaitosLayer,
+  MaanmittauslaitosVanhatKartatLayer,
+  MaisemanMuistiLayer,
+  ModelLayer,
+  MuseovirastoLayer
+} from "../common/layers.types"
+import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi
 } from "../common/museovirasto.types"
-import {
-  MaanmittauslaitosLayer,
-  MuseovirastoLayer,
-  AhvenanmaaLayer,
-  ModelLayer,
-  MaisemanMuistiLayer,
-  Language,
-  HelsinkiLayer
-} from "../common/layers.types"
 import { Settings } from "./storeTypes"
 
 const getInitialLang = (): Language => {
@@ -46,6 +47,16 @@ export const initialSettings: Settings = {
      */
     apiKey: "0593cc3c-e12f-489c-b8d6-c9a6965b4bfe"
   },
+  maanmittauslaitosVanhatKartat: {
+    selectedLayers: Object.values([
+      MaanmittauslaitosVanhatKartatLayer.Venäläinen_topografinen_kartta_1870_1944
+    ]),
+    url: {
+      wms: "https://paituli.csc.fi/geoserver/paituli/wms"
+    },
+    opacity: 1,
+    enabled: false
+  },
   museovirasto: {
     selectedLayers: Object.values(MuseovirastoLayer),
     selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
@@ -54,7 +65,8 @@ export const initialSettings: Settings = {
       wms: "https://geoserver.museovirasto.fi/geoserver/rajapinta_suojellut/wms",
       wfs: "https://geoserver.museovirasto.fi/geoserver/rajapinta_suojellut/wfs"
     },
-    opacity: 0.7
+    opacity: 0.7,
+    enabled: true
   },
   ahvenanmaa: {
     selectedLayers: Object.values(AhvenanmaaLayer),
@@ -67,19 +79,22 @@ export const initialSettings: Settings = {
       typeAndDating:
         "https://opendata.arcgis.com/datasets/4fa828b46a0740b18960cf3e91d35431_2.geojson"
     },
-    opacity: 0.7
+    opacity: 0.7,
+    enabled: true
   },
   models: {
     selectedLayers: Object.values(ModelLayer),
     url: {
       geojson: "./3d/3d.json"
-    }
+    },
+    enabled: true
   },
   maisemanMuisti: {
     selectedLayers: Object.values(MaisemanMuistiLayer),
     url: {
       geojson: "./maisemanmuisti/maisemanmuisti.json"
-    }
+    },
+    enabled: true
   },
   gtk: {
     selectedLayers: [],
@@ -87,7 +102,8 @@ export const initialSettings: Settings = {
       export:
         "https://gtkdata.gtk.fi/arcgis/rest/services/Rajapinnat/GTK_Maapera_WMS/MapServer"
     },
-    opacity: 0.7
+    opacity: 0.7,
+    enabled: false
   },
   helsinki: {
     selectedLayers: Object.values([
@@ -98,6 +114,7 @@ export const initialSettings: Settings = {
     url: {
       wms: "https://kartta.hel.fi/ws/geoserver/avoindata/wms"
     },
-    opacity: 0.8
+    opacity: 0.8,
+    enabled: true
   }
 }

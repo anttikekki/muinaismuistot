@@ -87,6 +87,30 @@ export const updateSettingsToURL = (
     "mmlLayer"
   )
 
+  // MML vanhat kartat layers
+  state = updateParams(
+    state,
+    initialSettings.maanmittauslaitosVanhatKartat.selectedLayers,
+    currentSettings.maanmittauslaitosVanhatKartat.selectedLayers,
+    "mmlVanhatKartatLayer"
+  )
+
+  // MML vanhat kartat opacity
+  state = updateParam(
+    state,
+    initialSettings.maanmittauslaitosVanhatKartat.opacity,
+    currentSettings.maanmittauslaitosVanhatKartat.opacity,
+    "mmlVanhatKartatOpacity"
+  )
+
+  // MML vanhat kartat enabled
+  state = updateParam(
+    state,
+    initialSettings.maanmittauslaitosVanhatKartat.enabled,
+    currentSettings.maanmittauslaitosVanhatKartat.enabled,
+    "mmlVanhatKartatEnabled"
+  )
+
   // GTK layers
   state = updateParams(
     state,
@@ -103,6 +127,14 @@ export const updateSettingsToURL = (
     "gtkOpacity"
   )
 
+  // GTK enabled
+  state = updateParam(
+    state,
+    initialSettings.gtk.enabled,
+    currentSettings.gtk.enabled,
+    "gtkEnabled"
+  )
+
   // Museovirasto layers
   state = updateParams(
     state,
@@ -117,6 +149,14 @@ export const updateSettingsToURL = (
     initialSettings.museovirasto.opacity,
     currentSettings.museovirasto.opacity,
     "museovirastoOpacity"
+  )
+
+  // Museovirasto enabled
+  state = updateParam(
+    state,
+    initialSettings.museovirasto.enabled,
+    currentSettings.museovirasto.enabled,
+    "museovirastoEnabled"
   )
 
   // Museovirasto muinaisjaannos types
@@ -151,6 +191,14 @@ export const updateSettingsToURL = (
     "ahvenanmaaOpacity"
   )
 
+  // Ahvenanmaa enabled
+  state = updateParam(
+    state,
+    initialSettings.ahvenanmaa.enabled,
+    currentSettings.ahvenanmaa.enabled,
+    "ahvenanmaaEnabled"
+  )
+
   // Helsinki layers
   state = updateParams(
     state,
@@ -165,6 +213,14 @@ export const updateSettingsToURL = (
     initialSettings.helsinki.opacity,
     currentSettings.helsinki.opacity,
     "helsinkiOpacity"
+  )
+
+  // Helsinki enabled
+  state = updateParam(
+    state,
+    initialSettings.helsinki.enabled,
+    currentSettings.helsinki.enabled,
+    "helsinkiEnabled"
   )
 
   // 3D models

@@ -7,7 +7,7 @@ import {
   showSelectedLocationMarker
 } from "./map"
 import { initialSettings } from "./store/initialSettings"
-import { rootReducer } from "./store/reducers"
+import { rootReducer } from "./store/rootReducer"
 import { createUI } from "./ui"
 import { getSettingsFromURL } from "./url"
 

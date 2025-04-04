@@ -35,6 +35,7 @@ import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositi
 import GtkTileLayer from "./layer/GtkTileLayer"
 import HelsinkiTileLayer from "./layer/HelsinkiTileLayer"
 import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer"
+import MaanmittauslaitosVanhatKartatTileLayer from "./layer/MaanmittauslaitosVanhatKartatTileLayer"
 import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
 import ModelsLayer from "./layer/ModelsLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
@@ -44,6 +45,7 @@ let map: Map
 let view: View
 let geolocation: Geolocation | undefined
 let maanmittauslaitosTileLayer: MaanmittauslaitosTileLayer
+let maanmittauslaitosVanhatKartatTileLayer: MaanmittauslaitosVanhatKartatTileLayer
 let museovirastoTileLayer: MuseovirastoTileLayer
 let ahvenanmaaTileLayer: AhvenanmaaTileLayer
 let positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
@@ -113,11 +115,21 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     }
   )
 
+  maanmittauslaitosVanhatKartatTileLayer =
+    new MaanmittauslaitosVanhatKartatTileLayer(
+      store,
+      updateTileLoadingStatus,
+      (createdLayer) => {
+        createdLayer.setZIndex(5)
+        map.getLayers().push(createdLayer)
+      }
+    )
+
   museovirastoTileLayer = new MuseovirastoTileLayer(
     store,
     updateTileLoadingStatus,
     (createdLayer) => {
-      createdLayer.setZIndex(5)
+      createdLayer.setZIndex(6)
       map.getLayers().push(createdLayer)
     }
   )
@@ -126,7 +138,7 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     store,
     updateTileLoadingStatus,
     (createdLayer) => {
-      createdLayer.setZIndex(6)
+      createdLayer.setZIndex(7)
       map.getLayers().push(createdLayer)
     }
   )
@@ -140,9 +152,9 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
     maisemanMuistiLayer.createLayer(),
     modelsLayer.createLayer()
   ]).then(([maisemanMuistiLayer, modelsLayer]) => {
-    maisemanMuistiLayer.setZIndex(7)
-    modelsLayer.setZIndex(8)
-    positionAndSelectedLocation.getLayer().setZIndex(9)
+    maisemanMuistiLayer.setZIndex(8)
+    modelsLayer.setZIndex(9)
+    positionAndSelectedLocation.getLayer().setZIndex(10)
     map.getLayers().push(maisemanMuistiLayer)
     map.getLayers().push(modelsLayer)
     map.getLayers().push(positionAndSelectedLocation.getLayer())
@@ -193,7 +205,7 @@ const getFeaturesAtPixelAtGeoJsonLayer = <T>(
           ...(feature.getProperties() as T),
           /**
            * Nollataan "geometry", ettei OpenLayersin sisäisiä tiloja tule mukaan
-           * dataan. Tämä aiheuttaa muuten virgeeb Reduxissa, koska geometry sisältää
+           * dataan. Tämä aiheuttaa muuten virheen Reduxissa, koska geometry sisältää
            * funktioita, joita ei voi serialisoida.
            */
           geometry: undefined
@@ -301,10 +313,16 @@ const zoom = (zoomChange: number) => {
   }
 }
 
-export const selectedFeatureLayersChanged = (
+export const layerGroupSelectedLayersChanged = (
   changedLayerGroup: LayerGroup
 ): void => {
   switch (changedLayerGroup) {
+    case LayerGroup.Maanmittauslaitos:
+      maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged()
+      break
+    case LayerGroup.MaanmittauslaitosVanhatKartat:
+      maanmittauslaitosVanhatKartatTileLayer.selectedMaanmittauslaitosVanhatKartatLayerChanged()
+      break
     case LayerGroup.GTK:
       gtkLayer.selectedGTKLayersChanged()
       break
@@ -357,12 +375,11 @@ export const searchFeaturesFromMapLayers = async (
   return features
 }
 
-export const selectedMaanmittauslaitosLayerChanged = () => {
-  maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged()
-}
-
 export const layerOpacityChanged = (changedLayerGroup: LayerGroup): void => {
   switch (changedLayerGroup) {
+    case LayerGroup.MaanmittauslaitosVanhatKartat:
+      maanmittauslaitosVanhatKartatTileLayer.opacityChanged()
+      break
     case LayerGroup.GTK:
       gtkLayer.opacityChanged()
       break
@@ -374,6 +391,26 @@ export const layerOpacityChanged = (changedLayerGroup: LayerGroup): void => {
       break
     case LayerGroup.Helsinki:
       helsinkiLayer.opacityChanged()
+      break
+  }
+}
+
+export const layerVisibilityChanged = (changedLayerGroup: LayerGroup): void => {
+  switch (changedLayerGroup) {
+    case LayerGroup.MaanmittauslaitosVanhatKartat:
+      maanmittauslaitosVanhatKartatTileLayer.updateLayerVisibility()
+      break
+    case LayerGroup.GTK:
+      gtkLayer.updateLayerVisibility()
+      break
+    case LayerGroup.Museovirasto:
+      museovirastoTileLayer.updateLayerVisibility()
+      break
+    case LayerGroup.Ahvenanmaa:
+      ahvenanmaaTileLayer.updateLayerVisibility()
+      break
+    case LayerGroup.Helsinki:
+      helsinkiLayer.updateLayerVisibility()
       break
   }
 }

@@ -1,5 +1,5 @@
 import { GtkLayer, LayerGroup } from "../../common/layers.types"
-import { selectedFeatureLayersChanged } from "../../map"
+import { layerGroupSelectedLayersChanged } from "../../map"
 import { updateSettingsToURL } from "../../url"
 import { ActionTypeEnum } from "../actionTypes"
 import { initialSettings } from "../initialSettings"
@@ -12,6 +12,6 @@ export const selectVisibleGtkLayersThunk =
       type: ActionTypeEnum.SELECT_VISIBLE_GTK_LAYERS,
       layers
     })
-    selectedFeatureLayersChanged(LayerGroup.GTK)
+    layerGroupSelectedLayersChanged(LayerGroup.GTK)
     updateSettingsToURL(initialSettings, getState())
   }

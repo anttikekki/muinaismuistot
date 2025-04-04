@@ -1,12 +1,10 @@
-import TileLayer from "ol/layer/Tile"
-import { TileSourceEvent } from "ol/source/Tile"
 import { Coordinate } from "ol/coordinate"
-import { trim } from "../../common/util/featureParser"
-import { Settings } from "../../store/storeTypes"
-import { Store } from "redux"
-import { ActionTypes } from "../../store/actionTypes"
-import TileWMS, { Options } from "ol/source/TileWMS"
+import TileLayer from "ol/layer/Tile"
 import { Projection } from "ol/proj"
+import { TileSourceEvent } from "ol/source/Tile"
+import TileWMS, { Options } from "ol/source/TileWMS"
+import { Store } from "redux"
+import { MuseovirastoLayer } from "../../common/layers.types"
 import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi,
@@ -15,7 +13,9 @@ import {
   isMuinaisjaannosPisteWmsFeature,
   isMuuKulttuuriperintokohdePisteWmsFeature
 } from "../../common/museovirasto.types"
-import { MuseovirastoLayer } from "../../common/layers.types"
+import { trim } from "../../common/util/featureParser"
+import { ActionTypes } from "../../store/actionTypes"
+import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer<TileWMS>) => void
@@ -44,7 +44,8 @@ export default class MuseovirastoTileLayer {
     this.layer = new TileLayer({
       source: this.source
     })
-    this.layer.setOpacity(settings.museovirasto.opacity)
+    this.opacityChanged()
+    this.updateLayerVisibility()
 
     this.onLayerCreatedCallbackFn(this.layer)
   }
@@ -80,6 +81,16 @@ export default class MuseovirastoTileLayer {
     if (this.layer) {
       this.source = this.createSource()
       this.layer.setSource(this.source)
+      this.updateLayerVisibility()
+    }
+  }
+
+  public updateLayerVisibility = () => {
+    if (this.layer) {
+      const {
+        museovirasto: { selectedLayers, enabled }
+      } = this.store.getState()
+      this.layer.setVisible(enabled && selectedLayers.length > 0)
     }
   }
 

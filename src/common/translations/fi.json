@@ -54,11 +54,12 @@
     },
     "licences": {
       "title": "Avoin data, lisenssit ja lähdekoodi",
-      "museovirasto": "Museoviraston rekistereistä tietoa haetaan <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0 -lisenssillä</a>).",
-      "ahvenanmaa": "Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href='https://www.kartor.ax/datasets'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0 -lisenssillä</a>).",
-      "maanmittauslaitos": "Tausta-, ortokuva- ja peruskartta haetaan Maanmittauslaitoksen <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "museovirasto": "Museoviraston rekistereistä tietoa haetaan <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "ahvenanmaa": "Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href='https://www.kartor.ax/datasets'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "maanmittauslaitos": "Tausta-, ortokuva- ja peruskartta haetaan Maanmittauslaitoksen <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "maanmittauslaitosVanhatKartat": "<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>Vanhat kartat</a> haetaan CSC:n (Tieteen tietotekniikan keskus) Paituli-palvelun <a href='https://paituli.csc.fi/webservices.html' target='_blank'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "gtk": "Muinaisrantojen aineisto haetaan Geologian tutkimuskeskuksen <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://www.gtk.fi/peruslisenssi/'>Peruslisenssillä</a>, erillislupa aineiston käyttöön saatu 15.1.2021).",
-      "helsinki": "Helsingin ensimmäisen maailmansodan aikaisten maalinnoitusten aineisto haetaan Helsingin kaupungin <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "helsinki": "Helsingin ensimmäisen maailmansodan aikaisten maalinnoitusten aineisto haetaan Helsingin kaupungin <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "maisemanmuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset -kirjan paikkatieto on <a href='./maisemanmuisti/'>tietokannasta</a> johon on koottu kirjan listaamat 205 kohdetta. Kirjan sisällön tekijanoikeus on Museovirastolla, jolta on kysytty lupa aineiston käyttöön.",
       "3DModels": "3D-mallit ovat avoimesta <a href='./3d/'>tietokannasta</a>, joka listaa harrastajien sekä virallisen toimijoiden (museot, Museovirasto, Ahvenanmaan paikallioshallinto) tekemiä 3D-mallinnuksia. Mallien lisenssit on listattu tietokannassa mallikohtaisesti.",
       "sourceCode": "Tämän sivuston tekninen toteutus on <a href='https://github.com/anttikekki/muinaismuistot'>avointa lähdekoodia</a>, lisenssinä on <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE'>MIT</a>."
@@ -74,23 +75,61 @@
       "maastokartta": "Maastokartta",
       "taustakartta": "Taustakartta",
       "ortokuva": "Ortokuva",
-      "licence": "Taustakarttasarja (rasteri), Maastokarttasarja (rasteri), ortokuva © Maanmittauslaitos"
+      "licence": "© Maanmittauslaitos (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)"
+    },
+    "mmlVanhatKartat": {
+      "title": "Maanmittauslaitoksen vanhat karta",
+      "section": {
+        "topografisetKartat": "Topografiset kartat (<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>lisätietoa</a>)",
+        "yleiskartta": "Yleiskartta (<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>lisätietoa</a>)",
+        "pitäjänkartasto": "Pitäjänkartasto (<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>lisätietoa</a>)",
+        "taloudellinenKartta": "Taloudellinen kartta (<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>lisätietoa</a>)",
+        "maastokartat": "Peruskartasto 1:20 000/1:25 000 sekä Topografinen kartta 1:50 000 (<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>lisätietoa</a>)"
+      },
+      "layer": {
+        "mml_ven_topo_21k_1871_1919": "Venäläinen topografinen kartta, 1:21 000, 1871-1919",
+        "mml_ven_topo_42k_1870_1944": "Venäläinen topografinen kartta, 1:42 000, 1870-1944",
+        "mml_ven_topo_42k_192x": "Venäläinen topografinen kartta, 1:42 000, 192x",
+        "mml_ven_topo_84k_1916-1917": "Venäläinen topografinen kartta, 1:84 000, 1916-1917",
+        "mml_yleiskartta_400k_1863-1879": "Yleiskartta (rasteri), 1:400 000, 1863-1879",
+        "mml_yleiskartta_400k_1880-1899": "Yleiskartta (rasteri), 1:400 000, 1880-1899",
+        "mml_yleiskartta_400k_1900-1919": "Yleiskartta (rasteri), 1:400 000, 1900-1919",
+        "mml_yleiskartta_400k_1920-1939": "Yleiskartta (rasteri), 1:400 000, 1920-1939",
+        "mml_yleiskartta_400k_1940-1972": "Yleiskartta (rasteri), 1:400 000, 1940-1972",
+        "mml_yleiskartta_400k_1954-1975": "Yleiskartta (rasteri), 1:400 000, 1954-1975",
+        "mml_yleiskartta_400k_1983-1992": "Yleiskartta (rasteri), 1:400 000, 1983-1992",
+        "mml_yleiskartta_500k_1996": "Yleiskartta (rasteri), 1:500 000, 1996",
+        "mml_yleiskartta_500k_2000": "Yleiskartta (rasteri), 1:500 000, 2000",
+        "mml_pitajakartta_20k_1912-1968": "Pitäjäkartta, 1:20 000, 1912-1968",
+        "mml_taloudellinen_100k_1911-1970": "Taloudellinen kartta, 1:100 000, 1911-1970",
+        "mml_topo_100k_1928_1947": "Maasto-, perus- tai topografinen kartta, 1:100 000, 1928-1947",
+        "mml_topo_100k_1948_1989": "Maasto-, perus- tai topografinen kartta, 1:100 000, 1948-1989",
+        "mml_topo_20k_1924-1948": "Maasto-, perus- tai topografinen kartta, 1:20 000, 1924-1948",
+        "mml_topo_20k_1947-1959": "Maasto-, perus- tai topografinen kartta, 1:20 000, 1947-1959",
+        "mml_topo_20k_1960-1969": "Maasto-, perus- tai topografinen kartta, 1:20 000, 1960-1969",
+        "mml_topo_20k_1970-1979": "Maasto-, perus- tai topografinen kartta, 1:20 000, 1970-1979",
+        "mml_topo_20k_1980-1997": "Maasto-, perus- tai topografinen kartta, 1:20 000, 1980-1997",
+        "mml_topo_50k_1922-1946": "Maasto-, perus- tai topografinen kartta, 1:50 000, 1922-1946",
+        "mml_topo_50k_1964-2006": "Maasto-, perus- tai topografinen kartta, 1:50 000, 1964-2006",
+        "mml_topo_50k_2005-2020": "Maasto-, perus- tai topografinen kartta, 1:50 000, 2005-2020"
+      },
+      "licence": "© Maanmittauslaitos (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)"
     },
     "gtk": {
       "title": "Geologian tutkimuskeskuksen aineistot",
-      "licence": "GTK Maaperä/Muinaisrannat © Geologian tutkimuskeskus"
+      "licence": "© Geologian tutkimuskeskus"
     },
     "museovirasto": {
       "title": "Museoviraston aineistot",
-      "licence": "Kulttuuriympäristön tietoaineisto © Museovirasto"
+      "licence": "© Museovirasto (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)"
     },
     "ahvenanmaa": {
       "title": "Ahvenanmaan paikallishallinnon aineistot",
-      "licence": "Fornminnen © Ålands landskapsregering"
+      "licence": "© Ålands landskapsregering (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)"
     },
     "helsinki": {
       "title": "Helsingin kaupungin aineistot",
-      "licence": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset © Helsingin kaupunki"
+      "licence": "© Helsingin kaupunki (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)"
     },
     "other": {
       "title": "Muut aineistot"

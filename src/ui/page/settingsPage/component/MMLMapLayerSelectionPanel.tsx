@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import { Button, ButtonGroup, Form } from "react-bootstrap"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { MaanmittauslaitosLayer } from "../../../../common/layers.types"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
@@ -60,7 +60,9 @@ export const MMLMapLayerSelectionPanel: React.FC = () => {
             ))}
           </ButtonGroup>
         </div>
-        <Form.Text>{t(`settings.mml.licence`)}</Form.Text>
+        <Form.Text>
+          <Trans i18nKey="settings.mml.licence" components={{ a: <a /> }} />
+        </Form.Text>
       </Form>
     </Panel>
   )

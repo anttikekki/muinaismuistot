@@ -54,18 +54,6 @@ const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
     dispatch(showPage(undefined))
   }, [dispatch])
 
-  const onTitleClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    if (titleClickAction === FeatureTitleClickAction.OpenDetails) {
-      event.preventDefault()
-      onToggleOpen()
-    }
-    if (titleClickAction === FeatureTitleClickAction.ClosePageAndPinOnMap) {
-      hidePage()
-    }
-  }
-
   const onPermanentLinkClick = () => {
     hidePage()
   }

@@ -1,9 +1,9 @@
-import { parse, stringify, StringifiableRecord } from "query-string"
+import { parse, StringifiableRecord, stringify } from "query-string"
 
 export const parseURLParams = () => {
-  const hash = window.location.hash.replace(";", "&") // Old format used ";" as separator
-  return parse(hash, {
+  return parse(window.location.hash, {
     parseNumbers: true,
+    parseBooleans: true,
     arrayFormat: "comma"
   })
 }

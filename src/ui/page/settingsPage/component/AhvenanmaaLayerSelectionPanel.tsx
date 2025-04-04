@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { AhvenanmaaLayer, LayerGroup } from "../../../../common/layers.types"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
 import { selectVisibleAhvenanmaaLayerThunk } from "../../../../store/thunks/ahvenanmaaLayer"
+import { enableLayerGroupThunk } from "../../../../store/thunks/layerGroupEnabler"
 import { Panel } from "../../../component/Panel"
 import { toggleSelection } from "../../../util"
 import { LayerCheckbox } from "./LayerCheckbox"
@@ -13,24 +14,31 @@ import { LayerTransparencyInput } from "./LayerTransparencyInput"
 export const AhvenanmaaLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
-  const selectedAhvenanmaaLayers = useSelector(
-    (settings: Settings) => settings.ahvenanmaa.selectedLayers
-  )
-  const opacity = useSelector(
-    (settings: Settings) => settings.ahvenanmaa.opacity
+  const { selectedLayers, enabled, opacity } = useSelector(
+    (settings: Settings) => settings.ahvenanmaa
   )
   const onSelectAhvenanmaaLayer = useCallback(
     (layer: AhvenanmaaLayer) =>
       dispatch(
         selectVisibleAhvenanmaaLayerThunk(
-          toggleSelection(layer, selectedAhvenanmaaLayers)
+          toggleSelection(layer, selectedLayers)
         )
       ),
-    [dispatch, selectedAhvenanmaaLayers]
+    [dispatch, selectedLayers]
+  )
+  const onSwitchChange = useCallback(
+    (enabled: boolean) =>
+      dispatch(enableLayerGroupThunk(enabled, LayerGroup.Ahvenanmaa)),
+    [dispatch]
   )
 
   return (
-    <Panel title={t(`settings.ahvenanmaa.title`)}>
+    <Panel
+      title={t(`settings.ahvenanmaa.title`)}
+      showEnablerSwitch={true}
+      enabled={enabled}
+      onSwitchChange={() => onSwitchChange(!enabled)}
+    >
       <Form>
         <h6>
           <Trans
@@ -42,8 +50,9 @@ export const AhvenanmaaLayerSelectionPanel: React.FC = () => {
           <LayerCheckbox
             label={t(`common.features.Kohde`)}
             layer={AhvenanmaaLayer.Fornminnen}
-            selectedLayers={selectedAhvenanmaaLayers}
+            selectedLayers={selectedLayers}
             onSelectLayer={onSelectAhvenanmaaLayer}
+            disabled={!enabled}
           />
         </Form.Group>
 
@@ -57,17 +66,24 @@ export const AhvenanmaaLayerSelectionPanel: React.FC = () => {
           <LayerCheckbox
             label={t(`common.features.Kohde`)}
             layer={AhvenanmaaLayer.MaritimaFornminnen}
-            selectedLayers={selectedAhvenanmaaLayers}
+            selectedLayers={selectedLayers}
             onSelectLayer={onSelectAhvenanmaaLayer}
+            disabled={!enabled}
           />
         </Form.Group>
 
         <LayerTransparencyInput
           opacity={opacity}
           layerGroup={LayerGroup.Ahvenanmaa}
+          disabled={!enabled}
         />
 
-        <Form.Text>{t(`settings.ahvenanmaa.licence`)}</Form.Text>
+        <Form.Text>
+          <Trans
+            i18nKey="settings.ahvenanmaa.licence"
+            components={{ a: <a /> }}
+          />
+        </Form.Text>
       </Form>
     </Panel>
   )

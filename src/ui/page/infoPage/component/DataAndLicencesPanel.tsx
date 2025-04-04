@@ -23,6 +23,12 @@ export const DataAndLicencesPanel: React.FC = () => {
           components={{ a: <a /> }}
         />
       </p>
+      <p>
+        <Trans
+          i18nKey="info.licences.maanmittauslaitosVanhatKartat"
+          components={{ a: <a /> }}
+        />
+      </p>
 
       <h6>{t(`common.organization.Geologian tutkimuskeskus`)}</h6>
       <p>

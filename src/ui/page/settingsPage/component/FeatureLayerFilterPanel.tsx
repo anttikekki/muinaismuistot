@@ -13,37 +13,8 @@ import {
   selectVisibleMuinaisjäännösTypeThunk
 } from "../../../../store/thunks/museovirastoLayer"
 import { Panel } from "../../../component/Panel"
+import { ToggleAllCheckbox } from "../../../component/ToggleAllCheckbox"
 import { toggleSelection } from "../../../util"
-
-interface TypeToggleAllCheckboxProps {
-  selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
-  onSelectTypes: (types: Array<MuinaisjaannosTyyppi>) => void
-  disabled?: boolean
-}
-
-const TypeToggleAllCheckbox: React.FC<TypeToggleAllCheckboxProps> = ({
-  selectedMuinaisjaannosTypes,
-  onSelectTypes,
-  disabled
-}) => {
-  const { t } = useTranslation()
-  const allTypes = useMemo(() => Object.values(MuinaisjaannosTyyppi), [])
-  const isAllSelected = Object.values(allTypes).every((v) =>
-    selectedMuinaisjaannosTypes.includes(v)
-  )
-  return (
-    <h6>
-      <Form.Check
-        type="checkbox"
-        id={t(`settings.filters.type`)}
-        onChange={() => onSelectTypes(isAllSelected ? [] : allTypes)}
-        checked={isAllSelected}
-        disabled={disabled}
-        label={t(`settings.filters.type`)}
-      />
-    </h6>
-  )
-}
 
 interface TypeCheckboxProps {
   type: MuinaisjaannosTyyppi
@@ -71,37 +42,6 @@ const TypeCheckbox: React.FC<TypeCheckboxProps> = ({
       disabled={disabled}
       label={t(`data.museovirasto.type.${type}`)}
     />
-  )
-}
-
-interface DatingToggleAllCheckboxProps {
-  selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>
-  onSelectDatings: (dating: Array<MuinaisjaannosAjoitus>) => void
-  disabled?: boolean
-}
-
-const DatingToggleAllCheckbox: React.FC<DatingToggleAllCheckboxProps> = ({
-  selectedMuinaisjaannosDatings,
-  onSelectDatings,
-  disabled
-}) => {
-  const { t } = useTranslation()
-  const allDatings = useMemo(() => Object.values(MuinaisjaannosAjoitus), [])
-  const isAllSelected = Object.values(allDatings).every((v) =>
-    selectedMuinaisjaannosDatings.includes(v)
-  )
-
-  return (
-    <h6>
-      <Form.Check
-        type="checkbox"
-        id={t(`settings.filters.dating`)}
-        onChange={() => onSelectDatings(isAllSelected ? [] : allDatings)}
-        checked={isAllSelected}
-        disabled={disabled}
-        label={t(`settings.filters.dating`)}
-      />
-    </h6>
   )
 }
 
@@ -232,16 +172,26 @@ export const FeatureLayerFilterPanel: React.FC = () => {
       <Form>
         <Alert variant="light">{infoText}</Alert>
 
-        <TypeToggleAllCheckbox
-          selectedMuinaisjaannosTypes={selectedMuinaisjaannosTypes}
-          onSelectTypes={onToggleAllMuinaisjaannosTypes}
-        />
+        <h6>
+          <ToggleAllCheckbox
+            allValues={Object.values(MuinaisjaannosTyyppi)}
+            selectedValues={selectedMuinaisjaannosTypes}
+            onSelectValues={onToggleAllMuinaisjaannosTypes}
+          >
+            {t(`settings.filters.type`)}
+          </ToggleAllCheckbox>
+        </h6>
         <Form.Group className="mb-3">{typeCheckboxes}</Form.Group>
 
-        <DatingToggleAllCheckbox
-          selectedMuinaisjaannosDatings={selectedMuinaisjaannosDatings}
-          onSelectDatings={onToggleAllMuinaisjaannosDatings}
-        />
+        <h6>
+          <ToggleAllCheckbox
+            allValues={Object.values(MuinaisjaannosAjoitus)}
+            selectedValues={selectedMuinaisjaannosDatings}
+            onSelectValues={onToggleAllMuinaisjaannosDatings}
+          >
+            {t(`settings.filters.dating`)}
+          </ToggleAllCheckbox>
+        </h6>
         <Form.Group className="mb-3">{datingCheckboxes}</Form.Group>
       </Form>
     </Panel>

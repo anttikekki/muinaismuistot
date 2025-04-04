@@ -7,6 +7,7 @@ import {
   HelsinkiLayer,
   Language,
   MaanmittauslaitosLayer,
+  MaanmittauslaitosVanhatKartatLayer,
   MaisemanMuistiLayer,
   ModelLayer,
   MuseovirastoLayer
@@ -49,6 +50,14 @@ export interface Settings {
     }
     apiKey: string
   }
+  maanmittauslaitosVanhatKartat: {
+    selectedLayers: Array<MaanmittauslaitosVanhatKartatLayer>
+    url: {
+      wms: string
+    }
+    opacity: number
+    enabled: boolean
+  }
   museovirasto: {
     selectedLayers: Array<MuseovirastoLayer>
     selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
@@ -58,6 +67,7 @@ export interface Settings {
       wfs: string
     }
     opacity: number
+    enabled: boolean
   }
   ahvenanmaa: {
     selectedLayers: Array<AhvenanmaaLayer>
@@ -68,18 +78,21 @@ export interface Settings {
       typeAndDating: string
     }
     opacity: number
+    enabled: boolean
   }
   models: {
     selectedLayers: Array<ModelLayer>
     url: {
       geojson: string
     }
+    enabled: boolean
   }
   maisemanMuisti: {
     selectedLayers: Array<MaisemanMuistiLayer>
     url: {
       geojson: string
     }
+    enabled: boolean
   }
   gtk: {
     selectedLayers: Array<GtkLayer>
@@ -87,6 +100,7 @@ export interface Settings {
       export: string
     }
     opacity: number
+    enabled: boolean
   }
   helsinki: {
     selectedLayers: Array<HelsinkiLayer>
@@ -94,6 +108,7 @@ export interface Settings {
       wms: string
     }
     opacity: number
+    enabled: boolean
   }
 }
 

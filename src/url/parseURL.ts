@@ -1,36 +1,52 @@
 import {
-  MaanmittauslaitosLayer,
-  MuseovirastoLayer,
   AhvenanmaaLayer,
-  ModelLayer,
-  MaisemanMuistiLayer,
-  Language,
   GtkLayer,
-  HelsinkiLayer
+  HelsinkiLayer,
+  Language,
+  MaanmittauslaitosLayer,
+  MaanmittauslaitosVanhatKartatLayer,
+  MaisemanMuistiLayer,
+  ModelLayer,
+  MuseovirastoLayer
 } from "../common/layers.types"
-import { parseURLParams } from "../common/util/URLHashHelper"
-import { Settings } from "../store/storeTypes"
-import {
-  updateAhvenanmaaLayerOpacity,
-  updateAhvenanmaaSelectedLayers,
-  updateGtkLayerOpacity,
-  updateGtkSelectedLayers,
-  updateHelsinkiLayerOpacity,
-  updateHelsinkiSelectedLayers,
-  updateLanguage,
-  updateMaanmittauslaitosSelectedLayer,
-  updateMaisemanMuistiSelectedLayers,
-  updateModelSelectedLayers,
-  updateMuseovirastoLayerOpacity,
-  updateMuseovirastoSelectedLayers,
-  updateSelectMuinaisjaannosDatings,
-  updateSelectMuinaisjaannosTypes
-} from "../store/reducers"
-import { EMPTY_SELECTION, URLSettings } from "./types"
 import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi
 } from "../common/museovirasto.types"
+import { parseURLParams } from "../common/util/URLHashHelper"
+import {
+  updateAhvenanmaaLayerEnabled,
+  updateAhvenanmaaLayerOpacity,
+  updateAhvenanmaaSelectedLayers
+} from "../store/reducers/ahvenanmaaLayer"
+import {
+  updateGtkLayerEnabled,
+  updateGtkLayerOpacity,
+  updateGtkSelectedLayers
+} from "../store/reducers/gtkLayer"
+import {
+  updateHelsinkiLayerEnabled,
+  updateHelsinkiLayerOpacity,
+  updateHelsinkiSelectedLayers
+} from "../store/reducers/helsinkiLayer"
+import { updateMaanmittauslaitosSelectedLayer } from "../store/reducers/maanmittauslaitosLayer"
+import {
+  updateMaanmittauslaitosVanhatKartatLayerEnabled,
+  updateMaanmittauslaitosVanhatKartatLayerOpacity,
+  updateMaanmittauslaitosVanhatKartatSelectedLayer
+} from "../store/reducers/maanmittauslaitosVanhatKartatLayer"
+import { updateMaisemanMuistiSelectedLayers } from "../store/reducers/maisemanMuistiLayer"
+import { updateModelSelectedLayers } from "../store/reducers/modelLayer"
+import {
+  updateMuseovirastoLayerEnabled,
+  updateMuseovirastoLayerOpacity,
+  updateMuseovirastoSelectedLayers,
+  updateSelectMuinaisjaannosDatings,
+  updateSelectMuinaisjaannosTypes
+} from "../store/reducers/museovirastoLayer"
+import { updateLanguage } from "../store/rootReducer"
+import { Settings } from "../store/storeTypes"
+import { EMPTY_SELECTION, URLSettings } from "./types"
 
 const isEnumValue = <ENUM extends Record<string, unknown>>(
   enumObj: ENUM,
@@ -70,16 +86,23 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
     zoom,
     lang,
     mmlLayer,
+    mmlVanhatKartatLayer,
+    mmlVanhatKartatOpacity,
+    mmlVanhatKartatEnabled,
     gtkLayer,
     gtkOpacity,
+    gtkEnabled,
     museovirastoLayer,
     museovirastoOpacity,
+    museovirastoEnabled,
     muinaisjaannosTypes,
     muinaisjaannosDatings,
     ahvenanmaaLayer,
     ahvenanmaaOpacity,
+    ahvenanmaaEnabled,
     helsinkiLayer,
     helsinkiOpacity,
+    helsinkiEnabled,
     modelsLayer,
     maisemanMuistiLayer
   } = parseURLParams() as URLSettings
@@ -102,6 +125,32 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
     newSettings = updateMaanmittauslaitosSelectedLayer(newSettings, mmlLayer)
   }
 
+  // MML vanhat kartat layers
+  if (mmlVanhatKartatLayer) {
+    newSettings = validateAndUpdateUrlParamToSettings(
+      newSettings,
+      MaanmittauslaitosVanhatKartatLayer,
+      mmlVanhatKartatLayer,
+      updateMaanmittauslaitosVanhatKartatSelectedLayer
+    )
+  }
+
+  // MML vanhat kartat opacity
+  if (mmlVanhatKartatOpacity !== undefined) {
+    newSettings = updateMaanmittauslaitosVanhatKartatLayerOpacity(
+      newSettings,
+      mmlVanhatKartatOpacity
+    )
+  }
+
+  // MML vanhat kartat enabled
+  if (mmlVanhatKartatEnabled !== undefined) {
+    newSettings = updateMaanmittauslaitosVanhatKartatLayerEnabled(
+      newSettings,
+      mmlVanhatKartatEnabled
+    )
+  }
+
   // GTK layers
   if (gtkLayer) {
     newSettings = validateAndUpdateUrlParamToSettings(
@@ -115,6 +164,11 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   // GTK opacity
   if (gtkOpacity !== undefined) {
     newSettings = updateGtkLayerOpacity(newSettings, gtkOpacity)
+  }
+
+  // GTK enabled
+  if (gtkEnabled !== undefined) {
+    newSettings = updateGtkLayerEnabled(newSettings, gtkEnabled)
   }
 
   // Museovirasto layers
@@ -132,6 +186,14 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
     newSettings = updateMuseovirastoLayerOpacity(
       newSettings,
       museovirastoOpacity
+    )
+  }
+
+  // Museovirasto enabled
+  if (museovirastoEnabled !== undefined) {
+    newSettings = updateMuseovirastoLayerEnabled(
+      newSettings,
+      museovirastoEnabled
     )
   }
 
@@ -170,6 +232,11 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
     newSettings = updateAhvenanmaaLayerOpacity(newSettings, ahvenanmaaOpacity)
   }
 
+  // Ahvenanmaa enabled
+  if (ahvenanmaaEnabled !== undefined) {
+    newSettings = updateAhvenanmaaLayerEnabled(newSettings, ahvenanmaaEnabled)
+  }
+
   // Helsinki layers
   if (helsinkiLayer) {
     newSettings = validateAndUpdateUrlParamToSettings(
@@ -183,6 +250,11 @@ export const getSettingsFromURL = (settings: Settings): Settings => {
   // Helsinki opacity
   if (helsinkiOpacity !== undefined) {
     newSettings = updateHelsinkiLayerOpacity(newSettings, helsinkiOpacity)
+  }
+
+  // Helsinki enabled
+  if (helsinkiEnabled !== undefined) {
+    newSettings = updateHelsinkiLayerEnabled(newSettings, helsinkiEnabled)
   }
 
   // 3D models

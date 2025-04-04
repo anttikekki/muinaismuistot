@@ -45,7 +45,7 @@ export const LoadingAnimation: React.FC = () => {
       id="loading-animation"
       animation="border"
       role="status"
-      style={isPageOpen ? { right: "100px" } : undefined}
+      style={isPageOpen ? { right: "50px" } : undefined}
     >
       <span className="visually-hidden">Loading...</span>
     </Spinner>

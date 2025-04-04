@@ -1,12 +1,10 @@
-import TileLayer from "ol/layer/Tile"
-import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest"
-import { containsCoordinate, Extent } from "ol/extent"
 import { Coordinate } from "ol/coordinate"
-import { TileSourceEvent } from "ol/source/Tile"
+import { containsCoordinate, Extent } from "ol/extent"
+import TileLayer from "ol/layer/Tile"
 import { Size } from "ol/size"
-import { Settings } from "../../store/storeTypes"
+import { TileSourceEvent } from "ol/source/Tile"
+import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest"
 import { Store } from "redux"
-import { ActionTypes } from "../../store/actionTypes"
 import {
   AhvenanmaaArcgisFeature,
   AhvenanmaaArcgisFindResult,
@@ -15,8 +13,10 @@ import {
   AhvenanmaaTypeAndDatingFeatureProperties,
   getAhvenanmaaLayerId
 } from "../../common/ahvenanmaa.types"
-import { AhvenanmaaLayer } from "../../common/layers.types"
 import { GeoJSONResponse } from "../../common/geojson.types"
+import { AhvenanmaaLayer } from "../../common/layers.types"
+import { ActionTypes } from "../../store/actionTypes"
+import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (
@@ -53,7 +53,8 @@ export default class AhvenanmaaTileLayer {
       // Extent from EPSG:3067 https://kartor.regeringen.ax/arcgis/services/Kulturarv/Fornminnen/MapServer/WMSServer?request=GetCapabilities&service=WMS
       extent: [65741.9087, 6606901.2261, 180921.4173, 6747168.5691]
     })
-    this.layer.setOpacity(settings.ahvenanmaa.opacity)
+    this.opacityChanged()
+    this.updateLayerVisibility()
 
     this.onLayerCreatedCallbackFn(this.layer)
   }
@@ -103,6 +104,16 @@ export default class AhvenanmaaTileLayer {
     if (this.layer) {
       this.source = this.createSource()
       this.layer.setSource(this.source)
+      this.updateLayerVisibility()
+    }
+  }
+
+  public updateLayerVisibility = () => {
+    if (this.layer) {
+      const {
+        ahvenanmaa: { selectedLayers, enabled }
+      } = this.store.getState()
+      this.layer.setVisible(enabled && selectedLayers.length > 0)
     }
   }
 

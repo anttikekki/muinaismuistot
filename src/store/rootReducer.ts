@@ -1,20 +1,42 @@
 import { Reducer } from "redux"
-import {
-  AhvenanmaaLayer,
-  GtkLayer,
-  HelsinkiLayer,
-  Language,
-  LayerGroup,
-  MaanmittauslaitosLayer,
-  MaisemanMuistiLayer,
-  ModelLayer,
-  MuseovirastoLayer
-} from "../common/layers.types"
-import {
-  MuinaisjaannosAjoitus,
-  MuinaisjaannosTyyppi
-} from "../common/museovirasto.types"
+import { Language, LayerGroup } from "../common/layers.types"
 import { ActionTypeEnum, ActionTypes } from "./actionTypes"
+import {
+  updateAhvenanmaaLayerEnabled,
+  updateAhvenanmaaLayerOpacity,
+  updateAhvenanmaaSelectedLayers
+} from "./reducers/ahvenanmaaLayer"
+import {
+  updateGtkLayerEnabled,
+  updateGtkLayerOpacity,
+  updateGtkSelectedLayers
+} from "./reducers/gtkLayer"
+import {
+  updateHelsinkiLayerEnabled,
+  updateHelsinkiLayerOpacity,
+  updateHelsinkiSelectedLayers
+} from "./reducers/helsinkiLayer"
+import { updateMaanmittauslaitosSelectedLayer } from "./reducers/maanmittauslaitosLayer"
+import {
+  updateMaanmittauslaitosVanhatKartatLayerEnabled,
+  updateMaanmittauslaitosVanhatKartatLayerOpacity,
+  updateMaanmittauslaitosVanhatKartatSelectedLayer
+} from "./reducers/maanmittauslaitosVanhatKartatLayer"
+import {
+  updateMaisemanMuistiLayerEnabled,
+  updateMaisemanMuistiSelectedLayers
+} from "./reducers/maisemanMuistiLayer"
+import {
+  updateModelLayerEnabled,
+  updateModelSelectedLayers
+} from "./reducers/modelLayer"
+import {
+  updateMuseovirastoLayerEnabled,
+  updateMuseovirastoLayerOpacity,
+  updateMuseovirastoSelectedLayers,
+  updateSelectMuinaisjaannosDatings,
+  updateSelectMuinaisjaannosTypes
+} from "./reducers/museovirastoLayer"
 import { PageId, Settings } from "./storeTypes"
 
 export const updateLanguage = (
@@ -24,175 +46,6 @@ export const updateLanguage = (
   return {
     ...settings,
     language
-  }
-}
-
-export const updateMaanmittauslaitosSelectedLayer = (
-  settings: Settings,
-  selectedLayer: MaanmittauslaitosLayer
-): Settings => {
-  return {
-    ...settings,
-    maanmittauslaitos: {
-      ...settings.maanmittauslaitos,
-      selectedLayer
-    }
-  }
-}
-
-export const updateGtkSelectedLayers = (
-  settings: Settings,
-  selectedLayers: Array<GtkLayer>
-): Settings => {
-  return {
-    ...settings,
-    gtk: {
-      ...settings.gtk,
-      selectedLayers
-    }
-  }
-}
-
-export const updateGtkLayerOpacity = (
-  settings: Settings,
-  opacity: number
-): Settings => {
-  return {
-    ...settings,
-    gtk: {
-      ...settings.gtk,
-      opacity
-    }
-  }
-}
-
-export const updateHelsinkiSelectedLayers = (
-  settings: Settings,
-  selectedLayers: Array<HelsinkiLayer>
-): Settings => {
-  return {
-    ...settings,
-    helsinki: {
-      ...settings.helsinki,
-      selectedLayers
-    }
-  }
-}
-
-export const updateHelsinkiLayerOpacity = (
-  settings: Settings,
-  opacity: number
-): Settings => {
-  return {
-    ...settings,
-    helsinki: {
-      ...settings.helsinki,
-      opacity
-    }
-  }
-}
-
-export const updateMuseovirastoSelectedLayers = (
-  settings: Settings,
-  selectedLayers: Array<MuseovirastoLayer>
-): Settings => {
-  return {
-    ...settings,
-    museovirasto: {
-      ...settings.museovirasto,
-      selectedLayers
-    }
-  }
-}
-
-export const updateMuseovirastoLayerOpacity = (
-  settings: Settings,
-  opacity: number
-): Settings => {
-  return {
-    ...settings,
-    museovirasto: {
-      ...settings.museovirasto,
-      opacity
-    }
-  }
-}
-
-export const updateAhvenanmaaSelectedLayers = (
-  settings: Settings,
-  selectedLayers: Array<AhvenanmaaLayer>
-): Settings => {
-  return {
-    ...settings,
-    ahvenanmaa: {
-      ...settings.ahvenanmaa,
-      selectedLayers
-    }
-  }
-}
-
-export const updateAhvenanmaaLayerOpacity = (
-  settings: Settings,
-  opacity: number
-): Settings => {
-  return {
-    ...settings,
-    ahvenanmaa: {
-      ...settings.ahvenanmaa,
-      opacity
-    }
-  }
-}
-
-export const updateModelSelectedLayers = (
-  settings: Settings,
-  selectedLayers: Array<ModelLayer>
-): Settings => {
-  return {
-    ...settings,
-    models: {
-      ...settings.models,
-      selectedLayers
-    }
-  }
-}
-
-export const updateMaisemanMuistiSelectedLayers = (
-  settings: Settings,
-  selectedLayers: Array<MaisemanMuistiLayer>
-): Settings => {
-  return {
-    ...settings,
-    maisemanMuisti: {
-      ...settings.maisemanMuisti,
-      selectedLayers
-    }
-  }
-}
-
-export const updateSelectMuinaisjaannosTypes = (
-  settings: Settings,
-  selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
-): Settings => {
-  return {
-    ...settings,
-    museovirasto: {
-      ...settings.museovirasto,
-      selectedMuinaisjaannosTypes
-    }
-  }
-}
-
-export const updateSelectMuinaisjaannosDatings = (
-  settings: Settings,
-  selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>
-): Settings => {
-  return {
-    ...settings,
-    museovirasto: {
-      ...settings.museovirasto,
-      selectedMuinaisjaannosDatings
-    }
   }
 }
 
@@ -249,11 +102,22 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     case ActionTypeEnum.SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER: {
       return updateMaanmittauslaitosSelectedLayer(state, action.layer)
     }
+    case ActionTypeEnum.SELECT_VISIBLE_MAANMITTAUSLAITOS_VANHAT_KARTAT_LAYER: {
+      return updateMaanmittauslaitosVanhatKartatSelectedLayer(
+        state,
+        action.layers
+      )
+    }
     case ActionTypeEnum.SELECT_VISIBLE_GTK_LAYERS: {
       return updateGtkSelectedLayers(state, action.layers)
     }
     case ActionTypeEnum.CHANGE_LAYER_OPACITY: {
       switch (action.layerGroup) {
+        case LayerGroup.MaanmittauslaitosVanhatKartat:
+          return updateMaanmittauslaitosVanhatKartatLayerOpacity(
+            state,
+            action.opacity
+          )
         case LayerGroup.GTK:
           return updateGtkLayerOpacity(state, action.opacity)
         case LayerGroup.Museovirasto:
@@ -262,6 +126,29 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
           return updateAhvenanmaaLayerOpacity(state, action.opacity)
         case LayerGroup.Helsinki:
           return updateHelsinkiLayerOpacity(state, action.opacity)
+        default:
+          return state
+      }
+    }
+    case ActionTypeEnum.ENABLE_LAYER_GROUP: {
+      switch (action.layerGroup) {
+        case LayerGroup.MaanmittauslaitosVanhatKartat:
+          return updateMaanmittauslaitosVanhatKartatLayerEnabled(
+            state,
+            action.enabled
+          )
+        case LayerGroup.GTK:
+          return updateGtkLayerEnabled(state, action.enabled)
+        case LayerGroup.Museovirasto:
+          return updateMuseovirastoLayerEnabled(state, action.enabled)
+        case LayerGroup.Ahvenanmaa:
+          return updateAhvenanmaaLayerEnabled(state, action.enabled)
+        case LayerGroup.Helsinki:
+          return updateHelsinkiLayerEnabled(state, action.enabled)
+        case LayerGroup.Models:
+          return updateModelLayerEnabled(state, action.enabled)
+        case LayerGroup.MaisemanMuisti:
+          return updateMaisemanMuistiLayerEnabled(state, action.enabled)
         default:
           return state
       }

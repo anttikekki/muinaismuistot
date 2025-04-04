@@ -4,6 +4,18 @@ import { Panel } from "../../../component/Panel"
 export const VersionHistoryPanel: React.FC = () => {
   return (
     <Panel title="Versiohistoria">
+      <h6>Huhtikuu 2025</h6>
+      <p>
+        Lisätty Maanmittauslaitoksen{" "}
+        <a
+          href="https://www.maanmittauslaitos.fi/ajankohtaista/yli-30-000-vanhaa-karttaa-jopa-150-vuoden-takaa-nyt-paikkatietona"
+          target="_blank"
+        >
+          vanhoja karttoja
+        </a>
+        .
+      </p>
+
       <h6>Tammikuu 2024</h6>
       <p>
         Lisätty Museoviraston Muu kulttuuperintökohde -karttataso pisteille ja

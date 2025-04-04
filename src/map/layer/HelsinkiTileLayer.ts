@@ -1,18 +1,18 @@
-import TileLayer from "ol/layer/Tile"
-import TileWMS, { Options } from "ol/source/TileWMS"
-import { TileSourceEvent } from "ol/source/Tile"
-import { Settings } from "../../store/storeTypes"
-import { Store } from "redux"
-import { ActionTypes } from "../../store/actionTypes"
 import { Coordinate } from "ol/coordinate"
 import { containsCoordinate } from "ol/extent"
+import TileLayer from "ol/layer/Tile"
 import Projection from "ol/proj/Projection"
+import { TileSourceEvent } from "ol/source/Tile"
+import TileWMS, { Options } from "ol/source/TileWMS"
+import { Store } from "redux"
 import { HelsinkiLayer } from "../../common/layers.types"
 import {
   MaalinnoitusWmsFeature,
   MaalinnoitusWmsFeatureInfoResult,
   isMaalinnoitusKohdeFeature
 } from "../../common/maalinnoitusHelsinki.types"
+import { ActionTypes } from "../../store/actionTypes"
+import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 export type OnLayersCreatedCallbackFn = (layer: TileLayer<TileWMS>) => void
@@ -47,7 +47,8 @@ export default class HelsinkiTileLayer {
       source: this.source,
       visible: settings.helsinki.selectedLayers.length > 0
     })
-    this.layer.setOpacity(settings.helsinki.opacity)
+    this.opacityChanged()
+    this.updateLayerVisibility()
 
     this.onLayerCreatedCallbackFn(this.layer)
   }
@@ -79,10 +80,18 @@ export default class HelsinkiTileLayer {
 
   private updateLayerSource = () => {
     if (this.layer) {
-      const settings = this.store.getState()
       this.source = this.createSource()
       this.layer.setSource(this.source)
-      this.layer.setVisible(settings.helsinki.selectedLayers.length > 0)
+      this.updateLayerVisibility()
+    }
+  }
+
+  public updateLayerVisibility = () => {
+    if (this.layer) {
+      const {
+        helsinki: { selectedLayers, enabled }
+      } = this.store.getState()
+      this.layer.setVisible(enabled && selectedLayers.length > 0)
     }
   }
 

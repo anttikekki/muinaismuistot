@@ -4,142 +4,223 @@ import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { LayerGroup, MuseovirastoLayer } from "../../../../common/layers.types"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
+import { enableLayerGroupThunk } from "../../../../store/thunks/layerGroupEnabler"
 import { selectVisibleMuseovirastoLayerThunk } from "../../../../store/thunks/museovirastoLayer"
 import { Panel } from "../../../component/Panel"
+import { ToggleAllCheckbox } from "../../../component/ToggleAllCheckbox"
 import { toggleSelection } from "../../../util"
 import { LayerCheckbox } from "./LayerCheckbox"
 import { LayerTransparencyInput } from "./LayerTransparencyInput"
 
+const rkyLayers = [
+  MuseovirastoLayer.RKY_alue,
+  MuseovirastoLayer.RKY_viiva,
+  MuseovirastoLayer.RKY_piste
+]
+const maailmanperintöLayers = [
+  MuseovirastoLayer.Maailmanperinto_alue,
+  MuseovirastoLayer.Maailmanperinto_piste
+]
+
+const suojellutRakennuksetLayers = [
+  MuseovirastoLayer.Suojellut_rakennukset_alue,
+  MuseovirastoLayer.Suojellut_rakennukset_piste
+]
+
+const muinaisjäännöksetLayers = [
+  MuseovirastoLayer.Muinaisjaannokset_alue,
+  MuseovirastoLayer.Muu_kulttuuriperintokohde_alue,
+  MuseovirastoLayer.Muinaisjaannokset_piste,
+  MuseovirastoLayer.Muu_kulttuuriperintokohde_piste
+]
+
 export const MuseovirastoLayerSelectionPanel: React.FC = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
-  const selectedMuseovirastoLayers = useSelector(
-    (settings: Settings) => settings.museovirasto.selectedLayers
+  const { selectedLayers, enabled, opacity } = useSelector(
+    (settings: Settings) => settings.museovirasto
   )
-  const opacity = useSelector(
-    (settings: Settings) => settings.museovirasto.opacity
-  )
-  const onSelectMuseovirastoLayer = useCallback(
+  const onSelectLayer = useCallback(
     (layer: MuseovirastoLayer) =>
       dispatch(
         selectVisibleMuseovirastoLayerThunk(
-          toggleSelection(layer, selectedMuseovirastoLayers)
+          toggleSelection(layer, selectedLayers)
         )
       ),
-    [dispatch, selectedMuseovirastoLayers]
+    [dispatch, selectedLayers]
+  )
+  const onSwitchChange = useCallback(
+    (enabled: boolean) =>
+      dispatch(enableLayerGroupThunk(enabled, LayerGroup.Museovirasto)),
+    [dispatch]
+  )
+  const onToggleAllLayers = useCallback(
+    (layers: MuseovirastoLayer[]) =>
+      dispatch(selectVisibleMuseovirastoLayerThunk(layers)),
+    [dispatch, selectedLayers]
   )
 
   return (
-    <Panel title={t(`settings.museovirasto.title`)}>
+    <Panel
+      title={t(`settings.museovirasto.title`)}
+      showEnablerSwitch={true}
+      enabled={enabled}
+      onSwitchChange={() => onSwitchChange(!enabled)}
+    >
       <Form>
         <h6>
-          <Trans
-            i18nKey={`data.register.nameWithLink.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`}
-            components={{ a: <a /> }}
-          />
+          <ToggleAllCheckbox
+            allValues={rkyLayers}
+            selectedValues={selectedLayers}
+            onSelectValues={onToggleAllLayers}
+            disabled={!enabled}
+          >
+            <Trans
+              i18nKey={`data.register.nameWithLink.Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt`}
+              components={{ a: <a /> }}
+            />
+          </ToggleAllCheckbox>
         </h6>
         <Form.Group className="mb-3">
           <LayerCheckbox
             label={t(`common.features.Alue`)}
             layer={MuseovirastoLayer.RKY_alue}
-            selectedLayers={selectedMuseovirastoLayers}
-            onSelectLayer={onSelectMuseovirastoLayer}
+            selectedLayers={selectedLayers}
+            onSelectLayer={onSelectLayer}
+            disabled={!enabled}
           />
           <LayerCheckbox
             label={t(`common.features.Viiva`)}
             layer={MuseovirastoLayer.RKY_viiva}
-            selectedLayers={selectedMuseovirastoLayers}
-            onSelectLayer={onSelectMuseovirastoLayer}
+            selectedLayers={selectedLayers}
+            onSelectLayer={onSelectLayer}
+            disabled={!enabled}
           />
           <LayerCheckbox
             label={t(`common.features.Rakennus`)}
             layer={MuseovirastoLayer.RKY_piste}
-            selectedLayers={selectedMuseovirastoLayers}
-            onSelectLayer={onSelectMuseovirastoLayer}
+            selectedLayers={selectedLayers}
+            onSelectLayer={onSelectLayer}
+            disabled={!enabled}
           />
         </Form.Group>
 
         <h6>
-          <Trans
-            i18nKey={`data.register.nameWithLink.Maailmanperintökohteet`}
-            components={{ a: <a /> }}
-          />
+          <ToggleAllCheckbox
+            allValues={maailmanperintöLayers}
+            selectedValues={selectedLayers}
+            onSelectValues={onToggleAllLayers}
+            disabled={!enabled}
+          >
+            <Trans
+              i18nKey={`data.register.nameWithLink.Maailmanperintökohteet`}
+              components={{ a: <a /> }}
+            />
+          </ToggleAllCheckbox>
         </h6>
         <Form.Group className="mb-3">
           <LayerCheckbox
             label={t(`common.features.Alue`)}
             layer={MuseovirastoLayer.Maailmanperinto_alue}
-            selectedLayers={selectedMuseovirastoLayers}
-            onSelectLayer={onSelectMuseovirastoLayer}
+            selectedLayers={selectedLayers}
+            onSelectLayer={onSelectLayer}
+            disabled={!enabled}
           />
           <LayerCheckbox
             label={t(`common.features.Kohde`)}
             layer={MuseovirastoLayer.Maailmanperinto_piste}
-            selectedLayers={selectedMuseovirastoLayers}
-            onSelectLayer={onSelectMuseovirastoLayer}
+            selectedLayers={selectedLayers}
+            onSelectLayer={onSelectLayer}
+            disabled={!enabled}
           />
         </Form.Group>
 
         <h6>
-          <Trans
-            i18nKey={`data.register.nameWithLink.Rakennusperintörekisteri`}
-            components={{ a: <a /> }}
-          />
+          <ToggleAllCheckbox
+            allValues={suojellutRakennuksetLayers}
+            selectedValues={selectedLayers}
+            onSelectValues={onToggleAllLayers}
+            disabled={!enabled}
+          >
+            <Trans
+              i18nKey={`data.register.nameWithLink.Rakennusperintörekisteri`}
+              components={{ a: <a /> }}
+            />
+          </ToggleAllCheckbox>
         </h6>
         <Form.Group className="mb-3">
           <LayerCheckbox
             label={t(`common.features.Rakennettu alue`)}
             layer={MuseovirastoLayer.Suojellut_rakennukset_alue}
-            selectedLayers={selectedMuseovirastoLayers}
-            onSelectLayer={onSelectMuseovirastoLayer}
+            selectedLayers={selectedLayers}
+            onSelectLayer={onSelectLayer}
+            disabled={!enabled}
           />
           <LayerCheckbox
             label={t(`common.features.Rakennus`)}
             layer={MuseovirastoLayer.Suojellut_rakennukset_piste}
-            selectedLayers={selectedMuseovirastoLayers}
-            onSelectLayer={onSelectMuseovirastoLayer}
+            selectedLayers={selectedLayers}
+            onSelectLayer={onSelectLayer}
+            disabled={!enabled}
           />
         </Form.Group>
 
         <h6>
-          <Trans
-            i18nKey={`data.register.nameWithLink.Muinaisjäännösrekisteri`}
-            components={{ a: <a /> }}
-          />
+          <ToggleAllCheckbox
+            allValues={muinaisjäännöksetLayers}
+            selectedValues={selectedLayers}
+            onSelectValues={onToggleAllLayers}
+            disabled={!enabled}
+          >
+            <Trans
+              i18nKey={`data.register.nameWithLink.Muinaisjäännösrekisteri`}
+              components={{ a: <a /> }}
+            />
+          </ToggleAllCheckbox>
         </h6>
         <Form.Group className="mb-3">
           <LayerCheckbox
             label={t(`data.featureType.Kiinteä muinaisjäännös (alue)`)}
             layer={MuseovirastoLayer.Muinaisjaannokset_alue}
-            selectedLayers={selectedMuseovirastoLayers}
-            onSelectLayer={onSelectMuseovirastoLayer}
+            selectedLayers={selectedLayers}
+            onSelectLayer={onSelectLayer}
+            disabled={!enabled}
           />
           <LayerCheckbox
             label={t(`data.featureType.Muu kulttuuriperintökohde (alue)`)}
             layer={MuseovirastoLayer.Muu_kulttuuriperintokohde_alue}
-            selectedLayers={selectedMuseovirastoLayers}
-            onSelectLayer={onSelectMuseovirastoLayer}
+            selectedLayers={selectedLayers}
+            onSelectLayer={onSelectLayer}
+            disabled={!enabled}
           />
           <LayerCheckbox
             label={t(`data.featureType.Kiinteä muinaisjäännös`)}
             layer={MuseovirastoLayer.Muinaisjaannokset_piste}
-            selectedLayers={selectedMuseovirastoLayers}
-            onSelectLayer={onSelectMuseovirastoLayer}
+            selectedLayers={selectedLayers}
+            onSelectLayer={onSelectLayer}
+            disabled={!enabled}
           />
           <LayerCheckbox
             label={t(`data.featureType.Muu kulttuuriperintökohde`)}
             layer={MuseovirastoLayer.Muu_kulttuuriperintokohde_piste}
-            selectedLayers={selectedMuseovirastoLayers}
-            onSelectLayer={onSelectMuseovirastoLayer}
+            selectedLayers={selectedLayers}
+            onSelectLayer={onSelectLayer}
+            disabled={!enabled}
           />
         </Form.Group>
 
         <LayerTransparencyInput
           opacity={opacity}
           layerGroup={LayerGroup.Museovirasto}
+          disabled={!enabled}
         />
 
-        <Form.Text>{t(`settings.museovirasto.licence`)}</Form.Text>
+        <Form.Text>
+          <Trans
+            i18nKey="settings.museovirasto.licence"
+            components={{ a: <a /> }}
+          />
+        </Form.Text>
       </Form>
     </Panel>
   )

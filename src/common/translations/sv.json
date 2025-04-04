@@ -54,11 +54,12 @@
     },
     "licences": {
       "title": "Öppet data, licenser och källkod",
-      "museovirasto": "Museiverkets registerdata hämtas från <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0</a>).",
-      "ahvenanmaa": "Ålands landskapsregerings register hämtas från <a href='https://www.kartor.ax/datasets'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0</a>).",
-      "maanmittauslaitos": "Bakgrundskarta, flygfoto och terrängskarta hämtas från Lantmäteriverkets <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0</a>).",
+      "museovirasto": "Museiverkets registerdata hämtas från <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
+      "ahvenanmaa": "Ålands landskapsregerings register hämtas från <a href='https://www.kartor.ax/datasets'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
+      "maanmittauslaitos": "Bakgrundskarta, flygfoto och terrängskarta hämtas från Lantmäteriverkets <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
+      "maanmittauslaitosVanhatKartat": "<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>Gamla kartor</a> hämtas från CSC (IT-centret för vetenskap) <a href='https://paituli.csc.fi/webservices.html' target='_blank'>öppet WMS-gränsnitt</a>  (platsdata har publicerats med licensen  <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC By 4.0</a>).",
       "gtk": "Materialet över fornstränder hämtas från Geologiska forskningscentralens <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/'>öppet WMS-gränssnitt</a> (platsdata har publicerats med <a href='https://www.gtk.fi/sv/grundlicens/'>grundlicens</a>, tillstånd för användning av materialet beviljades 15.1.2021).",
-      "helsinki": "Materialet rörande landfästningar runt Helsingfors under första världskriget hämtas från Helsingfors stads <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset'>öppna WMS-gränssnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/'>Creative Commons CC By 4.0</a>).",
+      "helsinki": "Materialet rörande landfästningar runt Helsingfors under första världskriget hämtas från Helsingfors stads <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset'>öppna WMS-gränssnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
       "maisemanmuisti": "Platsdata från boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset hämtas från <a href='./maisemanmuisti/'>en databas</a> som sammanställer samtliga 205 objekt i boken. Upphovsrätten till boken tillhör Museiverket, som har godkänt att informationen används.",
       "3DModels": "3D-modeller hämtas från öppen <a href='./3d/'>databas</a>, som sammanställer modeller från privata och offentliga aktörer (museer, Museiverket, Ålands landskapsregering). Licensuppgifter över modellerna har sammanställts enligt respektive modell i databasen.",
       "sourceCode": "Denna webbplats använder <a href='https://github.com/anttikekki/muinaismuistot'>öppen källkod</a> av licensen <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE'>MIT</a>."
@@ -74,23 +75,61 @@
       "maastokartta": "Terrängkarta",
       "taustakartta": "Bakgrundskarta",
       "ortokuva": "Flygfoto",
-      "licence": "Bakgrundskarta (raster), terrängskarta (raster), ortofoto © Lantmäteriverket 2021"
+      "licence": "© Lantmäteriverket"
+    },
+    "mmlVanhatKartat": {
+      "title": "Lantmäteriverkets gamla kartor",
+      "section": {
+        "topografisetKartat": "Topografiska kartor (<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>information</a>)",
+        "yleiskartta": "Generalkartan över Finland (<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>information</a>)",
+        "pitäjänkartasto": "Sockenkartorna (<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>information</a>)",
+        "taloudellinenKartta": "Taloudellinen kartta (<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>information</a>)",
+        "maastokartat": "Grundkartan 1:20 000/1:25 000 och Topografisk karta 1:50 000 (<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>information</a>)"
+      },
+      "layer": {
+        "mml_ven_topo_21k_1871_1919": "Ryska topografiska kartor, 1:21 000, 1871-1919",
+        "mml_ven_topo_42k_1870_1944": "Ryska topografiska kartor, 1:42 000, 1870-1944",
+        "mml_ven_topo_42k_192x": "Ryska topografiska kartor, 1:42 000, 192x",
+        "mml_ven_topo_84k_1916-1917": "Ryska topografiska kartor, 1:84 000, 1916-1917",
+        "mml_yleiskartta_400k_1863-1879": "Generalkartan (rutnät), 1:400 000, 1863-1879",
+        "mml_yleiskartta_400k_1880-1899": "Generalkartan (rutnät), 1:400 000, 1880-1899",
+        "mml_yleiskartta_400k_1900-1919": "Generalkartan (rutnät), 1:400 000, 1900-1919",
+        "mml_yleiskartta_400k_1920-1939": "Generalkartan (rutnät), 1:400 000, 1920-1939",
+        "mml_yleiskartta_400k_1940-1972": "Generalkartan (rutnät), 1:400 000, 1940-1972",
+        "mml_yleiskartta_400k_1954-1975": "Generalkartan (rutnät), 1:400 000, 1954-1975",
+        "mml_yleiskartta_400k_1983-1992": "Generalkartan (rutnät), 1:400 000, 1983-1992",
+        "mml_yleiskartta_500k_1996": "Generalkartan (rutnät), 1:500 000, 1996",
+        "mml_yleiskartta_500k_2000": "Generalkartan (rutnät), 1:500 000, 2000",
+        "mml_pitajakartta_20k_1912-1968": "Sockenkartorna, 1:20 000, 1912-1968",
+        "mml_taloudellinen_100k_1911-1970": "Ekonomisk karta, 1:100 000, 1911-1970",
+        "mml_topo_100k_1928_1947": "Grundkartan eller Topografisk karta, 1:100 000, 1928-1947",
+        "mml_topo_100k_1948_1989": "Grundkartan eller Topografisk karta, 1:100 000, 1948-1989",
+        "mml_topo_20k_1924-1948": "Grundkartan eller Topografisk karta, 1:20 000, 1924-1948",
+        "mml_topo_20k_1947-1959": "Grundkartan eller Topografisk karta, 1:20 000, 1947-1959",
+        "mml_topo_20k_1960-1969": "Grundkartan eller Topografisk karta, 1:20 000, 1960-1969",
+        "mml_topo_20k_1970-1979": "Grundkartan eller Topografisk karta, 1:20 000, 1970-1979",
+        "mml_topo_20k_1980-1997": "Grundkartan eller Topografisk karta, 1:20 000, 1980-1997",
+        "mml_topo_50k_1922-1946": "Grundkartan eller Topografisk karta, 1:50 000, 1922-1946",
+        "mml_topo_50k_1964-2006": "Grundkartan eller Topografisk karta, 1:50 000, 1964-2006",
+        "mml_topo_50k_2005-2020": "Grundkartan eller Topografisk karta, 1:50 000, 2005-2020"
+      },
+      "licence": "© Lantmäteriverket (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)"
     },
     "gtk": {
       "title": "Geologiska forskningscentralens material",
-      "licence": "GTK Jordmån/Fornstränder © Geologiska forskningscentralen 2021"
+      "licence": "© Geologiska forskningscentralen"
     },
     "museovirasto": {
       "title": "Museiverkets registerdata",
-      "licence": "Material om kulturmiljön © Museiverket 2021"
+      "licence": "© Museiverket (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)"
     },
     "ahvenanmaa": {
       "title": "Ålands landskapsregerings registerdata",
-      "licence": "Fornminnen © Ålands landskapsregering 2021"
+      "licence": "© Ålands landskapsregering (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)"
     },
     "helsinki": {
       "title": "Helsingfors stads material",
-      "licence": "Landfästningar runt Helsingfors under första världskriget © Helsingfors stad 2021"
+      "licence": "© Helsingfors stad (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)"
     },
     "other": {
       "title": "Andra källor"

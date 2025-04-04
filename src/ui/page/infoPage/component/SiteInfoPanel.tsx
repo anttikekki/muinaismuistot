@@ -96,13 +96,7 @@ export const SiteInfoPanel: React.FC = () => {
         {regexifyString({
           pattern: /ICON/gm,
           decorator: (match) => {
-            return (
-              <span
-                key={match}
-                className="glyphicon glyphicon-link"
-                aria-hidden="true"
-              />
-            )
+            return <i className="bi bi-link-45deg" aria-hidden="true" />
           },
           input: t(`info.siteInfo.info2`)
         })}

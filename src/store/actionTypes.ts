@@ -5,6 +5,7 @@ import {
   Language,
   LayerGroup,
   MaanmittauslaitosLayer,
+  MaanmittauslaitosVanhatKartatLayer,
   MaisemanMuistiLayer,
   ModelLayer,
   MuseovirastoLayer
@@ -22,8 +23,10 @@ export enum ActionTypeEnum {
   SEARCH_FEATURES_COMPLETE = "SEARCH_FEATURES_COMPLETE",
   CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE = "CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE",
   SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER = "SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER",
+  SELECT_VISIBLE_MAANMITTAUSLAITOS_VANHAT_KARTAT_LAYER = "SELECT_VISIBLE_MAANMITTAUSLAITOS_VANHAT_KARTAT_LAYER",
   SELECT_VISIBLE_GTK_LAYERS = "SELECT_VISIBLE_GTK_LAYERS",
   CHANGE_LAYER_OPACITY = "CHANGE_LAYER_OPACITY",
+  ENABLE_LAYER_GROUP = "ENABLE_LAYER_GROUP",
   SELECT_VISIBLE_MUSEOVIRASTO_LAYERS = "SELECT_VISIBLE_MUSEOVIRASTO_LAYERS",
   SELECT_VISIBLE_AHVENANMAA_LAYERS = "SELECT_VISIBLE_AHVENANMAA_LAYERS",
   SELECT_VISIBLE_MODELS_LAYERS = "SELECT_VISIBLE_MODELS_LAYERS",
@@ -60,6 +63,11 @@ export interface SelectVisibleMaanmittauslaitosLayerAction {
   layer: MaanmittauslaitosLayer
 }
 
+export interface SelectVisibleMaanmittauslaitosVanhatKartatLayerAction {
+  type: ActionTypeEnum.SELECT_VISIBLE_MAANMITTAUSLAITOS_VANHAT_KARTAT_LAYER
+  layers: Array<MaanmittauslaitosVanhatKartatLayer>
+}
+
 export interface SelectVisibleGTKLayersAction {
   type: ActionTypeEnum.SELECT_VISIBLE_GTK_LAYERS
   layers: Array<GtkLayer>
@@ -68,6 +76,12 @@ export interface SelectVisibleGTKLayersAction {
 export interface ChangeLayerOpacityAction {
   type: ActionTypeEnum.CHANGE_LAYER_OPACITY
   opacity: number
+  layerGroup: LayerGroup
+}
+
+export interface EnableLayerGroupAction {
+  type: ActionTypeEnum.ENABLE_LAYER_GROUP
+  enabled: boolean
   layerGroup: LayerGroup
 }
 
@@ -127,8 +141,10 @@ export type ActionTypes =
   | SearchFeaturesCompleteAction
   | ClickedMapFeatureIdentificationCompleteAction
   | SelectVisibleMaanmittauslaitosLayerAction
+  | SelectVisibleMaanmittauslaitosVanhatKartatLayerAction
   | SelectVisibleGTKLayersAction
   | ChangeLayerOpacityAction
+  | EnableLayerGroupAction
   | SelectVisibleMuseovirastoLayersAction
   | SelectVisibleAhvenanmaaLayersAction
   | SelectVisibleHelsinkiLayersAction

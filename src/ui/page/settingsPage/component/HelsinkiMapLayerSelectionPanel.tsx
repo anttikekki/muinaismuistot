@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { HelsinkiLayer, LayerGroup } from "../../../../common/layers.types"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
 import { selectVisibleHelsinkiLayersThunk } from "../../../../store/thunks/helsinkiLayer"
+import { enableLayerGroupThunk } from "../../../../store/thunks/layerGroupEnabler"
 import { Panel } from "../../../component/Panel"
+import { ToggleAllCheckbox } from "../../../component/ToggleAllCheckbox"
 import { toggleSelection } from "../../../util"
 import { FeatureImageAndLabel } from "./FeatureImageAndLabel"
 import { LayerCheckbox } from "./LayerCheckbox"
@@ -58,16 +60,25 @@ const FeatureLabelsForLayer: React.FC<{ layer: HelsinkiLayer }> = ({
 export const HelsinkiMapLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
-  const selectedLayers = useSelector(
-    (settings: Settings) => settings.helsinki.selectedLayers
+  const { selectedLayers, enabled, opacity } = useSelector(
+    (settings: Settings) => settings.helsinki
   )
-  const opacity = useSelector((settings: Settings) => settings.helsinki.opacity)
   const onSelectLayer = useCallback(
     (layer: HelsinkiLayer) => {
       dispatch(
         selectVisibleHelsinkiLayersThunk(toggleSelection(layer, selectedLayers))
       )
     },
+    [dispatch, selectedLayers]
+  )
+  const onSwitchChange = useCallback(
+    (enabled: boolean) =>
+      dispatch(enableLayerGroupThunk(enabled, LayerGroup.Helsinki)),
+    [dispatch]
+  )
+  const onToggleAllLayers = useCallback(
+    (layers: HelsinkiLayer[]) =>
+      dispatch(selectVisibleHelsinkiLayersThunk(layers)),
     [dispatch, selectedLayers]
   )
   const checkboxes = useMemo(
@@ -86,30 +97,49 @@ export const HelsinkiMapLayerSelectionPanel: React.FC = () => {
             selectedLayers={selectedLayers}
             onSelectLayer={onSelectLayer}
             showIcon={false}
+            disabled={!enabled}
           >
             <FeatureLabelsForLayer layer={layer} />
           </LayerCheckbox>
         )),
-    [selectedLayers, onSelectLayer]
+    [selectedLayers, onSelectLayer, enabled]
   )
 
   return (
-    <Panel title={t(`settings.helsinki.title`)}>
+    <Panel
+      title={t(`settings.helsinki.title`)}
+      showEnablerSwitch={true}
+      enabled={enabled}
+      onSwitchChange={() => onSwitchChange(!enabled)}
+    >
       <Form>
         <h6>
-          <Trans
-            i18nKey={`data.register.nameWithLink.maalinnoitus`}
-            components={{ a: <a /> }}
-          />
+          <ToggleAllCheckbox
+            allValues={Object.values(HelsinkiLayer)}
+            selectedValues={selectedLayers}
+            onSelectValues={onToggleAllLayers}
+            disabled={!enabled}
+          >
+            <Trans
+              i18nKey={`data.register.nameWithLink.maalinnoitus`}
+              components={{ a: <a /> }}
+            />
+          </ToggleAllCheckbox>
         </h6>
         <Form.Group className="mb-3">{checkboxes}</Form.Group>
 
         <LayerTransparencyInput
           opacity={opacity}
           layerGroup={LayerGroup.Helsinki}
+          disabled={!enabled}
         />
 
-        <Form.Text>{t(`settings.helsinki.licence`)}</Form.Text>
+        <Form.Text>
+          <Trans
+            i18nKey="settings.helsinki.licence"
+            components={{ a: <a /> }}
+          />
+        </Form.Text>
       </Form>
     </Panel>
   )

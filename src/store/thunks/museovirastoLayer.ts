@@ -4,7 +4,7 @@ import {
   MuinaisjaannosTyyppi
 } from "../../common/museovirasto.types"
 import {
-  selectedFeatureLayersChanged,
+  layerGroupSelectedLayersChanged,
   selectedMuinaisjaannosDatingsChanged,
   selectedMuinaisjaannosTypesChanged
 } from "../../map"
@@ -20,7 +20,7 @@ export const selectVisibleMuseovirastoLayerThunk =
       type: ActionTypeEnum.SELECT_VISIBLE_MUSEOVIRASTO_LAYERS,
       layers
     })
-    selectedFeatureLayersChanged(LayerGroup.Museovirasto)
+    layerGroupSelectedLayersChanged(LayerGroup.Museovirasto)
     updateSettingsToURL(initialSettings, getState())
   }
 

@@ -25,12 +25,18 @@ export const Page: React.FC<Props> = ({ title, pageId, children }) => {
   }, [dispatch])
 
   return (
-    <Offcanvas placement="end" show={isPageVisible} onHide={onHidePage}>
+    <Offcanvas
+      placement="end"
+      show={isPageVisible}
+      onHide={onHidePage}
+      scroll={true}
+      backdrop={false}
+    >
       <Offcanvas.Header closeButton>
         <PageHeader title={title} />
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <Container className="ps-0">{children}</Container>
+        <Container className="ps-0 pe-0">{children}</Container>
       </Offcanvas.Body>
     </Offcanvas>
   )

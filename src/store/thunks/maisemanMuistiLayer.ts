@@ -1,5 +1,5 @@
 import { LayerGroup, MaisemanMuistiLayer } from "../../common/layers.types"
-import { selectedFeatureLayersChanged } from "../../map"
+import { layerGroupSelectedLayersChanged } from "../../map"
 import { updateSettingsToURL } from "../../url"
 import { ActionTypeEnum } from "../actionTypes"
 import { initialSettings } from "../initialSettings"
@@ -12,6 +12,6 @@ export const selectVisibleMaisemanMuistiLayerThunk =
       type: ActionTypeEnum.SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS,
       layers
     })
-    selectedFeatureLayersChanged(LayerGroup.MaisemanMuisti)
+    layerGroupSelectedLayersChanged(LayerGroup.MaisemanMuisti)
     updateSettingsToURL(initialSettings, getState())
   }

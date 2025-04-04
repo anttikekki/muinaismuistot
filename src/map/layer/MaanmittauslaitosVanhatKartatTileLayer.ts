@@ -1,20 +1,16 @@
 import TileLayer from "ol/layer/Tile"
 import { TileSourceEvent } from "ol/source/Tile"
-import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest"
+import TileWMS, { Options } from "ol/source/TileWMS"
 import { Store } from "redux"
-import { GtkLayerId, getGtkLayerId } from "../../common/gtk.types"
-import { GtkLayer } from "../../common/layers.types"
 import { ActionTypes } from "../../store/actionTypes"
 import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
-export type OnLayersCreatedCallbackFn = (
-  layer: TileLayer<TileArcGISRestSource>
-) => void
+export type OnLayersCreatedCallbackFn = (layer: TileLayer<TileWMS>) => void
 
-export default class GtkTileLayer {
-  private source?: TileArcGISRestSource
-  private layer?: TileLayer<TileArcGISRestSource>
+export default class MaanmittauslaitosVanhatKartatTileLayer {
+  private source?: TileWMS
+  private layer?: TileLayer<TileWMS>
   private store: Store<Settings, ActionTypes>
   private updateTileLoadingStatus: ShowLoadingAnimationFn
   private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
@@ -31,7 +27,9 @@ export default class GtkTileLayer {
   }
 
   private addLayer = () => {
-    const settings = this.store.getState()
+    const {
+      maanmittauslaitosVanhatKartat: { selectedLayers, enabled, opacity }
+    } = this.store.getState()
     this.source = this.createSource()
     this.layer = new TileLayer({
       source: this.source
@@ -42,29 +40,17 @@ export default class GtkTileLayer {
     this.onLayerCreatedCallbackFn(this.layer)
   }
 
-  private toLayerIds = (layers: Array<GtkLayer>): Array<GtkLayerId> => {
-    return layers.map(getGtkLayerId).sort((a, b) => a - b)
-  }
-
-  private getSourceLayersParams = (): string => {
-    const settings = this.store.getState()
-    if (settings.gtk.selectedLayers.length > 0) {
-      return "show:" + this.toLayerIds(settings.gtk.selectedLayers).join(",")
-    } else {
-      // No selected layers. Hide all.
-      return "hide:" + this.toLayerIds(Object.values(GtkLayer)).join(",")
-    }
-  }
-
   private createSource = () => {
     const settings = this.store.getState()
     const options: Options = {
-      urls: [settings.gtk.url.export],
+      urls: [settings.maanmittauslaitosVanhatKartat.url.wms],
       params: {
-        layers: this.getSourceLayersParams()
-      }
+        LAYERS: settings.maanmittauslaitosVanhatKartat.selectedLayers.join(","),
+        TILED: true
+      },
+      serverType: "geoserver"
     }
-    const newSource = new TileArcGISRestSource(options)
+    const newSource = new TileWMS(options)
 
     newSource.on("tileloadstart", (evt: TileSourceEvent) => {
       this.updateTileLoadingStatus(true)
@@ -81,6 +67,7 @@ export default class GtkTileLayer {
 
   private updateLayerSource = () => {
     if (this.layer) {
+      const settings = this.store.getState()
       this.source = this.createSource()
       this.layer.setSource(this.source)
       this.updateLayerVisibility()
@@ -90,20 +77,20 @@ export default class GtkTileLayer {
   public updateLayerVisibility = () => {
     if (this.layer) {
       const {
-        gtk: { selectedLayers, enabled }
+        maanmittauslaitosVanhatKartat: { selectedLayers, enabled }
       } = this.store.getState()
       this.layer.setVisible(enabled && selectedLayers.length > 0)
     }
   }
 
-  public selectedGTKLayersChanged = () => {
+  public selectedMaanmittauslaitosVanhatKartatLayerChanged = () => {
     this.updateLayerSource()
   }
 
   public opacityChanged = () => {
     if (this.layer) {
       const settings = this.store.getState()
-      this.layer.setOpacity(settings.gtk.opacity)
+      this.layer.setOpacity(settings.maanmittauslaitosVanhatKartat.opacity)
     }
   }
 }
