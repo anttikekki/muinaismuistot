@@ -1,15 +1,17 @@
-import { parse, StringifiableRecord, stringify } from "query-string"
+import queryString from "query-string"
 
 export const parseURLParams = () => {
-  return parse(window.location.hash, {
+  return queryString.parse(window.location.hash, {
     parseNumbers: true,
     parseBooleans: true,
     arrayFormat: "comma"
   })
 }
 
-export const stringifyURLParamsToHash = (params: StringifiableRecord): string =>
-  `#${stringify(params, {
+export const stringifyURLParamsToHash = (
+  params: queryString.StringifiableRecord
+): string =>
+  `#${queryString.stringify(params, {
     arrayFormat: "comma"
   })}`
 

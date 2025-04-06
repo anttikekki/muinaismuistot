@@ -214,7 +214,7 @@ const getFeaturesAtPixelAtGeoJsonLayer = <T>(
     })
 }
 
-const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent<UIEvent>) => {
+const indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
   showLoadingAnimationInUI(true)
   const mapSize = map.getSize()
   if (!mapSize) {
