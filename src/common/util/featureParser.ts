@@ -10,7 +10,8 @@ import {
   Language,
   MaisemanMuistiLayer,
   ModelLayer,
-  MuseovirastoLayer
+  MuseovirastoLayer,
+  ViabundusLayer
 } from "../layers.types"
 import {
   MaalinnoitusKohdetyyppi,
@@ -349,6 +350,8 @@ export const getLayerIconURLs = (layer: FeatureLayer): string[] => {
       return ["images/maalinnoitus-teksti-viite.png"]
     case HelsinkiLayer.Maalinnoitus_yksikot:
       return ["images/maalinnoitus-yksikko.png"]
+    case ViabundusLayer.Viabundus:
+      return ["images/foo.png"]
   }
 }
 

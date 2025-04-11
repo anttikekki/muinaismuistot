@@ -39,6 +39,7 @@ import MaannousuInfoTileLayerGroup from "./layer/MaannousuInfoTileLayerGroup"
 import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
 import ModelsLayer from "./layer/ModelsLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
+import ViabundusLayer from "./layer/ViabundusLayer"
 
 export default class MuinaismuistotMap {
   private readonly store: Store<Settings, ActionTypes>
@@ -54,6 +55,7 @@ export default class MuinaismuistotMap {
   private readonly positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
   private readonly modelsLayer: ModelsLayer
   private readonly maisemanMuistiLayer: MaisemanMuistiLayer
+  private readonly viabundusLayer: ViabundusLayer
   private readonly gtkLayer: GtkTileLayer
   private readonly helsinkiLayer: HelsinkiTileLayer
   private tileLoadingCounter = 0
@@ -123,6 +125,7 @@ export default class MuinaismuistotMap {
     )
     this.maisemanMuistiLayer = new MaisemanMuistiLayer(settings)
     this.modelsLayer = new ModelsLayer(settings)
+    this.viabundusLayer = new ViabundusLayer(settings)
     this.positionAndSelectedLocation =
       new CurrentPositionAndSelectedLocationMarkerLayer()
 
@@ -132,6 +135,7 @@ export default class MuinaismuistotMap {
     this.map.addLayer(this.ahvenanmaaTileLayer.getLayer())
     this.map.addLayer(this.museovirastoTileLayer.getLayer())
     this.map.addLayer(this.helsinkiLayer.getLayer())
+    this.map.addLayer(this.viabundusLayer.getLayer())
     this.map.addLayer(this.maisemanMuistiLayer.getLayer())
     this.map.addLayer(this.modelsLayer.getLayer())
     this.map.addLayer(this.positionAndSelectedLocation.getLayer())
@@ -407,6 +411,9 @@ export default class MuinaismuistotMap {
       case LayerGroup.MaisemanMuisti:
         this.maisemanMuistiLayer.selectedFeatureLayersChanged(settings)
         break
+      case LayerGroup.Viabundus:
+        this.viabundusLayer.selectedFeatureLayersChanged(settings)
+        break
     }
   }
 
@@ -503,6 +510,9 @@ export default class MuinaismuistotMap {
         break
       case LayerGroup.MaisemanMuisti:
         this.maisemanMuistiLayer.updateLayerVisibility(settings)
+        break
+      case LayerGroup.Viabundus:
+        this.viabundusLayer.updateLayerVisibility(settings)
         break
     }
   }
