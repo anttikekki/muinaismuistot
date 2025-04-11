@@ -12,7 +12,8 @@ export enum LayerGroup {
   Ahvenanmaa = "Ahvenanmaa",
   Helsinki = "Helsinki",
   Models = "Models",
-  MaisemanMuisti = "MaisemanMuisti"
+  MaisemanMuisti = "MaisemanMuisti",
+  Viabundus = "Viabundus"
 }
 
 export enum MMLPohjakarttaLayer {
@@ -182,9 +183,14 @@ export enum HelsinkiLayer {
   Maalinnoitus_karttatekstit = "Maalinnoitus_karttatekstit"
 }
 
+export enum ViabundusLayer {
+  Viabundus = "Viabundus"
+}
+
 export type FeatureLayer =
   | MuseovirastoLayer
   | AhvenanmaaLayer
   | ModelLayer
   | MaisemanMuistiLayer
   | HelsinkiLayer
+  | ViabundusLayer

@@ -11,7 +11,8 @@ import {
   MaannousuInfoLayerIndex,
   MaisemanMuistiLayer,
   ModelLayer,
-  MuseovirastoLayer
+  MuseovirastoLayer,
+  ViabundusLayer
 } from "../common/layers.types"
 import { MaisemanMuistiFeature } from "../common/maisemanMuisti.types"
 import { MapFeature } from "../common/mapFeature.types"
@@ -102,6 +103,13 @@ export interface Settings {
   }
   maisemanMuisti: {
     selectedLayers: MaisemanMuistiLayer[]
+    url: {
+      geojson: string
+    }
+    enabled: boolean
+  }
+  viabundus: {
+    selectedLayers: Array<ViabundusLayer>
     url: {
       geojson: string
     }
