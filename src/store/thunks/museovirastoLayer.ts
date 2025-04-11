@@ -17,7 +17,8 @@ export const selectVisibleMuseovirastoLayerThunk =
   (layers: Array<MuseovirastoLayer>): AppThunk =>
   (dispatch, getState) => {
     dispatch({
-      type: ActionTypeEnum.SELECT_VISIBLE_MUSEOVIRASTO_LAYERS,
+      type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+      layerGroup: LayerGroup.Museovirasto,
       layers
     })
     layerGroupSelectedLayersChanged(LayerGroup.Museovirasto)

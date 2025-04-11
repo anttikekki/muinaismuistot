@@ -22,16 +22,9 @@ export enum ActionTypeEnum {
   SEARCH_FEATURES = "SEARCH_FEATURES",
   SEARCH_FEATURES_COMPLETE = "SEARCH_FEATURES_COMPLETE",
   CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE = "CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE",
-  SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER = "SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER",
-  SELECT_VISIBLE_MAANMITTAUSLAITOS_VANHAT_KARTAT_LAYER = "SELECT_VISIBLE_MAANMITTAUSLAITOS_VANHAT_KARTAT_LAYER",
-  SELECT_VISIBLE_GTK_LAYERS = "SELECT_VISIBLE_GTK_LAYERS",
+  SELECT_VISIBLE_LAYERS = "SELECT_VISIBLE_LAYERS",
   CHANGE_LAYER_OPACITY = "CHANGE_LAYER_OPACITY",
   ENABLE_LAYER_GROUP = "ENABLE_LAYER_GROUP",
-  SELECT_VISIBLE_MUSEOVIRASTO_LAYERS = "SELECT_VISIBLE_MUSEOVIRASTO_LAYERS",
-  SELECT_VISIBLE_AHVENANMAA_LAYERS = "SELECT_VISIBLE_AHVENANMAA_LAYERS",
-  SELECT_VISIBLE_MODELS_LAYERS = "SELECT_VISIBLE_MODELS_LAYERS",
-  SELECT_VISIBLE_HELSINKI_LAYERS = "SELECT_VISIBLE_HELSINKI_LAYERS",
-  SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS = "SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS",
   SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE = "SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE",
   SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING = "SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING",
   CHANGE_LANGUAGE = "CHANGE_LANGUAGE",
@@ -58,19 +51,62 @@ export interface ClickedMapFeatureIdentificationCompleteAction {
   payload: SelectedFeaturesOnMap
 }
 
-export interface SelectVisibleMaanmittauslaitosLayerAction {
-  type: ActionTypeEnum.SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER
+export type SelectVisibleLayersAction =
+  | SelectVisibleMaanmittauslaitosLayerAction
+  | SelectVisibleMaanmittauslaitosVanhatKartatLayerAction
+  | SelectVisibleGTKLayersAction
+  | SelectVisibleMuseovirastoLayersAction
+  | SelectVisibleAhvenanmaaLayersAction
+  | SelectVisibleHelsinkiLayersAction
+  | SelectVisibleModelsLayersAction
+  | SelectVisibleMaisemanMuistiLayersAction
+
+interface SelectVisibleMaanmittauslaitosLayerAction {
+  type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
+  layerGroup: LayerGroup.Maanmittauslaitos
   layer: MaanmittauslaitosLayer
 }
 
-export interface SelectVisibleMaanmittauslaitosVanhatKartatLayerAction {
-  type: ActionTypeEnum.SELECT_VISIBLE_MAANMITTAUSLAITOS_VANHAT_KARTAT_LAYER
+interface SelectVisibleMaanmittauslaitosVanhatKartatLayerAction {
+  type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
+  layerGroup: LayerGroup.MaanmittauslaitosVanhatKartat
   layers: Array<MaanmittauslaitosVanhatKartatLayer>
 }
 
-export interface SelectVisibleGTKLayersAction {
-  type: ActionTypeEnum.SELECT_VISIBLE_GTK_LAYERS
+interface SelectVisibleGTKLayersAction {
+  type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
+  layerGroup: LayerGroup.GTK
   layers: Array<GtkLayer>
+}
+
+interface SelectVisibleMuseovirastoLayersAction {
+  type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
+  layerGroup: LayerGroup.Museovirasto
+  layers: Array<MuseovirastoLayer>
+}
+
+interface SelectVisibleAhvenanmaaLayersAction {
+  type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
+  layerGroup: LayerGroup.Ahvenanmaa
+  layers: Array<AhvenanmaaLayer>
+}
+
+interface SelectVisibleHelsinkiLayersAction {
+  type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
+  layerGroup: LayerGroup.Helsinki
+  layers: Array<HelsinkiLayer>
+}
+
+interface SelectVisibleModelsLayersAction {
+  type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
+  layerGroup: LayerGroup.Models
+  layers: Array<ModelLayer>
+}
+
+interface SelectVisibleMaisemanMuistiLayersAction {
+  type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
+  layerGroup: LayerGroup.MaisemanMuisti
+  layers: Array<MaisemanMuistiLayer>
 }
 
 export interface ChangeLayerOpacityAction {
@@ -83,31 +119,6 @@ export interface EnableLayerGroupAction {
   type: ActionTypeEnum.ENABLE_LAYER_GROUP
   enabled: boolean
   layerGroup: LayerGroup
-}
-
-export interface SelectVisibleMuseovirastoLayersAction {
-  type: ActionTypeEnum.SELECT_VISIBLE_MUSEOVIRASTO_LAYERS
-  layers: Array<MuseovirastoLayer>
-}
-
-export interface SelectVisibleAhvenanmaaLayersAction {
-  type: ActionTypeEnum.SELECT_VISIBLE_AHVENANMAA_LAYERS
-  layers: Array<AhvenanmaaLayer>
-}
-
-export interface SelectVisibleHelsinkiLayersAction {
-  type: ActionTypeEnum.SELECT_VISIBLE_HELSINKI_LAYERS
-  layers: Array<HelsinkiLayer>
-}
-
-export interface SelectVisibleModelsLayersAction {
-  type: ActionTypeEnum.SELECT_VISIBLE_MODELS_LAYERS
-  layers: Array<ModelLayer>
-}
-
-export interface SelectVisibleMaisemanMuistiLayersAction {
-  type: ActionTypeEnum.SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS
-  layers: Array<MaisemanMuistiLayer>
 }
 
 export interface SelectVisibleMuinaisjäännösTypeAction {
@@ -140,16 +151,9 @@ export type ActionTypes =
   | SearchFeaturesAction
   | SearchFeaturesCompleteAction
   | ClickedMapFeatureIdentificationCompleteAction
-  | SelectVisibleMaanmittauslaitosLayerAction
-  | SelectVisibleMaanmittauslaitosVanhatKartatLayerAction
-  | SelectVisibleGTKLayersAction
   | ChangeLayerOpacityAction
   | EnableLayerGroupAction
-  | SelectVisibleMuseovirastoLayersAction
-  | SelectVisibleAhvenanmaaLayersAction
-  | SelectVisibleHelsinkiLayersAction
-  | SelectVisibleModelsLayersAction
-  | SelectVisibleMaisemanMuistiLayersAction
+  | SelectVisibleLayersAction
   | SelectVisibleMuinaisjäännösTypeAction
   | SelectVisibleMuinaisjäännösDatingAction
   | ChangeLanguageAction

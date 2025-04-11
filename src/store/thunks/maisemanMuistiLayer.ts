@@ -9,7 +9,8 @@ export const selectVisibleMaisemanMuistiLayerThunk =
   (layers: Array<MaisemanMuistiLayer>): AppThunk =>
   (dispatch, getState) => {
     dispatch({
-      type: ActionTypeEnum.SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS,
+      type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+      layerGroup: LayerGroup.MaisemanMuisti,
       layers
     })
     layerGroupSelectedLayersChanged(LayerGroup.MaisemanMuisti)

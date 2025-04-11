@@ -9,7 +9,8 @@ export const selectVisibleMaanmittauslaitosLayerThunk =
   (layer: MaanmittauslaitosLayer): AppThunk =>
   (dispatch, getState) => {
     dispatch({
-      type: ActionTypeEnum.SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER,
+      type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+      layerGroup: LayerGroup.Maanmittauslaitos,
       layer
     })
     layerGroupSelectedLayersChanged(LayerGroup.Maanmittauslaitos)

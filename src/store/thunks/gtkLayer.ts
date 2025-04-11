@@ -9,7 +9,8 @@ export const selectVisibleGtkLayersThunk =
   (layers: Array<GtkLayer>): AppThunk =>
   (dispatch, getState) => {
     dispatch({
-      type: ActionTypeEnum.SELECT_VISIBLE_GTK_LAYERS,
+      type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+      layerGroup: LayerGroup.GTK,
       layers
     })
     layerGroupSelectedLayersChanged(LayerGroup.GTK)

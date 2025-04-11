@@ -9,7 +9,8 @@ export const selectVisibleModelsLayerThunk =
   (layers: Array<ModelLayer>): AppThunk =>
   (dispatch, getState) => {
     dispatch({
-      type: ActionTypeEnum.SELECT_VISIBLE_MODELS_LAYERS,
+      type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+      layerGroup: LayerGroup.Models,
       layers
     })
     layerGroupSelectedLayersChanged(LayerGroup.Models)

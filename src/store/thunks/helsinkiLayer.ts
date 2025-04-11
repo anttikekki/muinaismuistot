@@ -9,7 +9,8 @@ export const selectVisibleHelsinkiLayersThunk =
   (layers: Array<HelsinkiLayer>): AppThunk =>
   (dispatch, getState) => {
     dispatch({
-      type: ActionTypeEnum.SELECT_VISIBLE_HELSINKI_LAYERS,
+      type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+      layerGroup: LayerGroup.Helsinki,
       layers
     })
     layerGroupSelectedLayersChanged(LayerGroup.Helsinki)

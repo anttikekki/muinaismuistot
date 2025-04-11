@@ -99,17 +99,39 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
         }
       }
     }
-    case ActionTypeEnum.SELECT_VISIBLE_MAANMITTAUSLAITOS_LAYER: {
-      return updateMaanmittauslaitosSelectedLayer(state, action.layer)
-    }
-    case ActionTypeEnum.SELECT_VISIBLE_MAANMITTAUSLAITOS_VANHAT_KARTAT_LAYER: {
-      return updateMaanmittauslaitosVanhatKartatSelectedLayer(
-        state,
-        action.layers
-      )
-    }
-    case ActionTypeEnum.SELECT_VISIBLE_GTK_LAYERS: {
-      return updateGtkSelectedLayers(state, action.layers)
+    case ActionTypeEnum.SELECT_VISIBLE_LAYERS: {
+      switch (action.layerGroup) {
+        case LayerGroup.Maanmittauslaitos: {
+          return updateMaanmittauslaitosSelectedLayer(state, action.layer)
+        }
+        case LayerGroup.MaanmittauslaitosVanhatKartat: {
+          return updateMaanmittauslaitosVanhatKartatSelectedLayer(
+            state,
+            action.layers
+          )
+        }
+        case LayerGroup.GTK: {
+          return updateGtkSelectedLayers(state, action.layers)
+        }
+
+        case LayerGroup.Helsinki: {
+          return updateHelsinkiSelectedLayers(state, action.layers)
+        }
+        case LayerGroup.Museovirasto: {
+          return updateMuseovirastoSelectedLayers(state, action.layers)
+        }
+        case LayerGroup.Ahvenanmaa: {
+          return updateAhvenanmaaSelectedLayers(state, action.layers)
+        }
+        case LayerGroup.Models: {
+          return updateModelSelectedLayers(state, action.layers)
+        }
+        case LayerGroup.MaisemanMuisti: {
+          return updateMaisemanMuistiSelectedLayers(state, action.layers)
+        }
+        default:
+          return state
+      }
     }
     case ActionTypeEnum.CHANGE_LAYER_OPACITY: {
       switch (action.layerGroup) {
@@ -152,21 +174,6 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
         default:
           return state
       }
-    }
-    case ActionTypeEnum.SELECT_VISIBLE_HELSINKI_LAYERS: {
-      return updateHelsinkiSelectedLayers(state, action.layers)
-    }
-    case ActionTypeEnum.SELECT_VISIBLE_MUSEOVIRASTO_LAYERS: {
-      return updateMuseovirastoSelectedLayers(state, action.layers)
-    }
-    case ActionTypeEnum.SELECT_VISIBLE_AHVENANMAA_LAYERS: {
-      return updateAhvenanmaaSelectedLayers(state, action.layers)
-    }
-    case ActionTypeEnum.SELECT_VISIBLE_MODELS_LAYERS: {
-      return updateModelSelectedLayers(state, action.layers)
-    }
-    case ActionTypeEnum.SELECT_VISIBLE_MAISEMAN_MUISTI_LAYERS: {
-      return updateMaisemanMuistiSelectedLayers(state, action.layers)
     }
     case ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE: {
       return updateSelectMuinaisjaannosTypes(state, action.types)

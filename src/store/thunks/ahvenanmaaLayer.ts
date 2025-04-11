@@ -9,7 +9,8 @@ export const selectVisibleAhvenanmaaLayerThunk =
   (layers: Array<AhvenanmaaLayer>): AppThunk =>
   (dispatch, getState) => {
     dispatch({
-      type: ActionTypeEnum.SELECT_VISIBLE_AHVENANMAA_LAYERS,
+      type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+      layerGroup: LayerGroup.Ahvenanmaa,
       layers
     })
     layerGroupSelectedLayersChanged(LayerGroup.Ahvenanmaa)

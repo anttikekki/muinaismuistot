@@ -12,7 +12,8 @@ export const selectVisibleMaanmittauslaitosVanhatKartatLayerThunk =
   (layers: MaanmittauslaitosVanhatKartatLayer[]): AppThunk =>
   (dispatch, getState) => {
     dispatch({
-      type: ActionTypeEnum.SELECT_VISIBLE_MAANMITTAUSLAITOS_VANHAT_KARTAT_LAYER,
+      type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+      layerGroup: LayerGroup.MaanmittauslaitosVanhatKartat,
       layers
     })
 
