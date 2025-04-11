@@ -2,16 +2,13 @@ import React, { ReactNode, useCallback, useMemo } from "react"
 import { Accordion, Col, Container, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
-import { MaisemanMuistiFeature } from "../../../../common/maisemanMuisti.types"
 import { MapFeature } from "../../../../common/mapFeature.types"
 import {
   getFeatureLocation,
   getFeatureMunicipality,
   getFeatureName,
   getFeatureTypeIconURL,
-  getFeatureTypeName,
-  getGeoJSONFeatureLocation,
-  getTypeIconURL
+  getFeatureTypeName
 } from "../../../../common/util/featureParser"
 import { createLocationHash } from "../../../../common/util/URLHashHelper"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
@@ -130,54 +127,6 @@ export const MapFeatureCollapsePanel: React.FC<
 
     return name + suffix
   }, [i18n.language, titleClickAction, feature])
-
-  return (
-    <FeatureCollapsePanel
-      titleClickAction={titleClickAction}
-      isOpen={isOpen}
-      panelId={panelId}
-      onToggleOpen={onToggleOpen}
-      permanentLink={permanentLink}
-      featureName={featureName}
-      featureTypeIconURL={featureTypeIconURL}
-      featureTypeName={featureTypeName}
-    >
-      {children}
-    </FeatureCollapsePanel>
-  )
-}
-
-interface MaisemanMuistiFeatureCollapsePanelProps
-  extends FeatureCollapsePanelCommonExternalProps {
-  feature: MaisemanMuistiFeature
-  has3dModels?: boolean
-  children: ReactNode
-}
-
-export const MaisemanMuistiFeatureCollapsePanel: React.FC<
-  MaisemanMuistiFeatureCollapsePanelProps
-> = ({
-  titleClickAction,
-  isOpen,
-  panelId,
-  onToggleOpen,
-  feature,
-  has3dModels,
-  children
-}) => {
-  const { t } = useTranslation()
-  const permanentLink = useMemo(() => {
-    const coordinates = getGeoJSONFeatureLocation(feature)
-    return coordinates && createLocationHash(coordinates)
-  }, [feature])
-  const featureName = `${feature.properties.name}, ${feature.properties.registerName}`
-  const featureTypeIconURL = useMemo(
-    () => getTypeIconURL("maiseman-muisti", has3dModels),
-    [has3dModels]
-  )
-  const featureTypeName = `${t(`data.featureType.Kiinteä muinaisjäännös`)}, ${t(
-    `data.featureType.Valtakunnallisesti merkittävä muinaisjäännös`
-  )}`
 
   return (
     <FeatureCollapsePanel

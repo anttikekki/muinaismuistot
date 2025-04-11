@@ -25,6 +25,7 @@ import { LayerGroup, MaannousuInfoLayerIndex } from "../common/layers.types"
 import { isMaisemanMuistiFeature } from "../common/maisemanMuisti.types"
 import { MapFeature, isGeoJSONFeature } from "../common/mapFeature.types"
 import { isMuinaisjaannosPisteFeature } from "../common/museovirasto.types"
+import { isViabundusFeature } from "../common/viabundus.types"
 import { StoreListener } from "../store"
 import { ActionTypeEnum, ActionTypes } from "../store/actionTypes"
 import { Settings } from "../store/storeTypes"
@@ -39,6 +40,7 @@ import MaannousuInfoTileLayerGroup from "./layer/MaannousuInfoTileLayerGroup"
 import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
 import ModelsLayer from "./layer/ModelsLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
+import ViabundusLayer from "./layer/ViabundusLayer"
 
 export default class MuinaismuistotMap {
   private readonly store: Store<Settings, ActionTypes>
@@ -54,6 +56,7 @@ export default class MuinaismuistotMap {
   private readonly positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
   private readonly modelsLayer: ModelsLayer
   private readonly maisemanMuistiLayer: MaisemanMuistiLayer
+  private readonly viabundusLayer: ViabundusLayer
   private readonly gtkLayer: GtkTileLayer
   private readonly helsinkiLayer: HelsinkiTileLayer
   private tileLoadingCounter = 0
@@ -123,6 +126,7 @@ export default class MuinaismuistotMap {
     )
     this.maisemanMuistiLayer = new MaisemanMuistiLayer(settings)
     this.modelsLayer = new ModelsLayer(settings)
+    this.viabundusLayer = new ViabundusLayer(settings)
     this.positionAndSelectedLocation =
       new CurrentPositionAndSelectedLocationMarkerLayer()
 
@@ -132,6 +136,7 @@ export default class MuinaismuistotMap {
     this.map.addLayer(this.ahvenanmaaTileLayer.getLayer())
     this.map.addLayer(this.museovirastoTileLayer.getLayer())
     this.map.addLayer(this.helsinkiLayer.getLayer())
+    this.map.addLayer(this.viabundusLayer.getLayer())
     this.map.addLayer(this.maisemanMuistiLayer.getLayer())
     this.map.addLayer(this.modelsLayer.getLayer())
     this.map.addLayer(this.positionAndSelectedLocation.getLayer())
@@ -200,6 +205,11 @@ export default class MuinaismuistotMap {
         }
         case ActionTypeEnum.MOVE_MAANNOUSU_LAYER: {
           this.moveMaannousuLayers(action.placement)
+          break
+        }
+        case ActionTypeEnum.SELECT_VIABUNDUS_YEAR: {
+          this.viabundusLayer.yearChanged(action.year)
+          break
         }
       }
     }
@@ -311,6 +321,12 @@ export default class MuinaismuistotMap {
           this.maisemanMuistiLayer.getLayer()
         ).filter((f) => isMaisemanMuistiFeature(f))
       : []
+    const viabunduResult = settings.viabundus.enabled
+      ? this.getFeaturesAtPixelAtGeoJsonLayer(
+          e.pixel,
+          this.viabundusLayer.getLayer()
+        ).filter((f) => isViabundusFeature(f))
+      : []
 
     Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery]).then(
       ([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {
@@ -319,7 +335,8 @@ export default class MuinaismuistotMap {
         const features: MapFeature[] = [
           ...ahvenanmaaResult.results,
           ...museovirastoResult.features,
-          ...maalinnoitusFeatures
+          ...maalinnoitusFeatures,
+          ...viabunduResult
         ]
           .map((f) => this.modelsLayer.addModelsToFeature(f))
           .map((f) =>
@@ -341,9 +358,8 @@ export default class MuinaismuistotMap {
         this.store.dispatch({
           type: ActionTypeEnum.CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
           payload: {
-            features,
-            models: modelsResult,
-            maisemanMuistiFeatures
+            features: [...features, ...maisemanMuistiFeatures],
+            models: modelsResult
           }
         })
       }
@@ -400,12 +416,6 @@ export default class MuinaismuistotMap {
         break
       case LayerGroup.Helsinki:
         this.helsinkiLayer.selectedFeatureLayersChanged(settings)
-        break
-      case LayerGroup.Models:
-        this.modelsLayer.selectedFeatureLayersChanged(settings)
-        break
-      case LayerGroup.MaisemanMuisti:
-        this.maisemanMuistiLayer.selectedFeatureLayersChanged(settings)
         break
     }
   }
@@ -466,6 +476,9 @@ export default class MuinaismuistotMap {
       case LayerGroup.Helsinki:
         this.helsinkiLayer.opacityChanged(settings)
         break
+      case LayerGroup.Viabundus:
+        this.viabundusLayer.opacityChanged(settings)
+        break
     }
   }
 
@@ -503,6 +516,9 @@ export default class MuinaismuistotMap {
         break
       case LayerGroup.MaisemanMuisti:
         this.maisemanMuistiLayer.updateLayerVisibility(settings)
+        break
+      case LayerGroup.Viabundus:
+        this.viabundusLayer.updateLayerVisibility(settings)
         break
     }
   }

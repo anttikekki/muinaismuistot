@@ -396,7 +396,7 @@ export const isMuseovirastoFeature = (
   feature: MapFeature
 ): feature is MuseovirastoFeature => {
   return (
-    "id" in feature &&
+    "properties" in feature &&
     (isMuinaisjaannosPisteFeature(feature) ||
       isMuinaisjaannosAlueFeature(feature) ||
       isMuuKulttuuriperintokohdePisteFeature(feature) ||

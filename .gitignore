@@ -1,3 +1,5 @@
 node_modules/
 .DS_Store
 dist/
+scripts/viabundus/results
+scripts/viabundus/source-data

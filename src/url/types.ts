@@ -25,6 +25,9 @@ export interface URLSettings {
   ahvenanmaaEnabled?: boolean
   helsinkiLayer?: string | string[]
   helsinkiOpacity?: number
+  viabundusYear?: number
+  viabundusOpacity?: number
+  viabundusEnabled?: boolean
   helsinkiEnabled?: boolean
   modelsEnabled?: boolean
   maisemanMuistiEnabled?: boolean

@@ -6,7 +6,7 @@ import { trim } from "../../../../common/util/featureParser"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import {
   FeatureCollapsePanelCommonExternalProps,
-  MaisemanMuistiFeatureCollapsePanel
+  MapFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
 import { Field } from "../component/Field"
 import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
@@ -25,7 +25,7 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
   return (
-    <MaisemanMuistiFeatureCollapsePanel feature={feature} {...commonProps}>
+    <MapFeatureCollapsePanel feature={feature} {...commonProps}>
       <form>
         <Field
           label={t(`details.field.featureName`)}
@@ -61,6 +61,6 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
 
         {commonProps.isOpen && <EmbeddedModels models={models} />}
       </form>
-    </MaisemanMuistiFeatureCollapsePanel>
+    </MapFeatureCollapsePanel>
   )
 }

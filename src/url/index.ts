@@ -27,6 +27,7 @@ export default class URLUtil {
         case ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE:
         case ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING:
         case ActionTypeEnum.MOVE_MAANNOUSU_LAYER:
+        case ActionTypeEnum.SELECT_VIABUNDUS_YEAR:
           return true
         default:
           return false

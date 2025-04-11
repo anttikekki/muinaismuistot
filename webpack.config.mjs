@@ -85,7 +85,14 @@ export default {
             return JSON.stringify(JSON.parse(content.toString()))
           }
         },
-        { from: "src/maisemanmuisti/images", to: "maisemanmuisti/images" }
+        { from: "src/maisemanmuisti/images", to: "maisemanmuisti/images" },
+        {
+          from: "src/viabundus/Viabundus-finland.geojson",
+          to: "viabundus",
+          transform: function (content) {
+            return JSON.stringify(JSON.parse(content.toString()))
+          }
+        }
       ]
     }),
     ...(SHOW_BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : [])

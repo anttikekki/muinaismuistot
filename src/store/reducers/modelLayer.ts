@@ -1,18 +1,4 @@
-import { ModelLayer } from "../../common/layers.types"
 import { Settings } from "../storeTypes"
-
-export const updateModelSelectedLayers = (
-  settings: Settings,
-  selectedLayers: ModelLayer[]
-): Settings => {
-  return {
-    ...settings,
-    models: {
-      ...settings.models,
-      selectedLayers
-    }
-  }
-}
 
 export const updateModelLayerEnabled = (
   settings: Settings,

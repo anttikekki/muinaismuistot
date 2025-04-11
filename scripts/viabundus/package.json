@@ -1,0 +1,41 @@
+{
+  "name": "viabundus-data-processing",
+  "version": "1.0.0",
+  "description": "Viabundus-hankkeen avoimen datan prosessointi helpommin käytettävään muotoon. Rajataan aineisto kattamaan vain Suomen alueen.",
+  "scripts": {
+    "start": "npm-run-all step:*",
+    "step:1_download-viabundus-edges-geojsonn": "./1_download-viabundus-edges-geojson.sh",
+    "step:2_download_viabundus_csv": "./2_download_viabundus_csv.sh",
+    "step:3a_add-description-to-edges": "node 3a_add-description-to-edges.mjs",
+    "step:3b_add-literature-to-edges": "node 3b_add-literature-to-edges.mjs",
+    "step:4_nodes_to_geojson": "node 4_nodes_to_geojson.mjs",
+    "step:5_limit_nodes_to_Finland": "./5_limit_nodes_to_Finland.sh",
+    "step:6_update-nodes-descriptions": "node 6_update-nodes-descriptions.mjs",
+    "step:7_add-fairs-to-nodes": "node 7_add-fairs-to-nodes.mjs",
+    "step:8_add-literature-to-nodes": "node 8_add-literature-to-nodes.mjs",
+    "step:9_add-population-to-nodes": "node 9_add-population-to-nodes.mjs",
+    "step:11_clean-nodes": "node 11_clean-nodes.mjs",
+    "step:12_towns-to-geojson": "node 12_towns-to-geojson.mjs",
+    "step:13_reproject-towns-to-EPSG-3067": "./13_reproject-towns-to-EPSG-3067.sh",
+    "step:14_join-edges-and-nodes-and-towns": "node 14_join-edges-and-nodes-and-towns.mjs",
+    "step:15_copy-final-results-to-ui": "./15_copy-final-results-to-ui.sh"
+  },
+  "author": "Antti Kekki",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/anttikekki/muinaismuistot.git"
+  },
+  "dependencies": {
+    "csv-parse": "6.1.0",
+    "he": "1.2.0",
+    "string-strip-html": "13.4.13",
+    "wellknown": "0.5.0"
+  },
+  "devDependencies": {
+    "npm-run-all": "4.1.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
