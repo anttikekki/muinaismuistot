@@ -39,6 +39,7 @@ import MaanmittauslaitosVanhatKartatTileLayer from "./layer/MaanmittauslaitosVan
 import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
 import ModelsLayer from "./layer/ModelsLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
+import ViabundusLayer from "./layer/ViabundusLayer"
 
 let store: Store<Settings, ActionTypes>
 let map: Map
@@ -51,6 +52,7 @@ let ahvenanmaaTileLayer: AhvenanmaaTileLayer
 let positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
 let modelsLayer: ModelsLayer
 let maisemanMuistiLayer: MaisemanMuistiLayer
+let viabundusLayer: ViabundusLayer
 let gtkLayer: GtkTileLayer
 let helsinkiLayer: HelsinkiTileLayer
 let tileLoadingCounter: number = 0
@@ -145,18 +147,21 @@ export const createMap = (reduxStore: Store<Settings, ActionTypes>) => {
 
   maisemanMuistiLayer = new MaisemanMuistiLayer(store)
   modelsLayer = new ModelsLayer(store)
+  viabundusLayer = new ViabundusLayer(store)
   positionAndSelectedLocation =
     new CurrentPositionAndSelectedLocationMarkerLayer()
 
   Promise.all([
     maisemanMuistiLayer.createLayer(),
-    modelsLayer.createLayer()
-  ]).then(([maisemanMuistiLayer, modelsLayer]) => {
+    modelsLayer.createLayer(),
+    viabundusLayer.createLayer()
+  ]).then(([maisemanMuistiLayer, modelsLayer, viabundusLayer]) => {
     maisemanMuistiLayer.setZIndex(8)
     modelsLayer.setZIndex(9)
     positionAndSelectedLocation.getLayer().setZIndex(10)
     map.getLayers().push(maisemanMuistiLayer)
     map.getLayers().push(modelsLayer)
+    map.getLayers().push(viabundusLayer)
     map.getLayers().push(positionAndSelectedLocation.getLayer())
   })
 

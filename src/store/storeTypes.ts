@@ -10,7 +10,8 @@ import {
   MaanmittauslaitosVanhatKartatLayer,
   MaisemanMuistiLayer,
   ModelLayer,
-  MuseovirastoLayer
+  MuseovirastoLayer,
+  ViabundusLayer
 } from "../common/layers.types"
 import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
 import { MapFeature } from "../common/mapFeature.types"
@@ -89,6 +90,13 @@ export interface Settings {
   }
   maisemanMuisti: {
     selectedLayers: Array<MaisemanMuistiLayer>
+    url: {
+      geojson: string
+    }
+    enabled: boolean
+  }
+  viabundus: {
+    selectedLayers: Array<ViabundusLayer>
     url: {
       geojson: string
     }

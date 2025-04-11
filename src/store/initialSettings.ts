@@ -6,7 +6,8 @@ import {
   MaanmittauslaitosVanhatKartatLayer,
   MaisemanMuistiLayer,
   ModelLayer,
-  MuseovirastoLayer
+  MuseovirastoLayer,
+  ViabundusLayer
 } from "../common/layers.types"
 import {
   MuinaisjaannosAjoitus,
@@ -93,6 +94,13 @@ export const initialSettings: Settings = {
     selectedLayers: Object.values(MaisemanMuistiLayer),
     url: {
       geojson: "./maisemanmuisti/maisemanmuisti.json"
+    },
+    enabled: true
+  },
+  viabundus: {
+    selectedLayers: Object.values(ViabundusLayer),
+    url: {
+      geojson: "./viabundus/Viabundus-1.3-Edges.geojson-filtered.json"
     },
     enabled: true
   },

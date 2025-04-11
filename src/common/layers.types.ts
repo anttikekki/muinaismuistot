@@ -75,6 +75,10 @@ export enum MaisemanMuistiLayer {
   MaisemanMuisti = "MaisemanMuisti"
 }
 
+export enum ViabundusLayer {
+  Viabundus = "Viabundus"
+}
+
 export enum GtkLayer {
   // kaikki = "Muinaisrannat", //(7)
   // kuroutumishavainnot = "kuroutumishavainnot", //(8)
@@ -108,3 +112,4 @@ export type FeatureLayer =
   | ModelLayer
   | MaisemanMuistiLayer
   | HelsinkiLayer
+  | ViabundusLayer
