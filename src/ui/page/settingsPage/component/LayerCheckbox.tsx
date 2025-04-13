@@ -6,7 +6,7 @@ import { getLayerIconURLs } from "../../../../common/util/featureParser"
 interface LayerCheckboxProps<T extends FeatureLayer> {
   label: string
   layer: T
-  selectedLayers: Array<T>
+  selectedLayers: T[]
   onSelectLayer: (layer: T) => void
   showIcon?: boolean
   disabled?: boolean

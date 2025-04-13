@@ -28,9 +28,9 @@ export enum PageId {
 }
 
 export interface SelectedFeaturesOnMap {
-  features: Array<MapFeature>
-  models: Array<GeoJSONFeature<ModelFeatureProperties>>
-  maisemanMuistiFeatures: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
+  features: MapFeature[]
+  models: GeoJSONFeature<ModelFeatureProperties>[]
+  maisemanMuistiFeatures: GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
 }
 
 export interface Settings {
@@ -39,7 +39,7 @@ export interface Settings {
   visiblePage?: PageId
   selectedFeaturesOnMap: SelectedFeaturesOnMap
   search: {
-    features: Array<MapFeature>
+    features: MapFeature[]
   }
   initialMapZoom: number
   language: Language
@@ -51,7 +51,7 @@ export interface Settings {
     apiKey: string
   }
   maanmittauslaitosVanhatKartat: {
-    selectedLayers: Array<MaanmittauslaitosVanhatKartatLayer>
+    selectedLayers: MaanmittauslaitosVanhatKartatLayer[]
     url: {
       wms: string
     }
@@ -59,9 +59,9 @@ export interface Settings {
     enabled: boolean
   }
   museovirasto: {
-    selectedLayers: Array<MuseovirastoLayer>
-    selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
-    selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>
+    selectedLayers: MuseovirastoLayer[]
+    selectedMuinaisjaannosTypes: MuinaisjaannosTyyppi[]
+    selectedMuinaisjaannosDatings: MuinaisjaannosAjoitus[]
     url: {
       wms: string
       wfs: string
@@ -70,7 +70,7 @@ export interface Settings {
     enabled: boolean
   }
   ahvenanmaa: {
-    selectedLayers: Array<AhvenanmaaLayer>
+    selectedLayers: AhvenanmaaLayer[]
     url: {
       export: string
       identify: string
@@ -81,21 +81,21 @@ export interface Settings {
     enabled: boolean
   }
   models: {
-    selectedLayers: Array<ModelLayer>
+    selectedLayers: ModelLayer[]
     url: {
       geojson: string
     }
     enabled: boolean
   }
   maisemanMuisti: {
-    selectedLayers: Array<MaisemanMuistiLayer>
+    selectedLayers: MaisemanMuistiLayer[]
     url: {
       geojson: string
     }
     enabled: boolean
   }
   gtk: {
-    selectedLayers: Array<GtkLayer>
+    selectedLayers: GtkLayer[]
     url: {
       export: string
     }
@@ -103,7 +103,7 @@ export interface Settings {
     enabled: boolean
   }
   helsinki: {
-    selectedLayers: Array<HelsinkiLayer>
+    selectedLayers: HelsinkiLayer[]
     url: {
       wms: string
     }

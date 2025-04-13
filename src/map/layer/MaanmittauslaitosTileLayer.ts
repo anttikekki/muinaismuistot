@@ -1,6 +1,5 @@
 import WMTSCapabilities from "ol/format/WMTSCapabilities"
 import TileLayer from "ol/layer/Tile"
-import { TileSourceEvent } from "ol/source/Tile"
 import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS"
 import { MaanmittauslaitosLayer } from "../../common/layers.types"
 import { Settings } from "../../store/storeTypes"
@@ -84,13 +83,13 @@ export default class MaanmittauslaitosTileLayer {
   private updateLoadingAnimationOnLayerSourceTileLoad = (
     source: WMTSSource
   ) => {
-    source.on("tileloadstart", (evt: TileSourceEvent) => {
+    source.on("tileloadstart", () => {
       this.updateTileLoadingStatus(true)
     })
-    source.on("tileloadend", (evt: TileSourceEvent) => {
+    source.on("tileloadend", () => {
       this.updateTileLoadingStatus(false)
     })
-    source.on("tileloaderror", (evt: TileSourceEvent) => {
+    source.on("tileloaderror", () => {
       this.updateTileLoadingStatus(false)
     })
   }

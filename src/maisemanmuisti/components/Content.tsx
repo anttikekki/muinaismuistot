@@ -10,7 +10,7 @@ import { TableOfContent } from "./TableOfContent"
 
 export const Content: React.FC = () => {
   const [features, setFeatures] = useState<
-    Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
+    GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
   >([])
 
   useEffect(() => {

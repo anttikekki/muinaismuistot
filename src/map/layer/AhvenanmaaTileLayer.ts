@@ -2,7 +2,6 @@ import { Coordinate } from "ol/coordinate"
 import { containsCoordinate, Extent } from "ol/extent"
 import TileLayer from "ol/layer/Tile"
 import { Size } from "ol/size"
-import { TileSourceEvent } from "ol/source/Tile"
 import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest"
 import {
   AhvenanmaaArcgisFeature,
@@ -24,7 +23,7 @@ export default class AhvenanmaaTileLayer {
   private readonly updateTileLoadingStatus: ShowLoadingAnimationFn
   private typeAndDatingMap?: ReadonlyMap<
     string,
-    Array<AhvenanmaaTypeAndDatingFeatureProperties>
+    AhvenanmaaTypeAndDatingFeatureProperties[]
   >
 
   public constructor(
@@ -44,8 +43,8 @@ export default class AhvenanmaaTileLayer {
   }
 
   private toLayerIds = (
-    layers: Array<AhvenanmaaLayer>
-  ): Array<AhvenanmaaLayerId> => {
+    layers: AhvenanmaaLayer[]
+  ): AhvenanmaaLayerId[] => {
     return layers.map(getAhvenanmaaLayerId).sort((a, b) => a - b)
   }
 
@@ -69,13 +68,13 @@ export default class AhvenanmaaTileLayer {
     }
     const newSource = new TileArcGISRestSource(options)
 
-    newSource.on("tileloadstart", (evt: TileSourceEvent) => {
+    newSource.on("tileloadstart", () => {
       this.updateTileLoadingStatus(true)
     })
-    newSource.on("tileloadend", (evt: TileSourceEvent) => {
+    newSource.on("tileloadend", () => {
       this.updateTileLoadingStatus(false)
     })
-    newSource.on("tileloaderror", (evt: TileSourceEvent) => {
+    newSource.on("tileloaderror", () => {
       this.updateTileLoadingStatus(false)
     })
 
@@ -195,7 +194,7 @@ export default class AhvenanmaaTileLayer {
   private getTypeAndDatingData = async (
     settings: Settings
   ): Promise<
-    ReadonlyMap<string, Array<AhvenanmaaTypeAndDatingFeatureProperties>>
+    ReadonlyMap<string, AhvenanmaaTypeAndDatingFeatureProperties[]>
   > => {
     if (this.typeAndDatingMap) {
       return this.typeAndDatingMap
@@ -203,7 +202,7 @@ export default class AhvenanmaaTileLayer {
 
     const map = new Map<
       string,
-      Array<AhvenanmaaTypeAndDatingFeatureProperties>
+      AhvenanmaaTypeAndDatingFeatureProperties[]
     >()
 
     try {

@@ -29,7 +29,7 @@ export const createStore = (
 
 // Yksinkertaistettu tyypitys kuuntelijalle, koska aidot tyypitykset
 // ovat monimutkaisia ja eivät rajaa Actioneitten tyyppiä tarpeeksi.
-export type StoreListener = {
+export interface StoreListener {
   predicate: (action: ActionTypes) => boolean
   effect: (
     action: ActionTypes,

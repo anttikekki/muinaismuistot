@@ -7,7 +7,7 @@ import { Settings } from "../storeTypes"
 
 export const updateMuseovirastoSelectedLayers = (
   settings: Settings,
-  selectedLayers: Array<MuseovirastoLayer>
+  selectedLayers: MuseovirastoLayer[]
 ): Settings => {
   return {
     ...settings,
@@ -46,7 +46,7 @@ export const updateMuseovirastoLayerEnabled = (
 
 export const updateSelectMuinaisjaannosTypes = (
   settings: Settings,
-  selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
+  selectedMuinaisjaannosTypes: MuinaisjaannosTyyppi[]
 ): Settings => {
   return {
     ...settings,
@@ -59,7 +59,7 @@ export const updateSelectMuinaisjaannosTypes = (
 
 export const updateSelectMuinaisjaannosDatings = (
   settings: Settings,
-  selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>
+  selectedMuinaisjaannosDatings: MuinaisjaannosAjoitus[]
 ): Settings => {
   return {
     ...settings,

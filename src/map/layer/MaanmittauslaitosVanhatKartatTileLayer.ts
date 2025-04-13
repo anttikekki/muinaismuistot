@@ -1,5 +1,4 @@
 import TileLayer from "ol/layer/Tile"
-import { TileSourceEvent } from "ol/source/Tile"
 import TileWMS, { Options } from "ol/source/TileWMS"
 import { Settings } from "../../store/storeTypes"
 
@@ -35,13 +34,13 @@ export default class MaanmittauslaitosVanhatKartatTileLayer {
     }
     const newSource = new TileWMS(options)
 
-    newSource.on("tileloadstart", (evt: TileSourceEvent) => {
+    newSource.on("tileloadstart", () => {
       this.updateTileLoadingStatus(true)
     })
-    newSource.on("tileloadend", (evt: TileSourceEvent) => {
+    newSource.on("tileloadend", () => {
       this.updateTileLoadingStatus(false)
     })
-    newSource.on("tileloaderror", (evt: TileSourceEvent) => {
+    newSource.on("tileloaderror", () => {
       this.updateTileLoadingStatus(false)
     })
 

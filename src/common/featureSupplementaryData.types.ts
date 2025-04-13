@@ -6,6 +6,6 @@ import { MaisemanMuistiFeatureProperties } from "./maisemanMuisti.types"
  * 3D models and Maiseman muisti supplemetary data for Museovirasto search/identify feature
  */
 export interface FeatureSupplementaryData {
-  models: Array<GeoJSONFeature<ModelFeatureProperties>>
-  maisemanMuisti: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
+  models: GeoJSONFeature<ModelFeatureProperties>[]
+  maisemanMuisti: GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
 }

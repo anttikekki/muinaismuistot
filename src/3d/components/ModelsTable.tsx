@@ -12,13 +12,13 @@ import { createLocationHash } from "../../common/util/URLHashHelper"
 type SortDirection = "asc" | "desc"
 
 interface Props {
-  models: Array<GeoJSONFeature<ModelFeatureProperties>>
+  models: GeoJSONFeature<ModelFeatureProperties>[]
 }
 
 export const ModelsTable: React.FC<Props> = ({ models }) => {
   const { t } = useTranslation()
   const [sortedModels, setSortedModels] = useState<
-    Array<GeoJSONFeature<ModelFeatureProperties>>
+    GeoJSONFeature<ModelFeatureProperties>[]
   >([])
   const [sortColumn, setSortColumn] = useState<string>("Lisätty")
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc")

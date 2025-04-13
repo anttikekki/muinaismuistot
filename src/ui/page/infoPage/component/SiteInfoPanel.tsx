@@ -95,7 +95,7 @@ export const SiteInfoPanel: React.FC = () => {
       <p>
         {regexifyString({
           pattern: /ICON/gm,
-          decorator: (match) => {
+          decorator: () => {
             return <i className="bi bi-link-45deg" aria-hidden="true" />
           },
           input: t(`info.siteInfo.info2`)

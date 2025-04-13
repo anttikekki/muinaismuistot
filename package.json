@@ -3,6 +3,7 @@
   "version": "1.23.0",
   "description": "Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa.",
   "scripts": {
+    "lint": "npx eslint .",
     "build:prod": "NODE_ENV=production webpack --mode=production --progress",
     "build:dev": "webpack --mode=development --progress --devtool source-map",
     "dev": "webpack serve --mode=development --server-type https --host 0.0.0.0 --port 8091 --allowed-hosts all --progress --hot --open",
@@ -34,17 +35,20 @@
     "tslib": "2.8.1"
   },
   "devDependencies": {
+    "@eslint/js": "9.24.0",
     "@types/proj4": "2.5.6",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
     "clean-webpack-plugin": "4.0.0",
     "copy-webpack-plugin": "13.0.0",
     "css-loader": "7.1.2",
+    "eslint": "9.24.0",
     "html-webpack-plugin": "5.6.3",
     "prettier": "3.5.3",
     "style-loader": "4.0.0",
     "ts-loader": "9.5.2",
     "typescript": "5.8.3",
+    "typescript-eslint": "8.29.1",
     "url-loader": "4.1.1",
     "webpack": "5.98.0",
     "webpack-bundle-analyzer": "4.10.2",

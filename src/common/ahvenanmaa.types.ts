@@ -38,7 +38,7 @@ export interface AhvenanmaaForminnenArgisFeature
      * Fetched from separata data source in AhvenanmaaTileLayer
      * @see https://www.kartor.ax/datasets/fornminnen-typ-och-datering
      */
-    typeAndDating?: Array<AhvenanmaaTypeAndDatingFeatureProperties>
+    typeAndDating?: AhvenanmaaTypeAndDatingFeatureProperties[]
   }
   geometryType: GeometryTypePolygon
   geometry: PolygonGeometry
@@ -82,11 +82,11 @@ export type AhvenanmaaArcgisFeature =
   | AhvenanmaaMaritimtKulturarvArgisFeature
 
 export interface AhvenanmaaArcgisIdentifyResult {
-  results: Array<AhvenanmaaArcgisFeature>
+  results: AhvenanmaaArcgisFeature[]
 }
 
 export interface AhvenanmaaArcgisFindResult {
-  results: Array<AhvenanmaaArcgisFeature>
+  results: AhvenanmaaArcgisFeature[]
 }
 
 export const isAhvenanmaaArcgisFeature = (

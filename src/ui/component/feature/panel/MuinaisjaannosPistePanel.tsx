@@ -27,7 +27,7 @@ interface Props extends FeatureCollapsePanelCommonExternalProps {
 }
 
 function renderList<T extends string>(
-  data: Array<T>,
+  data: T[],
   contentFn: (row: T) => ReactNode
 ) {
   if (data.length === 0) {

@@ -1,5 +1,4 @@
 import TileLayer from "ol/layer/Tile"
-import { TileSourceEvent } from "ol/source/Tile"
 import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest"
 import { GtkLayerId, getGtkLayerId } from "../../common/gtk.types"
 import { GtkLayer } from "../../common/layers.types"
@@ -26,7 +25,7 @@ export default class GtkTileLayer {
     this.updateLayerVisibility(settings)
   }
 
-  private toLayerIds = (layers: Array<GtkLayer>): Array<GtkLayerId> => {
+  private toLayerIds = (layers: GtkLayer[]): GtkLayerId[] => {
     return layers.map(getGtkLayerId).sort((a, b) => a - b)
   }
 
@@ -48,13 +47,13 @@ export default class GtkTileLayer {
     }
     const newSource = new TileArcGISRestSource(options)
 
-    newSource.on("tileloadstart", (evt: TileSourceEvent) => {
+    newSource.on("tileloadstart", () => {
       this.updateTileLoadingStatus(true)
     })
-    newSource.on("tileloadend", (evt: TileSourceEvent) => {
+    newSource.on("tileloadend", () => {
       this.updateTileLoadingStatus(false)
     })
-    newSource.on("tileloaderror", (evt: TileSourceEvent) => {
+    newSource.on("tileloaderror", () => {
       this.updateTileLoadingStatus(false)
     })
 

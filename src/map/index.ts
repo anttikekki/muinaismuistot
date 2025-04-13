@@ -51,7 +51,7 @@ export default class MuinaismuistotMap {
   private readonly maisemanMuistiLayer: MaisemanMuistiLayer
   private readonly gtkLayer: GtkTileLayer
   private readonly helsinkiLayer: HelsinkiTileLayer
-  private tileLoadingCounter: number = 0
+  private tileLoadingCounter = 0
 
   public constructor(store: Store<Settings, ActionTypes>) {
     this.store = store
@@ -139,7 +139,7 @@ export default class MuinaismuistotMap {
   }
 
   public mapUpdaterStoreListener: StoreListener = {
-    predicate: (action) => true,
+    predicate: () => true,
     effect: async (action, listenerApi) => {
       const settings = listenerApi.getState()
       switch (action.type) {
@@ -172,7 +172,7 @@ export default class MuinaismuistotMap {
             settings
           )
           break
-        case ActionTypeEnum.SEARCH_FEATURES:
+        case ActionTypeEnum.SEARCH_FEATURES: {
           const result = await this.searchFeaturesFromMapLayers(
             action.searchText,
             settings
@@ -182,6 +182,7 @@ export default class MuinaismuistotMap {
             searchResultFeatures: result
           })
           break
+        }
       }
     }
   }
@@ -212,7 +213,7 @@ export default class MuinaismuistotMap {
   private getFeaturesAtPixelAtGeoJsonLayer<T>(
     pixel: Pixel,
     geoJsonLayer?: VectorLayer<VectorSource<Feature<Geometry>>>
-  ): Array<GeoJSONFeature<T>> {
+  ): GeoJSONFeature<T>[] {
     return this.map
       .getFeaturesAtPixel(pixel, {
         layerFilter: (layer: Layer<Source>) => layer === geoJsonLayer,
@@ -285,7 +286,7 @@ export default class MuinaismuistotMap {
       ([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {
         this.showLoadingAnimationInUI(false)
 
-        const features: Array<MapFeature> = [
+        const features: MapFeature[] = [
           ...ahvenanmaaResult.results,
           ...museovirastoResult.features,
           ...maalinnoitusFeatures
@@ -375,7 +376,7 @@ export default class MuinaismuistotMap {
   private searchFeaturesFromMapLayers = async (
     searchText: string,
     settings: Settings
-  ): Promise<Array<MapFeature>> => {
+  ): Promise<MapFeature[]> => {
     this.showLoadingAnimationInUI(true)
     const ahvenanmaaQuery = this.ahvenanmaaTileLayer.findFeatures(
       searchText,
@@ -392,7 +393,7 @@ export default class MuinaismuistotMap {
     ])
     this.showLoadingAnimationInUI(false)
 
-    const features: Array<MapFeature> = [
+    const features: MapFeature[] = [
       ...ahvenanmaaResult.results,
       ...museovirastoResult.features
     ]

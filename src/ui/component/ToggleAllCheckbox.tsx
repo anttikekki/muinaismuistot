@@ -2,9 +2,9 @@ import React, { useMemo } from "react"
 import { Form } from "react-bootstrap"
 
 interface ToggleAllCheckboxProps<T> {
-  allValues: Array<T>
-  selectedValues: Array<T>
-  onSelectValues: (types: Array<T>) => void
+  allValues: T[]
+  selectedValues: T[]
+  onSelectValues: (types: T[]) => void
   disabled?: boolean
   children: React.ReactNode
 }

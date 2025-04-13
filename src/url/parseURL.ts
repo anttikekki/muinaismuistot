@@ -51,13 +51,13 @@ import { EMPTY_SELECTION, URLSettings } from "./types"
 
 const isEnumValue = <ENUM extends Record<string, unknown>>(
   enumObj: ENUM,
-  value: any
+  value: unknown
 ): value is ENUM[keyof ENUM] => Object.values(enumObj).some((v) => v === value)
 
 const isEnumArray = <ENUM extends Record<string, unknown>>(
   enumObj: ENUM,
-  valueArray: Array<any>
-): valueArray is Array<ENUM[keyof ENUM]> =>
+  valueArray: unknown[]
+): valueArray is ENUM[keyof ENUM][] =>
   valueArray.every((v) => isEnumValue(enumObj, v))
 
 const validateAndUpdateUrlParamToSettings = <
@@ -65,10 +65,10 @@ const validateAndUpdateUrlParamToSettings = <
 >(
   settings: Settings,
   enumObj: ENUM,
-  value: string | Array<string>,
+  value: string | string[],
   updateSettings: (
     settings: Settings,
-    values: Array<ENUM[keyof ENUM]>
+    values: ENUM[keyof ENUM][]
   ) => Settings
 ): Settings => {
   if (value === EMPTY_SELECTION) {

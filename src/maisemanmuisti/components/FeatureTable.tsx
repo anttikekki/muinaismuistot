@@ -29,12 +29,12 @@ const ColumnHeader: React.FC<{
 }
 
 interface Props {
-  features: Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
+  features: GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
 }
 
 export const FeatureTable: React.FC<Props> = ({ features }) => {
   const [sortedFeatures, setSortedFeatures] = useState<
-    Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
+    GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
   >([])
   const [sortColumn, setSortColumn] = useState<string>("Lisätty")
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc")
@@ -160,7 +160,7 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
           </tr>
         </thead>
         <tbody>
-          {sortedFeatures.map((feature, i) => {
+          {sortedFeatures.map((feature) => {
             const {
               id,
               name,

@@ -12,11 +12,11 @@ export interface PointGeometry {
 }
 
 export interface PolygonGeometry {
-  rings: Array<Array<[number, number]>>
+  rings: [number, number][][]
 }
 
 export interface PolylineGeometry {
-  paths: Array<Array<[number, number]>>
+  paths: [number, number][][]
 }
 
 export interface ArcGisPointGeometryFeature {

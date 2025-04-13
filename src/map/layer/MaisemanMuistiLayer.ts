@@ -19,7 +19,7 @@ export default class MaisemanMuistiLayer {
   private readonly style: Style
   private readonly featuresForRegisterId = new Map<
     string,
-    Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
+    GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
   >()
 
   public constructor(settings: Settings) {
@@ -82,7 +82,7 @@ export default class MaisemanMuistiLayer {
 
   public getFeaturesForFeatureRegisterId = (
     id: string
-  ): Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>> => {
+  ): GeoJSONFeature<MaisemanMuistiFeatureProperties>[] => {
     return this.featuresForRegisterId.get(id) || []
   }
 

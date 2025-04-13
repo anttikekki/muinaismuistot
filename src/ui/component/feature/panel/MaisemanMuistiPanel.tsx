@@ -16,7 +16,7 @@ import { TimespanLabel } from "../component/TimespanLabel"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>
-  models?: Array<GeoJSONFeature<ModelFeatureProperties>>
+  models?: GeoJSONFeature<ModelFeatureProperties>[]
 }
 
 export const MaisemanMuistiPanel: React.FC<Props> = ({

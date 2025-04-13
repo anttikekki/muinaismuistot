@@ -2,7 +2,6 @@ import { Coordinate } from "ol/coordinate"
 import { containsCoordinate } from "ol/extent"
 import TileLayer from "ol/layer/Tile"
 import Projection from "ol/proj/Projection"
-import { TileSourceEvent } from "ol/source/Tile"
 import TileWMS, { Options } from "ol/source/TileWMS"
 import { HelsinkiLayer } from "../../common/layers.types"
 import {
@@ -50,13 +49,13 @@ export default class HelsinkiTileLayer {
     }
     const newSource = new TileWMS(options)
 
-    newSource.on("tileloadstart", (evt: TileSourceEvent) => {
+    newSource.on("tileloadstart", () => {
       this.updateTileLoadingStatus(true)
     })
-    newSource.on("tileloadend", (evt: TileSourceEvent) => {
+    newSource.on("tileloadend", () => {
       this.updateTileLoadingStatus(false)
     })
-    newSource.on("tileloaderror", (evt: TileSourceEvent) => {
+    newSource.on("tileloaderror", () => {
       this.updateTileLoadingStatus(false)
     })
 
@@ -81,7 +80,7 @@ export default class HelsinkiTileLayer {
     resolution: number | undefined,
     projection: Projection,
     settings: Settings
-  ): Promise<Array<MaalinnoitusWmsFeature>> => {
+  ): Promise<MaalinnoitusWmsFeature[]> => {
     const extent = this.layer?.getExtent()
 
     /**
@@ -123,7 +122,7 @@ export default class HelsinkiTileLayer {
           const result =
             (await response.json()) as MaalinnoitusWmsFeatureInfoResult
           return this.removeDuplicateIdentifyFeatures(result.features)
-        } catch (e) {
+        } catch {
           return []
         }
       }
@@ -132,8 +131,8 @@ export default class HelsinkiTileLayer {
   }
 
   private removeDuplicateIdentifyFeatures = (
-    features: Array<MaalinnoitusWmsFeature>
-  ): Array<MaalinnoitusWmsFeature> => {
+    features: MaalinnoitusWmsFeature[]
+  ): MaalinnoitusWmsFeature[] => {
     const allKohdeFeatures = features.filter(isMaalinnoitusKohdeFeature)
 
     return features.filter((f) => {

@@ -26,7 +26,7 @@ i18n.use(initReactI18next).init({
 
 export const Content: React.FC = () => {
   const [models, setModels] = useState<
-    Array<GeoJSONFeature<ModelFeatureProperties>>
+    GeoJSONFeature<ModelFeatureProperties>[]
   >([])
   const [latestUpdateDate, setLatestUpdateDate] = useState<Date>()
 

@@ -55,7 +55,7 @@ export interface SearchFeaturesAction {
 
 export interface SearchFeaturesCompleteAction {
   type: ActionTypeEnum.SEARCH_FEATURES_COMPLETE
-  searchResultFeatures: Array<MapFeature>
+  searchResultFeatures: MapFeature[]
 }
 
 export interface ClickedMapFeatureIdentificationCompleteAction {
@@ -82,43 +82,43 @@ interface SelectVisibleMaanmittauslaitosLayerAction {
 interface SelectVisibleMaanmittauslaitosVanhatKartatLayerAction {
   type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
   layerGroup: LayerGroup.MaanmittauslaitosVanhatKartat
-  layers: Array<MaanmittauslaitosVanhatKartatLayer>
+  layers: MaanmittauslaitosVanhatKartatLayer[]
 }
 
 interface SelectVisibleGTKLayersAction {
   type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
   layerGroup: LayerGroup.GTK
-  layers: Array<GtkLayer>
+  layers: GtkLayer[]
 }
 
 interface SelectVisibleMuseovirastoLayersAction {
   type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
   layerGroup: LayerGroup.Museovirasto
-  layers: Array<MuseovirastoLayer>
+  layers: MuseovirastoLayer[]
 }
 
 interface SelectVisibleAhvenanmaaLayersAction {
   type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
   layerGroup: LayerGroup.Ahvenanmaa
-  layers: Array<AhvenanmaaLayer>
+  layers: AhvenanmaaLayer[]
 }
 
 interface SelectVisibleHelsinkiLayersAction {
   type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
   layerGroup: LayerGroup.Helsinki
-  layers: Array<HelsinkiLayer>
+  layers: HelsinkiLayer[]
 }
 
 interface SelectVisibleModelsLayersAction {
   type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
   layerGroup: LayerGroup.Models
-  layers: Array<ModelLayer>
+  layers: ModelLayer[]
 }
 
 interface SelectVisibleMaisemanMuistiLayersAction {
   type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
   layerGroup: LayerGroup.MaisemanMuisti
-  layers: Array<MaisemanMuistiLayer>
+  layers: MaisemanMuistiLayer[]
 }
 
 export interface ChangeLayerOpacityAction {
@@ -135,12 +135,12 @@ export interface EnableLayerGroupAction {
 
 export interface SelectVisibleMuinaisjäännösTypeAction {
   type: ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE
-  types: Array<MuinaisjaannosTyyppi>
+  types: MuinaisjaannosTyyppi[]
 }
 
 export interface SelectVisibleMuinaisjäännösDatingAction {
   type: ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING
-  datings: Array<MuinaisjaannosAjoitus>
+  datings: MuinaisjaannosAjoitus[]
 }
 
 export interface ChangeLanguageAction {

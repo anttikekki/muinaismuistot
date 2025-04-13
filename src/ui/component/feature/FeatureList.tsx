@@ -50,11 +50,9 @@ import { MaalinnoitusYksikkoPanel } from "./panel/MaalinnoitusYksikkoPanel"
 
 interface FeatureListProps {
   titleClickAction: FeatureTitleClickAction
-  features?: Array<MapFeature>
-  models?: Array<GeoJSONFeature<ModelFeatureProperties>>
-  maisemanMuistiFeatures?: Array<
-    GeoJSONFeature<MaisemanMuistiFeatureProperties>
-  >
+  features?: MapFeature[]
+  models?: GeoJSONFeature<ModelFeatureProperties>[]
+  maisemanMuistiFeatures?: GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
 }
 
 export const FeatureList: React.FC<FeatureListProps> = ({

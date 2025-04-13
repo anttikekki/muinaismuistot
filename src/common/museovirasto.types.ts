@@ -70,9 +70,9 @@ export interface MuinaisjaannosPisteWmsFeature
     /**
      * trimmed and splitted values for easier usage
      */
-    tyyppiSplitted: Array<MuinaisjaannosTyyppi>
-    ajoitusSplitted: Array<MuinaisjaannosAjoitus>
-    alatyyppiSplitted: Array<string>
+    tyyppiSplitted: MuinaisjaannosTyyppi[]
+    ajoitusSplitted: MuinaisjaannosAjoitus[]
+    alatyyppiSplitted: string[]
   }
 }
 
@@ -123,9 +123,9 @@ export interface MuuKulttuuriperintokohdePisteWmsFeature
     /**
      * trimmed and splitted values for easier usage
      */
-    tyyppiSplitted: Array<MuinaisjaannosTyyppi>
-    ajoitusSplitted: Array<MuinaisjaannosAjoitus>
-    alatyyppiSplitted: Array<string>
+    tyyppiSplitted: MuinaisjaannosTyyppi[]
+    ajoitusSplitted: MuinaisjaannosAjoitus[]
+    alatyyppiSplitted: string[]
   }
 }
 

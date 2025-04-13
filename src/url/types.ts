@@ -4,25 +4,25 @@ export interface URLSettings {
   zoom?: number
   lang?: Language
   mmlLayer?: string
-  mmlVanhatKartatLayer?: string | Array<string>
+  mmlVanhatKartatLayer?: string | string[]
   mmlVanhatKartatOpacity?: number
   mmlVanhatKartatEnabled?: boolean
-  gtkLayer?: string | Array<string>
+  gtkLayer?: string | string[]
   gtkOpacity?: number
   gtkEnabled?: boolean
-  museovirastoLayer?: string | Array<string>
+  museovirastoLayer?: string | string[]
   museovirastoOpacity?: number
   museovirastoEnabled?: boolean
-  muinaisjaannosTypes?: string | Array<string>
-  muinaisjaannosDatings?: string | Array<string>
-  ahvenanmaaLayer?: string | Array<string>
+  muinaisjaannosTypes?: string | string[]
+  muinaisjaannosDatings?: string | string[]
+  ahvenanmaaLayer?: string | string[]
   ahvenanmaaOpacity?: number
   ahvenanmaaEnabled?: boolean
-  helsinkiLayer?: string | Array<string>
+  helsinkiLayer?: string | string[]
   helsinkiOpacity?: number
   helsinkiEnabled?: boolean
-  modelsLayer?: string | Array<string>
-  maisemanMuistiLayer?: string | Array<string>
+  modelsLayer?: string | string[]
+  maisemanMuistiLayer?: string | string[]
 }
 
 export const EMPTY_SELECTION = "none"

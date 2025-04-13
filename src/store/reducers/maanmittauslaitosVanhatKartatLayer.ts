@@ -3,7 +3,7 @@ import { Settings } from "../storeTypes"
 
 export const updateMaanmittauslaitosVanhatKartatSelectedLayer = (
   settings: Settings,
-  selectedLayers: Array<MaanmittauslaitosVanhatKartatLayer>
+  selectedLayers: MaanmittauslaitosVanhatKartatLayer[]
 ): Settings => {
   return {
     ...settings,

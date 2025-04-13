@@ -3,7 +3,7 @@ import { Settings } from "../storeTypes"
 
 export const updateMaisemanMuistiSelectedLayers = (
   settings: Settings,
-  selectedLayers: Array<MaisemanMuistiLayer>
+  selectedLayers: MaisemanMuistiLayer[]
 ): Settings => {
   return {
     ...settings,

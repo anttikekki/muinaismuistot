@@ -1,21 +1,21 @@
-export type WmsGeometryPoint = {
+export interface WmsGeometryPoint {
   type: "Point"
   coordinates: [number, number]
 }
 
-export type WmsGeometryLineString = {
+export interface WmsGeometryLineString {
   type: "LineString"
-  coordinates: Array<[number, number]>
+  coordinates: [number, number][]
 }
 
-export type WmsGeometryPolygon = {
+export interface WmsGeometryPolygon {
   type: "Polygon"
-  coordinates: Array<[number, number]>
+  coordinates: [number, number][]
 }
 
-export type WmsGeometryMultiPolygon = {
+export interface WmsGeometryMultiPolygon {
   type: "MultiPolygon"
-  coordinates: Array<Array<[number, number]>>
+  coordinates: [number, number][][]
 }
 
 export type WmsGeometry =
@@ -34,7 +34,7 @@ export interface WmsFeature {
 
 export interface WmsFeatureInfoResult<WmsFeatureType> {
   type: "FeatureCollection"
-  features: Array<WmsFeatureType>
+  features: WmsFeatureType[]
   totalFeatures: "unknown"
   numberReturned: number
   timeStamp: string // "2021-02-28T18:56:20.579Z"

@@ -5,7 +5,7 @@ import { ModelFeatureProperties } from "../../../../common/3dModels.types"
 import { GeoJSONFeature } from "../../../../common/geojson.types"
 
 interface Props {
-  models: Array<GeoJSONFeature<ModelFeatureProperties>>
+  models: GeoJSONFeature<ModelFeatureProperties>[]
 }
 
 export const Info: React.FC = () => {

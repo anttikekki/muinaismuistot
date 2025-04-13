@@ -1,13 +1,18 @@
-const webpack = require("webpack")
-const { CleanWebpackPlugin } = require("clean-webpack-plugin")
-const HtmlWebpackPlugin = require("html-webpack-plugin")
-const CopyWebpackPlugin = require("copy-webpack-plugin")
-const BundleAnalyzerPlugin =
-  require("webpack-bundle-analyzer").BundleAnalyzerPlugin
+import path from "path"
+import { fileURLToPath } from "url"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+import { CleanWebpackPlugin } from "clean-webpack-plugin"
+import CopyWebpackPlugin from "copy-webpack-plugin"
+import HtmlWebpackPlugin from "html-webpack-plugin"
+import "webpack"
+import BundleAnalyzerPlugin from "webpack-bundle-analyzer"
 
 const SHOW_BUNDLE_ANALYZER = process.env.SHOW_BUNDLE_ANALYZER !== undefined
 
-module.exports = {
+export default {
   entry: {
     app: "./src/index.ts",
     models: "./src/3d/index.tsx",

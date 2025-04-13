@@ -3,7 +3,7 @@ import { Settings } from "../storeTypes"
 
 export const updateHelsinkiSelectedLayers = (
   settings: Settings,
-  selectedLayers: Array<HelsinkiLayer>
+  selectedLayers: HelsinkiLayer[]
 ): Settings => {
   return {
     ...settings,

@@ -35,7 +35,7 @@ interface Props {
 }
 
 export const PageHeader: React.FC<Props> = ({ title }) => {
-  const { t, i18n } = useTranslation()
+  const { i18n } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
 
   const onLanguageChange = useCallback(

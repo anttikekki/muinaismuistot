@@ -1,7 +1,6 @@
 import { Coordinate } from "ol/coordinate"
 import TileLayer from "ol/layer/Tile"
 import { Projection } from "ol/proj"
-import { TileSourceEvent } from "ol/source/Tile"
 import TileWMS, { Options } from "ol/source/TileWMS"
 import { MuseovirastoLayer } from "../../common/layers.types"
 import {
@@ -50,13 +49,13 @@ export default class MuseovirastoTileLayer {
     }
     const newSource = new TileWMS(options)
 
-    newSource.on("tileloadstart", (evt: TileSourceEvent) => {
+    newSource.on("tileloadstart", () => {
       this.updateTileLoadingStatus(true)
     })
-    newSource.on("tileloadend", (evt: TileSourceEvent) => {
+    newSource.on("tileloadend", () => {
       this.updateTileLoadingStatus(false)
     })
-    newSource.on("tileloaderror", (evt: TileSourceEvent) => {
+    newSource.on("tileloaderror", () => {
       this.updateTileLoadingStatus(false)
     })
 
@@ -232,7 +231,7 @@ export default class MuseovirastoTileLayer {
       return selectedLayers
         .map((layer) => {
           if (layer === MuseovirastoLayer.Muinaisjaannokset_piste) {
-            const filters: Array<string> = []
+            const filters: string[] = []
             if (hasDatingsFilter) {
               // Add '%' prefix and postfix wildcard because values are like 'keskiaikainen, rautakautinen, , ,'
               const filter = selectedMuinaisjaannosDatings

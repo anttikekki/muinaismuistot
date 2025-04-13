@@ -15,7 +15,7 @@ import { toggleSelection } from "../../../util"
 
 interface TypeCheckboxProps {
   type: MuinaisjaannosTyyppi
-  selectedMuinaisjaannosTypes: Array<MuinaisjaannosTyyppi>
+  selectedMuinaisjaannosTypes: MuinaisjaannosTyyppi[]
   onSelectType: (type: MuinaisjaannosTyyppi) => void
   disabled?: boolean
 }
@@ -44,7 +44,7 @@ const TypeCheckbox: React.FC<TypeCheckboxProps> = ({
 
 interface DatingCheckboxProps {
   dating: MuinaisjaannosAjoitus
-  selectedMuinaisjaannosDatings: Array<MuinaisjaannosAjoitus>
+  selectedMuinaisjaannosDatings: MuinaisjaannosAjoitus[]
   onSelectDating: (dating: MuinaisjaannosAjoitus) => void
   disabled?: boolean
 }
@@ -90,7 +90,7 @@ export const FeatureLayerFilterPanel: React.FC = () => {
     [dispatch, selectedMuinaisjaannosTypes]
   )
   const onToggleAllMuinaisjaannosTypes = useCallback(
-    (types: Array<MuinaisjaannosTyyppi>) =>
+    (types: MuinaisjaannosTyyppi[]) =>
       dispatch({
         type: ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE,
         types
@@ -106,7 +106,7 @@ export const FeatureLayerFilterPanel: React.FC = () => {
     [dispatch, selectedMuinaisjaannosDatings]
   )
   const onToggleAllMuinaisjaannosDatings = useCallback(
-    (datings: Array<MuinaisjaannosAjoitus>) =>
+    (datings: MuinaisjaannosAjoitus[]) =>
       dispatch({
         type: ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING,
         datings

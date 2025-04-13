@@ -23,7 +23,7 @@ export default class ModelsLayer {
   private readonly stylePolygon: Style
   private readonly featuresForRegisterId = new Map<
     string,
-    Array<GeoJSONFeature<ModelFeatureProperties>>
+    GeoJSONFeature<ModelFeatureProperties>[]
   >()
 
   public constructor(settings: Settings) {
@@ -85,7 +85,7 @@ export default class ModelsLayer {
 
   private styleForFeature = (feature: FeatureLike) => {
     switch (feature.getGeometry()?.getType()) {
-      case "Point":
+      case "Point": {
         const properties = feature.getProperties() as ModelFeatureProperties
         if (
           properties.registryItem.type ===
@@ -100,6 +100,7 @@ export default class ModelsLayer {
           return this.stylePointSquare
         }
         return this.stylePointCircle
+      }
       case "Polygon":
         return this.stylePolygon
       default:
@@ -130,7 +131,7 @@ export default class ModelsLayer {
   public getFeaturesForFeatureRegisterId = (
     id: string,
     layer: FeatureLayer
-  ): Array<GeoJSONFeature<ModelFeatureProperties>> => {
+  ): GeoJSONFeature<ModelFeatureProperties>[] => {
     const models = this.featuresForRegisterId.get(id) || []
     return models.filter((m) => m.properties.registryItem.type === layer)
   }

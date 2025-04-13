@@ -3,7 +3,7 @@ import { Settings } from "../storeTypes"
 
 export const updateGtkSelectedLayers = (
   settings: Settings,
-  selectedLayers: Array<GtkLayer>
+  selectedLayers: GtkLayer[]
 ): Settings => {
   return {
     ...settings,

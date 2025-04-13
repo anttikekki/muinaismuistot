@@ -10,7 +10,7 @@ import { FeatureTitleClickAction } from "../../component/feature/component/Featu
 import { Page } from "../Page"
 
 interface ResultsProps {
-  features?: Array<MapFeature>
+  features?: MapFeature[]
 }
 
 const Results: React.FC<ResultsProps> = ({ features }) => {

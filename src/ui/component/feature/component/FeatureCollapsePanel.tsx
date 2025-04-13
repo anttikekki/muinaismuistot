@@ -40,7 +40,6 @@ interface FeatureCollapsePanelProps
 }
 
 const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
-  titleClickAction,
   panelId,
   onToggleOpen,
   permanentLink,

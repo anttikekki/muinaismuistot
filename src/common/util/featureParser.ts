@@ -194,7 +194,7 @@ export const getFeatureTypeName = (
 
 export const getTypeIconURL = (
   imageName: string,
-  has3dModels: boolean = false
+  has3dModels = false
 ) => `images/${imageName}${has3dModels ? "_3d" : ""}.png`
 
 export const getFeatureTypeIconURL = (feature: MapFeature): string => {
@@ -276,7 +276,7 @@ export const getFeatureTypeIconURL = (feature: MapFeature): string => {
   throw new Error(`Tuntematon feature: ${JSON.stringify(feature)}`)
 }
 
-export const getLayerIconURLs = (layer: FeatureLayer): Array<string> => {
+export const getLayerIconURLs = (layer: FeatureLayer): string[] => {
   switch (layer) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
       return ["images/muinaisjaannos_kohde.png"]
@@ -376,8 +376,8 @@ export const getFeatureID = (feature: MapFeature): string => {
 
 export const getModelsForMaisemanMuistiFeature = (
   feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>,
-  models?: Array<GeoJSONFeature<ModelFeatureProperties>>
-): Array<GeoJSONFeature<ModelFeatureProperties>> => {
+  models?: GeoJSONFeature<ModelFeatureProperties>[]
+): GeoJSONFeature<ModelFeatureProperties>[] => {
   return models
     ? models
         .filter(
@@ -721,7 +721,7 @@ export const trim = (value: string | undefined | null): string => {
 }
 
 export const getGeoJSONDataLatestUpdateDate = (
-  features: Array<GeoJSONFeature<ModelFeatureProperties>>
+  features: GeoJSONFeature<ModelFeatureProperties>[]
 ): Date => {
   let dates = features.map((feature) =>
     new Date(feature.properties.createdDate).getTime()

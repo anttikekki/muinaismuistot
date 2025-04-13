@@ -12,8 +12,8 @@ interface URLSettingsState {
 
 const updateParams = (
   state: URLSettingsState,
-  initialValues: Array<string>,
-  currentValues: Array<string>,
+  initialValues: string[],
+  currentValues: string[],
   key: keyof URLSettings
 ): URLSettingsState => {
   if (
