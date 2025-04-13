@@ -15,7 +15,7 @@ import {
   getTypeIconURL
 } from "../../../../common/util/featureParser"
 import { createLocationHash } from "../../../../common/util/URLHashHelper"
-import { showPage } from "../../../../store/actionCreators"
+import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch } from "../../../../store/storeTypes"
 
 export enum FeatureTitleClickAction {
@@ -51,7 +51,10 @@ const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>()
   const hidePage = useCallback(() => {
-    dispatch(showPage(undefined))
+    dispatch({
+      type: ActionTypeEnum.SHOW_PAGE,
+      pageId: undefined
+    })
   }, [dispatch])
 
   const onPermanentLinkClick = () => {

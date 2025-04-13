@@ -6,9 +6,8 @@ import {
   LayerGroup,
   MaanmittauslaitosVanhatKartatLayer
 } from "../../../../common/layers.types"
+import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { enableLayerGroupThunk } from "../../../../store/thunks/layerGroupEnabler"
-import { selectVisibleMaanmittauslaitosVanhatKartatLayerThunk } from "../../../../store/thunks/maanmittauslaitosVanhatKartatLayer"
 import { Panel } from "../../../component/Panel"
 import { LayerTransparencyInput } from "./LayerTransparencyInput"
 
@@ -57,14 +56,20 @@ export const MMLVanhatKartatLayerSelectionPanel: React.FC = () => {
   )
   const onSelectLayer = useCallback(
     (layer: MaanmittauslaitosVanhatKartatLayer) =>
-      dispatch(selectVisibleMaanmittauslaitosVanhatKartatLayerThunk([layer])),
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+        layerGroup: LayerGroup.MaanmittauslaitosVanhatKartat,
+        layers: [layer]
+      }),
     [dispatch]
   )
   const onSwitchChange = useCallback(
     (enabled: boolean) =>
-      dispatch(
-        enableLayerGroupThunk(enabled, LayerGroup.MaanmittauslaitosVanhatKartat)
-      ),
+      dispatch({
+        type: ActionTypeEnum.ENABLE_LAYER_GROUP,
+        layerGroup: LayerGroup.MaanmittauslaitosVanhatKartat,
+        enabled
+      }),
     [dispatch]
   )
   const radiobuttonGroupName = "MaanmittauslaitosVanhatKartatLayer"

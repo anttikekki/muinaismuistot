@@ -3,8 +3,8 @@ import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { LayerGroup } from "../../../../common/layers.types"
+import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch } from "../../../../store/storeTypes"
-import { changeLayerOpacityThunk } from "../../../../store/thunks/opacity"
 
 interface Props {
   opacity: number
@@ -28,7 +28,13 @@ export const LayerTransparencyInput: React.FC<Props> = ({
         transparency = 100
       }
       const opacity = Number((1 - transparency / 100).toFixed(2))
-      dispatch(changeLayerOpacityThunk(opacity, layerGroup))
+      dispatch(
+        dispatch({
+          type: ActionTypeEnum.CHANGE_LAYER_OPACITY,
+          opacity,
+          layerGroup
+        })
+      )
     },
     [dispatch, transparency, layerGroup]
   )

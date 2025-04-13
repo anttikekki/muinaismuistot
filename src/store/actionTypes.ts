@@ -19,6 +19,7 @@ import { PageId, SelectedFeaturesOnMap } from "./storeTypes"
 
 export enum ActionTypeEnum {
   CENTER_MAP_TO_CURRENT_POSITION = "CENTER_MAP_TO_CURRENT_POSITION",
+  SET_MAP_LOCATION_AND_SHOW_SELECTED_MARKER = "SET_MAP_LOCATION_AND_SHOW_SELECTED_MARKER",
   SEARCH_FEATURES = "SEARCH_FEATURES",
   SEARCH_FEATURES_COMPLETE = "SEARCH_FEATURES_COMPLETE",
   CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE = "CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE",
@@ -29,11 +30,22 @@ export enum ActionTypeEnum {
   SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING = "SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING",
   CHANGE_LANGUAGE = "CHANGE_LANGUAGE",
   SHOW_LOADING_ANIMATION = "SHOW_LOADING_ANIMATION",
-  SHOW_PAGE = "SHOW_PAGE"
+  SHOW_PAGE = "SHOW_PAGE",
+  ZOOM = "ZOOM"
+}
+
+export interface ZoomAction {
+  type: ActionTypeEnum.ZOOM
+  zoomDirection: "in" | "out"
 }
 
 export interface CenterMapToCurrentPositionAction {
   type: ActionTypeEnum.CENTER_MAP_TO_CURRENT_POSITION
+}
+
+export interface SetMapLocatoinAndShowSelectedMarkerAction {
+  type: ActionTypeEnum.SET_MAP_LOCATION_AND_SHOW_SELECTED_MARKER
+  coordinates: [number, number]
 }
 
 export interface SearchFeaturesAction {
@@ -148,6 +160,7 @@ export interface ShowPageAction {
 
 export type ActionTypes =
   | CenterMapToCurrentPositionAction
+  | SetMapLocatoinAndShowSelectedMarkerAction
   | SearchFeaturesAction
   | SearchFeaturesCompleteAction
   | ClickedMapFeatureIdentificationCompleteAction
@@ -159,3 +172,4 @@ export type ActionTypes =
   | ChangeLanguageAction
   | ShowLoadingAnimationAction
   | ShowPageAction
+  | ZoomAction

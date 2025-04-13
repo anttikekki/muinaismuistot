@@ -1,13 +1,20 @@
 import React, { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
+import { ActionTypeEnum } from "../../../store/actionTypes"
 import { AppDispatch } from "../../../store/storeTypes"
-import { zoomInThunk } from "../../../store/thunks/zoom"
 
 export const ZoomInButton: React.FunctionComponent = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
-  const onClick = useCallback(() => dispatch(zoomInThunk()), [dispatch])
+  const onClick = useCallback(
+    () =>
+      dispatch({
+        type: ActionTypeEnum.ZOOM,
+        zoomDirection: "in"
+      }),
+    [dispatch]
+  )
 
   return (
     <div id="map-button-zoom-in" className="map-button">

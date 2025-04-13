@@ -1,47 +1,30 @@
 import TileLayer from "ol/layer/Tile"
 import { TileSourceEvent } from "ol/source/Tile"
 import TileWMS, { Options } from "ol/source/TileWMS"
-import { Store } from "redux"
-import { ActionTypes } from "../../store/actionTypes"
 import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
-export type OnLayersCreatedCallbackFn = (layer: TileLayer<TileWMS>) => void
 
 export default class MaanmittauslaitosVanhatKartatTileLayer {
   private source?: TileWMS
-  private layer?: TileLayer<TileWMS>
-  private store: Store<Settings, ActionTypes>
-  private updateTileLoadingStatus: ShowLoadingAnimationFn
-  private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
+  private readonly layer: TileLayer<TileWMS>
+  private readonly updateTileLoadingStatus: ShowLoadingAnimationFn
 
   public constructor(
-    store: Store<Settings, ActionTypes>,
-    updateTileLoadingStatus: ShowLoadingAnimationFn,
-    onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
+    settings: Settings,
+    updateTileLoadingStatus: ShowLoadingAnimationFn
   ) {
-    this.store = store
     this.updateTileLoadingStatus = updateTileLoadingStatus
-    this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn
-    this.addLayer()
-  }
 
-  private addLayer = () => {
-    const {
-      maanmittauslaitosVanhatKartat: { selectedLayers, enabled, opacity }
-    } = this.store.getState()
-    this.source = this.createSource()
+    this.source = this.createSource(settings)
     this.layer = new TileLayer({
       source: this.source
     })
-    this.opacityChanged()
-    this.updateLayerVisibility()
-
-    this.onLayerCreatedCallbackFn(this.layer)
+    this.opacityChanged(settings)
+    this.updateLayerVisibility(settings)
   }
 
-  private createSource = () => {
-    const settings = this.store.getState()
+  private createSource = (settings: Settings) => {
     const options: Options = {
       urls: [settings.maanmittauslaitosVanhatKartat.url.wms],
       params: {
@@ -65,32 +48,28 @@ export default class MaanmittauslaitosVanhatKartatTileLayer {
     return newSource
   }
 
-  private updateLayerSource = () => {
-    if (this.layer) {
-      const settings = this.store.getState()
-      this.source = this.createSource()
-      this.layer.setSource(this.source)
-      this.updateLayerVisibility()
-    }
+  private updateLayerSource = (settings: Settings) => {
+    this.source = this.createSource(settings)
+    this.layer.setSource(this.source)
+    this.updateLayerVisibility(settings)
   }
 
-  public updateLayerVisibility = () => {
-    if (this.layer) {
-      const {
-        maanmittauslaitosVanhatKartat: { selectedLayers, enabled }
-      } = this.store.getState()
-      this.layer.setVisible(enabled && selectedLayers.length > 0)
-    }
+  public updateLayerVisibility = (settings: Settings) => {
+    const {
+      maanmittauslaitosVanhatKartat: { selectedLayers, enabled }
+    } = settings
+    this.layer.setVisible(enabled && selectedLayers.length > 0)
   }
 
-  public selectedMaanmittauslaitosVanhatKartatLayerChanged = () => {
-    this.updateLayerSource()
+  public selectedMaanmittauslaitosVanhatKartatLayerChanged = (
+    settings: Settings
+  ) => {
+    this.updateLayerSource(settings)
   }
 
-  public opacityChanged = () => {
-    if (this.layer) {
-      const settings = this.store.getState()
-      this.layer.setOpacity(settings.maanmittauslaitosVanhatKartat.opacity)
-    }
+  public opacityChanged = (settings: Settings) => {
+    this.layer.setOpacity(settings.maanmittauslaitosVanhatKartat.opacity)
   }
+
+  public getLayer = (): TileLayer<TileWMS> => this.layer
 }

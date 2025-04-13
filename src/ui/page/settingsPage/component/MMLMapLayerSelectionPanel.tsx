@@ -2,9 +2,12 @@ import React, { useCallback } from "react"
 import { Button, ButtonGroup, Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { MaanmittauslaitosLayer } from "../../../../common/layers.types"
+import {
+  LayerGroup,
+  MaanmittauslaitosLayer
+} from "../../../../common/layers.types"
+import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { selectVisibleMaanmittauslaitosLayerThunk } from "../../../../store/thunks/maanmittauslaitosLayer"
 import { Panel } from "../../../component/Panel"
 
 interface MLLLayerButtonProps {
@@ -40,7 +43,11 @@ export const MMLMapLayerSelectionPanel: React.FC = () => {
   )
   const onSelectLayer = useCallback(
     (layer: MaanmittauslaitosLayer) => {
-      dispatch(selectVisibleMaanmittauslaitosLayerThunk(layer))
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+        layerGroup: LayerGroup.Maanmittauslaitos,
+        layer
+      })
     },
     [dispatch]
   )

@@ -3,9 +3,8 @@ import { Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { AhvenanmaaLayer, LayerGroup } from "../../../../common/layers.types"
+import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { selectVisibleAhvenanmaaLayerThunk } from "../../../../store/thunks/ahvenanmaaLayer"
-import { enableLayerGroupThunk } from "../../../../store/thunks/layerGroupEnabler"
 import { Panel } from "../../../component/Panel"
 import { toggleSelection } from "../../../util"
 import { LayerCheckbox } from "./LayerCheckbox"
@@ -19,16 +18,20 @@ export const AhvenanmaaLayerSelectionPanel: React.FC = () => {
   )
   const onSelectAhvenanmaaLayer = useCallback(
     (layer: AhvenanmaaLayer) =>
-      dispatch(
-        selectVisibleAhvenanmaaLayerThunk(
-          toggleSelection(layer, selectedLayers)
-        )
-      ),
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+        layerGroup: LayerGroup.Ahvenanmaa,
+        layers: toggleSelection(layer, selectedLayers)
+      }),
     [dispatch, selectedLayers]
   )
   const onSwitchChange = useCallback(
     (enabled: boolean) =>
-      dispatch(enableLayerGroupThunk(enabled, LayerGroup.Ahvenanmaa)),
+      dispatch({
+        type: ActionTypeEnum.ENABLE_LAYER_GROUP,
+        layerGroup: LayerGroup.Ahvenanmaa,
+        enabled
+      }),
     [dispatch]
   )
 

@@ -14,6 +14,7 @@ import {
   MuinaisjaannosTyyppi
 } from "../common/museovirasto.types"
 import { parseURLParams } from "../common/util/URLHashHelper"
+import { initialSettings } from "../store/initialSettings"
 import {
   updateAhvenanmaaLayerEnabled,
   updateAhvenanmaaLayerOpacity,
@@ -80,8 +81,8 @@ const validateAndUpdateUrlParamToSettings = <
   return settings
 }
 
-export const getSettingsFromURL = (settings: Settings): Settings => {
-  let newSettings = settings
+export const getSettingsFromURL = (): Settings => {
+  let newSettings = initialSettings
   const {
     zoom,
     lang,

@@ -3,9 +3,8 @@ import { Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { GtkLayer, LayerGroup } from "../../../../common/layers.types"
+import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { selectVisibleGtkLayersThunk } from "../../../../store/thunks/gtkLayer"
-import { enableLayerGroupThunk } from "../../../../store/thunks/layerGroupEnabler"
 import { Panel } from "../../../component/Panel"
 import { toggleSelection } from "../../../util"
 import { FeatureImageAndLabel } from "./FeatureImageAndLabel"
@@ -19,15 +18,21 @@ export const GTKMapLayerSelectionPanel: React.FC = () => {
   )
   const onSelectLayer = useCallback(
     (layer: GtkLayer) => {
-      dispatch(
-        selectVisibleGtkLayersThunk(toggleSelection(layer, selectedLayers))
-      )
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+        layerGroup: LayerGroup.GTK,
+        layers: toggleSelection(layer, selectedLayers)
+      })
     },
     [dispatch, selectedLayers]
   )
   const onSwitchChange = useCallback(
     (enabled: boolean) =>
-      dispatch(enableLayerGroupThunk(enabled, LayerGroup.GTK)),
+      dispatch({
+        type: ActionTypeEnum.ENABLE_LAYER_GROUP,
+        layerGroup: LayerGroup.GTK,
+        enabled
+      }),
     [dispatch]
   )
 

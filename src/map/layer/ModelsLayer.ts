@@ -8,30 +8,25 @@ import Fill from "ol/style/Fill"
 import RegularShape from "ol/style/RegularShape"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
-import { Store } from "redux"
 import { ModelFeatureProperties } from "../../common/3dModels.types"
 import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
 import { FeatureLayer, MuseovirastoLayer } from "../../common/layers.types"
 import { MapFeature, getFeatureLayerName } from "../../common/mapFeature.types"
 import { getFeatureID } from "../../common/util/featureParser"
-import { ActionTypes } from "../../store/actionTypes"
 import { Settings } from "../../store/storeTypes"
 
 export default class ModelsLayer {
-  private store: Store<Settings, ActionTypes>
-  private layer?: VectorLayer<VectorSource<Feature<Geometry>>>
+  private readonly layer: VectorLayer<VectorSource<Feature<Geometry>>>
   private source?: VectorSource<Feature<Geometry>>
-  private stylePointCircle: Style
-  private stylePointSquare: Style
-  private stylePolygon: Style
-  private dataLatestUpdateDate?: Date
-  private featuresForRegisterId = new Map<
+  private readonly stylePointCircle: Style
+  private readonly stylePointSquare: Style
+  private readonly stylePolygon: Style
+  private readonly featuresForRegisterId = new Map<
     string,
     Array<GeoJSONFeature<ModelFeatureProperties>>
   >()
 
-  public constructor(store: Store<Settings, ActionTypes>) {
-    this.store = store
+  public constructor(settings: Settings) {
     this.stylePointCircle = new Style({
       image: new Circle({
         stroke: new Stroke({
@@ -65,6 +60,18 @@ export default class ModelsLayer {
         color: "rgba(255, 255, 255, 0.01)"
       })
     })
+
+    this.source = new VectorSource({
+      features: []
+    })
+    this.layer = new VectorLayer({
+      source: this.source,
+      visible: settings.models.selectedLayers.length > 0,
+      style: this.styleForFeature
+    })
+
+    // Do not wait
+    this.updateLayerSource(settings)
   }
 
   private fetchGeoJson = async (
@@ -100,10 +107,7 @@ export default class ModelsLayer {
     }
   }
 
-  public createLayer = async (): Promise<
-    VectorLayer<VectorSource<Feature<Geometry>>>
-  > => {
-    const settings = this.store.getState()
+  private updateLayerSource = async (settings: Settings) => {
     const geojsonObject = await this.fetchGeoJson(settings)
 
     geojsonObject.features.forEach((f) => {
@@ -120,13 +124,7 @@ export default class ModelsLayer {
     this.source = new VectorSource({
       features: new GeoJSON().readFeatures(geojsonObject)
     })
-    this.layer = new VectorLayer({
-      source: this.source,
-      visible: settings.models.selectedLayers.length > 0,
-      style: this.styleForFeature
-    })
-
-    return this.layer
+    this.layer.setSource(this.source)
   }
 
   public getFeaturesForFeatureRegisterId = (
@@ -147,12 +145,10 @@ export default class ModelsLayer {
     }
   }
 
-  public selectedFeatureLayersChanged = () => {
-    const settings = this.store.getState()
-    this.layer?.setVisible(settings.models.selectedLayers.length > 0)
+  public selectedFeatureLayersChanged = (settings: Settings) => {
+    this.layer.setVisible(settings.models.selectedLayers.length > 0)
   }
 
-  public getLayer = ():
-    | VectorLayer<VectorSource<Feature<Geometry>>>
-    | undefined => this.layer
+  public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> =>
+    this.layer
 }

@@ -1,32 +1,28 @@
+import Feature from "ol/Feature"
+import GeoJSON from "ol/format/GeoJSON"
+import Geometry from "ol/geom/Geometry"
 import VectorLayer from "ol/layer/Vector"
 import VectorSource from "ol/source/Vector"
+import Fill from "ol/style/Fill"
+import RegularShape from "ol/style/RegularShape"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
-import GeoJSON from "ol/format/GeoJSON"
-import Fill from "ol/style/Fill"
-import Feature from "ol/Feature"
-import RegularShape from "ol/style/RegularShape"
+import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
+import { MaisemanMuistiFeatureProperties } from "../../common/maisemanMuisti.types"
+import { MapFeature } from "../../common/mapFeature.types"
 import { getFeatureID } from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
-import { Store } from "redux"
-import { ActionTypes } from "../../store/actionTypes"
-import Geometry from "ol/geom/Geometry"
-import { MaisemanMuistiFeatureProperties } from "../../common/maisemanMuisti.types"
-import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
-import { MapFeature } from "../../common/mapFeature.types"
 
 export default class MaisemanMuistiLayer {
-  private store: Store<Settings, ActionTypes>
-  private layer?: VectorLayer<VectorSource<Feature<Geometry>>>
-  private source?:  VectorSource<Feature<Geometry>>
-  private style: Style
-  private featuresForRegisterId = new Map<
+  private readonly layer: VectorLayer<VectorSource<Feature<Geometry>>>
+  private source?: VectorSource<Feature<Geometry>>
+  private readonly style: Style
+  private readonly featuresForRegisterId = new Map<
     string,
     Array<GeoJSONFeature<MaisemanMuistiFeatureProperties>>
   >()
 
-  public constructor(store: Store<Settings, ActionTypes>) {
-    this.store = store
+  public constructor(settings: Settings) {
     this.style = new Style({
       image: new RegularShape({
         fill: new Fill({ color: "#f1615b" }),
@@ -40,6 +36,19 @@ export default class MaisemanMuistiLayer {
         angle: 0
       })
     })
+
+    this.source = new VectorSource({
+      features: []
+    })
+
+    this.layer = new VectorLayer({
+      source: this.source,
+      style: this.style,
+      visible: settings.maisemanMuisti.selectedLayers.length > 0
+    })
+
+    // Do not wait
+    this.updateLayerSource(settings)
   }
 
   private fetchGeoJson = async (
@@ -51,8 +60,7 @@ export default class MaisemanMuistiLayer {
     return data as GeoJSONResponse<MaisemanMuistiFeatureProperties>
   }
 
-  public createLayer = async (): Promise<VectorLayer<VectorSource<Feature<Geometry>>>> => {
-    const settings = this.store.getState()
+  private updateLayerSource = async (settings: Settings) => {
     const geojsonObject = await this.fetchGeoJson(settings)
 
     geojsonObject.features.forEach((f) => {
@@ -69,14 +77,7 @@ export default class MaisemanMuistiLayer {
     this.source = new VectorSource({
       features: new GeoJSON().readFeatures(geojsonObject)
     })
-
-    this.layer = new VectorLayer({
-      source: this.source,
-      style: this.style,
-      visible: settings.maisemanMuisti.selectedLayers.length > 0
-    })
-
-    return this.layer
+    this.layer.setSource(this.source)
   }
 
   public getFeaturesForFeatureRegisterId = (
@@ -96,11 +97,10 @@ export default class MaisemanMuistiLayer {
     }
   }
 
-  public selectedFeatureLayersChanged = () => {
-    const settings = this.store.getState()
+  public selectedFeatureLayersChanged = (settings: Settings) => {
     this.layer?.setVisible(settings.maisemanMuisti.selectedLayers.length > 0)
   }
 
-  public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> | undefined =>
+  public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> =>
     this.layer
 }

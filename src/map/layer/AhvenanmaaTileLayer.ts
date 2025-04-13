@@ -4,7 +4,6 @@ import TileLayer from "ol/layer/Tile"
 import { Size } from "ol/size"
 import { TileSourceEvent } from "ol/source/Tile"
 import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest"
-import { Store } from "redux"
 import {
   AhvenanmaaArcgisFeature,
   AhvenanmaaArcgisFindResult,
@@ -15,48 +14,33 @@ import {
 } from "../../common/ahvenanmaa.types"
 import { GeoJSONResponse } from "../../common/geojson.types"
 import { AhvenanmaaLayer } from "../../common/layers.types"
-import { ActionTypes } from "../../store/actionTypes"
 import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
-export type OnLayersCreatedCallbackFn = (
-  layer: TileLayer<TileArcGISRestSource>
-) => void
 
 export default class AhvenanmaaTileLayer {
   private source?: TileArcGISRestSource
-  private layer?: TileLayer<TileArcGISRestSource>
-  private store: Store<Settings, ActionTypes>
-  private updateTileLoadingStatus: ShowLoadingAnimationFn
-  private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
+  private readonly layer: TileLayer<TileArcGISRestSource>
+  private readonly updateTileLoadingStatus: ShowLoadingAnimationFn
   private typeAndDatingMap?: ReadonlyMap<
     string,
     Array<AhvenanmaaTypeAndDatingFeatureProperties>
   >
 
   public constructor(
-    store: Store<Settings, ActionTypes>,
-    updateTileLoadingStatus: ShowLoadingAnimationFn,
-    onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
+    settings: Settings,
+    updateTileLoadingStatus: ShowLoadingAnimationFn
   ) {
-    this.store = store
     this.updateTileLoadingStatus = updateTileLoadingStatus
-    this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn
-    this.addLayer()
-  }
 
-  private addLayer = () => {
-    const settings = this.store.getState()
-    this.source = this.createSource()
+    this.source = this.createSource(settings)
     this.layer = new TileLayer({
       source: this.source,
       // Extent from EPSG:3067 https://kartor.regeringen.ax/arcgis/services/Kulturarv/Fornminnen/MapServer/WMSServer?request=GetCapabilities&service=WMS
       extent: [65741.9087, 6606901.2261, 180921.4173, 6747168.5691]
     })
-    this.opacityChanged()
-    this.updateLayerVisibility()
-
-    this.onLayerCreatedCallbackFn(this.layer)
+    this.opacityChanged(settings)
+    this.updateLayerVisibility(settings)
   }
 
   private toLayerIds = (
@@ -65,8 +49,7 @@ export default class AhvenanmaaTileLayer {
     return layers.map(getAhvenanmaaLayerId).sort((a, b) => a - b)
   }
 
-  private getSourceLayersParams = (): string => {
-    const settings = this.store.getState()
+  private getSourceLayersParams = (settings: Settings): string => {
     if (settings.ahvenanmaa.selectedLayers.length > 0) {
       return (
         "show:" + this.toLayerIds(settings.ahvenanmaa.selectedLayers).join(",")
@@ -77,12 +60,11 @@ export default class AhvenanmaaTileLayer {
     }
   }
 
-  private createSource = () => {
-    const settings = this.store.getState()
+  private createSource = (settings: Settings) => {
     const options: Options = {
       urls: [settings.ahvenanmaa.url.export],
       params: {
-        layers: this.getSourceLayersParams()
+        layers: this.getSourceLayersParams(settings)
       }
     }
     const newSource = new TileArcGISRestSource(options)
@@ -100,34 +82,30 @@ export default class AhvenanmaaTileLayer {
     return newSource
   }
 
-  private updateLayerSource = () => {
-    if (this.layer) {
-      this.source = this.createSource()
-      this.layer.setSource(this.source)
-      this.updateLayerVisibility()
-    }
+  private updateLayerSource = (settings: Settings) => {
+    this.source = this.createSource(settings)
+    this.layer.setSource(this.source)
+    this.updateLayerVisibility(settings)
   }
 
-  public updateLayerVisibility = () => {
-    if (this.layer) {
-      const {
-        ahvenanmaa: { selectedLayers, enabled }
-      } = this.store.getState()
-      this.layer.setVisible(enabled && selectedLayers.length > 0)
-    }
+  public updateLayerVisibility = (settings: Settings) => {
+    const {
+      ahvenanmaa: { selectedLayers, enabled }
+    } = settings
+    this.layer.setVisible(enabled && selectedLayers.length > 0)
   }
 
-  public selectedFeatureLayersChanged = () => {
-    this.updateLayerSource()
+  public selectedFeatureLayersChanged = (settings: Settings) => {
+    this.updateLayerSource(settings)
   }
 
   public identifyFeaturesAt = async (
     coordinate: Coordinate,
     mapSize: Size,
-    mapExtent: Extent
+    mapExtent: Extent,
+    settings: Settings
   ): Promise<AhvenanmaaArcgisIdentifyResult> => {
-    const settings = this.store.getState()
-    const extent = this.layer?.getExtent()
+    const extent = this.layer.getExtent()
 
     if (
       !extent ||
@@ -156,13 +134,13 @@ export default class AhvenanmaaTileLayer {
     const response = await fetch(String(url))
     const result = (await response.json()) as AhvenanmaaArcgisIdentifyResult
 
-    return this.addTypeAndDatingToResult(result)
+    return this.addTypeAndDatingToResult(result, settings)
   }
 
   public findFeatures = async (
-    searchText: string
+    searchText: string,
+    settings: Settings
   ): Promise<AhvenanmaaArcgisFindResult> => {
-    const settings = this.store.getState()
     if (settings.ahvenanmaa.selectedLayers.length === 0) {
       return { results: [] }
     }
@@ -183,13 +161,14 @@ export default class AhvenanmaaTileLayer {
     const response = await fetch(String(url))
     const result = (await response.json()) as AhvenanmaaArcgisFindResult
 
-    return this.addTypeAndDatingToResult(result)
+    return this.addTypeAndDatingToResult(result, settings)
   }
 
   private addTypeAndDatingToResult = async (
-    data: AhvenanmaaArcgisIdentifyResult
+    data: AhvenanmaaArcgisIdentifyResult,
+    settings: Settings
   ): Promise<AhvenanmaaArcgisIdentifyResult> => {
-    const typeAndDatingMap = await this.getTypeAndDatingData()
+    const typeAndDatingMap = await this.getTypeAndDatingData(settings)
     const result: AhvenanmaaArcgisIdentifyResult = {
       ...data,
       results: data.results.map((result): AhvenanmaaArcgisFeature => {
@@ -213,10 +192,11 @@ export default class AhvenanmaaTileLayer {
     return result
   }
 
-  private getTypeAndDatingData = async (): Promise<
+  private getTypeAndDatingData = async (
+    settings: Settings
+  ): Promise<
     ReadonlyMap<string, Array<AhvenanmaaTypeAndDatingFeatureProperties>>
   > => {
-    const settings = this.store.getState()
     if (this.typeAndDatingMap) {
       return this.typeAndDatingMap
     }
@@ -247,10 +227,9 @@ export default class AhvenanmaaTileLayer {
     }
   }
 
-  public opacityChanged = () => {
-    if (this.layer) {
-      const settings = this.store.getState()
-      this.layer.setOpacity(settings.ahvenanmaa.opacity)
-    }
+  public opacityChanged = (settings: Settings): void => {
+    this.layer.setOpacity(settings.ahvenanmaa.opacity)
   }
+
+  public getLayer = (): TileLayer<TileArcGISRestSource> => this.layer
 }

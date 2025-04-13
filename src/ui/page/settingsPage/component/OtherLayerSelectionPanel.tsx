@@ -3,12 +3,12 @@ import { Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import {
+  LayerGroup,
   MaisemanMuistiLayer,
   ModelLayer
 } from "../../../../common/layers.types"
+import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { selectVisibleMaisemanMuistiLayerThunk } from "../../../../store/thunks/maisemanMuistiLayer"
-import { selectVisibleModelsLayerThunk } from "../../../../store/thunks/modelsLayer"
 import { Panel } from "../../../component/Panel"
 import { toggleSelection } from "../../../util"
 import { LayerCheckbox } from "./LayerCheckbox"
@@ -24,20 +24,20 @@ export const OtherLayerSelectionPanel: React.FC = () => {
   )
   const onSelectModelLayer = useCallback(
     (layer: ModelLayer) =>
-      dispatch(
-        selectVisibleModelsLayerThunk(
-          toggleSelection(layer, selectedModelLayers)
-        )
-      ),
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+        layerGroup: LayerGroup.Models,
+        layers: toggleSelection(layer, selectedModelLayers)
+      }),
     [dispatch, selectedModelLayers]
   )
   const onSelectMaisemanMuistiLayer = useCallback(
     (layer: MaisemanMuistiLayer) =>
-      dispatch(
-        selectVisibleMaisemanMuistiLayerThunk(
-          toggleSelection(layer, selectedMaisemanMuistiLayers)
-        )
-      ),
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+        layerGroup: LayerGroup.MaisemanMuisti,
+        layers: toggleSelection(layer, selectedMaisemanMuistiLayers)
+      }),
     [dispatch, selectedMaisemanMuistiLayers]
   )
 

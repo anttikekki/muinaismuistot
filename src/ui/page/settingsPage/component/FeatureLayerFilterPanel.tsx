@@ -7,11 +7,8 @@ import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi
 } from "../../../../common/museovirasto.types"
+import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import {
-  selectVisibleMuinaisjäännösDatingThunk,
-  selectVisibleMuinaisjäännösTypeThunk
-} from "../../../../store/thunks/museovirastoLayer"
 import { Panel } from "../../../component/Panel"
 import { ToggleAllCheckbox } from "../../../component/ToggleAllCheckbox"
 import { toggleSelection } from "../../../util"
@@ -86,30 +83,34 @@ export const FeatureLayerFilterPanel: React.FC = () => {
   )
   const onSelectMuinaisjaannosType = useCallback(
     (type: MuinaisjaannosTyyppi) =>
-      dispatch(
-        selectVisibleMuinaisjäännösTypeThunk(
-          toggleSelection(type, selectedMuinaisjaannosTypes)
-        )
-      ),
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE,
+        types: toggleSelection(type, selectedMuinaisjaannosTypes)
+      }),
     [dispatch, selectedMuinaisjaannosTypes]
   )
   const onToggleAllMuinaisjaannosTypes = useCallback(
     (types: Array<MuinaisjaannosTyyppi>) =>
-      dispatch(selectVisibleMuinaisjäännösTypeThunk(types)),
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE,
+        types
+      }),
     [dispatch]
   )
   const onSelectMuinaisjaannosDating = useCallback(
     (dating: MuinaisjaannosAjoitus) =>
-      dispatch(
-        selectVisibleMuinaisjäännösDatingThunk(
-          toggleSelection(dating, selectedMuinaisjaannosDatings)
-        )
-      ),
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING,
+        datings: toggleSelection(dating, selectedMuinaisjaannosDatings)
+      }),
     [dispatch, selectedMuinaisjaannosDatings]
   )
   const onToggleAllMuinaisjaannosDatings = useCallback(
-    (types: Array<MuinaisjaannosAjoitus>) =>
-      dispatch(selectVisibleMuinaisjäännösDatingThunk(types)),
+    (datings: Array<MuinaisjaannosAjoitus>) =>
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING,
+        datings
+      }),
     [dispatch]
   )
 

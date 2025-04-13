@@ -1,7 +1,7 @@
 import React, { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
-import { showPage } from "../../../store/actionCreators"
+import { ActionTypeEnum } from "../../../store/actionTypes"
 import { AppDispatch, PageId } from "../../../store/storeTypes"
 
 export const OpenSettingsPage: React.FunctionComponent = () => {
@@ -9,7 +9,10 @@ export const OpenSettingsPage: React.FunctionComponent = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   const onClick = useCallback(() => {
-    dispatch(showPage(PageId.Settings))
+    dispatch({
+      type: ActionTypeEnum.SHOW_PAGE,
+      pageId: PageId.Settings
+    })
   }, [dispatch])
 
   return (

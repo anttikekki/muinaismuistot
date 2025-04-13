@@ -3,9 +3,8 @@ import { Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { HelsinkiLayer, LayerGroup } from "../../../../common/layers.types"
+import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { selectVisibleHelsinkiLayersThunk } from "../../../../store/thunks/helsinkiLayer"
-import { enableLayerGroupThunk } from "../../../../store/thunks/layerGroupEnabler"
 import { Panel } from "../../../component/Panel"
 import { ToggleAllCheckbox } from "../../../component/ToggleAllCheckbox"
 import { toggleSelection } from "../../../util"
@@ -65,21 +64,31 @@ export const HelsinkiMapLayerSelectionPanel: React.FC = () => {
   )
   const onSelectLayer = useCallback(
     (layer: HelsinkiLayer) => {
-      dispatch(
-        selectVisibleHelsinkiLayersThunk(toggleSelection(layer, selectedLayers))
-      )
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+        layerGroup: LayerGroup.Helsinki,
+        layers: toggleSelection(layer, selectedLayers)
+      })
     },
     [dispatch, selectedLayers]
   )
   const onSwitchChange = useCallback(
     (enabled: boolean) =>
-      dispatch(enableLayerGroupThunk(enabled, LayerGroup.Helsinki)),
+      dispatch({
+        type: ActionTypeEnum.ENABLE_LAYER_GROUP,
+        layerGroup: LayerGroup.Helsinki,
+        enabled
+      }),
     [dispatch]
   )
   const onToggleAllLayers = useCallback(
     (layers: HelsinkiLayer[]) =>
-      dispatch(selectVisibleHelsinkiLayersThunk(layers)),
-    [dispatch, selectedLayers]
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+        layerGroup: LayerGroup.Helsinki,
+        layers
+      }),
+    [dispatch]
   )
   const checkboxes = useMemo(
     () =>

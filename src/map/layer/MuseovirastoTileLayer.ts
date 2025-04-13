@@ -3,7 +3,6 @@ import TileLayer from "ol/layer/Tile"
 import { Projection } from "ol/proj"
 import { TileSourceEvent } from "ol/source/Tile"
 import TileWMS, { Options } from "ol/source/TileWMS"
-import { Store } from "redux"
 import { MuseovirastoLayer } from "../../common/layers.types"
 import {
   MuinaisjaannosAjoitus,
@@ -14,51 +13,38 @@ import {
   isMuuKulttuuriperintokohdePisteWmsFeature
 } from "../../common/museovirasto.types"
 import { trim } from "../../common/util/featureParser"
-import { ActionTypes } from "../../store/actionTypes"
 import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
-export type OnLayersCreatedCallbackFn = (layer: TileLayer<TileWMS>) => void
 
 export default class MuseovirastoTileLayer {
   private source?: TileWMS
-  private layer?: TileLayer<TileWMS>
-  private store: Store<Settings, ActionTypes>
-  private updateTileLoadingStatus: ShowLoadingAnimationFn
-  private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
+  private readonly layer: TileLayer<TileWMS>
+  private readonly updateTileLoadingStatus: ShowLoadingAnimationFn
 
   public constructor(
-    store: Store<Settings, ActionTypes>,
-    updateTileLoadingStatus: ShowLoadingAnimationFn,
-    onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
+    settings: Settings,
+    updateTileLoadingStatus: ShowLoadingAnimationFn
   ) {
-    this.store = store
     this.updateTileLoadingStatus = updateTileLoadingStatus
-    this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn
-    this.addLayer()
-  }
 
-  private addLayer = (): void => {
-    const settings = this.store.getState()
-    this.source = this.createSource()
+    this.source = this.createSource(settings)
     this.layer = new TileLayer({
       source: this.source
     })
-    this.opacityChanged()
-    this.updateLayerVisibility()
-
-    this.onLayerCreatedCallbackFn(this.layer)
+    this.opacityChanged(settings)
+    this.updateLayerVisibility(settings)
   }
 
-  private createSource = (): TileWMS => {
-    const { url, selectedLayers } = this.store.getState().museovirasto
+  private createSource = (settings: Settings): TileWMS => {
+    const { url, selectedLayers } = settings.museovirasto
 
     const options: Options = {
       urls: [url.wms],
       params: {
         LAYERS: selectedLayers.join(","),
         TILED: true,
-        CQL_FILTER: this.getLayerFilter()
+        CQL_FILTER: this.getLayerFilter(settings)
       },
       serverType: "geoserver"
     }
@@ -77,42 +63,37 @@ export default class MuseovirastoTileLayer {
     return newSource
   }
 
-  private updateLayerSource = (): void => {
-    if (this.layer) {
-      this.source = this.createSource()
-      this.layer.setSource(this.source)
-      this.updateLayerVisibility()
-    }
+  private updateLayerSource = (settings: Settings): void => {
+    this.source = this.createSource(settings)
+    this.layer.setSource(this.source)
+    this.updateLayerVisibility(settings)
   }
 
-  public updateLayerVisibility = () => {
-    if (this.layer) {
-      const {
-        museovirasto: { selectedLayers, enabled }
-      } = this.store.getState()
-      this.layer.setVisible(enabled && selectedLayers.length > 0)
-    }
+  public updateLayerVisibility = (settings: Settings) => {
+    const {
+      museovirasto: { selectedLayers, enabled }
+    } = settings
+    this.layer.setVisible(enabled && selectedLayers.length > 0)
   }
 
-  public selectedFeatureLayersChanged = (): void => {
-    this.updateLayerSource()
+  public selectedFeatureLayersChanged = (settings: Settings): void => {
+    this.updateLayerSource(settings)
   }
 
-  public selectedMuinaisjaannosTypesChanged = (): void => {
-    this.updateLayerSource()
+  public selectedMuinaisjaannosTypesChanged = (settings: Settings): void => {
+    this.updateLayerSource(settings)
   }
 
-  public selectedMuinaisjaannosDatingsChanged = (): void => {
-    this.updateLayerSource()
+  public selectedMuinaisjaannosDatingsChanged = (settings: Settings): void => {
+    this.updateLayerSource(settings)
   }
 
   public identifyFeaturesAt = async (
     coordinate: Coordinate,
     resolution: number | undefined,
-    projection: Projection
+    projection: Projection,
+    settings: Settings
   ): Promise<MuseovirastoWmsFeatureInfoResult> => {
-    const settings = this.store.getState()
-
     if (this.source && resolution !== undefined) {
       const url = this.source.getFeatureInfoUrl(
         coordinate,
@@ -141,9 +122,9 @@ export default class MuseovirastoTileLayer {
   }
 
   public findFeatures = async (
-    searchText: string
+    searchText: string,
+    settings: Settings
   ): Promise<MuseovirastoWmsFeatureInfoResult> => {
-    const settings = this.store.getState()
     /*
     let selectedLayers = settings.museovirasto.selectedLayers
 
@@ -228,19 +209,16 @@ export default class MuseovirastoTileLayer {
     }
   }
 
-  public opacityChanged = (): void => {
-    if (this.layer) {
-      const settings = this.store.getState()
-      this.layer.setOpacity(settings.museovirasto.opacity)
-    }
+  public opacityChanged = (settings: Settings): void => {
+    this.layer.setOpacity(settings.museovirasto.opacity)
   }
 
-  private getLayerFilter = (): string => {
+  private getLayerFilter = (settings: Settings): string => {
     const {
       selectedLayers,
       selectedMuinaisjaannosDatings,
       selectedMuinaisjaannosTypes
-    } = this.store.getState().museovirasto
+    } = settings.museovirasto
 
     const hasDatingsFilter =
       selectedMuinaisjaannosDatings.length !=
@@ -279,4 +257,6 @@ export default class MuseovirastoTileLayer {
     }
     return ""
   }
+
+  public getLayer = (): TileLayer<TileWMS> => this.layer
 }

@@ -3,8 +3,8 @@ import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { Language } from "../../common/layers.types"
+import { ActionTypeEnum } from "../../store/actionTypes"
 import { AppDispatch } from "../../store/storeTypes"
-import { changeLanguageThunk } from "../../store/thunks/language"
 
 interface LangSelectionProps {
   lang: Language
@@ -41,7 +41,10 @@ export const PageHeader: React.FC<Props> = ({ title }) => {
   const onLanguageChange = useCallback(
     (language: Language) => {
       i18n.changeLanguage(language)
-      dispatch(changeLanguageThunk(language))
+      dispatch({
+        type: ActionTypeEnum.CHANGE_LANGUAGE,
+        language
+      })
     },
     [dispatch, i18n]
   )

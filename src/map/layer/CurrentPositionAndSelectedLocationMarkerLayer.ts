@@ -1,18 +1,18 @@
+import { Coordinate } from "ol/coordinate"
+import Feature from "ol/Feature"
+import Geometry from "ol/geom/Geometry"
+import Point from "ol/geom/Point"
 import VectorLayer from "ol/layer/Vector"
 import VectorSource from "ol/source/Vector"
-import Fill from "ol/style/Fill"
-import Stroke from "ol/style/Stroke"
 import Circle from "ol/style/Circle"
-import Style from "ol/style/Style"
+import Fill from "ol/style/Fill"
 import Icon from "ol/style/Icon"
-import Feature from "ol/Feature"
-import Point from "ol/geom/Point"
-import { Coordinate } from "ol/coordinate"
-import Geometry from "ol/geom/Geometry"
+import Stroke from "ol/style/Stroke"
+import Style from "ol/style/Style"
 
 export default class CurrentPositionAndSelectedLocationMarkerLayer {
-  private layer: VectorLayer<VectorSource<Feature<Geometry>>>
-  private source: VectorSource<Feature<Geometry>>
+  private readonly layer: VectorLayer<VectorSource<Feature<Geometry>>>
+  private readonly source: VectorSource<Feature<Geometry>>
   private currentPositionFeature?: Feature<Geometry>
   private selectedLocationFeature?: Feature<Geometry>
 
@@ -74,5 +74,6 @@ export default class CurrentPositionAndSelectedLocationMarkerLayer {
     this.source.addFeature(this.selectedLocationFeature)
   }
 
-  public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> => this.layer
+  public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> =>
+    this.layer
 }

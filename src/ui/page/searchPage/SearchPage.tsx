@@ -3,8 +3,8 @@ import { Alert, Button, Col, Form, InputGroup, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { MapFeature } from "../../../common/mapFeature.types"
+import { ActionTypeEnum } from "../../../store/actionTypes"
 import { AppDispatch, PageId, Settings } from "../../../store/storeTypes"
-import { searchFeaturesThunk } from "../../../store/thunks/searchFeatures"
 import { FeatureList } from "../../component/feature/FeatureList"
 import { FeatureTitleClickAction } from "../../component/feature/component/FeatureCollapsePanel"
 import { Page } from "../Page"
@@ -65,7 +65,10 @@ export const SearchPage: React.FC = () => {
         return
       }
       setShowSearchTextError(false)
-      dispatch(searchFeaturesThunk(searchText))
+      dispatch({
+        type: ActionTypeEnum.SEARCH_FEATURES,
+        searchText
+      })
     },
     [dispatch, searchText]
   )

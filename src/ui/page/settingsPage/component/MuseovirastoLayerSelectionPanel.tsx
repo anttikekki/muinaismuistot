@@ -3,9 +3,8 @@ import { Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { LayerGroup, MuseovirastoLayer } from "../../../../common/layers.types"
+import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { enableLayerGroupThunk } from "../../../../store/thunks/layerGroupEnabler"
-import { selectVisibleMuseovirastoLayerThunk } from "../../../../store/thunks/museovirastoLayer"
 import { Panel } from "../../../component/Panel"
 import { ToggleAllCheckbox } from "../../../component/ToggleAllCheckbox"
 import { toggleSelection } from "../../../util"
@@ -42,22 +41,30 @@ export const MuseovirastoLayerSelectionPanel: React.FC = () => {
   )
   const onSelectLayer = useCallback(
     (layer: MuseovirastoLayer) =>
-      dispatch(
-        selectVisibleMuseovirastoLayerThunk(
-          toggleSelection(layer, selectedLayers)
-        )
-      ),
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+        layerGroup: LayerGroup.Museovirasto,
+        layers: toggleSelection(layer, selectedLayers)
+      }),
     [dispatch, selectedLayers]
   )
   const onSwitchChange = useCallback(
     (enabled: boolean) =>
-      dispatch(enableLayerGroupThunk(enabled, LayerGroup.Museovirasto)),
+      dispatch({
+        type: ActionTypeEnum.ENABLE_LAYER_GROUP,
+        layerGroup: LayerGroup.Museovirasto,
+        enabled
+      }),
     [dispatch]
   )
   const onToggleAllLayers = useCallback(
     (layers: MuseovirastoLayer[]) =>
-      dispatch(selectVisibleMuseovirastoLayerThunk(layers)),
-    [dispatch, selectedLayers]
+      dispatch({
+        type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
+        layerGroup: LayerGroup.Museovirasto,
+        layers
+      }),
+    [dispatch]
   )
 
   return (

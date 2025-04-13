@@ -1,53 +1,36 @@
 import TileLayer from "ol/layer/Tile"
 import { TileSourceEvent } from "ol/source/Tile"
 import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest"
-import { Store } from "redux"
 import { GtkLayerId, getGtkLayerId } from "../../common/gtk.types"
 import { GtkLayer } from "../../common/layers.types"
-import { ActionTypes } from "../../store/actionTypes"
 import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
-export type OnLayersCreatedCallbackFn = (
-  layer: TileLayer<TileArcGISRestSource>
-) => void
 
 export default class GtkTileLayer {
   private source?: TileArcGISRestSource
-  private layer?: TileLayer<TileArcGISRestSource>
-  private store: Store<Settings, ActionTypes>
-  private updateTileLoadingStatus: ShowLoadingAnimationFn
-  private onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
+  private readonly layer: TileLayer<TileArcGISRestSource>
+  private readonly updateTileLoadingStatus: ShowLoadingAnimationFn
 
   public constructor(
-    store: Store<Settings, ActionTypes>,
-    updateTileLoadingStatus: ShowLoadingAnimationFn,
-    onLayerCreatedCallbackFn: OnLayersCreatedCallbackFn
+    settings: Settings,
+    updateTileLoadingStatus: ShowLoadingAnimationFn
   ) {
-    this.store = store
     this.updateTileLoadingStatus = updateTileLoadingStatus
-    this.onLayerCreatedCallbackFn = onLayerCreatedCallbackFn
-    this.addLayer()
-  }
 
-  private addLayer = () => {
-    const settings = this.store.getState()
-    this.source = this.createSource()
+    this.source = this.createSource(settings)
     this.layer = new TileLayer({
       source: this.source
     })
-    this.opacityChanged()
-    this.updateLayerVisibility()
-
-    this.onLayerCreatedCallbackFn(this.layer)
+    this.opacityChanged(settings)
+    this.updateLayerVisibility(settings)
   }
 
   private toLayerIds = (layers: Array<GtkLayer>): Array<GtkLayerId> => {
     return layers.map(getGtkLayerId).sort((a, b) => a - b)
   }
 
-  private getSourceLayersParams = (): string => {
-    const settings = this.store.getState()
+  private getSourceLayersParams = (settings: Settings): string => {
     if (settings.gtk.selectedLayers.length > 0) {
       return "show:" + this.toLayerIds(settings.gtk.selectedLayers).join(",")
     } else {
@@ -56,12 +39,11 @@ export default class GtkTileLayer {
     }
   }
 
-  private createSource = () => {
-    const settings = this.store.getState()
+  private createSource = (settings: Settings) => {
     const options: Options = {
       urls: [settings.gtk.url.export],
       params: {
-        layers: this.getSourceLayersParams()
+        layers: this.getSourceLayersParams(settings)
       }
     }
     const newSource = new TileArcGISRestSource(options)
@@ -79,31 +61,26 @@ export default class GtkTileLayer {
     return newSource
   }
 
-  private updateLayerSource = () => {
-    if (this.layer) {
-      this.source = this.createSource()
-      this.layer.setSource(this.source)
-      this.updateLayerVisibility()
-    }
+  private updateLayerSource = (settings: Settings) => {
+    this.source = this.createSource(settings)
+    this.layer.setSource(this.source)
+    this.updateLayerVisibility(settings)
   }
 
-  public updateLayerVisibility = () => {
-    if (this.layer) {
-      const {
-        gtk: { selectedLayers, enabled }
-      } = this.store.getState()
-      this.layer.setVisible(enabled && selectedLayers.length > 0)
-    }
+  public updateLayerVisibility = (settings: Settings) => {
+    const {
+      gtk: { selectedLayers, enabled }
+    } = settings
+    this.layer.setVisible(enabled && selectedLayers.length > 0)
   }
 
-  public selectedGTKLayersChanged = () => {
-    this.updateLayerSource()
+  public selectedGTKLayersChanged = (settings: Settings) => {
+    this.updateLayerSource(settings)
   }
 
-  public opacityChanged = () => {
-    if (this.layer) {
-      const settings = this.store.getState()
-      this.layer.setOpacity(settings.gtk.opacity)
-    }
+  public opacityChanged = (settings: Settings) => {
+    this.layer.setOpacity(settings.gtk.opacity)
   }
+
+  public getLayer = (): TileLayer<TileArcGISRestSource> => this.layer
 }

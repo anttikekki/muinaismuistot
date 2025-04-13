@@ -1,7 +1,7 @@
 import React, { ReactNode, useCallback, useEffect, useState } from "react"
 import { Container, Offcanvas } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { showPage } from "../../store/actionCreators"
+import { ActionTypeEnum } from "../../store/actionTypes"
 import { AppDispatch, PageId, Settings } from "../../store/storeTypes"
 import { PageHeader } from "./PageHeader"
 
@@ -21,7 +21,10 @@ export const Page: React.FC<Props> = ({ title, pageId, children }) => {
   }, [visiblePage, isPageVisible])
 
   const onHidePage = useCallback(() => {
-    dispatch(showPage(undefined))
+    dispatch({
+      type: ActionTypeEnum.SHOW_PAGE,
+      pageId: undefined
+    })
   }, [dispatch])
 
   return (
