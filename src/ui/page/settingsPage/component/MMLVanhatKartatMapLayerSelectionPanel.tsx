@@ -1,5 +1,5 @@
 import React, { useCallback } from "react"
-import { Form } from "react-bootstrap"
+import { Accordion, Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -8,7 +8,6 @@ import {
 } from "../../../../common/layers.types"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { Panel } from "../../../component/Panel"
 import { LayerTransparencyInput } from "./LayerTransparencyInput"
 
 const topografisetKartat = [
@@ -73,130 +72,138 @@ export const MMLVanhatKartatLayerSelectionPanel: React.FC = () => {
     [dispatch]
   )
   const radiobuttonGroupName = "MaanmittauslaitosVanhatKartatLayer"
+  const title = t(`settings.mmlVanhatKartat.title`)
 
   return (
-    <Panel
-      title={t(`settings.mmlVanhatKartat.title`)}
-      showEnablerSwitch={true}
-      enabled={enabled}
-      onSwitchChange={() => onSwitchChange(!enabled)}
-    >
-      <Form>
-        <Form.Group className="mb-3">
-          <h6>
-            <Trans
-              i18nKey="settings.mmlVanhatKartat.section.topografisetKartat"
-              components={{ a: <a /> }}
-            />
-          </h6>
-          {topografisetKartat.map((layer) => (
-            <Form.Check
-              type="radio"
-              className="ms-3"
-              name={radiobuttonGroupName}
-              id={layer}
-              key={layer}
-              onChange={() => onSelectLayer(layer)}
-              checked={selectedLayers.includes(layer)}
-              label={t(`settings.mmlVanhatKartat.layer.${layer}`)}
-              disabled={!enabled}
-            ></Form.Check>
-          ))}
-
-          <h6>
-            <Trans
-              i18nKey="settings.mmlVanhatKartat.section.yleiskartta"
-              components={{ a: <a /> }}
-            />
-          </h6>
-          {yleiskartat.map((layer) => (
-            <Form.Check
-              type="radio"
-              className="ms-3"
-              name={radiobuttonGroupName}
-              id={layer}
-              key={layer}
-              onChange={() => onSelectLayer(layer)}
-              checked={selectedLayers.includes(layer)}
-              label={t(`settings.mmlVanhatKartat.layer.${layer}`)}
-              disabled={!enabled}
-            ></Form.Check>
-          ))}
-
-          <h6>
-            <Trans
-              i18nKey="settings.mmlVanhatKartat.section.pitäjänkartasto"
-              components={{ a: <a /> }}
-            />
-          </h6>
-          {pitäjäkartat.map((layer) => (
-            <Form.Check
-              type="radio"
-              className="ms-3"
-              name={radiobuttonGroupName}
-              id={layer}
-              key={layer}
-              onChange={() => onSelectLayer(layer)}
-              checked={selectedLayers.includes(layer)}
-              label={t(`settings.mmlVanhatKartat.layer.${layer}`)}
-              disabled={!enabled}
-            ></Form.Check>
-          ))}
-
-          <h6>
-            <Trans
-              i18nKey="settings.mmlVanhatKartat.section.taloudellinenKartta"
-              components={{ a: <a /> }}
-            />
-          </h6>
-          {taloudellinenKartta.map((layer) => (
-            <Form.Check
-              type="radio"
-              className="ms-3"
-              name={radiobuttonGroupName}
-              id={layer}
-              key={layer}
-              onChange={() => onSelectLayer(layer)}
-              checked={selectedLayers.includes(layer)}
-              label={t(`settings.mmlVanhatKartat.layer.${layer}`)}
-              disabled={!enabled}
-            ></Form.Check>
-          ))}
-
-          <h6>
-            <Trans
-              i18nKey="settings.mmlVanhatKartat.section.maastokartat"
-              components={{ a: <a /> }}
-            />
-          </h6>
-          {maastokartat.map((layer) => (
-            <Form.Check
-              type="radio"
-              className="ms-3"
-              name={radiobuttonGroupName}
-              id={layer}
-              key={layer}
-              onChange={() => onSelectLayer(layer)}
-              checked={selectedLayers.includes(layer)}
-              label={t(`settings.mmlVanhatKartat.layer.${layer}`)}
-              disabled={!enabled}
-            ></Form.Check>
-          ))}
-        </Form.Group>
-
-        <LayerTransparencyInput
-          opacity={opacity}
-          layerGroup={LayerGroup.MaanmittauslaitosVanhatKartat}
-          disabled={!enabled}
+    <Accordion.Item eventKey={LayerGroup.MaanmittauslaitosVanhatKartat}>
+      <Accordion.Header as="div">
+        <Form.Check
+          type="switch"
+          id={title}
+          checked={enabled}
+          onClick={(event) => event.stopPropagation()}
+          onChange={() => onSwitchChange(!enabled)}
         />
+        {title}
+      </Accordion.Header>
+      <Accordion.Body>
+        <Form>
+          <Form.Group className="mb-3">
+            <h6>
+              <Trans
+                i18nKey="settings.mmlVanhatKartat.section.topografisetKartat"
+                components={{ a: <a /> }}
+              />
+            </h6>
+            {topografisetKartat.map((layer) => (
+              <Form.Check
+                type="radio"
+                className="ms-3"
+                name={radiobuttonGroupName}
+                id={layer}
+                key={layer}
+                onChange={() => onSelectLayer(layer)}
+                checked={selectedLayers.includes(layer)}
+                label={t(`settings.mmlVanhatKartat.layer.${layer}`)}
+                disabled={!enabled}
+              ></Form.Check>
+            ))}
 
-        <Form.Text>
-          <Trans
-            i18nKey="settings.mmlVanhatKartat.licence"
-            components={{ a: <a /> }}
+            <h6>
+              <Trans
+                i18nKey="settings.mmlVanhatKartat.section.yleiskartta"
+                components={{ a: <a /> }}
+              />
+            </h6>
+            {yleiskartat.map((layer) => (
+              <Form.Check
+                type="radio"
+                className="ms-3"
+                name={radiobuttonGroupName}
+                id={layer}
+                key={layer}
+                onChange={() => onSelectLayer(layer)}
+                checked={selectedLayers.includes(layer)}
+                label={t(`settings.mmlVanhatKartat.layer.${layer}`)}
+                disabled={!enabled}
+              ></Form.Check>
+            ))}
+
+            <h6>
+              <Trans
+                i18nKey="settings.mmlVanhatKartat.section.pitäjänkartasto"
+                components={{ a: <a /> }}
+              />
+            </h6>
+            {pitäjäkartat.map((layer) => (
+              <Form.Check
+                type="radio"
+                className="ms-3"
+                name={radiobuttonGroupName}
+                id={layer}
+                key={layer}
+                onChange={() => onSelectLayer(layer)}
+                checked={selectedLayers.includes(layer)}
+                label={t(`settings.mmlVanhatKartat.layer.${layer}`)}
+                disabled={!enabled}
+              ></Form.Check>
+            ))}
+
+            <h6>
+              <Trans
+                i18nKey="settings.mmlVanhatKartat.section.taloudellinenKartta"
+                components={{ a: <a /> }}
+              />
+            </h6>
+            {taloudellinenKartta.map((layer) => (
+              <Form.Check
+                type="radio"
+                className="ms-3"
+                name={radiobuttonGroupName}
+                id={layer}
+                key={layer}
+                onChange={() => onSelectLayer(layer)}
+                checked={selectedLayers.includes(layer)}
+                label={t(`settings.mmlVanhatKartat.layer.${layer}`)}
+                disabled={!enabled}
+              ></Form.Check>
+            ))}
+
+            <h6>
+              <Trans
+                i18nKey="settings.mmlVanhatKartat.section.maastokartat"
+                components={{ a: <a /> }}
+              />
+            </h6>
+            {maastokartat.map((layer) => (
+              <Form.Check
+                type="radio"
+                className="ms-3"
+                name={radiobuttonGroupName}
+                id={layer}
+                key={layer}
+                onChange={() => onSelectLayer(layer)}
+                checked={selectedLayers.includes(layer)}
+                label={t(`settings.mmlVanhatKartat.layer.${layer}`)}
+                disabled={!enabled}
+              ></Form.Check>
+            ))}
+          </Form.Group>
+
+          <LayerTransparencyInput
+            opacity={opacity}
+            layerGroup={LayerGroup.MaanmittauslaitosVanhatKartat}
+            disabled={!enabled}
           />
-        </Form.Text>
-      </Form>
-    </Panel>
+
+          <Form.Text>
+            <Trans
+              i18nKey="settings.mmlVanhatKartat.licence"
+              components={{ a: <a /> }}
+            />
+          </Form.Text>
+        </Form>
+      </Accordion.Body>
+    </Accordion.Item>
   )
 }

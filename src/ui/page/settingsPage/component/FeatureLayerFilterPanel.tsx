@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react"
-import { Alert, Form } from "react-bootstrap"
+import { Accordion, Alert, Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import regexifyString from "regexify-string"
@@ -9,7 +9,6 @@ import {
 } from "../../../../common/museovirasto.types"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { Panel } from "../../../component/Panel"
 import { ToggleAllCheckbox } from "../../../component/ToggleAllCheckbox"
 import { toggleSelection } from "../../../util"
 
@@ -169,32 +168,37 @@ export const FeatureLayerFilterPanel: React.FC = () => {
   )
 
   return (
-    <Panel title={t(`settings.filters.title`)}>
-      <Form>
-        <Alert variant="light">{infoText}</Alert>
+    <Accordion.Item eventKey={"MuinaisjaannosFilter"}>
+      <Accordion.Header as="div">
+        {t(`settings.filters.title`)}
+      </Accordion.Header>
+      <Accordion.Body>
+        <Form>
+          <Alert variant="light">{infoText}</Alert>
 
-        <h6>
-          <ToggleAllCheckbox
-            allValues={Object.values(MuinaisjaannosTyyppi)}
-            selectedValues={selectedMuinaisjaannosTypes}
-            onSelectValues={onToggleAllMuinaisjaannosTypes}
-          >
-            {t(`settings.filters.type`)}
-          </ToggleAllCheckbox>
-        </h6>
-        <Form.Group className="mb-3">{typeCheckboxes}</Form.Group>
+          <h6>
+            <ToggleAllCheckbox
+              allValues={Object.values(MuinaisjaannosTyyppi)}
+              selectedValues={selectedMuinaisjaannosTypes}
+              onSelectValues={onToggleAllMuinaisjaannosTypes}
+            >
+              {t(`settings.filters.type`)}
+            </ToggleAllCheckbox>
+          </h6>
+          <Form.Group className="mb-3">{typeCheckboxes}</Form.Group>
 
-        <h6>
-          <ToggleAllCheckbox
-            allValues={Object.values(MuinaisjaannosAjoitus)}
-            selectedValues={selectedMuinaisjaannosDatings}
-            onSelectValues={onToggleAllMuinaisjaannosDatings}
-          >
-            {t(`settings.filters.dating`)}
-          </ToggleAllCheckbox>
-        </h6>
-        <Form.Group className="mb-3">{datingCheckboxes}</Form.Group>
-      </Form>
-    </Panel>
+          <h6>
+            <ToggleAllCheckbox
+              allValues={Object.values(MuinaisjaannosAjoitus)}
+              selectedValues={selectedMuinaisjaannosDatings}
+              onSelectValues={onToggleAllMuinaisjaannosDatings}
+            >
+              {t(`settings.filters.dating`)}
+            </ToggleAllCheckbox>
+          </h6>
+          <Form.Group className="mb-3">{datingCheckboxes}</Form.Group>
+        </Form>
+      </Accordion.Body>
+    </Accordion.Item>
   )
 }

@@ -1,4 +1,5 @@
 import React from "react"
+import { Accordion } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { PageId } from "../../../store/storeTypes"
 import { Page } from "../Page"
@@ -15,14 +16,16 @@ export const SettingsPage: React.FC = () => {
   const { t } = useTranslation()
   return (
     <Page title={t(`settings.title`)} pageId={PageId.Settings}>
-      <MMLMapLayerSelectionPanel />
-      <MMLVanhatKartatLayerSelectionPanel />
-      <GTKMapLayerSelectionPanel />
-      <MuseovirastoLayerSelectionPanel />
-      <AhvenanmaaLayerSelectionPanel />
-      <HelsinkiMapLayerSelectionPanel />
-      <OtherLayerSelectionPanel />
-      <FeatureLayerFilterPanel />
+      <Accordion alwaysOpen>
+        <MMLMapLayerSelectionPanel />
+        <MMLVanhatKartatLayerSelectionPanel />
+        <GTKMapLayerSelectionPanel />
+        <MuseovirastoLayerSelectionPanel />
+        <AhvenanmaaLayerSelectionPanel />
+        <HelsinkiMapLayerSelectionPanel />
+        <OtherLayerSelectionPanel />
+        <FeatureLayerFilterPanel />
+      </Accordion>
     </Page>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useCallback } from "react"
-import { Button, ButtonGroup, Form } from "react-bootstrap"
+import { Accordion, Button, ButtonGroup, Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -8,7 +8,6 @@ import {
 } from "../../../../common/layers.types"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { Panel } from "../../../component/Panel"
 
 interface MLLLayerButtonProps {
   layer: MaanmittauslaitosLayer
@@ -53,24 +52,27 @@ export const MMLMapLayerSelectionPanel: React.FC = () => {
   )
 
   return (
-    <Panel title={t(`settings.mml.title`)}>
-      <Form>
-        <div>
-          <ButtonGroup aria-label={t(`settings.mml.title`)}>
-            {Object.values(MaanmittauslaitosLayer).map((l) => (
-              <MMLLayerButton
-                key={l}
-                layer={l}
-                selectedLayer={selectedLayer}
-                onSelectLayer={onSelectLayer}
-              />
-            ))}
-          </ButtonGroup>
-        </div>
-        <Form.Text>
-          <Trans i18nKey="settings.mml.licence" components={{ a: <a /> }} />
-        </Form.Text>
-      </Form>
-    </Panel>
+    <Accordion.Item eventKey={LayerGroup.Maanmittauslaitos}>
+      <Accordion.Header as="div">{t(`settings.mml.title`)}</Accordion.Header>
+      <Accordion.Body>
+        <Form>
+          <div>
+            <ButtonGroup aria-label={t(`settings.mml.title`)}>
+              {Object.values(MaanmittauslaitosLayer).map((l) => (
+                <MMLLayerButton
+                  key={l}
+                  layer={l}
+                  selectedLayer={selectedLayer}
+                  onSelectLayer={onSelectLayer}
+                />
+              ))}
+            </ButtonGroup>
+          </div>
+          <Form.Text>
+            <Trans i18nKey="settings.mml.licence" components={{ a: <a /> }} />
+          </Form.Text>
+        </Form>
+      </Accordion.Body>
+    </Accordion.Item>
   )
 }

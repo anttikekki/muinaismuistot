@@ -1,5 +1,5 @@
 import React, { useCallback } from "react"
-import { Form } from "react-bootstrap"
+import { Accordion, Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -9,7 +9,6 @@ import {
 } from "../../../../common/layers.types"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { Panel } from "../../../component/Panel"
 import { toggleSelection } from "../../../util"
 import { LayerCheckbox } from "./LayerCheckbox"
 
@@ -42,40 +41,43 @@ export const OtherLayerSelectionPanel: React.FC = () => {
   )
 
   return (
-    <Panel title={t(`settings.other.title`)}>
-      <Form>
-        <h6>
-          <Trans
-            i18nKey="data.register.nameWithLink.3Dmodels"
-            components={{ a: <a /> }}
-          />
-        </h6>
-        <Form.Group className="mb-3">
-          <LayerCheckbox
-            label={t(`common.features.3D-malli`)}
-            layer={ModelLayer.ModelLayer}
-            selectedLayers={selectedModelLayers}
-            onSelectLayer={onSelectModelLayer}
-          />
-        </Form.Group>
+    <Accordion.Item eventKey={LayerGroup.Models}>
+      <Accordion.Header as="div">{t(`settings.other.title`)}</Accordion.Header>
+      <Accordion.Body>
+        <Form>
+          <h6>
+            <Trans
+              i18nKey="data.register.nameWithLink.3Dmodels"
+              components={{ a: <a /> }}
+            />
+          </h6>
+          <Form.Group className="mb-3">
+            <LayerCheckbox
+              label={t(`common.features.3D-malli`)}
+              layer={ModelLayer.ModelLayer}
+              selectedLayers={selectedModelLayers}
+              onSelectLayer={onSelectModelLayer}
+            />
+          </Form.Group>
 
-        <h6>
-          <Trans
-            i18nKey="data.register.nameWithLink.maisemanMuisti"
-            components={{ a: <a /> }}
-          />
-        </h6>
-        <Form.Group className="mb-3">
-          <LayerCheckbox
-            label={t(
-              `common.features.Valtakunnallisesti merkittävä muinaisjäännös`
-            )}
-            layer={MaisemanMuistiLayer.MaisemanMuisti}
-            selectedLayers={selectedMaisemanMuistiLayers}
-            onSelectLayer={onSelectMaisemanMuistiLayer}
-          />
-        </Form.Group>
-      </Form>
-    </Panel>
+          <h6>
+            <Trans
+              i18nKey="data.register.nameWithLink.maisemanMuisti"
+              components={{ a: <a /> }}
+            />
+          </h6>
+          <Form.Group className="mb-3">
+            <LayerCheckbox
+              label={t(
+                `common.features.Valtakunnallisesti merkittävä muinaisjäännös`
+              )}
+              layer={MaisemanMuistiLayer.MaisemanMuisti}
+              selectedLayers={selectedMaisemanMuistiLayers}
+              onSelectLayer={onSelectMaisemanMuistiLayer}
+            />
+          </Form.Group>
+        </Form>
+      </Accordion.Body>
+    </Accordion.Item>
   )
 }

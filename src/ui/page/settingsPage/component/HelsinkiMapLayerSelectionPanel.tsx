@@ -1,11 +1,10 @@
 import React, { useCallback, useMemo } from "react"
-import { Form } from "react-bootstrap"
+import { Accordion, Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { HelsinkiLayer, LayerGroup } from "../../../../common/layers.types"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { Panel } from "../../../component/Panel"
 import { ToggleAllCheckbox } from "../../../component/ToggleAllCheckbox"
 import { toggleSelection } from "../../../util"
 import { FeatureImageAndLabel } from "./FeatureImageAndLabel"
@@ -114,42 +113,51 @@ export const HelsinkiMapLayerSelectionPanel: React.FC = () => {
     [selectedLayers, onSelectLayer, enabled]
   )
 
+  const title = t(`settings.helsinki.title`)
+
   return (
-    <Panel
-      title={t(`settings.helsinki.title`)}
-      showEnablerSwitch={true}
-      enabled={enabled}
-      onSwitchChange={() => onSwitchChange(!enabled)}
-    >
-      <Form>
-        <h6>
-          <ToggleAllCheckbox
-            allValues={Object.values(HelsinkiLayer)}
-            selectedValues={selectedLayers}
-            onSelectValues={onToggleAllLayers}
+    <Accordion.Item eventKey={LayerGroup.Helsinki}>
+      <Accordion.Header as="div">
+        <Form.Check
+          type="switch"
+          id={title}
+          checked={enabled}
+          onClick={(event) => event.stopPropagation()}
+          onChange={() => onSwitchChange(!enabled)}
+        />
+        {title}
+      </Accordion.Header>
+      <Accordion.Body>
+        <Form>
+          <h6>
+            <ToggleAllCheckbox
+              allValues={Object.values(HelsinkiLayer)}
+              selectedValues={selectedLayers}
+              onSelectValues={onToggleAllLayers}
+              disabled={!enabled}
+            >
+              <Trans
+                i18nKey={`data.register.nameWithLink.maalinnoitus`}
+                components={{ a: <a /> }}
+              />
+            </ToggleAllCheckbox>
+          </h6>
+          <Form.Group className="mb-3">{checkboxes}</Form.Group>
+
+          <LayerTransparencyInput
+            opacity={opacity}
+            layerGroup={LayerGroup.Helsinki}
             disabled={!enabled}
-          >
+          />
+
+          <Form.Text>
             <Trans
-              i18nKey={`data.register.nameWithLink.maalinnoitus`}
+              i18nKey="settings.helsinki.licence"
               components={{ a: <a /> }}
             />
-          </ToggleAllCheckbox>
-        </h6>
-        <Form.Group className="mb-3">{checkboxes}</Form.Group>
-
-        <LayerTransparencyInput
-          opacity={opacity}
-          layerGroup={LayerGroup.Helsinki}
-          disabled={!enabled}
-        />
-
-        <Form.Text>
-          <Trans
-            i18nKey="settings.helsinki.licence"
-            components={{ a: <a /> }}
-          />
-        </Form.Text>
-      </Form>
-    </Panel>
+          </Form.Text>
+        </Form>
+      </Accordion.Body>
+    </Accordion.Item>
   )
 }
