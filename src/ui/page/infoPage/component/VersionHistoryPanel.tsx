@@ -6,6 +6,15 @@ export const VersionHistoryPanel: React.FC = () => {
     <Accordion.Item eventKey="Versiohistoria">
       <Accordion.Header as="div">Versiohistoria</Accordion.Header>
       <Accordion.Body>
+        <h6>Toukokuu 2025</h6>
+        <p>
+          Lisätty{" "}
+          <a href="https://maannousu.info/" target="_blank">
+            Maannousu.info
+          </a>{" "}
+          sivuston maannousukartta.
+        </p>
+
         <h6>Huhtikuu 2025</h6>
         <p>
           Lisätty Maanmittauslaitoksen{" "}

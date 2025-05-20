@@ -10,6 +10,9 @@ export interface URLSettings {
   gtkLayer?: string | string[]
   gtkOpacity?: number
   gtkEnabled?: boolean
+  maannousuLayer?: string
+  maannousuOpacity?: number
+  maannousuEnabled?: boolean
   museovirastoLayer?: string | string[]
   museovirastoOpacity?: number
   museovirastoEnabled?: boolean

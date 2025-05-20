@@ -29,38 +29,45 @@ body,
 }
 
 #map-button-zoom-in {
-  top: 20px;
-  left: 20px;
+  top: 10px;
+  left: 10px;
 }
 
 #map-button-zoom-out {
-  top: 60px;
-  left: 20px;
+  top: 50px;
+  left: 10px;
 }
 
 #map-button-position {
-  top: 100px;
-  left: 20px;
+  top: 90px;
+  left: 10px;
 }
 
 #map-button-search {
-  top: 140px;
-  left: 20px;
+  top: 130px;
+  left: 10px;
 }
 
 #map-button-info {
-  top: 180px;
-  left: 20px;
+  top: 170px;
+  left: 10px;
 }
 
 #map-button-settings {
-  top: 220px;
-  left: 20px;
+  top: 210px;
+  left: 10px;
 }
 
 #map-button-fullscreen {
   bottom: 10px;
   right: 10px;
+}
+
+#maannnousu-info-year-buttons {
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
 }
 
 @media (width < 576px) {

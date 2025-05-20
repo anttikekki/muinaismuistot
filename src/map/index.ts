@@ -33,6 +33,7 @@ import GtkTileLayer from "./layer/GtkTileLayer"
 import HelsinkiTileLayer from "./layer/HelsinkiTileLayer"
 import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer"
 import MaanmittauslaitosVanhatKartatTileLayer from "./layer/MaanmittauslaitosVanhatKartatTileLayer"
+import MaannousuInfoTileLayerGroup from "./layer/MaannousuInfoTileLayerGroup"
 import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
 import ModelsLayer from "./layer/ModelsLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
@@ -44,6 +45,7 @@ export default class MuinaismuistotMap {
   private readonly geolocation: Geolocation
   private readonly maanmittauslaitosTileLayer: MaanmittauslaitosTileLayer
   private readonly maanmittauslaitosVanhatKartatTileLayer: MaanmittauslaitosVanhatKartatTileLayer
+  private readonly maannousuInfoTileLayerGroup: MaannousuInfoTileLayerGroup
   private readonly museovirastoTileLayer: MuseovirastoTileLayer
   private readonly ahvenanmaaTileLayer: AhvenanmaaTileLayer
   private readonly positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
@@ -97,6 +99,12 @@ export default class MuinaismuistotMap {
         settings,
         this.updateTileLoadingStatus
       )
+    this.maannousuInfoTileLayerGroup = new MaannousuInfoTileLayerGroup({
+      settings,
+      onMapRenderCompleteOnce: (fn) =>
+        this.map.once("rendercomplete", () => fn()),
+      updateTileLoadingStatus: this.updateTileLoadingStatus
+    })
     this.museovirastoTileLayer = new MuseovirastoTileLayer(
       settings,
       this.updateTileLoadingStatus
@@ -116,8 +124,9 @@ export default class MuinaismuistotMap {
     this.map.addLayer(mmlTaustakarttaLayer)
     this.map.addLayer(mmlOrtokuvaLayer)
     this.map.addLayer(this.gtkLayer.getLayer())
-    this.map.addLayer(this.ahvenanmaaTileLayer.getLayer())
     this.map.addLayer(this.maanmittauslaitosVanhatKartatTileLayer.getLayer())
+    this.map.addLayer(this.maannousuInfoTileLayerGroup.getLayerGroup())
+    this.map.addLayer(this.ahvenanmaaTileLayer.getLayer())
     this.map.addLayer(this.museovirastoTileLayer.getLayer())
     this.map.addLayer(this.helsinkiLayer.getLayer())
     this.map.addLayer(this.maisemanMuistiLayer.getLayer())
@@ -192,7 +201,7 @@ export default class MuinaismuistotMap {
 
     if (loading) {
       this.tileLoadingCounter++
-    } else {
+    } else if (this.tileLoadingCounter > 0) {
       this.tileLoadingCounter--
     }
 
@@ -355,6 +364,9 @@ export default class MuinaismuistotMap {
       case LayerGroup.GTK:
         this.gtkLayer.selectedGTKLayersChanged(settings)
         break
+      case LayerGroup.MaannousuInfo:
+        this.maannousuInfoTileLayerGroup.onYearChange(settings)
+        break
       case LayerGroup.Museovirasto:
         this.museovirastoTileLayer.selectedFeatureLayersChanged(settings)
         break
@@ -416,6 +428,9 @@ export default class MuinaismuistotMap {
       case LayerGroup.GTK:
         this.gtkLayer.opacityChanged(settings)
         break
+      case LayerGroup.MaannousuInfo:
+        this.maannousuInfoTileLayerGroup.opacityChanged(settings)
+        break
       case LayerGroup.Museovirasto:
         this.museovirastoTileLayer.opacityChanged(settings)
         break
@@ -440,6 +455,9 @@ export default class MuinaismuistotMap {
         break
       case LayerGroup.GTK:
         this.gtkLayer.updateLayerVisibility(settings)
+        break
+      case LayerGroup.MaannousuInfo:
+        this.maannousuInfoTileLayerGroup.updateLayerVisibility(settings)
         break
       case LayerGroup.Museovirasto:
         this.museovirastoTileLayer.updateLayerVisibility(settings)

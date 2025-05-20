@@ -1,4 +1,5 @@
 import React, { useCallback } from "react"
+import { Button } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { ActionTypeEnum } from "../../../store/actionTypes"
@@ -17,14 +18,14 @@ export const OpenSettingsPage: React.FunctionComponent = () => {
 
   return (
     <div id="map-button-settings" className="map-button">
-      <button
-        type="button"
-        className="btn btn-primary"
+      <Button
+        variant="primary"
+        size="sm"
         title={t(`common.button.settings`) ?? undefined}
         onClick={onClick}
       >
         <i className="bi bi-gear" aria-hidden="true" />
-      </button>
+      </Button>
     </div>
   )
 }

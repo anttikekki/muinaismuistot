@@ -1,5 +1,7 @@
 {
   "common": {
+    "Ennen ajanlaskun alkua": "f.v.t.",
+    "Jälkeen ajanlaskun alun": "e.v.t.",
     "button": {
       "close": "Stäng",
       "zoomOut": "Zooma ut",
@@ -8,7 +10,11 @@
       "search": "Sök objekt",
       "info": "Hjälp och anvisningar",
       "positioning": "Visa position",
-      "fullscreen": "Fullskärmsläge"
+      "fullscreen": "Fullskärmsläge",
+      "maannousuInfo": {
+        "Edellinen vuosi": "Förra året",
+        "Seuraava vuosi": "Nästa år"
+      }
     },
     "features": {
       "Alue": "Område",
@@ -68,14 +74,14 @@
   "settings": {
     "title": "Inställningar",
     "common": {
-      "transparency": "Transparens (%)"
+      "transparency": "Transparens ({{transparency}} %)"
     },
     "mml": {
       "title": "Lantmäteriverkets material",
       "maastokartta": "Terrängkarta",
       "taustakartta": "Bakgrundskarta",
       "ortokuva": "Flygfoto",
-      "licence": "© Lantmäteriverket"
+      "licence": "© Lantmäteriverket (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)"
     },
     "mmlVanhatKartat": {
       "title": "Lantmäteriverkets gamla kartor",

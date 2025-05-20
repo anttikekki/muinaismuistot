@@ -5,6 +5,7 @@ import {
   Language,
   MaanmittauslaitosLayer,
   MaanmittauslaitosVanhatKartatLayer,
+  MaannousuInfoLayer,
   MaisemanMuistiLayer,
   ModelLayer,
   MuseovirastoLayer
@@ -36,6 +37,11 @@ import {
   updateMaanmittauslaitosVanhatKartatLayerOpacity,
   updateMaanmittauslaitosVanhatKartatSelectedLayer
 } from "../store/reducers/maanmittauslaitosVanhatKartatLayer"
+import {
+  updateMaannousuInfoLayerEnabled,
+  updateMaannousuInfoLayerOpacity,
+  updateMaannousuInfoSelectedLayer
+} from "../store/reducers/maannousuInfoLayer"
 import { updateMaisemanMuistiSelectedLayers } from "../store/reducers/maisemanMuistiLayer"
 import { updateModelSelectedLayers } from "../store/reducers/modelLayer"
 import {
@@ -66,10 +72,7 @@ const validateAndUpdateUrlParamToSettings = <
   settings: Settings,
   enumObj: ENUM,
   value: string | string[],
-  updateSettings: (
-    settings: Settings,
-    values: ENUM[keyof ENUM][]
-  ) => Settings
+  updateSettings: (settings: Settings, values: ENUM[keyof ENUM][]) => Settings
 ): Settings => {
   if (value === EMPTY_SELECTION) {
     return updateSettings(settings, [])
@@ -93,6 +96,9 @@ export const getSettingsFromURL = (): Settings => {
     gtkLayer,
     gtkOpacity,
     gtkEnabled,
+    maannousuLayer,
+    maannousuOpacity,
+    maannousuEnabled,
     museovirastoLayer,
     museovirastoOpacity,
     museovirastoEnabled,
@@ -170,6 +176,28 @@ export const getSettingsFromURL = (): Settings => {
   // GTK enabled
   if (gtkEnabled !== undefined) {
     newSettings = updateGtkLayerEnabled(newSettings, gtkEnabled)
+  }
+
+  // Maannousu.info layer
+  const maannousuLayerString = String(maannousuLayer)
+  if (
+    maannousuLayerString &&
+    isEnumValue(MaannousuInfoLayer, maannousuLayerString)
+  ) {
+    newSettings = updateMaannousuInfoSelectedLayer(
+      newSettings,
+      maannousuLayerString
+    )
+  }
+
+  //  Maannousu.info opacity
+  if (maannousuOpacity !== undefined) {
+    newSettings = updateMaannousuInfoLayerOpacity(newSettings, maannousuOpacity)
+  }
+
+  // Maannousu.info enabled
+  if (maannousuEnabled !== undefined) {
+    newSettings = updateMaannousuInfoLayerEnabled(newSettings, maannousuEnabled)
   }
 
   // Museovirasto layers

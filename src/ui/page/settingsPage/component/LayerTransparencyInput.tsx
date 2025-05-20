@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import { Form } from "react-bootstrap"
-import { useTranslation } from "react-i18next"
+import { Trans } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { LayerGroup } from "../../../../common/layers.types"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
@@ -17,7 +17,6 @@ export const LayerTransparencyInput: React.FC<Props> = ({
   layerGroup,
   disabled
 }) => {
-  const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
 
   const transparency = Number((1 - opacity) * 100).toFixed(0)
@@ -41,7 +40,12 @@ export const LayerTransparencyInput: React.FC<Props> = ({
 
   return (
     <>
-      <h6>{t(`settings.common.transparency`)}</h6>
+      <h6>
+        <Trans
+          i18nKey="settings.common.transparency"
+          values={{ transparency }}
+        />
+      </h6>
       <Form.Group>
         <Form.Range
           min="0"

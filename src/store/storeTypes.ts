@@ -8,6 +8,7 @@ import {
   Language,
   MaanmittauslaitosLayer,
   MaanmittauslaitosVanhatKartatLayer,
+  MaannousuInfoLayer,
   MaisemanMuistiLayer,
   ModelLayer,
   MuseovirastoLayer
@@ -54,6 +55,14 @@ export interface Settings {
     selectedLayers: MaanmittauslaitosVanhatKartatLayer[]
     url: {
       wms: string
+    }
+    opacity: number
+    enabled: boolean
+  }
+  maannousuInfo: {
+    selectedLayer: MaannousuInfoLayer
+    url: {
+      geotiff: string
     }
     opacity: number
     enabled: boolean

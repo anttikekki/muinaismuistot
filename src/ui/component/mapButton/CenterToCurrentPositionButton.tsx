@@ -1,4 +1,5 @@
 import React, { useCallback } from "react"
+import { Button } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { ActionTypeEnum } from "../../../store/actionTypes"
@@ -14,14 +15,14 @@ export const CenterToCurrentPositionButton: React.FunctionComponent = () => {
 
   return (
     <div id="map-button-position" className="map-button">
-      <button
-        type="button"
-        className="btn btn-primary"
+      <Button
+        variant="primary"
+        size="sm"
         title={t(`common.button.positioning`) ?? undefined}
         onClick={onClick}
       >
         <i className="bi bi-crosshair" aria-hidden="true" />
-      </button>
+      </Button>
     </div>
   )
 }

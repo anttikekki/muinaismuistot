@@ -23,6 +23,11 @@ import {
   updateMaanmittauslaitosVanhatKartatSelectedLayer
 } from "./reducers/maanmittauslaitosVanhatKartatLayer"
 import {
+  updateMaannousuInfoLayerEnabled,
+  updateMaannousuInfoLayerOpacity,
+  updateMaannousuInfoSelectedLayer
+} from "./reducers/maannousuInfoLayer"
+import {
   updateMaisemanMuistiLayerEnabled,
   updateMaisemanMuistiSelectedLayers
 } from "./reducers/maisemanMuistiLayer"
@@ -113,7 +118,9 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
         case LayerGroup.GTK: {
           return updateGtkSelectedLayers(state, action.layers)
         }
-
+        case LayerGroup.MaannousuInfo: {
+          return updateMaannousuInfoSelectedLayer(state, action.layer)
+        }
         case LayerGroup.Helsinki: {
           return updateHelsinkiSelectedLayers(state, action.layers)
         }
@@ -142,6 +149,8 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
           )
         case LayerGroup.GTK:
           return updateGtkLayerOpacity(state, action.opacity)
+        case LayerGroup.MaannousuInfo:
+          return updateMaannousuInfoLayerOpacity(state, action.opacity)
         case LayerGroup.Museovirasto:
           return updateMuseovirastoLayerOpacity(state, action.opacity)
         case LayerGroup.Ahvenanmaa:
@@ -161,6 +170,8 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
           )
         case LayerGroup.GTK:
           return updateGtkLayerEnabled(state, action.enabled)
+        case LayerGroup.MaannousuInfo:
+          return updateMaannousuInfoLayerEnabled(state, action.enabled)
         case LayerGroup.Museovirasto:
           return updateMuseovirastoLayerEnabled(state, action.enabled)
         case LayerGroup.Ahvenanmaa:

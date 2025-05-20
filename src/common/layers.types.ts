@@ -7,6 +7,7 @@ export enum LayerGroup {
   Maanmittauslaitos = "Maanmittauslaitos",
   MaanmittauslaitosVanhatKartat = "MaanmittauslaitosVanhatKartat",
   GTK = "GTK",
+  MaannousuInfo = "MaannousuInfo",
   Museovirasto = "Museovirasto",
   Ahvenanmaa = "Ahvenanmaa",
   Helsinki = "Helsinki",
@@ -46,6 +47,25 @@ export enum MaanmittauslaitosVanhatKartatLayer {
   Maasto_perus_topografinen_kartta_50k_1922_1946 = "mml_topo_50k_1922-1946",
   Maasto_perus_topografinen_kartta_50k_1964_2006 = "mml_topo_50k_1964-2006",
   Maasto_perus_topografinen_kartta_50k_2005_2020 = "mml_topo_50k_2005-2020"
+}
+
+export enum MaannousuInfoLayer {
+  Vuosi6000eaa = "-6000",
+  Vuosi5500eaa = "-5500",
+  Vuosi5000eaa = "-5000",
+  Vuosi4500eaa = "-4500",
+  Vuosi4000eaa = "-4000",
+  Vuosi3500eaa = "-3500",
+  Vuosi3000eaa = "-3000",
+  Vuosi2500eaa = "-2500",
+  Vuosi2000eaa = "-2000",
+  Vuosi1500eaa = "-1500",
+  Vuosi1000eaa = "-1000",
+  Vuosi500eaa = "-500",
+  Vuosi0eaa = "0",
+  Vuosi500aa = "500",
+  Vuosi1000aa = "1000",
+  Vuosi1500aa = "1500"
 }
 
 export enum MuseovirastoLayer {

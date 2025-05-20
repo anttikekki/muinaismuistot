@@ -135,6 +135,30 @@ export const updateSettingsToURL = (
     "gtkEnabled"
   )
 
+  // Maannousu.info layers
+  state = updateParam(
+    state,
+    initialSettings.maannousuInfo.selectedLayer,
+    currentSettings.maannousuInfo.selectedLayer,
+    "maannousuLayer"
+  )
+
+  // Maannousu.info opacity
+  state = updateParam(
+    state,
+    initialSettings.maannousuInfo.opacity,
+    currentSettings.maannousuInfo.opacity,
+    "maannousuOpacity"
+  )
+
+  // Maannousu.info enabled
+  state = updateParam(
+    state,
+    initialSettings.maannousuInfo.enabled,
+    currentSettings.maannousuInfo.enabled,
+    "maannousuEnabled"
+  )
+
   // Museovirasto layers
   state = updateParams(
     state,

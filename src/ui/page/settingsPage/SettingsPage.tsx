@@ -7,6 +7,7 @@ import { AhvenanmaaLayerSelectionPanel } from "./component/AhvenanmaaLayerSelect
 import { FeatureLayerFilterPanel } from "./component/FeatureLayerFilterPanel"
 import { GTKMapLayerSelectionPanel } from "./component/GTKMapLayerSelectionPanel"
 import { HelsinkiMapLayerSelectionPanel } from "./component/HelsinkiMapLayerSelectionPanel"
+import { MaannousuInfoLayerSettingsPanel } from "./component/MaannousuInfoLayerSettingsPanel"
 import { MMLMapLayerSelectionPanel } from "./component/MMLMapLayerSelectionPanel"
 import { MMLVanhatKartatLayerSelectionPanel } from "./component/MMLVanhatKartatMapLayerSelectionPanel"
 import { MuseovirastoLayerSelectionPanel } from "./component/MuseovirastoLayerSelectionPanel"
@@ -20,6 +21,7 @@ export const SettingsPage: React.FC = () => {
         <MMLMapLayerSelectionPanel />
         <MMLVanhatKartatLayerSelectionPanel />
         <GTKMapLayerSelectionPanel />
+        <MaannousuInfoLayerSettingsPanel />
         <MuseovirastoLayerSelectionPanel />
         <AhvenanmaaLayerSelectionPanel />
         <HelsinkiMapLayerSelectionPanel />

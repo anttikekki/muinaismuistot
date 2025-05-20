@@ -4,6 +4,7 @@ import {
   Language,
   MaanmittauslaitosLayer,
   MaanmittauslaitosVanhatKartatLayer,
+  MaannousuInfoLayer,
   MaisemanMuistiLayer,
   ModelLayer,
   MuseovirastoLayer
@@ -53,6 +54,14 @@ export const initialSettings: Settings = {
     ]),
     url: {
       wms: "https://paituli.csc.fi/geoserver/paituli/wms"
+    },
+    opacity: 1,
+    enabled: false
+  },
+  maannousuInfo: {
+    selectedLayer: MaannousuInfoLayer.Vuosi6000eaa,
+    url: {
+      geotiff: "https://maannousu.info/api/v2"
     },
     opacity: 1,
     enabled: false

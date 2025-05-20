@@ -45,6 +45,14 @@ export const DataAndLicencesPanel: React.FC = () => {
           <Trans i18nKey="info.licences.helsinki" components={{ a: <a /> }} />
         </p>
 
+        <h6>{t(`common.organization.Maannousu.info`)}</h6>
+        <p>
+          <Trans
+            i18nKey="info.licences.maannousuInfo"
+            components={{ a: <a /> }}
+          />
+        </p>
+
         <h6>{t(`settings.other.title`)}</h6>
         <p>
           <Trans

@@ -1,5 +1,7 @@
 {
   "common": {
+    "Ennen ajanlaskun alkua": "eaa.",
+    "Jälkeen ajanlaskun alun": "jaa.",
     "button": {
       "close": "Sulje",
       "zoomOut": "Loitonna",
@@ -8,7 +10,11 @@
       "search": "Hae kohteita",
       "info": "Ohjeita sivuston käyttöön",
       "positioning": "Keskitä kartta nykyiseen sijaintiisi",
-      "fullscreen": "Kokoruudun tila"
+      "fullscreen": "Kokoruudun tila",
+      "maannousuInfo": {
+        "Edellinen vuosi": "Edellinen vuosi",
+        "Seuraava vuosi": "Seuraava vuosi"
+      }
     },
     "features": {
       "Alue": "Alue",
@@ -24,7 +30,8 @@
       "Museovirasto": "Museovirasto",
       "Ahvenanmaan paikallishallinto": "Ahvenanmaan paikallishallinto",
       "Geologian tutkimuskeskus": "Geologian tutkimuskeskus",
-      "Helsingin kaupunki": "Helsingin kaupunki"
+      "Helsingin kaupunki": "Helsingin kaupunki",
+      "Maannousu.info": "Maannousu.info"
     }
   },
   "info": {
@@ -59,6 +66,7 @@
       "maanmittauslaitos": "Tausta-, ortokuva- ja peruskartta haetaan Maanmittauslaitoksen <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "maanmittauslaitosVanhatKartat": "<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>Vanhat kartat</a> haetaan CSC:n (Tieteen tietotekniikan keskus) Paituli-palvelun <a href='https://paituli.csc.fi/webservices.html' target='_blank'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "gtk": "Muinaisrantojen aineisto haetaan Geologian tutkimuskeskuksen <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://www.gtk.fi/peruslisenssi/'>Peruslisenssillä</a>, erillislupa aineiston käyttöön saatu 15.1.2021).",
+      "maannousuInfo": "Maannousu.info sivuston maannousua kuvaava kartta <a href='https://maannousu.info/integration'>avoimen GeoTIFF-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "helsinki": "Helsingin ensimmäisen maailmansodan aikaisten maalinnoitusten aineisto haetaan Helsingin kaupungin <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "maisemanmuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset -kirjan paikkatieto on <a href='./maisemanmuisti/'>tietokannasta</a> johon on koottu kirjan listaamat 205 kohdetta. Kirjan sisällön tekijanoikeus on Museovirastolla, jolta on kysytty lupa aineiston käyttöön.",
       "3DModels": "3D-mallit ovat avoimesta <a href='./3d/'>tietokannasta</a>, joka listaa harrastajien sekä virallisen toimijoiden (museot, Museovirasto, Ahvenanmaan paikallioshallinto) tekemiä 3D-mallinnuksia. Mallien lisenssit on listattu tietokannassa mallikohtaisesti.",
@@ -68,7 +76,7 @@
   "settings": {
     "title": "Asetukset",
     "common": {
-      "transparency": "Läpinäkyvyys (%)"
+      "transparency": "Läpinäkyvyys ({{transparency}} %)"
     },
     "mml": {
       "title": "Maanmittauslaitoksen aineistot",
@@ -118,6 +126,12 @@
     "gtk": {
       "title": "Geologian tutkimuskeskuksen aineistot",
       "licence": "© Geologian tutkimuskeskus"
+    },
+    "maannousuInfo": {
+      "title": "Maannousu.info maannousukartta",
+      "info": "Maannousun laskentamalli: <a href='https://maannousu.info/model-v2' target='_blank'>Glacial Land Adjustment Regenerator (Glare)</a>",
+      "info2": "Maannousua pystyy tarkkailemaan aikavälillä 6000 eaa. - 1500 jaa. Vuosi valitaan kartan alareunasta.",
+      "licence": "<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>"
     },
     "museovirasto": {
       "title": "Museoviraston aineistot",
@@ -223,7 +237,8 @@
         "3Dmodels": "3D-mallit",
         "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset",
         "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset",
-        "muinaisrannat": "Muinaisrannat"
+        "muinaisrannat": "Muinaisrannat",
+        "MaannousuInfo": "Maannousu.info maannousukartta"
       },
       "nameWithLink": {
         "Muinaisjäännösrekisteri": "Muinaisjäännösrekisterit (<a href='https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx' target='_blank'>lisätietoa</a>)",
@@ -234,7 +249,8 @@
         "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Ahvenanmaan merellinen kulttuuriperintörekisteri (<a href='https://hub.arcgis.com/datasets/aland::maritimt-kulturarv-vrak-1/' target='_blank'>lisätietoa</a>)",
         "3Dmodels": "3D-mallit (<a href='./3d/' target='_blank'>lisätietoa</a>)",
         "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>lisätietoa</a>)",
-        "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>lisätietoa</a>)"
+        "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>lisätietoa</a>)",
+        "MaannousuInfo": "Maannousukartta (<a href='https://maannousu.info' target='_blank'>lisätietoa</a>)"
       }
     },
     "featureType": {

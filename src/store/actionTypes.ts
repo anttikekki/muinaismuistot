@@ -6,6 +6,7 @@ import {
   LayerGroup,
   MaanmittauslaitosLayer,
   MaanmittauslaitosVanhatKartatLayer,
+  MaannousuInfoLayer,
   MaisemanMuistiLayer,
   ModelLayer,
   MuseovirastoLayer
@@ -72,6 +73,7 @@ export type SelectVisibleLayersAction =
   | SelectVisibleHelsinkiLayersAction
   | SelectVisibleModelsLayersAction
   | SelectVisibleMaisemanMuistiLayersAction
+  | SelectVisibleMaannousuInfoLayersAction
 
 interface SelectVisibleMaanmittauslaitosLayerAction {
   type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
@@ -119,6 +121,12 @@ interface SelectVisibleMaisemanMuistiLayersAction {
   type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
   layerGroup: LayerGroup.MaisemanMuisti
   layers: MaisemanMuistiLayer[]
+}
+
+interface SelectVisibleMaannousuInfoLayersAction {
+  type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
+  layerGroup: LayerGroup.MaannousuInfo
+  layer: MaannousuInfoLayer
 }
 
 export interface ChangeLayerOpacityAction {
