@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmuinaismuistot=self.webpackChunkmuinaismuistot||[]).push([[424],{424:(e,s,u)=>{u.r(s),u.d(s,{default:()=>i});var t=u(3075),a=u(2132);class i extends a.A{decodeBlock(e){return(0,t.UD)(new Uint8Array(e)).buffer}}}}]);
