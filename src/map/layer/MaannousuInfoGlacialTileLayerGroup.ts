@@ -49,7 +49,7 @@ export default class MaannousuInfoGlacialTileLayerGroup {
 
     const nextYear = settings.maannousuInfo.selectedLayer
 
-    // Next year is not supported year for ice. hide all layers
+    // Next year is not supported year for ice. Hide all layers
     if (!isSupportedGlacialYear(nextYear)) {
       this.hideAllLayers()
       return
@@ -82,7 +82,8 @@ export default class MaannousuInfoGlacialTileLayerGroup {
        */
       this.onYearChange(settings)
     } else {
-      this.hideAllLayers()
+      // Delete all layers to free memory
+      this.removeAllLayers()
     }
   }
 
@@ -108,5 +109,9 @@ export default class MaannousuInfoGlacialTileLayerGroup {
     this.layers.forEach((layer) => {
       layer.getLayer().setVisible(false)
     })
+  }
+
+  private removeAllLayers = (): void => {
+    this.layers.clear()
   }
 }

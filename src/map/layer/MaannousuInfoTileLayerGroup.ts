@@ -85,7 +85,8 @@ export default class MaannousuInfoTileLayerGroup {
        */
       this.onYearChange(settings)
     } else {
-      this.hideAllLayers()
+      // Delete all layers to free memory
+      this.removeAllLayers()
     }
   }
 
@@ -109,5 +110,9 @@ export default class MaannousuInfoTileLayerGroup {
     this.layers.forEach((layer) => {
       layer.getLayer().setVisible(false)
     })
+  }
+
+  private removeAllLayers = (): void => {
+    this.layers.clear()
   }
 }
