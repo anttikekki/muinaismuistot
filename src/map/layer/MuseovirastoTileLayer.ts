@@ -14,6 +14,20 @@ import {
 import { trim } from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
 
+const emptyIdentifyResult: MuseovirastoWmsFeatureInfoResult = {
+  type: "FeatureCollection",
+  features: [],
+  totalFeatures: "unknown",
+  numberReturned: 0,
+  timeStamp: new Date().toISOString(),
+  crs: {
+    type: "name",
+    properties: {
+      name: "urn:ogc:def:crs:EPSG::3067"
+    }
+  }
+}
+
 export type ShowLoadingAnimationFn = (show: boolean) => void
 
 export default class MuseovirastoTileLayer {
@@ -93,31 +107,37 @@ export default class MuseovirastoTileLayer {
     projection: Projection,
     settings: Settings
   ): Promise<MuseovirastoWmsFeatureInfoResult> => {
-    if (this.source && resolution !== undefined) {
-      const url = this.source.getFeatureInfoUrl(
-        coordinate,
-        resolution,
-        projection,
-        {
-          INFO_FORMAT: "application/json",
-          QUERY_LAYERS: settings.museovirasto.selectedLayers.join(","),
-          FEATURE_COUNT: 100,
-          /**
-           * Geoserver vendor specific param to extend the search radius pixels. Similar to ArcGis tolerance.
-           * @see https://docs.geoserver.org/latest/en/user/services/wms/vendor.html#buffer
-           */
-          BUFFER: 15
-        }
-      )
-      if (url) {
-        const response = await fetch(String(url))
-        const result =
-          (await response.json()) as MuseovirastoWmsFeatureInfoResult
-
-        return this.trimAnsSplitMultivalueFields(result)
-      }
+    if (
+      !this.source ||
+      resolution === undefined ||
+      settings.museovirasto.selectedLayers.length === 0 ||
+      !settings.museovirasto.enabled
+    ) {
+      return emptyIdentifyResult
     }
-    return Promise.reject()
+
+    const url = this.source.getFeatureInfoUrl(
+      coordinate,
+      resolution,
+      projection,
+      {
+        INFO_FORMAT: "application/json",
+        QUERY_LAYERS: settings.museovirasto.selectedLayers.join(","),
+        FEATURE_COUNT: 100,
+        /**
+         * Geoserver vendor specific param to extend the search radius pixels. Similar to ArcGis tolerance.
+         * @see https://docs.geoserver.org/latest/en/user/services/wms/vendor.html#buffer
+         */
+        BUFFER: 15
+      }
+    )
+    if (url) {
+      const response = await fetch(String(url))
+      const result = (await response.json()) as MuseovirastoWmsFeatureInfoResult
+
+      return this.trimAnsSplitMultivalueFields(result)
+    }
+    return emptyIdentifyResult
   }
 
   public findFeatures = async (

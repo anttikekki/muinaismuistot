@@ -288,17 +288,19 @@ export default class MuinaismuistotMap {
       settings
     )
 
-    const modelsResult =
-      this.getFeaturesAtPixelAtGeoJsonLayer<ModelFeatureProperties>(
-        e.pixel,
-        this.modelsLayer.getLayer()
-      )
+    const modelsResult = settings.models.enabled
+      ? this.getFeaturesAtPixelAtGeoJsonLayer<ModelFeatureProperties>(
+          e.pixel,
+          this.modelsLayer.getLayer()
+        )
+      : []
 
-    const maisemanMuistiResult =
-      this.getFeaturesAtPixelAtGeoJsonLayer<MaisemanMuistiFeatureProperties>(
-        e.pixel,
-        this.maisemanMuistiLayer.getLayer()
-      )
+    const maisemanMuistiResult = settings.maisemanMuisti.enabled
+      ? this.getFeaturesAtPixelAtGeoJsonLayer<MaisemanMuistiFeatureProperties>(
+          e.pixel,
+          this.maisemanMuistiLayer.getLayer()
+        )
+      : []
 
     Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery]).then(
       ([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {

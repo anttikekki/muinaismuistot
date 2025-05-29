@@ -95,7 +95,8 @@ export default class HelsinkiTileLayer {
     if (
       !extent ||
       !containsCoordinate(extent, coordinate) ||
-      selectedLayersWithoutTextLayer.length === 0
+      selectedLayersWithoutTextLayer.length === 0 ||
+      !settings.helsinki.enabled
     ) {
       return []
     }

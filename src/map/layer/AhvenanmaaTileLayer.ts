@@ -42,9 +42,7 @@ export default class AhvenanmaaTileLayer {
     this.updateLayerVisibility(settings)
   }
 
-  private toLayerIds = (
-    layers: AhvenanmaaLayer[]
-  ): AhvenanmaaLayerId[] => {
+  private toLayerIds = (layers: AhvenanmaaLayer[]): AhvenanmaaLayerId[] => {
     return layers.map(getAhvenanmaaLayerId).sort((a, b) => a - b)
   }
 
@@ -109,7 +107,8 @@ export default class AhvenanmaaTileLayer {
     if (
       !extent ||
       !containsCoordinate(extent, coordinate) ||
-      settings.ahvenanmaa.selectedLayers.length === 0
+      settings.ahvenanmaa.selectedLayers.length === 0 ||
+      !settings.ahvenanmaa.enabled
     ) {
       return { results: [] }
     }
@@ -200,10 +199,7 @@ export default class AhvenanmaaTileLayer {
       return this.typeAndDatingMap
     }
 
-    const map = new Map<
-      string,
-      AhvenanmaaTypeAndDatingFeatureProperties[]
-    >()
+    const map = new Map<string, AhvenanmaaTypeAndDatingFeatureProperties[]>()
 
     try {
       const response = await fetch(settings.ahvenanmaa.url.typeAndDating)
