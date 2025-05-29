@@ -70,6 +70,13 @@ body,
   display: flex;
 }
 
+#webgl-global-error-message {
+  z-index: 15;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
+
 @media (width < 576px) {
   .offcanvas {
     --bs-offcanvas-width: 100%;

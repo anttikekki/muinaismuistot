@@ -2,6 +2,7 @@ import { LRUCache } from "lru-cache"
 import LayerGroup from "ol/layer/Group"
 import { MaannousuInfoLayer } from "../../common/layers.types"
 import { Settings } from "../../store/storeTypes"
+import { isWebGLSupported } from "../../ui/util/webGLUtils"
 import MaannousuInfoTileLayer from "./MaannousuInfoTileLayer"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
@@ -33,9 +34,7 @@ export default class MaannousuInfoTileLayerGroup {
   }) {
     this.onMapRenderCompleteOnce = onMapRenderCompleteOnce
     this.updateTileLoadingStatus = updateTileLoadingStatus
-    if (settings.maannousuInfo.enabled) {
-      this.onYearChange(settings)
-    }
+    this.onYearChange(settings)
   }
 
   public getLayerGroup(): LayerGroup {
@@ -43,6 +42,10 @@ export default class MaannousuInfoTileLayerGroup {
   }
 
   public onYearChange = (settings: Settings): void => {
+    if (!settings.maannousuInfo.enabled || !isWebGLSupported()) {
+      return
+    }
+
     const nextYear = settings.maannousuInfo.selectedLayer
 
     // Hide all layers if current year is selected. This just shows the base map.

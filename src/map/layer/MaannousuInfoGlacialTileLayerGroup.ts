@@ -2,6 +2,7 @@ import { LRUCache } from "lru-cache"
 import LayerGroup from "ol/layer/Group"
 import { MaannousuInfoGlacialLayer } from "../../common/layers.types"
 import { Settings } from "../../store/storeTypes"
+import { isWebGLSupported } from "../../ui/util/webGLUtils"
 import MaannousuInfoGlacialTileLayer from "./MaannousuInfoGlacialTileLayer"
 
 const isSupportedGlacialYear = (
@@ -42,6 +43,10 @@ export default class MaannousuInfoGlacialTileLayerGroup {
   }
 
   public onYearChange = (settings: Settings): void => {
+    if (!settings.maannousuInfo.enabled || !isWebGLSupported()) {
+      return
+    }
+
     const nextYear = settings.maannousuInfo.selectedLayer
 
     // Next year is not supported year for ice. hide all layers

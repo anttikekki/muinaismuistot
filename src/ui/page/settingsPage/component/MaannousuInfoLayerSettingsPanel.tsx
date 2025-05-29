@@ -1,10 +1,11 @@
 import React, { useCallback } from "react"
-import { Accordion, Form } from "react-bootstrap"
+import { Accordion, Alert, Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { LayerGroup } from "../../../../common/layers.types"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
+import { isWebGLSupported } from "../../../util/webGLUtils"
 import { LayerTransparencyInput } from "./LayerTransparencyInput"
 
 export const MaannousuInfoLayerSettingsPanel: React.FC = () => {
@@ -25,6 +26,7 @@ export const MaannousuInfoLayerSettingsPanel: React.FC = () => {
   )
 
   const title = t(`settings.maannousuInfo.title`)
+  const webGLSupported = isWebGLSupported()
 
   return (
     <Accordion.Item eventKey={LayerGroup.MaannousuInfo}>
@@ -35,10 +37,16 @@ export const MaannousuInfoLayerSettingsPanel: React.FC = () => {
           checked={enabled}
           onClick={(event) => event.stopPropagation()}
           onChange={() => onSwitchChange(!enabled)}
+          disabled={!webGLSupported}
         />
         {title}
       </Accordion.Header>
       <Accordion.Body>
+        {!webGLSupported && (
+          <Alert variant="danger">
+            <Trans i18nKey={`settings.maannousuInfo.webGLError`} />
+          </Alert>
+        )}
         <Form>
           <h6>
             <Trans
@@ -61,7 +69,7 @@ export const MaannousuInfoLayerSettingsPanel: React.FC = () => {
           <LayerTransparencyInput
             opacity={opacity}
             layerGroup={LayerGroup.MaannousuInfo}
-            disabled={!enabled}
+            disabled={!enabled || !webGLSupported}
           />
 
           <Form.Text>

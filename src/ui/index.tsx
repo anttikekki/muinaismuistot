@@ -19,6 +19,7 @@ import { MaannnousuInfoYearConrols } from "./component/mapButton/MaannnousuInfoY
 import { ShowInfoPageButton } from "./component/mapButton/OpenInfoPageButton"
 import { OpenSearchPageButton } from "./component/mapButton/OpenSearchPageButton"
 import { OpenSettingsPage } from "./component/mapButton/OpenSettingsPage"
+import { WebGLErrorMessage } from "./component/mapButton/WebGLErrorMessage"
 import { ZoomInButton } from "./component/mapButton/ZoomInButton"
 import { ZoomOutButton } from "./component/mapButton/ZoomOutButton"
 import { FeatureDetailsPage } from "./page/featureDetailsPage/FeatureDetailsPage"
@@ -64,6 +65,7 @@ export const createUI = (store: Store<Settings, ActionTypes>) => {
         fullscreenPossible={document.fullscreenEnabled}
       />
       <MaannnousuInfoYearConrols />
+      <WebGLErrorMessage />
 
       <FeatureDetailsPage />
       <SearchPage />
