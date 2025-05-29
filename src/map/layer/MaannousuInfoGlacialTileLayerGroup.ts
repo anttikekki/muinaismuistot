@@ -1,41 +1,40 @@
 import { LRUCache } from "lru-cache"
 import LayerGroup from "ol/layer/Group"
-import { MaannousuInfoLayer } from "../../common/layers.types"
+import { MaannousuInfoGlacialLayer } from "../../common/layers.types"
 import { Settings } from "../../store/storeTypes"
-import MaannousuInfoTileLayer from "./MaannousuInfoTileLayer"
+import MaannousuInfoGlacialTileLayer from "./MaannousuInfoGlacialTileLayer"
 
-export type ShowLoadingAnimationFn = (show: boolean) => void
+const isSupportedGlacialYear = (
+  layer: string
+): layer is MaannousuInfoGlacialLayer =>
+  Object.values(MaannousuInfoGlacialLayer).includes(
+    layer as MaannousuInfoGlacialLayer
+  )
 
-export default class MaannousuInfoTileLayerGroup {
+export default class MaannousuInfoGlacialTileLayerGroup {
   private readonly layerGroup = new LayerGroup()
   // Store only 5 layers to save memory. Older mobile devices crash if
   // too many layers are loaded.
   private readonly layers = new LRUCache<
-    MaannousuInfoLayer,
-    MaannousuInfoTileLayer
+    MaannousuInfoGlacialLayer,
+    MaannousuInfoGlacialTileLayer
   >({
     max: 5,
     dispose: (layer) => {
       this.layerGroup.getLayers().remove(layer.getLayer())
     }
   })
-  private readonly onMapRenderCompleteOnce: (fn: () => void) => void
-  private readonly updateTileLoadingStatus: ShowLoadingAnimationFn
+  private onMapRenderCompleteOnce?: (fn: () => void) => void
 
   public constructor({
     settings,
-    onMapRenderCompleteOnce,
-    updateTileLoadingStatus
+    onMapRenderCompleteOnce
   }: {
     settings: Settings
     onMapRenderCompleteOnce: (fn: () => void) => void
-    updateTileLoadingStatus: ShowLoadingAnimationFn
   }) {
     this.onMapRenderCompleteOnce = onMapRenderCompleteOnce
-    this.updateTileLoadingStatus = updateTileLoadingStatus
-    if (settings.maannousuInfo.enabled) {
-      this.onYearChange(settings)
-    }
+    this.onYearChange(settings)
   }
 
   public getLayerGroup(): LayerGroup {
@@ -45,25 +44,21 @@ export default class MaannousuInfoTileLayerGroup {
   public onYearChange = (settings: Settings): void => {
     const nextYear = settings.maannousuInfo.selectedLayer
 
-    // Hide all layers if current year is selected. This just shows the base map.
-    if (parseInt(nextYear) === new Date().getFullYear()) {
+    // Next year is not supported year for ice. hide all layers
+    if (!isSupportedGlacialYear(nextYear)) {
       this.hideAllLayers()
       return
     }
 
-    const cacheKey = nextYear
+    const nextLayer = this.layers.get(nextYear)
 
-    this.updateTileLoadingStatus(false)
-    const nextLayer = this.layers.get(cacheKey)
     if (!nextLayer) {
-      this.updateTileLoadingStatus(true)
-      const newLayer = new MaannousuInfoTileLayer(nextYear)
-      this.layers.set(cacheKey, newLayer)
+      const newLayer = new MaannousuInfoGlacialTileLayer(nextYear)
+      this.layers.set(nextYear, newLayer)
 
       newLayer.getSource().once("tileloadend", () => {
-        this.onMapRenderCompleteOnce(() => {
+        this.onMapRenderCompleteOnce?.(() => {
           this.setLayerVisible(newLayer)
-          this.updateTileLoadingStatus(false)
         })
       })
       this.layerGroup.getLayers().push(newLayer.getLayer())
@@ -90,7 +85,9 @@ export default class MaannousuInfoTileLayerGroup {
     this.layerGroup.setOpacity(settings.maannousuInfo.opacity)
   }
 
-  private setLayerVisible = (nextLayer: MaannousuInfoTileLayer): void => {
+  private setLayerVisible = (
+    nextLayer: MaannousuInfoGlacialTileLayer
+  ): void => {
     nextLayer.getLayer().setVisible(true)
     this.layers.forEach((prevLayer) => {
       if (

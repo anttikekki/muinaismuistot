@@ -130,7 +130,7 @@
     "maannousuInfo": {
       "title": "Maannousu.info maannousukartta",
       "info": "Maannousun laskentamalli: <a href='https://maannousu.info/model-v2' target='_blank'>Glacial Land Adjustment Regenerator (Glare)</a>",
-      "info2": "Maannousua pystyy tarkkailemaan aikavälillä 6000 eaa. - 1500 jaa. Vuosi valitaan kartan alareunasta.",
+      "info2": "Maannousua pystyy tarkkailemaan aikavälillä 10 000 eaa. - 1500 jaa. Vuosi valitaan kartan alareunasta. Vuosina 10 000 eaa. - 8500 eaa. näytetään myös jääkauden mannerjää Pohjoismaissa.",
       "licence": "<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>"
     },
     "museovirasto": {
