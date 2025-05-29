@@ -1,3 +1,4 @@
+import debounce from "debounce"
 import { parseCoordinatesFromURL } from "../common/util/URLHashHelper"
 import { StoreListener } from "../store"
 import { ActionTypeEnum } from "../store/actionTypes"
@@ -30,9 +31,13 @@ export default class URLUtil {
           return false
       }
     },
-    effect: (action, listenerApi) => {
+    /**
+     * Debounce URL updates for 500ms. Opacity slider triggers so many updates,
+     * that Firefox starts to throw errors.
+     */
+    effect: debounce((action, listenerApi) => {
       updateSettingsToURL(initialSettings, listenerApi.getState())
-    }
+    }, 500)
   }
 
   private determineStartLocation = (dispatch: AppDispatch) => {

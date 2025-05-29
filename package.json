@@ -21,6 +21,7 @@
     "@reduxjs/toolkit": "2.8.2",
     "bootstrap": "5.3.6",
     "bootstrap-icons": "1.13.1",
+    "debounce": "2.2.0",
     "i18next": "25.2.0",
     "lru-cache": "11.1.0",
     "ol": "10.5.0",
