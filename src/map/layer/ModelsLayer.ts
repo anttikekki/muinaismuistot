@@ -66,7 +66,7 @@ export default class ModelsLayer {
     })
     this.layer = new VectorLayer({
       source: this.source,
-      visible: settings.models.selectedLayers.length > 0,
+      visible: settings.models.enabled,
       style: this.styleForFeature
     })
 
@@ -126,6 +126,13 @@ export default class ModelsLayer {
       features: new GeoJSON().readFeatures(geojsonObject)
     })
     this.layer.setSource(this.source)
+  }
+
+  public updateLayerVisibility = (settings: Settings) => {
+    const {
+      models: { selectedLayers, enabled }
+    } = settings
+    this.layer.setVisible(enabled && selectedLayers.length > 0)
   }
 
   public getFeaturesForFeatureRegisterId = (

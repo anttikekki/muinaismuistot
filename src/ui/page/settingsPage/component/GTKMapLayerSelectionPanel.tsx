@@ -52,18 +52,9 @@ export const GTKMapLayerSelectionPanel: React.FC = () => {
       <Accordion.Body>
         <Form>
           <h6>
-            <Form.Check
-              type="checkbox"
-              id="muinaisrannat"
-              onChange={() => onSelectLayer(GtkLayer.muinaisrannat)}
-              checked={selectedLayers.includes(GtkLayer.muinaisrannat)}
-              disabled={!enabled}
-              label={
-                <Trans
-                  i18nKey={`data.gtk.layer.${GtkLayer.muinaisrannat}`}
-                  components={{ a: <a /> }}
-                />
-              }
+            <Trans
+              i18nKey={`data.gtk.layer.${GtkLayer.muinaisrannat}`}
+              components={{ a: <a /> }}
             />
           </h6>
 

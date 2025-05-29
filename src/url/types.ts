@@ -7,7 +7,6 @@ export interface URLSettings {
   mmlVanhatKartatLayer?: string | string[]
   mmlVanhatKartatOpacity?: number
   mmlVanhatKartatEnabled?: boolean
-  gtkLayer?: string | string[]
   gtkOpacity?: number
   gtkEnabled?: boolean
   maannousuLayer?: string
@@ -24,8 +23,8 @@ export interface URLSettings {
   helsinkiLayer?: string | string[]
   helsinkiOpacity?: number
   helsinkiEnabled?: boolean
-  modelsLayer?: string | string[]
-  maisemanMuistiLayer?: string | string[]
+  modelsEnabled?: boolean
+  maisemanMuistiEnabled?: boolean
 }
 
 export const EMPTY_SELECTION = "none"

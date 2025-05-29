@@ -482,6 +482,12 @@ export default class MuinaismuistotMap {
       case LayerGroup.Helsinki:
         this.helsinkiLayer.updateLayerVisibility(settings)
         break
+      case LayerGroup.Models:
+        this.modelsLayer.updateLayerVisibility(settings)
+        break
+      case LayerGroup.MaisemanMuisti:
+        this.maisemanMuistiLayer.updateLayerVisibility(settings)
+        break
     }
   }
 

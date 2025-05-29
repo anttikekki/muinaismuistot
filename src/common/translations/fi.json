@@ -136,7 +136,14 @@
     },
     "museovirasto": {
       "title": "Museoviraston aineistot",
-      "licence": "© Museovirasto (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)"
+      "licence": "© Museovirasto (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)",
+
+      "filters": {
+        "title": "Kartalla näkyvät muinaisjäännökset",
+        "info": "Rajoitus toimii vain muijaisjäännöksien pisteille (PISTE_ICONS) mutta ei alueille (ALUE_ICONS).",
+        "type": "Tyyppi",
+        "dating": "Ajoitus"
+      }
     },
     "ahvenanmaa": {
       "title": "Ahvenanmaan paikallishallinnon aineistot",
@@ -146,14 +153,11 @@
       "title": "Helsingin kaupungin aineistot",
       "licence": "© Helsingin kaupunki (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)"
     },
-    "other": {
-      "title": "Muut aineistot"
+    "3Dmodels": {
+      "title": "3D-mallit"
     },
-    "filters": {
-      "title": "Kartalla näkyvät muinaisjäännökset",
-      "info": "Rajoitus toimii vain Museoviraston muijaisjäännöksien pisteille (PISTE_ICONS) mutta ei alueille (ALUE_ICONS). Rajaus ei valitettavasti toimi Ahvenanmaan muinaisjäännöksiin.",
-      "type": "Tyyppi",
-      "dating": "Ajoitus"
+    "maisemanMuisti": {
+      "title": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset"
     }
   },
   "search": {

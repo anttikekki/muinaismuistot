@@ -1,5 +1,6 @@
 import {
   AhvenanmaaLayer,
+  GtkLayer,
   HelsinkiLayer,
   Language,
   MaanmittauslaitosLayer,
@@ -106,7 +107,7 @@ export const initialSettings: Settings = {
     enabled: true
   },
   gtk: {
-    selectedLayers: [],
+    selectedLayers: [GtkLayer.muinaisrannat],
     url: {
       export:
         "https://gtkdata.gtk.fi/arcgis/rest/services/Rajapinnat/GTK_Maapera_WMS/MapServer"

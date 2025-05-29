@@ -111,14 +111,6 @@ export const updateSettingsToURL = (
     "mmlVanhatKartatEnabled"
   )
 
-  // GTK layers
-  state = updateParams(
-    state,
-    initialSettings.gtk.selectedLayers,
-    currentSettings.gtk.selectedLayers,
-    "gtkLayer"
-  )
-
   // GTK opacity
   state = updateParam(
     state,
@@ -247,20 +239,20 @@ export const updateSettingsToURL = (
     "helsinkiEnabled"
   )
 
-  // 3D models
-  state = updateParams(
+  // 3D models enabled
+  state = updateParam(
     state,
-    initialSettings.models.selectedLayers,
-    currentSettings.models.selectedLayers,
-    "modelsLayer"
+    initialSettings.models.enabled,
+    currentSettings.models.enabled,
+    "modelsEnabled"
   )
 
-  // Maiseman muisti
-  state = updateParams(
+  // Maiseman muisti enabled
+  state = updateParam(
     state,
-    initialSettings.maisemanMuisti.selectedLayers,
-    currentSettings.maisemanMuisti.selectedLayers,
-    "maisemanMuistiLayer"
+    initialSettings.maisemanMuisti.enabled,
+    currentSettings.maisemanMuisti.enabled,
+    "maisemanMuistiEnabled"
   )
 
   window.location.hash = stringifyURLParamsToHash({

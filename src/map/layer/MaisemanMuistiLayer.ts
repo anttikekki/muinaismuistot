@@ -44,7 +44,7 @@ export default class MaisemanMuistiLayer {
     this.layer = new VectorLayer({
       source: this.source,
       style: this.style,
-      visible: settings.maisemanMuisti.selectedLayers.length > 0
+      visible: settings.maisemanMuisti.enabled
     })
 
     // Do not wait
@@ -78,6 +78,13 @@ export default class MaisemanMuistiLayer {
       features: new GeoJSON().readFeatures(geojsonObject)
     })
     this.layer.setSource(this.source)
+  }
+
+  public updateLayerVisibility = (settings: Settings) => {
+    const {
+      maisemanMuisti: { selectedLayers, enabled }
+    } = settings
+    this.layer.setVisible(enabled && selectedLayers.length > 0)
   }
 
   public getFeaturesForFeatureRegisterId = (

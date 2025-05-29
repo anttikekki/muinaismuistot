@@ -1,13 +1,10 @@
 import {
   AhvenanmaaLayer,
-  GtkLayer,
   HelsinkiLayer,
   Language,
   MaanmittauslaitosLayer,
   MaanmittauslaitosVanhatKartatLayer,
   MaannousuInfoLayer,
-  MaisemanMuistiLayer,
-  ModelLayer,
   MuseovirastoLayer
 } from "../common/layers.types"
 import {
@@ -23,8 +20,7 @@ import {
 } from "../store/reducers/ahvenanmaaLayer"
 import {
   updateGtkLayerEnabled,
-  updateGtkLayerOpacity,
-  updateGtkSelectedLayers
+  updateGtkLayerOpacity
 } from "../store/reducers/gtkLayer"
 import {
   updateHelsinkiLayerEnabled,
@@ -42,8 +38,8 @@ import {
   updateMaannousuInfoLayerOpacity,
   updateMaannousuInfoSelectedLayer
 } from "../store/reducers/maannousuInfoLayer"
-import { updateMaisemanMuistiSelectedLayers } from "../store/reducers/maisemanMuistiLayer"
-import { updateModelSelectedLayers } from "../store/reducers/modelLayer"
+import { updateMaisemanMuistiLayerEnabled } from "../store/reducers/maisemanMuistiLayer"
+import { updateModelLayerEnabled } from "../store/reducers/modelLayer"
 import {
   updateMuseovirastoLayerEnabled,
   updateMuseovirastoLayerOpacity,
@@ -93,7 +89,6 @@ export const getSettingsFromURL = (): Settings => {
     mmlVanhatKartatLayer,
     mmlVanhatKartatOpacity,
     mmlVanhatKartatEnabled,
-    gtkLayer,
     gtkOpacity,
     gtkEnabled,
     maannousuLayer,
@@ -110,8 +105,8 @@ export const getSettingsFromURL = (): Settings => {
     helsinkiLayer,
     helsinkiOpacity,
     helsinkiEnabled,
-    modelsLayer,
-    maisemanMuistiLayer
+    modelsEnabled,
+    maisemanMuistiEnabled
   } = parseURLParams() as URLSettings
 
   // Map initial zoom
@@ -155,16 +150,6 @@ export const getSettingsFromURL = (): Settings => {
     newSettings = updateMaanmittauslaitosVanhatKartatLayerEnabled(
       newSettings,
       mmlVanhatKartatEnabled
-    )
-  }
-
-  // GTK layers
-  if (gtkLayer) {
-    newSettings = validateAndUpdateUrlParamToSettings(
-      newSettings,
-      GtkLayer,
-      gtkLayer,
-      updateGtkSelectedLayers
     )
   }
 
@@ -286,23 +271,16 @@ export const getSettingsFromURL = (): Settings => {
     newSettings = updateHelsinkiLayerEnabled(newSettings, helsinkiEnabled)
   }
 
-  // 3D models
-  if (modelsLayer) {
-    newSettings = validateAndUpdateUrlParamToSettings(
-      newSettings,
-      ModelLayer,
-      modelsLayer,
-      updateModelSelectedLayers
-    )
+  // 3D models enabled
+  if (modelsEnabled !== undefined) {
+    newSettings = updateModelLayerEnabled(newSettings, modelsEnabled)
   }
 
-  // Maiseman muisti
-  if (maisemanMuistiLayer) {
-    newSettings = validateAndUpdateUrlParamToSettings(
+  // Maiseman muisti enabled
+  if (maisemanMuistiEnabled !== undefined) {
+    newSettings = updateMaisemanMuistiLayerEnabled(
       newSettings,
-      MaisemanMuistiLayer,
-      maisemanMuistiLayer,
-      updateMaisemanMuistiSelectedLayers
+      maisemanMuistiEnabled
     )
   }
 

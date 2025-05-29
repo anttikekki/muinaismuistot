@@ -127,7 +127,13 @@
     },
     "museovirasto": {
       "title": "Museiverkets registerdata",
-      "licence": "© Museiverket (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)"
+      "licence": "© Museiverket (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)",
+      "filters": {
+        "title": "Fasta fornlämningar",
+        "info": "Avgränsningen går endast att tillämpa för punktobjekt (PISTE_ICONS), inte för areamarkeringar (ALUE_ICONS).",
+        "type": "Typ",
+        "dating": "Datering"
+      }
     },
     "ahvenanmaa": {
       "title": "Ålands landskapsregerings registerdata",
@@ -137,14 +143,11 @@
       "title": "Helsingfors stads material",
       "licence": "© Helsingfors stad (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)"
     },
-    "other": {
-      "title": "Andra källor"
+    "3Dmodels": {
+      "title": "3D-modeller"
     },
-    "filters": {
-      "title": "Fasta fornlämningar",
-      "info": "Avgränsningen går endast att tillämpa för punktobjekt i Museiverkets fornminnesregister (PISTE_ICONS), inte för areamarkeringar (ALUE_ICONS). Avgränsningen går inte att tillämpa för objekt i Ålands landskapsregerings register.",
-      "type": "Typ",
-      "dating": "Datering"
+    "maisemanMuisti": {
+      "title": "Boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset"
     }
   },
   "search": {
