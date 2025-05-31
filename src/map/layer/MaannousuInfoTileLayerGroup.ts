@@ -60,7 +60,7 @@ export default class MaannousuInfoTileLayerGroup {
     const nextLayer = this.layers.get(cacheKey)
     if (!nextLayer) {
       this.updateTileLoadingStatus(true)
-      const newLayer = new MaannousuInfoTileLayer(nextYear)
+      const newLayer = new MaannousuInfoTileLayer(nextYear, settings)
       this.layers.set(cacheKey, newLayer)
 
       newLayer.getSource().once("tileloadend", () => {
@@ -92,6 +92,12 @@ export default class MaannousuInfoTileLayerGroup {
 
   public opacityChanged(settings: Settings): void {
     this.layerGroup.setOpacity(settings.maannousuInfo.opacity)
+  }
+
+  public onMaanmittauslaitosSelectedLayerChange(settings: Settings) {
+    this.layers.forEach((layer) => {
+      layer.updateLayerStyle(settings)
+    })
   }
 
   private setLayerVisible = (nextLayer: MaannousuInfoTileLayer): void => {

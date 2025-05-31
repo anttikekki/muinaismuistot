@@ -1,27 +1,17 @@
 import WebGLTileLayer, { Style } from "ol/layer/WebGLTile"
 import { GeoTIFF } from "ol/source"
-import { MaannousuInfoLayer } from "../../common/layers.types"
-
-const colorLand = [0, 0, 0, 0] // Invisible
-const colorSea = [201, 236, 250, 1] // National Land Survey of Finland background map sea color
-const noData = [0, 0, 0, 0] // Invisible
-const style: Style = {
-  color: [
-    "case",
-    ["==", ["band", 1], 0], // Value 0 = land
-    colorLand,
-    ["==", ["band", 1], 1], // Value 1 = sea
-    colorSea,
-    noData // Fallback
-  ]
-}
+import {
+  MaanmittauslaitosLayer,
+  MaannousuInfoLayer
+} from "../../common/layers.types"
+import { Settings } from "../../store/storeTypes"
 
 export default class MaannousuInfoTileLayer {
   private readonly year: MaannousuInfoLayer
   private readonly source: GeoTIFF
   private readonly layer: WebGLTileLayer
 
-  public constructor(year: MaannousuInfoLayer) {
+  public constructor(year: MaannousuInfoLayer, settings: Settings) {
     this.year = year
 
     this.source = new GeoTIFF({
@@ -44,7 +34,7 @@ export default class MaannousuInfoTileLayer {
 
     this.layer = new WebGLTileLayer({
       source: this.source,
-      style,
+      style: this.createStyle(settings),
       visible: true
     })
   }
@@ -59,5 +49,40 @@ export default class MaannousuInfoTileLayer {
 
   public getSource(): GeoTIFF {
     return this.source
+  }
+
+  public updateLayerStyle(settings: Settings): void {
+    this.layer.setStyle(this.createStyle(settings))
+  }
+
+  private createStyle(settings: Settings): Style {
+    const colorLand = [0, 0, 0, 0] // Invisible
+    const noData = [0, 0, 0, 0] // Invisible
+
+    /**
+     * Change sea color based on selected National Land Survey of Finland
+     * background map type.
+     */
+    const colorSea = ((): number[] => {
+      switch (settings.maanmittauslaitos.selectedLayer) {
+        case MaanmittauslaitosLayer.Maastokartta:
+          return [177, 252, 254, 1]
+        case MaanmittauslaitosLayer.Taustakartta:
+          return [201, 236, 250, 1]
+        case MaanmittauslaitosLayer.Ortokuva:
+          return [31, 32, 58, 1]
+      }
+    })()
+
+    return {
+      color: [
+        "case",
+        ["==", ["band", 1], 0], // Value 0 = land
+        colorLand,
+        ["==", ["band", 1], 1], // Value 1 = sea
+        colorSea,
+        noData // Fallback
+      ]
+    }
   }
 }

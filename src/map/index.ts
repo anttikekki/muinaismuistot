@@ -366,6 +366,9 @@ export default class MuinaismuistotMap {
         this.maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged(
           settings
         )
+        this.maannousuInfoTileLayerGroup.onMaanmittauslaitosSelectedLayerChange(
+          settings
+        )
         break
       case LayerGroup.MaanmittauslaitosVanhatKartat:
         this.maanmittauslaitosVanhatKartatTileLayer.selectedMaanmittauslaitosVanhatKartatLayerChanged(
