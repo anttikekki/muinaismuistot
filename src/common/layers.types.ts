@@ -63,17 +63,29 @@ export enum MaannousuInfoLayer {
   Vuosi5000eaa = "-5000",
   Vuosi4500eaa = "-4500",
   Vuosi4000eaa = "-4000",
+  Vuosi3750eaa = "-3750",
   Vuosi3500eaa = "-3500",
+  Vuosi3250eaa = "-3250",
   Vuosi3000eaa = "-3000",
+  Vuosi2750eaa = "-2750",
   Vuosi2500eaa = "-2500",
+  Vuosi2250eaa = "-2250",
   Vuosi2000eaa = "-2000",
+  Vuosi1750eaa = "-1750",
   Vuosi1500eaa = "-1500",
+  Vuosi1250eaa = "-1250",
   Vuosi1000eaa = "-1000",
+  Vuosi750eaa = "-750",
   Vuosi500eaa = "-500",
+  Vuosi250eaa = "-250",
   Vuosi0eaa = "0",
+  Vuosi250aa = "250",
   Vuosi500aa = "500",
+  Vuosi750aa = "750",
   Vuosi1000aa = "1000",
-  Vuosi1500aa = "1500"
+  Vuosi1250aa = "1250",
+  Vuosi1500aa = "1500",
+  Vuosi1750aa = "1750"
 }
 
 export enum MaannousuInfoGlacialLayer {
