@@ -53,7 +53,7 @@ export const DataAndLicencesPanel: React.FC = () => {
           />
         </p>
 
-        <h6>{t(`settings.other.title`)}</h6>
+        <h6>{t(`settings.maisemanMuisti.title`)}</h6>
         <p>
           <Trans
             i18nKey="info.licences.maisemanmuisti"
@@ -61,6 +61,7 @@ export const DataAndLicencesPanel: React.FC = () => {
           />
         </p>
 
+        <h6>{t(`settings.3Dmodels.title`)}</h6>
         <p>
           <Trans i18nKey="info.licences.3DModels" components={{ a: <a /> }} />
         </p>
