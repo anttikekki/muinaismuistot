@@ -15,7 +15,7 @@ export interface WmsGeometryPolygon {
 
 export interface WmsGeometryMultiPolygon {
   type: "MultiPolygon"
-  coordinates: [number, number][][]
+  coordinates: [number, number][][][]
 }
 
 export type WmsGeometry =

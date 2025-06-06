@@ -192,10 +192,8 @@ export const getFeatureTypeName = (
   return ""
 }
 
-export const getTypeIconURL = (
-  imageName: string,
-  has3dModels = false
-) => `images/${imageName}${has3dModels ? "_3d" : ""}.png`
+export const getTypeIconURL = (imageName: string, has3dModels = false) =>
+  `images/${imageName}${has3dModels ? "_3d" : ""}.png`
 
 export const getFeatureTypeIconURL = (feature: MapFeature): string => {
   const has3dModels = feature.models.length > 0
@@ -564,7 +562,7 @@ export const getFeatureLocation = (
       case "LineString":
         return feature.geometry.coordinates[0]
       case "MultiPolygon":
-        return feature.geometry.coordinates[0][0]
+        return feature.geometry.coordinates[0][0][0]
     }
   } else if (isArcGisFeature(feature)) {
     switch (feature.geometryType) {
