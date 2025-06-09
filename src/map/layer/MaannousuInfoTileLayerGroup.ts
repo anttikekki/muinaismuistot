@@ -1,6 +1,7 @@
 import { LRUCache } from "lru-cache"
 import LayerGroup from "ol/layer/Group"
 import { MaannousuInfoLayer } from "../../common/layers.types"
+import { isMobileDevice } from "../../common/util/deviceDetectionUtil"
 import { isWebGLSupported } from "../../common/util/webGLUtils"
 import { Settings } from "../../store/storeTypes"
 import MaannousuInfoTileLayer from "./MaannousuInfoTileLayer"
@@ -15,7 +16,7 @@ export default class MaannousuInfoTileLayerGroup {
     MaannousuInfoLayer,
     MaannousuInfoTileLayer
   >({
-    max: 5,
+    max: isMobileDevice() ? 5 : 10,
     dispose: (layer) => {
       this.layerGroup.getLayers().remove(layer.getLayer())
     }

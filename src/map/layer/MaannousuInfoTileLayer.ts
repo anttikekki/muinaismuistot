@@ -4,6 +4,7 @@ import {
   MaanmittauslaitosLayer,
   MaannousuInfoLayer
 } from "../../common/layers.types"
+import { isMobileDevice } from "../../common/util/deviceDetectionUtil"
 import { Settings } from "../../store/storeTypes"
 
 export default class MaannousuInfoTileLayer {
@@ -23,10 +24,10 @@ export default class MaannousuInfoTileLayer {
       ],
       sourceOptions: {
         /**
-         * Decrease cache size from default 100 to 50 tiles to save memory.
-         * Older mobile devices crash if too many layers and tiles are loaded into memory.
+         * Decrease block cache size from default 100 to 25 to save memory. One block is 64 kb.
+         * Older mobile devices crash if too much data is loaded into memory.
          */
-        cacheSize: 50
+        cacheSize: isMobileDevice() ? 25 : 50
       },
       convertToRGB: false,
       normalize: false
