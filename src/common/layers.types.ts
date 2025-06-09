@@ -51,17 +51,29 @@ export enum MaanmittauslaitosVanhatKartatLayer {
 
 export enum MaannousuInfoLayer {
   Vuosi10000eaa = "-10000",
+  Vuosi9750eaa = "-9750",
   Vuosi9500eaa = "-9500",
+  Vuosi9250eaa = "-9250",
   Vuosi9000eaa = "-9000",
+  Vuosi8750eaa = "-8750",
   Vuosi8500eaa = "-8500",
+  Vuosi8250eaa = "-8250",
   Vuosi8000eaa = "-8000",
+  Vuosi7750eaa = "-7750",
   Vuosi7500eaa = "-7500",
+  Vuosi7250eaa = "-7250",
   Vuosi7000eaa = "-7000",
+  Vuosi6750eaa = "-6750",
   Vuosi6500eaa = "-6500",
+  Vuosi6250eaa = "-6250",
   Vuosi6000eaa = "-6000",
+  Vuosi5750eaa = "-5750",
   Vuosi5500eaa = "-5500",
+  Vuosi5250eaa = "-5250",
   Vuosi5000eaa = "-5000",
+  Vuosi4750eaa = "-4750",
   Vuosi4500eaa = "-4500",
+  Vuosi4250eaa = "-4250",
   Vuosi4000eaa = "-4000",
   Vuosi3750eaa = "-3750",
   Vuosi3500eaa = "-3500",
@@ -90,8 +102,11 @@ export enum MaannousuInfoLayer {
 
 export enum MaannousuInfoGlacialLayer {
   Vuosi10000eaa = "-10000",
+  Vuosi9750eaa = "-9750",
   Vuosi9500eaa = "-9500",
+  Vuosi9250eaa = "-9250",
   Vuosi9000eaa = "-9000",
+  Vuosi8750eaa = "-8750",
   Vuosi8500eaa = "-8500"
 }
 
