@@ -1,8 +1,8 @@
 import { LRUCache } from "lru-cache"
 import LayerGroup from "ol/layer/Group"
 import { MaannousuInfoLayer } from "../../common/layers.types"
+import { isWebGLSupported } from "../../common/util/webGLUtils"
 import { Settings } from "../../store/storeTypes"
-import { isWebGLSupported } from "../../ui/util/webGLUtils"
 import MaannousuInfoTileLayer from "./MaannousuInfoTileLayer"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void

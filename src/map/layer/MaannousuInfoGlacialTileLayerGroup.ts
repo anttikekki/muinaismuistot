@@ -1,8 +1,8 @@
 import { LRUCache } from "lru-cache"
 import LayerGroup from "ol/layer/Group"
 import { MaannousuInfoGlacialLayer } from "../../common/layers.types"
+import { isWebGLSupported } from "../../common/util/webGLUtils"
 import { Settings } from "../../store/storeTypes"
-import { isWebGLSupported } from "../../ui/util/webGLUtils"
 import MaannousuInfoGlacialTileLayer from "./MaannousuInfoGlacialTileLayer"
 
 const isSupportedGlacialYear = (

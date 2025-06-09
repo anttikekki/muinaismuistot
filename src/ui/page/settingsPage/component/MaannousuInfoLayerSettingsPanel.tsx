@@ -3,9 +3,9 @@ import { Accordion, Alert, Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { LayerGroup } from "../../../../common/layers.types"
+import { isWebGLSupported } from "../../../../common/util/webGLUtils"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { isWebGLSupported } from "../../../util/webGLUtils"
 import { LayerTransparencyInput } from "./LayerTransparencyInput"
 
 export const MaannousuInfoLayerSettingsPanel: React.FC = () => {
