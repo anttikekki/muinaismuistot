@@ -107,7 +107,8 @@ export enum MaannousuInfoGlacialLayer {
   Vuosi9250eaa = "-9250",
   Vuosi9000eaa = "-9000",
   Vuosi8750eaa = "-8750",
-  Vuosi8500eaa = "-8500"
+  Vuosi8500eaa = "-8500",
+  Vuosi8250eaa = "-8250"
 }
 
 export enum MuseovirastoLayer {
