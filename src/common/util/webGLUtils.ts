@@ -1,19 +1,19 @@
-let isSupported: undefined | boolean = undefined;
+let isSupported: undefined | boolean = undefined
 
 export const isWebGLSupported = () => {
   if (isSupported !== undefined) {
-    return isSupported;
+    return isSupported
   }
 
   try {
-    const canvas = document.createElement("canvas");
+    const canvas = document.createElement("canvas")
     isSupported = !!(
       window.WebGLRenderingContext &&
       (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
-    );
-  } catch (e) {
-    isSupported = false;
+    )
+  } catch {
+    isSupported = false
   }
 
-  return isSupported;
-};
+  return isSupported
+}

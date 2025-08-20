@@ -151,6 +151,14 @@ export const updateSettingsToURL = (
     "maannousuEnabled"
   )
 
+  // Maannousu.info index
+  state = updateParam(
+    state,
+    initialSettings.maannousuInfo.placement,
+    currentSettings.maannousuInfo.placement,
+    "maannousuIndex"
+  )
+
   // Museovirasto layers
   state = updateParams(
     state,

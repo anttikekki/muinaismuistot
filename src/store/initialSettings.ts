@@ -6,6 +6,7 @@ import {
   MaanmittauslaitosLayer,
   MaanmittauslaitosVanhatKartatLayer,
   MaannousuInfoLayer,
+  MaannousuInfoLayerIndex,
   MaisemanMuistiLayer,
   ModelLayer,
   MuseovirastoLayer
@@ -64,6 +65,7 @@ export const initialSettings: Settings = {
     url: {
       geotiff: "https://maannousu.info/api/v2"
     },
+    placement: MaannousuInfoLayerIndex.Bottom,
     opacity: 1,
     enabled: false
   },

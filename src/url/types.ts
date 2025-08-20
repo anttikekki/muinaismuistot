@@ -12,6 +12,7 @@ export interface URLSettings {
   maannousuLayer?: string
   maannousuOpacity?: number
   maannousuEnabled?: boolean
+  maannousuIndex?: string
   museovirastoLayer?: string | string[]
   museovirastoOpacity?: number
   museovirastoEnabled?: boolean

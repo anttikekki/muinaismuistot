@@ -5,26 +5,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { GtkLayer, LayerGroup } from "../../../../common/layers.types"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { toggleSelection } from "../../../util"
 import { FeatureImageAndLabel } from "./FeatureImageAndLabel"
 import { LayerTransparencyInput } from "./LayerTransparencyInput"
 
 export const GTKMapLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
-  const { selectedLayers, enabled, opacity } = useSelector(
-    (settings: Settings) => settings.gtk
-  )
-  const onSelectLayer = useCallback(
-    (layer: GtkLayer) => {
-      dispatch({
-        type: ActionTypeEnum.SELECT_VISIBLE_LAYERS,
-        layerGroup: LayerGroup.GTK,
-        layers: toggleSelection(layer, selectedLayers)
-      })
-    },
-    [dispatch, selectedLayers]
-  )
+  const { enabled, opacity } = useSelector((settings: Settings) => settings.gtk)
+
   const onSwitchChange = useCallback(
     (enabled: boolean) =>
       dispatch({

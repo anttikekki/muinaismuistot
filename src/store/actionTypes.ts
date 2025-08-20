@@ -7,6 +7,7 @@ import {
   MaanmittauslaitosLayer,
   MaanmittauslaitosVanhatKartatLayer,
   MaannousuInfoLayer,
+  MaannousuInfoLayerIndex,
   MaisemanMuistiLayer,
   ModelLayer,
   MuseovirastoLayer
@@ -32,7 +33,8 @@ export enum ActionTypeEnum {
   CHANGE_LANGUAGE = "CHANGE_LANGUAGE",
   SHOW_LOADING_ANIMATION = "SHOW_LOADING_ANIMATION",
   SHOW_PAGE = "SHOW_PAGE",
-  ZOOM = "ZOOM"
+  ZOOM = "ZOOM",
+  MOVE_MAANNOUSU_LAYER = "MOVE_MAANNOUSU_LAYER"
 }
 
 export interface ZoomAction {
@@ -166,6 +168,11 @@ export interface ShowPageAction {
   pageId?: PageId
 }
 
+export interface MoveMaannousuLayerAction {
+  type: ActionTypeEnum.MOVE_MAANNOUSU_LAYER
+  placement: MaannousuInfoLayerIndex
+}
+
 export type ActionTypes =
   | CenterMapToCurrentPositionAction
   | SetMapLocatoinAndShowSelectedMarkerAction
@@ -181,3 +188,4 @@ export type ActionTypes =
   | ShowLoadingAnimationAction
   | ShowPageAction
   | ZoomAction
+  | MoveMaannousuLayerAction

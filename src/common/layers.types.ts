@@ -114,6 +114,11 @@ export enum MaannousuInfoGlacialLayer {
   Vuosi8250eaa = "-8250"
 }
 
+export enum MaannousuInfoLayerIndex {
+  Top = "top",
+  Bottom = "bottom"
+}
+
 export enum MuseovirastoLayer {
   Muinaisjaannokset_piste = "rajapinta_suojellut:muinaisjaannos_piste",
   Muinaisjaannokset_alue = "rajapinta_suojellut:muinaisjaannos_alue",

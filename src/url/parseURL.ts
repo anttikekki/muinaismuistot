@@ -5,6 +5,7 @@ import {
   MaanmittauslaitosLayer,
   MaanmittauslaitosVanhatKartatLayer,
   MaannousuInfoLayer,
+  MaannousuInfoLayerIndex,
   MuseovirastoLayer
 } from "../common/layers.types"
 import {
@@ -36,6 +37,7 @@ import {
 import {
   updateMaannousuInfoLayerEnabled,
   updateMaannousuInfoLayerOpacity,
+  updateMaannousuInfoPlacement,
   updateMaannousuInfoSelectedLayer
 } from "../store/reducers/maannousuInfoLayer"
 import { updateMaisemanMuistiLayerEnabled } from "../store/reducers/maisemanMuistiLayer"
@@ -94,6 +96,7 @@ export const getSettingsFromURL = (): Settings => {
     maannousuLayer,
     maannousuOpacity,
     maannousuEnabled,
+    maannousuIndex,
     museovirastoLayer,
     museovirastoOpacity,
     museovirastoEnabled,
@@ -164,15 +167,8 @@ export const getSettingsFromURL = (): Settings => {
   }
 
   // Maannousu.info layer
-  const maannousuLayerString = String(maannousuLayer)
-  if (
-    maannousuLayerString &&
-    isEnumValue(MaannousuInfoLayer, maannousuLayerString)
-  ) {
-    newSettings = updateMaannousuInfoSelectedLayer(
-      newSettings,
-      maannousuLayerString
-    )
+  if (maannousuLayer && isEnumValue(MaannousuInfoLayer, maannousuLayer)) {
+    newSettings = updateMaannousuInfoSelectedLayer(newSettings, maannousuLayer)
   }
 
   //  Maannousu.info opacity
@@ -183,6 +179,11 @@ export const getSettingsFromURL = (): Settings => {
   // Maannousu.info enabled
   if (maannousuEnabled !== undefined) {
     newSettings = updateMaannousuInfoLayerEnabled(newSettings, maannousuEnabled)
+  }
+
+  // Maannousu.info index
+  if (maannousuIndex && isEnumValue(MaannousuInfoLayerIndex, maannousuIndex)) {
+    newSettings = updateMaannousuInfoPlacement(newSettings, maannousuIndex)
   }
 
   // Museovirasto layers

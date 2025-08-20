@@ -30,15 +30,15 @@
       "Museovirasto": "Museiverket",
       "Ahvenanmaan paikallishallinto": "Ålands landskapsregering",
       "Geologian tutkimuskeskus": "Geologiska forskningscentralen",
-      "Helsingin kaupunki": "Helsingfors stad"
+      "Helsingin kaupunki": "Helsingfors stad",
+      "Maannousu.info": "Maannousu.info"
     }
   },
   "info": {
     "title": "Information om webbsidan",
     "dataUpdates": {
       "title": "Senast uppdaterad",
-      "loading": "Information hämtas...",
-      "error": "Informationen inte tillgänglig"
+      "description": "Materialet uppdateras i realtid på denna webbplats från alla datakällornas kartservrar."
     },
     "symbols": "Teckenförklaring",
     "siteInfo": {
@@ -63,9 +63,10 @@
       "museovirasto": "Museiverkets registerdata hämtas från <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
       "ahvenanmaa": "Ålands landskapsregerings register hämtas från <a href='https://www.kartor.ax/datasets'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
       "maanmittauslaitos": "Bakgrundskarta, flygfoto och terrängskarta hämtas från Lantmäteriverkets <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
-      "maanmittauslaitosVanhatKartat": "<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>Gamla kartor</a> hämtas från CSC (IT-centret för vetenskap) <a href='https://paituli.csc.fi/webservices.html' target='_blank'>öppet WMS-gränsnitt</a>  (platsdata har publicerats med licensen  <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC By 4.0</a>).",
+      "maanmittauslaitosVanhatKartat": "<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>Gamla kartor</a> hämtas från CSC (IT-centret för vetenskap) <a href='https://paituli.csc.fi/webservices.html' target='_blank'>öppet WMS-gränsnitt</a>  (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC By 4.0</a>).",
       "gtk": "Materialet över fornstränder hämtas från Geologiska forskningscentralens <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/'>öppet WMS-gränssnitt</a> (platsdata har publicerats med <a href='https://www.gtk.fi/sv/grundlicens/'>grundlicens</a>, tillstånd för användning av materialet beviljades 15.1.2021).",
       "helsinki": "Materialet rörande landfästningar runt Helsingfors under första världskriget hämtas från Helsingfors stads <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset'>öppna WMS-gränssnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
+      "maannousuInfo": "Kartan som beskriver landhöjningen på webbplatsen Maannousu.info via <a href='https://maannousu.info/integration'>ett öppet GeoTIFF-gränssnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
       "maisemanmuisti": "Platsdata från boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset hämtas från <a href='./maisemanmuisti/'>en databas</a> som sammanställer samtliga 205 objekt i boken. Upphovsrätten till boken tillhör Museiverket, som har godkänt att informationen används.",
       "3DModels": "3D-modeller hämtas från öppen <a href='./3d/'>databas</a>, som sammanställer modeller från privata och offentliga aktörer (museer, Museiverket, Ålands landskapsregering). Licensuppgifter över modellerna har sammanställts enligt respektive modell i databasen.",
       "sourceCode": "Denna webbplats använder <a href='https://github.com/anttikekki/muinaismuistot'>öppen källkod</a> av licensen <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE'>MIT</a>."
@@ -124,6 +125,14 @@
     "gtk": {
       "title": "Geologiska forskningscentralens material",
       "licence": "© Geologiska forskningscentralen"
+    },
+    "maannousuInfo": {
+      "title": "Maannousu.info landhöjningskarta",
+      "info": "Beräkningsmodell för landhöjningen: <a href='https://maannousu.info/model-v2' target='_blank'>Glacial Land Adjustment Regenerator (Glare)</a>",
+      "info2": "Landhöjningen kan följas under tidsperioden 10 000 f.v.t - 1750 e.v.t Året väljs längst ned på kartan. För åren 10 000 f.v.t - 8500 e.v.t visas även inlandsisen från istiden i Norden.",
+      "licence": "<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>",
+      "webGLError": "Selaimesi ei tue WebGL-teknologiaa, jota tarvitaan Maannousu.info karttojen näyttämisessä. Maannousu.info kartat eivät valitettavasti toimi laitteellasi.",
+      "placementSwitch": "Dölj objekt som hamnar under havsytan"
     },
     "museovirasto": {
       "title": "Museiverkets registerdata",
@@ -232,7 +241,8 @@
         "3Dmodels": "3D-modeller",
         "maisemanMuisti": "Boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset",
         "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget",
-        "muinaisrannat": "Fornstränder"
+        "muinaisrannat": "Fornstränder",
+        "MaannousuInfo": "Maannousu.info landhöjningskarta"
       },
       "nameWithLink": {
         "Muinaisjäännösrekisteri": "Fornlämningsregister (<a href='https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx' target='_blank'>information</a>)",
@@ -243,7 +253,8 @@
         "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Register över maritimt kulturarv på Åland (<a href='https://hub.arcgis.com/datasets/aland::maritimt-kulturarv-vrak-1/' target='_blank'>information</a>)",
         "3Dmodels": "3D-modeller (<a href='./3d/' target='_blank'>information</a>)",
         "maisemanMuisti": "Boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>information</a>)",
-        "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>information</a>)"
+        "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>information</a>)",
+        "MaannousuInfo": "Landhöjningskarta (<a href='https://maannousu.info' target='_blank'>information</a>)"
       }
     },
     "featureType": {

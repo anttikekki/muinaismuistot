@@ -26,6 +26,7 @@ export default class URLUtil {
         case ActionTypeEnum.ENABLE_LAYER_GROUP:
         case ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_TYPE:
         case ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING:
+        case ActionTypeEnum.MOVE_MAANNOUSU_LAYER:
           return true
         default:
           return false

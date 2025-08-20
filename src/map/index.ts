@@ -20,7 +20,7 @@ import proj4 from "proj4"
 import { Store } from "redux"
 import { ModelFeatureProperties } from "../common/3dModels.types"
 import { GeoJSONFeature } from "../common/geojson.types"
-import { LayerGroup } from "../common/layers.types"
+import { LayerGroup, MaannousuInfoLayerIndex } from "../common/layers.types"
 import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
 import { MapFeature, isWmsFeature } from "../common/mapFeature.types"
 import { isMuinaisjaannosPisteWmsFeature } from "../common/museovirasto.types"
@@ -133,14 +133,15 @@ export default class MuinaismuistotMap {
     this.map.addLayer(mmlOrtokuvaLayer)
     this.map.addLayer(this.gtkLayer.getLayer())
     this.map.addLayer(this.maanmittauslaitosVanhatKartatTileLayer.getLayer())
-    this.map.addLayer(this.maannousuInfoTileLayerGroup.getLayerGroup())
-    this.map.addLayer(this.maannousuInfoGlacialTileLayerGroup.getLayerGroup())
     this.map.addLayer(this.ahvenanmaaTileLayer.getLayer())
     this.map.addLayer(this.museovirastoTileLayer.getLayer())
     this.map.addLayer(this.helsinkiLayer.getLayer())
     this.map.addLayer(this.maisemanMuistiLayer.getLayer())
     this.map.addLayer(this.modelsLayer.getLayer())
     this.map.addLayer(this.positionAndSelectedLocation.getLayer())
+
+    // Adds Maannousu.info layers to correct index
+    this.moveMaannousuLayers(settings.maannousuInfo.placement)
 
     this.map.on("singleclick", this.indentifyFeaturesOnClickedCoordinate)
 
@@ -201,8 +202,38 @@ export default class MuinaismuistotMap {
           })
           break
         }
+        case ActionTypeEnum.MOVE_MAANNOUSU_LAYER: {
+          this.moveMaannousuLayers(action.placement)
+        }
       }
     }
+  }
+
+  private moveMaannousuLayers = (placement: MaannousuInfoLayerIndex) => {
+    const layers = this.map.getLayers()
+    const layersArray = layers.getArray()
+    const maannousuLayer = this.maannousuInfoTileLayerGroup.getLayerGroup()
+    const maannousuGlacialLayer =
+      this.maannousuInfoGlacialTileLayerGroup.getLayerGroup()
+
+    layers.remove(maannousuLayer)
+    layers.remove(maannousuGlacialLayer)
+
+    const targetIndex = ((): number => {
+      switch (placement) {
+        case MaannousuInfoLayerIndex.Bottom: {
+          return layersArray.indexOf(this.ahvenanmaaTileLayer.getLayer())
+        }
+        case MaannousuInfoLayerIndex.Top: {
+          return layersArray.indexOf(
+            this.positionAndSelectedLocation.getLayer()
+          )
+        }
+      }
+    })()
+
+    layers.insertAt(targetIndex, maannousuGlacialLayer)
+    layers.insertAt(targetIndex, maannousuLayer)
   }
 
   private updateTileLoadingStatus = (loading: boolean) => {

@@ -25,6 +25,7 @@ import {
 import {
   updateMaannousuInfoLayerEnabled,
   updateMaannousuInfoLayerOpacity,
+  updateMaannousuInfoPlacement,
   updateMaannousuInfoSelectedLayer
 } from "./reducers/maannousuInfoLayer"
 import {
@@ -203,6 +204,9 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
         ...state,
         visiblePage: action.pageId
       }
+    }
+    case ActionTypeEnum.MOVE_MAANNOUSU_LAYER: {
+      return updateMaannousuInfoPlacement(state, action.placement)
     }
     default:
       return state

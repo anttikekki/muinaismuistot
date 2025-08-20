@@ -38,8 +38,7 @@
     "title": "Lisätietoja sivustosta",
     "dataUpdates": {
       "title": "Aineisto päivitetty viimeksi",
-      "loading": "Tietoa selvitetään parhaillaan...",
-      "error": "Päivityshetkeä ei valitettavasti saatu selville"
+      "description": "Aineistot päivittyvät realiaikaisesti tälle sivustolle kaikkien tietolähteiden karttapalvelimilta."
     },
     "symbols": "Karttasymbolit",
     "siteInfo": {
@@ -130,9 +129,10 @@
     "maannousuInfo": {
       "title": "Maannousu.info maannousukartta",
       "info": "Maannousun laskentamalli: <a href='https://maannousu.info/model-v2' target='_blank'>Glacial Land Adjustment Regenerator (Glare)</a>",
-      "info2": "Maannousua pystyy tarkkailemaan aikavälillä 10 000 eaa. - 1500 jaa. Vuosi valitaan kartan alareunasta. Vuosina 10 000 eaa. - 8500 eaa. näytetään myös jääkauden mannerjää Pohjoismaissa.",
+      "info2": "Maannousua pystyy tarkkailemaan aikavälillä 10 000 eaa. - 1750 jaa. Vuosi valitaan kartan alareunasta. Vuosina 10 000 eaa. - 8500 eaa. näytetään myös jääkauden mannerjää Pohjoismaissa.",
       "licence": "<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>",
-      "webGLError": "Selaimesi ei tue WebGL-teknologiaa, jota tarvitaan Maannousu.info karttojen näyttämisessä. Maannousu.info kartat eivät valitettavasti toimi laitteellasi."
+      "webGLError": "Selaimesi ei tue WebGL-teknologiaa, jota tarvitaan Maannousu.info karttojen näyttämisessä. Maannousu.info kartat eivät valitettavasti toimi laitteellasi.",
+      "placementSwitch": "Piilota merenpinnan ale jäävät kohteet"
     },
     "museovirasto": {
       "title": "Museoviraston aineistot",

@@ -1,4 +1,7 @@
-import { MaannousuInfoLayer } from "../../common/layers.types"
+import {
+  MaannousuInfoLayer,
+  MaannousuInfoLayerIndex
+} from "../../common/layers.types"
 import { Settings } from "../storeTypes"
 
 export const updateMaannousuInfoSelectedLayer = (
@@ -36,6 +39,19 @@ export const updateMaannousuInfoLayerEnabled = (
     maannousuInfo: {
       ...settings.maannousuInfo,
       enabled
+    }
+  }
+}
+
+export const updateMaannousuInfoPlacement = (
+  settings: Settings,
+  placement: MaannousuInfoLayerIndex
+): Settings => {
+  return {
+    ...settings,
+    maannousuInfo: {
+      ...settings.maannousuInfo,
+      placement
     }
   }
 }

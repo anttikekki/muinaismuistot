@@ -9,6 +9,7 @@ import {
   MaanmittauslaitosLayer,
   MaanmittauslaitosVanhatKartatLayer,
   MaannousuInfoLayer,
+  MaannousuInfoLayerIndex,
   MaisemanMuistiLayer,
   ModelLayer,
   MuseovirastoLayer
@@ -64,6 +65,7 @@ export interface Settings {
     url: {
       geotiff: string
     }
+    placement: MaannousuInfoLayerIndex
     opacity: number
     enabled: boolean
   }

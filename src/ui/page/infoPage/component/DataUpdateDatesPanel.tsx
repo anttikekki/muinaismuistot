@@ -1,6 +1,6 @@
 import React from "react"
 import { Accordion } from "react-bootstrap"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 
 export const DataUpdateDatesPanel: React.FC = () => {
   const { t } = useTranslation()
@@ -12,8 +12,7 @@ export const DataUpdateDatesPanel: React.FC = () => {
       </Accordion.Header>
       <Accordion.Body>
         <p>
-          Aineistot päivittyvät realiaikaisesti tälle sivustolle kaikkien
-          tietolähteiden karttapalvelimilta.
+          <Trans i18nKey={`info.dataUpdates.description`} />
         </p>
       </Accordion.Body>
     </Accordion.Item>

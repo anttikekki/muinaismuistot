@@ -2,7 +2,10 @@ import React, { useCallback } from "react"
 import { Accordion, Alert, Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { LayerGroup } from "../../../../common/layers.types"
+import {
+  LayerGroup,
+  MaannousuInfoLayerIndex
+} from "../../../../common/layers.types"
 import { isWebGLSupported } from "../../../../common/util/webGLUtils"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
@@ -11,7 +14,7 @@ import { LayerTransparencyInput } from "./LayerTransparencyInput"
 export const MaannousuInfoLayerSettingsPanel: React.FC = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
-  const { enabled, opacity } = useSelector(
+  const { enabled, opacity, placement } = useSelector(
     (settings: Settings) => settings.maannousuInfo
   )
 
@@ -21,6 +24,15 @@ export const MaannousuInfoLayerSettingsPanel: React.FC = () => {
         type: ActionTypeEnum.ENABLE_LAYER_GROUP,
         layerGroup: LayerGroup.MaannousuInfo,
         enabled
+      }),
+    [dispatch]
+  )
+
+  const onPlacementSwitchChange = useCallback(
+    (placement: MaannousuInfoLayerIndex) =>
+      dispatch({
+        type: ActionTypeEnum.MOVE_MAANNOUSU_LAYER,
+        placement
       }),
     [dispatch]
   )
@@ -65,6 +77,21 @@ export const MaannousuInfoLayerSettingsPanel: React.FC = () => {
           <p>
             <Trans i18nKey={`settings.maannousuInfo.info2`} />
           </p>
+
+          <Form.Group className="mb-3">
+            <Form.Switch
+              checked={placement === MaannousuInfoLayerIndex.Top}
+              onChange={() =>
+                onPlacementSwitchChange(
+                  placement === MaannousuInfoLayerIndex.Bottom
+                    ? MaannousuInfoLayerIndex.Top
+                    : MaannousuInfoLayerIndex.Bottom
+                )
+              }
+              disabled={!enabled || !webGLSupported}
+              label={t("settings.maannousuInfo.placementSwitch")}
+            />
+          </Form.Group>
 
           <LayerTransparencyInput
             opacity={opacity}
