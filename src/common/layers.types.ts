@@ -115,7 +115,10 @@ export enum MaannousuInfoLayer {
   Vuosi1300aa = "1300",
   Vuosi1400aa = "1400",
   Vuosi1500aa = "1500",
-  Vuosi1750aa = "1750"
+  Vuosi1600aa = "1600",
+  Vuosi1700aa = "1700",
+  Vuosi1800aa = "1800",
+  Vuosi1900aa = "1900"
 }
 
 export enum MaannousuInfoGlacialLayer {
