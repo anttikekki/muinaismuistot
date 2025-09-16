@@ -6,6 +6,13 @@ export const VersionHistoryPanel: React.FC = () => {
     <Accordion.Item eventKey="Versiohistoria">
       <Accordion.Header as="div">Versiohistoria</Accordion.Header>
       <Accordion.Body>
+        <h6>Syyskuu 2025</h6>
+        <p>Lisätty mahdollisuus ladata kohteen paikkatieto GeoJSON-muodossa.</p>
+        <p>
+          Lisätty Museoviraston aineiston tunnisteet näkyviin (esim.
+          muinaisjäännösnumero).
+        </p>
+
         <h6>Toukokuu 2025</h6>
         <p>
           Lisätty{" "}
