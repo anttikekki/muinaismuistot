@@ -6,9 +6,15 @@ interface Props {
   label: string
   value?: string | null
   children?: ReactNode
+  suffixColum?: ReactNode
 }
 
-export const Field: React.FC<Props> = ({ label, value, children }) => {
+export const Field: React.FC<Props> = ({
+  label,
+  value,
+  children,
+  suffixColum
+}) => {
   const trimmedValue = trim(value)
   if (!children && !trimmedValue) {
     return null
@@ -18,9 +24,10 @@ export const Field: React.FC<Props> = ({ label, value, children }) => {
       <Form.Label column sm="3" className="fw-bold">
         {label}
       </Form.Label>
-      <Col sm="9">
+      <Col sm={suffixColum ? "8" : "9"}>
         <div className="form-control-plaintext">{children ?? trimmedValue}</div>
       </Col>
+      {suffixColum && <Col sm="1">{suffixColum}</Col>}
     </Form.Group>
   )
 }

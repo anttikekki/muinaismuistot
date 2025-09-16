@@ -211,7 +211,8 @@
         "rakennushistoria": "Byggnadshistoria",
         "kohteenTyyppi": "Objekttyp",
         "rajauksenTyyppi": "Avgränsning"
-      }
+      },
+      "downloadGeometry": "Ladda ner GeoJSON-geodata"
     },
     "3d": {
       "title": "3D-modeller över objektet",

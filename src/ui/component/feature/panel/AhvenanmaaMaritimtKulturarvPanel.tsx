@@ -7,6 +7,7 @@ import {
   FeatureCollapsePanelCommonExternalProps,
   MapFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
+import { FeatureGeometryDownloadLink } from "../component/FeatureGeometryDownloadLink"
 import { Field } from "../component/Field"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
@@ -24,6 +25,7 @@ export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
         <Field
           label={t(`details.field.id`)}
           value={feature.attributes.FornID}
+          suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
         />
         <Field
           label={t(`details.field.name`)}

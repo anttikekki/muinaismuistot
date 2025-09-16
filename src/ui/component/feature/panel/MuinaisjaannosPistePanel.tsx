@@ -15,6 +15,7 @@ import {
   FeatureCollapsePanelCommonExternalProps,
   MapFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
+import { FeatureGeometryDownloadLink } from "../component/FeatureGeometryDownloadLink"
 import { Field } from "../component/Field"
 import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
@@ -62,7 +63,11 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
       <Form>
-        <Field label={t(`details.field.featureName`)} value={kohdenimi} />
+        <Field
+          label={t(`details.field.featureName`)}
+          value={kohdenimi}
+          suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
+        />
         <Field label={t(`details.field.municipality`)} value={kunta} />
         <Field label={t(`details.field.dating`)}>
           {renderList(ajoitusSplitted, (ajoitus) => (

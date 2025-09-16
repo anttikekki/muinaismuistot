@@ -9,6 +9,7 @@ import {
   FeatureCollapsePanelCommonExternalProps,
   MapFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
+import { FeatureGeometryDownloadLink } from "../component/FeatureGeometryDownloadLink"
 import { Field } from "../component/Field"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
 
@@ -27,6 +28,7 @@ export const MaailmanperintokohdePanel: React.FC<Props> = ({
         <Field
           label={t(`details.field.name`)}
           value={feature.properties.Nimi}
+          suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
         />
         <MuseovirastoLink feature={feature} />
       </Form>

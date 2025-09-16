@@ -212,7 +212,8 @@
         "rakennushistoria": "Rakennushistoria",
         "kohteenTyyppi": "Kohtee tyyppi",
         "rajauksenTyyppi": "Rajauksen tyyppi"
-      }
+      },
+      "downloadGeometry": "Lataa GeoJSON paikkatieto"
     },
     "3d": {
       "title": "Kohteen 3D-mallit",

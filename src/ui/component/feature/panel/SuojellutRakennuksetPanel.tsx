@@ -11,6 +11,7 @@ import {
   FeatureCollapsePanelCommonExternalProps,
   MapFeatureCollapsePanel
 } from "../component/FeatureCollapsePanel"
+import { FeatureGeometryDownloadLink } from "../component/FeatureGeometryDownloadLink"
 import { Field } from "../component/Field"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
 
@@ -31,6 +32,7 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
         <Field
           label={t(`details.field.featureName`)}
           value={feature.properties.kohdenimi}
+          suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
         />
         {isSuojellutRakennuksetPisteWmsFeature(feature) && (
           <Field
