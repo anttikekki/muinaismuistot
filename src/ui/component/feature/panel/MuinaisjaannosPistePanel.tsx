@@ -56,7 +56,8 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
     kunta,
     ajoitusSplitted,
     tyyppiSplitted,
-    alatyyppiSplitted
+    alatyyppiSplitted,
+    mjtunnus
   } = feature.properties
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
@@ -93,6 +94,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
             )
           })}
         </Field>
+        <Field label={t(`details.field.id`)} value={String(mjtunnus)} />
 
         {feature.maisemanMuisti.length > 0 && (
           <MaisemanMuistiField feature={feature.maisemanMuisti[0]} />

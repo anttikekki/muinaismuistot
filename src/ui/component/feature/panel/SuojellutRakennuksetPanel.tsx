@@ -46,6 +46,10 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
           label={t(`details.field.protectionGroup`)}
           value={feature.properties.suojeluryhmä}
         />
+        <Field
+          label={t(`details.field.id`)}
+          value={String(feature.properties.KOHDEID)}
+        />
         <MuseovirastoLink feature={feature} />
         {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
       </Form>

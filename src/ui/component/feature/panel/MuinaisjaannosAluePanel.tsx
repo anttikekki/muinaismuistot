@@ -21,12 +21,13 @@ export const MuinaisjaannosAluePanel: React.FC<Props> = ({
   ...commonProps
 }) => {
   const { t } = useTranslation()
-  const { kohdenimi, kunta } = feature.properties
+  const { kohdenimi, kunta, mjtunnus } = feature.properties
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
       <Form>
         <Field label={t(`details.field.name`)} value={kohdenimi} />
         <Field label={t(`details.field.municipality`)} value={kunta} />
+        <Field label={t(`details.field.id`)} value={String(mjtunnus)} />
         <MuseovirastoLink feature={feature} />
       </Form>
     </MapFeatureCollapsePanel>

@@ -34,6 +34,10 @@ export const RKYPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
             value={feature.properties.nimi}
           />
         )}
+        <Field
+          label={t(`details.field.id`)}
+          value={String(feature.properties.ID)}
+        />
         <MuseovirastoLink feature={feature} />
         {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
       </Form>
