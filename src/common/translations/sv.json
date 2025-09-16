@@ -37,7 +37,7 @@
   "info": {
     "title": "Information om webbsidan",
     "dataUpdates": {
-      "title": "Senast uppdaterad",
+      "title": "Datamaterialets aktualitet",
       "description": "Materialet uppdateras i realtid på denna webbplats från alla datakällornas kartservrar."
     },
     "symbols": "Teckenförklaring",
