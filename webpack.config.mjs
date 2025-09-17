@@ -43,6 +43,10 @@ export default {
       }
     ]
   },
+  // Hide chunk size warnings on "npm run build:prod"
+  performance: {
+    hints: false
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
