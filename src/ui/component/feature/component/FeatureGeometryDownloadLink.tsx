@@ -51,7 +51,11 @@ export const FeatureGeometryDownloadLink: React.FC<Props> = ({ feature }) => {
       download={fileName}
       title={t("details.field.downloadGeometry")}
     >
-      <i className="bi bi-download" aria-hidden="true" />
+      <i
+        className="bi bi-download"
+        aria-hidden="true"
+        style={{ fontSize: "1.5rem" }}
+      />
     </a>
   )
 }
