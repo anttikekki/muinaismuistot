@@ -132,7 +132,7 @@
       "info2": "Maannousua pystyy tarkkailemaan aikavälillä 10 000 eaa. - 1750 jaa. Vuosi valitaan kartan alareunasta. Vuosina 10 000 eaa. - 8500 eaa. näytetään myös jääkauden mannerjää Pohjoismaissa.",
       "licence": "<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>",
       "webGLError": "Selaimesi ei tue WebGL-teknologiaa, jota tarvitaan Maannousu.info karttojen näyttämisessä. Maannousu.info kartat eivät valitettavasti toimi laitteellasi.",
-      "placementSwitch": "Piilota merenpinnan ale jäävät kohteet"
+      "placementSwitch": "Piilota merenpinnan alle jäävät kohteet"
     },
     "museovirasto": {
       "title": "Museoviraston aineistot",
