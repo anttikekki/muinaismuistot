@@ -1,3 +1,4 @@
+import { Feature as GeoJSONFeature } from "geojson"
 import Collection from "ol/Collection"
 import Feature from "ol/Feature"
 import Geolocation from "ol/Geolocation"
@@ -7,6 +8,7 @@ import View from "ol/View"
 import { ScaleLine } from "ol/control"
 import { Coordinate } from "ol/coordinate"
 import { Extent } from "ol/extent"
+import GeoJSON from "ol/format/GeoJSON"
 import Geometry from "ol/geom/Geometry"
 import Layer from "ol/layer/Layer"
 import VectorLayer from "ol/layer/Vector"
@@ -18,12 +20,11 @@ import Source from "ol/source/Source"
 import VectorSource from "ol/source/Vector"
 import proj4 from "proj4"
 import { Store } from "redux"
-import { ModelFeatureProperties } from "../common/3dModels.types"
-import { GeoJSONFeature } from "../common/geojson.types"
+import { isModelFeature } from "../common/3dModels.types"
 import { LayerGroup, MaannousuInfoLayerIndex } from "../common/layers.types"
-import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
-import { MapFeature, isWmsFeature } from "../common/mapFeature.types"
-import { isMuinaisjaannosPisteWmsFeature } from "../common/museovirasto.types"
+import { isMaisemanMuistiFeature } from "../common/maisemanMuisti.types"
+import { MapFeature, isGeoJSONFeature } from "../common/mapFeature.types"
+import { isMuinaisjaannosPisteFeature } from "../common/museovirasto.types"
 import { StoreListener } from "../store"
 import { ActionTypeEnum, ActionTypes } from "../store/actionTypes"
 import { Settings } from "../store/storeTypes"
@@ -259,35 +260,18 @@ export default class MuinaismuistotMap {
     })
   }
 
-  private getFeaturesAtPixelAtGeoJsonLayer<T>(
+  private getFeaturesAtPixelAtGeoJsonLayer(
     pixel: Pixel,
     geoJsonLayer?: VectorLayer<VectorSource<Feature<Geometry>>>
-  ): GeoJSONFeature<T>[] {
-    return this.map
+  ): GeoJSONFeature[] {
+    const geojsonFormat = new GeoJSON()
+    const features = this.map
       .getFeaturesAtPixel(pixel, {
         layerFilter: (layer: Layer<Source>) => layer === geoJsonLayer,
         hitTolerance: 10
       })
-      .map((feature) => {
-        // Convert FeatureLike to GeoJSONFeature
-        const extent = feature.getGeometry()?.getExtent()
-        return {
-          type: "Feature",
-          geometry: {
-            type: "Point",
-            coordinates: [extent![0], extent![1]]
-          },
-          properties: {
-            ...(feature.getProperties() as T),
-            /**
-             * Nollataan "geometry", ettei OpenLayersin sisäisiä tiloja tule mukaan
-             * dataan. Tämä aiheuttaa muuten virheen Reduxissa, koska geometry sisältää
-             * funktioita, joita ei voi serialisoida.
-             */
-            geometry: undefined
-          }
-        }
-      })
+      .filter((f): f is Feature<Geometry> => f instanceof Feature)
+    return geojsonFormat.writeFeaturesObject(features).features
   }
 
   private indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
@@ -320,17 +304,17 @@ export default class MuinaismuistotMap {
     )
 
     const modelsResult = settings.models.enabled
-      ? this.getFeaturesAtPixelAtGeoJsonLayer<ModelFeatureProperties>(
+      ? this.getFeaturesAtPixelAtGeoJsonLayer(
           e.pixel,
           this.modelsLayer.getLayer()
-        )
+        ).filter((f) => isModelFeature(f))
       : []
 
     const maisemanMuistiResult = settings.maisemanMuisti.enabled
-      ? this.getFeaturesAtPixelAtGeoJsonLayer<MaisemanMuistiFeatureProperties>(
+      ? this.getFeaturesAtPixelAtGeoJsonLayer(
           e.pixel,
           this.maisemanMuistiLayer.getLayer()
-        )
+        ).filter((f) => isMaisemanMuistiFeature(f))
       : []
 
     Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery]).then(
@@ -352,9 +336,9 @@ export default class MuinaismuistotMap {
             // Do not show Maiseman muisti feature if there is Muinaisjäännös piste feature for it in search results
             return !features.some(
               (mapFeature) =>
-                isWmsFeature(mapFeature) &&
-                isMuinaisjaannosPisteWmsFeature(mapFeature) &&
-                mapFeature.properties.mjtunnus === feature.properties.id
+                isGeoJSONFeature(mapFeature) &&
+                isMuinaisjaannosPisteFeature(mapFeature) &&
+                mapFeature.properties.mjtunnus === feature.properties?.id
             )
           }
         )

@@ -1,3 +1,4 @@
+import { FeatureCollection, Geometry } from "geojson"
 import { Coordinate } from "ol/coordinate"
 import { containsCoordinate, Extent } from "ol/extent"
 import TileLayer from "ol/layer/Tile"
@@ -11,7 +12,6 @@ import {
   AhvenanmaaTypeAndDatingFeatureProperties,
   getAhvenanmaaLayerId
 } from "../../common/ahvenanmaa.types"
-import { GeoJSONResponse } from "../../common/geojson.types"
 import { AhvenanmaaLayer } from "../../common/layers.types"
 import { Settings } from "../../store/storeTypes"
 
@@ -203,8 +203,10 @@ export default class AhvenanmaaTileLayer {
 
     try {
       const response = await fetch(settings.ahvenanmaa.url.typeAndDating)
-      const data =
-        (await response.json()) as GeoJSONResponse<AhvenanmaaTypeAndDatingFeatureProperties>
+      const data = (await response.json()) as FeatureCollection<
+        Geometry,
+        AhvenanmaaTypeAndDatingFeatureProperties
+      >
 
       data.features.forEach((feature) => {
         const id = feature.properties.FornID

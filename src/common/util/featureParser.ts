@@ -1,7 +1,7 @@
+import { Feature, Position } from "geojson"
 import { TFunction } from "i18next"
-import { ModelFeatureProperties } from "../3dModels.types"
+import { ModelFeature } from "../3dModels.types"
 import { isAhvenanmaaArcgisFeature } from "../ahvenanmaa.types"
-import { GeoJSONFeature } from "../geojson.types"
 import {
   AhvenanmaaLayer,
   FeatureLayer,
@@ -18,44 +18,48 @@ import {
   isMaalinnoitusRajausFeature,
   isMaalinnoitusYksikkoFeature
 } from "../maalinnoitusHelsinki.types"
-import { MaisemanMuistiFeatureProperties } from "../maisemanMuisti.types"
-import { MapFeature, isArcGisFeature, isWmsFeature } from "../mapFeature.types"
+import { MaisemanMuistiFeature } from "../maisemanMuisti.types"
 import {
-  MaailmanperintoAlueWmsFeature,
-  MaailmanperintoPisteWmsFeature,
+  MapFeature,
+  isArcGisFeature,
+  isGeoJSONFeature
+} from "../mapFeature.types"
+import {
+  MaailmanperintoAlueFeature,
+  MaailmanperintoPisteFeature,
   MuinaisjaannosAjoitus,
-  isMaailmanperintoAlueWmsFeature,
-  isMaailmanperintoPisteWmsFeature,
-  isMuinaisjaannosAlueWmsFeature,
-  isMuinaisjaannosPisteWmsFeature,
-  isMuseovirastoWmsFeature,
-  isMuuKulttuuriperintokohdeAlueWmsFeature,
-  isMuuKulttuuriperintokohdePisteWmsFeature,
-  isRKYAlueWmsFeature,
-  isRKYPisteWmsFeature,
-  isRKYViivaWmsFeature,
-  isSuojellutRakennuksetAlueWmsFeature,
-  isSuojellutRakennuksetPisteWmsFeature
+  isMaailmanperintoAlueFeature,
+  isMaailmanperintoPisteFeature,
+  isMuinaisjaannosAlueFeature,
+  isMuinaisjaannosPisteFeature,
+  isMuseovirastoFeature,
+  isMuuKulttuuriperintokohdeAlueFeature,
+  isMuuKulttuuriperintokohdePisteFeature,
+  isRKYAlueFeature,
+  isRKYPisteFeature,
+  isRKYViivaFeature,
+  isSuojellutRakennuksetAlueFeature,
+  isSuojellutRakennuksetPisteFeature
 } from "../museovirasto.types"
 
 export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
-  if (isWmsFeature(feature)) {
+  if (isGeoJSONFeature(feature)) {
     if (
-      isMaailmanperintoAlueWmsFeature(feature) ||
-      isMaailmanperintoPisteWmsFeature(feature)
+      isMaailmanperintoAlueFeature(feature) ||
+      isMaailmanperintoPisteFeature(feature)
     ) {
       return trim(feature.properties.Nimi)
     }
     if (
-      isMuinaisjaannosPisteWmsFeature(feature) ||
-      isMuinaisjaannosAlueWmsFeature(feature) ||
-      isMuuKulttuuriperintokohdePisteWmsFeature(feature) ||
-      isMuuKulttuuriperintokohdeAlueWmsFeature(feature) ||
-      isRKYAlueWmsFeature(feature) ||
-      isRKYPisteWmsFeature(feature) ||
-      isRKYViivaWmsFeature(feature) ||
-      isSuojellutRakennuksetAlueWmsFeature(feature) ||
-      isSuojellutRakennuksetPisteWmsFeature(feature)
+      isMuinaisjaannosPisteFeature(feature) ||
+      isMuinaisjaannosAlueFeature(feature) ||
+      isMuuKulttuuriperintokohdePisteFeature(feature) ||
+      isMuuKulttuuriperintokohdeAlueFeature(feature) ||
+      isRKYAlueFeature(feature) ||
+      isRKYPisteFeature(feature) ||
+      isRKYViivaFeature(feature) ||
+      isSuojellutRakennuksetAlueFeature(feature) ||
+      isSuojellutRakennuksetPisteFeature(feature)
     ) {
       return trim(feature.properties.kohdenimi)
     }
@@ -114,8 +118,8 @@ export const getFeatureTypeName = (
   t: TFunction,
   feature: MapFeature
 ): string => {
-  if (isWmsFeature(feature)) {
-    if (isMuinaisjaannosPisteWmsFeature(feature)) {
+  if (isGeoJSONFeature(feature)) {
+    if (isMuinaisjaannosPisteFeature(feature)) {
       return [
         t(`data.featureType.Kiinteä muinaisjäännös`),
         feature.properties.tyyppiSplitted[0]
@@ -131,31 +135,31 @@ export const getFeatureTypeName = (
         .filter((v) => !!v)
         .join(", ")
     }
-    if (isMuinaisjaannosAlueWmsFeature(feature)) {
+    if (isMuinaisjaannosAlueFeature(feature)) {
       return t(`data.featureType.Kiinteä muinaisjäännös (alue)`)
     }
-    if (isMuuKulttuuriperintokohdePisteWmsFeature(feature)) {
+    if (isMuuKulttuuriperintokohdePisteFeature(feature)) {
       return t(`data.featureType.Muu kulttuuriperintökohde`)
     }
-    if (isMuuKulttuuriperintokohdeAlueWmsFeature(feature)) {
+    if (isMuuKulttuuriperintokohdeAlueFeature(feature)) {
       return t(`data.featureType.Muu kulttuuriperintökohde (alue)`)
     }
     if (
-      isRKYAlueWmsFeature(feature) ||
-      isRKYPisteWmsFeature(feature) ||
-      isRKYViivaWmsFeature(feature)
+      isRKYAlueFeature(feature) ||
+      isRKYPisteFeature(feature) ||
+      isRKYViivaFeature(feature)
     ) {
       return t(`data.featureType.Rakennettu kulttuuriympäristö`)
     }
     if (
-      isMaailmanperintoAlueWmsFeature(feature) ||
-      isMaailmanperintoPisteWmsFeature(feature)
+      isMaailmanperintoAlueFeature(feature) ||
+      isMaailmanperintoPisteFeature(feature)
     ) {
       return t(`data.featureType.Maailmanperintökohde`)
     }
     if (
-      isSuojellutRakennuksetAlueWmsFeature(feature) ||
-      isSuojellutRakennuksetPisteWmsFeature(feature)
+      isSuojellutRakennuksetAlueFeature(feature) ||
+      isSuojellutRakennuksetPisteFeature(feature)
     ) {
       return t(`data.featureType.Rakennusperintökohde`)
     }
@@ -197,47 +201,47 @@ export const getTypeIconURL = (imageName: string, has3dModels = false) =>
 
 export const getFeatureTypeIconURL = (feature: MapFeature): string => {
   const has3dModels = feature.models.length > 0
-  if (isWmsFeature(feature)) {
-    if (isMuinaisjaannosPisteWmsFeature(feature)) {
+  if (isGeoJSONFeature(feature)) {
+    if (isMuinaisjaannosPisteFeature(feature)) {
       if (feature.maisemanMuisti.length > 0) {
         return getTypeIconURL("maiseman-muisti", has3dModels)
       }
       return getTypeIconURL("muinaisjaannos_kohde", has3dModels)
     }
-    if (isMuinaisjaannosAlueWmsFeature(feature)) {
+    if (isMuinaisjaannosAlueFeature(feature)) {
       return getTypeIconURL("muinaisjaannos_alue", has3dModels)
     }
-    if (isMuuKulttuuriperintokohdePisteWmsFeature(feature)) {
+    if (isMuuKulttuuriperintokohdePisteFeature(feature)) {
       return getTypeIconURL("muu_kulttuuriperintokohde_kohde", has3dModels)
     }
-    if (isMuuKulttuuriperintokohdeAlueWmsFeature(feature)) {
+    if (isMuuKulttuuriperintokohdeAlueFeature(feature)) {
       return getTypeIconURL("muu-kulttuuriperintokohde-alue", has3dModels)
     }
-    if (isMuuKulttuuriperintokohdePisteWmsFeature(feature)) {
+    if (isMuuKulttuuriperintokohdePisteFeature(feature)) {
       return getTypeIconURL("muu_kulttuuriperintokohde_kohde", has3dModels)
     }
-    if (isMuuKulttuuriperintokohdeAlueWmsFeature(feature)) {
+    if (isMuuKulttuuriperintokohdeAlueFeature(feature)) {
       return getTypeIconURL("muu-kulttuuriperintokohde-alue", has3dModels)
     }
-    if (isRKYAlueWmsFeature(feature)) {
+    if (isRKYAlueFeature(feature)) {
       return getTypeIconURL("rky_alue", has3dModels)
     }
-    if (isRKYPisteWmsFeature(feature)) {
+    if (isRKYPisteFeature(feature)) {
       return getTypeIconURL("rky_piste", has3dModels)
     }
-    if (isRKYViivaWmsFeature(feature)) {
+    if (isRKYViivaFeature(feature)) {
       return getTypeIconURL("rky_viiva", has3dModels)
     }
-    if (isMaailmanperintoAlueWmsFeature(feature)) {
+    if (isMaailmanperintoAlueFeature(feature)) {
       return getTypeIconURL("maailmanperinto_alue", has3dModels)
     }
-    if (isMaailmanperintoPisteWmsFeature(feature)) {
+    if (isMaailmanperintoPisteFeature(feature)) {
       return getTypeIconURL("maailmanperinto_piste", has3dModels)
     }
-    if (isSuojellutRakennuksetAlueWmsFeature(feature)) {
+    if (isSuojellutRakennuksetAlueFeature(feature)) {
       return getTypeIconURL("rakennusperintorekisteri_alue", has3dModels)
     }
-    if (isSuojellutRakennuksetPisteWmsFeature(feature)) {
+    if (isSuojellutRakennuksetPisteFeature(feature)) {
       return getTypeIconURL("rakennusperintorekisteri_rakennus", has3dModels)
     }
     if (isMaalinnoitusYksikkoFeature(feature)) {
@@ -326,31 +330,31 @@ export const getLayerIconURLs = (layer: FeatureLayer): string[] => {
 }
 
 export const getFeatureID = (feature: MapFeature): string => {
-  if (isWmsFeature(feature)) {
+  if (isGeoJSONFeature(feature)) {
     if (
-      isMuinaisjaannosPisteWmsFeature(feature) ||
-      isMuinaisjaannosAlueWmsFeature(feature) ||
-      isMuuKulttuuriperintokohdePisteWmsFeature(feature) ||
-      isMuuKulttuuriperintokohdeAlueWmsFeature(feature)
+      isMuinaisjaannosPisteFeature(feature) ||
+      isMuinaisjaannosAlueFeature(feature) ||
+      isMuuKulttuuriperintokohdePisteFeature(feature) ||
+      isMuuKulttuuriperintokohdeAlueFeature(feature)
     ) {
       return String(feature.properties.mjtunnus)
     }
     if (
-      isRKYAlueWmsFeature(feature) ||
-      isRKYPisteWmsFeature(feature) ||
-      isRKYViivaWmsFeature(feature)
+      isRKYAlueFeature(feature) ||
+      isRKYPisteFeature(feature) ||
+      isRKYViivaFeature(feature)
     ) {
       return String(feature.properties.ID)
     }
     if (
-      isMaailmanperintoAlueWmsFeature(feature) ||
-      isMaailmanperintoPisteWmsFeature(feature)
+      isMaailmanperintoAlueFeature(feature) ||
+      isMaailmanperintoPisteFeature(feature)
     ) {
       return String(feature.properties.OBJECTID) // Not a real stabile register id but data set is really small
     }
     if (
-      isSuojellutRakennuksetAlueWmsFeature(feature) ||
-      isSuojellutRakennuksetPisteWmsFeature(feature)
+      isSuojellutRakennuksetAlueFeature(feature) ||
+      isSuojellutRakennuksetPisteFeature(feature)
     ) {
       return String(feature.properties.KOHDEID)
     }
@@ -373,9 +377,9 @@ export const getFeatureID = (feature: MapFeature): string => {
 }
 
 export const getModelsForMaisemanMuistiFeature = (
-  feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>,
-  models?: GeoJSONFeature<ModelFeatureProperties>[]
-): GeoJSONFeature<ModelFeatureProperties>[] => {
+  feature: MaisemanMuistiFeature,
+  models?: ModelFeature[]
+): ModelFeature[] => {
   return models
     ? models
         .filter(
@@ -390,7 +394,7 @@ export const getModelsForMaisemanMuistiFeature = (
 }
 
 const getMaailmanperintoUrl = (
-  feature: MaailmanperintoPisteWmsFeature | MaailmanperintoAlueWmsFeature,
+  feature: MaailmanperintoPisteFeature | MaailmanperintoAlueFeature,
   lang: Language
 ): string => {
   let url = feature.properties.URL
@@ -423,12 +427,12 @@ export const getFeatureRegisterURL = (
   feature: MapFeature,
   lang: Language
 ): string | undefined => {
-  if (isMuseovirastoWmsFeature(feature)) {
+  if (isMuseovirastoFeature(feature)) {
     if (
-      isMuinaisjaannosPisteWmsFeature(feature) ||
-      isMuinaisjaannosAlueWmsFeature(feature) ||
-      isMuuKulttuuriperintokohdePisteWmsFeature(feature) ||
-      isMuuKulttuuriperintokohdeAlueWmsFeature(feature)
+      isMuinaisjaannosPisteFeature(feature) ||
+      isMuinaisjaannosAlueFeature(feature) ||
+      isMuuKulttuuriperintokohdePisteFeature(feature) ||
+      isMuuKulttuuriperintokohdeAlueFeature(feature)
     ) {
       let url = `https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=${feature.properties.mjtunnus}`
       if (lang === Language.SV) {
@@ -437,9 +441,9 @@ export const getFeatureRegisterURL = (
       return url
     }
     if (
-      isRKYAlueWmsFeature(feature) ||
-      isRKYPisteWmsFeature(feature) ||
-      isRKYViivaWmsFeature(feature)
+      isRKYAlueFeature(feature) ||
+      isRKYPisteFeature(feature) ||
+      isRKYViivaFeature(feature)
     ) {
       let url = feature.properties.url
       if (lang === Language.SV) {
@@ -450,14 +454,14 @@ export const getFeatureRegisterURL = (
       return url
     }
     if (
-      isMaailmanperintoAlueWmsFeature(feature) ||
-      isMaailmanperintoPisteWmsFeature(feature)
+      isMaailmanperintoAlueFeature(feature) ||
+      isMaailmanperintoPisteFeature(feature)
     ) {
       return getMaailmanperintoUrl(feature, lang)
     }
     if (
-      isSuojellutRakennuksetAlueWmsFeature(feature) ||
-      isSuojellutRakennuksetPisteWmsFeature(feature)
+      isSuojellutRakennuksetAlueFeature(feature) ||
+      isSuojellutRakennuksetPisteFeature(feature)
     ) {
       return `https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_kohde_det.aspx?KOHDE_ID=${feature.properties.KOHDEID}`
     }
@@ -469,31 +473,31 @@ export const getFeatureRegisterName = (
   t: TFunction,
   feature: MapFeature
 ): string => {
-  if (isMuseovirastoWmsFeature(feature)) {
+  if (isMuseovirastoFeature(feature)) {
     if (
-      isMuinaisjaannosPisteWmsFeature(feature) ||
-      isMuinaisjaannosAlueWmsFeature(feature) ||
-      isMuuKulttuuriperintokohdePisteWmsFeature(feature) ||
-      isMuuKulttuuriperintokohdeAlueWmsFeature(feature)
+      isMuinaisjaannosPisteFeature(feature) ||
+      isMuinaisjaannosAlueFeature(feature) ||
+      isMuuKulttuuriperintokohdePisteFeature(feature) ||
+      isMuuKulttuuriperintokohdeAlueFeature(feature)
     ) {
       return t(`details.registerLink.fromMuinaisjaannos`)
     }
     if (
-      isRKYAlueWmsFeature(feature) ||
-      isRKYPisteWmsFeature(feature) ||
-      isRKYViivaWmsFeature(feature)
+      isRKYAlueFeature(feature) ||
+      isRKYPisteFeature(feature) ||
+      isRKYViivaFeature(feature)
     ) {
       return t(`details.registerLink.fromRKY`)
     }
     if (
-      isMaailmanperintoAlueWmsFeature(feature) ||
-      isMaailmanperintoPisteWmsFeature(feature)
+      isMaailmanperintoAlueFeature(feature) ||
+      isMaailmanperintoPisteFeature(feature)
     ) {
       return t(`details.registerLink.fromMaailmanperinto`)
     }
     if (
-      isSuojellutRakennuksetAlueWmsFeature(feature) ||
-      isSuojellutRakennuksetPisteWmsFeature(feature)
+      isSuojellutRakennuksetAlueFeature(feature) ||
+      isSuojellutRakennuksetPisteFeature(feature)
     ) {
       return t(`details.registerLink.fromRakennusperintö`)
     }
@@ -535,12 +539,12 @@ export const getLayerRegisterName = (
 export const getFeatureMunicipality = (
   feature: MapFeature
 ): string | undefined => {
-  if (isMuseovirastoWmsFeature(feature)) {
+  if (isMuseovirastoFeature(feature)) {
     if (
-      isMuinaisjaannosPisteWmsFeature(feature) ||
-      isMuinaisjaannosAlueWmsFeature(feature) ||
-      isSuojellutRakennuksetAlueWmsFeature(feature) ||
-      isSuojellutRakennuksetPisteWmsFeature(feature)
+      isMuinaisjaannosPisteFeature(feature) ||
+      isMuinaisjaannosAlueFeature(feature) ||
+      isSuojellutRakennuksetAlueFeature(feature) ||
+      isSuojellutRakennuksetPisteFeature(feature)
     ) {
       return feature.properties.kunta
     }
@@ -552,18 +556,9 @@ export const getFeatureMunicipality = (
 
 export const getFeatureLocation = (
   feature: MapFeature
-): [number, number] | undefined => {
-  if (isWmsFeature(feature)) {
-    switch (feature.geometry.type) {
-      case "Point":
-        return feature.geometry.coordinates
-      case "Polygon":
-        return feature.geometry.coordinates[0]
-      case "LineString":
-        return feature.geometry.coordinates[0]
-      case "MultiPolygon":
-        return feature.geometry.coordinates[0][0][0]
-    }
+): Position | undefined => {
+  if (isGeoJSONFeature(feature)) {
+    return getGeoJSONFeatureLocation(feature)
   } else if (isArcGisFeature(feature)) {
     switch (feature.geometryType) {
       case "esriGeometryPolygon":
@@ -578,16 +573,24 @@ export const getFeatureLocation = (
   }
 }
 
-export const getGeoJSONFeatureLocation = (
-  feature: GeoJSONFeature<
-    ModelFeatureProperties | MaisemanMuistiFeatureProperties
-  >
-): [number, number] => {
+export const getGeoJSONFeatureLocation = (feature: Feature): Position => {
   switch (feature.geometry.type) {
     case "Point":
       return feature.geometry.coordinates
+    case "MultiPoint":
+      return feature.geometry.coordinates[0]
+    case "LineString":
+      return feature.geometry.coordinates[0]
+    case "MultiLineString":
+      return feature.geometry.coordinates[0][0]
     case "Polygon":
       return feature.geometry.coordinates[0][0]
+    case "MultiPolygon":
+      return feature.geometry.coordinates[0][0][0]
+    case "GeometryCollection":
+      throw new Error(
+        `GeometryCollection is unsupported: ${JSON.stringify(feature)}`
+      )
   }
 }
 
@@ -719,7 +722,7 @@ export const trim = (value: string | undefined | null): string => {
 }
 
 export const getGeoJSONDataLatestUpdateDate = (
-  features: GeoJSONFeature<ModelFeatureProperties>[]
+  features: ModelFeature[]
 ): Date => {
   let dates = features.map((feature) =>
     new Date(feature.properties.createdDate).getTime()

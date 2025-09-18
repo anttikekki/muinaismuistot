@@ -1,8 +1,7 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { ModelFeatureProperties } from "../../../../common/3dModels.types"
-import { GeoJSONFeature } from "../../../../common/geojson.types"
-import { MaisemanMuistiFeatureProperties } from "../../../../common/maisemanMuisti.types"
+import { ModelFeature } from "../../../../common/3dModels.types"
+import { MaisemanMuistiFeature } from "../../../../common/maisemanMuisti.types"
 import { trim } from "../../../../common/util/featureParser"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import {
@@ -15,8 +14,8 @@ import { MuseovirastoLinkDirect } from "../component/MuseovirastoLink"
 import { TimespanLabel } from "../component/TimespanLabel"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
-  feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>
-  models?: GeoJSONFeature<ModelFeatureProperties>[]
+  feature: MaisemanMuistiFeature
+  models?: ModelFeature[]
 }
 
 export const MaisemanMuistiPanel: React.FC<Props> = ({

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Table } from "react-bootstrap"
-import { GeoJSONFeature } from "../../common/geojson.types"
-import { MaisemanMuistiFeatureProperties } from "../../common/maisemanMuisti.types"
+import { MaisemanMuistiFeature } from "../../common/maisemanMuisti.types"
 import { getGeoJSONFeatureLocation } from "../../common/util/featureParser"
 import { createLocationHash } from "../../common/util/URLHashHelper"
 
@@ -29,13 +28,13 @@ const ColumnHeader: React.FC<{
 }
 
 interface Props {
-  features: GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
+  features: MaisemanMuistiFeature[]
 }
 
 export const FeatureTable: React.FC<Props> = ({ features }) => {
-  const [sortedFeatures, setSortedFeatures] = useState<
-    GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
-  >([])
+  const [sortedFeatures, setSortedFeatures] = useState<MaisemanMuistiFeature[]>(
+    []
+  )
   const [sortColumn, setSortColumn] = useState<string>("Lisätty")
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc")
 
@@ -44,10 +43,7 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
   const onSortClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     newSortColumn: string,
-    compareFn: (
-      a: GeoJSONFeature<MaisemanMuistiFeatureProperties>,
-      b: GeoJSONFeature<MaisemanMuistiFeatureProperties>
-    ) => number
+    compareFn: (a: MaisemanMuistiFeature, b: MaisemanMuistiFeature) => number
   ) => {
     event.preventDefault()
 
@@ -67,7 +63,7 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
 
   const StringColumnHeader: React.FC<{
     name: string
-    valueFn: (v: GeoJSONFeature<MaisemanMuistiFeatureProperties>) => string
+    valueFn: (v: MaisemanMuistiFeature) => string
   }> = ({ name, valueFn }) => (
     <ColumnHeader
       name={name}
@@ -81,7 +77,7 @@ export const FeatureTable: React.FC<Props> = ({ features }) => {
 
   const NumberColumnHeader: React.FC<{
     name: string
-    valueFn: (v: GeoJSONFeature<MaisemanMuistiFeatureProperties>) => number
+    valueFn: (v: MaisemanMuistiFeature) => number
   }> = ({ name, valueFn }) => (
     <ColumnHeader
       name={name}

@@ -2,39 +2,39 @@ import {
   AhvenanmaaArcgisFeature,
   isAhvenanmaaArcgisFeature
 } from "./ahvenanmaa.types"
+import { FeatureLayer } from "./layers.types"
 import {
-  MaalinnoitusWmsFeature,
-  getMaalinnoitusWmsFeatureLayerName,
-  isMaalinnoitusWmsFeature
+  MaalinnoitusFeature,
+  getMaalinnoitusFeatureLayerName,
+  isMaalinnoitusFeature
 } from "./maalinnoitusHelsinki.types"
 import {
-  MuseovirastoWmsFeature,
-  getMuseovirastoWmsFeatureLayerName,
-  isMuseovirastoWmsFeature
+  MuseovirastoFeature,
+  getMuseovirastoFeatureLayerName,
+  isMuseovirastoFeature
 } from "./museovirasto.types"
-import { FeatureLayer } from "./layers.types"
 
 export type MapFeature =
-  | MuseovirastoWmsFeature
+  | MuseovirastoFeature
   | AhvenanmaaArcgisFeature
-  | MaalinnoitusWmsFeature
+  | MaalinnoitusFeature
 
-export const isWmsFeature = (
+export const isGeoJSONFeature = (
   feature: MapFeature
-): feature is MuseovirastoWmsFeature | MaalinnoitusWmsFeature =>
-  isMuseovirastoWmsFeature(feature) || isMaalinnoitusWmsFeature(feature)
+): feature is MuseovirastoFeature | MaalinnoitusFeature =>
+  isMuseovirastoFeature(feature) || isMaalinnoitusFeature(feature)
 
 export const isArcGisFeature = (
   feature: MapFeature
 ): feature is AhvenanmaaArcgisFeature => isAhvenanmaaArcgisFeature(feature)
 
 export const getFeatureLayerName = (feature: MapFeature): FeatureLayer => {
-  if (isWmsFeature(feature)) {
-    if (isMuseovirastoWmsFeature(feature)) {
-      return getMuseovirastoWmsFeatureLayerName(feature)
+  if (isGeoJSONFeature(feature)) {
+    if (isMuseovirastoFeature(feature)) {
+      return getMuseovirastoFeatureLayerName(feature)
     }
-    if (isMaalinnoitusWmsFeature(feature)) {
-      return getMaalinnoitusWmsFeatureLayerName(feature)
+    if (isMaalinnoitusFeature(feature)) {
+      return getMaalinnoitusFeatureLayerName(feature)
     }
   }
   if (isAhvenanmaaArcgisFeature(feature)) {

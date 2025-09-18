@@ -2,8 +2,7 @@ import React, { ReactNode, useCallback, useMemo } from "react"
 import { Accordion, Col, Container, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
-import { GeoJSONFeature } from "../../../../common/geojson.types"
-import { MaisemanMuistiFeatureProperties } from "../../../../common/maisemanMuisti.types"
+import { MaisemanMuistiFeature } from "../../../../common/maisemanMuisti.types"
 import { MapFeature } from "../../../../common/mapFeature.types"
 import {
   getFeatureLocation,
@@ -150,7 +149,7 @@ export const MapFeatureCollapsePanel: React.FC<
 
 interface MaisemanMuistiFeatureCollapsePanelProps
   extends FeatureCollapsePanelCommonExternalProps {
-  feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>
+  feature: MaisemanMuistiFeature
   has3dModels?: boolean
   children: ReactNode
 }

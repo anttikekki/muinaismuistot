@@ -1,11 +1,10 @@
 import React from "react"
 import { Accordion, Col, Form, Row } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
-import { ModelFeatureProperties } from "../../../../common/3dModels.types"
-import { GeoJSONFeature } from "../../../../common/geojson.types"
+import { ModelFeature } from "../../../../common/3dModels.types"
 
 interface Props {
-  models: GeoJSONFeature<ModelFeatureProperties>[]
+  models: ModelFeature[]
 }
 
 export const Info: React.FC = () => {

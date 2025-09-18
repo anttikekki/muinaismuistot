@@ -1,6 +1,5 @@
 import { ThunkAction, ThunkDispatch } from "@reduxjs/toolkit"
-import { ModelFeatureProperties } from "../common/3dModels.types"
-import { GeoJSONFeature } from "../common/geojson.types"
+import { ModelFeature } from "../common/3dModels.types"
 import {
   AhvenanmaaLayer,
   GtkLayer,
@@ -14,7 +13,7 @@ import {
   ModelLayer,
   MuseovirastoLayer
 } from "../common/layers.types"
-import { MaisemanMuistiFeatureProperties } from "../common/maisemanMuisti.types"
+import { MaisemanMuistiFeature } from "../common/maisemanMuisti.types"
 import { MapFeature } from "../common/mapFeature.types"
 import {
   MuinaisjaannosAjoitus,
@@ -31,8 +30,8 @@ export enum PageId {
 
 export interface SelectedFeaturesOnMap {
   features: MapFeature[]
-  models: GeoJSONFeature<ModelFeatureProperties>[]
-  maisemanMuistiFeatures: GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
+  models: ModelFeature[]
+  maisemanMuistiFeatures: MaisemanMuistiFeature[]
 }
 
 export interface Settings {

@@ -2,12 +2,14 @@ import EsriJSON from "ol/format/EsriJSON"
 import GeoJSON from "ol/format/GeoJSON"
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { isAhvenanmaaArcgisFeature } from "../../../../common/ahvenanmaa.types"
-import { MapFeature } from "../../../../common/mapFeature.types"
 import {
-  isMuinaisjaannosPisteWmsFeature,
-  isMuseovirastoWmsFeature,
-  isMuuKulttuuriperintokohdePisteWmsFeature
+  isArcGisFeature,
+  MapFeature
+} from "../../../../common/mapFeature.types"
+import {
+  isMuinaisjaannosPisteFeature,
+  isMuseovirastoFeature,
+  isMuuKulttuuriperintokohdePisteFeature
 } from "../../../../common/museovirasto.types"
 import {
   getFeatureID,
@@ -72,9 +74,9 @@ const geojsonFormat = new GeoJSON()
  */
 const cleanAndConvertFeatureJSON = (feature: MapFeature) => {
   if (
-    isMuseovirastoWmsFeature(feature) &&
-    (isMuinaisjaannosPisteWmsFeature(feature) ||
-      isMuuKulttuuriperintokohdePisteWmsFeature(feature))
+    isMuseovirastoFeature(feature) &&
+    (isMuinaisjaannosPisteFeature(feature) ||
+      isMuuKulttuuriperintokohdePisteFeature(feature))
   ) {
     const { maisemanMuisti, models, ...cleanFeature } = feature
     const {
@@ -85,7 +87,7 @@ const cleanAndConvertFeatureJSON = (feature: MapFeature) => {
     } = feature.properties
     return { ...cleanFeature, properties: cleanProperties }
   }
-  if (isAhvenanmaaArcgisFeature(feature)) {
+  if (isArcGisFeature(feature)) {
     const geojson = geojsonFormat.writeFeaturesObject(
       esriFormat.readFeatures(feature)
     )

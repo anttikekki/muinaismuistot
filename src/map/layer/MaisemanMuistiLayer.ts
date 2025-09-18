@@ -1,3 +1,4 @@
+import { FeatureCollection, Point } from "geojson"
 import Feature from "ol/Feature"
 import GeoJSON from "ol/format/GeoJSON"
 import Geometry from "ol/geom/Geometry"
@@ -7,8 +8,10 @@ import Fill from "ol/style/Fill"
 import RegularShape from "ol/style/RegularShape"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
-import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
-import { MaisemanMuistiFeatureProperties } from "../../common/maisemanMuisti.types"
+import {
+  MaisemanMuistiFeature,
+  MaisemanMuistiFeatureProperties
+} from "../../common/maisemanMuisti.types"
 import { MapFeature } from "../../common/mapFeature.types"
 import { getFeatureID } from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
@@ -19,7 +22,7 @@ export default class MaisemanMuistiLayer {
   private readonly style: Style
   private readonly featuresForRegisterId = new Map<
     string,
-    GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
+    MaisemanMuistiFeature[]
   >()
 
   public constructor(settings: Settings) {
@@ -53,11 +56,11 @@ export default class MaisemanMuistiLayer {
 
   private fetchGeoJson = async (
     settings: Settings
-  ): Promise<GeoJSONResponse<MaisemanMuistiFeatureProperties>> => {
+  ): Promise<FeatureCollection<Point, MaisemanMuistiFeatureProperties>> => {
     const response = await fetch(settings.maisemanMuisti.url.geojson)
     const data = await response.json()
 
-    return data as GeoJSONResponse<MaisemanMuistiFeatureProperties>
+    return data as FeatureCollection<Point, MaisemanMuistiFeatureProperties>
   }
 
   private updateLayerSource = async (settings: Settings) => {
@@ -89,7 +92,7 @@ export default class MaisemanMuistiLayer {
 
   public getFeaturesForFeatureRegisterId = (
     id: string
-  ): GeoJSONFeature<MaisemanMuistiFeatureProperties>[] => {
+  ): MaisemanMuistiFeature[] => {
     return this.featuresForRegisterId.get(id) || []
   }
 

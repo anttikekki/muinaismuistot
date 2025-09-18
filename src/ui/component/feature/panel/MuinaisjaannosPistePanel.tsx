@@ -2,8 +2,8 @@ import React, { ReactNode } from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
-  MuinaisjaannosPisteWmsFeature,
-  MuuKulttuuriperintokohdePisteWmsFeature
+  MuinaisjaannosPisteFeature,
+  MuuKulttuuriperintokohdePisteFeature
 } from "../../../../common/museovirasto.types"
 import {
   getArkeologisenKulttuuriperinnonOpasLinkForSubType,
@@ -22,9 +22,7 @@ import { MuseovirastoLink } from "../component/MuseovirastoLink"
 import { TimespanLabel } from "../component/TimespanLabel"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
-  feature:
-    | MuinaisjaannosPisteWmsFeature
-    | MuuKulttuuriperintokohdePisteWmsFeature
+  feature: MuinaisjaannosPisteFeature | MuuKulttuuriperintokohdePisteFeature
 }
 
 function renderList<T extends string>(

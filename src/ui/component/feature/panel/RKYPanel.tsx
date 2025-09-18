@@ -2,10 +2,10 @@ import React from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
-  RKYAlueWmsFeature,
-  RKYPisteWmsFeature,
-  RKYViivaWmsFeature,
-  isRKYAlueWmsFeature
+  RKYAlueFeature,
+  RKYPisteFeature,
+  RKYViivaFeature,
+  isRKYAlueFeature
 } from "../../../../common/museovirasto.types"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import {
@@ -17,7 +17,7 @@ import { Field } from "../component/Field"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
-  feature: RKYPisteWmsFeature | RKYAlueWmsFeature | RKYViivaWmsFeature
+  feature: RKYPisteFeature | RKYAlueFeature | RKYViivaFeature
 }
 
 export const RKYPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
@@ -30,7 +30,7 @@ export const RKYPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
           value={feature.properties.kohdenimi}
           suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
         />
-        {isRKYAlueWmsFeature(feature) && (
+        {isRKYAlueFeature(feature) && (
           <Field
             label={t(`details.field.name`)}
             value={feature.properties.nimi}

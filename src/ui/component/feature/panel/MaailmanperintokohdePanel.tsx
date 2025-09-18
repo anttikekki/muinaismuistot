@@ -2,8 +2,8 @@ import React from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
-  MaailmanperintoAlueWmsFeature,
-  MaailmanperintoPisteWmsFeature
+  MaailmanperintoAlueFeature,
+  MaailmanperintoPisteFeature
 } from "../../../../common/museovirasto.types"
 import {
   FeatureCollapsePanelCommonExternalProps,
@@ -14,7 +14,7 @@ import { Field } from "../component/Field"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
-  feature: MaailmanperintoPisteWmsFeature | MaailmanperintoAlueWmsFeature
+  feature: MaailmanperintoPisteFeature | MaailmanperintoAlueFeature
 }
 
 export const MaailmanperintokohdePanel: React.FC<Props> = ({

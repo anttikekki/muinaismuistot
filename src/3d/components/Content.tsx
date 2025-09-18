@@ -1,9 +1,12 @@
+import { FeatureCollection, Geometry } from "geojson"
 import i18n from "i18next"
 import React, { useEffect, useState } from "react"
 import { Container } from "react-bootstrap"
 import { initReactI18next } from "react-i18next"
-import { ModelFeatureProperties } from "../../common/3dModels.types"
-import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
+import {
+  ModelFeature,
+  ModelFeatureProperties
+} from "../../common/3dModels.types"
 import fiTranslations from "../../common/translations/fi.json"
 import { getGeoJSONDataLatestUpdateDate } from "../../common/util/featureParser"
 import { DatabaseIntro } from "./DatabaseIntro"
@@ -25,15 +28,15 @@ i18n.use(initReactI18next).init({
 })
 
 export const Content: React.FC = () => {
-  const [models, setModels] = useState<
-    GeoJSONFeature<ModelFeatureProperties>[]
-  >([])
+  const [models, setModels] = useState<ModelFeature[]>([])
   const [latestUpdateDate, setLatestUpdateDate] = useState<Date>()
 
   useEffect(() => {
     fetch("3d.json")
       .then((response) => response.json())
-      .then((data) => data as GeoJSONResponse<ModelFeatureProperties>)
+      .then(
+        (data) => data as FeatureCollection<Geometry, ModelFeatureProperties>
+      )
       .then((data) => setModels(data.features))
   }, [])
 

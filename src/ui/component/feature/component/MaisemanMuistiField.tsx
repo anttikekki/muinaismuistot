@@ -1,11 +1,10 @@
 import React from "react"
 import { Alert, Col, Row } from "react-bootstrap"
 import { Trans } from "react-i18next"
-import { GeoJSONFeature } from "../../../../common/geojson.types"
-import { MaisemanMuistiFeatureProperties } from "../../../../common/maisemanMuisti.types"
+import { MaisemanMuistiFeature } from "../../../../common/maisemanMuisti.types"
 
 interface Props {
-  feature: GeoJSONFeature<MaisemanMuistiFeatureProperties>
+  feature: MaisemanMuistiFeature
 }
 
 export const MaisemanMuistiField: React.FC<Props> = ({ feature }) => {

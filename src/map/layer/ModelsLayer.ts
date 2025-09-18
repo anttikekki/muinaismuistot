@@ -1,3 +1,4 @@
+import { FeatureCollection, Point } from "geojson"
 import Feature, { FeatureLike } from "ol/Feature"
 import GeoJSON from "ol/format/GeoJSON"
 import Geometry from "ol/geom/Geometry"
@@ -8,8 +9,10 @@ import Fill from "ol/style/Fill"
 import RegularShape from "ol/style/RegularShape"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
-import { ModelFeatureProperties } from "../../common/3dModels.types"
-import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
+import {
+  ModelFeature,
+  ModelFeatureProperties
+} from "../../common/3dModels.types"
 import { FeatureLayer, MuseovirastoLayer } from "../../common/layers.types"
 import { MapFeature, getFeatureLayerName } from "../../common/mapFeature.types"
 import { getFeatureID } from "../../common/util/featureParser"
@@ -21,10 +24,7 @@ export default class ModelsLayer {
   private readonly stylePointCircle: Style
   private readonly stylePointSquare: Style
   private readonly stylePolygon: Style
-  private readonly featuresForRegisterId = new Map<
-    string,
-    GeoJSONFeature<ModelFeatureProperties>[]
-  >()
+  private readonly featuresForRegisterId = new Map<string, ModelFeature[]>()
 
   public constructor(settings: Settings) {
     this.stylePointCircle = new Style({
@@ -76,11 +76,11 @@ export default class ModelsLayer {
 
   private fetchGeoJson = async (
     settings: Settings
-  ): Promise<GeoJSONResponse<ModelFeatureProperties>> => {
+  ): Promise<FeatureCollection<Point, ModelFeatureProperties>> => {
     const response = await fetch(settings.models.url.geojson)
     const data = await response.json()
 
-    return data as GeoJSONResponse<ModelFeatureProperties>
+    return data as FeatureCollection<Point, ModelFeatureProperties>
   }
 
   private styleForFeature = (feature: FeatureLike) => {
@@ -138,7 +138,7 @@ export default class ModelsLayer {
   public getFeaturesForFeatureRegisterId = (
     id: string,
     layer: FeatureLayer
-  ): GeoJSONFeature<ModelFeatureProperties>[] => {
+  ): ModelFeature[] => {
     const models = this.featuresForRegisterId.get(id) || []
     return models.filter((m) => m.properties.registryItem.type === layer)
   }

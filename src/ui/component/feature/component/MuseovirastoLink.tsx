@@ -2,7 +2,7 @@ import React from "react"
 import { Alert, Col, Row } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { Language } from "../../../../common/layers.types"
-import { MuseovirastoWmsFeature } from "../../../../common/museovirasto.types"
+import { MuseovirastoFeature } from "../../../../common/museovirasto.types"
 import {
   getFeatureRegisterName,
   getFeatureRegisterURL
@@ -33,7 +33,7 @@ export const MuseovirastoLinkDirect: React.FC<MuseovirastoLinkDirectProps> = ({
 }
 
 interface MuseovirastoLinkProps {
-  feature: MuseovirastoWmsFeature
+  feature: MuseovirastoFeature
 }
 
 export const MuseovirastoLink: React.FC<MuseovirastoLinkProps> = ({

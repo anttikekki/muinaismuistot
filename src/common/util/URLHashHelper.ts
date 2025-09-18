@@ -1,3 +1,4 @@
+import { Position } from "geojson"
 import queryString from "query-string"
 
 export const parseURLParams = () => {
@@ -15,7 +16,9 @@ export const stringifyURLParamsToHash = (
     arrayFormat: "comma"
   })}`
 
-export const createLocationHash = (coordinates: [number, number]) => {
+export const createLocationHash = (
+  coordinates: [number, number] | Position
+) => {
   return stringifyURLParamsToHash({
     ...parseURLParams(), // Keep old params
     x: coordinates[0],

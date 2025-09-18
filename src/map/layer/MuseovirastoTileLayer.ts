@@ -6,26 +6,17 @@ import { MuseovirastoLayer } from "../../common/layers.types"
 import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi,
-  MuseovirastoWmsFeature,
-  MuseovirastoWmsFeatureInfoResult,
-  isMuinaisjaannosPisteWmsFeature,
-  isMuuKulttuuriperintokohdePisteWmsFeature
+  MuseovirastoFeature,
+  MuseovirastoFeatureInfoResult,
+  isMuinaisjaannosPisteFeature,
+  isMuuKulttuuriperintokohdePisteFeature
 } from "../../common/museovirasto.types"
 import { trim } from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
 
-const emptyIdentifyResult: MuseovirastoWmsFeatureInfoResult = {
+const emptyIdentifyResult: MuseovirastoFeatureInfoResult = {
   type: "FeatureCollection",
-  features: [],
-  totalFeatures: "unknown",
-  numberReturned: 0,
-  timeStamp: new Date().toISOString(),
-  crs: {
-    type: "name",
-    properties: {
-      name: "urn:ogc:def:crs:EPSG::3067"
-    }
-  }
+  features: []
 }
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
@@ -106,7 +97,7 @@ export default class MuseovirastoTileLayer {
     resolution: number | undefined,
     projection: Projection,
     settings: Settings
-  ): Promise<MuseovirastoWmsFeatureInfoResult> => {
+  ): Promise<MuseovirastoFeatureInfoResult> => {
     if (
       !this.source ||
       resolution === undefined ||
@@ -133,7 +124,7 @@ export default class MuseovirastoTileLayer {
     )
     if (url) {
       const response = await fetch(String(url))
-      const result = (await response.json()) as MuseovirastoWmsFeatureInfoResult
+      const result = (await response.json()) as MuseovirastoFeatureInfoResult
 
       return this.trimAnsSplitMultivalueFields(result)
     }
@@ -143,7 +134,7 @@ export default class MuseovirastoTileLayer {
   public findFeatures = async (
     searchText: string,
     settings: Settings
-  ): Promise<MuseovirastoWmsFeatureInfoResult> => {
+  ): Promise<MuseovirastoFeatureInfoResult> => {
     /*
     let selectedLayers = settings.museovirasto.selectedLayers
 
@@ -190,20 +181,20 @@ export default class MuseovirastoTileLayer {
     url.search = String(urlParams)
 
     const response = await fetch(String(url))
-    const result = (await response.json()) as MuseovirastoWmsFeatureInfoResult
+    const result = (await response.json()) as MuseovirastoFeatureInfoResult
 
     return this.trimAnsSplitMultivalueFields(result)
   }
 
   private trimAnsSplitMultivalueFields = (
-    data: MuseovirastoWmsFeatureInfoResult
-  ): MuseovirastoWmsFeatureInfoResult => {
+    data: MuseovirastoFeatureInfoResult
+  ): MuseovirastoFeatureInfoResult => {
     return {
       ...data,
-      features: data.features?.map((feature): MuseovirastoWmsFeature => {
+      features: data.features?.map((feature): MuseovirastoFeature => {
         if (
-          isMuinaisjaannosPisteWmsFeature(feature) ||
-          isMuuKulttuuriperintokohdePisteWmsFeature(feature)
+          isMuinaisjaannosPisteFeature(feature) ||
+          isMuuKulttuuriperintokohdePisteFeature(feature)
         ) {
           feature.properties.tyyppiSplitted = trim(feature.properties.tyyppi)
             .replace("taide, muistomerkit", "taide-muistomerkit")

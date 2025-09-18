@@ -1,7 +1,10 @@
+import { FeatureCollection, Point } from "geojson"
 import React, { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import { GeoJSONFeature, GeoJSONResponse } from "../../common/geojson.types"
-import { MaisemanMuistiFeatureProperties } from "../../common/maisemanMuisti.types"
+import {
+  MaisemanMuistiFeature,
+  MaisemanMuistiFeatureProperties
+} from "../../common/maisemanMuisti.types"
 import { DatabaseIntro } from "./DatabaseIntro"
 import { DatabaseStructure } from "./DatabaseStructure"
 import { Download } from "./Download"
@@ -9,14 +12,15 @@ import { FeatureTable } from "./FeatureTable"
 import { TableOfContent } from "./TableOfContent"
 
 export const Content: React.FC = () => {
-  const [features, setFeatures] = useState<
-    GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
-  >([])
+  const [features, setFeatures] = useState<MaisemanMuistiFeature[]>([])
 
   useEffect(() => {
     fetch("maisemanmuisti.json")
       .then((response) => response.json())
-      .then((data) => data as GeoJSONResponse<MaisemanMuistiFeatureProperties>)
+      .then(
+        (data) =>
+          data as FeatureCollection<Point, MaisemanMuistiFeatureProperties>
+      )
       .then((data) => setFeatures(data.features))
   }, [])
 

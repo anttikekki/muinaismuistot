@@ -2,9 +2,9 @@ import React from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
-  SuojellutRakennuksetAlueWmsFeature,
-  SuojellutRakennuksetPisteWmsFeature,
-  isSuojellutRakennuksetPisteWmsFeature
+  SuojellutRakennuksetAlueFeature,
+  SuojellutRakennuksetPisteFeature,
+  isSuojellutRakennuksetPisteFeature
 } from "../../../../common/museovirasto.types"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import {
@@ -16,9 +16,7 @@ import { Field } from "../component/Field"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
-  feature:
-    | SuojellutRakennuksetPisteWmsFeature
-    | SuojellutRakennuksetAlueWmsFeature
+  feature: SuojellutRakennuksetPisteFeature | SuojellutRakennuksetAlueFeature
 }
 
 export const SuojellutRakennuksetPanel: React.FC<Props> = ({
@@ -34,7 +32,7 @@ export const SuojellutRakennuksetPanel: React.FC<Props> = ({
           value={feature.properties.kohdenimi}
           suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
         />
-        {isSuojellutRakennuksetPisteWmsFeature(feature) && (
+        {isSuojellutRakennuksetPisteFeature(feature) && (
           <Field
             label={t(`details.field.buildingName`)}
             value={feature.properties.rakennusnimi}

@@ -1,3 +1,4 @@
+import { Feature, Geometry } from "geojson"
 import { AhvenanmaaLayer, MuseovirastoLayer } from "./layers.types"
 
 export interface ModelFeatureProperties {
@@ -18,3 +19,8 @@ export interface ModelFeatureProperties {
   licenceUrl: string
   createdDate: string
 }
+
+export type ModelFeature = Feature<Geometry, ModelFeatureProperties>
+
+export const isModelFeature = (feature: Feature): feature is ModelFeature =>
+  feature.properties ? "registryItem" in feature.properties : false

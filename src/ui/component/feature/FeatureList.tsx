@@ -1,32 +1,31 @@
 import React, { useCallback, useState } from "react"
 import { Accordion } from "react-bootstrap"
-import { ModelFeatureProperties } from "../../../common/3dModels.types"
+import { ModelFeature } from "../../../common/3dModels.types"
 import { isAhvenanmaaArcgisFeature } from "../../../common/ahvenanmaa.types"
-import { GeoJSONFeature } from "../../../common/geojson.types"
 import { AhvenanmaaLayer } from "../../../common/layers.types"
 import {
   isMaalinnoitusKohdeFeature,
   isMaalinnoitusRajausFeature,
   isMaalinnoitusYksikkoFeature
 } from "../../../common/maalinnoitusHelsinki.types"
-import { MaisemanMuistiFeatureProperties } from "../../../common/maisemanMuisti.types"
+import { MaisemanMuistiFeature } from "../../../common/maisemanMuisti.types"
 import {
   MapFeature,
   getFeatureLayerName,
-  isWmsFeature
+  isGeoJSONFeature
 } from "../../../common/mapFeature.types"
 import {
-  isMaailmanperintoAlueWmsFeature,
-  isMaailmanperintoPisteWmsFeature,
-  isMuinaisjaannosAlueWmsFeature,
-  isMuinaisjaannosPisteWmsFeature,
-  isMuuKulttuuriperintokohdeAlueWmsFeature,
-  isMuuKulttuuriperintokohdePisteWmsFeature,
-  isRKYAlueWmsFeature,
-  isRKYPisteWmsFeature,
-  isRKYViivaWmsFeature,
-  isSuojellutRakennuksetAlueWmsFeature,
-  isSuojellutRakennuksetPisteWmsFeature
+  isMaailmanperintoAlueFeature,
+  isMaailmanperintoPisteFeature,
+  isMuinaisjaannosAlueFeature,
+  isMuinaisjaannosPisteFeature,
+  isMuuKulttuuriperintokohdeAlueFeature,
+  isMuuKulttuuriperintokohdePisteFeature,
+  isRKYAlueFeature,
+  isRKYPisteFeature,
+  isRKYViivaFeature,
+  isSuojellutRakennuksetAlueFeature,
+  isSuojellutRakennuksetPisteFeature
 } from "../../../common/museovirasto.types"
 import {
   getFeatureID,
@@ -51,8 +50,8 @@ import { MaalinnoitusYksikkoPanel } from "./panel/MaalinnoitusYksikkoPanel"
 interface FeatureListProps {
   titleClickAction: FeatureTitleClickAction
   features?: MapFeature[]
-  models?: GeoJSONFeature<ModelFeatureProperties>[]
-  maisemanMuistiFeatures?: GeoJSONFeature<MaisemanMuistiFeatureProperties>[]
+  models?: ModelFeature[]
+  maisemanMuistiFeatures?: MaisemanMuistiFeature[]
 }
 
 export const FeatureList: React.FC<FeatureListProps> = ({
@@ -88,35 +87,35 @@ export const FeatureList: React.FC<FeatureListProps> = ({
           ...getCommonProps(panelId)
         }
 
-        if (isWmsFeature(feature)) {
+        if (isGeoJSONFeature(feature)) {
           if (
-            isMuinaisjaannosPisteWmsFeature(feature) ||
-            isMuuKulttuuriperintokohdePisteWmsFeature(feature)
+            isMuinaisjaannosPisteFeature(feature) ||
+            isMuuKulttuuriperintokohdePisteFeature(feature)
           ) {
             return <MuinaisjaannosPistePanel feature={feature} {...params} />
           }
           if (
-            isMuinaisjaannosAlueWmsFeature(feature) ||
-            isMuuKulttuuriperintokohdeAlueWmsFeature(feature)
+            isMuinaisjaannosAlueFeature(feature) ||
+            isMuuKulttuuriperintokohdeAlueFeature(feature)
           ) {
             return <MuinaisjaannosAluePanel feature={feature} {...params} />
           }
           if (
-            isRKYAlueWmsFeature(feature) ||
-            isRKYPisteWmsFeature(feature) ||
-            isRKYViivaWmsFeature(feature)
+            isRKYAlueFeature(feature) ||
+            isRKYPisteFeature(feature) ||
+            isRKYViivaFeature(feature)
           ) {
             return <RKYPanel feature={feature} {...params} />
           }
           if (
-            isMaailmanperintoAlueWmsFeature(feature) ||
-            isMaailmanperintoPisteWmsFeature(feature)
+            isMaailmanperintoAlueFeature(feature) ||
+            isMaailmanperintoPisteFeature(feature)
           ) {
             return <MaailmanperintokohdePanel feature={feature} {...params} />
           }
           if (
-            isSuojellutRakennuksetAlueWmsFeature(feature) ||
-            isSuojellutRakennuksetPisteWmsFeature(feature)
+            isSuojellutRakennuksetAlueFeature(feature) ||
+            isSuojellutRakennuksetPisteFeature(feature)
           ) {
             return <SuojellutRakennuksetPanel feature={feature} {...params} />
           }

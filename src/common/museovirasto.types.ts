@@ -1,7 +1,7 @@
+import { Feature, Geometry, Point } from "geojson"
 import { FeatureSupplementaryData } from "./featureSupplementaryData.types"
-import { MapFeature } from "./mapFeature.types"
 import { MuseovirastoLayer } from "./layers.types"
-import { WmsFeature, WmsFeatureInfoResult } from "./wms.types"
+import { MapFeature } from "./mapFeature.types"
 
 export enum MuinaisjaannosTyyppi {
   eiMääritelty = "ei määritelty",
@@ -40,338 +40,352 @@ export enum MuinaisjaannosAjoitus {
   eiMääritelty = "ei määritelty"
 }
 
-export interface MuinaisjaannosPisteWmsFeature
+export type MuinaisjaannosPisteFeatureProperties = {
+  OBJECTID: number // 38962;
+  mjtunnus: number // 1279;
+  inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1279_P38962";
+  kohdenimi: string // "Melkki länsiranta";
+  kunta: string // "Helsinki"
+  Laji: "kiinteä muinaisjäännös" // "kiinteä muinaisjäännös";
+  tyyppi: string // "alusten hylyt, kivirakenteet";
+  alatyyppi: string // "hylyt (puu), hautakummut";
+  ajoitus: string // "ei määritelty, keskiaikainen";
+  vedenalainen: "k" | "e"
+  zala: null
+  zyla: null
+  KOHDE_APVM: string // "2003-04-03T00:00:00Z",
+  KOHDE_MPVM: string // "2008-04-02T16:29:02.283Z",
+  luontipvm: string // "2003-04-03T00:00:00Z"
+  muutospvm: string // "2011-01-28T00:00:00Z"
+  paikannustapa: string | null // "Null";
+  paikannustarkkuus: string | null // "Ohjeellinen (10 - 100 m)";
+  selite: string // "Paikannettu Paanasalon ja Puomion raportin karttaliitteen (1994) mukaan";
+  url: string // "www.kyppi.fi/to.aspx?id=112.1279";
+  x: number // 382363.823
+  y: number // 6667893.676
+  /**
+   * trimmed and splitted values for easier usage
+   */
+  tyyppiSplitted: MuinaisjaannosTyyppi[]
+  ajoitusSplitted: MuinaisjaannosAjoitus[]
+  alatyyppiSplitted: string[]
+}
+
+export interface MuinaisjaannosPisteFeature
   extends FeatureSupplementaryData,
-    WmsFeature {
+    Feature<Point, MuinaisjaannosPisteFeatureProperties> {
   id: `muinaisjaannos_piste.${number}`
-  properties: {
-    OBJECTID: number // 38962;
-    mjtunnus: number // 1279;
-    inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1279_P38962";
-    kohdenimi: string // "Melkki länsiranta";
-    kunta: string // "Helsinki"
-    Laji: "kiinteä muinaisjäännös" // "kiinteä muinaisjäännös";
-    tyyppi: string // "alusten hylyt, kivirakenteet";
-    alatyyppi: string // "hylyt (puu), hautakummut";
-    ajoitus: string // "ei määritelty, keskiaikainen";
-    vedenalainen: "k" | "e"
-    zala: null
-    zyla: null
-    KOHDE_APVM: string // "2003-04-03T00:00:00Z",
-    KOHDE_MPVM: string // "2008-04-02T16:29:02.283Z",
-    luontipvm: string // "2003-04-03T00:00:00Z"
-    muutospvm: string // "2011-01-28T00:00:00Z"
-    paikannustapa: string | null // "Null";
-    paikannustarkkuus: string | null // "Ohjeellinen (10 - 100 m)";
-    selite: string // "Paikannettu Paanasalon ja Puomion raportin karttaliitteen (1994) mukaan";
-    url: string // "www.kyppi.fi/to.aspx?id=112.1279";
-    x: number // 382363.823
-    y: number // 6667893.676
-    /**
-     * trimmed and splitted values for easier usage
-     */
-    tyyppiSplitted: MuinaisjaannosTyyppi[]
-    ajoitusSplitted: MuinaisjaannosAjoitus[]
-    alatyyppiSplitted: string[]
-  }
 }
 
-export interface MuinaisjaannosAlueWmsFeature
+type MuinaisjaannosAlueFeatureProperties = {
+  OBJECTID: number // 9190
+  mjtunnus: number // 1000007642
+  inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000007642_A9190";
+  kohdenimi: string // "Tukikohta I:tie (Mustavuori)                                                                        ";
+  kunta: string // "Helsinki                                                                                            ";
+  Laji: "kiinteä muinaisjäännös" // "kiinteä muinaisjäännös                                                                              ";
+  lähdetiedon_ajoitus: string // "1979";
+  digipvm: string // "12.3.2007 15:02:19";
+  digimk: string // "PerusCD";
+  Muutospvm: string // "18.3.2008 09:30:12";
+  url: string // "https://www.museoverkko.fi/netsovellus/esri/broker.aspx?taulu=mjreki.dbo.T_KOHDE&tunnus=1000001634"
+}
+
+export interface MuinaisjaannosAlueFeature
   extends FeatureSupplementaryData,
-    WmsFeature {
+    Feature<Geometry, MuinaisjaannosAlueFeatureProperties> {
   id: `muinaisjaannos_alue.${number}`
-  properties: {
-    OBJECTID: number // 9190
-    mjtunnus: number // 1000007642
-    inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000007642_A9190";
-    kohdenimi: string // "Tukikohta I:tie (Mustavuori)                                                                        ";
-    kunta: string // "Helsinki                                                                                            ";
-    Laji: "kiinteä muinaisjäännös" // "kiinteä muinaisjäännös                                                                              ";
-    lähdetiedon_ajoitus: string // "1979";
-    digipvm: string // "12.3.2007 15:02:19";
-    digimk: string // "PerusCD";
-    Muutospvm: string // "18.3.2008 09:30:12";
-    url: string // "https://www.museoverkko.fi/netsovellus/esri/broker.aspx?taulu=mjreki.dbo.T_KOHDE&tunnus=1000001634"
-  }
 }
 
-export interface MuuKulttuuriperintokohdePisteWmsFeature
+type MuuKulttuuriperintokohdePisteFeatureProperties = {
+  OBJECTID: number // 130459;
+  mjtunnus: number // 1000030753;
+  inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000030753_P130459";
+  kohdenimi: string // ""Luola G 22 (Herttoniemen yritysalue)";
+  kunta: string // "Helsinki"
+  Laji: "muu kulttuuriperintökohde" // "muu kulttuuriperintökohde"
+  tyyppi: string // "puolustusvarustukset,  ,  ,  ";
+  alatyyppi: string // "luolat,  ,  ,  ";
+  ajoitus: string // "historiallinen, moderni,  ,  ";
+  vedenalainen: "k" | "e" // "E"
+  KOHDE_APVM: string // "2003-04-03T00:00:00Z",
+  KOHDE_MPVM: string // "2008-04-02T16:29:02.283Z",
+  luontipvm: string // "2003-04-03T00:00:00Z"
+  muutospvm: string // "2011-01-28T00:00:00Z"
+  paikannustapa: string | null // "Tarkastus";
+  paikannustarkkuus: string | null // "Tarkka (< 10 m)";
+  selite: string // "Koordinaatit luolan edestä Helsingin kantakartasta";
+  url: string // "www.kyppi.fi/to.aspx?id=112.1000030753";
+  x: number // 391239
+  y: number // 6674656
+  /**
+   * trimmed and splitted values for easier usage
+   */
+  tyyppiSplitted: MuinaisjaannosTyyppi[]
+  ajoitusSplitted: MuinaisjaannosAjoitus[]
+  alatyyppiSplitted: string[]
+}
+
+export interface MuuKulttuuriperintokohdePisteFeature
   extends FeatureSupplementaryData,
-    WmsFeature {
+    Feature<Point, MuuKulttuuriperintokohdePisteFeatureProperties> {
   id: `muu_kulttuuriperintokohde_piste.${number}`
-  properties: {
-    OBJECTID: number // 130459;
-    mjtunnus: number // 1000030753;
-    inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000030753_P130459";
-    kohdenimi: string // ""Luola G 22 (Herttoniemen yritysalue)";
-    kunta: string // "Helsinki"
-    Laji: "muu kulttuuriperintökohde" // "muu kulttuuriperintökohde"
-    tyyppi: string // "puolustusvarustukset,  ,  ,  ";
-    alatyyppi: string // "luolat,  ,  ,  ";
-    ajoitus: string // "historiallinen, moderni,  ,  ";
-    vedenalainen: "k" | "e" // "E"
-    KOHDE_APVM: string // "2003-04-03T00:00:00Z",
-    KOHDE_MPVM: string // "2008-04-02T16:29:02.283Z",
-    luontipvm: string // "2003-04-03T00:00:00Z"
-    muutospvm: string // "2011-01-28T00:00:00Z"
-    paikannustapa: string | null // "Tarkastus";
-    paikannustarkkuus: string | null // "Tarkka (< 10 m)";
-    selite: string // "Koordinaatit luolan edestä Helsingin kantakartasta";
-    url: string // "www.kyppi.fi/to.aspx?id=112.1000030753";
-    x: number // 391239
-    y: number // 6674656
-    /**
-     * trimmed and splitted values for easier usage
-     */
-    tyyppiSplitted: MuinaisjaannosTyyppi[]
-    ajoitusSplitted: MuinaisjaannosAjoitus[]
-    alatyyppiSplitted: string[]
-  }
 }
 
-export interface MuuKulttuuriperintokohdeAlueWmsFeature
+type MuuKulttuuriperintokohdeAlueFeatureProperties = {
+  OBJECTID: number // 9190
+  mjtunnus: number // 1000007642
+  inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000007642_A9190";
+  kohdenimi: string // "Tukikohta I:tie (Mustavuori)                                                                        ";
+  kunta: string // "Helsinki                                                                                            ";
+  Laji: "muu kulttuuriperintökohde" // "muu kulttuuriperintökohde                                                                           ";
+  lähdetiedon_ajoitus: string // "1979";
+  digipvm: string // "12.3.2007 15:02:19";
+  digimk: string // "PerusCD";
+  Muutospvm: string // "18.3.2008 09:30:12";
+  url: string // "https://www.museoverkko.fi/netsovellus/esri/broker.aspx?taulu=mjreki.dbo.T_KOHDE&tunnus=1000001634"
+}
+
+export interface MuuKulttuuriperintokohdeAlueFeature
   extends FeatureSupplementaryData,
-    WmsFeature {
+    Feature<Geometry, MuuKulttuuriperintokohdeAlueFeatureProperties> {
   id: `muu_kulttuuriperintokohde_alue.${number}`
-  properties: {
-    OBJECTID: number // 9190
-    mjtunnus: number // 1000007642
-    inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000007642_A9190";
-    kohdenimi: string // "Tukikohta I:tie (Mustavuori)                                                                        ";
-    kunta: string // "Helsinki                                                                                            ";
-    Laji: "muu kulttuuriperintökohde" // "muu kulttuuriperintökohde                                                                           ";
-    lähdetiedon_ajoitus: string // "1979";
-    digipvm: string // "12.3.2007 15:02:19";
-    digimk: string // "PerusCD";
-    Muutospvm: string // "18.3.2008 09:30:12";
-    url: string // "https://www.museoverkko.fi/netsovellus/esri/broker.aspx?taulu=mjreki.dbo.T_KOHDE&tunnus=1000001634"
-  }
 }
 
-export interface SuojellutRakennuksetPisteWmsFeature
+type SuojellutRakennuksetPisteFeatureProperties = {
+  OBJECTID: number // "2843";
+  KOHDEID: number // "200928";
+  rakennusID: number // "305349";
+  inspireID: string // "http://paikkatiedot.fi/so/1000000/ps/ProtectedSite/305349_2843";
+  vtj_prt: string // "103247805B               ";
+  kohdenimi: string // "Meilahden kirkko";
+  rakennusnimi: string // "Kirkko                                                                                              ";
+  kunta: string // "Helsinki                                                                                            ";
+  suojeluryhmä: string // "Kirkkolaki,  ,  ,  ";
+  suojelun_tila: string // "Suojeltu                                                                                            ";
+  url: string // "www.kyppi.fi/to.aspx?id=130.200928";
+  x: number // "383802.548";
+  y: number // "6674739.466";
+}
+
+export interface SuojellutRakennuksetPisteFeature
   extends FeatureSupplementaryData,
-    WmsFeature {
+    Feature<Point, SuojellutRakennuksetPisteFeatureProperties> {
   id: `suojellut_rakennukset_piste.${number}`
-  properties: {
-    OBJECTID: number // "2843";
-    KOHDEID: number // "200928";
-    rakennusID: number // "305349";
-    inspireID: string // "http://paikkatiedot.fi/so/1000000/ps/ProtectedSite/305349_2843";
-    vtj_prt: string // "103247805B               ";
-    kohdenimi: string // "Meilahden kirkko";
-    rakennusnimi: string // "Kirkko                                                                                              ";
-    kunta: string // "Helsinki                                                                                            ";
-    suojeluryhmä: string // "Kirkkolaki,  ,  ,  ";
-    suojelun_tila: string // "Suojeltu                                                                                            ";
-    url: string // "www.kyppi.fi/to.aspx?id=130.200928";
-    x: number // "383802.548";
-    y: number // "6674739.466";
-  }
 }
 
-export interface SuojellutRakennuksetAlueWmsFeature
+type SuojellutRakennuksetAlueFeatureProperties = {
+  OBJECTID: number // "2843";
+  KOHDEID: number // "200928";
+  inspireID: string // "http://paikkatiedot.fi/so/1000000/ps/ProtectedSite/305349_2843";
+  kohdenimi: string // "Meilahden kirkko";
+  kunta: string // "Helsinki                                                                                            ";
+  suojeluryhmä: string // "Kirkkolaki,  ,  ,  ";
+  suojelun_tila: string // "Suojeltu                                                                                            ";
+  url: string // "www.kyppi.fi/to.aspx?id=130.200928";
+}
+
+export interface SuojellutRakennuksetAlueFeature
   extends FeatureSupplementaryData,
-    WmsFeature {
+    Feature<Geometry, SuojellutRakennuksetAlueFeatureProperties> {
   id: `suojellut_rakennukset_alue.${number}`
-  properties: {
-    OBJECTID: number // "2843";
-    KOHDEID: number // "200928";
-    inspireID: string // "http://paikkatiedot.fi/so/1000000/ps/ProtectedSite/305349_2843";
-    kohdenimi: string // "Meilahden kirkko";
-    kunta: string // "Helsinki                                                                                            ";
-    suojeluryhmä: string // "Kirkkolaki,  ,  ,  ";
-    suojelun_tila: string // "Suojeltu                                                                                            ";
-    url: string // "www.kyppi.fi/to.aspx?id=130.200928";
-  }
 }
 
-export interface RKYAlueWmsFeature
+type RKYAlueFeatureProperties = {
+  OBJECTID: number // "1632";
+  ID: number // "1570";
+  inspireID: string // "http://paikkatiedot.fi/so/1000034/ps/ProtectedSite/1570_A1632";
+  kohdenimi: string // "Pääkaupunkiseudun I maailmansodan linnoitteet";
+  nimi: string // "Itä-Villinki";
+  url: string // "http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=1570";
+}
+
+export interface RKYAlueFeature
   extends FeatureSupplementaryData,
-    WmsFeature {
+    Feature<Geometry, RKYAlueFeatureProperties> {
   id: `rky_alue.${number}`
-  properties: {
-    OBJECTID: number // "1632";
-    ID: number // "1570";
-    inspireID: string // "http://paikkatiedot.fi/so/1000034/ps/ProtectedSite/1570_A1632";
-    kohdenimi: string // "Pääkaupunkiseudun I maailmansodan linnoitteet";
-    nimi: string // "Itä-Villinki";
-    url: string // "http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=1570";
-  }
 }
 
-export interface RKYPisteWmsFeature
+type RKYPisteFeatureProperties = {
+  OBJECTID: number //"31";
+  ID: string //"4255";
+  inspireID: string //"http://paikkatiedot.fi/so/1000034/ps/ProtectedSite/4255_P31";
+  kohdenimi: string //"Struven astemittausketju";
+  url: string //"http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=4255";
+}
+
+export interface RKYPisteFeature
   extends FeatureSupplementaryData,
-    WmsFeature {
+    Feature<Point, RKYPisteFeatureProperties> {
   id: `rky_piste.${number}`
-  properties: {
-    OBJECTID: number //"31";
-    ID: string //"4255";
-    inspireID: string //"http://paikkatiedot.fi/so/1000034/ps/ProtectedSite/4255_P31";
-    kohdenimi: string //"Struven astemittausketju";
-    url: string //"http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=4255";
-  }
 }
 
-export interface RKYViivaWmsFeature
+type RKYViivaFeatureProperties = {
+  OBJECTID: string //"69";
+  ID: string //"2117";
+  inspireID: string //"http://paikkatiedot.fi/so/1000034/ps/ProtectedSite/2117_V69";
+  kohdenimi: string //"Suuri Rantatie";
+  url: string //"http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=2117";
+  Shape: string //"Polyline";
+}
+
+export interface RKYViivaFeature
   extends FeatureSupplementaryData,
-    WmsFeature {
+    Feature<Geometry, RKYViivaFeatureProperties> {
   id: `rky_viiva.${number}`
-  properties: {
-    OBJECTID: string //"69";
-    ID: string //"2117";
-    inspireID: string //"http://paikkatiedot.fi/so/1000034/ps/ProtectedSite/2117_V69";
-    kohdenimi: string //"Suuri Rantatie";
-    url: string //"http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=2117";
-    Shape: string //"Polyline";
-  }
 }
 
-export interface MaailmanperintoPisteWmsFeature
+type MaailmanperintoPisteFeatureProperties = {
+  Shape: string // "Point";
+  OBJECTID: string // "2";
+  Nimi: string // "Struven ketju / Stuorrahanoaivi";
+  URL: string // "http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa#struve";
+}
+
+export interface MaailmanperintoPisteFeature
   extends FeatureSupplementaryData,
-    WmsFeature {
+    Feature<Point, MaailmanperintoPisteFeatureProperties> {
   id: `maailmanperinto_piste.${number}`
-  properties: {
-    Shape: string // "Point";
-    OBJECTID: string // "2";
-    Nimi: string // "Struven ketju / Stuorrahanoaivi";
-    URL: string // "http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa#struve";
-  }
 }
 
-export interface MaailmanperintoAlueWmsFeature
+type MaailmanperintoAlueFeatureProperties = {
+  OBJECTID: number // 429;
+  Nimi: string // "Suomenllinna";
+  URL: string // "http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa#suomenlinna";
+  Alue: string | null // "Suoja-alue";
+}
+
+export interface MaailmanperintoAlueFeature
   extends FeatureSupplementaryData,
-    WmsFeature {
+    Feature<Geometry, MaailmanperintoAlueFeatureProperties> {
   id: `maailmanperinto_alue.${number}`
-  properties: {
-    OBJECTID: number // 429;
-    Nimi: string // "Suomenllinna";
-    URL: string // "http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa#suomenlinna";
-    Alue: string | null // "Suoja-alue";
-  }
 }
 
-export type MuseovirastoWmsFeature =
-  | MuinaisjaannosPisteWmsFeature
-  | MuinaisjaannosAlueWmsFeature
-  | MuuKulttuuriperintokohdePisteWmsFeature
-  | MuuKulttuuriperintokohdeAlueWmsFeature
-  | SuojellutRakennuksetPisteWmsFeature
-  | SuojellutRakennuksetAlueWmsFeature
-  | RKYAlueWmsFeature
-  | RKYPisteWmsFeature
-  | RKYViivaWmsFeature
-  | MaailmanperintoPisteWmsFeature
-  | MaailmanperintoAlueWmsFeature
+export type MuseovirastoFeature =
+  | MuinaisjaannosPisteFeature
+  | MuinaisjaannosAlueFeature
+  | MuuKulttuuriperintokohdePisteFeature
+  | MuuKulttuuriperintokohdeAlueFeature
+  | SuojellutRakennuksetPisteFeature
+  | SuojellutRakennuksetAlueFeature
+  | RKYAlueFeature
+  | RKYPisteFeature
+  | RKYViivaFeature
+  | MaailmanperintoPisteFeature
+  | MaailmanperintoAlueFeature
 
-export type MuseovirastoWmsFeatureInfoResult =
-  WmsFeatureInfoResult<MuseovirastoWmsFeature>
+export type MuseovirastoFeatureInfoResult = {
+  type: "FeatureCollection"
+  features: MuseovirastoFeature[]
+}
 
-export const isMuinaisjaannosPisteWmsFeature = (
-  feature: WmsFeature
-): feature is MuinaisjaannosPisteWmsFeature =>
-  feature.id.startsWith("muinaisjaannos_piste.")
+export const isMuinaisjaannosPisteFeature = (
+  feature: Feature
+): feature is MuinaisjaannosPisteFeature =>
+  feature.id?.toString().startsWith("muinaisjaannos_piste.") ?? false
 
-export const isMuinaisjaannosAlueWmsFeature = (
-  feature: WmsFeature
-): feature is MuinaisjaannosAlueWmsFeature =>
-  feature.id.startsWith("muinaisjaannos_alue.")
+export const isMuinaisjaannosAlueFeature = (
+  feature: Feature
+): feature is MuinaisjaannosAlueFeature =>
+  feature.id?.toString().startsWith("muinaisjaannos_alue.") ?? false
 
-export const isMuuKulttuuriperintokohdePisteWmsFeature = (
-  feature: WmsFeature
-): feature is MuuKulttuuriperintokohdePisteWmsFeature =>
-  feature.id.startsWith("muu_kulttuuriperintokohde_piste.")
+export const isMuuKulttuuriperintokohdePisteFeature = (
+  feature: Feature
+): feature is MuuKulttuuriperintokohdePisteFeature =>
+  feature.id?.toString().startsWith("muu_kulttuuriperintokohde_piste.") ?? false
 
-export const isMuuKulttuuriperintokohdeAlueWmsFeature = (
-  feature: WmsFeature
-): feature is MuuKulttuuriperintokohdeAlueWmsFeature =>
-  feature.id.startsWith("muu_kulttuuriperintokohde_alue.")
+export const isMuuKulttuuriperintokohdeAlueFeature = (
+  feature: Feature
+): feature is MuuKulttuuriperintokohdeAlueFeature =>
+  feature.id?.toString().startsWith("muu_kulttuuriperintokohde_alue.") ?? false
 
-export const isSuojellutRakennuksetPisteWmsFeature = (
-  feature: WmsFeature
-): feature is SuojellutRakennuksetPisteWmsFeature =>
-  feature.id.startsWith("suojellut_rakennukset_piste.")
+export const isSuojellutRakennuksetPisteFeature = (
+  feature: Feature
+): feature is SuojellutRakennuksetPisteFeature =>
+  feature.id?.toString().startsWith("suojellut_rakennukset_piste.") ?? false
 
-export const isSuojellutRakennuksetAlueWmsFeature = (
-  feature: WmsFeature
-): feature is SuojellutRakennuksetAlueWmsFeature =>
-  feature.id.startsWith("suojellut_rakennukset_alue.")
+export const isSuojellutRakennuksetAlueFeature = (
+  feature: Feature
+): feature is SuojellutRakennuksetAlueFeature =>
+  feature.id?.toString().startsWith("suojellut_rakennukset_alue.") ?? false
 
-export const isRKYAlueWmsFeature = (
-  feature: WmsFeature
-): feature is RKYAlueWmsFeature => feature.id.startsWith("rky_alue.")
+export const isRKYAlueFeature = (feature: Feature): feature is RKYAlueFeature =>
+  feature.id?.toString().startsWith("rky_alue.") ?? false
 
-export const isRKYPisteWmsFeature = (
-  feature: WmsFeature
-): feature is RKYPisteWmsFeature => feature.id.startsWith("rky_piste.")
+export const isRKYPisteFeature = (
+  feature: Feature
+): feature is RKYPisteFeature =>
+  feature.id?.toString().startsWith("rky_piste.") ?? false
 
-export const isRKYViivaWmsFeature = (
-  feature: WmsFeature
-): feature is RKYViivaWmsFeature => feature.id.startsWith("rky_viiva.")
+export const isRKYViivaFeature = (
+  feature: Feature
+): feature is RKYViivaFeature =>
+  feature.id?.toString().startsWith("rky_viiva.") ?? false
 
-export const isMaailmanperintoPisteWmsFeature = (
-  feature: WmsFeature
-): feature is MaailmanperintoPisteWmsFeature =>
-  feature.id.startsWith("maailmanperinto_piste.")
+export const isMaailmanperintoPisteFeature = (
+  feature: Feature
+): feature is MaailmanperintoPisteFeature =>
+  feature.id?.toString().startsWith("maailmanperinto_piste.") ?? false
 
-export const isMaailmanperintoAlueWmsFeature = (
-  feature: WmsFeature
-): feature is MaailmanperintoAlueWmsFeature =>
-  feature.id.startsWith("maailmanperinto_alue.")
+export const isMaailmanperintoAlueFeature = (
+  feature: Feature
+): feature is MaailmanperintoAlueFeature =>
+  feature.id?.toString().startsWith("maailmanperinto_alue.") ?? false
 
-export const isMuseovirastoWmsFeature = (
+export const isMuseovirastoFeature = (
   feature: MapFeature
-): feature is MuseovirastoWmsFeature => {
+): feature is MuseovirastoFeature => {
   return (
     "id" in feature &&
-    (isMuinaisjaannosPisteWmsFeature(feature) ||
-      isMuinaisjaannosAlueWmsFeature(feature) ||
-      isMuuKulttuuriperintokohdePisteWmsFeature(feature) ||
-      isMuuKulttuuriperintokohdeAlueWmsFeature(feature) ||
-      isSuojellutRakennuksetPisteWmsFeature(feature) ||
-      isSuojellutRakennuksetAlueWmsFeature(feature) ||
-      isRKYAlueWmsFeature(feature) ||
-      isRKYPisteWmsFeature(feature) ||
-      isRKYViivaWmsFeature(feature) ||
-      isMaailmanperintoPisteWmsFeature(feature) ||
-      isMaailmanperintoAlueWmsFeature(feature))
+    (isMuinaisjaannosPisteFeature(feature) ||
+      isMuinaisjaannosAlueFeature(feature) ||
+      isMuuKulttuuriperintokohdePisteFeature(feature) ||
+      isMuuKulttuuriperintokohdeAlueFeature(feature) ||
+      isSuojellutRakennuksetPisteFeature(feature) ||
+      isSuojellutRakennuksetAlueFeature(feature) ||
+      isRKYAlueFeature(feature) ||
+      isRKYPisteFeature(feature) ||
+      isRKYViivaFeature(feature) ||
+      isMaailmanperintoPisteFeature(feature) ||
+      isMaailmanperintoAlueFeature(feature))
   )
 }
 
-export const getMuseovirastoWmsFeatureLayerName = (
-  feature: MuseovirastoWmsFeature
+export const getMuseovirastoFeatureLayerName = (
+  feature: MuseovirastoFeature
 ): MuseovirastoLayer => {
-  if (isMuinaisjaannosPisteWmsFeature(feature)) {
+  if (isMuinaisjaannosPisteFeature(feature)) {
     return MuseovirastoLayer.Muinaisjaannokset_piste
   }
-  if (isMuinaisjaannosAlueWmsFeature(feature)) {
+  if (isMuinaisjaannosAlueFeature(feature)) {
     return MuseovirastoLayer.Muinaisjaannokset_alue
   }
-  if (isMuuKulttuuriperintokohdePisteWmsFeature(feature)) {
+  if (isMuuKulttuuriperintokohdePisteFeature(feature)) {
     return MuseovirastoLayer.Muu_kulttuuriperintokohde_piste
   }
-  if (isMuuKulttuuriperintokohdeAlueWmsFeature(feature)) {
+  if (isMuuKulttuuriperintokohdeAlueFeature(feature)) {
     return MuseovirastoLayer.Muu_kulttuuriperintokohde_alue
   }
-  if (isSuojellutRakennuksetPisteWmsFeature(feature)) {
+  if (isSuojellutRakennuksetPisteFeature(feature)) {
     return MuseovirastoLayer.Suojellut_rakennukset_piste
   }
-  if (isSuojellutRakennuksetAlueWmsFeature(feature)) {
+  if (isSuojellutRakennuksetAlueFeature(feature)) {
     return MuseovirastoLayer.Suojellut_rakennukset_alue
   }
-  if (isRKYAlueWmsFeature(feature)) {
+  if (isRKYAlueFeature(feature)) {
     return MuseovirastoLayer.RKY_alue
   }
-  if (isRKYPisteWmsFeature(feature)) {
+  if (isRKYPisteFeature(feature)) {
     return MuseovirastoLayer.RKY_piste
   }
-  if (isRKYViivaWmsFeature(feature)) {
+  if (isRKYViivaFeature(feature)) {
     return MuseovirastoLayer.RKY_viiva
   }
-  if (isMaailmanperintoAlueWmsFeature(feature)) {
+  if (isMaailmanperintoAlueFeature(feature)) {
     return MuseovirastoLayer.Maailmanperinto_alue
   }
-  if (isMaailmanperintoPisteWmsFeature(feature)) {
+  if (isMaailmanperintoPisteFeature(feature)) {
     return MuseovirastoLayer.Maailmanperinto_piste
   }
-  throw new Error(`Tuntematon WMS Feature: ${JSON.stringify(feature)}`)
+  throw new Error(`Tuntematon Museovirasto Feature: ${JSON.stringify(feature)}`)
 }

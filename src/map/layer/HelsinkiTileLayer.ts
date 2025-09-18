@@ -5,8 +5,8 @@ import Projection from "ol/proj/Projection"
 import TileWMS, { Options } from "ol/source/TileWMS"
 import { HelsinkiLayer } from "../../common/layers.types"
 import {
-  MaalinnoitusWmsFeature,
-  MaalinnoitusWmsFeatureInfoResult,
+  MaalinnoitusFeature,
+  MaalinnoitusFeatureInfoResult,
   isMaalinnoitusKohdeFeature
 } from "../../common/maalinnoitusHelsinki.types"
 import { Settings } from "../../store/storeTypes"
@@ -80,7 +80,7 @@ export default class HelsinkiTileLayer {
     resolution: number | undefined,
     projection: Projection,
     settings: Settings
-  ): Promise<MaalinnoitusWmsFeature[]> => {
+  ): Promise<MaalinnoitusFeature[]> => {
     const extent = this.layer?.getExtent()
 
     /**
@@ -121,7 +121,7 @@ export default class HelsinkiTileLayer {
         try {
           const response = await fetch(String(url))
           const result =
-            (await response.json()) as MaalinnoitusWmsFeatureInfoResult
+            (await response.json()) as MaalinnoitusFeatureInfoResult
           return this.removeDuplicateIdentifyFeatures(result.features)
         } catch {
           return []
@@ -132,8 +132,8 @@ export default class HelsinkiTileLayer {
   }
 
   private removeDuplicateIdentifyFeatures = (
-    features: MaalinnoitusWmsFeature[]
-  ): MaalinnoitusWmsFeature[] => {
+    features: MaalinnoitusFeature[]
+  ): MaalinnoitusFeature[] => {
     const allKohdeFeatures = features.filter(isMaalinnoitusKohdeFeature)
 
     return features.filter((f) => {

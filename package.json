@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "2.8.2",
+    "@turf/centroid": "7.2.0",
     "bootstrap": "5.3.7",
     "bootstrap-icons": "1.13.1",
     "debounce": "2.2.0",
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.32.0",
+    "@types/geojson": "7946.0.16",
     "@types/react": "19.1.9",
     "@types/react-dom": "19.1.7",
     "clean-webpack-plugin": "4.0.0",
