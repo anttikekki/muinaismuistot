@@ -1,5 +1,8 @@
+import EsriJSON from "ol/format/EsriJSON"
+import GeoJSON from "ol/format/GeoJSON"
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { isAhvenanmaaArcgisFeature } from "../../../../common/ahvenanmaa.types"
 import { MapFeature } from "../../../../common/mapFeature.types"
 import {
   isMuinaisjaannosPisteWmsFeature,
@@ -28,7 +31,7 @@ export const FeatureGeometryDownloadLink: React.FC<Props> = ({ feature }) => {
           code: 3067 // ETRS-TM35FIN
         }
       },
-      features: [cleanFeatureJSON(feature)]
+      features: [cleanAndConvertFeatureJSON(feature)]
     }
 
     // Convert JSON to Blob
@@ -60,8 +63,14 @@ export const FeatureGeometryDownloadLink: React.FC<Props> = ({ feature }) => {
   )
 }
 
-// Poista custom-kentät, joita featureiden haku lisää
-const cleanFeatureJSON = (feature: MapFeature) => {
+const esriFormat = new EsriJSON()
+const geojsonFormat = new GeoJSON()
+
+/**
+ * Poista custom-kentät, joita featureiden haku lisää.
+ * Konvertoi ESRI fearuren GeoJSON featureksi.
+ */
+const cleanAndConvertFeatureJSON = (feature: MapFeature) => {
   if (
     isMuseovirastoWmsFeature(feature) &&
     (isMuinaisjaannosPisteWmsFeature(feature) ||
@@ -75,6 +84,12 @@ const cleanFeatureJSON = (feature: MapFeature) => {
       ...cleanProperties
     } = feature.properties
     return { ...cleanFeature, properties: cleanProperties }
+  }
+  if (isAhvenanmaaArcgisFeature(feature)) {
+    const geojson = geojsonFormat.writeFeaturesObject(
+      esriFormat.readFeatures(feature)
+    )
+    return geojson.features[0]
   }
 
   const { maisemanMuisti, models, ...cleanFeature } = feature
