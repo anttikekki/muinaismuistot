@@ -1,3 +1,4 @@
+import centroid from "@turf/centroid"
 import { Feature, Position } from "geojson"
 import { TFunction } from "i18next"
 import { ModelFeature } from "../3dModels.types"
@@ -41,6 +42,7 @@ import {
   isSuojellutRakennuksetAlueFeature,
   isSuojellutRakennuksetPisteFeature
 } from "../museovirasto.types"
+import { convertFeatureFromEsriJSONtoGeoJSON } from "./esriToGeoJSONConverter"
 
 export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
   if (isGeoJSONFeature(feature)) {
@@ -560,16 +562,8 @@ export const getFeatureLocation = (
   if (isGeoJSONFeature(feature)) {
     return getGeoJSONFeatureLocation(feature)
   } else if (isArcGisFeature(feature)) {
-    switch (feature.geometryType) {
-      case "esriGeometryPolygon":
-        return feature.geometry.rings[0][0]
-      /*
-      case "esriGeometryPoint":
-        return [feature.geometry.x, feature.geometry.y]
-      case "esriGeometryPolyline":
-        return feature.geometry.paths[0][0]
-        */
-    }
+    const geojsonFeature = convertFeatureFromEsriJSONtoGeoJSON(feature)
+    return getGeoJSONFeatureLocation(geojsonFeature)
   }
 }
 
@@ -578,19 +572,12 @@ export const getGeoJSONFeatureLocation = (feature: Feature): Position => {
     case "Point":
       return feature.geometry.coordinates
     case "MultiPoint":
-      return feature.geometry.coordinates[0]
     case "LineString":
-      return feature.geometry.coordinates[0]
     case "MultiLineString":
-      return feature.geometry.coordinates[0][0]
     case "Polygon":
-      return feature.geometry.coordinates[0][0]
     case "MultiPolygon":
-      return feature.geometry.coordinates[0][0][0]
     case "GeometryCollection":
-      throw new Error(
-        `GeometryCollection is unsupported: ${JSON.stringify(feature)}`
-      )
+      return centroid(feature).geometry.coordinates
   }
 }
 

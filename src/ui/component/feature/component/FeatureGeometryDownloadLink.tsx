@@ -1,5 +1,3 @@
-import EsriJSON from "ol/format/EsriJSON"
-import GeoJSON from "ol/format/GeoJSON"
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
@@ -11,6 +9,7 @@ import {
   isMuseovirastoFeature,
   isMuuKulttuuriperintokohdePisteFeature
 } from "../../../../common/museovirasto.types"
+import { convertFeatureFromEsriJSONtoGeoJSON } from "../../../../common/util/esriToGeoJSONConverter"
 import {
   getFeatureID,
   getFeatureName
@@ -65,9 +64,6 @@ export const FeatureGeometryDownloadLink: React.FC<Props> = ({ feature }) => {
   )
 }
 
-const esriFormat = new EsriJSON()
-const geojsonFormat = new GeoJSON()
-
 /**
  * Poista custom-kentät, joita featureiden haku lisää.
  * Konvertoi ESRI fearuren GeoJSON featureksi.
@@ -88,10 +84,7 @@ const cleanAndConvertFeatureJSON = (feature: MapFeature) => {
     return { ...cleanFeature, properties: cleanProperties }
   }
   if (isArcGisFeature(feature)) {
-    const geojson = geojsonFormat.writeFeaturesObject(
-      esriFormat.readFeatures(feature)
-    )
-    return geojson.features[0]
+    return convertFeatureFromEsriJSONtoGeoJSON(feature)
   }
 
   const { maisemanMuisti, models, ...cleanFeature } = feature
