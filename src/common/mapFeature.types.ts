@@ -1,7 +1,4 @@
-import {
-  AhvenanmaaArcgisFeature,
-  isAhvenanmaaArcgisFeature
-} from "./ahvenanmaa.types"
+import { AhvenanmaaFeature, isAhvenanmaaFeature } from "./ahvenanmaa.types"
 import { FeatureLayer } from "./layers.types"
 import {
   MaalinnoitusFeature,
@@ -16,7 +13,7 @@ import {
 
 export type MapFeature =
   | MuseovirastoFeature
-  | AhvenanmaaArcgisFeature
+  | AhvenanmaaFeature
   | MaalinnoitusFeature
 
 export const isGeoJSONFeature = (
@@ -24,9 +21,9 @@ export const isGeoJSONFeature = (
 ): feature is MuseovirastoFeature | MaalinnoitusFeature =>
   isMuseovirastoFeature(feature) || isMaalinnoitusFeature(feature)
 
-export const isArcGisFeature = (
+export const isEsriJSONFeature = (
   feature: MapFeature
-): feature is AhvenanmaaArcgisFeature => isAhvenanmaaArcgisFeature(feature)
+): feature is AhvenanmaaFeature => isAhvenanmaaFeature(feature)
 
 export const getFeatureLayerName = (feature: MapFeature): FeatureLayer => {
   if (isGeoJSONFeature(feature)) {
@@ -37,7 +34,7 @@ export const getFeatureLayerName = (feature: MapFeature): FeatureLayer => {
       return getMaalinnoitusFeatureLayerName(feature)
     }
   }
-  if (isAhvenanmaaArcgisFeature(feature)) {
+  if (isAhvenanmaaFeature(feature)) {
     return feature.layerName
   }
   throw new Error(`Tuntematon feature ${JSON.stringify(feature)}`)

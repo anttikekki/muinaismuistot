@@ -2,7 +2,7 @@ import centroid from "@turf/centroid"
 import { Feature, Position } from "geojson"
 import { TFunction } from "i18next"
 import { ModelFeature } from "../3dModels.types"
-import { isAhvenanmaaArcgisFeature } from "../ahvenanmaa.types"
+import { isAhvenanmaaFeature } from "../ahvenanmaa.types"
 import {
   AhvenanmaaLayer,
   FeatureLayer,
@@ -22,7 +22,7 @@ import {
 import { MaisemanMuistiFeature } from "../maisemanMuisti.types"
 import {
   MapFeature,
-  isArcGisFeature,
+  isEsriJSONFeature,
   isGeoJSONFeature
 } from "../mapFeature.types"
 import {
@@ -92,7 +92,7 @@ export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
         }
       )}`
     }
-  } else if (isAhvenanmaaArcgisFeature(feature)) {
+  } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
       case AhvenanmaaLayer.Fornminnen: {
         const id = trim(feature.attributes["Fornlämnings ID"])
@@ -180,7 +180,7 @@ export const getFeatureTypeName = (
         `data.helsinki.featureType.rajaus`
       )}`
     }
-  } else if (isAhvenanmaaArcgisFeature(feature)) {
+  } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
       case AhvenanmaaLayer.Fornminnen:
         return (
@@ -269,7 +269,7 @@ export const getFeatureTypeIconURL = (feature: MapFeature): string => {
           return getTypeIconURL("maalinnoitus-puolustusaseman-raja", false)
       }
     }
-  } else if (isAhvenanmaaArcgisFeature(feature)) {
+  } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
       case AhvenanmaaLayer.Fornminnen:
         return getTypeIconURL("ahvenanmaa_muinaisjaannos", has3dModels)
@@ -367,7 +367,7 @@ export const getFeatureID = (feature: MapFeature): string => {
     ) {
       return String(feature.properties.id)
     }
-  } else if (isAhvenanmaaArcgisFeature(feature)) {
+  } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
       case AhvenanmaaLayer.Fornminnen:
         return feature.attributes["Fornlämnings ID"]
@@ -550,7 +550,7 @@ export const getFeatureMunicipality = (
     ) {
       return feature.properties.kunta
     }
-  } else if (isAhvenanmaaArcgisFeature(feature)) {
+  } else if (isAhvenanmaaFeature(feature)) {
     return feature.attributes.Kommun
   }
   return undefined
@@ -561,7 +561,7 @@ export const getFeatureLocation = (
 ): Position | undefined => {
   if (isGeoJSONFeature(feature)) {
     return getGeoJSONFeatureLocation(feature)
-  } else if (isArcGisFeature(feature)) {
+  } else if (isEsriJSONFeature(feature)) {
     const geojsonFeature = convertFeatureFromEsriJSONtoGeoJSON(feature)
     return getGeoJSONFeatureLocation(geojsonFeature)
   }

@@ -1,19 +1,19 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { AhvenanmaaForminnenFeature } from "../../../../common/ahvenanmaa.types"
 import { Language } from "../../../../common/layers.types"
 import {
   getAhvenanmaaForminneDatingText,
   getAhvenanmaaForminnenTypeText
 } from "../../../../common/util/featureParser"
 import {
-  getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaType,
-  getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaSubType
+  getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaSubType,
+  getArkeologisenKulttuuriperinnonOpasLinkForAhvenanmaaType
 } from "../../../../common/util/wikiLinkHelper"
 import { Field } from "./Field"
-import { AhvenanmaaForminnenArgisFeature } from "../../../../common/ahvenanmaa.types"
 
 interface Props {
-  feature: AhvenanmaaForminnenArgisFeature
+  feature: AhvenanmaaForminnenFeature
 }
 
 export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {

@@ -1,12 +1,13 @@
 import { Feature } from "geojson"
 import EsriJSONFormat from "ol/format/EsriJSON"
 import GeoJSONFormat from "ol/format/GeoJSON"
+import { EsriJSONFeature } from "../esriJSON.type"
 
 const esriFormat = new EsriJSONFormat()
 const geojsonFormat = new GeoJSONFormat()
 
 export const convertFeatureFromEsriJSONtoGeoJSON = (
-  feature: unknown
+  feature: EsriJSONFeature
 ): Feature => {
   const geojson = geojsonFormat.writeFeaturesObject(
     esriFormat.readFeatures(feature)

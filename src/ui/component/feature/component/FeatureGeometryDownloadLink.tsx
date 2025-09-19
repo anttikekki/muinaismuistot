@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
-  isArcGisFeature,
+  isEsriJSONFeature,
   MapFeature
 } from "../../../../common/mapFeature.types"
 import {
@@ -83,7 +83,7 @@ const cleanAndConvertFeatureJSON = (feature: MapFeature) => {
     } = feature.properties
     return { ...cleanFeature, properties: cleanProperties }
   }
-  if (isArcGisFeature(feature)) {
+  if (isEsriJSONFeature(feature)) {
     return convertFeatureFromEsriJSONtoGeoJSON(feature)
   }
 

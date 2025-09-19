@@ -1,8 +1,8 @@
 import {
-  ArcGisPolygonGeometryFeature,
+  EsriJSONFeature,
   GeometryTypePolygon,
   PolygonGeometry
-} from "./arcgis.type"
+} from "./esriJSON.type"
 import { FeatureSupplementaryData } from "./featureSupplementaryData.types"
 import { AhvenanmaaLayer } from "./layers.types"
 import { MapFeature } from "./mapFeature.types"
@@ -16,53 +16,58 @@ export interface AhvenanmaaTypeAndDatingFeatureProperties {
   Antal: number // 1
 }
 
-export interface AhvenanmaaForminnenArgisFeature
-  extends FeatureSupplementaryData,
-    ArcGisPolygonGeometryFeature {
-  layerId: 1
-  layerName: AhvenanmaaLayer.Fornminnen
-  attributes: {
-    OBJECTID: string // "1401";
-    "Fornlämnings ID": string // "Su 12.27";
-    Namn: string // "Null";
-    Beskrivning: string // "Null";
-    Kommun: string // "Sund";
-    By: string // "Kastelholm";
-    Topografi: string // "Null";
-    Registrering: string // "Null";
-    Status: string // "Fast fornlämning";
-    Shape: string // "Polygon";
-    "Shape.STArea()": string // "2581,011841";
-    "Shape.STLength()": string // "203,802335";
-    /**
-     * Fetched from separata data source in AhvenanmaaTileLayer
-     * @see https://www.kartor.ax/datasets/fornminnen-typ-och-datering
-     */
-    typeAndDating?: AhvenanmaaTypeAndDatingFeatureProperties[]
-  }
-  geometryType: GeometryTypePolygon
-  geometry: PolygonGeometry
+type AhvenanmaaForminnenFeatureProperties = {
+  OBJECTID: string // "1401";
+  "Fornlämnings ID": string // "Su 12.27";
+  Namn: string // "Null";
+  Beskrivning: string // "Null";
+  Kommun: string // "Sund";
+  By: string // "Kastelholm";
+  Topografi: string // "Null";
+  Registrering: string // "Null";
+  Status: string // "Fast fornlämning";
+  Shape: string // "Polygon";
+  "Shape.STArea()": string // "2581,011841";
+  "Shape.STLength()": string // "203,802335";
+  /**
+   * Fetched from separata data source in AhvenanmaaTileLayer
+   * @see https://www.kartor.ax/datasets/fornminnen-typ-och-datering
+   */
+  typeAndDating?: AhvenanmaaTypeAndDatingFeatureProperties[]
 }
 
-export interface AhvenanmaaMaritimtKulturarvArgisFeature
+export interface AhvenanmaaForminnenFeature
   extends FeatureSupplementaryData,
-    ArcGisPolygonGeometryFeature {
+    EsriJSONFeature<
+      AhvenanmaaForminnenFeatureProperties,
+      GeometryTypePolygon,
+      PolygonGeometry
+    > {
+  layerId: 1
+  layerName: AhvenanmaaLayer.Fornminnen
+}
+
+type AhvenanmaaMaritimtKulturarvFeatureProperties = {
+  OBJECTID: string //"482"
+  FornID: string //"M1 Ha 443.2";
+  Namn: string //"Okänt";
+  Beskrivning: string //"Träfartyg, ev. en jakt. Vraket är beläget längst inne i vikbotten i den sk. Jakthamnen. Vraket mycket sönderbrutet av is- och sjögång. Enligt uppgift skall det röra sig om en slopad postjakt.";
+  Kommun: string //"Hammarland";
+  By: string //"Signildskär och Märket";
+  Precision: string //"1:20 000";
+  Lagrum: string //"2§ 1 mom Landskapslagen (2007:19) om skydd av det maritima kulturarvet";
+  SHAPE: string //"Polygon";
+}
+
+export interface AhvenanmaaMaritimtKulturarvFeature
+  extends FeatureSupplementaryData,
+    EsriJSONFeature<
+      AhvenanmaaMaritimtKulturarvFeatureProperties,
+      GeometryTypePolygon,
+      PolygonGeometry
+    > {
   layerId: 5
   layerName: AhvenanmaaLayer.MaritimaFornminnen
-  attributes: {
-    OBJECTID: string //"482"
-    FornID: string //"M1 Ha 443.2";
-    Namn: string //"Okänt";
-    Beskrivning: string //"Träfartyg, ev. en jakt. Vraket är beläget längst inne i vikbotten i den sk. Jakthamnen. Vraket mycket sönderbrutet av is- och sjögång. Enligt uppgift skall det röra sig om en slopad postjakt.";
-    Kommun: string //"Hammarland";
-    By: string //"Signildskär och Märket";
-    Precision: string //"1:20 000";
-    Lagrum: string //"2§ 1 mom Landskapslagen (2007:19) om skydd av det maritima kulturarvet";
-    SHAPE: string //"Polygon";
-  }
-
-  geometryType: GeometryTypePolygon
-  geometry: PolygonGeometry
 }
 export type AhvenanmaaLayerId = 1 | 5
 
@@ -77,21 +82,21 @@ export const getAhvenanmaaLayerId = (
   }
 }
 
-export type AhvenanmaaArcgisFeature =
-  | AhvenanmaaForminnenArgisFeature
-  | AhvenanmaaMaritimtKulturarvArgisFeature
+export type AhvenanmaaFeature =
+  | AhvenanmaaForminnenFeature
+  | AhvenanmaaMaritimtKulturarvFeature
 
-export interface AhvenanmaaArcgisIdentifyResult {
-  results: AhvenanmaaArcgisFeature[]
+export interface AhvenanmaaEsriJSONIdentifyResult {
+  results: AhvenanmaaFeature[]
 }
 
-export interface AhvenanmaaArcgisFindResult {
-  results: AhvenanmaaArcgisFeature[]
+export interface AhvenanmaaEsriJSONFindResult {
+  results: AhvenanmaaFeature[]
 }
 
-export const isAhvenanmaaArcgisFeature = (
+export const isAhvenanmaaFeature = (
   feature: MapFeature
-): feature is AhvenanmaaArcgisFeature => {
+): feature is AhvenanmaaFeature => {
   return (
     "layerName" in feature &&
     (feature.layerName === AhvenanmaaLayer.Fornminnen ||

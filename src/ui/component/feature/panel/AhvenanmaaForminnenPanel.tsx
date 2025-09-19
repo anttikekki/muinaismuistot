@@ -1,7 +1,7 @@
 import React from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
-import { AhvenanmaaForminnenArgisFeature } from "../../../../common/ahvenanmaa.types"
+import { AhvenanmaaForminnenFeature } from "../../../../common/ahvenanmaa.types"
 import { AhvenanmaaTypeAndDatingField } from "../component/AhvenanmaaTypeAndDatingField"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import {
@@ -12,7 +12,7 @@ import { FeatureGeometryDownloadLink } from "../component/FeatureGeometryDownloa
 import { Field } from "../component/Field"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
-  feature: AhvenanmaaForminnenArgisFeature
+  feature: AhvenanmaaForminnenFeature
 }
 
 export const AhvenanmaaForminnenPanel: React.FC<Props> = ({

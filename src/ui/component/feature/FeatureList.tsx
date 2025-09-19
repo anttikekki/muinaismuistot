@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react"
 import { Accordion } from "react-bootstrap"
 import { ModelFeature } from "../../../common/3dModels.types"
-import { isAhvenanmaaArcgisFeature } from "../../../common/ahvenanmaa.types"
+import { isAhvenanmaaFeature } from "../../../common/ahvenanmaa.types"
 import { AhvenanmaaLayer } from "../../../common/layers.types"
 import {
   isMaalinnoitusKohdeFeature,
@@ -130,7 +130,7 @@ export const FeatureList: React.FC<FeatureListProps> = ({
             return <MaalinnoitusRajausPanel feature={feature} {...params} />
           }
         }
-        if (isAhvenanmaaArcgisFeature(feature)) {
+        if (isAhvenanmaaFeature(feature)) {
           switch (feature.layerName) {
             case AhvenanmaaLayer.Fornminnen:
               return <AhvenanmaaForminnenPanel feature={feature} {...params} />

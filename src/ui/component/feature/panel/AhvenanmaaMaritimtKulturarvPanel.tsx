@@ -1,7 +1,7 @@
 import React from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
-import { AhvenanmaaMaritimtKulturarvArgisFeature } from "../../../../common/ahvenanmaa.types"
+import { AhvenanmaaMaritimtKulturarvFeature } from "../../../../common/ahvenanmaa.types"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import {
   FeatureCollapsePanelCommonExternalProps,
@@ -11,7 +11,7 @@ import { FeatureGeometryDownloadLink } from "../component/FeatureGeometryDownloa
 import { Field } from "../component/Field"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
-  feature: AhvenanmaaMaritimtKulturarvArgisFeature
+  feature: AhvenanmaaMaritimtKulturarvFeature
 }
 
 export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({

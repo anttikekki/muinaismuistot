@@ -5,9 +5,9 @@ import TileLayer from "ol/layer/Tile"
 import { Size } from "ol/size"
 import TileArcGISRestSource, { Options } from "ol/source/TileArcGISRest"
 import {
-  AhvenanmaaArcgisFeature,
-  AhvenanmaaArcgisFindResult,
-  AhvenanmaaArcgisIdentifyResult,
+  AhvenanmaaEsriJSONFindResult,
+  AhvenanmaaEsriJSONIdentifyResult,
+  AhvenanmaaFeature,
   AhvenanmaaLayerId,
   AhvenanmaaTypeAndDatingFeatureProperties,
   getAhvenanmaaLayerId
@@ -101,7 +101,7 @@ export default class AhvenanmaaTileLayer {
     mapSize: Size,
     mapExtent: Extent,
     settings: Settings
-  ): Promise<AhvenanmaaArcgisIdentifyResult> => {
+  ): Promise<AhvenanmaaEsriJSONIdentifyResult> => {
     const extent = this.layer.getExtent()
 
     if (
@@ -130,7 +130,7 @@ export default class AhvenanmaaTileLayer {
     url.search = String(urlParams)
 
     const response = await fetch(String(url))
-    const result = (await response.json()) as AhvenanmaaArcgisIdentifyResult
+    const result = (await response.json()) as AhvenanmaaEsriJSONIdentifyResult
 
     return this.addTypeAndDatingToResult(result, settings)
   }
@@ -138,7 +138,7 @@ export default class AhvenanmaaTileLayer {
   public findFeatures = async (
     searchText: string,
     settings: Settings
-  ): Promise<AhvenanmaaArcgisFindResult> => {
+  ): Promise<AhvenanmaaEsriJSONFindResult> => {
     if (settings.ahvenanmaa.selectedLayers.length === 0) {
       return { results: [] }
     }
@@ -157,19 +157,19 @@ export default class AhvenanmaaTileLayer {
     url.search = String(urlParams)
 
     const response = await fetch(String(url))
-    const result = (await response.json()) as AhvenanmaaArcgisFindResult
+    const result = (await response.json()) as AhvenanmaaEsriJSONFindResult
 
     return this.addTypeAndDatingToResult(result, settings)
   }
 
   private addTypeAndDatingToResult = async (
-    data: AhvenanmaaArcgisIdentifyResult,
+    data: AhvenanmaaEsriJSONIdentifyResult,
     settings: Settings
-  ): Promise<AhvenanmaaArcgisIdentifyResult> => {
+  ): Promise<AhvenanmaaEsriJSONIdentifyResult> => {
     const typeAndDatingMap = await this.getTypeAndDatingData(settings)
-    const result: AhvenanmaaArcgisIdentifyResult = {
+    const result: AhvenanmaaEsriJSONIdentifyResult = {
       ...data,
-      results: data.results.map((result): AhvenanmaaArcgisFeature => {
+      results: data.results.map((result): AhvenanmaaFeature => {
         if (result.layerName === AhvenanmaaLayer.Fornminnen) {
           const typeAndDating = typeAndDatingMap.get(
             result.attributes["Fornlämnings ID"]
