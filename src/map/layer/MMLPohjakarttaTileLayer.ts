@@ -11,8 +11,8 @@ export type ShowLoadingAnimationFn = (show: boolean) => void
 export default class MMLPohjakarttaTileLayer {
   private readonly layer: TileLayer<WMTSSource>
   private readonly updateTileLoadingStatus: ShowLoadingAnimationFn
-  private readonly mmlWmtsCapabilities: unknown
   private source?: WMTSSource
+  private mmlWmtsCapabilities: unknown
   private paituliWmtsCapabilities: unknown
 
   public constructor(
@@ -20,10 +20,6 @@ export default class MMLPohjakarttaTileLayer {
     updateTileLoadingStatus: ShowLoadingAnimationFn
   ) {
     this.updateTileLoadingStatus = updateTileLoadingStatus
-
-    this.mmlWmtsCapabilities = new WMTSCapabilities().read(
-      mmlWMTSCapabilitiesResult
-    )
 
     this.source = this.createSource(settings)
     this.layer = new TileLayer({
@@ -37,8 +33,14 @@ export default class MMLPohjakarttaTileLayer {
     switch (layer) {
       case MMLPohjakarttaLayer.Maastokartta:
       case MMLPohjakarttaLayer.Taustakartta:
-      case MMLPohjakarttaLayer.Ortokuva:
+      case MMLPohjakarttaLayer.Ortokuva: {
+        if (!this.mmlWmtsCapabilities) {
+          this.mmlWmtsCapabilities = new WMTSCapabilities().read(
+            mmlWMTSCapabilitiesResult
+          )
+        }
         return this.mmlWmtsCapabilities
+      }
       case MMLPohjakarttaLayer.Korkeusmalli25m: {
         if (!this.paituliWmtsCapabilities) {
           this.paituliWmtsCapabilities = new WMTSCapabilities().read(
