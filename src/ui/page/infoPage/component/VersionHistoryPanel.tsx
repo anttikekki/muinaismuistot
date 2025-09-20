@@ -12,6 +12,8 @@ export const VersionHistoryPanel: React.FC = () => {
           Lisätty Museoviraston aineiston tunnisteet näkyviin (esim.
           muinaisjäännösnumero).
         </p>
+        <p>Korjattu Ahvenanmaan merikohteiden 3D-mallien toimivuus.</p>
+        <p>Lisätty MML:n korkeusmalli pohjakarttoihin.</p>
 
         <h6>Toukokuu 2025</h6>
         <p>
