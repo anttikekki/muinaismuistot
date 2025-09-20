@@ -30,6 +30,11 @@ const suojellutRakennuksetLayers = [
   MuseovirastoLayer.Suojellut_rakennukset_piste
 ]
 
+const varkLayers = [
+  MuseovirastoLayer.VARK_pisteet,
+  MuseovirastoLayer.VARK_alueet
+]
+
 const muinaisjäännöksetLayers = [
   MuseovirastoLayer.Muinaisjaannokset_alue,
   MuseovirastoLayer.Muu_kulttuuriperintokohde_alue,
@@ -222,6 +227,36 @@ export const MuseovirastoLayerSelectionPanel: React.FC = () => {
             <LayerCheckbox
               label={t(`data.featureType.Muu kulttuuriperintökohde`)}
               layer={MuseovirastoLayer.Muu_kulttuuriperintokohde_piste}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+          </Form.Group>
+
+          <h6>
+            <ToggleAllCheckbox
+              allValues={varkLayers}
+              selectedValues={selectedLayers}
+              onSelectValues={onToggleAllLayers}
+              disabled={!enabled}
+            >
+              <Trans
+                i18nKey={`data.register.nameWithLink.vark`}
+                components={{ a: <a /> }}
+              />
+            </ToggleAllCheckbox>
+          </h6>
+          <Form.Group className="mb-3">
+            <LayerCheckbox
+              label={t(`common.features.aluerajaukset`)}
+              layer={MuseovirastoLayer.VARK_alueet}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`common.features.keskipisteet`)}
+              layer={MuseovirastoLayer.VARK_pisteet}
               selectedLayers={selectedLayers}
               onSelectLayer={onSelectLayer}
               disabled={!enabled}

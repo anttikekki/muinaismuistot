@@ -1,11 +1,13 @@
 import React from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
+import { Language } from "../../../../common/layers.types"
 import {
-  MuinaisjaannosPisteFeature,
-  MuuKulttuuriperintokohdePisteFeature
+  VarkAlueFeature,
+  VarkPisteFeature
 } from "../../../../common/museovirasto.types"
 import {
+  getMuinaisjaannosRegisterUrl,
   isMuinaisjaannosAjoitus,
   isMuinaisjaannosTyyppi,
   splitMuinaisjaannosAjoitus,
@@ -30,24 +32,31 @@ import { MuseovirastoLink } from "../component/MuseovirastoLink"
 import { TimespanLabel } from "../component/TimespanLabel"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
-  feature: MuinaisjaannosPisteFeature | MuuKulttuuriperintokohdePisteFeature
+  feature: VarkPisteFeature | VarkAlueFeature
 }
 
-export const MuinaisjaannosPistePanel: React.FC<Props> = ({
-  feature,
-  ...commonProps
-}) => {
-  const { t } = useTranslation()
-  const { kohdenimi, kunta, mjtunnus } = feature.properties
+export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
+  const { t, i18n } = useTranslation()
+  const { VARK_ID, VARK_nimi, Kunta, Maakunta, Mj_kohde, Mj_tunnus } =
+    feature.properties
+
+  const mjTunnukset = Mj_tunnus.split(", ").filter((x) => !!x)
+  const mjNimet = Mj_kohde.split(", ").filter((x) => !!x)
+  const muinaisjäännökset = mjTunnukset.map((mjTunnus, i) => [
+    mjNimet[i],
+    mjTunnus
+  ])
+
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
       <Form>
         <Field
           label={t(`details.field.featureName`)}
-          value={kohdenimi}
+          value={VARK_nimi}
           suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
         />
-        <Field label={t(`details.field.municipality`)} value={kunta} />
+        <Field label={t(`details.field.municipality`)} value={Kunta} />
+        <Field label={t(`details.field.region`)} value={Maakunta} />
         <Field label={t(`details.field.dating`)}>
           <List
             data={splitMuinaisjaannosAjoitus(feature)}
@@ -67,6 +76,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
             contentFn={(tyyppi) =>
               isMuinaisjaannosTyyppi(tyyppi) ? (
                 <Link
+                  key={tyyppi}
                   text={t(`data.museovirasto.type.${tyyppi}`, tyyppi)}
                   url={getArkeologisenKulttuuriperinnonOpasLinkForType(tyyppi)}
                 />
@@ -89,7 +99,21 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
             )}
           />
         </Field>
-        <Field label={t(`details.field.id`)} value={String(mjtunnus)} />
+        <Field label={t(`data.featureType.Kiinteä muinaisjäännös`)}>
+          <List
+            data={muinaisjäännökset}
+            contentFn={([nimi, mjtunnus]) => (
+              <Link
+                text={nimi}
+                url={getMuinaisjaannosRegisterUrl(
+                  mjtunnus,
+                  i18n.language as Language
+                )}
+              />
+            )}
+          />
+        </Field>
+        <Field label={t(`details.field.varkId`)} value={String(VARK_ID)} />
 
         {feature.maisemanMuisti.length > 0 && (
           <MaisemanMuistiField feature={feature.maisemanMuisti[0]} />

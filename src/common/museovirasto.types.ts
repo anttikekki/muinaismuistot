@@ -63,12 +63,6 @@ export type MuinaisjaannosPisteFeatureProperties = {
   url: string // "www.kyppi.fi/to.aspx?id=112.1279";
   x: number // 382363.823
   y: number // 6667893.676
-  /**
-   * trimmed and splitted values for easier usage
-   */
-  tyyppiSplitted: MuinaisjaannosTyyppi[]
-  ajoitusSplitted: MuinaisjaannosAjoitus[]
-  alatyyppiSplitted: string[]
 }
 
 export interface MuinaisjaannosPisteFeature
@@ -118,12 +112,6 @@ type MuuKulttuuriperintokohdePisteFeatureProperties = {
   url: string // "www.kyppi.fi/to.aspx?id=112.1000030753";
   x: number // 391239
   y: number // 6674656
-  /**
-   * trimmed and splitted values for easier usage
-   */
-  tyyppiSplitted: MuinaisjaannosTyyppi[]
-  ajoitusSplitted: MuinaisjaannosAjoitus[]
-  alatyyppiSplitted: string[]
 }
 
 export interface MuuKulttuuriperintokohdePisteFeature
@@ -261,6 +249,66 @@ export interface MaailmanperintoAlueFeature
   id: `maailmanperinto_alue.${number}`
 }
 
+type VarkAlueFeatureProperties = {
+  VARK_ID: number // 100952
+  VARK_nimi: string // "Bembölen myllynpaikka"
+  Mj_kohde: string //"Bembölen myllynpaikka"
+  Mj_kohde2: string | null // null
+  MJ_kohde3: string | null // null
+  Mj_tunnus: string //"1000014112"
+  Mj_tunnus2: string | null // null
+  Kohde_lkm: number // 1
+  Ajoitus: string //"historiallinen"
+  Ajoitus2: string //"ei määritelty"
+  Tyyppi: string //"työ- ja valmistuspaikat"
+  Alatyyppi: string //"vesimyllyt"
+  Poikkeava: string // "e"
+  Pinta_ala: number // 0.7967
+  Kunta: string //"Espoo"
+  Maakunta: string //"Uusimaa"
+  Alva_museo: string //"Espoon kaupunginmuseo"
+  Luontipvm: string //"27.09.2019"
+  Digipvm: string //"27.09.2019"
+  Muutospvm: string | null //null
+  Linkki: string //"https://www.kyppi.fi/vark.aspx?id=1000014112"
+}
+
+export interface VarkAlueFeature
+  extends FeatureSupplementaryData,
+    Feature<Geometry, VarkAlueFeatureProperties> {
+  id: `vark_alueet.${number}`
+}
+
+type VarkPisteFeatureProperties = {
+  VARK_ID: number // 100952
+  VARK_nimi: string // "Bembölen myllynpaikka"
+  Mj_kohde: string //"Bembölen myllynpaikka"
+  Mj_kohde2: string | null // null
+  MJ_kohde3: string | null // null
+  Mj_tunnus: string //"1000014112"
+  Mj_tunnus2: string | null // null
+  Kohde_lkm: number // 1
+  Ajoitus: string //"historiallinen"
+  Ajoitus2: string //"ei määritelty"
+  Tyyppi: string //"työ- ja valmistuspaikat"
+  Alatyyppi: string //"vesimyllyt"
+  Poikkeava: string // "e"
+  Pinta_ala: number // 0.7967
+  Kunta: string //"Espoo"
+  Maakunta: string //"Uusimaa"
+  Alva_museo: string //"Espoon kaupunginmuseo"
+  Luontipvm: string //"27.09.2019"
+  Digipvm: string //"27.09.2019"
+  Muutospvm: string | null //null
+  Linkki: string //"https://www.kyppi.fi/vark.aspx?id=1000014112"
+}
+
+export interface VarkPisteFeature
+  extends FeatureSupplementaryData,
+    Feature<Point, VarkPisteFeatureProperties> {
+  id: `vark_pisteet.${number}`
+}
+
 export type MuseovirastoFeature =
   | MuinaisjaannosPisteFeature
   | MuinaisjaannosAlueFeature
@@ -273,6 +321,8 @@ export type MuseovirastoFeature =
   | RKYViivaFeature
   | MaailmanperintoPisteFeature
   | MaailmanperintoAlueFeature
+  | VarkPisteFeature
+  | VarkAlueFeature
 
 export type MuseovirastoFeatureInfoResult = {
   type: "FeatureCollection"
@@ -332,6 +382,16 @@ export const isMaailmanperintoAlueFeature = (
 ): feature is MaailmanperintoAlueFeature =>
   feature.id?.toString().startsWith("maailmanperinto_alue.") ?? false
 
+export const isVarkPisteFeature = (
+  feature: Feature
+): feature is VarkPisteFeature =>
+  feature.id?.toString().startsWith("vark_pisteet.") ?? false
+
+export const isVarkAlueFeature = (
+  feature: Feature
+): feature is VarkAlueFeature =>
+  feature.id?.toString().startsWith("vark_alueet.") ?? false
+
 export const isMuseovirastoFeature = (
   feature: MapFeature
 ): feature is MuseovirastoFeature => {
@@ -347,7 +407,9 @@ export const isMuseovirastoFeature = (
       isRKYPisteFeature(feature) ||
       isRKYViivaFeature(feature) ||
       isMaailmanperintoPisteFeature(feature) ||
-      isMaailmanperintoAlueFeature(feature))
+      isMaailmanperintoAlueFeature(feature) ||
+      isVarkPisteFeature(feature) ||
+      isVarkAlueFeature(feature))
   )
 }
 
@@ -386,6 +448,12 @@ export const getMuseovirastoFeatureLayerName = (
   }
   if (isMaailmanperintoPisteFeature(feature)) {
     return MuseovirastoLayer.Maailmanperinto_piste
+  }
+  if (isVarkPisteFeature(feature)) {
+    return MuseovirastoLayer.VARK_pisteet
+  }
+  if (isVarkAlueFeature(feature)) {
+    return MuseovirastoLayer.VARK_alueet
   }
   throw new Error(`Tuntematon Museovirasto Feature: ${JSON.stringify(feature)}`)
 }

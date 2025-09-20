@@ -4,11 +4,6 @@ import {
   isEsriJSONFeature,
   MapFeature
 } from "../../../../common/mapFeature.types"
-import {
-  isMuinaisjaannosPisteFeature,
-  isMuseovirastoFeature,
-  isMuuKulttuuriperintokohdePisteFeature
-} from "../../../../common/museovirasto.types"
 import { convertFeatureFromEsriJSONtoGeoJSON } from "../../../../common/util/esriToGeoJSONConverter"
 import {
   getFeatureID,
@@ -69,20 +64,6 @@ export const FeatureGeometryDownloadLink: React.FC<Props> = ({ feature }) => {
  * Konvertoi ESRI fearuren GeoJSON featureksi.
  */
 const cleanAndConvertFeatureJSON = (feature: MapFeature) => {
-  if (
-    isMuseovirastoFeature(feature) &&
-    (isMuinaisjaannosPisteFeature(feature) ||
-      isMuuKulttuuriperintokohdePisteFeature(feature))
-  ) {
-    const { maisemanMuisti, models, ...cleanFeature } = feature
-    const {
-      tyyppiSplitted,
-      ajoitusSplitted,
-      alatyyppiSplitted,
-      ...cleanProperties
-    } = feature.properties
-    return { ...cleanFeature, properties: cleanProperties }
-  }
   if (isEsriJSONFeature(feature)) {
     return convertFeatureFromEsriJSONtoGeoJSON(feature)
   }

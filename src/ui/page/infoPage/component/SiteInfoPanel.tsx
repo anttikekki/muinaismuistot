@@ -44,6 +44,14 @@ export const SiteInfoPanel: React.FC = () => {
               )}
             </a>
           </li>
+          <li>
+            <a
+              href="https://www.kyppi.fi/palveluikkuna/VARKL/asp/v_default.aspx"
+              target="_blank"
+            >
+              {t(`data.register.name.vark`)}
+            </a>
+          </li>
         </ul>
 
         <h6>{t(`common.organization.Ahvenanmaan paikallishallinto`)}</h6>
@@ -123,11 +131,7 @@ export const SiteInfoPanel: React.FC = () => {
             pattern: /ICON/gm,
             decorator: (match) => {
               return (
-                <span
-                  key={match}
-                  className="glyphicon glyphicon-screenshot"
-                  aria-hidden="true"
-                />
+                <i key={match} className="bi bi-crosshair" aria-hidden="true" />
               )
             },
             input: t(`info.siteInfo.positioningInfo`)
@@ -141,11 +145,7 @@ export const SiteInfoPanel: React.FC = () => {
             decorator: (match) => {
               if (match === "SEARCH_ICON") {
                 return (
-                  <span
-                    key={match}
-                    className="glyphicon glyphicon-search"
-                    aria-hidden="true"
-                  />
+                  <i key={match} className="bi bi-search" aria-hidden="true" />
                 )
               }
               if (match === "PIN_ICON") {
@@ -162,13 +162,7 @@ export const SiteInfoPanel: React.FC = () => {
           {regexifyString({
             pattern: /ICON/gm,
             decorator: (match) => {
-              return (
-                <span
-                  key={match}
-                  className="glyphicon glyphicon-cog"
-                  aria-hidden="true"
-                />
-              )
+              return <i key={match} className="bi bi-gear" aria-hidden="true" />
             },
             input: t(`info.siteInfo.settingsInfo`)
           })}

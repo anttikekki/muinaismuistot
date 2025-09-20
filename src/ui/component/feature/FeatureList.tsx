@@ -25,7 +25,9 @@ import {
   isRKYPisteFeature,
   isRKYViivaFeature,
   isSuojellutRakennuksetAlueFeature,
-  isSuojellutRakennuksetPisteFeature
+  isSuojellutRakennuksetPisteFeature,
+  isVarkAlueFeature,
+  isVarkPisteFeature
 } from "../../../common/museovirasto.types"
 import {
   getFeatureID,
@@ -46,6 +48,7 @@ import {
 import { MaalinnoitusKohdePanel } from "./panel/MaalinnoitusKohdePanel"
 import { MaalinnoitusRajausPanel } from "./panel/MaalinnoitusRajausPanel"
 import { MaalinnoitusYksikkoPanel } from "./panel/MaalinnoitusYksikkoPanel"
+import { VarkPanel } from "./panel/VarkPanel"
 
 interface FeatureListProps {
   titleClickAction: FeatureTitleClickAction
@@ -128,6 +131,9 @@ export const FeatureList: React.FC<FeatureListProps> = ({
           }
           if (isMaalinnoitusRajausFeature(feature)) {
             return <MaalinnoitusRajausPanel feature={feature} {...params} />
+          }
+          if (isVarkPisteFeature(feature) || isVarkAlueFeature(feature)) {
+            return <VarkPanel feature={feature} {...params} />
           }
         }
         if (isAhvenanmaaFeature(feature)) {

@@ -30,7 +30,7 @@ export const DataAndLicencesPanel: React.FC = () => {
         </p>
         <p>
           <Trans
-            i18nKey="info.licences.maanmittauslaitosVanhatKartat"
+            i18nKey="info.licences.maanmittauslaitosPaituli"
             components={{ a: <a /> }}
           />
         </p>

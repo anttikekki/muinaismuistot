@@ -23,7 +23,9 @@
       "Rakennus": "Byggnad",
       "Kohde": "Objekt",
       "3D-malli": "3D-modell",
-      "Valtakunnallisesti merkittävä muinaisjäännös": "Fast fornlämning av riksomfattande betydelse"
+      "Valtakunnallisesti merkittävä muinaisjäännös": "Fast fornlämning av riksomfattande betydelse",
+      "aluerajaukset": "Områdesavgränsningar",
+      "keskipisteet": "Medelpunkter"
     },
     "organization": {
       "Maanmittauslaitos": "Lantmäteriverket",
@@ -62,8 +64,8 @@
       "title": "Öppet data, licenser och källkod",
       "museovirasto": "Museiverkets registerdata hämtas från <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
       "ahvenanmaa": "Ålands landskapsregerings register hämtas från <a href='https://www.kartor.ax/datasets'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
-      "maanmittauslaitos": "Bakgrundskarta, flygfoto och terrängskarta hämtas från Lantmäteriverkets <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
-      "maanmittauslaitosVanhatKartat": "<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>Gamla kartor</a> och Lantmäteriverkets höjdmodell hämtas från CSC (IT-centret för vetenskap) <a href='https://paituli.csc.fi/webservices.html' target='_blank'>öppet WMS- och WMTS-gränsnitt</a>  (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC By 4.0</a>).",
+      "maanmittauslaitos": "Bakgrundskarta, flygfoto och terrängskarta hämtas från Lantmäteriverkets <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>öppet WMTS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
+      "maanmittauslaitosPaituli": "<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>Gamla kartor</a> och Lantmäteriverkets höjdmodell hämtas från CSC (IT-centret för vetenskap) <a href='https://paituli.csc.fi/webservices.html' target='_blank'>öppet WMS- och WMTS-gränsnitt</a>  (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC By 4.0</a>).",
       "gtk": "Materialet över fornstränder hämtas från Geologiska forskningscentralens <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/'>öppet WMS-gränssnitt</a> (platsdata har publicerats med <a href='https://www.gtk.fi/sv/grundlicens/'>grundlicens</a>, tillstånd för användning av materialet beviljades 15.1.2021).",
       "helsinki": "Materialet rörande landfästningar runt Helsingfors under första världskriget hämtas från Helsingfors stads <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset'>öppna WMS-gränssnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
       "maannousuInfo": "Kartan som beskriver landhöjningen på webbplatsen Maannousu.info via <a href='https://maannousu.info/integration'>ett öppet GeoTIFF-gränssnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
@@ -178,10 +180,12 @@
       "fromMuinaisjaannos": "Fornlämningsregister",
       "fromRKY": "Register över byggda kulturmiljöer av riksintresse (RKY) på rky.fi",
       "fromMaailmanperinto": "Museiverkets hemsida",
-      "fromRakennusperintö": "Register över byggnadsarv"
+      "fromRakennusperintö": "Register över byggnadsarv",
+      "fromVark": "Register över VARK-områden"
     },
     "field": {
       "id": "Objekt-id",
+      "varkId": "VARK objekt-id",
       "feature": "Objekt",
       "name": "Namn",
       "featureName": "Objektnamn",
@@ -217,7 +221,8 @@
         "kohteenTyyppi": "Objekttyp",
         "rajauksenTyyppi": "Avgränsning"
       },
-      "downloadGeometry": "Ladda ner GeoJSON-geodata"
+      "downloadGeometry": "Ladda ner GeoJSON-geodata",
+      "muinaisjäännökset": "Muinaisjäännökset"
     },
     "3d": {
       "title": "3D-modeller över objektet",
@@ -242,6 +247,7 @@
         "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Byggda kulturmiljöer av riksintresse (RKY)",
         "Maailmanperintökohteet": "Världsarv",
         "Rakennusperintörekisteri": "Register över byggnadsarv",
+        "vark": "Arkeologiska områden av riksintresse (VARK)",
         "Ahvenanmaan muinaisjäännösrekisteri": "Fornminnesregister för Åland",
         "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Register över maritimt kulturarv på Åland",
         "3Dmodels": "3D-modeller",
@@ -255,6 +261,7 @@
         "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Byggda kulturmiljöer av riksintresse (RKY) (<a href='http://www.rky.fi/' target='_blank'>information</a>)",
         "Maailmanperintökohteet": "Världsarv (<a href='https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa' target='_blank'>information</a>)",
         "Rakennusperintörekisteri": "Register över byggnadsarv (<a href='https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_default.aspx' target='_blank'>information</a>)",
+        "vark": "Arkeologiska områden av riksintresse (VARK) (<a href='https://www.kyppi.fi/palveluikkuna/VARKL/asp/sv_default.aspx' target='_blank'>information</a>)",
         "Ahvenanmaan muinaisjäännösrekisteri": "Fornminnesregister för Åland (<a href='https://hub.arcgis.com/datasets/aland::fornminnen-1/' target='_blank'>information</a>)",
         "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Register över maritimt kulturarv på Åland (<a href='https://hub.arcgis.com/datasets/aland::maritimt-kulturarv-vrak-1/' target='_blank'>information</a>)",
         "3Dmodels": "3D-modeller (<a href='./3d/' target='_blank'>information</a>)",
@@ -272,6 +279,8 @@
       "Rakennettu kulttuuriympäristö": "Bebyggd kulturmiljö",
       "Maailmanperintökohde": "Världsarvs",
       "Rakennusperintökohde": "Byggandsarv",
+      "varkPiste": "Arkeologiska områden av riksintresse (VARK), medelpunkter",
+      "varkAlue": "Arkeologiska områden av riksintresse (VARK), områdesavgränsningar",
       "Ahvenanmaan muinaisjäännösrekisterin kohde": "Fast fornlämning i fornminnesregister för Åland",
       "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde": "Objekt i register över maritimt kulturarv på Åland",
       "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget"

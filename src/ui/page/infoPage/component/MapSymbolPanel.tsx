@@ -127,6 +127,25 @@ export const MapSymbolPanel: React.FC = () => {
 
         <h6>
           <Trans
+            i18nKey={`data.register.nameWithLink.vark`}
+            components={{ a: <a /> }}
+          />
+        </h6>
+
+        <div className="mb-3">
+          <div className="ms-3">
+            <img className="feature-icon" src="images/vark_piste.png" />
+            <span>{t(`common.features.keskipisteet`)}</span>
+          </div>
+
+          <div className="ms-3">
+            <img className="feature-icon" src="images/vark_alue.png" />
+            <span>{t(`common.features.aluerajaukset`)}</span>
+          </div>
+        </div>
+
+        <h6>
+          <Trans
             i18nKey={`data.register.nameWithLink.Ahvenanmaan muinaisjäännösrekisteri`}
             components={{ a: <a /> }}
           />

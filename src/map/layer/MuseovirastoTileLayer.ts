@@ -6,12 +6,8 @@ import { MuseovirastoLayer } from "../../common/layers.types"
 import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi,
-  MuseovirastoFeature,
-  MuseovirastoFeatureInfoResult,
-  isMuinaisjaannosPisteFeature,
-  isMuuKulttuuriperintokohdePisteFeature
+  MuseovirastoFeatureInfoResult
 } from "../../common/museovirasto.types"
-import { trim } from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
 
 const emptyIdentifyResult: MuseovirastoFeatureInfoResult = {
@@ -124,9 +120,7 @@ export default class MuseovirastoTileLayer {
     )
     if (url) {
       const response = await fetch(String(url))
-      const result = (await response.json()) as MuseovirastoFeatureInfoResult
-
-      return this.trimAnsSplitMultivalueFields(result)
+      return (await response.json()) as MuseovirastoFeatureInfoResult
     }
     return emptyIdentifyResult
   }
@@ -181,42 +175,7 @@ export default class MuseovirastoTileLayer {
     url.search = String(urlParams)
 
     const response = await fetch(String(url))
-    const result = (await response.json()) as MuseovirastoFeatureInfoResult
-
-    return this.trimAnsSplitMultivalueFields(result)
-  }
-
-  private trimAnsSplitMultivalueFields = (
-    data: MuseovirastoFeatureInfoResult
-  ): MuseovirastoFeatureInfoResult => {
-    return {
-      ...data,
-      features: data.features?.map((feature): MuseovirastoFeature => {
-        if (
-          isMuinaisjaannosPisteFeature(feature) ||
-          isMuuKulttuuriperintokohdePisteFeature(feature)
-        ) {
-          feature.properties.tyyppiSplitted = trim(feature.properties.tyyppi)
-            .replace("taide, muistomerkit", "taide-muistomerkit")
-            .split(", ")
-            .map((t) =>
-              t === "taide-muistomerkit" ? "taide, muistomerkit" : t
-            ) as MuinaisjaannosTyyppi[]
-          feature.properties.ajoitusSplitted = trim(
-            feature.properties.ajoitus
-          ).split(", ") as MuinaisjaannosAjoitus[]
-          feature.properties.alatyyppiSplitted = trim(
-            feature.properties.alatyyppi
-          )
-            .replace("rajamerkit, puu", "rajamerkit-puu")
-            .split(", ")
-            .map((t) => (t === "rajamerkit-puu" ? "rajamerkit, puu" : t))
-
-          return feature
-        }
-        return feature
-      })
-    }
+    return (await response.json()) as MuseovirastoFeatureInfoResult
   }
 
   public opacityChanged = (settings: Settings): void => {

@@ -29,6 +29,8 @@ import {
   MaailmanperintoAlueFeature,
   MaailmanperintoPisteFeature,
   MuinaisjaannosAjoitus,
+  MuinaisjaannosTyyppi,
+  MuseovirastoFeature,
   isMaailmanperintoAlueFeature,
   isMaailmanperintoPisteFeature,
   isMuinaisjaannosAlueFeature,
@@ -40,7 +42,9 @@ import {
   isRKYPisteFeature,
   isRKYViivaFeature,
   isSuojellutRakennuksetAlueFeature,
-  isSuojellutRakennuksetPisteFeature
+  isSuojellutRakennuksetPisteFeature,
+  isVarkAlueFeature,
+  isVarkPisteFeature
 } from "../museovirasto.types"
 import { convertFeatureFromEsriJSONtoGeoJSON } from "./esriToGeoJSONConverter"
 
@@ -64,6 +68,9 @@ export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
       isSuojellutRakennuksetPisteFeature(feature)
     ) {
       return trim(feature.properties.kohdenimi)
+    }
+    if (isVarkPisteFeature(feature) || isVarkAlueFeature(feature)) {
+      return trim(feature.properties.VARK_nimi)
     }
     if (isMaalinnoitusYksikkoFeature(feature)) {
       const { laji, lajinumero, yksikko } = feature.properties
@@ -122,13 +129,11 @@ export const getFeatureTypeName = (
 ): string => {
   if (isGeoJSONFeature(feature)) {
     if (isMuinaisjaannosPisteFeature(feature)) {
+      const tyypit = splitMuinaisjaannosTyyppi(feature)
       return [
         t(`data.featureType.Kiinteä muinaisjäännös`),
-        feature.properties.tyyppiSplitted[0]
-          ? t(
-              `data.museovirasto.type.${feature.properties.tyyppiSplitted[0]}`,
-              feature.properties.tyyppiSplitted[0]
-            )
+        tyypit[0]
+          ? t(`data.museovirasto.type.${tyypit[0]}`, tyypit[0])
           : undefined,
         feature.maisemanMuisti.length > 0
           ? t(`data.featureType.Valtakunnallisesti merkittävä muinaisjäännös`)
@@ -164,6 +169,12 @@ export const getFeatureTypeName = (
       isSuojellutRakennuksetPisteFeature(feature)
     ) {
       return t(`data.featureType.Rakennusperintökohde`)
+    }
+    if (isVarkPisteFeature(feature)) {
+      return t(`data.featureType.varkPiste`)
+    }
+    if (isVarkAlueFeature(feature)) {
+      return t(`data.featureType.varkAlue`)
     }
     if (isMaalinnoitusYksikkoFeature(feature)) {
       return `${t(`data.featureType.maalinnoitus`)}, ${t(
@@ -246,6 +257,12 @@ export const getFeatureTypeIconURL = (feature: MapFeature): string => {
     if (isSuojellutRakennuksetPisteFeature(feature)) {
       return getTypeIconURL("rakennusperintorekisteri_rakennus", has3dModels)
     }
+    if (isVarkPisteFeature(feature)) {
+      return getTypeIconURL("vark_piste", has3dModels)
+    }
+    if (isVarkAlueFeature(feature)) {
+      return getTypeIconURL("vark_alue", has3dModels)
+    }
     if (isMaalinnoitusYksikkoFeature(feature)) {
       return getTypeIconURL("maalinnoitus-yksikko", false)
     }
@@ -304,6 +321,10 @@ export const getLayerIconURLs = (layer: FeatureLayer): string[] => {
       return ["images/rakennusperintorekisteri_alue.png"]
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
       return ["images/rakennusperintorekisteri_rakennus.png"]
+    case MuseovirastoLayer.VARK_pisteet:
+      return ["images/vark_piste.png"]
+    case MuseovirastoLayer.VARK_alueet:
+      return ["images/vark_alue.png"]
     case AhvenanmaaLayer.Fornminnen:
       return ["images/ahvenanmaa_muinaisjaannos.png"]
     case AhvenanmaaLayer.MaritimaFornminnen:
@@ -359,6 +380,9 @@ export const getFeatureID = (feature: MapFeature): string => {
       isSuojellutRakennuksetPisteFeature(feature)
     ) {
       return String(feature.properties.KOHDEID)
+    }
+    if (isVarkPisteFeature(feature) || isVarkAlueFeature(feature)) {
+      return String(feature.properties.VARK_ID)
     }
     if (
       isMaalinnoitusYksikkoFeature(feature) ||
@@ -425,6 +449,17 @@ const getMaailmanperintoUrl = (
   return url
 }
 
+export const getMuinaisjaannosRegisterUrl = (
+  mjtunnus: string | number,
+  lang: Language
+): string => {
+  let url = `https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=${mjtunnus}`
+  if (lang === Language.SV) {
+    url = url.replace("r_kohde_det.aspx", "rsv_kohde_det.aspx")
+  }
+  return url
+}
+
 export const getFeatureRegisterURL = (
   feature: MapFeature,
   lang: Language
@@ -436,11 +471,7 @@ export const getFeatureRegisterURL = (
       isMuuKulttuuriperintokohdePisteFeature(feature) ||
       isMuuKulttuuriperintokohdeAlueFeature(feature)
     ) {
-      let url = `https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_kohde_det.aspx?KOHDE_ID=${feature.properties.mjtunnus}`
-      if (lang === Language.SV) {
-        url = url.replace("r_kohde_det.aspx", "rsv_kohde_det.aspx")
-      }
-      return url
+      return getMuinaisjaannosRegisterUrl(feature.properties.mjtunnus, lang)
     }
     if (
       isRKYAlueFeature(feature) ||
@@ -466,6 +497,9 @@ export const getFeatureRegisterURL = (
       isSuojellutRakennuksetPisteFeature(feature)
     ) {
       return `https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_kohde_det.aspx?KOHDE_ID=${feature.properties.KOHDEID}`
+    }
+    if (isVarkPisteFeature(feature) || isVarkAlueFeature(feature)) {
+      return feature.properties.Linkki
     }
   }
   return undefined
@@ -503,6 +537,9 @@ export const getFeatureRegisterName = (
     ) {
       return t(`details.registerLink.fromRakennusperintö`)
     }
+    if (isVarkPisteFeature(feature) || isVarkAlueFeature(feature)) {
+      return t(`details.registerLink.fromVark`)
+    }
   }
   return ""
 }
@@ -529,6 +566,9 @@ export const getLayerRegisterName = (
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
       return t(`data.register.name.Rakennusperintörekisteri`)
+    case MuseovirastoLayer.VARK_pisteet:
+    case MuseovirastoLayer.VARK_alueet:
+      return t(`data.register.name.vark`)
     case AhvenanmaaLayer.Fornminnen:
       return t(`data.register.name.Ahvenanmaan muinaisjäännösrekisteri`)
     case AhvenanmaaLayer.MaritimaFornminnen:
@@ -582,6 +622,96 @@ export const getGeoJSONFeatureLocation = (feature: Feature): Position => {
     case "GeometryCollection":
       return centroid(feature).geometry.coordinates
   }
+}
+
+export const isMuinaisjaannosTyyppi = (
+  dating: string
+): dating is MuinaisjaannosTyyppi =>
+  Object.values(MuinaisjaannosTyyppi).includes(dating as MuinaisjaannosTyyppi)
+
+export const isMuinaisjaannosAjoitus = (
+  dating: string
+): dating is MuinaisjaannosAjoitus =>
+  Object.values(MuinaisjaannosAjoitus).includes(dating as MuinaisjaannosAjoitus)
+
+export const splitMuinaisjaannosTyyppi = (
+  feature: MuseovirastoFeature
+): string[] => {
+  const tyypit = (() => {
+    if (
+      isMuinaisjaannosPisteFeature(feature) ||
+      isMuuKulttuuriperintokohdePisteFeature(feature)
+    ) {
+      return [feature.properties.tyyppi]
+    }
+    if (isVarkPisteFeature(feature) || isVarkAlueFeature(feature)) {
+      return [feature.properties.Tyyppi]
+    }
+    return []
+  })()
+
+  return tyypit.flatMap((tyyppi) =>
+    trim(tyyppi)
+      .replace("taide, muistomerkit", "taide-muistomerkit")
+      .split(", ")
+      .map((t) => (t === "taide-muistomerkit" ? "taide, muistomerkit" : t))
+  )
+}
+
+export const splitMuinaisjaannosAlatyyppi = (
+  feature: MuseovirastoFeature
+): string[] => {
+  const alatyypit = (() => {
+    if (
+      isMuinaisjaannosPisteFeature(feature) ||
+      isMuuKulttuuriperintokohdePisteFeature(feature)
+    ) {
+      return [feature.properties.alatyyppi]
+    }
+    if (isVarkPisteFeature(feature) || isVarkAlueFeature(feature)) {
+      return [feature.properties.Alatyyppi]
+    }
+    return []
+  })()
+
+  const alatyyppiSplitted = alatyypit.flatMap((alatyyppi) =>
+    trim(alatyyppi)
+      .replace("rajamerkit, puu", "rajamerkit-puu")
+      .split(", ")
+      .map((t) => (t === "rajamerkit-puu" ? "rajamerkit, puu" : t))
+  )
+  // Poistetaan "ei määritelty", jos on joku muukin alatyyppi
+  return alatyyppiSplitted.length > 1
+    ? alatyyppiSplitted.filter((tyyppi) => tyyppi !== "ei määritelty")
+    : alatyyppiSplitted
+}
+
+export const splitMuinaisjaannosAjoitus = (
+  feature: MuseovirastoFeature
+): string[] => {
+  const ajoitus = (() => {
+    if (
+      isMuinaisjaannosPisteFeature(feature) ||
+      isMuuKulttuuriperintokohdePisteFeature(feature)
+    ) {
+      return [feature.properties.ajoitus]
+    }
+    if (isVarkPisteFeature(feature) || isVarkAlueFeature(feature)) {
+      return [feature.properties.Ajoitus, feature.properties.Ajoitus2]
+    }
+    return []
+  })()
+
+  const ajoitusSplitted = ajoitus.flatMap((ajoitus) =>
+    trim(ajoitus).split(", ")
+  )
+
+  // Poistetaan "ei määritelty", jos on joku muukin ajoitus
+  return ajoitusSplitted.length > 1
+    ? ajoitusSplitted.filter(
+        (tyyppi) => tyyppi !== MuinaisjaannosAjoitus.eiMääritelty
+      )
+    : ajoitusSplitted
 }
 
 /**

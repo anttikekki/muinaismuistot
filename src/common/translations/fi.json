@@ -23,7 +23,9 @@
       "Rakennus": "Rakennus",
       "Kohde": "Kohde",
       "3D-malli": "3D-malli",
-      "Valtakunnallisesti merkittävä muinaisjäännös": "Valtakunnallisesti merkittävä muinaisjäännös"
+      "Valtakunnallisesti merkittävä muinaisjäännös": "Valtakunnallisesti merkittävä muinaisjäännös",
+      "aluerajaukset": "Aluerajaukset",
+      "keskipisteet": "Keskipisteet"
     },
     "organization": {
       "Maanmittauslaitos": "Maanmittauslaitos",
@@ -62,8 +64,8 @@
       "title": "Avoin data, lisenssit ja lähdekoodi",
       "museovirasto": "Museoviraston rekistereistä tietoa haetaan <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "ahvenanmaa": "Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href='https://www.kartor.ax/datasets'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
-      "maanmittauslaitos": "Tausta-, ortokuva- ja peruskartta haetaan Maanmittauslaitoksen <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
-      "maanmittauslaitosVanhatKartat": "<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>Vanhat kartat</a> ja MLL:n korkeusmalli haetaan CSC:n (Tieteen tietotekniikan keskus) Paituli-palvelun <a href='https://paituli.csc.fi/webservices.html' target='_blank'>avoimien WMS- ja WMTS-rajapintojen</a> kautta (paikkatietoaineistot on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "maanmittauslaitos": "Tausta-, ortokuva- ja peruskartta haetaan Maanmittauslaitoksen <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>avoimen WMTS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "maanmittauslaitosPaituli": "<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>Vanhat kartat</a> ja MLL:n korkeusmalli haetaan CSC:n (Tieteen tietotekniikan keskus) Paituli-palvelun <a href='https://paituli.csc.fi/webservices.html' target='_blank'>avoimien WMS- ja WMTS-rajapintojen</a> kautta (paikkatietoaineistot on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "gtk": "Muinaisrantojen aineisto haetaan Geologian tutkimuskeskuksen <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://www.gtk.fi/peruslisenssi/'>Peruslisenssillä</a>, erillislupa aineiston käyttöön saatu 15.1.2021).",
       "maannousuInfo": "Maannousu.info sivuston maannousua kuvaava kartta <a href='https://maannousu.info/integration'>avoimen GeoTIFF-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "helsinki": "Helsingin ensimmäisen maailmansodan aikaisten maalinnoitusten aineisto haetaan Helsingin kaupungin <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
@@ -142,7 +144,6 @@
     "museovirasto": {
       "title": "Museoviraston aineistot",
       "licence": "© Museovirasto (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)",
-
       "filters": {
         "title": "Kartalla näkyvät muinaisjäännökset",
         "info": "Rajoitus toimii vain muijaisjäännöksien pisteille (PISTE_ICONS) mutta ei alueille (ALUE_ICONS).",
@@ -179,10 +180,12 @@
       "fromMuinaisjaannos": "Muinaisjäännösrekisteristä",
       "fromRKY": "rky.fi rekisteristä",
       "fromMaailmanperinto": "Museoviraston sivuilta",
-      "fromRakennusperintö": "Rakennusperintörekisteristä"
+      "fromRakennusperintö": "Rakennusperintörekisteristä",
+      "fromVark": "VARK-alueiden rekisteristä"
     },
     "field": {
       "id": "Tunniste",
+      "varkId": "VARK-tunniste",
       "feature": "Kohde",
       "name": "Nimi",
       "featureName": "Kohdenimi",
@@ -218,7 +221,8 @@
         "kohteenTyyppi": "Kohtee tyyppi",
         "rajauksenTyyppi": "Rajauksen tyyppi"
       },
-      "downloadGeometry": "Lataa GeoJSON paikkatieto"
+      "downloadGeometry": "Lataa GeoJSON paikkatieto",
+      "muinaisjäännökset": "Muinaisjäännökset"
     },
     "3d": {
       "title": "Kohteen 3D-mallit",
@@ -243,6 +247,7 @@
         "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt",
         "Maailmanperintökohteet": "Maailmanperintökohteet",
         "Rakennusperintörekisteri": "Rakennusperintörekisteri",
+        "vark": "Valtakunnallisesti merkittävät arkeologiset kohteet (VARK)",
         "Ahvenanmaan muinaisjäännösrekisteri": "Ahvenanmaan muinaisjäännösrekisteri",
         "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Ahvenanmaan merellinen kulttuuriperintörekisteri",
         "3Dmodels": "3D-mallit",
@@ -256,6 +261,7 @@
         "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt": "Valtakunnallisesti merkittävät rakennetut kulttuuriympäristöt (<a href='http://www.rky.fi/' target='_blank'>lisätietoa</a>)",
         "Maailmanperintökohteet": "Maailmanperintökohteet (<a href='https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa' target='_blank'>lisätietoa</a>)",
         "Rakennusperintörekisteri": "Rakennusperintörekisteri (<a href='https://www.kyppi.fi/palveluikkuna/rapea/read/asp/r_default.aspx' target='_blank'>lisätietoa</a>)",
+        "vark": "Valtakunnallisesti merkittävät arkeologiset kohteet (VARK) (<a href='https://www.kyppi.fi/palveluikkuna/VARKL/asp/v_default.aspx' target='_blank'>lisätietoa</a>)",
         "Ahvenanmaan muinaisjäännösrekisteri": "Ahvenanmaan muinaisjäännösrekisteri (<a href='https://hub.arcgis.com/datasets/aland::fornminnen-1/' target='_blank'>lisätietoa</a>)",
         "Ahvenanmaan merellinen kulttuuriperintörekisteri": "Ahvenanmaan merellinen kulttuuriperintörekisteri (<a href='https://hub.arcgis.com/datasets/aland::maritimt-kulturarv-vrak-1/' target='_blank'>lisätietoa</a>)",
         "3Dmodels": "3D-mallit (<a href='./3d/' target='_blank'>lisätietoa</a>)",
@@ -273,6 +279,8 @@
       "Rakennettu kulttuuriympäristö": "Rakennettu kulttuuriympäristö",
       "Maailmanperintökohde": "Maailmanperintökohde",
       "Rakennusperintökohde": "Rakennusperintökohde",
+      "varkPiste": "Valtakunnallisesti merkittävät arkeologiset kohteet (VARK), keskipisteet",
+      "varkAlue": "Valtakunnallisesti merkittävät arkeologiset kohteet (VARK), aluerajaukset",
       "Ahvenanmaan muinaisjäännösrekisterin kohde": "Ahvenanmaan muinaisjäännösrekisterin kohde",
       "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde": "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde",
       "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset"
