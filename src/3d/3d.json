@@ -4454,7 +4454,7 @@
         "registryItem": {
           "name": "Tuntematon ('Nyhamn')",
           "id": "M1 Le 408.9",
-          "type": "Maritimt kulturarv; Vrak",
+          "type": "Maritima fornminnen",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Lemland"
         },
@@ -4533,7 +4533,7 @@
         "registryItem": {
           "name": "Tuntematon ('Kolvraket')",
           "id": "M1 Kö 404.12",
-          "type": "Maritimt kulturarv; Vrak",
+          "type": "Maritima fornminnen",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Kökar"
         },
@@ -4612,7 +4612,7 @@
         "registryItem": {
           "name": "NEDERLAND",
           "id": "M1 Jo 440.6",
-          "type": "Maritimt kulturarv; Vrak",
+          "type": "Maritima fornminnen",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Jomala"
         },
@@ -4691,7 +4691,7 @@
         "registryItem": {
           "name": "ROTTERDAM",
           "id": "M1 Ha 445.1",
-          "type": "Maritimt kulturarv; Vrak",
+          "type": "Maritima fornminnen",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Hammarland"
         },
@@ -4770,7 +4770,7 @@
         "registryItem": {
           "name": "SKIFTET",
           "id": "M1 Le 404.2",
-          "type": "Maritimt kulturarv; Vrak",
+          "type": "Maritima fornminnen",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Lemland"
         },
@@ -4849,7 +4849,7 @@
         "registryItem": {
           "name": "Tuntematon ('Holländaren')",
           "id": "M1 Ha 443.3",
-          "type": "Maritimt kulturarv; Vrak",
+          "type": "Maritima fornminnen",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Hammarland"
         },
@@ -4928,7 +4928,7 @@
         "registryItem": {
           "name": "ELSE NAVAL",
           "id": "M1 Fö 426.2",
-          "type": "Maritimt kulturarv; Vrak",
+          "type": "Maritima fornminnen",
           "url": "https://www.kartor.ax/datasets/maritimt-kulturarv-vrak/data",
           "municipality": "Föglö"
         },

@@ -108,7 +108,7 @@ export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
         return `${id} ${suffix}`
       }
       case AhvenanmaaLayer.MaritimaFornminnen:
-        return `${trim(feature.attributes.FornID)} ${trim(
+        return `${trim(feature.attributes.MfornID)} ${trim(
           feature.attributes.Namn
         )}`
     }
@@ -372,7 +372,7 @@ export const getFeatureID = (feature: MapFeature): string => {
       case AhvenanmaaLayer.Fornminnen:
         return feature.attributes["Fornlämnings ID"]
       case AhvenanmaaLayer.MaritimaFornminnen:
-        return feature.attributes.FornID
+        return feature.attributes.MfornID
     }
   }
   throw new Error(`Tuntematon feature: ${JSON.stringify(feature)}`)
@@ -551,7 +551,10 @@ export const getFeatureMunicipality = (
       return feature.properties.kunta
     }
   } else if (isAhvenanmaaFeature(feature)) {
-    return feature.attributes.Kommun
+    switch (feature.layerName) {
+      case AhvenanmaaLayer.Fornminnen:
+        return feature.attributes.Kommun
+    }
   }
   return undefined
 }

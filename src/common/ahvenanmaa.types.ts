@@ -48,15 +48,17 @@ export interface AhvenanmaaForminnenFeature
 }
 
 type AhvenanmaaMaritimtKulturarvFeatureProperties = {
-  OBJECTID: string //"482"
-  FornID: string //"M1 Ha 443.2";
-  Namn: string //"Okänt";
-  Beskrivning: string //"Träfartyg, ev. en jakt. Vraket är beläget längst inne i vikbotten i den sk. Jakthamnen. Vraket mycket sönderbrutet av is- och sjögång. Enligt uppgift skall det röra sig om en slopad postjakt.";
-  Kommun: string //"Hammarland";
-  By: string //"Signildskär och Märket";
-  Precision: string //"1:20 000";
-  Lagrum: string //"2§ 1 mom Landskapslagen (2007:19) om skydd av det maritima kulturarvet";
-  SHAPE: string //"Polygon";
+  OBJECTID: string //"234",
+  MfornID: string //"M1 Ha 445.1",
+  "Geomtrin skapad": string //"Null",
+  "Geometrin uppdaterad": string //"Null",
+  Namn: string //"ROTTERDAM",
+  Beskrivning: string //"Påträffad av dykare 2008. Skovhel brigg. ",
+  Precision: string //"2",
+  Lagrum: string //"2007:19",
+  SHAPE: string //"Polygon",
+  "Beskrivning skapad": string //"Null",
+  "Beskrivning uppdaterad": string //"12.11.2019 11:10:45"
 }
 
 export interface AhvenanmaaMaritimtKulturarvFeature

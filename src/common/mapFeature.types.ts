@@ -11,19 +11,20 @@ import {
   isMuseovirastoFeature
 } from "./museovirasto.types"
 
-export type MapFeature =
-  | MuseovirastoFeature
-  | AhvenanmaaFeature
-  | MaalinnoitusFeature
+export type MapFeature = GeoJSONFeature | AhvenanmaaFeature
+
+export type GeoJSONFeature = MuseovirastoFeature | MaalinnoitusFeature
 
 export const isGeoJSONFeature = (
   feature: MapFeature
-): feature is MuseovirastoFeature | MaalinnoitusFeature =>
+): feature is GeoJSONFeature =>
   isMuseovirastoFeature(feature) || isMaalinnoitusFeature(feature)
+
+export type EsriJSONFeature = AhvenanmaaFeature
 
 export const isEsriJSONFeature = (
   feature: MapFeature
-): feature is AhvenanmaaFeature => isAhvenanmaaFeature(feature)
+): feature is EsriJSONFeature => isAhvenanmaaFeature(feature)
 
 export const getFeatureLayerName = (feature: MapFeature): FeatureLayer => {
   if (isGeoJSONFeature(feature)) {

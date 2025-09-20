@@ -138,7 +138,7 @@ export const DatabaseStructure: React.FC = () => {
                     href="https://www.kartor.ax/datasets/maritimt-kulturarv-vrak"
                     target="_blank"
                   >
-                    Maritimt kulturarv; Vrak
+                    Maritima fornminnen
                   </a>
                 </li>
               </ul>

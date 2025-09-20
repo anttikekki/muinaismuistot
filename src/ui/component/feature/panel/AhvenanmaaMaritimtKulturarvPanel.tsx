@@ -24,20 +24,12 @@ export const AhvenanmaaMaritimtKulturarvPanel: React.FC<Props> = ({
       <Form>
         <Field
           label={t(`details.field.id`)}
-          value={feature.attributes.FornID}
+          value={feature.attributes.MfornID}
           suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
         />
         <Field
           label={t(`details.field.name`)}
           value={feature.attributes.Namn}
-        />
-        <Field
-          label={t(`details.field.municipality`)}
-          value={feature.attributes.Kommun}
-        />
-        <Field
-          label={t(`details.field.village`)}
-          value={feature.attributes.By}
         />
         <Field
           label={t(`details.field.description`)}
