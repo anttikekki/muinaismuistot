@@ -40,6 +40,10 @@ export default {
       {
         test: [/\.svg$/, /\.woff(2?)$/, /\.ttf$/, /\.eot$/],
         type: "asset/resource"
+      },
+      {
+        test: /\.xml$/,
+        type: "asset/source" // import as raw string
       }
     ]
   },

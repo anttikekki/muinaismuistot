@@ -75,6 +75,8 @@ export default class MaannousuInfoTileLayer {
           return [201, 236, 250, 1]
         case MMLPohjakarttaLayer.Ortokuva:
           return [31, 32, 58, 1]
+        default:
+          return [201, 236, 250, 1]
       }
     })()
 

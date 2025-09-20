@@ -84,7 +84,8 @@
         "layer": {
           "maastokartta": "Terrängkarta",
           "taustakartta": "Bakgrundskarta",
-          "ortokuva": "Flygfoto"
+          "ortokuva": "Flygfoto",
+          "mml_korkeusmalli_25m_2000": "Höjdmodell 25m"
         }
       },
       "vanhatKartat": {

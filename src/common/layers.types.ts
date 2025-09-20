@@ -18,7 +18,8 @@ export enum LayerGroup {
 export enum MMLPohjakarttaLayer {
   Maastokartta = "maastokartta",
   Taustakartta = "taustakartta",
-  Ortokuva = "ortokuva"
+  Ortokuva = "ortokuva",
+  Korkeusmalli25m = "mml_korkeusmalli_25m_2000"
 }
 
 export enum MMLVanhatKartatLayer {

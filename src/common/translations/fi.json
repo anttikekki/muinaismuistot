@@ -84,7 +84,8 @@
         "layer": {
           "maastokartta": "Maastokartta",
           "taustakartta": "Taustakartta",
-          "ortokuva": "Ortokuva"
+          "ortokuva": "Ortokuva",
+          "mml_korkeusmalli_25m_2000": "Korkeusmalli 25m"
         }
       },
       "vanhatKartat": {
