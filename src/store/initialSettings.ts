@@ -3,8 +3,8 @@ import {
   GtkLayer,
   HelsinkiLayer,
   Language,
-  MaanmittauslaitosLayer,
-  MaanmittauslaitosVanhatKartatLayer,
+  MMLPohjakarttaLayer,
+  MMLVanhatKartatLayer,
   MaannousuInfoLayer,
   MaannousuInfoLayerIndex,
   MaisemanMuistiLayer,
@@ -40,25 +40,28 @@ export const initialSettings: Settings = {
   initialMapZoom: 8,
   language: getInitialLang(),
   maanmittauslaitos: {
-    selectedLayer: MaanmittauslaitosLayer.Taustakartta,
-    url: {
-      WMTSCapabilities:
-        "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml"
+    basemap: {
+      selectedLayer: MMLPohjakarttaLayer.Taustakartta,
+      url: {
+        WMTSCapabilities:
+          "https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml"
+      },
+      /**
+       * This API key is just for the free avoin-karttakuva.maanmittauslaitos.fi
+       */
+      apiKey: "0593cc3c-e12f-489c-b8d6-c9a6965b4bfe",
+      enabled: true
     },
-    /**
-     * This API key is just for the free avoin-karttakuva.maanmittauslaitos.fi
-     */
-    apiKey: "0593cc3c-e12f-489c-b8d6-c9a6965b4bfe"
-  },
-  maanmittauslaitosVanhatKartat: {
-    selectedLayers: Object.values([
-      MaanmittauslaitosVanhatKartatLayer.Venäläinen_topografinen_kartta_1870_1944
-    ]),
-    url: {
-      wms: "https://paituli.csc.fi/geoserver/paituli/wms"
-    },
-    opacity: 1,
-    enabled: false
+    vanhatKartat: {
+      selectedLayers: [
+        MMLVanhatKartatLayer.Venäläinen_topografinen_kartta_1870_1944
+      ],
+      url: {
+        wms: "https://paituli.csc.fi/geoserver/paituli/wms"
+      },
+      opacity: 1,
+      enabled: false
+    }
   },
   maannousuInfo: {
     selectedLayer: MaannousuInfoLayer.Vuosi6000eaa,

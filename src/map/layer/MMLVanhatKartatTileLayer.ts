@@ -4,7 +4,7 @@ import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 
-export default class MaanmittauslaitosVanhatKartatTileLayer {
+export default class MMLVanhatKartatTileLayer {
   private source?: TileWMS
   private readonly layer: TileLayer<TileWMS>
   private readonly updateTileLoadingStatus: ShowLoadingAnimationFn
@@ -24,10 +24,12 @@ export default class MaanmittauslaitosVanhatKartatTileLayer {
   }
 
   private createSource = (settings: Settings) => {
+    const { selectedLayers, url } = settings.maanmittauslaitos.vanhatKartat
+
     const options: Options = {
-      urls: [settings.maanmittauslaitosVanhatKartat.url.wms],
+      urls: [url.wms],
       params: {
-        LAYERS: settings.maanmittauslaitosVanhatKartat.selectedLayers.join(","),
+        LAYERS: selectedLayers.join(","),
         TILED: true
       },
       serverType: "geoserver"
@@ -54,9 +56,7 @@ export default class MaanmittauslaitosVanhatKartatTileLayer {
   }
 
   public updateLayerVisibility = (settings: Settings) => {
-    const {
-      maanmittauslaitosVanhatKartat: { selectedLayers, enabled }
-    } = settings
+    const { selectedLayers, enabled } = settings.maanmittauslaitos.vanhatKartat
     this.layer.setVisible(enabled && selectedLayers.length > 0)
   }
 
@@ -67,7 +67,8 @@ export default class MaanmittauslaitosVanhatKartatTileLayer {
   }
 
   public opacityChanged = (settings: Settings) => {
-    this.layer.setOpacity(settings.maanmittauslaitosVanhatKartat.opacity)
+    const { opacity } = settings.maanmittauslaitos.vanhatKartat
+    this.layer.setOpacity(opacity)
   }
 
   public getLayer = (): TileLayer<TileWMS> => this.layer

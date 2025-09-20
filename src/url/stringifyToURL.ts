@@ -79,35 +79,43 @@ export const updateSettingsToURL = (
     "lang"
   )
 
-  // MML
+  // MML layer
   state = updateParam(
     state,
-    initialSettings.maanmittauslaitos.selectedLayer,
-    currentSettings.maanmittauslaitos.selectedLayer,
+    initialSettings.maanmittauslaitos.basemap.selectedLayer,
+    currentSettings.maanmittauslaitos.basemap.selectedLayer,
     "mmlLayer"
+  )
+
+  // MML  enabled
+  state = updateParam(
+    state,
+    initialSettings.maanmittauslaitos.basemap.enabled,
+    currentSettings.maanmittauslaitos.basemap.enabled,
+    "mmlLayerEnabled"
   )
 
   // MML vanhat kartat layers
   state = updateParams(
     state,
-    initialSettings.maanmittauslaitosVanhatKartat.selectedLayers,
-    currentSettings.maanmittauslaitosVanhatKartat.selectedLayers,
+    initialSettings.maanmittauslaitos.vanhatKartat.selectedLayers,
+    currentSettings.maanmittauslaitos.vanhatKartat.selectedLayers,
     "mmlVanhatKartatLayer"
   )
 
   // MML vanhat kartat opacity
   state = updateParam(
     state,
-    initialSettings.maanmittauslaitosVanhatKartat.opacity,
-    currentSettings.maanmittauslaitosVanhatKartat.opacity,
+    initialSettings.maanmittauslaitos.vanhatKartat.opacity,
+    currentSettings.maanmittauslaitos.vanhatKartat.opacity,
     "mmlVanhatKartatOpacity"
   )
 
   // MML vanhat kartat enabled
   state = updateParam(
     state,
-    initialSettings.maanmittauslaitosVanhatKartat.enabled,
-    currentSettings.maanmittauslaitosVanhatKartat.enabled,
+    initialSettings.maanmittauslaitos.vanhatKartat.enabled,
+    currentSettings.maanmittauslaitos.vanhatKartat.enabled,
     "mmlVanhatKartatEnabled"
   )
 

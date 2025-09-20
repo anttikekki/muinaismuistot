@@ -4,8 +4,8 @@ import {
   HelsinkiLayer,
   Language,
   LayerGroup,
-  MaanmittauslaitosLayer,
-  MaanmittauslaitosVanhatKartatLayer,
+  MMLPohjakarttaLayer,
+  MMLVanhatKartatLayer,
   MaannousuInfoLayer,
   MaannousuInfoLayerIndex,
   MaisemanMuistiLayer,
@@ -79,14 +79,14 @@ export type SelectVisibleLayersAction =
 
 interface SelectVisibleMaanmittauslaitosLayerAction {
   type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
-  layerGroup: LayerGroup.Maanmittauslaitos
-  layer: MaanmittauslaitosLayer
+  layerGroup: LayerGroup.MMLPohjakartta
+  layer: MMLPohjakarttaLayer
 }
 
 interface SelectVisibleMaanmittauslaitosVanhatKartatLayerAction {
   type: ActionTypeEnum.SELECT_VISIBLE_LAYERS
-  layerGroup: LayerGroup.MaanmittauslaitosVanhatKartat
-  layers: MaanmittauslaitosVanhatKartatLayer[]
+  layerGroup: LayerGroup.MMLVanhatKartat
+  layers: MMLVanhatKartatLayer[]
 }
 
 interface SelectVisibleGTKLayersAction {

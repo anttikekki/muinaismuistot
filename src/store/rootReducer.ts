@@ -16,12 +16,13 @@ import {
   updateHelsinkiLayerOpacity,
   updateHelsinkiSelectedLayers
 } from "./reducers/helsinkiLayer"
-import { updateMaanmittauslaitosSelectedLayer } from "./reducers/maanmittauslaitosLayer"
 import {
-  updateMaanmittauslaitosVanhatKartatLayerEnabled,
-  updateMaanmittauslaitosVanhatKartatLayerOpacity,
-  updateMaanmittauslaitosVanhatKartatSelectedLayer
-} from "./reducers/maanmittauslaitosVanhatKartatLayer"
+  updateMmlPohjakarttaLayerEnabled,
+  updateMmlPohjakarttaSelectedLayer,
+  updateMmlVanhatKartatLayerEnabled,
+  updateMmlVanhatKartatLayerOpacity,
+  updateMmlVanhatKartatSelectedLayer
+} from "./reducers/maanmittauslaitosLayer"
 import {
   updateMaannousuInfoLayerEnabled,
   updateMaannousuInfoLayerOpacity,
@@ -107,14 +108,11 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     }
     case ActionTypeEnum.SELECT_VISIBLE_LAYERS: {
       switch (action.layerGroup) {
-        case LayerGroup.Maanmittauslaitos: {
-          return updateMaanmittauslaitosSelectedLayer(state, action.layer)
+        case LayerGroup.MMLPohjakartta: {
+          return updateMmlPohjakarttaSelectedLayer(state, action.layer)
         }
-        case LayerGroup.MaanmittauslaitosVanhatKartat: {
-          return updateMaanmittauslaitosVanhatKartatSelectedLayer(
-            state,
-            action.layers
-          )
+        case LayerGroup.MMLVanhatKartat: {
+          return updateMmlVanhatKartatSelectedLayer(state, action.layers)
         }
         case LayerGroup.GTK: {
           return updateGtkSelectedLayers(state, action.layers)
@@ -143,11 +141,8 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     }
     case ActionTypeEnum.CHANGE_LAYER_OPACITY: {
       switch (action.layerGroup) {
-        case LayerGroup.MaanmittauslaitosVanhatKartat:
-          return updateMaanmittauslaitosVanhatKartatLayerOpacity(
-            state,
-            action.opacity
-          )
+        case LayerGroup.MMLVanhatKartat:
+          return updateMmlVanhatKartatLayerOpacity(state, action.opacity)
         case LayerGroup.GTK:
           return updateGtkLayerOpacity(state, action.opacity)
         case LayerGroup.MaannousuInfo:
@@ -164,11 +159,10 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     }
     case ActionTypeEnum.ENABLE_LAYER_GROUP: {
       switch (action.layerGroup) {
-        case LayerGroup.MaanmittauslaitosVanhatKartat:
-          return updateMaanmittauslaitosVanhatKartatLayerEnabled(
-            state,
-            action.enabled
-          )
+        case LayerGroup.MMLPohjakartta:
+          return updateMmlPohjakarttaLayerEnabled(state, action.enabled)
+        case LayerGroup.MMLVanhatKartat:
+          return updateMmlVanhatKartatLayerEnabled(state, action.enabled)
         case LayerGroup.GTK:
           return updateGtkLayerEnabled(state, action.enabled)
         case LayerGroup.MaannousuInfo:

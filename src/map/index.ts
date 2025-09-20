@@ -32,8 +32,8 @@ import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer"
 import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositionAndSelectedLocationMarkerLayer"
 import GtkTileLayer from "./layer/GtkTileLayer"
 import HelsinkiTileLayer from "./layer/HelsinkiTileLayer"
-import MaanmittauslaitosTileLayer from "./layer/MaanmittauslaitosTileLayer"
-import MaanmittauslaitosVanhatKartatTileLayer from "./layer/MaanmittauslaitosVanhatKartatTileLayer"
+import MMLPohjakarttaTileLayer from "./layer/MMLPohjakarttaTileLayer"
+import MMLVanhatKartatTileLayer from "./layer/MMLVanhatKartatTileLayer"
 import MaannousuInfoGlacialTileLayerGroup from "./layer/MaannousuInfoGlacialTileLayerGroup"
 import MaannousuInfoTileLayerGroup from "./layer/MaannousuInfoTileLayerGroup"
 import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
@@ -45,8 +45,8 @@ export default class MuinaismuistotMap {
   private readonly map: Map
   private readonly view: View
   private readonly geolocation: Geolocation
-  private readonly maanmittauslaitosTileLayer: MaanmittauslaitosTileLayer
-  private readonly maanmittauslaitosVanhatKartatTileLayer: MaanmittauslaitosVanhatKartatTileLayer
+  private readonly maanmittauslaitosTileLayer: MMLPohjakarttaTileLayer
+  private readonly maanmittauslaitosVanhatKartatTileLayer: MMLVanhatKartatTileLayer
   private readonly maannousuInfoTileLayerGroup: MaannousuInfoTileLayerGroup
   private readonly maannousuInfoGlacialTileLayerGroup: MaannousuInfoGlacialTileLayerGroup
   private readonly museovirastoTileLayer: MuseovirastoTileLayer
@@ -88,7 +88,7 @@ export default class MuinaismuistotMap {
       controls: new Collection([scaleControl])
     })
 
-    this.maanmittauslaitosTileLayer = new MaanmittauslaitosTileLayer(
+    this.maanmittauslaitosTileLayer = new MMLPohjakarttaTileLayer(
       settings,
       this.updateTileLoadingStatus
     )
@@ -97,11 +97,10 @@ export default class MuinaismuistotMap {
       settings,
       this.updateTileLoadingStatus
     )
-    this.maanmittauslaitosVanhatKartatTileLayer =
-      new MaanmittauslaitosVanhatKartatTileLayer(
-        settings,
-        this.updateTileLoadingStatus
-      )
+    this.maanmittauslaitosVanhatKartatTileLayer = new MMLVanhatKartatTileLayer(
+      settings,
+      this.updateTileLoadingStatus
+    )
     this.maannousuInfoTileLayerGroup = new MaannousuInfoTileLayerGroup({
       settings,
       onMapRenderCompleteOnce: (fn) =>
@@ -127,11 +126,7 @@ export default class MuinaismuistotMap {
     this.positionAndSelectedLocation =
       new CurrentPositionAndSelectedLocationMarkerLayer()
 
-    const { mmlMaastokarttaLayer, mmlTaustakarttaLayer, mmlOrtokuvaLayer } =
-      this.maanmittauslaitosTileLayer.getLayers()
-    this.map.addLayer(mmlMaastokarttaLayer)
-    this.map.addLayer(mmlTaustakarttaLayer)
-    this.map.addLayer(mmlOrtokuvaLayer)
+    this.map.addLayer(this.maanmittauslaitosTileLayer.getLayer())
     this.map.addLayer(this.gtkLayer.getLayer())
     this.map.addLayer(this.maanmittauslaitosVanhatKartatTileLayer.getLayer())
     this.map.addLayer(this.ahvenanmaaTileLayer.getLayer())
@@ -177,7 +172,7 @@ export default class MuinaismuistotMap {
           this.layerOpacityChanged(action.layerGroup, settings)
           break
         case ActionTypeEnum.ENABLE_LAYER_GROUP:
-          this.layerVisibilityChanged(action.layerGroup, settings)
+          this.layerGroupVisibilityChanged(action.layerGroup, settings)
           break
         case ActionTypeEnum.SELECT_VISIBLE_LAYERS:
           this.layerGroupSelectedLayersChanged(action.layerGroup, settings)
@@ -377,7 +372,7 @@ export default class MuinaismuistotMap {
     settings: Settings
   ) => {
     switch (changedLayerGroup) {
-      case LayerGroup.Maanmittauslaitos:
+      case LayerGroup.MMLPohjakartta:
         this.maanmittauslaitosTileLayer.selectedMaanmittauslaitosLayerChanged(
           settings
         )
@@ -385,7 +380,7 @@ export default class MuinaismuistotMap {
           settings
         )
         break
-      case LayerGroup.MaanmittauslaitosVanhatKartat:
+      case LayerGroup.MMLVanhatKartat:
         this.maanmittauslaitosVanhatKartatTileLayer.selectedMaanmittauslaitosVanhatKartatLayerChanged(
           settings
         )
@@ -452,7 +447,7 @@ export default class MuinaismuistotMap {
     settings: Settings
   ) => {
     switch (changedLayerGroup) {
-      case LayerGroup.MaanmittauslaitosVanhatKartat:
+      case LayerGroup.MMLVanhatKartat:
         this.maanmittauslaitosVanhatKartatTileLayer.opacityChanged(settings)
         break
       case LayerGroup.GTK:
@@ -474,12 +469,15 @@ export default class MuinaismuistotMap {
     }
   }
 
-  private layerVisibilityChanged = (
+  private layerGroupVisibilityChanged = (
     changedLayerGroup: LayerGroup,
     settings: Settings
   ) => {
     switch (changedLayerGroup) {
-      case LayerGroup.MaanmittauslaitosVanhatKartat:
+      case LayerGroup.MMLPohjakartta:
+        this.maanmittauslaitosTileLayer.updateLayerVisibility(settings)
+        break
+      case LayerGroup.MMLVanhatKartat:
         this.maanmittauslaitosVanhatKartatTileLayer.updateLayerVisibility(
           settings
         )

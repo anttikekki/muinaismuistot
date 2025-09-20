@@ -4,8 +4,8 @@ export enum Language {
 }
 
 export enum LayerGroup {
-  Maanmittauslaitos = "Maanmittauslaitos",
-  MaanmittauslaitosVanhatKartat = "MaanmittauslaitosVanhatKartat",
+  MMLPohjakartta = "MMLPohjakartta",
+  MMLVanhatKartat = "MMLVanhatKartat",
   GTK = "GTK",
   MaannousuInfo = "MaannousuInfo",
   Museovirasto = "Museovirasto",
@@ -15,13 +15,13 @@ export enum LayerGroup {
   MaisemanMuisti = "MaisemanMuisti"
 }
 
-export enum MaanmittauslaitosLayer {
+export enum MMLPohjakarttaLayer {
   Maastokartta = "maastokartta",
   Taustakartta = "taustakartta",
   Ortokuva = "ortokuva"
 }
 
-export enum MaanmittauslaitosVanhatKartatLayer {
+export enum MMLVanhatKartatLayer {
   Venäläinen_topografinen_kartta_1871_1919 = "mml_ven_topo_21k_1871_1919",
   Venäläinen_topografinen_kartta_1870_1944 = "mml_ven_topo_42k_1870_1944",
   Venäläinen_topografinen_kartta_192x = "mml_ven_topo_42k_192x",

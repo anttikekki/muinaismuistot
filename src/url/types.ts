@@ -4,6 +4,7 @@ export interface URLSettings {
   zoom?: number
   lang?: Language
   mmlLayer?: string
+  mmlLayerEnabled?: boolean
   mmlVanhatKartatLayer?: string | string[]
   mmlVanhatKartatOpacity?: number
   mmlVanhatKartatEnabled?: boolean

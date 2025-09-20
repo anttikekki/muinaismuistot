@@ -2,8 +2,8 @@ import {
   AhvenanmaaLayer,
   HelsinkiLayer,
   Language,
-  MaanmittauslaitosLayer,
-  MaanmittauslaitosVanhatKartatLayer,
+  MMLPohjakarttaLayer,
+  MMLVanhatKartatLayer,
   MaannousuInfoLayer,
   MaannousuInfoLayerIndex,
   MuseovirastoLayer
@@ -28,12 +28,13 @@ import {
   updateHelsinkiLayerOpacity,
   updateHelsinkiSelectedLayers
 } from "../store/reducers/helsinkiLayer"
-import { updateMaanmittauslaitosSelectedLayer } from "../store/reducers/maanmittauslaitosLayer"
 import {
-  updateMaanmittauslaitosVanhatKartatLayerEnabled,
-  updateMaanmittauslaitosVanhatKartatLayerOpacity,
-  updateMaanmittauslaitosVanhatKartatSelectedLayer
-} from "../store/reducers/maanmittauslaitosVanhatKartatLayer"
+  updateMmlPohjakarttaLayerEnabled,
+  updateMmlPohjakarttaSelectedLayer,
+  updateMmlVanhatKartatLayerEnabled,
+  updateMmlVanhatKartatLayerOpacity,
+  updateMmlVanhatKartatSelectedLayer
+} from "../store/reducers/maanmittauslaitosLayer"
 import {
   updateMaannousuInfoLayerEnabled,
   updateMaannousuInfoLayerOpacity,
@@ -88,6 +89,7 @@ export const getSettingsFromURL = (): Settings => {
     zoom,
     lang,
     mmlLayer,
+    mmlLayerEnabled,
     mmlVanhatKartatLayer,
     mmlVanhatKartatOpacity,
     mmlVanhatKartatEnabled,
@@ -125,24 +127,29 @@ export const getSettingsFromURL = (): Settings => {
     newSettings = updateLanguage(newSettings, lang)
   }
 
-  // MML
-  if (mmlLayer && isEnumValue(MaanmittauslaitosLayer, mmlLayer)) {
-    newSettings = updateMaanmittauslaitosSelectedLayer(newSettings, mmlLayer)
+  // MML basemap layer
+  if (mmlLayer && isEnumValue(MMLPohjakarttaLayer, mmlLayer)) {
+    newSettings = updateMmlPohjakarttaSelectedLayer(newSettings, mmlLayer)
+  }
+
+  // MML basemap enabled
+  if (mmlLayerEnabled !== undefined) {
+    newSettings = updateMmlPohjakarttaLayerEnabled(newSettings, mmlLayerEnabled)
   }
 
   // MML vanhat kartat layers
   if (mmlVanhatKartatLayer) {
     newSettings = validateAndUpdateUrlParamToSettings(
       newSettings,
-      MaanmittauslaitosVanhatKartatLayer,
+      MMLVanhatKartatLayer,
       mmlVanhatKartatLayer,
-      updateMaanmittauslaitosVanhatKartatSelectedLayer
+      updateMmlVanhatKartatSelectedLayer
     )
   }
 
   // MML vanhat kartat opacity
   if (mmlVanhatKartatOpacity !== undefined) {
-    newSettings = updateMaanmittauslaitosVanhatKartatLayerOpacity(
+    newSettings = updateMmlVanhatKartatLayerOpacity(
       newSettings,
       mmlVanhatKartatOpacity
     )
@@ -150,7 +157,7 @@ export const getSettingsFromURL = (): Settings => {
 
   // MML vanhat kartat enabled
   if (mmlVanhatKartatEnabled !== undefined) {
-    newSettings = updateMaanmittauslaitosVanhatKartatLayerEnabled(
+    newSettings = updateMmlVanhatKartatLayerEnabled(
       newSettings,
       mmlVanhatKartatEnabled
     )

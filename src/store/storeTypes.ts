@@ -5,8 +5,8 @@ import {
   GtkLayer,
   HelsinkiLayer,
   Language,
-  MaanmittauslaitosLayer,
-  MaanmittauslaitosVanhatKartatLayer,
+  MMLPohjakarttaLayer,
+  MMLVanhatKartatLayer,
   MaannousuInfoLayer,
   MaannousuInfoLayerIndex,
   MaisemanMuistiLayer,
@@ -45,19 +45,22 @@ export interface Settings {
   initialMapZoom: number
   language: Language
   maanmittauslaitos: {
-    selectedLayer: MaanmittauslaitosLayer
-    url: {
-      WMTSCapabilities: string
+    basemap: {
+      selectedLayer: MMLPohjakarttaLayer
+      url: {
+        WMTSCapabilities: string
+      }
+      apiKey: string
+      enabled: boolean
     }
-    apiKey: string
-  }
-  maanmittauslaitosVanhatKartat: {
-    selectedLayers: MaanmittauslaitosVanhatKartatLayer[]
-    url: {
-      wms: string
+    vanhatKartat: {
+      selectedLayers: MMLVanhatKartatLayer[]
+      url: {
+        wms: string
+      }
+      opacity: number
+      enabled: boolean
     }
-    opacity: number
-    enabled: boolean
   }
   maannousuInfo: {
     selectedLayer: MaannousuInfoLayer

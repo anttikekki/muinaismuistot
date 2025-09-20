@@ -1,7 +1,7 @@
 import WebGLTileLayer, { Style } from "ol/layer/WebGLTile"
 import { GeoTIFF } from "ol/source"
 import {
-  MaanmittauslaitosLayer,
+  MMLPohjakarttaLayer,
   MaannousuInfoLayer
 } from "../../common/layers.types"
 import { isMobileDevice } from "../../common/util/deviceDetectionUtil"
@@ -68,12 +68,12 @@ export default class MaannousuInfoTileLayer {
      * background map type.
      */
     const colorSea = ((): number[] => {
-      switch (settings.maanmittauslaitos.selectedLayer) {
-        case MaanmittauslaitosLayer.Maastokartta:
+      switch (settings.maanmittauslaitos.basemap.selectedLayer) {
+        case MMLPohjakarttaLayer.Maastokartta:
           return [177, 252, 254, 1]
-        case MaanmittauslaitosLayer.Taustakartta:
+        case MMLPohjakarttaLayer.Taustakartta:
           return [201, 236, 250, 1]
-        case MaanmittauslaitosLayer.Ortokuva:
+        case MMLPohjakarttaLayer.Ortokuva:
           return [31, 32, 58, 1]
       }
     })()

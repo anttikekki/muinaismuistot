@@ -1,19 +1,16 @@
 import WMTSCapabilities from "ol/format/WMTSCapabilities"
 import TileLayer from "ol/layer/Tile"
 import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS"
-import { MaanmittauslaitosLayer } from "../../common/layers.types"
+import { UnknownAction } from "redux"
 import { Settings } from "../../store/storeTypes"
 
 export type ShowLoadingAnimationFn = (show: boolean) => void
 
-export default class MaanmittauslaitosTileLayer {
-  private readonly mmlMaastokarttaLayer: TileLayer<WMTSSource>
-  private readonly mmlTaustakarttaLayer: TileLayer<WMTSSource>
-  private readonly mmlOrtokuvaLayer: TileLayer<WMTSSource>
-  private maastokarttaLayerSource?: WMTSSource
-  private taustakarttaLayerSource?: WMTSSource
-  private ortokuvaLayerSource?: WMTSSource
+export default class MMLPohjakarttaTileLayer {
+  private readonly layer: TileLayer<WMTSSource>
+  private source?: WMTSSource
   private readonly updateTileLoadingStatus: ShowLoadingAnimationFn
+  private readonly wmtsCapabilities: UnknownAction
 
   public constructor(
     settings: Settings,
@@ -22,67 +19,35 @@ export default class MaanmittauslaitosTileLayer {
     this.updateTileLoadingStatus = updateTileLoadingStatus
 
     const parser = new WMTSCapabilities()
-    const capabilities = parser.read(WMTSCapabilitiesResult)
+    this.wmtsCapabilities = parser.read(WMTSCapabilitiesResult)
 
-    const maastokarttaOptions = optionsFromCapabilities(capabilities, {
-      layer: MaanmittauslaitosLayer.Maastokartta
-    })
-    const taustakarttaOptions = optionsFromCapabilities(capabilities, {
-      layer: MaanmittauslaitosLayer.Taustakartta
-    })
-    const ortokuvaOptions = optionsFromCapabilities(capabilities, {
-      layer: MaanmittauslaitosLayer.Ortokuva
+    this.source = this.createSource(settings)
+    this.layer = new TileLayer({
+      source: this.source
     })
 
-    if (!maastokarttaOptions || !taustakarttaOptions || !ortokuvaOptions) {
-      throw new Error(`Expected layers were not found from WMTS Capabilities`)
-    }
-
-    this.maastokarttaLayerSource = new WMTSSource(maastokarttaOptions)
-    this.taustakarttaLayerSource = new WMTSSource(taustakarttaOptions)
-    this.ortokuvaLayerSource = new WMTSSource(ortokuvaOptions)
-
-    // Add MML api key to all layers. This API key is just for avoin-karttakuva.maanmittauslaitos.fi
-    ;[
-      this.maastokarttaLayerSource,
-      this.taustakarttaLayerSource,
-      this.ortokuvaLayerSource
-    ].forEach((source) => {
-      source.setUrls(
-        source
-          .getUrls()
-          ?.map(
-            (url) => `${url}api-key=${settings.maanmittauslaitos.apiKey}&`
-          ) || []
-      )
-    })
-
-    const selectedLayer = settings.maanmittauslaitos.selectedLayer
-    this.mmlMaastokarttaLayer = new TileLayer({
-      source: this.maastokarttaLayerSource,
-      visible: selectedLayer === MaanmittauslaitosLayer.Maastokartta
-    })
-    this.mmlTaustakarttaLayer = new TileLayer({
-      source: this.taustakarttaLayerSource,
-      visible: selectedLayer === MaanmittauslaitosLayer.Taustakartta
-    })
-    this.mmlOrtokuvaLayer = new TileLayer({
-      source: this.ortokuvaLayerSource,
-      visible: selectedLayer === MaanmittauslaitosLayer.Ortokuva
-    })
-
-    this.updateLoadingAnimationOnLayerSourceTileLoad(
-      this.maastokarttaLayerSource
-    )
-    this.updateLoadingAnimationOnLayerSourceTileLoad(
-      this.taustakarttaLayerSource
-    )
-    this.updateLoadingAnimationOnLayerSourceTileLoad(this.ortokuvaLayerSource)
+    this.updateLayerVisibility(settings)
   }
 
-  private updateLoadingAnimationOnLayerSourceTileLoad = (
-    source: WMTSSource
-  ) => {
+  private createSource = (settings: Settings): WMTSSource => {
+    const { selectedLayer: layer, apiKey } = settings.maanmittauslaitos.basemap
+
+    const sourceOptions = optionsFromCapabilities(this.wmtsCapabilities, {
+      layer
+    })
+    if (!sourceOptions) {
+      throw new Error(
+        `Expected layer ${layer} were not found from WMTS Capabilities`
+      )
+    }
+
+    const source = new WMTSSource(sourceOptions)
+
+    // Add MML api key to layer URL. This API key is just for avoin-karttakuva.maanmittauslaitos.fi
+    source.setUrls(
+      source.getUrls()?.map((url) => `${url}api-key=${apiKey}&`) || []
+    )
+
     source.on("tileloadstart", () => {
       this.updateTileLoadingStatus(true)
     })
@@ -92,36 +57,27 @@ export default class MaanmittauslaitosTileLayer {
     source.on("tileloaderror", () => {
       this.updateTileLoadingStatus(false)
     })
+
+    return source
+  }
+
+  private updateLayerSource = (settings: Settings) => {
+    this.source = this.createSource(settings)
+    this.layer.setSource(this.source)
+    this.updateLayerVisibility(settings)
+  }
+
+  public updateLayerVisibility = (settings: Settings) => {
+    const { enabled } = settings.maanmittauslaitos.basemap
+    this.layer.setVisible(enabled)
   }
 
   public selectedMaanmittauslaitosLayerChanged = (settings: Settings) => {
-    if (
-      !this.mmlMaastokarttaLayer ||
-      !this.mmlTaustakarttaLayer ||
-      !this.mmlOrtokuvaLayer
-    ) {
-      return
-    }
-    const layer = settings.maanmittauslaitos.selectedLayer
-    this.mmlMaastokarttaLayer.setVisible(
-      layer === MaanmittauslaitosLayer.Maastokartta
-    )
-    this.mmlTaustakarttaLayer.setVisible(
-      layer === MaanmittauslaitosLayer.Taustakartta
-    )
-    this.mmlOrtokuvaLayer.setVisible(layer === MaanmittauslaitosLayer.Ortokuva)
+    this.updateLayerSource(settings)
   }
 
-  public getLayers = (): {
-    mmlMaastokarttaLayer: TileLayer<WMTSSource>
-    mmlTaustakarttaLayer: TileLayer<WMTSSource>
-    mmlOrtokuvaLayer: TileLayer<WMTSSource>
-  } => {
-    return {
-      mmlMaastokarttaLayer: this.mmlMaastokarttaLayer,
-      mmlTaustakarttaLayer: this.mmlTaustakarttaLayer,
-      mmlOrtokuvaLayer: this.mmlOrtokuvaLayer
-    }
+  public getLayer = (): TileLayer<WMTSSource> => {
+    return this.layer
   }
 }
 

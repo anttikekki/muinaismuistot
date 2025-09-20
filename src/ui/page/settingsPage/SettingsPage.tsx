@@ -9,7 +9,6 @@ import { HelsinkiMapLayerSelectionPanel } from "./component/HelsinkiMapLayerSele
 import { MaannousuInfoLayerSettingsPanel } from "./component/MaannousuInfoLayerSettingsPanel"
 import { MaisemanMuistiLayerSelectionPanel } from "./component/MaisemanMuistiLayerSelectionPanel"
 import { MMLMapLayerSelectionPanel } from "./component/MMLMapLayerSelectionPanel"
-import { MMLVanhatKartatLayerSelectionPanel } from "./component/MMLVanhatKartatMapLayerSelectionPanel"
 import { ModelsLayerSelectionPanel } from "./component/ModelsLayerSelectionPanel"
 import { MuseovirastoLayerSelectionPanel } from "./component/MuseovirastoLayerSelectionPanel"
 
@@ -19,7 +18,6 @@ export const SettingsPage: React.FC = () => {
     <Page title={t(`settings.title`)} pageId={PageId.Settings}>
       <Accordion alwaysOpen>
         <MMLMapLayerSelectionPanel />
-        <MMLVanhatKartatLayerSelectionPanel />
         <GTKMapLayerSelectionPanel />
         <MaannousuInfoLayerSettingsPanel />
         <MuseovirastoLayerSelectionPanel />
