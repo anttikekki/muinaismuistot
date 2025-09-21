@@ -21,10 +21,10 @@ export const Field: React.FC<Props> = ({
   }
   return (
     <Form.Group as={Row} controlId={label}>
-      <Form.Label column xs="3" className="fw-bold">
+      <Form.Label column xs="4" sm="3" className="fw-bold">
         {label}
       </Form.Label>
-      <Col xs={suffixColum ? "8" : "9"}>
+      <Col xs={suffixColum ? "7" : "8"} sm={suffixColum ? "8" : "9"}>
         <div className="form-control-plaintext">{children ?? trimmedValue}</div>
       </Col>
       {suffixColum && <Col xs="1">{suffixColum}</Col>}
