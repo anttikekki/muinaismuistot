@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
@@ -39,6 +39,17 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation()
   const { kohdenimi, kunta, mjtunnus } = feature.properties
+
+  const tyypit = useMemo(() => splitMuinaisjaannosTyyppi(feature), [feature])
+  const alatyypit = useMemo(
+    () => splitMuinaisjaannosAlatyyppi(feature),
+    [feature]
+  )
+  const ajoitukset = useMemo(
+    () => splitMuinaisjaannosAjoitus(feature),
+    [feature]
+  )
+
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
       <Form>
@@ -50,7 +61,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         <Field label={t(`details.field.municipality`)} value={kunta} />
         <Field label={t(`details.field.dating`)}>
           <List
-            data={splitMuinaisjaannosAjoitus(feature)}
+            data={ajoitukset}
             contentFn={(ajoitus) => (
               <div>
                 <span>{t(`data.museovirasto.dating.${ajoitus}`, ajoitus)}</span>
@@ -63,7 +74,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         </Field>
         <Field label={t(`details.field.type`)}>
           <List
-            data={splitMuinaisjaannosTyyppi(feature)}
+            data={tyypit}
             contentFn={(tyyppi) =>
               isMuinaisjaannosTyyppi(tyyppi) ? (
                 <Link
@@ -78,7 +89,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
         </Field>
         <Field label={t(`details.field.subType`)}>
           <List
-            data={splitMuinaisjaannosAlatyyppi(feature)}
+            data={alatyypit}
             contentFn={(alatyyppi) => (
               <Link
                 text={t(`data.museovirasto.subtype.${alatyyppi}`, alatyyppi)}

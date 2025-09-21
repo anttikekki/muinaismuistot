@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { Language } from "../../../../common/layers.types"
@@ -40,12 +40,20 @@ export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
   const { VARK_ID, VARK_nimi, Kunta, Maakunta, Mj_kohde, Mj_tunnus } =
     feature.properties
 
-  const mjTunnukset = Mj_tunnus.split(", ").filter((x) => !!x)
-  const mjNimet = Mj_kohde.split(", ").filter((x) => !!x)
-  const muinaisjäännökset = mjTunnukset.map((mjTunnus, i) => [
-    mjNimet[i],
-    mjTunnus
-  ])
+  const tyypit = useMemo(() => splitMuinaisjaannosTyyppi(feature), [feature])
+  const alatyypit = useMemo(
+    () => splitMuinaisjaannosAlatyyppi(feature),
+    [feature]
+  )
+  const ajoitukset = useMemo(
+    () => splitMuinaisjaannosAjoitus(feature),
+    [feature]
+  )
+  const muinaisjäännökset = useMemo(() => {
+    const mjTunnukset = Mj_tunnus.split(", ").filter((x) => !!x)
+    const mjNimet = Mj_kohde.split(", ").filter((x) => !!x)
+    return mjTunnukset.map((mjTunnus, i) => [mjNimet[i], mjTunnus])
+  }, [feature])
 
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
@@ -59,7 +67,7 @@ export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
         <Field label={t(`details.field.region`)} value={Maakunta} />
         <Field label={t(`details.field.dating`)}>
           <List
-            data={splitMuinaisjaannosAjoitus(feature)}
+            data={ajoitukset}
             contentFn={(ajoitus) => (
               <div>
                 <span>{t(`data.museovirasto.dating.${ajoitus}`, ajoitus)}</span>
@@ -72,7 +80,7 @@ export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
         </Field>
         <Field label={t(`details.field.type`)}>
           <List
-            data={splitMuinaisjaannosTyyppi(feature)}
+            data={tyypit}
             contentFn={(tyyppi) =>
               isMuinaisjaannosTyyppi(tyyppi) ? (
                 <Link
@@ -88,7 +96,7 @@ export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
         </Field>
         <Field label={t(`details.field.subType`)}>
           <List
-            data={splitMuinaisjaannosAlatyyppi(feature)}
+            data={alatyypit}
             contentFn={(alatyyppi) => (
               <Link
                 text={t(`data.museovirasto.subtype.${alatyyppi}`, alatyyppi)}

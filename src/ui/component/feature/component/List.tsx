@@ -5,7 +5,10 @@ type Params<T> = {
   contentFn: (row: T) => ReactNode
 }
 
-export const List = <T extends unknown>({ data, contentFn }: Params<T>) => {
+export const List = <T extends string | string[]>({
+  data,
+  contentFn
+}: Params<T>) => {
   if (data.length === 0) {
     return null
   }
