@@ -33,6 +33,7 @@ export const VersionHistoryPanel: React.FC = () => {
           </a>
           .
         </p>
+        <p>Lisätty GTK:n maalajien kartta.</p>
 
         <h6>Toukokuu 2025</h6>
         <p>

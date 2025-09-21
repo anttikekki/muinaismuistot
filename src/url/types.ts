@@ -10,6 +10,7 @@ export interface URLSettings {
   mmlVanhatKartatEnabled?: boolean
   gtkOpacity?: number
   gtkEnabled?: boolean
+  gtktLayer?: string | string[]
   maannousuLayer?: string
   maannousuOpacity?: number
   maannousuEnabled?: boolean

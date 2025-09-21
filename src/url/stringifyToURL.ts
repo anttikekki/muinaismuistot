@@ -135,6 +135,14 @@ export const updateSettingsToURL = (
     "gtkEnabled"
   )
 
+  // GTK layer
+  state = updateParam(
+    state,
+    initialSettings.gtk.selectedLayers,
+    currentSettings.gtk.selectedLayers,
+    "gtktLayer"
+  )
+
   // Maannousu.info layers
   state = updateParam(
     state,

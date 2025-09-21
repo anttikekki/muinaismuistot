@@ -167,24 +167,12 @@ export enum MaisemanMuistiLayer {
   MaisemanMuisti = "MaisemanMuisti"
 }
 
+/**
+ * https://gtkdata.gtk.fi/arcgis/rest/services/Rajapinnat/GTK_Maapera_WMS/MapServer/WMSServer?
+ */
 export enum GtkLayer {
-  // kaikki = "Muinaisrannat", //(7)
-  // kuroutumishavainnot = "kuroutumishavainnot", //(8)
-  // rantahavainnot = "rantahavainnot", //(9)
-  // Isobaasit_ylin_ranta = "ylin_ranta", //(11)
-  // Isobaasit_litorina = "litorina", //(12)
-  // Jääjärvet_baltia = "baltia", //(14)
-  // Jääjärvet_ilomantsi = "ilomantsi", //(15)
-  // Jääjärvet_pohjois_suomi = "pohjois_suomi", //(16)
-  // Jääjärvet_pielinen = "pielinen", //(17)
-  // Jääjärvet_saaminki = "saaminki", //(18)
-  // Jääjärvet_sotkamo = "sotkamo", //(19)
-  muinaisrannat = "muinaisrannat" //(20)
-  // ylin_ranta_10m_korkeusmallista = "ylin_ranta_10m_korkeusmallista", //(21)
-  // ylin_ranta_25m_korkeusmallista = "ylin_ranta_25m_korkeusmallista", //(22)
-  // litorina_10m_korkeusmallista = "litorina_10m_korkeusmallista", //(23)
-  // litorina_25m_korkeusmallista = "litorina_25m_korkeusmallista", //(24)
-  // merialue = "merialue" //(25)
+  muinaisrannat = "muinaisrannat",
+  maapera_200k_maalaji = "maapera_200k_maalaji"
 }
 
 export enum HelsinkiLayer {

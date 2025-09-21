@@ -62,16 +62,16 @@
     },
     "licences": {
       "title": "Öppet data, licenser och källkod",
-      "museovirasto": "Museiverkets registerdata hämtas från <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
-      "ahvenanmaa": "Ålands landskapsregerings register hämtas från <a href='https://www.kartor.ax/datasets'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
-      "maanmittauslaitos": "Bakgrundskarta, flygfoto och terrängskarta hämtas från Lantmäteriverkets <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>öppet WMTS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
+      "museovirasto": "Museiverkets registerdata hämtas från <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot' target='_blank'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC By 4.0</a>).",
+      "ahvenanmaa": "Ålands landskapsregerings register hämtas från <a href='https://www.kartor.ax/datasets' target='_blank'>öppet WMS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC By 4.0</a>).",
+      "maanmittauslaitos": "Bakgrundskarta, flygfoto och terrängskarta hämtas från Lantmäteriverkets <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17' target='_blank'>öppet WMTS-gränsnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC By 4.0</a>).",
       "maanmittauslaitosPaituli": "<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>Gamla kartor</a> och Lantmäteriverkets höjdmodell hämtas från CSC (IT-centret för vetenskap) <a href='https://paituli.csc.fi/webservices.html' target='_blank'>öppet WMS- och WMTS-gränsnitt</a>  (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC By 4.0</a>).",
-      "gtk": "Materialet över fornstränder hämtas från Geologiska forskningscentralens <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/'>öppet WMS-gränssnitt</a> (platsdata har publicerats med <a href='https://www.gtk.fi/sv/grundlicens/'>grundlicens</a>, tillstånd för användning av materialet beviljades 15.1.2021).",
-      "helsinki": "Materialet rörande landfästningar runt Helsingfors under första världskriget hämtas från Helsingfors stads <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset'>öppna WMS-gränssnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
-      "maannousuInfo": "Kartan som beskriver landhöjningen på webbplatsen Maannousu.info via <a href='https://maannousu.info/integration'>ett öppet GeoTIFF-gränssnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>Creative Commons CC By 4.0</a>).",
-      "maisemanmuisti": "Platsdata från boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset hämtas från <a href='./maisemanmuisti/'>en databas</a> som sammanställer samtliga 205 objekt i boken. Upphovsrätten till boken tillhör Museiverket, som har godkänt att informationen används.",
-      "3DModels": "3D-modeller hämtas från öppen <a href='./3d/'>databas</a>, som sammanställer modeller från privata och offentliga aktörer (museer, Museiverket, Ålands landskapsregering). Licensuppgifter över modellerna har sammanställts enligt respektive modell i databasen.",
-      "sourceCode": "Denna webbplats använder <a href='https://github.com/anttikekki/muinaismuistot'>öppen källkod</a> av licensen <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE'>MIT</a>."
+      "gtk": "Materialet över fornstränder och jordarter hämtas från Geologiska forskningscentralens <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/' target='_blank'>öppet WMS-gränssnitt</a>. Platsdata över fornstränder har publicerats med <a href='https://www.gtk.fi/sv/grundlicens/' target='_blank'>grundlicens</a> (tillstånd för användning av materialet beviljades 15.1.2021). Jordartsdata har publicerats med <a href='https://www.gtk.fi/sv/oppen-licens/' target='_blank'>öppen licens</a> (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC BY 4.0</a>).",
+      "helsinki": "Materialet rörande landfästningar runt Helsingfors under första världskriget hämtas från Helsingfors stads <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>öppna WMS-gränssnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC By 4.0</a>).",
+      "maannousuInfo": "Kartan som beskriver landhöjningen på webbplatsen Maannousu.info via <a href='https://maannousu.info/integration' target='_blank'>ett öppet GeoTIFF-gränssnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC By 4.0</a>).",
+      "maisemanmuisti": "Platsdata från boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset hämtas från <a href='./maisemanmuisti/' target='_blank'>en databas</a> som sammanställer samtliga 205 objekt i boken. Upphovsrätten till boken tillhör Museiverket, som har godkänt att informationen används.",
+      "3DModels": "3D-modeller hämtas från öppen <a href='./3d/' target='_blank'>databas</a>, som sammanställer modeller från privata och offentliga aktörer (museer, Museiverket, Ålands landskapsregering). Licensuppgifter över modellerna har sammanställts enligt respektive modell i databasen.",
+      "sourceCode": "Denna webbplats använder <a href='https://github.com/anttikekki/muinaismuistot' target='_blank'>öppen källkod</a> av licensen <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE' target='_blank'>MIT</a>."
     }
   },
   "settings": {
@@ -297,12 +297,29 @@
     },
     "gtk": {
       "layer": {
-        "muinaisrannat": "Fornstränder (<a href='https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html' target='_blank'>information</a>)"
+        "muinaisrannat": "Fornstränder (<a href='https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html' target='_blank'>information</a>)",
+        "maapera_200k_maalaji": "Jordarter 1:200 000"
       },
       "feature": {
         "supra-akvaattinen": "Supraakvatiskt, dvs. yta som efter istiden blivit ovan havsytan",
         "yoldia": "Yta som täckts av Yoldiahavet eller Ancylussjön (11 600 - 7 200 f.v.t.)",
-        "litorina": "Yta som täckts av Litorinahavet (8 500 – 4 000 f.v.t.)"
+        "litorina": "Yta som täckts av Litorinahavet (8 500 - 4 000 f.v.t.)",
+        "maalajit_ohut_turvekerros": "Tunt torvlager (Tvo, 0,3-0,6 m)",
+        "maalajit_soistuma": "Myrbildning (Tvs, <0,3 m)",
+        "maalajit_vesi": "Vatten",
+        "maalajit_kartoittamaton": "Ej kartlagt",
+        "maalajit_taytemaa": "Fyllnadsmassor",
+        "maalajit_paksu_turvekerros": "Tjockt torvlager, vanligen över 0,6 m",
+        "maalajit_lieju": "Dy, humushalt över 6 %",
+        "maalajit_savi": "Lera",
+        "maalajit_liejuinen_hienorakenteinen_maalaji": "Dyig finkornig jordart, humushalt 2-6 %",
+        "maalajit_hienorakenteinen_maalaji": "Finkornig jordart, huvudfraktion ej fastställd",
+        "maalajit_karkearakenteinen_maalaaji": "Grovkornig jordart, huvudfraktion ej fastställd",
+        "maalajit_sekalajitteinen_maalaji": "Osorterad jordart, huvudfraktion ej fastställd",
+        "maalajit_kivia": "Stenar",
+        "maalajit_rakka": "Blockfält",
+        "maalajit_kalliomaa": "Berggrund, jordtäcke högst 1m (vanligen morän)",
+        "maalajit_kalliopaljastuma": "Berg i dagen"
       }
     },
     "helsinki": {

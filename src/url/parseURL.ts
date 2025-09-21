@@ -1,5 +1,6 @@
 import {
   AhvenanmaaLayer,
+  GtkLayer,
   HelsinkiLayer,
   Language,
   MMLPohjakarttaLayer,
@@ -21,7 +22,8 @@ import {
 } from "../store/reducers/ahvenanmaaLayer"
 import {
   updateGtkLayerEnabled,
-  updateGtkLayerOpacity
+  updateGtkLayerOpacity,
+  updateGtkSelectedLayers
 } from "../store/reducers/gtkLayer"
 import {
   updateHelsinkiLayerEnabled,
@@ -95,6 +97,7 @@ export const getSettingsFromURL = (): Settings => {
     mmlVanhatKartatEnabled,
     gtkOpacity,
     gtkEnabled,
+    gtktLayer,
     maannousuLayer,
     maannousuOpacity,
     maannousuEnabled,
@@ -171,6 +174,16 @@ export const getSettingsFromURL = (): Settings => {
   // GTK enabled
   if (gtkEnabled !== undefined) {
     newSettings = updateGtkLayerEnabled(newSettings, gtkEnabled)
+  }
+
+  // GTK layers
+  if (gtktLayer) {
+    newSettings = validateAndUpdateUrlParamToSettings(
+      newSettings,
+      GtkLayer,
+      gtktLayer,
+      updateGtkSelectedLayers
+    )
   }
 
   // Maannousu.info layer

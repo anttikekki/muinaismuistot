@@ -62,16 +62,16 @@
     },
     "licences": {
       "title": "Avoin data, lisenssit ja lähdekoodi",
-      "museovirasto": "Museoviraston rekistereistä tietoa haetaan <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
-      "ahvenanmaa": "Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href='https://www.kartor.ax/datasets'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
-      "maanmittauslaitos": "Tausta-, ortokuva- ja peruskartta haetaan Maanmittauslaitoksen <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>avoimen WMTS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "museovirasto": "Museoviraston rekistereistä tietoa haetaan <a href='https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot' target='_blank'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "ahvenanmaa": "Ahvenanmaan maakuntahallinnon rekisteristö tietoa haetaan <a href='https://www.kartor.ax/datasets' target='_blank'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "maanmittauslaitos": "Tausta-, ortokuva- ja peruskartta haetaan Maanmittauslaitoksen <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17' target='_blank'>avoimen WMTS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "maanmittauslaitosPaituli": "<a href='https://www.maanmittauslaitos.fi/sites/maanmittauslaitos.fi/files/attachments/2024/04/Vanhatkartat2024_verkkoon.pdf' target='_blank'>Vanhat kartat</a> ja MLL:n korkeusmalli haetaan CSC:n (Tieteen tietotekniikan keskus) Paituli-palvelun <a href='https://paituli.csc.fi/webservices.html' target='_blank'>avoimien WMS- ja WMTS-rajapintojen</a> kautta (paikkatietoaineistot on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
-      "gtk": "Muinaisrantojen aineisto haetaan Geologian tutkimuskeskuksen <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://www.gtk.fi/peruslisenssi/'>Peruslisenssillä</a>, erillislupa aineiston käyttöön saatu 15.1.2021).",
-      "maannousuInfo": "Maannousu.info sivuston maannousua kuvaava kartta <a href='https://maannousu.info/integration'>avoimen GeoTIFF-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
-      "helsinki": "Helsingin ensimmäisen maailmansodan aikaisten maalinnoitusten aineisto haetaan Helsingin kaupungin <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>Creative Commons CC By 4.0 -lisenssillä</a>).",
-      "maisemanmuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset -kirjan paikkatieto on <a href='./maisemanmuisti/'>tietokannasta</a> johon on koottu kirjan listaamat 205 kohdetta. Kirjan sisällön tekijanoikeus on Museovirastolla, jolta on kysytty lupa aineiston käyttöön.",
-      "3DModels": "3D-mallit ovat avoimesta <a href='./3d/'>tietokannasta</a>, joka listaa harrastajien sekä virallisen toimijoiden (museot, Museovirasto, Ahvenanmaan paikallioshallinto) tekemiä 3D-mallinnuksia. Mallien lisenssit on listattu tietokannassa mallikohtaisesti.",
-      "sourceCode": "Tämän sivuston tekninen toteutus on <a href='https://github.com/anttikekki/muinaismuistot'>avointa lähdekoodia</a>, lisenssinä on <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE'>MIT</a>."
+      "gtk": "Muinaisrantojen ja maaperän aineistot haetaan Geologian tutkimuskeskuksen <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/' target='_blank'>avoimen WMS-rajapinnan</a> kautta. Muinaisrantojen paikkatietoaineisto on julkaistu <a href='https://www.gtk.fi/peruslisenssi/' target='_blank'>peruslisenssillä</a> (erillislupa aineiston käyttöön saatu 15.1.2021). Maaperän  paikkatietoaineisto on julkaistu <a href='https://www.gtk.fi/avoin-lisenssi/' target='_blank'>avoimella lisenssillä</a> (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0</a>).",
+      "maannousuInfo": "Maannousu.info sivuston maannousua kuvaava kartta <a href='https://maannousu.info/integration' target='_blank'>avoimen GeoTIFF-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "helsinki": "Helsingin ensimmäisen maailmansodan aikaisten maalinnoitusten aineisto haetaan Helsingin kaupungin <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "maisemanmuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset -kirjan paikkatieto on <a href='./maisemanmuisti/' target='_blank'>tietokannasta</a> johon on koottu kirjan listaamat 205 kohdetta. Kirjan sisällön tekijanoikeus on Museovirastolla, jolta on kysytty lupa aineiston käyttöön.",
+      "3DModels": "3D-mallit ovat avoimesta <a href='./3d/' target='_blank'>tietokannasta</a>, joka listaa harrastajien sekä virallisen toimijoiden (museot, Museovirasto, Ahvenanmaan paikallioshallinto) tekemiä 3D-mallinnuksia. Mallien lisenssit on listattu tietokannassa mallikohtaisesti.",
+      "sourceCode": "Tämän sivuston tekninen toteutus on <a href='https://github.com/anttikekki/muinaismuistot' target='_blank'>avointa lähdekoodia</a>, lisenssinä on <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE' target='_blank'>MIT</a>."
     }
   },
   "settings": {
@@ -297,12 +297,29 @@
     },
     "gtk": {
       "layer": {
-        "muinaisrannat": "Muinaisrannat (<a href='https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html' target='_blank'>lisätietoa</a>)"
+        "muinaisrannat": "Muinaisrannat (<a href='https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html' target='_blank'>lisätietoa</a>)",
+        "maapera_200k_maalaji": "Maaperä 1:200 000, maalajit"
       },
       "feature": {
         "supra-akvaattinen": "Supra-akvaattinen, jääkauden jälkeen vedenpinnan yläpuolelle jäänyt alue",
         "yoldia": "Yoldiameren tai Ancylusjärven peittämä alue (11 600 – 7 200 eaa.)",
-        "litorina": "Litorinameren peittämä alue (8 500 – 4 000 eaa.)"
+        "litorina": "Litorinameren peittämä alue (8 500 – 4 000 eaa.)",
+        "maalajit_ohut_turvekerros": "Ohut turvekerros (Tvo, 0,3-0,6 m)",
+        "maalajit_soistuma": "Soistuma (Tvs, <0,3)",
+        "maalajit_vesi": "Vesi",
+        "maalajit_kartoittamaton": "Kartoittamaton",
+        "maalajit_taytemaa": "Täytemaa",
+        "maalajit_paksu_turvekerros": "Paksu turvekerros, yleensä yli 0,6 m",
+        "maalajit_lieju": "Lieju, humuspitoisuus yli 6 %",
+        "maalajit_savi": "Savi",
+        "maalajit_liejuinen_hienorakenteinen_maalaji": "Liejuinen hienorakeinen maalaji, humuspitoisuus 2-6 %",
+        "maalajit_hienorakenteinen_maalaji": "Hienojakoinen maalaji, päälajitetta ei selvitetty",
+        "maalajit_karkearakenteinen_maalaaji": "Karkearakeinen maalaji, päälajitetta ei selvitetty",
+        "maalajit_sekalajitteinen_maalaji": "Sekalajitteinen maalaji, päälajitetta ei selvitetty",
+        "maalajit_kivia": "Kiviä",
+        "maalajit_rakka": "Rakka",
+        "maalajit_kalliomaa": "Kalliomaa, maanpeite enintään 1m (yleensä moreenia)",
+        "maalajit_kalliopaljastuma": "Kalliopaljastuma"
       }
     },
     "helsinki": {
