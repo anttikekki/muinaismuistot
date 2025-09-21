@@ -13,7 +13,26 @@ export const VersionHistoryPanel: React.FC = () => {
           muinaisjäännösnumero).
         </p>
         <p>Korjattu Ahvenanmaan merikohteiden 3D-mallien toimivuus.</p>
-        <p>Lisätty MML:n korkeusmalli pohjakarttoihin.</p>
+        <p>
+          Lisätty MML:n{" "}
+          <a
+            href="https://www.maanmittauslaitos.fi/tutkimus/teematietoa/korkeusmallit"
+            target="_blank"
+          >
+            korkeusmalli
+          </a>{" "}
+          pohjakarttoihin.
+        </p>
+        <p>
+          Lisätty Museoviraston{" "}
+          <a
+            href="https://www.kyppi.fi/palveluikkuna/VARKL/asp/v_default.aspx"
+            target="_blank"
+          >
+            Valtakunnallisesti merkittävät arkeologiset kohteet (VARK)
+          </a>
+          .
+        </p>
 
         <h6>Toukokuu 2025</h6>
         <p>
