@@ -4,6 +4,8 @@ import { Projection } from "ol/proj"
 import TileWMS, { Options } from "ol/source/TileWMS"
 import { MuseovirastoLayer } from "../../common/layers.types"
 import {
+  getMuseovirastoFeatureIdField,
+  getMuseovirastoFeatureNameField,
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi,
   MuseovirastoFeatureInfoResult
@@ -129,7 +131,6 @@ export default class MuseovirastoTileLayer {
     searchText: string,
     settings: Settings
   ): Promise<MuseovirastoFeatureInfoResult> => {
-    /*
     let selectedLayers = settings.museovirasto.selectedLayers
 
     //Muinaismustot areas always have same name as main point so do not search those
@@ -139,43 +140,53 @@ export default class MuseovirastoTileLayer {
       )
     }
     if (selectedLayers.length === 0) {
-      return { results: [] }
+      return emptyIdentifyResult
     }
 
-    let searchFields = "Kohdenimi, Nimi, KOHDENIMI"
-    let contains = "true"
+    let isSearchTextNumber = false
     if (!isNaN(parseInt(searchText))) {
-      // Search text is number, search by id
-      searchFields = "mjtunnus, kohdeID, ID"
-      contains = "false"
+      isSearchTextNumber = true
     }
-    */
 
-    // https://geoserver.museovirasto.fi/geoserver/ows?service=WFS&acceptversions=2.0.0&request=GetFeature&typeNames=rajapinta_suojellut:muinaisjaannos_piste&count=20&outputFormat=application/json&filter=<Filter><PropertyIsLike wildCard="*" singleChar="." escape="!"><PropertyName>kohdenimi</PropertyName><Literal>*Kissa*</Literal></PropertyIsLike></Filter>
+    const layerFilters = selectedLayers
+      .map((layer) => {
+        if (isSearchTextNumber) {
+          const idField = getMuseovirastoFeatureIdField(layer)
+          if (idField) {
+            return { layer, filter: `${idField} = ${searchText}` }
+          }
+          return undefined
+        }
+        return {
+          layer,
+          filter: `${getMuseovirastoFeatureNameField(layer)} ILIKE '%${searchText}%'`
+        }
+      })
+      .filter((f) => !!f)
 
-    const urlParams = new URLSearchParams({
-      service: "WFS",
-      acceptversions: "2.0.0",
-      request: "GetFeature",
-      typeNames: MuseovirastoLayer.Muinaisjaannokset_piste,
-      count: "50",
-      outputFormat: "application/json",
-      filter: `
-      <Filter>
-        <Or>
-          <PropertyIsLike wildCard="*" singleChar="." escape="!">
-            <PropertyName>kohdenimi</PropertyName>
-            <Literal>*${searchText}*</Literal>
-          </PropertyIsLike>
-        </Or>
-      </Filter>`
-    })
+    const results = (await Promise.all(
+      layerFilters.map(({ layer, filter }) => {
+        const urlParams = new URLSearchParams({
+          service: "WFS",
+          acceptversions: "2.0.0",
+          request: "GetFeature",
+          typeNames: layer,
+          count: "50",
+          outputFormat: "application/json",
+          cql_filter: filter
+        })
 
-    const url = new URL(settings.museovirasto.url.wfs)
-    url.search = String(urlParams)
+        const url = new URL(settings.museovirasto.url.wfs)
+        url.search = String(urlParams)
 
-    const response = await fetch(String(url))
-    return (await response.json()) as MuseovirastoFeatureInfoResult
+        return fetch(String(url)).then((result) => result.json())
+      })
+    )) as MuseovirastoFeatureInfoResult[]
+
+    return {
+      type: "FeatureCollection",
+      features: results.flatMap(({ features }) => features)
+    }
   }
 
   public opacityChanged = (settings: Settings): void => {

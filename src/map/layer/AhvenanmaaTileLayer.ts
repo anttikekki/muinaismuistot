@@ -139,27 +139,43 @@ export default class AhvenanmaaTileLayer {
     searchText: string,
     settings: Settings
   ): Promise<AhvenanmaaEsriJSONFindResult> => {
-    if (settings.ahvenanmaa.selectedLayers.length === 0) {
+    const { selectedLayers } = settings.ahvenanmaa
+    if (selectedLayers.length === 0) {
       return { results: [] }
     }
 
-    const urlParams = new URLSearchParams({
-      searchText: searchText,
-      contains: "true",
-      searchFields: "Fornlämnings ID, Namn , Beskrivning, Topografi",
-      layers: this.toLayerIds(settings.ahvenanmaa.selectedLayers).join(","),
-      f: "json",
-      returnGeometry: "true",
-      returnZ: "false"
-    })
+    const results = (await Promise.all(
+      selectedLayers.map((layer) => {
+        const searchFields = (() => {
+          switch (layer) {
+            case AhvenanmaaLayer.Fornminnen:
+              return "Fornlämnings ID, Namn , Beskrivning"
+            case AhvenanmaaLayer.MaritimaFornminnen:
+              return "MfornID, Namn , Beskrivning"
+          }
+        })()
 
-    const url = new URL(settings.ahvenanmaa.url.find)
-    url.search = String(urlParams)
+        const urlParams = new URLSearchParams({
+          searchText: searchText,
+          contains: "true",
+          searchFields,
+          layers: getAhvenanmaaLayerId(layer).toString(),
+          f: "json",
+          returnGeometry: "true",
+          returnZ: "false"
+        })
 
-    const response = await fetch(String(url))
-    const result = (await response.json()) as AhvenanmaaEsriJSONFindResult
+        const url = new URL(settings.ahvenanmaa.url.find)
+        url.search = String(urlParams)
 
-    return this.addTypeAndDatingToResult(result, settings)
+        return fetch(String(url)).then((response) => response.json())
+      })
+    )) as AhvenanmaaEsriJSONFindResult[]
+
+    const combineResult = {
+      results: results.flatMap(({ results }) => results)
+    }
+    return this.addTypeAndDatingToResult(combineResult, settings)
   }
 
   private addTypeAndDatingToResult = async (

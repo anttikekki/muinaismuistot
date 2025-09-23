@@ -457,3 +457,51 @@ export const getMuseovirastoFeatureLayerName = (
   }
   throw new Error(`Tuntematon Museovirasto Feature: ${JSON.stringify(feature)}`)
 }
+
+export const getMuseovirastoFeatureNameField = (
+  layer: MuseovirastoLayer
+): string => {
+  switch (layer) {
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_alue:
+    case MuseovirastoLayer.Muu_kulttuuriperintokohde_alue:
+    case MuseovirastoLayer.Muu_kulttuuriperintokohde_piste:
+    case MuseovirastoLayer.Suojellut_rakennukset_alue:
+    case MuseovirastoLayer.Suojellut_rakennukset_piste:
+    case MuseovirastoLayer.RKY_alue:
+    case MuseovirastoLayer.RKY_piste:
+    case MuseovirastoLayer.RKY_viiva:
+      return `kohdenimi`
+    case MuseovirastoLayer.Maailmanperinto_piste:
+    case MuseovirastoLayer.Maailmanperinto_alue:
+      return `Nimi`
+    case MuseovirastoLayer.VARK_pisteet:
+    case MuseovirastoLayer.VARK_alueet:
+      return `VARK_nimi`
+  }
+}
+
+export const getMuseovirastoFeatureIdField = (
+  layer: MuseovirastoLayer
+): string | undefined => {
+  switch (layer) {
+    case MuseovirastoLayer.Muinaisjaannokset_piste:
+    case MuseovirastoLayer.Muinaisjaannokset_alue:
+    case MuseovirastoLayer.Muu_kulttuuriperintokohde_alue:
+    case MuseovirastoLayer.Muu_kulttuuriperintokohde_piste:
+      return "mjtunnus"
+    case MuseovirastoLayer.Suojellut_rakennukset_alue:
+    case MuseovirastoLayer.Suojellut_rakennukset_piste:
+      return "KOHDEID"
+    case MuseovirastoLayer.RKY_alue:
+    case MuseovirastoLayer.RKY_piste:
+    case MuseovirastoLayer.RKY_viiva:
+      return `ID`
+    case MuseovirastoLayer.VARK_pisteet:
+    case MuseovirastoLayer.VARK_alueet:
+      return `VARK_ID`
+    case MuseovirastoLayer.Maailmanperinto_piste:
+    case MuseovirastoLayer.Maailmanperinto_alue:
+      return undefined
+  }
+}
