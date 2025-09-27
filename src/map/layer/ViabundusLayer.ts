@@ -33,7 +33,7 @@ export default class ViabundusLayer {
     this.updateLayerVisibility(settings)
 
     if (settings.viabundus.enabled) {
-      // Do not wait
+      // Do not await
       this.updateLayerSource(settings)
     }
   }
@@ -65,7 +65,14 @@ export default class ViabundusLayer {
     const {
       viabundus: { selectedLayers, enabled }
     } = settings
-    this.layer.setVisible(enabled && selectedLayers.length > 0)
+
+    const visible = enabled && selectedLayers.length > 0
+    this.layer.setVisible(visible)
+
+    if (visible && this.source?.getFeatures().length === 0) {
+      // Do not await
+      this.updateLayerSource(settings)
+    }
   }
 
   public selectedFeatureLayersChanged = (settings: Settings) => {

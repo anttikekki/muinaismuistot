@@ -1,3 +1,8 @@
 node_modules/
 .DS_Store
 dist/
+scripts/viabundus/*.geojson
+scripts/viabundus/Viabundus-2-csv.zip
+scripts/viabundus/viabundus_csv
+scripts/viabundus/edge_desc.json
+scripts/viabundus/general_desc.json
