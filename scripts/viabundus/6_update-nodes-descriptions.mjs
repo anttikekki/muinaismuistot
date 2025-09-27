@@ -3,9 +3,13 @@ import fs from "fs"
 import he from "he"
 import path from "path"
 
-const INPUT_GEOJSON = "Viabundus-nodes-finland.geojson"
-const OUTPUT_GEOJSON = "Viabundus-nodes-finland-with-descriptions.geojson"
-const DESCRIPTIONS_CSV = path.join("viabundus_csv", "descriptions.csv")
+const INPUT_GEOJSON = path.join("results", "5_Viabundus-nodes.geojson")
+const OUTPUT_GEOJSON = path.join("results", "6_Viabundus-nodes.geojson")
+const DESCRIPTIONS_CSV = path.join(
+  "source-data",
+  "viabundus_csv",
+  "descriptions.csv"
+)
 
 // mapping from CSV pertainsto → GeoJSON description field
 const PERTAINSTO_MAP = {
@@ -57,7 +61,16 @@ for (const feature of geojson.features) {
     const flag = `Is_${pertainsto.charAt(0).toUpperCase()}${pertainsto.slice(1)}`
 
     if (field && props[flag] === "y") {
-      props[field] = description
+      const existing = props[field]
+
+      // Wrap existing + new into { en, fi }
+      if (existing && typeof existing === "string") {
+        props[field] = { en: existing, fi: description }
+      } else if (existing && typeof existing === "object") {
+        props[field].fi = description // already multilingual
+      } else {
+        props[field] = { en: null, fi: description }
+      }
     }
   }
 }

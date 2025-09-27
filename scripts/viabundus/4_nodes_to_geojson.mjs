@@ -3,8 +3,8 @@ import fs from "fs"
 import he from "he"
 import path from "path"
 
-const INPUT_CSV = path.join("viabundus_csv", "nodes.csv")
-const OUTPUT_GEOJSON = "Viabundus-nodes.geojson"
+const INPUT_CSV = path.join("source-data", "viabundus_csv", "nodes.csv")
+const OUTPUT_GEOJSON = path.join("results", "4_Viabundus-nodes.geojson")
 
 // --- Step 1: Load and parse CSV
 const csvText = fs.readFileSync(INPUT_CSV, "utf8")
