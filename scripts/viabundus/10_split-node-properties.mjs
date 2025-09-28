@@ -52,7 +52,7 @@ function restructureProperties(props) {
         props.Fair_To,
         props.Fair_Description,
         {
-          gregorian: props.Gregorian_Calendar || undefined,
+          gregorianCalendar: props.Gregorian_Calendar || undefined,
           fairs: props.fairs || []
         }
       )
@@ -133,7 +133,8 @@ function restructureProperties(props) {
   }
 
   return {
-    id: props.id,
+    type: "place",
+    id: parseInt(props.id),
     name: props.name,
     subfeatures: groups,
     // node-level literature (pertainsto was null/empty)

@@ -35,9 +35,10 @@ for (const row of records) {
   if (!geometry) continue
 
   const properties = {
-    nodesid: nodeId,
-    fromyear: row.fromyear ? parseInt(row.fromyear, 10) : null,
-    toyear: row.toyear ? parseInt(row.toyear, 10) : null
+    type: "townOutline",
+    nodesid: parseInt(nodeId),
+    fromyear: row.fromyear ? parseInt(row.fromyear, 10) : undefined,
+    toyear: row.toyear ? parseInt(row.toyear, 10) : undefined
   }
 
   features.push({

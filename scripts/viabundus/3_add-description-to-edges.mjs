@@ -55,8 +55,24 @@ for (const feature of geojson.features) {
     feature.properties.descriptions = { fi, en }
   }
 
-  // Drop the descriptionid field
+  // Drop uninteresting field
   delete feature.properties.descriptionid
+  delete feature.properties.zoomlevel
+
+  // Add rename original type to edgeTypec and add common type field
+  feature.properties.roadType = feature.properties.type
+  feature.properties.type = "road"
+
+  // Remove empty fields
+  if (!feature.properties.fromyear) {
+    delete feature.properties.fromyear
+  }
+  if (!feature.properties.toyear) {
+    delete feature.properties.toyear
+  }
+  if (!feature.properties.descriptions) {
+    delete feature.properties.descriptions
+  }
 }
 
 // --- Step 5: Save output (pretty-printed JSON)
