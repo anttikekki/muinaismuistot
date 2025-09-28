@@ -77,7 +77,8 @@ export const initialSettings: Settings = {
     selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
     selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
     url: {
-      wms: "https://geoserver.museovirasto.fi/geoserver/rajapinta_suojellut/wms",
+      // Proxies to geoserver.museovirasto.fi. Used to add 24h WMS tile cache and 2h browser cache.
+      wms: "https://museovirasto-wms-proxy.muinaismuistot.info/geoserver/rajapinta_suojellut/wms",
       wfs: "https://geoserver.museovirasto.fi/geoserver/rajapinta_suojellut/wfs"
     },
     opacity: 0.7,
