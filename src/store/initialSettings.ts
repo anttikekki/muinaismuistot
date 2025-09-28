@@ -116,7 +116,7 @@ export const initialSettings: Settings = {
   viabundus: {
     selectedLayers: Object.values(ViabundusLayer),
     url: {
-      geojson: "./viabundus/Viabundus-1.3-Edges.geojson-filtered.json"
+      geojson: "./viabundus/Viabundus-finland.geojson"
     },
     enabled: true
   },

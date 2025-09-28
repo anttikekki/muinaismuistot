@@ -1,9 +1,11 @@
 import { FeatureCollection, Geometry as GeoJSONGeometry } from "geojson"
-import Feature from "ol/Feature"
+import Feature, { FeatureLike } from "ol/Feature"
 import GeoJSON from "ol/format/GeoJSON"
 import Geometry from "ol/geom/Geometry"
 import VectorLayer from "ol/layer/Vector"
 import VectorSource from "ol/source/Vector"
+import CircleStyle from "ol/style/Circle"
+import Fill from "ol/style/Fill"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
 import { ViabundusFeatureProperties } from "../../common/viabundus.types"
@@ -18,24 +20,12 @@ export default class ViabundusLayer {
       features: []
     })
 
-    const lineStyle = new Style({
-      stroke: new Stroke({
-        color: "#ff0000", // red line
-        width: 5
-      })
-    })
-
     this.layer = new VectorLayer({
       source: this.source,
-      style: lineStyle,
+      style: styleFunction,
       visible: false
     })
     this.updateLayerVisibility(settings)
-
-    if (settings.viabundus.enabled) {
-      // Do not await
-      this.updateLayerSource(settings)
-    }
   }
 
   private updateLayerSource = async (settings: Settings) => {
@@ -81,4 +71,48 @@ export default class ViabundusLayer {
 
   public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> =>
     this.layer
+}
+
+// Line (edges)
+const lineStyle = new Style({
+  stroke: new Stroke({
+    color: "#d73027", // red
+    width: 3
+  })
+})
+
+// Point (nodes)
+const pointStyle = new Style({
+  image: new CircleStyle({
+    radius: 6,
+    fill: new Fill({ color: "#4575b4" }), // blue
+    stroke: new Stroke({ color: "#ffffff", width: 2 }) // white border
+  })
+})
+
+// Polygon (towns)
+const polygonStyle = new Style({
+  stroke: new Stroke({
+    color: "#000000", // black outline
+    width: 1.5
+  }),
+  fill: new Fill({
+    color: "rgba(166, 217, 106, 0.5)" // greenish fill with transparency
+  })
+})
+
+// style function
+function styleFunction(feature: FeatureLike): Style | undefined {
+  const geomType = feature.getGeometry()?.getType()
+  switch (geomType) {
+    case "LineString":
+    case "MultiLineString":
+      return lineStyle
+    case "Point":
+    case "MultiPoint":
+      return pointStyle
+    case "Polygon":
+    case "MultiPolygon":
+      return polygonStyle
+  }
 }
