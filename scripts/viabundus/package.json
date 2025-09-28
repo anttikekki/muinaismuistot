@@ -14,7 +14,9 @@
     "step:8_add-literature-to-nodes": "node 8_add-literature-to-nodes.mjs",
     "step:9_add-population-to-nodes": "node 9_add-population-to-nodes.mjs",
     "step:10_split-node-properties": "node 10_split-node-properties.mjs",
-    "step:11_drop-empty-nodes": "node 11_drop-empty-nodes.mjs"
+    "step:11_drop-empty-nodes": "node 11_drop-empty-nodes.mjs",
+    "step:12_join-edges-and-nodes": "node 12_join-edges-and-nodes.mjs",
+    "step:13_copy-final-results-to-ui": "./13_copy-final-results-to-ui.sh"
   },
   "author": "Antti Kekki",
   "license": "MIT",

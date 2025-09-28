@@ -87,8 +87,11 @@ export default {
         },
         { from: "src/maisemanmuisti/images", to: "maisemanmuisti/images" },
         {
-          from: "src/viabundus/Viabundus-1.3-Edges.geojson-filtered.json",
-          to: "viabundus"
+          from: "src/viabundus/Viabundus-finland.geojson",
+          to: "viabundus",
+          transform: function (content) {
+            return JSON.stringify(JSON.parse(content.toString()))
+          }
         }
       ]
     }),
