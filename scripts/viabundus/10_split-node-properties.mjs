@@ -16,10 +16,10 @@ function restructureProperties(props) {
     const litKey = `${type}Literature`
     return {
       type,
-      from: from || null,
-      to: to || null,
-      description: description || null,
-      literature: props[litKey] || [],
+      from: from || undefined,
+      to: to || undefined,
+      description: description || undefined,
+      literature: props[litKey] || undefined,
       ...extras
     }
   }
@@ -52,7 +52,7 @@ function restructureProperties(props) {
         props.Fair_To,
         props.Fair_Description,
         {
-          gregorian: props.Gregorian_Calendar || null,
+          gregorian: props.Gregorian_Calendar || undefined,
           fairs: props.fairs || []
         }
       )
@@ -68,7 +68,7 @@ function restructureProperties(props) {
         props.Toll_To,
         props.Toll_Description,
         {
-          owner: props.Toll_Primary_Owner || null
+          owner: props.Toll_Primary_Owner || undefined
         }
       )
     )
@@ -95,7 +95,7 @@ function restructureProperties(props) {
         props.Staple_To,
         props.Staple_Description,
         {
-          duration: props.Staple_Duration_Of_Stay || null
+          duration: props.Staple_Duration_Of_Stay || undefined
         }
       )
     )
@@ -135,10 +135,10 @@ function restructureProperties(props) {
   return {
     id: props.id,
     name: props.name,
-    features: groups,
+    subfeatures: groups,
     // node-level literature (pertainsto was null/empty)
-    literature: props.literature || [],
-    population: props.population || []
+    literature: props.literature || undefined,
+    population: props.population || undefined
   }
 }
 

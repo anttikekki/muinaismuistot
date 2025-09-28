@@ -11,16 +11,16 @@ const geojson = JSON.parse(fs.readFileSync(INPUT_GEOJSON, "utf8"))
 const pruned = {
   ...geojson,
   features: geojson.features.filter((f) => {
-    const p = f.properties
-    return !(
-      (p.name === null || p.name === "") &&
-      Array.isArray(p.features) &&
-      p.features.length === 0 &&
-      Array.isArray(p.literature) &&
-      p.literature.length === 0 &&
-      Array.isArray(p.population) &&
-      p.population.length === 0
-    )
+    const p = f.properties || {}
+
+    const nameEmpty = p.name === null || p.name === ""
+    const featuresEmpty = !Array.isArray(p.features) || p.features.length === 0
+    const literatureEmpty =
+      !Array.isArray(p.literature) || p.literature.length === 0
+    const populationEmpty =
+      !Array.isArray(p.population) || p.population.length === 0
+
+    return !(nameEmpty && featuresEmpty && literatureEmpty && populationEmpty)
   })
 }
 

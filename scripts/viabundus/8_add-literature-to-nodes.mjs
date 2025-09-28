@@ -52,6 +52,26 @@ for (const row of links) {
     pertainsto = "node"
   }
 
+  // normalize pertainsto values to canonical singular keys
+  pertainsto = (() => {
+    switch (pertainsto) {
+      case "fairs":
+        return "fair"
+      case "tolls":
+        return "toll"
+      case "harbour":
+      case "harbor":
+        return "harbour"
+      case "edges":
+      case "edge":
+        return "edge"
+      case "names":
+        return "name"
+      default:
+        return pertainsto
+    }
+  })()
+
   if (!refsByNode[nodesid]) {
     refsByNode[nodesid] = {}
   }
@@ -70,6 +90,9 @@ for (const feature of geojson.features) {
 
   const refGroups = refsByNode[nodeId]
   for (const [pertainsto, refs] of Object.entries(refGroups)) {
+    if (refs.length === 0) {
+      continue
+    }
     if (pertainsto === "node") {
       feature.properties.literature = refs
     } else {

@@ -39,7 +39,8 @@ for (const row of records) {
 // --- Step 4: Attach population arrays to features
 for (const feature of geojson.features) {
   const nodeId = String(feature.properties.id)
-  if (populationByNode[nodeId]) {
+  const population = populationByNode[nodeId]
+  if (population && population.length > 0) {
     feature.properties.population = populationByNode[nodeId]
   }
 }
