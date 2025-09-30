@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
+import { isMaisemanMuistiFeature } from "../../../../common/maisemanMuisti.types"
 import {
   isEsriJSONFeature,
   MapFeature
@@ -9,6 +10,7 @@ import {
   getFeatureID,
   getFeatureName
 } from "../../../../common/util/featureParser"
+import { isViabundusFeature } from "../../../../common/viabundus.types"
 
 type Props = {
   feature: MapFeature
@@ -66,6 +68,12 @@ export const FeatureGeometryDownloadLink: React.FC<Props> = ({ feature }) => {
 const cleanAndConvertFeatureJSON = (feature: MapFeature) => {
   if (isEsriJSONFeature(feature)) {
     return convertFeatureFromEsriJSONtoGeoJSON(feature)
+  }
+  if (isMaisemanMuistiFeature(feature)) {
+    return feature
+  }
+  if (isViabundusFeature(feature)) {
+    return feature
   }
 
   const { maisemanMuisti, models, ...cleanFeature } = feature

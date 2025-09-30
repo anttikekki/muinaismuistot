@@ -1,4 +1,5 @@
 import { Feature, Point } from "geojson"
+import { MapFeature } from "./mapFeature.types"
 import { MuinaisjaannosAjoitus } from "./museovirasto.types"
 
 export interface MaisemanMuistiFeatureProperties {
@@ -19,6 +20,8 @@ export type MaisemanMuistiFeature = Feature<
 >
 
 export const isMaisemanMuistiFeature = (
-  feature: Feature
+  feature: MapFeature | Feature
 ): feature is MaisemanMuistiFeature =>
-  feature.properties ? "registerName" in feature.properties : false
+  "properties" in feature && feature.properties
+    ? "registerName" in feature.properties
+    : false

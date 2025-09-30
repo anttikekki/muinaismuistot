@@ -78,10 +78,7 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
   switch (action.type) {
     case ActionTypeEnum.CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE: {
       const selectedFeaturesOnMap = action.payload
-      if (
-        selectedFeaturesOnMap.features.length === 0 &&
-        selectedFeaturesOnMap.maisemanMuistiFeatures.length === 0
-      ) {
+      if (selectedFeaturesOnMap.features.length === 0) {
         return state
       }
       return {

@@ -1,24 +1,41 @@
+import { isModelFeature } from "./3dModels.types"
 import { AhvenanmaaFeature, isAhvenanmaaFeature } from "./ahvenanmaa.types"
-import { FeatureLayer } from "./layers.types"
+import { FeatureLayer, MaisemanMuistiLayer, ModelLayer } from "./layers.types"
 import {
-  MaalinnoitusFeature,
   getMaalinnoitusFeatureLayerName,
-  isMaalinnoitusFeature
+  isMaalinnoitusFeature,
+  MaalinnoitusFeature
 } from "./maalinnoitusHelsinki.types"
 import {
-  MuseovirastoFeature,
+  isMaisemanMuistiFeature,
+  MaisemanMuistiFeature
+} from "./maisemanMuisti.types"
+import {
   getMuseovirastoFeatureLayerName,
-  isMuseovirastoFeature
+  isMuseovirastoFeature,
+  MuseovirastoFeature
 } from "./museovirasto.types"
+import {
+  getViabundusLayerName,
+  isViabundusFeature,
+  ViabundusFeature
+} from "./viabundus.types"
 
 export type MapFeature = GeoJSONFeature | AhvenanmaaFeature
 
-export type GeoJSONFeature = MuseovirastoFeature | MaalinnoitusFeature
+export type GeoJSONFeature =
+  | MuseovirastoFeature
+  | MaalinnoitusFeature
+  | MaisemanMuistiFeature
+  | ViabundusFeature
 
 export const isGeoJSONFeature = (
   feature: MapFeature
 ): feature is GeoJSONFeature =>
-  isMuseovirastoFeature(feature) || isMaalinnoitusFeature(feature)
+  isMuseovirastoFeature(feature) ||
+  isMaalinnoitusFeature(feature) ||
+  isMaisemanMuistiFeature(feature) ||
+  isViabundusFeature(feature)
 
 export type EsriJSONFeature = AhvenanmaaFeature
 
@@ -33,6 +50,15 @@ export const getFeatureLayerName = (feature: MapFeature): FeatureLayer => {
     }
     if (isMaalinnoitusFeature(feature)) {
       return getMaalinnoitusFeatureLayerName(feature)
+    }
+    if (isMaisemanMuistiFeature(feature)) {
+      return MaisemanMuistiLayer.MaisemanMuisti
+    }
+    if (isModelFeature(feature)) {
+      return ModelLayer.ModelLayer
+    }
+    if (isViabundusFeature(feature)) {
+      return getViabundusLayerName(feature)
     }
   }
   if (isAhvenanmaaFeature(feature)) {

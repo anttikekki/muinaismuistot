@@ -25,6 +25,7 @@ import { LayerGroup, MaannousuInfoLayerIndex } from "../common/layers.types"
 import { isMaisemanMuistiFeature } from "../common/maisemanMuisti.types"
 import { MapFeature, isGeoJSONFeature } from "../common/mapFeature.types"
 import { isMuinaisjaannosPisteFeature } from "../common/museovirasto.types"
+import { isViabundusFeature } from "../common/viabundus.types"
 import { StoreListener } from "../store"
 import { ActionTypeEnum, ActionTypes } from "../store/actionTypes"
 import { Settings } from "../store/storeTypes"
@@ -315,6 +316,12 @@ export default class MuinaismuistotMap {
           this.maisemanMuistiLayer.getLayer()
         ).filter((f) => isMaisemanMuistiFeature(f))
       : []
+    const viabunduResult = settings.viabundus.enabled
+      ? this.getFeaturesAtPixelAtGeoJsonLayer(
+          e.pixel,
+          this.viabundusLayer.getLayer()
+        ).filter((f) => isViabundusFeature(f))
+      : []
 
     Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery]).then(
       ([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {
@@ -323,7 +330,8 @@ export default class MuinaismuistotMap {
         const features: MapFeature[] = [
           ...ahvenanmaaResult.results,
           ...museovirastoResult.features,
-          ...maalinnoitusFeatures
+          ...maalinnoitusFeatures,
+          ...viabunduResult
         ]
           .map((f) => this.modelsLayer.addModelsToFeature(f))
           .map((f) =>
@@ -345,9 +353,8 @@ export default class MuinaismuistotMap {
         this.store.dispatch({
           type: ActionTypeEnum.CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
           payload: {
-            features,
-            models: modelsResult,
-            maisemanMuistiFeatures
+            features: [...features, ...maisemanMuistiFeatures],
+            models: modelsResult
           }
         })
       }

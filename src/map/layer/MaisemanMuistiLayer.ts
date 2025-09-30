@@ -96,9 +96,9 @@ export default class MaisemanMuistiLayer {
     return this.featuresForRegisterId.get(id) || []
   }
 
-  public addMaisemanMuistiFeaturesToFeature = (
-    feature: MapFeature
-  ): MapFeature => {
+  public addMaisemanMuistiFeaturesToFeature = <T extends MapFeature>(
+    feature: T
+  ): T => {
     return {
       ...feature,
       maisemanMuisti: this.getFeaturesForFeatureRegisterId(

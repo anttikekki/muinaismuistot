@@ -32,8 +32,7 @@ export const initialSettings: Settings = {
   visiblePage: undefined,
   selectedFeaturesOnMap: {
     features: [],
-    models: [],
-    maisemanMuistiFeatures: []
+    models: []
   },
   search: {
     features: []

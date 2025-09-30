@@ -14,7 +14,6 @@ import {
   MuseovirastoLayer,
   ViabundusLayer
 } from "../common/layers.types"
-import { MaisemanMuistiFeature } from "../common/maisemanMuisti.types"
 import { MapFeature } from "../common/mapFeature.types"
 import {
   MuinaisjaannosAjoitus,
@@ -32,7 +31,6 @@ export enum PageId {
 export interface SelectedFeaturesOnMap {
   features: MapFeature[]
   models: ModelFeature[]
-  maisemanMuistiFeatures: MaisemanMuistiFeature[]
 }
 
 export interface Settings {

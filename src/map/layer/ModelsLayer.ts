@@ -143,7 +143,7 @@ export default class ModelsLayer {
     return models.filter((m) => m.properties.registryItem.type === layer)
   }
 
-  public addModelsToFeature = (feature: MapFeature): MapFeature => {
+  public addModelsToFeature = <T extends MapFeature>(feature: T): T => {
     return {
       ...feature,
       models: this.getFeaturesForFeatureRegisterId(

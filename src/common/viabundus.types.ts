@@ -1,3 +1,7 @@
+import { Feature, MultiLineString, Point } from "geojson"
+import { ViabundusLayer } from "./layers.types"
+import { MapFeature } from "./mapFeature.types"
+
 export enum ViabundusFeatureType {
   road = "road",
   place = "place",
@@ -127,3 +131,69 @@ export type ViabundusFeatureProperties =
   | ViabundusPlaceFeatureProperties
   | ViabundusRoadFeatureProperties
   | ViabundusTownOutlineFeatureProperties
+
+export type ViabundusPlaceFeature = Feature<
+  Point,
+  ViabundusPlaceFeatureProperties
+>
+
+export type ViabundusRoadFeature = Feature<
+  MultiLineString,
+  ViabundusRoadFeatureProperties
+>
+export type ViabundusTownOutlineFeature = Feature<
+  Point,
+  ViabundusTownOutlineFeatureProperties
+>
+
+export type ViabundusFeature =
+  | ViabundusPlaceFeature
+  | ViabundusRoadFeature
+  | ViabundusTownOutlineFeature
+
+export const isViabundusPlaceFeature = (
+  feature: Feature
+): feature is ViabundusPlaceFeature =>
+  feature.properties
+    ? "type" in feature.properties &&
+      feature.properties.type === ViabundusFeatureType.place
+    : false
+
+export const isViabundusRoadFeature = (
+  feature: Feature
+): feature is ViabundusRoadFeature =>
+  feature.properties
+    ? "type" in feature.properties &&
+      feature.properties.type === ViabundusFeatureType.road
+    : false
+
+export const isViabundusTownOutlineFeature = (
+  feature: Feature
+): feature is ViabundusTownOutlineFeature =>
+  feature.properties
+    ? "type" in feature.properties &&
+      feature.properties.type === ViabundusFeatureType.townOutline
+    : false
+
+export const isViabundusFeature = (
+  feature: MapFeature | Feature
+): feature is ViabundusFeature =>
+  "properties" in feature &&
+  (isViabundusPlaceFeature(feature) ||
+    isViabundusRoadFeature(feature) ||
+    isViabundusTownOutlineFeature(feature))
+
+export const getViabundusLayerName = (
+  feature: ViabundusFeature
+): ViabundusLayer => {
+  if (isViabundusPlaceFeature(feature)) {
+    return ViabundusLayer.Places
+  }
+  if (isViabundusRoadFeature(feature)) {
+    return ViabundusLayer.Roads
+  }
+  if (isViabundusTownOutlineFeature(feature)) {
+    return ViabundusLayer.TownOutlines
+  }
+  throw new Error(`Unknown Visbundus feature: ${JSON.stringify(feature)}`)
+}

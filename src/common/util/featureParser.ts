@@ -20,7 +20,7 @@ import {
   isMaalinnoitusRajausFeature,
   isMaalinnoitusYksikkoFeature
 } from "../maalinnoitusHelsinki.types"
-import { MaisemanMuistiFeature } from "../maisemanMuisti.types"
+import { isMaisemanMuistiFeature } from "../maisemanMuisti.types"
 import {
   MapFeature,
   isEsriJSONFeature,
@@ -47,6 +47,11 @@ import {
   isVarkAlueFeature,
   isVarkPisteFeature
 } from "../museovirasto.types"
+import {
+  isViabundusPlaceFeature,
+  isViabundusRoadFeature,
+  isViabundusTownOutlineFeature
+} from "../viabundus.types"
 import { convertFeatureFromEsriJSONtoGeoJSON } from "./esriToGeoJSONConverter"
 
 export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
@@ -99,6 +104,18 @@ export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
           defaultValue: rajaustyyppi
         }
       )}`
+    }
+    if (isMaisemanMuistiFeature(feature)) {
+      return `${feature.properties.name}, ${feature.properties.registerName}`
+    }
+    if (isViabundusPlaceFeature(feature)) {
+      return feature.properties.name
+    }
+    if (isViabundusRoadFeature(feature)) {
+      return t(`data.viabundus.road.${feature.properties.roadType}`)
+    }
+    if (isViabundusTownOutlineFeature(feature)) {
+      // TODO Mistä kaupunkialueen nimi?
     }
   } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
@@ -192,6 +209,20 @@ export const getFeatureTypeName = (
         `data.helsinki.featureType.rajaus`
       )}`
     }
+    if (isMaisemanMuistiFeature(feature)) {
+      return `${t(`data.featureType.Kiinteä muinaisjäännös`)}, ${t(
+        `data.featureType.Valtakunnallisesti merkittävä muinaisjäännös`
+      )}`
+    }
+    if (isViabundusPlaceFeature(feature)) {
+      return t(`data.featureType.viabundus`)
+    }
+    if (isViabundusRoadFeature(feature)) {
+      return t(`data.featureType.viabundus`)
+    }
+    if (isViabundusTownOutlineFeature(feature)) {
+      return t(`data.featureType.viabundus`)
+    }
   } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
       case AhvenanmaaLayer.Fornminnen:
@@ -214,7 +245,7 @@ export const getTypeIconURL = (imageName: string, has3dModels = false) =>
   `images/${imageName}${has3dModels ? "_3d" : ""}.png`
 
 export const getFeatureTypeIconURL = (feature: MapFeature): string => {
-  const has3dModels = feature.models.length > 0
+  const has3dModels = "models" in feature ? feature.models.length > 0 : false
   if (isGeoJSONFeature(feature)) {
     if (isMuinaisjaannosPisteFeature(feature)) {
       if (feature.maisemanMuisti.length > 0) {
@@ -287,6 +318,18 @@ export const getFeatureTypeIconURL = (feature: MapFeature): string => {
           return getTypeIconURL("maalinnoitus-puolustusaseman-raja", false)
       }
     }
+    if (isMaisemanMuistiFeature(feature)) {
+      return getTypeIconURL("maiseman-muisti", has3dModels)
+    }
+    if (isViabundusPlaceFeature(feature)) {
+      return getTypeIconURL("viabundus-place", has3dModels)
+    }
+    if (isViabundusRoadFeature(feature)) {
+      return getTypeIconURL("viabundus-road", has3dModels)
+    }
+    if (isViabundusTownOutlineFeature(feature)) {
+      return getTypeIconURL("viabundus-town-outline", has3dModels)
+    }
   } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
       case AhvenanmaaLayer.Fornminnen:
@@ -350,8 +393,12 @@ export const getLayerIconURLs = (layer: FeatureLayer): string[] => {
       return ["images/maalinnoitus-teksti-viite.png"]
     case HelsinkiLayer.Maalinnoitus_yksikot:
       return ["images/maalinnoitus-yksikko.png"]
-    case ViabundusLayer.Viabundus:
-      return ["images/foo.png"]
+    case ViabundusLayer.Places:
+      return ["images/viabundus-place.png"]
+    case ViabundusLayer.Roads:
+      return ["images/viabundus-road.png"]
+    case ViabundusLayer.TownOutlines:
+      return ["images/viabundus-town-outline.png"]
   }
 }
 
@@ -394,6 +441,15 @@ export const getFeatureID = (feature: MapFeature): string => {
     ) {
       return String(feature.properties.id)
     }
+    if (isMaisemanMuistiFeature(feature)) {
+      return String(feature.properties.id)
+    }
+    if (isViabundusPlaceFeature(feature) || isViabundusRoadFeature(feature)) {
+      return String(feature.properties.id)
+    }
+    if (isViabundusTownOutlineFeature(feature)) {
+      return String(feature.properties.nodesid)
+    }
   } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
       case AhvenanmaaLayer.Fornminnen:
@@ -403,23 +459,6 @@ export const getFeatureID = (feature: MapFeature): string => {
     }
   }
   throw new Error(`Tuntematon feature: ${JSON.stringify(feature)}`)
-}
-
-export const getModelsForMaisemanMuistiFeature = (
-  feature: MaisemanMuistiFeature,
-  models?: ModelFeature[]
-): ModelFeature[] => {
-  return models
-    ? models
-        .filter(
-          (model) =>
-            model.properties.registryItem.type ===
-            MuseovirastoLayer.Muinaisjaannokset_piste
-        )
-        .filter(
-          (model) => model.properties.registryItem.id === feature.properties.id
-        )
-    : []
 }
 
 const getMaailmanperintoUrl = (
@@ -598,6 +637,8 @@ export const getFeatureMunicipality = (
       case AhvenanmaaLayer.Fornminnen:
         return feature.attributes.Kommun
     }
+  } else if (isMaisemanMuistiFeature(feature)) {
+    return feature.properties.municipality
   }
   return undefined
 }

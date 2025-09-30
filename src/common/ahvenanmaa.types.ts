@@ -100,7 +100,7 @@ export const isAhvenanmaaFeature = (
   feature: MapFeature
 ): feature is AhvenanmaaFeature => {
   return (
-    "layerName" in feature &&
+    "attributes" in feature &&
     (feature.layerName === AhvenanmaaLayer.Fornminnen ||
       feature.layerName === AhvenanmaaLayer.MaritimaFornminnen)
   )

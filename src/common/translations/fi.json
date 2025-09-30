@@ -283,14 +283,15 @@
       "varkAlue": "Valtakunnallisesti merkittävät arkeologiset kohteet (VARK), aluerajaukset",
       "Ahvenanmaan muinaisjäännösrekisterin kohde": "Ahvenanmaan muinaisjäännösrekisterin kohde",
       "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde": "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde",
-      "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset"
+      "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset",
+      "viabundus": "Viabundus"
     },
     "timespan": {
       "prehistoric": "8600 eaa. - 1200 jaa.",
       "historic": "1200 jaa. -",
-      "stoneAge": "8600 – 1500 eaa.",
+      "stoneAge": "8600 - 1500 eaa.",
       "earlyMetalAge": "1500 eaa. - 200 jaa.",
-      "bronzeAge": "1700 – 500 eaa.",
+      "bronzeAge": "1700 - 500 eaa.",
       "ironAge": "500 eaa. - 1200 jaa.",
       "middleAge": "1200 - 1570 jaa.",
       "modern": "1800 jaa. -"
@@ -368,6 +369,16 @@
       "rajaustyyppi": {
         "tukikohta": "Tukikohta",
         "laji": "Puolustusasema"
+      }
+    },
+    "viabundus": {
+      "road": {
+        "canal": "Kanaali",
+        "coast": "Rannikko",
+        "ferry": "Lautta",
+        "land": "Maantie",
+        "river": "Joki",
+        "winter": "Talvitie"
       }
     },
     "museovirasto": {
