@@ -21,13 +21,25 @@ export const Field: React.FC<Props> = ({
   }
   return (
     <Form.Group as={Row} controlId={label}>
-      <Form.Label column xs="4" sm="3" className="fw-bold">
+      <Form.Label
+        column
+        xs={{ span: suffixColum ? 11 : 12, order: 1 }}
+        sm={{ span: 3, order: 1 }}
+        className="fw-bold"
+      >
         {label}
       </Form.Label>
-      <Col xs={suffixColum ? "7" : "8"} sm={suffixColum ? "8" : "9"}>
+      <Col
+        xs={{ span: 12, order: 3 }}
+        sm={{ span: suffixColum ? 8 : 9, order: 2 }}
+      >
         <div className="form-control-plaintext">{children ?? trimmedValue}</div>
       </Col>
-      {suffixColum && <Col xs="1">{suffixColum}</Col>}
+      {suffixColum && (
+        <Col xs={{ span: 1, order: 2 }} sm={{ span: 1, order: 3 }}>
+          {suffixColum}
+        </Col>
+      )}
     </Form.Group>
   )
 }
