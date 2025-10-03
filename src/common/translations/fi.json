@@ -222,7 +222,10 @@
         "rajauksenTyyppi": "Rajauksen tyyppi"
       },
       "downloadGeometry": "Lataa GeoJSON paikkatieto",
-      "muinaisjäännökset": "Muinaisjäännökset"
+      "muinaisjäännökset": "Muinaisjäännökset",
+      "lähteet": "Lähteet",
+      "yleisetLähteet": "Yleiset lähteet",
+      "markkinapäivät": "Markkinapäivät"
     },
     "3d": {
       "title": "Kohteen 3D-mallit",
@@ -372,9 +375,20 @@
       }
     },
     "viabundus": {
+      "place": {
+        "settlement": "Asuttu paikka",
+        "town": "Kaupunki",
+        "fair": "Markkinat",
+        "toll": "Tulli",
+        "bridge": "Silta",
+        "stable": "Talli",
+        "ferry": "Lautta",
+        "harbour": "Satama",
+        "lock": "Sulku"
+      },
       "road": {
         "canal": "Kanaali",
-        "coast": "Rannikko",
+        "coast": "Kulkukelpoinen vesiväylä",
         "ferry": "Lautta",
         "land": "Maantie",
         "river": "Joki",

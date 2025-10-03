@@ -20,13 +20,16 @@ const features = records
     const lon = parseFloat(row.longitude)
     if (isNaN(lat) || isNaN(lon)) return null
 
-    // Decode HTML entities & normalize "null" -> null
     for (const key of Object.keys(row)) {
       let val = row[key]
       if (typeof val === "string") {
         if (val.toLowerCase() === "null") {
-          row[key] = null
+          row[key] = undefined
+        } else if (val === "y") {
+          // Convert string to boolean
+          row[key] = true
         } else {
+          // Decode HTML entities & normalize "null" -> null
           row[key] = he.decode(val)
         }
       }
@@ -38,7 +41,15 @@ const features = records
         type: "Point",
         coordinates: [lon, lat] // GeoJSON expects [lon, lat]
       },
-      properties: row
+      properties: {
+        ...row,
+        type: "place",
+        id: parseInt(row.id),
+        latitude: undefined,
+        longitude: undefined,
+        links: undefined,
+        zoomlevel: undefined
+      }
     }
   })
   .filter(Boolean)

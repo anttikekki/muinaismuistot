@@ -94,9 +94,9 @@ for (const feature of geojson.features) {
       continue
     }
     if (pertainsto === "node") {
-      feature.properties.literature = refs
+      feature.properties.Node_Literature = refs
     } else {
-      const propName = `${pertainsto}Literature`
+      const propName = `${pertainsto.charAt(0).toUpperCase()}${pertainsto.slice(1)}_Literature`
       feature.properties[propName] = refs
     }
   }

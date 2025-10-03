@@ -40,22 +40,33 @@ for (const fair of fairs) {
   const nodeId = fair.nodesid
   if (!nodeId) continue
 
-  const fairObj = { ...fair }
+  const fairObj = {
+    ...fair,
+    id: parseInt(fair.id),
+    nodesid: parseInt(fair.nodesid)
+  }
 
   // Decode HTML entities in all string fields
   for (const key of Object.keys(fairObj)) {
     if (typeof fairObj[key] === "string") {
       fairObj[key] = he.decode(fairObj[key])
       if (fairObj[key].toLowerCase() === "null") {
-        fairObj[key] = null
+        fairObj[key] = undefined
       }
     }
   }
 
-  // Wrap description into { en, fi }
-  const enDesc = fairObj.description
-  const fiDesc = fiDescriptions[fairObj.id] || null
-  fairObj.description = { en: enDesc, fi: fiDesc }
+  // Add fi descriptions
+  fairObj.descriptionEN = fairObj.description
+  fairObj.description = undefined
+  fairObj.descriptionFI = fiDescriptions[fairObj.id]
+
+  // Reset empty fields
+  for (const key of Object.keys(fairObj)) {
+    if (fairObj[key] === null || fairObj[key] === "") {
+      fairObj[key] = undefined
+    }
+  }
 
   if (!fairsByNode[nodeId]) {
     fairsByNode[nodeId] = []

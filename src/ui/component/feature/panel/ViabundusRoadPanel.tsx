@@ -18,14 +18,20 @@ export const ViabundusRoadPanel: React.FC<Props> = ({
   ...commonProps
 }) => {
   const { t } = useTranslation()
+  const { fromyear, toyear, descriptionFI } = feature.properties
+
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
       <Form>
-        <Field
-          label={t(`details.field.name`)}
-          value={t(`data.viabundus.road.${feature.properties.roadType}`)}
-          suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
-        />
+        {(fromyear || toyear) && (
+          <Field
+            label={t(`details.field.dating`)}
+            value={`${fromyear ?? ""} - ${toyear ?? ""}`}
+            suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
+          />
+        )}
+
+        <Field label={t(`details.field.description`)} value={descriptionFI} />
       </Form>
     </MapFeatureCollapsePanel>
   )

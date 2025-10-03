@@ -8,80 +8,6 @@ export enum ViabundusFeatureType {
   townOutline = "townOutline"
 }
 
-type Description =
-  | string
-  | undefined
-  | { fi: string | undefined; en: string | undefined }
-
-export enum ViabundusSubFeatureType {
-  settlement = "settlement",
-  town = "town",
-  fair = "fair",
-  toll = "toll",
-  bridge = "bridge",
-  stable = "stable",
-  ferry = "ferry",
-  harbour = "harbour",
-  lock = "lock"
-}
-
-type ViabundusSubFeatureBase = {
-  from: string | undefined
-  to: string | undefined
-  description: Description
-  literature: string[] | undefined
-}
-
-export type ViabundusSubFeatureSettlement = ViabundusSubFeatureBase & {
-  type: ViabundusSubFeatureType.settlement
-}
-
-export type ViabundusSubFeatureTown = ViabundusSubFeatureBase & {
-  type: ViabundusSubFeatureType.town
-}
-
-export type ViabundusSubFeatureFair = ViabundusSubFeatureBase & {
-  type: ViabundusSubFeatureType.fair
-  gregorianCalendar: string | undefined
-}
-
-export type ViabundusSubFeatureToll = ViabundusSubFeatureBase & {
-  type: ViabundusSubFeatureType.toll
-  owner: string | undefined
-}
-
-export type ViabundusSubFeatureBridge = ViabundusSubFeatureBase & {
-  type: ViabundusSubFeatureType.bridge
-}
-
-export type ViabundusSubFeatureStable = ViabundusSubFeatureBase & {
-  type: ViabundusSubFeatureType.stable
-  duration: string | undefined
-}
-
-export type ViabundusSubFeatureFerry = ViabundusSubFeatureBase & {
-  type: ViabundusSubFeatureType.ferry
-}
-
-export type ViabundusSubFeatureHarbour = ViabundusSubFeatureBase & {
-  type: ViabundusSubFeatureType.harbour
-}
-
-export type ViabundusSubFeatureLock = ViabundusSubFeatureBase & {
-  type: ViabundusSubFeatureType.lock
-}
-
-export type ViabundusSubFeature =
-  | ViabundusSubFeatureSettlement
-  | ViabundusSubFeatureTown
-  | ViabundusSubFeatureFair
-  | ViabundusSubFeatureToll
-  | ViabundusSubFeatureBridge
-  | ViabundusSubFeatureStable
-  | ViabundusSubFeatureFerry
-  | ViabundusSubFeatureHarbour
-  | ViabundusSubFeatureLock
-
 export type ViabunduPopulation = {
   year: number
   /**
@@ -92,13 +18,74 @@ export type ViabunduPopulation = {
   inhabitants: number
 }
 
+export type ViabundusFair = {
+  id: number
+  nodesid: number
+  name: string
+  fromyear: string | undefined
+  toyear: string | undefined
+  category: "local" | "regional"
+  date: "fixed" | "movable"
+  fixedday: string | undefined
+  fixedmonth: string | undefined
+  descriptionEN: string | undefined
+  descriptionFI: string | undefined
+}
+
 export type ViabundusPlaceFeatureProperties = {
   type: ViabundusFeatureType.place
   id: number
   name: string
-  subfeatures: ViabundusSubFeature[]
-  literature: string[] | undefined
+  Node_Literature: string[] | undefined
   population: ViabunduPopulation[] | undefined
+  Gregorian_Calendar: string | undefined
+
+  Is_Settlement: true | undefined
+  Settlement_From: string | undefined
+  Settlement_To: string | undefined
+  Settlement_DescriptionEN: string | undefined
+  Settlement_DescriptionFI: string | undefined
+
+  Is_Town: true | undefined
+  Town_From: string | undefined
+  Town_To: string | undefined
+  Town_DescriptionEN: string | undefined
+  Town_DescriptionFI: string | undefined
+
+  Is_Bridge: true | undefined
+  Bridge_From: string | undefined
+  Bridge_To: string | undefined
+  Bridge_DescriptionEN: string | undefined
+  Bridge_DescriptionFI: string | undefined
+  Bridge_Literature: string[] | undefined
+
+  Is_Fair: true | undefined
+  Fair_From: string | undefined
+  Fair_To: string | undefined
+  Fair_DescriptionEN: string | undefined
+  Fair_DescriptionFI: string | undefined
+  Fair_Literature: string[] | undefined
+  fairs: ViabundusFair[] | undefined
+
+  Is_Toll: true | undefined
+  Toll_From: string | undefined
+  Toll_To: string | undefined
+  Toll_DescriptionEN: string | undefined
+  Toll_DescriptionFI: string | undefined
+  Toll_Literature: string[] | undefined
+
+  Is_Ferry: true | undefined
+  Ferry_From: string | undefined
+  Ferry_To: string | undefined
+  Ferry_DescriptionEN: string | undefined
+  Ferry_DescriptionFI: string | undefined
+  Ferry_Literature: string[] | undefined
+
+  Is_Harbour: true | undefined
+  Harbour_From: string | undefined
+  Harbour_To: string | undefined
+  Harbour_DescriptionEN: string | undefined
+  Harbour_DescriptionFI: string | undefined
 }
 
 export enum ViabundusRoadType {
@@ -117,7 +104,8 @@ export type ViabundusRoadFeatureProperties = {
   certainty: 1 | 2 | 3
   fromyear: number | undefined
   toyear: number | undefined
-  descriptions: Description
+  descriptionFI: string | undefined
+  descriptionEN: string | undefined
 }
 
 export type ViabundusTownOutlineFeatureProperties = {
@@ -195,5 +183,5 @@ export const getViabundusLayerName = (
   if (isViabundusTownOutlineFeature(feature)) {
     return ViabundusLayer.TownOutlines
   }
-  throw new Error(`Unknown Visbundus feature: ${JSON.stringify(feature)}`)
+  throw new Error(`Unknown Viabundus feature: ${JSON.stringify(feature)}`)
 }

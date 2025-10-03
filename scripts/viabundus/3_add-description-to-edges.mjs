@@ -47,31 +47,23 @@ for (const row of recordsEn) {
 // --- Step 4: Add descriptions to roads GeoJSON properties
 for (const feature of geojson.features) {
   const descId = feature.properties.descriptionid
-
-  const fi = descId && descFi[descId] ? descFi[descId] : null
-  const en = descId && descEn[descId] ? descEn[descId] : null
-
-  if (fi || en) {
-    feature.properties.descriptions = { fi, en }
-  }
+  feature.properties.descriptionFI = descFi[descId]
+  feature.properties.descriptionEN = descEn[descId]
 
   // Drop uninteresting field
   delete feature.properties.descriptionid
   delete feature.properties.zoomlevel
 
-  // Add rename original type to edgeTypec and add common type field
+  // Add rename original type to roadType and add common type field
   feature.properties.roadType = feature.properties.type
   feature.properties.type = "road"
 
   // Remove empty fields
   if (!feature.properties.fromyear) {
-    delete feature.properties.fromyear
+    feature.properties.fromyear = undefined
   }
   if (!feature.properties.toyear) {
-    delete feature.properties.toyear
-  }
-  if (!feature.properties.descriptions) {
-    delete feature.properties.descriptions
+    feature.properties.toyear = undefined
   }
 }
 

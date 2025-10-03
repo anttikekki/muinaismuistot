@@ -14,7 +14,7 @@ const DESCRIPTIONS_CSV = path.join(
 // mapping from CSV pertainsto → GeoJSON description field
 const PERTAINSTO_MAP = {
   settlement: "Settlement_Description",
-  town: "Town_Description",
+  city: "Town_Description",
   fair: "Fair_Description",
   toll: "Toll_Description",
   bridge: "Bridge_Description",
@@ -58,18 +58,14 @@ for (const feature of geojson.features) {
 
   for (const { pertainsto, description } of updates) {
     const field = PERTAINSTO_MAP[pertainsto]
-    const flag = `Is_${pertainsto.charAt(0).toUpperCase()}${pertainsto.slice(1)}`
 
-    if (field && props[flag] === "y") {
-      const existing = props[field]
+    if (field) {
+      // Add language to original description field name
+      props[`${field}EN`] = props[field]
+      props[field] = undefined
 
-      // Wrap existing + new into { en, fi }
-      if (existing && typeof existing === "string") {
-        props[field] = { en: existing, fi: description }
-      } else if (existing && typeof existing === "object") {
-        props[field].fi = description // already multilingual
-      } else {
-        props[field] = { en: null, fi: description }
+      if (description) {
+        props[`${field}FI`] = description
       }
     }
   }
