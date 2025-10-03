@@ -6,9 +6,13 @@ import VectorLayer from "ol/layer/Vector"
 import VectorSource from "ol/source/Vector"
 import CircleStyle from "ol/style/Circle"
 import Fill from "ol/style/Fill"
+import Icon from "ol/style/Icon"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
-import { ViabundusFeatureProperties } from "../../common/viabundus.types"
+import {
+  ViabundusFeatureProperties,
+  ViabundusRoadType
+} from "../../common/viabundus.types"
 import { Settings } from "../../store/storeTypes"
 
 export default class ViabundusLayer {
@@ -73,24 +77,64 @@ export default class ViabundusLayer {
     this.layer
 }
 
-// Line (edges)
-const lineStyle = new Style({
+const road = new Style({
   stroke: new Stroke({
-    color: "#d73027", // red
+    color: "#d73027",
     width: 3
   })
 })
 
-// Point (nodes)
-const pointStyle = new Style({
-  image: new CircleStyle({
-    radius: 6,
-    fill: new Fill({ color: "#4575b4" }), // blue
-    stroke: new Stroke({ color: "#ffffff", width: 2 }) // white border
+const winterRoad = new Style({
+  stroke: new Stroke({
+    color: "#d73027",
+    width: 3,
+    lineDash: [15, 5]
   })
 })
 
-// Polygon (towns)
+const water = new Style({
+  stroke: new Stroke({
+    color: "blue",
+    width: 3
+  })
+})
+
+const defaultPointStyle = new Style({
+  image: new CircleStyle({
+    radius: 6,
+    fill: new Fill({ color: "#d73027" })
+  })
+})
+
+const town = new Style({
+  image: new Icon({
+    src: "images/viabundus-kaupunki.png",
+    anchor: [0.5, 1.0]
+  })
+})
+
+const settlement = new Style({
+  image: new Icon({
+    src: "images/viabundus-asuttu-paikka.png",
+    anchor: [0.5, 1.0]
+  })
+})
+
+const harbour = new Style({
+  image: new Icon({
+    src: "images/viabundus-satama.png",
+    anchor: [0.5, 1.0]
+  })
+})
+
+const bridge = new Style({
+  image: new Icon({
+    src: "images/viabundus-silta.png",
+    anchor: [0.5, 1.0]
+  })
+})
+
+// Polygon (town outlines)
 const polygonStyle = new Style({
   stroke: new Stroke({
     color: "#000000", // black outline
@@ -101,16 +145,38 @@ const polygonStyle = new Style({
   })
 })
 
-// style function
 function styleFunction(feature: FeatureLike): Style | undefined {
   const geomType = feature.getGeometry()?.getType()
   switch (geomType) {
     case "LineString":
-    case "MultiLineString":
-      return lineStyle
+    case "MultiLineString": {
+      const { roadType } = feature.getProperties()
+      switch (roadType) {
+        case ViabundusRoadType.land:
+          return road
+        case ViabundusRoadType.winter:
+          return winterRoad
+        case ViabundusRoadType.coast:
+          return water
+        default:
+          return road
+      }
+    }
     case "Point":
-    case "MultiPoint":
-      return pointStyle
+    case "MultiPoint": {
+      const { Is_Town, Is_Settlement, Is_Bridge, Is_Harbour } =
+        feature.getProperties()
+      if (Is_Town) {
+        return town
+      } else if (Is_Settlement) {
+        return settlement
+      } else if (Is_Bridge) {
+        return bridge
+      } else if (Is_Harbour) {
+        return harbour
+      }
+      return defaultPointStyle
+    }
     case "Polygon":
     case "MultiPolygon":
       return polygonStyle
