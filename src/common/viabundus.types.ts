@@ -1,5 +1,4 @@
 import { Feature, MultiLineString, Point } from "geojson"
-import { ViabundusLayer } from "./layers.types"
 import { MapFeature } from "./mapFeature.types"
 
 export enum ViabundusFeatureType {
@@ -22,8 +21,8 @@ export type ViabundusFair = {
   id: number
   nodesid: number
   name: string
-  fromyear: string | undefined
-  toyear: string | undefined
+  fromyear: number | undefined
+  toyear: number | undefined
   category: "local" | "regional"
   date: "fixed" | "movable"
   fixedday: string | undefined
@@ -41,49 +40,49 @@ export type ViabundusPlaceFeatureProperties = {
   Gregorian_Calendar: string | undefined
 
   Is_Settlement: true | undefined
-  Settlement_From: string | undefined
-  Settlement_To: string | undefined
+  Settlement_From: number | undefined
+  Settlement_To: number | undefined
   Settlement_DescriptionEN: string | undefined
   Settlement_DescriptionFI: string | undefined
 
   Is_Town: true | undefined
-  Town_From: string | undefined
-  Town_To: string | undefined
+  Town_From: number | undefined
+  Town_To: number | undefined
   Town_DescriptionEN: string | undefined
   Town_DescriptionFI: string | undefined
 
   Is_Bridge: true | undefined
-  Bridge_From: string | undefined
-  Bridge_To: string | undefined
+  Bridge_From: number | undefined
+  Bridge_To: number | undefined
   Bridge_DescriptionEN: string | undefined
   Bridge_DescriptionFI: string | undefined
   Bridge_Literature: string[] | undefined
 
   Is_Fair: true | undefined
-  Fair_From: string | undefined
-  Fair_To: string | undefined
+  Fair_From: number | undefined
+  Fair_To: number | undefined
   Fair_DescriptionEN: string | undefined
   Fair_DescriptionFI: string | undefined
   Fair_Literature: string[] | undefined
   fairs: ViabundusFair[] | undefined
 
   Is_Toll: true | undefined
-  Toll_From: string | undefined
-  Toll_To: string | undefined
+  Toll_From: number | undefined
+  Toll_To: number | undefined
   Toll_DescriptionEN: string | undefined
   Toll_DescriptionFI: string | undefined
   Toll_Literature: string[] | undefined
 
   Is_Ferry: true | undefined
-  Ferry_From: string | undefined
-  Ferry_To: string | undefined
+  Ferry_From: number | undefined
+  Ferry_To: number | undefined
   Ferry_DescriptionEN: string | undefined
   Ferry_DescriptionFI: string | undefined
   Ferry_Literature: string[] | undefined
 
   Is_Harbour: true | undefined
-  Harbour_From: string | undefined
-  Harbour_To: string | undefined
+  Harbour_From: number | undefined
+  Harbour_To: number | undefined
   Harbour_DescriptionEN: string | undefined
   Harbour_DescriptionFI: string | undefined
 }
@@ -172,18 +171,3 @@ export const isViabundusFeature = (
   (isViabundusPlaceFeature(feature) ||
     isViabundusRoadFeature(feature) ||
     isViabundusTownOutlineFeature(feature))
-
-export const getViabundusLayerName = (
-  feature: ViabundusFeature
-): ViabundusLayer => {
-  if (isViabundusPlaceFeature(feature)) {
-    return ViabundusLayer.Places
-  }
-  if (isViabundusRoadFeature(feature)) {
-    return ViabundusLayer.Roads
-  }
-  if (isViabundusTownOutlineFeature(feature)) {
-    return ViabundusLayer.TownOutlines
-  }
-  throw new Error(`Unknown Viabundus feature: ${JSON.stringify(feature)}`)
-}

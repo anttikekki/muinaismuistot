@@ -25,3 +25,16 @@ export const updateViabundusLayerEnabled = (
     }
   }
 }
+
+export const updateViabundusYear = (
+  settings: Settings,
+  selectedYear: number
+): Settings => {
+  return {
+    ...settings,
+    viabundus: {
+      ...settings.viabundus,
+      selectedYear
+    }
+  }
+}

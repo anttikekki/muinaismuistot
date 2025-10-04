@@ -163,6 +163,7 @@
     },
     "viabundus": {
       "title": "Viabundus-projektin aineistot",
+      "year": "Vuosi ({{selectedYear}})",
       "licence": "© Viabundus-projekti (<a href='https://creativecommons.org/licenses/by-sa/4.0/deed.fi'>CC BY-SA 4.0</a>)"
     },
     "3Dmodels": {

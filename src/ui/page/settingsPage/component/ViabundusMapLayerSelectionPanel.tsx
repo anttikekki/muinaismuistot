@@ -11,7 +11,7 @@ import { LayerTransparencyInput } from "./LayerTransparencyInput"
 export const ViabundusMapLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
-  const { enabled, opacity } = useSelector(
+  const { enabled, opacity, selectedYear } = useSelector(
     (settings: Settings) => settings.viabundus
   )
 
@@ -22,6 +22,16 @@ export const ViabundusMapLayerSelectionPanel: React.FC = () => {
         layerGroup: LayerGroup.Viabundus,
         enabled
       }),
+    [dispatch]
+  )
+  const onYearChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const year = Number(e.target.value)
+      dispatch({
+        type: ActionTypeEnum.SELECT_VIABUNDUS_YEAR,
+        year
+      })
+    },
     [dispatch]
   )
 
@@ -78,6 +88,20 @@ export const ViabundusMapLayerSelectionPanel: React.FC = () => {
               label={t(`data.viabundus.road.coast`)}
             />
           </Form.Group>
+
+          <h6>
+            <Trans
+              i18nKey={`settings.viabundus.year`}
+              values={{ selectedYear }}
+            />
+          </h6>
+          <Form.Range
+            min="1350"
+            max="1650"
+            disabled={!enabled}
+            onChange={onYearChange}
+            value={selectedYear}
+          />
 
           <LayerTransparencyInput
             opacity={opacity}

@@ -85,9 +85,9 @@ export default class MaisemanMuistiLayer {
 
   public updateLayerVisibility = (settings: Settings) => {
     const {
-      maisemanMuisti: { selectedLayers, enabled }
+      maisemanMuisti: { enabled }
     } = settings
-    this.layer.setVisible(enabled && selectedLayers.length > 0)
+    this.layer.setVisible(enabled)
   }
 
   public getFeaturesForFeatureRegisterId = (
@@ -105,10 +105,6 @@ export default class MaisemanMuistiLayer {
         getFeatureID(feature)
       )
     }
-  }
-
-  public selectedFeatureLayersChanged = (settings: Settings) => {
-    this.layer?.setVisible(settings.maisemanMuisti.selectedLayers.length > 0)
   }
 
   public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> =>

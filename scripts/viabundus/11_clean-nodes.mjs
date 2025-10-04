@@ -7,11 +7,11 @@ const OUTPUT_GEOJSON = path.join("results", "11_Viabundus-nodes.geojson")
 // --- Step 1: Load GeoJSON
 const geojson = JSON.parse(fs.readFileSync(INPUT_GEOJSON, "utf8"))
 
-// --- Step 2: Remove empty nodes and change null values to undefined so that they are removed in JSON stringify
 const pruned = {
   ...geojson,
   features: geojson.features
     .filter((feature) => {
+      // Remove empty nodes
       const {
         Is_Town,
         Is_Settlement,
@@ -32,12 +32,18 @@ const pruned = {
       )
     })
     .map((feature) => {
-      for (const key of Object.keys(feature.properties)) {
-        if (
-          feature.properties[key] === null ||
-          feature.properties[key] === ""
-        ) {
-          feature.properties[key] = undefined
+      const { properties } = feature
+      for (const key of Object.keys(properties)) {
+        const val = properties[key]
+
+        // change null values to undefined so that they are removed in JSON stringify
+        if (val === null || val === "") {
+          properties[key] = undefined
+        }
+
+        // Convert string years to number
+        if (val && (key.endsWith("_From") || key.endsWith("_To"))) {
+          properties[key] = parseInt(val)
         }
       }
       return feature

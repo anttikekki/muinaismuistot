@@ -27,13 +27,11 @@ export const LayerTransparencyInput: React.FC<Props> = ({
         transparency = 100
       }
       const opacity = Number((1 - transparency / 100).toFixed(2))
-      dispatch(
-        dispatch({
-          type: ActionTypeEnum.CHANGE_LAYER_OPACITY,
-          opacity,
-          layerGroup
-        })
-      )
+      dispatch({
+        type: ActionTypeEnum.CHANGE_LAYER_OPACITY,
+        opacity,
+        layerGroup
+      })
     },
     [dispatch, transparency, layerGroup]
   )

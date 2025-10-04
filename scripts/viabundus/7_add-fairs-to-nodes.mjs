@@ -56,15 +56,22 @@ for (const fair of fairs) {
     }
   }
 
-  // Add fi descriptions
+  // Add fi and en descriptions
   fairObj.descriptionEN = fairObj.description
   fairObj.description = undefined
   fairObj.descriptionFI = fiDescriptions[fairObj.id]
 
-  // Reset empty fields
   for (const key of Object.keys(fairObj)) {
-    if (fairObj[key] === null || fairObj[key] === "") {
+    const val = fairObj[key]
+
+    // Reset empty fields
+    if (val === null || val === "") {
       fairObj[key] = undefined
+    }
+
+    // Convert string years to number
+    if (val && (key === "fromyear" || key === "toyear")) {
+      fairObj[key] = parseInt(val)
     }
   }
 

@@ -216,14 +216,27 @@ export const getFeatureTypeName = (
       )}`
     }
     if (isViabundusPlaceFeature(feature)) {
-      const { Is_Town, Is_Settlement, Is_Bridge, Is_Harbour } =
-        feature.properties
+      const {
+        Is_Town,
+        Is_Settlement,
+        Is_Bridge,
+        Is_Fair,
+        Is_Toll,
+        Is_Ferry,
+        Is_Harbour
+      } = feature.properties
       if (Is_Town) {
         return `${t(`data.featureType.viabundus`)}, ${t("data.viabundus.place.town").toLowerCase()}`
       } else if (Is_Settlement) {
         return `${t(`data.featureType.viabundus`)}, ${t("data.viabundus.place.settlement").toLowerCase()}`
       } else if (Is_Bridge) {
         return `${t(`data.featureType.viabundus`)}, ${t("data.viabundus.place.bridge").toLowerCase()}`
+      } else if (Is_Fair) {
+        return `${t(`data.featureType.viabundus`)}, ${t("data.viabundus.place.fair").toLowerCase()}`
+      } else if (Is_Ferry) {
+        return `${t(`data.featureType.viabundus`)}, ${t("data.viabundus.place.ferry").toLowerCase()}`
+      } else if (Is_Toll) {
+        return `${t(`data.featureType.viabundus`)}, ${t("data.viabundus.place.toll").toLowerCase()}`
       } else if (Is_Harbour) {
         return `${t(`data.featureType.viabundus`)}, ${t("data.viabundus.place.harbour").toLowerCase()}`
       }
@@ -333,14 +346,27 @@ export const getFeatureTypeIconURL = (feature: MapFeature): string => {
       return getTypeIconURL("maiseman-muisti", has3dModels)
     }
     if (isViabundusPlaceFeature(feature)) {
-      const { Is_Town, Is_Settlement, Is_Bridge, Is_Harbour } =
-        feature.properties
+      const {
+        Is_Town,
+        Is_Settlement,
+        Is_Bridge,
+        Is_Ferry,
+        Is_Fair,
+        Is_Toll,
+        Is_Harbour
+      } = feature.properties
       if (Is_Town) {
         return getTypeIconURL("viabundus-kaupunki")
       } else if (Is_Settlement) {
         return getTypeIconURL("viabundus-asuttu-paikka")
       } else if (Is_Bridge) {
         return getTypeIconURL("viabundus-silta")
+      } else if (Is_Ferry) {
+        return getTypeIconURL("viabundus-lossi")
+      } else if (Is_Fair) {
+        return getTypeIconURL("viabundus-markkinat")
+      } else if (Is_Toll) {
+        return getTypeIconURL("viabundus-tulli")
       } else if (Is_Harbour) {
         return getTypeIconURL("viabundus-satama")
       }
@@ -424,12 +450,8 @@ export const getLayerIconURLs = (layer: FeatureLayer): string[] => {
       return ["images/maalinnoitus-teksti-viite.png"]
     case HelsinkiLayer.Maalinnoitus_yksikot:
       return ["images/maalinnoitus-yksikko.png"]
-    case ViabundusLayer.Places:
-      return ["images/viabundus-place.png"]
-    case ViabundusLayer.Roads:
-      return ["images/viabundus-road.png"]
-    case ViabundusLayer.TownOutlines:
-      return ["images/viabundus-town-outline.png"]
+    case ViabundusLayer.Viabundus:
+      return ["images/viabundus-kaupunki.png"]
   }
 }
 
@@ -476,10 +498,10 @@ export const getFeatureID = (feature: MapFeature): string => {
       return String(feature.properties.id)
     }
     if (isViabundusPlaceFeature(feature) || isViabundusRoadFeature(feature)) {
-      return String(feature.properties.id)
+      return `${feature.properties.type}-${feature.properties.id}`
     }
     if (isViabundusTownOutlineFeature(feature)) {
-      return String(feature.properties.nodesid)
+      return `${feature.properties.type}-${feature.properties.nodesid}`
     }
   } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {

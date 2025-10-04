@@ -9,10 +9,7 @@ import {
   MMLVanhatKartatLayer,
   MaannousuInfoLayer,
   MaannousuInfoLayerIndex,
-  MaisemanMuistiLayer,
-  ModelLayer,
-  MuseovirastoLayer,
-  ViabundusLayer
+  MuseovirastoLayer
 } from "../common/layers.types"
 import { MapFeature } from "../common/mapFeature.types"
 import {
@@ -93,21 +90,19 @@ export interface Settings {
     enabled: boolean
   }
   models: {
-    selectedLayers: ModelLayer[]
     url: {
       geojson: string
     }
     enabled: boolean
   }
   maisemanMuisti: {
-    selectedLayers: MaisemanMuistiLayer[]
     url: {
       geojson: string
     }
     enabled: boolean
   }
   viabundus: {
-    selectedLayers: Array<ViabundusLayer>
+    selectedYear: number
     url: {
       geojson: string
     }

@@ -13,7 +13,7 @@ import {
 } from "../../../common/maalinnoitusHelsinki.types"
 import { isMaisemanMuistiFeature } from "../../../common/maisemanMuisti.types"
 import {
-  getFeatureLayerName,
+  getFeatureLayer,
   isGeoJSONFeature,
   MapFeature
 } from "../../../common/mapFeature.types"
@@ -88,7 +88,7 @@ export const FeatureList: React.FC<FeatureListProps> = ({
   return (
     <Accordion defaultActiveKey={openPanelId} activeKey={openPanelId}>
       {features.map((feature, i) => {
-        const panelId = `${getFeatureLayerName(feature)}-${getFeatureID(
+        const panelId = `${getFeatureLayer(feature)}-${getFeatureID(
           feature
         )}-${i}`
         const params = {

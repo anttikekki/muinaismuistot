@@ -34,7 +34,8 @@ export enum ActionTypeEnum {
   SHOW_LOADING_ANIMATION = "SHOW_LOADING_ANIMATION",
   SHOW_PAGE = "SHOW_PAGE",
   ZOOM = "ZOOM",
-  MOVE_MAANNOUSU_LAYER = "MOVE_MAANNOUSU_LAYER"
+  MOVE_MAANNOUSU_LAYER = "MOVE_MAANNOUSU_LAYER",
+  SELECT_VIABUNDUS_YEAR = "SELECT_VIABUNDUS_YEAR"
 }
 
 export interface ZoomAction {
@@ -173,6 +174,11 @@ export interface MoveMaannousuLayerAction {
   placement: MaannousuInfoLayerIndex
 }
 
+export interface SelectViabundusYearAction {
+  type: ActionTypeEnum.SELECT_VIABUNDUS_YEAR
+  year: number
+}
+
 export type ActionTypes =
   | CenterMapToCurrentPositionAction
   | SetMapLocatoinAndShowSelectedMarkerAction
@@ -189,3 +195,4 @@ export type ActionTypes =
   | ShowPageAction
   | ZoomAction
   | MoveMaannousuLayerAction
+  | SelectViabundusYearAction

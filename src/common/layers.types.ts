@@ -184,9 +184,7 @@ export enum HelsinkiLayer {
 }
 
 export enum ViabundusLayer {
-  Places = "viabundus-nodes",
-  Roads = "viabundus-edges",
-  TownOutlines = "viabundus-town-outlines"
+  Viabundus = "Viabundus"
 }
 
 export type FeatureLayer =

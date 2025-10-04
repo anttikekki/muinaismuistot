@@ -7,10 +7,7 @@ import {
   MMLVanhatKartatLayer,
   MaannousuInfoLayer,
   MaannousuInfoLayerIndex,
-  MaisemanMuistiLayer,
-  ModelLayer,
-  MuseovirastoLayer,
-  ViabundusLayer
+  MuseovirastoLayer
 } from "../common/layers.types"
 import {
   MuinaisjaannosAjoitus,
@@ -99,21 +96,19 @@ export const initialSettings: Settings = {
     enabled: true
   },
   models: {
-    selectedLayers: Object.values(ModelLayer),
     url: {
       geojson: "./3d/3d.json"
     },
     enabled: true
   },
   maisemanMuisti: {
-    selectedLayers: Object.values(MaisemanMuistiLayer),
     url: {
       geojson: "./maisemanmuisti/maisemanmuisti.json"
     },
     enabled: true
   },
   viabundus: {
-    selectedLayers: Object.values(ViabundusLayer),
+    selectedYear: 1650,
     url: {
       geojson: "./viabundus/Viabundus-finland.geojson"
     },

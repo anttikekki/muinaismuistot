@@ -205,6 +205,11 @@ export default class MuinaismuistotMap {
         }
         case ActionTypeEnum.MOVE_MAANNOUSU_LAYER: {
           this.moveMaannousuLayers(action.placement)
+          break
+        }
+        case ActionTypeEnum.SELECT_VIABUNDUS_YEAR: {
+          this.viabundusLayer.yearChanged(action.year)
+          break
         }
       }
     }
@@ -411,12 +416,6 @@ export default class MuinaismuistotMap {
         break
       case LayerGroup.Helsinki:
         this.helsinkiLayer.selectedFeatureLayersChanged(settings)
-        break
-      case LayerGroup.Models:
-        this.modelsLayer.selectedFeatureLayersChanged(settings)
-        break
-      case LayerGroup.MaisemanMuisti:
-        this.maisemanMuistiLayer.selectedFeatureLayersChanged(settings)
         break
     }
   }
