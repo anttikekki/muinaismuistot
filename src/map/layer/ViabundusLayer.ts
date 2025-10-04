@@ -77,32 +77,35 @@ export default class ViabundusLayer {
     this.layer
 }
 
+const commonColor = "#f40863ff"
+
 const road = new Style({
   stroke: new Stroke({
-    color: "#d73027",
+    color: commonColor,
     width: 3
   })
 })
 
 const winterRoad = new Style({
   stroke: new Stroke({
-    color: "#d73027",
+    color: "#f772a5ff",
     width: 3,
-    lineDash: [15, 5]
+    lineDash: [20, 5]
   })
 })
 
 const water = new Style({
   stroke: new Stroke({
-    color: "blue",
-    width: 3
+    color: "#3861f6ff",
+    width: 3,
+    lineDash: [20, 5]
   })
 })
 
 const defaultPointStyle = new Style({
   image: new CircleStyle({
     radius: 6,
-    fill: new Fill({ color: "#d73027" })
+    fill: new Fill({ color: commonColor })
   })
 })
 
@@ -137,11 +140,11 @@ const bridge = new Style({
 // Polygon (town outlines)
 const polygonStyle = new Style({
   stroke: new Stroke({
-    color: "#000000", // black outline
+    color: commonColor,
     width: 1.5
   }),
   fill: new Fill({
-    color: "rgba(166, 217, 106, 0.5)" // greenish fill with transparency
+    color: "rgba(244, 8, 99, 0.5)"
   })
 })
 
