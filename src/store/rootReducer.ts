@@ -44,6 +44,10 @@ import {
   updateSelectMuinaisjaannosDatings,
   updateSelectMuinaisjaannosTypes
 } from "./reducers/museovirastoLayer"
+import {
+  updateViabundusLayerEnabled,
+  updateViabundusLayerOpacity
+} from "./reducers/viabundusLayer"
 import { PageId, Settings } from "./storeTypes"
 
 export const updateLanguage = (
@@ -150,6 +154,8 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
           return updateAhvenanmaaLayerOpacity(state, action.opacity)
         case LayerGroup.Helsinki:
           return updateHelsinkiLayerOpacity(state, action.opacity)
+        case LayerGroup.Viabundus:
+          return updateViabundusLayerOpacity(state, action.opacity)
         default:
           return state
       }
@@ -170,6 +176,8 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
           return updateAhvenanmaaLayerEnabled(state, action.enabled)
         case LayerGroup.Helsinki:
           return updateHelsinkiLayerEnabled(state, action.enabled)
+        case LayerGroup.Viabundus:
+          return updateViabundusLayerEnabled(state, action.enabled)
         case LayerGroup.Models:
           return updateModelLayerEnabled(state, action.enabled)
         case LayerGroup.MaisemanMuisti:

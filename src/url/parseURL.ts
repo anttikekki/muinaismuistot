@@ -52,6 +52,10 @@ import {
   updateSelectMuinaisjaannosDatings,
   updateSelectMuinaisjaannosTypes
 } from "../store/reducers/museovirastoLayer"
+import {
+  updateViabundusLayerEnabled,
+  updateViabundusLayerOpacity
+} from "../store/reducers/viabundusLayer"
 import { updateLanguage } from "../store/rootReducer"
 import { Settings } from "../store/storeTypes"
 import { EMPTY_SELECTION, URLSettings } from "./types"
@@ -113,6 +117,8 @@ export const getSettingsFromURL = (): Settings => {
     helsinkiLayer,
     helsinkiOpacity,
     helsinkiEnabled,
+    viabundusOpacity,
+    viabundusEnabled,
     modelsEnabled,
     maisemanMuistiEnabled
   } = parseURLParams() as URLSettings
@@ -290,6 +296,16 @@ export const getSettingsFromURL = (): Settings => {
   // Helsinki enabled
   if (helsinkiEnabled !== undefined) {
     newSettings = updateHelsinkiLayerEnabled(newSettings, helsinkiEnabled)
+  }
+
+  // Viabundus opacity
+  if (viabundusOpacity !== undefined) {
+    newSettings = updateViabundusLayerOpacity(newSettings, viabundusOpacity)
+  }
+
+  // Viabundus enabled
+  if (viabundusEnabled !== undefined) {
+    newSettings = updateViabundusLayerEnabled(newSettings, viabundusEnabled)
   }
 
   // 3D models enabled

@@ -159,6 +159,10 @@
       "title": "Helsingin kaupungin aineistot",
       "licence": "© Helsingin kaupunki (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)"
     },
+    "viabundus": {
+      "title": "Viabundus-projektin aineistot",
+      "licence": "© Viabundus-projekti (<a href='https://creativecommons.org/licenses/by-sa/4.0/deed.fi'>CC BY-SA 4.0</a>)"
+    },
     "3Dmodels": {
       "title": "3D-mallit"
     },
@@ -257,7 +261,8 @@
         "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset",
         "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset",
         "muinaisrannat": "Muinaisrannat",
-        "MaannousuInfo": "Maannousu.info maannousukartta"
+        "MaannousuInfo": "Maannousu.info maannousukartta",
+        "viabundus": "Viabundus-projekti"
       },
       "nameWithLink": {
         "Muinaisjäännösrekisteri": "Muinaisjäännösrekisterit (<a href='https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx' target='_blank'>lisätietoa</a>)",

@@ -418,9 +418,6 @@ export default class MuinaismuistotMap {
       case LayerGroup.MaisemanMuisti:
         this.maisemanMuistiLayer.selectedFeatureLayersChanged(settings)
         break
-      case LayerGroup.Viabundus:
-        this.viabundusLayer.selectedFeatureLayersChanged(settings)
-        break
     }
   }
 
@@ -479,6 +476,9 @@ export default class MuinaismuistotMap {
         break
       case LayerGroup.Helsinki:
         this.helsinkiLayer.opacityChanged(settings)
+        break
+      case LayerGroup.Viabundus:
+        this.viabundusLayer.opacityChanged(settings)
         break
     }
   }

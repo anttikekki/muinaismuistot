@@ -111,6 +111,7 @@ export interface Settings {
     url: {
       geojson: string
     }
+    opacity: number
     enabled: boolean
   }
   gtk: {

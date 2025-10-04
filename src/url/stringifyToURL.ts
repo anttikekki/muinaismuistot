@@ -263,6 +263,22 @@ export const updateSettingsToURL = (
     "helsinkiEnabled"
   )
 
+  // Viabundus opacity
+  state = updateParam(
+    state,
+    initialSettings.viabundus.opacity,
+    currentSettings.viabundus.opacity,
+    "viabundusOpacity"
+  )
+
+  // Viabundus enabled
+  state = updateParam(
+    state,
+    initialSettings.viabundus.enabled,
+    currentSettings.viabundus.enabled,
+    "viabundusEnabled"
+  )
+
   // 3D models enabled
   state = updateParam(
     state,

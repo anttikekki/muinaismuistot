@@ -11,6 +11,7 @@ import { MaisemanMuistiLayerSelectionPanel } from "./component/MaisemanMuistiLay
 import { MMLMapLayerSelectionPanel } from "./component/MMLMapLayerSelectionPanel"
 import { ModelsLayerSelectionPanel } from "./component/ModelsLayerSelectionPanel"
 import { MuseovirastoLayerSelectionPanel } from "./component/MuseovirastoLayerSelectionPanel"
+import { ViabundusMapLayerSelectionPanel } from "./component/ViabundusMapLayerSelectionPanel"
 
 export const SettingsPage: React.FC = () => {
   const { t } = useTranslation()
@@ -23,6 +24,7 @@ export const SettingsPage: React.FC = () => {
         <MuseovirastoLayerSelectionPanel />
         <AhvenanmaaLayerSelectionPanel />
         <HelsinkiMapLayerSelectionPanel />
+        <ViabundusMapLayerSelectionPanel />
         <ModelsLayerSelectionPanel />
         <MaisemanMuistiLayerSelectionPanel />
       </Accordion>

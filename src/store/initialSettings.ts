@@ -117,6 +117,7 @@ export const initialSettings: Settings = {
     url: {
       geojson: "./viabundus/Viabundus-finland.geojson"
     },
+    opacity: 1,
     enabled: true
   },
   gtk: {

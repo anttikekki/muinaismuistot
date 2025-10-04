@@ -27,7 +27,8 @@ export default class ViabundusLayer {
     this.layer = new VectorLayer({
       source: this.source,
       style: styleFunction,
-      visible: false
+      visible: false,
+      opacity: settings.viabundus.opacity
     })
     this.updateLayerVisibility(settings)
   }
@@ -69,8 +70,8 @@ export default class ViabundusLayer {
     }
   }
 
-  public selectedFeatureLayersChanged = (settings: Settings) => {
-    this.updateLayerVisibility(settings)
+  public opacityChanged = (settings: Settings) => {
+    this.layer.setOpacity(settings.viabundus.opacity)
   }
 
   public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> =>
