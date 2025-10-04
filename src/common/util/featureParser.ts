@@ -48,6 +48,7 @@ import {
   isVarkPisteFeature
 } from "../museovirasto.types"
 import {
+  ViabundusRoadType,
   isViabundusPlaceFeature,
   isViabundusRoadFeature,
   isViabundusTownOutlineFeature
@@ -346,7 +347,16 @@ export const getFeatureTypeIconURL = (feature: MapFeature): string => {
       return getTypeIconURL("viabundus-empty")
     }
     if (isViabundusRoadFeature(feature)) {
-      return getTypeIconURL("viabundus-road", has3dModels)
+      const { roadType } = feature.properties
+      switch (roadType) {
+        case ViabundusRoadType.winter:
+          return getTypeIconURL("viabundus-talvitie")
+        case ViabundusRoadType.coast:
+          return getTypeIconURL("viabundus-vesivayla")
+        case ViabundusRoadType.land:
+        default:
+          return getTypeIconURL("viabundus-maantie")
+      }
     }
     if (isViabundusTownOutlineFeature(feature)) {
       return getTypeIconURL("viabundus-town-outline", has3dModels)
