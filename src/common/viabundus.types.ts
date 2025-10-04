@@ -106,6 +106,7 @@ export type ViabundusRoadFeatureProperties = {
   toyear: number | undefined
   descriptionFI: string | undefined
   descriptionEN: string | undefined
+  literature: string[] | undefined
 }
 
 export type ViabundusTownOutlineFeatureProperties = {

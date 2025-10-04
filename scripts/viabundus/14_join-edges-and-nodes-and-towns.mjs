@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 
-const EDGES_FILE = path.join("results", "3_Viabundus-edges.geojson")
+const EDGES_FILE = path.join("results", "3b_Viabundus-edges.geojson")
 const NODES_FILE = path.join("results", "11_Viabundus-nodes.geojson")
 const TOWNS_FILE = path.join("results", "13_Viabundus-towns.geojson")
 const OUTPUT_FILE = path.join("results", "14_Viabundus-final.geojson")
