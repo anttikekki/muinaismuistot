@@ -270,7 +270,8 @@
         "3Dmodels": "3D-mallit (<a href='./3d/' target='_blank'>lisätietoa</a>)",
         "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>lisätietoa</a>)",
         "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>lisätietoa</a>)",
-        "MaannousuInfo": "Maannousukartta (<a href='https://maannousu.info' target='_blank'>lisätietoa</a>)"
+        "MaannousuInfo": "Maannousukartta (<a href='https://maannousu.info' target='_blank'>lisätietoa</a>)",
+        "viabundus": "Viabundus-projekti (<a href='https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin' target='_blank'>lisätietoa</a>)"
       }
     },
     "featureType": {
@@ -395,7 +396,8 @@
         "land": "Maantie",
         "river": "Joki",
         "winter": "Talvitie"
-      }
+      },
+      "townOutline": "Kaupungin rajat"
     },
     "museovirasto": {
       "dating": {
