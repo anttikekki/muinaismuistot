@@ -18,14 +18,22 @@ export const ViabundusTownOutlinePanel: React.FC<Props> = ({
   ...commonProps
 }) => {
   const { t } = useTranslation()
+  const {name, fromyear, toyear} = feature.properties
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
       <Form>
         <Field
           label={t(`details.field.name`)}
-          value={feature.properties.type}
+          value={name}
           suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
         />
+
+        {(fromyear || toyear) && (
+                <Field
+                  label={t(`details.field.dating`)}
+                  value={`${fromyear ?? ""} - ${toyear ?? ""}`}
+                />
+              )}
       </Form>
     </MapFeatureCollapsePanel>
   )

@@ -112,6 +112,7 @@ export type ViabundusRoadFeatureProperties = {
 export type ViabundusTownOutlineFeatureProperties = {
   type: ViabundusFeatureType.townOutline
   nodesid: number
+  name: string
   fromyear: number | undefined
   toyear: number | undefined
 }

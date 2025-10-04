@@ -116,7 +116,7 @@ export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
       return t(`data.viabundus.road.${feature.properties.roadType}`)
     }
     if (isViabundusTownOutlineFeature(feature)) {
-      // TODO Mistä kaupunkialueen nimi?
+      return feature.properties.name
     }
   } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
@@ -219,20 +219,20 @@ export const getFeatureTypeName = (
       const { Is_Town, Is_Settlement, Is_Bridge, Is_Harbour } =
         feature.properties
       if (Is_Town) {
-        return t("data.viabundus.place.town")
+        return `${t(`data.featureType.viabundus`)}, ${t("data.viabundus.place.town").toLowerCase()}`
       } else if (Is_Settlement) {
-        return t("data.viabundus.place.settlement")
+        return `${t(`data.featureType.viabundus`)}, ${t("data.viabundus.place.settlement").toLowerCase()}`
       } else if (Is_Bridge) {
-        return t("data.viabundus.place.bridge")
+        return `${t(`data.featureType.viabundus`)}, ${t("data.viabundus.place.bridge").toLowerCase()}`
       } else if (Is_Harbour) {
-        return t("data.viabundus.place.harbour")
+        return `${t(`data.featureType.viabundus`)}, ${t("data.viabundus.place.harbour").toLowerCase()}`
       }
     }
     if (isViabundusRoadFeature(feature)) {
-      return t(`data.featureType.viabundus`)
+      return t(`data.featureType.viabundus-tieverkko`)
     }
     if (isViabundusTownOutlineFeature(feature)) {
-      return t(`data.featureType.viabundus`)
+      return t(`data.featureType.viabundus-kaupungin-rajat`)
     }
   } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
@@ -359,7 +359,7 @@ export const getFeatureTypeIconURL = (feature: MapFeature): string => {
       }
     }
     if (isViabundusTownOutlineFeature(feature)) {
-      return getTypeIconURL("viabundus-town-outline", has3dModels)
+      return getTypeIconURL("viabundus-kaupungin-rajat")
     }
   } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
