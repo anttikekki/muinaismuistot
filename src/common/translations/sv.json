@@ -232,7 +232,8 @@
       "muinaisjäännökset": "Muinaisjäännökset",
       "lähteet": "Källor",
       "yleisetLähteet": "Allmänna källor",
-      "markkinapäivät": "Marknadsdagar"
+      "markkinapäivät": "Marknadsdagar",
+      "rekonstruktiotarkkuus": "Rekonstruktionens noggrannhet"
     },
     "3d": {
       "title": "3D-modeller över objektet",
@@ -384,6 +385,32 @@
         "tukikohta": "Militär anläggning",
         "laji": "Försvarslinje"
       }
+    },
+    "viabundus": {
+      "place": {
+        "settlement": "Bebyggelse",
+        "town": "Stad",
+        "fair": "Marknad",
+        "toll": "Tull",
+        "bridge": "Bro",
+        "ferry": "Färja",
+        "harbour": "Hamn",
+        "lock": "Sluss"
+      },
+      "road": {
+        "canal": "Kanal",
+        "coast": "Farled",
+        "ferry": "Färjeled",
+        "land": "Landsväg",
+        "river": "Flod",
+        "winter": "Vinterväg"
+      },
+      "roadCertainty": {
+        "1": "Säker",
+        "2": "Delvis osäker",
+        "3": "Osäker"
+      },
+      "townOutline": "Stadsgränser"
     },
     "museovirasto": {
       "dating": {
@@ -714,27 +741,6 @@
         "Äldre järnålder": "äldre järnålder",
         "äldre järnålder": "äldre järnålder"
       }
-    },
-    "viabundus": {
-      "place": {
-        "settlement": "Bebyggelse",
-        "town": "Stad",
-        "fair": "Marknad",
-        "toll": "Tull",
-        "bridge": "Bro",
-        "ferry": "Färja",
-        "harbour": "Hamn",
-        "lock": "Sluss"
-      },
-      "road": {
-        "canal": "Kanal",
-        "coast": "Farled",
-        "ferry": "Färjeled",
-        "land": "Landsväg",
-        "river": "Flod",
-        "winter": "Vinterväg"
-      },
-      "townOutline": "Stadsgränser"
     }
   }
 }

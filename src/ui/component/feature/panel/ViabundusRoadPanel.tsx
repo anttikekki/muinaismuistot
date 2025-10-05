@@ -28,7 +28,8 @@ export const ViabundusRoadPanel: React.FC<Props> = ({
   ...commonProps
 }) => {
   const { t } = useTranslation()
-  const { fromyear, toyear, descriptionFI, literature } = feature.properties
+  const { fromyear, toyear, descriptionFI, certainty, literature } =
+    feature.properties
 
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
@@ -40,6 +41,11 @@ export const ViabundusRoadPanel: React.FC<Props> = ({
             suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
           />
         )}
+
+        <Field
+          label={t(`details.field.rekonstruktiotarkkuus`)}
+          value={t(`data.viabundus.roadCertainty.${certainty}`)}
+        />
 
         <Field label={t(`details.field.description`)}>
           {newLineToBr(descriptionFI)}

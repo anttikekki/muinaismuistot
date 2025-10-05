@@ -232,7 +232,8 @@
       "muinaisjäännökset": "Muinaisjäännökset",
       "lähteet": "Lähteet",
       "yleisetLähteet": "Yleiset lähteet",
-      "markkinapäivät": "Markkinapäivät"
+      "markkinapäivät": "Markkinapäivät",
+      "rekonstruktiotarkkuus": "Rekonstruktion tarkkuus"
     },
     "3d": {
       "title": "Kohteen 3D-mallit",
@@ -403,6 +404,11 @@
         "land": "Maantie",
         "river": "Joki",
         "winter": "Talvitie"
+      },
+      "roadCertainty": {
+        "1": "Varma",
+        "2": "Osittain epävarma",
+        "3": "Epävarma"
       },
       "townOutline": "Kaupungin rajat"
     },

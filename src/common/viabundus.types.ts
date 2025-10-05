@@ -96,11 +96,17 @@ export enum ViabundusRoadType {
   winter = "winter"
 }
 
+export enum ViabundusRoadCertainty {
+  VeryCertain = 1, // varma
+  Mediocre = 2, // osittain epävarma
+  Uncertain = 3 // epävarma
+}
+
 export type ViabundusRoadFeatureProperties = {
   type: ViabundusFeatureType.road
   id: number
   roadType: ViabundusRoadType
-  certainty: 1 | 2 | 3
+  certainty: ViabundusRoadCertainty
   fromyear: number | undefined
   toyear: number | undefined
   descriptionFI: string | undefined
