@@ -6,6 +6,18 @@ export const VersionHistoryPanel: React.FC = () => {
     <Accordion.Item eventKey="Versiohistoria">
       <Accordion.Header as="div">Versiohistoria</Accordion.Header>
       <Accordion.Body>
+        <h6>Lokakuu 2025</h6>
+        <p>
+          Lisätty{" "}
+          <a
+            href="https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin"
+            target="_blank"
+          >
+            Viabundus-hankkeen
+          </a>{" "}
+          aineisto.
+        </p>
+
         <h6>Syyskuu 2025</h6>
         <p>Lisätty mahdollisuus ladata kohteen paikkatieto GeoJSON-muodossa.</p>
         <p>
