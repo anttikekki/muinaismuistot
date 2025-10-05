@@ -113,7 +113,7 @@ export const initialSettings: Settings = {
       geojson: "./viabundus/Viabundus-finland.geojson"
     },
     opacity: 1,
-    enabled: true
+    enabled: false
   },
   gtk: {
     selectedLayers: [GtkLayer.muinaisrannat],
