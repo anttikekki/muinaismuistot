@@ -41,6 +41,7 @@ import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
 import ModelsLayer from "./layer/ModelsLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
 import ViabundusLayer from "./layer/ViabundusLayer"
+import finlandOutlineGeoJson from "./layer/finland-outline.json"
 
 export default class MuinaismuistotMap {
   private readonly store: Store<Settings, ActionTypes>
@@ -59,6 +60,7 @@ export default class MuinaismuistotMap {
   private readonly viabundusLayer: ViabundusLayer
   private readonly gtkLayer: GtkTileLayer
   private readonly helsinkiLayer: HelsinkiTileLayer
+  private readonly finlandOutline: Geometry | undefined
   private tileLoadingCounter = 0
 
   public constructor(store: Store<Settings, ActionTypes>) {
@@ -156,6 +158,12 @@ export default class MuinaismuistotMap {
 
     this.geolocation.once("change:position", this.centerToCurrentPositions)
     this.geolocation.on("change:position", this.geolocationChanged)
+
+    this.finlandOutline = new GeoJSON()
+      .readFeatures(finlandOutlineGeoJson, {
+        featureProjection: this.view.getProjection()
+      })[0]
+      .getGeometry()
   }
 
   public mapUpdaterStoreListener: StoreListener = {
@@ -366,13 +374,6 @@ export default class MuinaismuistotMap {
     )
   }
 
-  private geolocationChanged = () => {
-    const position = this.geolocation.getPosition()
-    if (position) {
-      this.positionAndSelectedLocation.addCurrentPositionMarker(position)
-    }
-  }
-
   private zoom = (zoomChange: number) => {
     const zoom = this.view.getZoom()
     if (zoom) {
@@ -527,10 +528,24 @@ export default class MuinaismuistotMap {
     this.view.setCenter(coordinates)
   }
 
+  private geolocationChanged = () => {
+    const position = this.geolocation.getPosition()
+    if (position) {
+      this.positionAndSelectedLocation.addCurrentPositionMarker(position)
+    }
+  }
+
   private centerToCurrentPositions = () => {
     const position = this.geolocation.getPosition()
     if (position) {
-      this.view.setCenter(position)
+      const isInsideFinland =
+        this.finlandOutline?.intersectsCoordinate(position)
+
+      // Siirrä kartta sijaintiin vain jos se on Suomen sisällä.
+      // Muuten ulkomaiset käyttäjät heitetään tyhjälle kartalle.
+      if (isInsideFinland === undefined || isInsideFinland === true) {
+        this.view.setCenter(position)
+      }
     }
   }
 
