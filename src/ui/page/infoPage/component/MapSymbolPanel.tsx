@@ -245,7 +245,7 @@ export const MapSymbolPanel: React.FC = () => {
             <span>{t(`data.viabundus.place.harbour`)}</span>
           </div>
           <div className="ms-3">
-            <img className="feature-icon" src="images/viabundus-lautta.png" />
+            <img className="feature-icon" src="images/viabundus-lossi.png" />
             <span>{t(`data.viabundus.place.ferry`)}</span>
           </div>
           <div className="ms-3">
