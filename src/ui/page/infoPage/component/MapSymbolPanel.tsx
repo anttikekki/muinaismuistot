@@ -257,6 +257,13 @@ export const MapSymbolPanel: React.FC = () => {
             <span>{t(`data.viabundus.road.land`)}</span>
           </div>
           <div className="ms-3">
+            <img
+              className="feature-icon"
+              src="images/viabundus-maantie-epavarma.png"
+            />
+            <span>{t(`data.viabundus.road.landUncertain`)}</span>
+          </div>
+          <div className="ms-3">
             <img className="feature-icon" src="images/viabundus-talvitie.png" />
             <span>{t(`data.viabundus.road.winter`)}</span>
           </div>
@@ -266,6 +273,13 @@ export const MapSymbolPanel: React.FC = () => {
               src="images/viabundus-vesivayla.png"
             />
             <span>{t(`data.viabundus.road.coast`)}</span>
+          </div>
+          <div className="ms-3">
+            <img
+              className="feature-icon"
+              src="images/viabundus-vesivayla-epavarma.png"
+            />
+            <span>{t(`data.viabundus.road.coastUncertain`)}</span>
           </div>
           <div className="ms-3">
             <img

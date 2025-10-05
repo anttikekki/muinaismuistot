@@ -48,6 +48,7 @@ import {
   isVarkPisteFeature
 } from "../museovirasto.types"
 import {
+  ViabundusRoadCertainty,
   ViabundusRoadType,
   isViabundusPlaceFeature,
   isViabundusRoadFeature,
@@ -370,18 +371,26 @@ export const getFeatureTypeIconURL = (feature: MapFeature): string => {
       } else if (Is_Harbour) {
         return getTypeIconURL("viabundus-satama")
       }
-      return getTypeIconURL("viabundus-empty")
+      return getTypeIconURL("viabundus-maantie")
     }
     if (isViabundusRoadFeature(feature)) {
-      const { roadType } = feature.properties
+      const { roadType, certainty } = feature.properties
       switch (roadType) {
         case ViabundusRoadType.winter:
           return getTypeIconURL("viabundus-talvitie")
-        case ViabundusRoadType.coast:
+        case ViabundusRoadType.coast: {
+          if (certainty === ViabundusRoadCertainty.Uncertain) {
+            return getTypeIconURL("viabundus-vesivayla-epavarma")
+          }
           return getTypeIconURL("viabundus-vesivayla")
+        }
         case ViabundusRoadType.land:
-        default:
+        default: {
+          if (certainty === ViabundusRoadCertainty.Uncertain) {
+            return getTypeIconURL("viabundus-maantie-epavarma")
+          }
           return getTypeIconURL("viabundus-maantie")
+        }
       }
     }
     if (isViabundusTownOutlineFeature(feature)) {

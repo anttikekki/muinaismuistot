@@ -400,8 +400,10 @@
       "road": {
         "canal": "Kanal",
         "coast": "Farled",
+        "coastUncertain": "Osäker sträckning av farled",
         "ferry": "Färjeled",
         "land": "Landsväg",
+        "landUncertain": "Osäker sträckning av landsväg",
         "river": "Flod",
         "winter": "Vinterväg"
       },

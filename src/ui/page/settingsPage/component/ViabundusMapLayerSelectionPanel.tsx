@@ -88,12 +88,24 @@ export const ViabundusMapLayerSelectionPanel: React.FC = () => {
               label={t(`data.viabundus.road.land`)}
             />
             <FeatureImageAndLabel
+              iconPath="images/viabundus-maantie-epavarma.png"
+              label={t(`data.viabundus.road.landUncertain`)}
+            />
+            <FeatureImageAndLabel
               iconPath="images/viabundus-talvitie.png"
               label={t(`data.viabundus.road.winter`)}
             />
             <FeatureImageAndLabel
               iconPath="images/viabundus-vesivayla.png"
               label={t(`data.viabundus.road.coast`)}
+            />
+            <FeatureImageAndLabel
+              iconPath="images/viabundus-vesivayla-epavarma.png"
+              label={t(`data.viabundus.road.coastUncertain`)}
+            />
+            <FeatureImageAndLabel
+              iconPath="images/viabundus-kaupungin-rajat.png"
+              label={t(`data.viabundus.townOutline`)}
             />
           </Form.Group>
 

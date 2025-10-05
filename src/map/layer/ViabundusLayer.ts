@@ -5,13 +5,13 @@ import GeoJSON from "ol/format/GeoJSON"
 import Geometry from "ol/geom/Geometry"
 import VectorLayer from "ol/layer/Vector"
 import VectorSource from "ol/source/Vector"
-import CircleStyle from "ol/style/Circle"
 import Fill from "ol/style/Fill"
 import Icon from "ol/style/Icon"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
 import {
   ViabundusFeatureProperties,
+  ViabundusRoadCertainty,
   ViabundusRoadType
 } from "../../common/viabundus.types"
 import { Settings } from "../../store/storeTypes"
@@ -94,35 +94,41 @@ export default class ViabundusLayer {
     this.layer
 }
 
-const commonColor = "#f40863ff"
-
 const road = new Style({
   stroke: new Stroke({
-    color: commonColor,
+    color: "#cc0000",
     width: 3
+  })
+})
+
+const roadUncertain = new Style({
+  stroke: new Stroke({
+    color: "#cc0000",
+    width: 3,
+    lineDash: [20, 5]
   })
 })
 
 const winterRoad = new Style({
   stroke: new Stroke({
-    color: "#f772a5ff",
+    color: "#663300",
     width: 3,
     lineDash: [20, 5]
   })
 })
 
-const water = new Style({
+const waterway = new Style({
   stroke: new Stroke({
-    color: "#3861f6ff",
-    width: 3,
-    lineDash: [20, 5]
+    color: "#017acc",
+    width: 3
   })
 })
 
-const defaultPointStyle = new Style({
-  image: new CircleStyle({
-    radius: 6,
-    fill: new Fill({ color: commonColor })
+const waterwayUncertain = new Style({
+  stroke: new Stroke({
+    color: "#017acc",
+    width: 3,
+    lineDash: [20, 5]
   })
 })
 
@@ -156,11 +162,11 @@ const bridge = new Style({
 
 const townOutline = new Style({
   stroke: new Stroke({
-    color: commonColor,
+    color: "#000000",
     width: 1.5
   }),
   fill: new Fill({
-    color: "rgba(244, 8, 99, 0.5)"
+    color: "rgba(238, 218, 216, 0.5)"
   })
 })
 
@@ -185,19 +191,28 @@ const styleFunction =
     switch (geomType) {
       case "LineString":
       case "MultiLineString": {
-        const { roadType, fromyear, toyear } = feature.getProperties()
+        const { roadType, certainty, fromyear, toyear } =
+          feature.getProperties()
 
         if (!isFeatureVisible(selectedYear, fromyear, toyear)) {
           return undefined
         }
 
         switch (roadType) {
-          case ViabundusRoadType.land:
+          case ViabundusRoadType.land: {
+            if (certainty === ViabundusRoadCertainty.Uncertain) {
+              return roadUncertain
+            }
             return road
+          }
           case ViabundusRoadType.winter:
             return winterRoad
-          case ViabundusRoadType.coast:
-            return water
+          case ViabundusRoadType.coast: {
+            if (certainty === ViabundusRoadCertainty.Uncertain) {
+              return waterwayUncertain
+            }
+            return waterway
+          }
           default:
             return road
         }
@@ -231,7 +246,6 @@ const styleFunction =
           }
           return harbour
         }
-        return defaultPointStyle
       }
       case "Polygon":
       case "MultiPolygon": {
