@@ -7,7 +7,7 @@ OUTPUT_FILE="$RES_DIR/5_Viabundus-nodes.geojson"
 TEMP_FILE="$RES_DIR/temp_reprojected.geojson"
 
 # Bounding box for Finland in EPSG:3067
-BBOX="50199.4814 6582464.0358 761274.6247 7799839.8902"
+BBOX="50199.4814 6632464.0358 761274.6247 7799839.8902"
 
 if [ ! -f "$INPUT_FILE" ]; then
   echo "Error: $INPUT_FILE not found in $RES_DIR. Run 4_settlemets_to_geojson.mjs first."
