@@ -4,7 +4,7 @@ import { GtkLayerId, getGtkLayerId } from "../../common/gtk.types"
 import { GtkLayer } from "../../common/layers.types"
 import { Settings } from "../../store/storeTypes"
 
-export type ShowLoadingAnimationFn = (show: boolean) => void
+type ShowLoadingAnimationFn = (show: boolean) => void
 
 export default class GtkTileLayer {
   private source?: TileArcGISRestSource

@@ -15,7 +15,7 @@ import {
 import { AhvenanmaaLayer } from "../../common/layers.types"
 import { Settings } from "../../store/storeTypes"
 
-export type ShowLoadingAnimationFn = (show: boolean) => void
+type ShowLoadingAnimationFn = (show: boolean) => void
 
 export default class AhvenanmaaTileLayer {
   private source?: TileArcGISRestSource

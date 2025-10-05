@@ -6,7 +6,7 @@ import { Settings } from "../../store/storeTypes"
 import mmlWMTSCapabilitiesResult from "./wmts-get-capabilities/mml.xml"
 import paituliWMTSCapabilitiesResult from "./wmts-get-capabilities/paituli.xml"
 
-export type ShowLoadingAnimationFn = (show: boolean) => void
+type ShowLoadingAnimationFn = (show: boolean) => void
 
 export default class MMLPohjakarttaTileLayer {
   private readonly layer: TileLayer<WMTSSource>

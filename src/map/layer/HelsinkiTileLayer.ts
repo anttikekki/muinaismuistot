@@ -11,7 +11,7 @@ import {
 } from "../../common/maalinnoitusHelsinki.types"
 import { Settings } from "../../store/storeTypes"
 
-export type ShowLoadingAnimationFn = (show: boolean) => void
+type ShowLoadingAnimationFn = (show: boolean) => void
 
 export default class HelsinkiTileLayer {
   private source?: TileWMS

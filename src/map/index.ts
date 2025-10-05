@@ -128,7 +128,10 @@ export default class MuinaismuistotMap {
     )
     this.maisemanMuistiLayer = new MaisemanMuistiLayer(settings)
     this.modelsLayer = new ModelsLayer(settings)
-    this.viabundusLayer = new ViabundusLayer(settings)
+    this.viabundusLayer = new ViabundusLayer(
+      settings,
+      this.updateTileLoadingStatus
+    )
     this.positionAndSelectedLocation =
       new CurrentPositionAndSelectedLocationMarkerLayer()
 

@@ -16,11 +16,19 @@ import {
 } from "../../common/viabundus.types"
 import { Settings } from "../../store/storeTypes"
 
+type ShowLoadingAnimationFn = (show: boolean) => void
+
 export default class ViabundusLayer {
-  private layer: VectorLayer<VectorSource<Feature<Geometry>>>
+  private readonly layer: VectorLayer<VectorSource<Feature<Geometry>>>
+  private readonly updateGeoJsonLoadingStatus: ShowLoadingAnimationFn
   private source?: VectorSource<Feature<Geometry>>
 
-  public constructor(settings: Settings) {
+  public constructor(
+    settings: Settings,
+    updateGeoJsonLoadingStatus: ShowLoadingAnimationFn
+  ) {
+    this.updateGeoJsonLoadingStatus = updateGeoJsonLoadingStatus
+
     this.source = new VectorSource({
       features: []
     })
@@ -35,12 +43,14 @@ export default class ViabundusLayer {
   }
 
   private updateLayerSource = async (settings: Settings) => {
+    this.updateGeoJsonLoadingStatus(true)
     const geojsonObject = await this.fetchGeoJson(settings)
 
     this.source = new VectorSource({
       features: new GeoJSON().readFeatures(geojsonObject)
     })
     this.layer.setSource(this.source)
+    this.updateGeoJsonLoadingStatus(false)
   }
 
   private fetchGeoJson = async (

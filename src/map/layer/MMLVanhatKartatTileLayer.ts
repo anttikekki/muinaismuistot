@@ -2,7 +2,7 @@ import TileLayer from "ol/layer/Tile"
 import TileWMS, { Options } from "ol/source/TileWMS"
 import { Settings } from "../../store/storeTypes"
 
-export type ShowLoadingAnimationFn = (show: boolean) => void
+type ShowLoadingAnimationFn = (show: boolean) => void
 
 export default class MMLVanhatKartatTileLayer {
   private source?: TileWMS
