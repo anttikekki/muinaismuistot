@@ -32,7 +32,6 @@ const Results: React.FC<ResultsProps> = ({ features }) => {
         titleClickAction={FeatureTitleClickAction.ClosePageAndPinOnMap}
         features={features}
         models={[]}
-        maisemanMuistiFeatures={[]}
       />
     </>
   )

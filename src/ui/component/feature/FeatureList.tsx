@@ -2,17 +2,20 @@ import React, { useCallback, useState } from "react"
 import { Accordion } from "react-bootstrap"
 import { ModelFeature } from "../../../common/3dModels.types"
 import { isAhvenanmaaFeature } from "../../../common/ahvenanmaa.types"
-import { AhvenanmaaLayer } from "../../../common/layers.types"
+import {
+  AhvenanmaaLayer,
+  MuseovirastoLayer
+} from "../../../common/layers.types"
 import {
   isMaalinnoitusKohdeFeature,
   isMaalinnoitusRajausFeature,
   isMaalinnoitusYksikkoFeature
 } from "../../../common/maalinnoitusHelsinki.types"
-import { MaisemanMuistiFeature } from "../../../common/maisemanMuisti.types"
+import { isMaisemanMuistiFeature } from "../../../common/maisemanMuisti.types"
 import {
-  MapFeature,
-  getFeatureLayerName,
-  isGeoJSONFeature
+  getFeatureLayer,
+  isGeoJSONFeature,
+  MapFeature
 } from "../../../common/mapFeature.types"
 import {
   isMaailmanperintoAlueFeature,
@@ -29,10 +32,12 @@ import {
   isVarkAlueFeature,
   isVarkPisteFeature
 } from "../../../common/museovirasto.types"
+import { getFeatureID } from "../../../common/util/featureParser"
 import {
-  getFeatureID,
-  getModelsForMaisemanMuistiFeature
-} from "../../../common/util/featureParser"
+  isViabundusPlaceFeature,
+  isViabundusRoadFeature,
+  isViabundusTownOutlineFeature
+} from "../../../common/viabundus.types"
 import { AhvenanmaaForminnenPanel } from "../../component/feature/panel/AhvenanmaaForminnenPanel"
 import { AhvenanmaaMaritimtKulturarvPanel } from "../../component/feature/panel/AhvenanmaaMaritimtKulturarvPanel"
 import { MaailmanperintokohdePanel } from "../../component/feature/panel/MaailmanperintokohdePanel"
@@ -49,19 +54,20 @@ import { MaalinnoitusKohdePanel } from "./panel/MaalinnoitusKohdePanel"
 import { MaalinnoitusRajausPanel } from "./panel/MaalinnoitusRajausPanel"
 import { MaalinnoitusYksikkoPanel } from "./panel/MaalinnoitusYksikkoPanel"
 import { VarkPanel } from "./panel/VarkPanel"
+import { ViabundusPlacePanel } from "./panel/ViabundusPlacePanel"
+import { ViabundusRoadPanel } from "./panel/ViabundusRoadPanel"
+import { ViabundusTownOutlinePanel } from "./panel/ViabundusTownOutlinePanel"
 
 interface FeatureListProps {
   titleClickAction: FeatureTitleClickAction
   features?: MapFeature[]
   models?: ModelFeature[]
-  maisemanMuistiFeatures?: MaisemanMuistiFeature[]
 }
 
 export const FeatureList: React.FC<FeatureListProps> = ({
   titleClickAction,
   features = [],
-  models = [],
-  maisemanMuistiFeatures = []
+  models = []
 }) => {
   const [openPanelId, setOpenPanelId] = useState("")
   const onTogglePanelOpen = useCallback(
@@ -82,7 +88,7 @@ export const FeatureList: React.FC<FeatureListProps> = ({
   return (
     <Accordion defaultActiveKey={openPanelId} activeKey={openPanelId}>
       {features.map((feature, i) => {
-        const panelId = `${getFeatureLayerName(feature)}-${getFeatureID(
+        const panelId = `${getFeatureLayer(feature)}-${getFeatureID(
           feature
         )}-${i}`
         const params = {
@@ -135,6 +141,38 @@ export const FeatureList: React.FC<FeatureListProps> = ({
           if (isVarkPisteFeature(feature) || isVarkAlueFeature(feature)) {
             return <VarkPanel feature={feature} {...params} />
           }
+          if (isMaisemanMuistiFeature(feature)) {
+            return (
+              <MaisemanMuistiPanel
+                feature={feature}
+                {...params}
+                models={
+                  models
+                    ? models
+                        .filter(
+                          (model) =>
+                            model.properties.registryItem.type ===
+                            MuseovirastoLayer.Muinaisjaannokset_piste
+                        )
+                        .filter(
+                          (model) =>
+                            model.properties.registryItem.id ===
+                            feature.properties.id
+                        )
+                    : []
+                }
+              />
+            )
+          }
+          if (isViabundusPlaceFeature(feature)) {
+            return <ViabundusPlacePanel feature={feature} {...params} />
+          }
+          if (isViabundusRoadFeature(feature)) {
+            return <ViabundusRoadPanel feature={feature} {...params} />
+          }
+          if (isViabundusTownOutlineFeature(feature)) {
+            return <ViabundusTownOutlinePanel feature={feature} {...params} />
+          }
         }
         if (isAhvenanmaaFeature(feature)) {
           switch (feature.layerName) {
@@ -149,17 +187,6 @@ export const FeatureList: React.FC<FeatureListProps> = ({
               )
           }
         }
-      })}
-      {maisemanMuistiFeatures.map((feature) => {
-        const panelId = `maisemanMuisti-${feature.properties.id.toString()}`
-        return (
-          <MaisemanMuistiPanel
-            key={panelId}
-            {...getCommonProps(panelId)}
-            feature={feature}
-            models={getModelsForMaisemanMuistiFeature(feature, models)}
-          />
-        )
       })}
     </Accordion>
   )

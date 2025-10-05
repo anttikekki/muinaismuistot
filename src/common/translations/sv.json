@@ -33,7 +33,8 @@
       "Ahvenanmaan paikallishallinto": "Ålands landskapsregering",
       "Geologian tutkimuskeskus": "Geologiska forskningscentralen",
       "Helsingin kaupunki": "Helsingfors stad",
-      "Maannousu.info": "Maannousu.info"
+      "Maannousu.info": "Maannousu.info",
+      "viabundus": "Viabundus-projektet"
     }
   },
   "info": {
@@ -71,7 +72,8 @@
       "maannousuInfo": "Kartan som beskriver landhöjningen på webbplatsen Maannousu.info via <a href='https://maannousu.info/integration' target='_blank'>ett öppet GeoTIFF-gränssnitt</a> (platsdata har publicerats med licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>Creative Commons CC By 4.0</a>).",
       "maisemanmuisti": "Platsdata från boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset hämtas från <a href='./maisemanmuisti/' target='_blank'>en databas</a> som sammanställer samtliga 205 objekt i boken. Upphovsrätten till boken tillhör Museiverket, som har godkänt att informationen används.",
       "3DModels": "3D-modeller hämtas från öppen <a href='./3d/' target='_blank'>databas</a>, som sammanställer modeller från privata och offentliga aktörer (museer, Museiverket, Ålands landskapsregering). Licensuppgifter över modellerna har sammanställts enligt respektive modell i databasen.",
-      "sourceCode": "Denna webbplats använder <a href='https://github.com/anttikekki/muinaismuistot' target='_blank'>öppen källkod</a> av licensen <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE' target='_blank'>MIT</a>."
+      "sourceCode": "Denna webbplats använder <a href='https://github.com/anttikekki/muinaismuistot' target='_blank'>öppen källkod</a> av licensen <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE' target='_blank'>MIT</a>.",
+      "viabundus": "Materialet från Viabundus-projektet om det medeltida vägnätet och bosättningen har hämtats från <a href='https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin' target='_blank'>projektets webbplats</a> och har bearbetats. Det ursprungliga och det bearbetade geodata-materialet är publicerat under licensen <a href='https://creativecommons.org/licenses/by-sa/4.0/deed.fi' target='_blank'>CC BY-SA 4.0</a>. Det bearbetade materialet kan laddas ner i GeoJSON-format från <a href='./viabundus/Viabundus-finland.geojson' target='_blank'>muinaismuistot.info/viabundus/Viabundus-finland.geojson</a>."
     }
   },
   "settings": {
@@ -164,6 +166,11 @@
     },
     "maisemanMuisti": {
       "title": "Boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset"
+    },
+    "viabundus": {
+      "title": "Viabundus-projektets material",
+      "year": "År ({{selectedYear}})",
+      "licence": "© Viabundus-projektet (<a href='https://creativecommons.org/licenses/by-sa/4.0/deed.fi'>CC BY-SA 4.0</a>)"
     }
   },
   "search": {
@@ -222,7 +229,10 @@
         "rajauksenTyyppi": "Avgränsning"
       },
       "downloadGeometry": "Ladda ner GeoJSON-geodata",
-      "muinaisjäännökset": "Muinaisjäännökset"
+      "muinaisjäännökset": "Muinaisjäännökset",
+      "lähteet": "Källor",
+      "yleisetLähteet": "Allmänna källor",
+      "markkinapäivät": "Marknadsdagar"
     },
     "3d": {
       "title": "3D-modeller över objektet",
@@ -254,7 +264,8 @@
         "maisemanMuisti": "Boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset",
         "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget",
         "muinaisrannat": "Fornstränder",
-        "MaannousuInfo": "Maannousu.info landhöjningskarta"
+        "MaannousuInfo": "Maannousu.info landhöjningskarta",
+        "viabundus": "Viabundus-projektet"
       },
       "nameWithLink": {
         "Muinaisjäännösrekisteri": "Fornlämningsregister (<a href='https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx' target='_blank'>information</a>)",
@@ -267,7 +278,8 @@
         "3Dmodels": "3D-modeller (<a href='./3d/' target='_blank'>information</a>)",
         "maisemanMuisti": "Boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>information</a>)",
         "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>information</a>)",
-        "MaannousuInfo": "Landhöjningskarta (<a href='https://maannousu.info' target='_blank'>information</a>)"
+        "MaannousuInfo": "Landhöjningskarta (<a href='https://maannousu.info' target='_blank'>information</a>)",
+        "viabundus": "Viabundus-projektet (<a href='https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin' target='_blank'>mer information</a>)"
       }
     },
     "featureType": {
@@ -283,7 +295,10 @@
       "varkAlue": "Arkeologiska områden av riksintresse (VARK), områdesavgränsningar",
       "Ahvenanmaan muinaisjäännösrekisterin kohde": "Fast fornlämning i fornminnesregister för Åland",
       "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde": "Objekt i register över maritimt kulturarv på Åland",
-      "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget"
+      "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget",
+      "viabundus": "Viabundus-material",
+      "viabundus-tieverkko": "Vägnät, Viabundus-material",
+      "viabundus-kaupungin-rajat": "Stadsgränser, Viabundus-material"
     },
     "timespan": {
       "prehistoric": "8600 f.v.t. - 1200 e.v.t.",
@@ -699,6 +714,27 @@
         "Äldre järnålder": "äldre järnålder",
         "äldre järnålder": "äldre järnålder"
       }
+    },
+    "viabundus": {
+      "place": {
+        "settlement": "Bebyggelse",
+        "town": "Stad",
+        "fair": "Marknad",
+        "toll": "Tull",
+        "bridge": "Bro",
+        "ferry": "Färja",
+        "harbour": "Hamn",
+        "lock": "Sluss"
+      },
+      "road": {
+        "canal": "Kanal",
+        "coast": "Farled",
+        "ferry": "Färjeled",
+        "land": "Landsväg",
+        "river": "Flod",
+        "winter": "Vinterväg"
+      },
+      "townOutline": "Stadsgränser"
     }
   }
 }

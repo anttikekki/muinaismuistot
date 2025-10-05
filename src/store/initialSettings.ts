@@ -7,8 +7,6 @@ import {
   MMLVanhatKartatLayer,
   MaannousuInfoLayer,
   MaannousuInfoLayerIndex,
-  MaisemanMuistiLayer,
-  ModelLayer,
   MuseovirastoLayer
 } from "../common/layers.types"
 import {
@@ -31,8 +29,7 @@ export const initialSettings: Settings = {
   visiblePage: undefined,
   selectedFeaturesOnMap: {
     features: [],
-    models: [],
-    maisemanMuistiFeatures: []
+    models: []
   },
   search: {
     features: []
@@ -99,17 +96,23 @@ export const initialSettings: Settings = {
     enabled: true
   },
   models: {
-    selectedLayers: Object.values(ModelLayer),
     url: {
       geojson: "./3d/3d.json"
     },
     enabled: true
   },
   maisemanMuisti: {
-    selectedLayers: Object.values(MaisemanMuistiLayer),
     url: {
       geojson: "./maisemanmuisti/maisemanmuisti.json"
     },
+    enabled: true
+  },
+  viabundus: {
+    selectedYear: 1650,
+    url: {
+      geojson: "./viabundus/Viabundus-finland.geojson"
+    },
+    opacity: 1,
     enabled: true
   },
   gtk: {

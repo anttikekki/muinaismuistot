@@ -14,7 +14,7 @@ import {
   ModelFeatureProperties
 } from "../../common/3dModels.types"
 import { FeatureLayer, MuseovirastoLayer } from "../../common/layers.types"
-import { MapFeature, getFeatureLayerName } from "../../common/mapFeature.types"
+import { MapFeature, getFeatureLayer } from "../../common/mapFeature.types"
 import { getFeatureID } from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
 
@@ -130,9 +130,9 @@ export default class ModelsLayer {
 
   public updateLayerVisibility = (settings: Settings) => {
     const {
-      models: { selectedLayers, enabled }
+      models: { enabled }
     } = settings
-    this.layer.setVisible(enabled && selectedLayers.length > 0)
+    this.layer.setVisible(enabled)
   }
 
   public getFeaturesForFeatureRegisterId = (
@@ -143,18 +143,14 @@ export default class ModelsLayer {
     return models.filter((m) => m.properties.registryItem.type === layer)
   }
 
-  public addModelsToFeature = (feature: MapFeature): MapFeature => {
+  public addModelsToFeature = <T extends MapFeature>(feature: T): T => {
     return {
       ...feature,
       models: this.getFeaturesForFeatureRegisterId(
         getFeatureID(feature),
-        getFeatureLayerName(feature)
+        getFeatureLayer(feature)
       )
     }
-  }
-
-  public selectedFeatureLayersChanged = (settings: Settings) => {
-    this.layer.setVisible(settings.models.selectedLayers.length > 0)
   }
 
   public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> =>

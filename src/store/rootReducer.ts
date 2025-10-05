@@ -29,14 +29,8 @@ import {
   updateMaannousuInfoPlacement,
   updateMaannousuInfoSelectedLayer
 } from "./reducers/maannousuInfoLayer"
-import {
-  updateMaisemanMuistiLayerEnabled,
-  updateMaisemanMuistiSelectedLayers
-} from "./reducers/maisemanMuistiLayer"
-import {
-  updateModelLayerEnabled,
-  updateModelSelectedLayers
-} from "./reducers/modelLayer"
+import { updateMaisemanMuistiLayerEnabled } from "./reducers/maisemanMuistiLayer"
+import { updateModelLayerEnabled } from "./reducers/modelLayer"
 import {
   updateMuseovirastoLayerEnabled,
   updateMuseovirastoLayerOpacity,
@@ -44,6 +38,11 @@ import {
   updateSelectMuinaisjaannosDatings,
   updateSelectMuinaisjaannosTypes
 } from "./reducers/museovirastoLayer"
+import {
+  updateViabundusLayerEnabled,
+  updateViabundusLayerOpacity,
+  updateViabundusYear
+} from "./reducers/viabundusLayer"
 import { PageId, Settings } from "./storeTypes"
 
 export const updateLanguage = (
@@ -78,10 +77,7 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
   switch (action.type) {
     case ActionTypeEnum.CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE: {
       const selectedFeaturesOnMap = action.payload
-      if (
-        selectedFeaturesOnMap.features.length === 0 &&
-        selectedFeaturesOnMap.maisemanMuistiFeatures.length === 0
-      ) {
+      if (selectedFeaturesOnMap.features.length === 0) {
         return state
       }
       return {
@@ -129,12 +125,6 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
         case LayerGroup.Ahvenanmaa: {
           return updateAhvenanmaaSelectedLayers(state, action.layers)
         }
-        case LayerGroup.Models: {
-          return updateModelSelectedLayers(state, action.layers)
-        }
-        case LayerGroup.MaisemanMuisti: {
-          return updateMaisemanMuistiSelectedLayers(state, action.layers)
-        }
         default:
           return state
       }
@@ -153,6 +143,8 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
           return updateAhvenanmaaLayerOpacity(state, action.opacity)
         case LayerGroup.Helsinki:
           return updateHelsinkiLayerOpacity(state, action.opacity)
+        case LayerGroup.Viabundus:
+          return updateViabundusLayerOpacity(state, action.opacity)
         default:
           return state
       }
@@ -173,6 +165,8 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
           return updateAhvenanmaaLayerEnabled(state, action.enabled)
         case LayerGroup.Helsinki:
           return updateHelsinkiLayerEnabled(state, action.enabled)
+        case LayerGroup.Viabundus:
+          return updateViabundusLayerEnabled(state, action.enabled)
         case LayerGroup.Models:
           return updateModelLayerEnabled(state, action.enabled)
         case LayerGroup.MaisemanMuisti:
@@ -201,6 +195,9 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     }
     case ActionTypeEnum.MOVE_MAANNOUSU_LAYER: {
       return updateMaannousuInfoPlacement(state, action.placement)
+    }
+    case ActionTypeEnum.SELECT_VIABUNDUS_YEAR: {
+      return updateViabundusYear(state, action.year)
     }
     default:
       return state

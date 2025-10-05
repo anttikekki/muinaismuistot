@@ -220,6 +220,64 @@ export const MapSymbolPanel: React.FC = () => {
 
         <h6>
           <Trans
+            i18nKey={`data.register.nameWithLink.viabundus`}
+            components={{ a: <a /> }}
+          />
+        </h6>
+        <div className="mb-3">
+          <div className="ms-3">
+            <img className="feature-icon" src="images/viabundus-kaupunki.png" />
+            <span>{t(`data.viabundus.place.town`)}</span>
+          </div>
+          <div className="ms-3">
+            <img
+              className="feature-icon"
+              src="images/viabundus-asuttu-paikka.png"
+            />
+            <span>{t(`data.viabundus.place.settlement`)}</span>
+          </div>
+          <div className="ms-3">
+            <img className="feature-icon" src="images/viabundus-silta.png" />
+            <span>{t(`data.viabundus.place.bridge`)}</span>
+          </div>
+          <div className="ms-3">
+            <img className="feature-icon" src="images/viabundus-satama.png" />
+            <span>{t(`data.viabundus.place.harbour`)}</span>
+          </div>
+          <div className="ms-3">
+            <img className="feature-icon" src="images/viabundus-lautta.png" />
+            <span>{t(`data.viabundus.place.ferry`)}</span>
+          </div>
+          <div className="ms-3">
+            <img className="feature-icon" src="images/viabundus-tulli.png" />
+            <span>{t(`data.viabundus.place.toll`)}</span>
+          </div>
+          <div className="ms-3">
+            <img className="feature-icon" src="images/viabundus-maantie.png" />
+            <span>{t(`data.viabundus.road.land`)}</span>
+          </div>
+          <div className="ms-3">
+            <img className="feature-icon" src="images/viabundus-talvitie.png" />
+            <span>{t(`data.viabundus.road.winter`)}</span>
+          </div>
+          <div className="ms-3">
+            <img
+              className="feature-icon"
+              src="images/viabundus-vesivayla.png"
+            />
+            <span>{t(`data.viabundus.road.coast`)}</span>
+          </div>
+          <div className="ms-3">
+            <img
+              className="feature-icon"
+              src="images/viabundus-kaupungin-rajat.png"
+            />
+            <span>{t(`data.viabundus.townOutline`)}</span>
+          </div>
+        </div>
+
+        <h6>
+          <Trans
             i18nKey="data.register.nameWithLink.3Dmodels"
             components={{ a: <a /> }}
           />

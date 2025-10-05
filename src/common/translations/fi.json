@@ -33,6 +33,7 @@
       "Ahvenanmaan paikallishallinto": "Ahvenanmaan paikallishallinto",
       "Geologian tutkimuskeskus": "Geologian tutkimuskeskus",
       "Helsingin kaupunki": "Helsingin kaupunki",
+      "viabundus": "Viabundus-projekti",
       "Maannousu.info": "Maannousu.info"
     }
   },
@@ -69,6 +70,7 @@
       "gtk": "Muinaisrantojen ja maaperän aineistot haetaan Geologian tutkimuskeskuksen <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/' target='_blank'>avoimen WMS-rajapinnan</a> kautta. Muinaisrantojen paikkatietoaineisto on julkaistu <a href='https://www.gtk.fi/peruslisenssi/' target='_blank'>peruslisenssillä</a> (erillislupa aineiston käyttöön saatu 15.1.2021). Maaperän  paikkatietoaineisto on julkaistu <a href='https://www.gtk.fi/avoin-lisenssi/' target='_blank'>avoimella lisenssillä</a> (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0</a>).",
       "maannousuInfo": "Maannousu.info sivuston maannousua kuvaava kartta <a href='https://maannousu.info/integration' target='_blank'>avoimen GeoTIFF-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "helsinki": "Helsingin ensimmäisen maailmansodan aikaisten maalinnoitusten aineisto haetaan Helsingin kaupungin <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
+      "viabundus": "Viabundus-projektin aineisto keskiaikaisesta tieverkosta ja asutuksesta on ladattu <a href='https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin' target='_blank'>projektin sivustolta</a> ja sitä muokattu. Alkuperäinen ja muokattu paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by-sa/4.0/deed.fi' target='_blank'>CC BY-SA 4.0 -lisenssillä</a>. Muokatun aineiston voi ladata GeoJSON-muodossa osoitteesta <a href='./viabundus/Viabundus-finland.geojson' target='_blank'>muinaismuistot.info/viabundus/Viabundus-finland.geojson</a>.",
       "maisemanmuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset -kirjan paikkatieto on <a href='./maisemanmuisti/' target='_blank'>tietokannasta</a> johon on koottu kirjan listaamat 205 kohdetta. Kirjan sisällön tekijanoikeus on Museovirastolla, jolta on kysytty lupa aineiston käyttöön.",
       "3DModels": "3D-mallit ovat avoimesta <a href='./3d/' target='_blank'>tietokannasta</a>, joka listaa harrastajien sekä virallisen toimijoiden (museot, Museovirasto, Ahvenanmaan paikallioshallinto) tekemiä 3D-mallinnuksia. Mallien lisenssit on listattu tietokannassa mallikohtaisesti.",
       "sourceCode": "Tämän sivuston tekninen toteutus on <a href='https://github.com/anttikekki/muinaismuistot' target='_blank'>avointa lähdekoodia</a>, lisenssinä on <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE' target='_blank'>MIT</a>."
@@ -159,6 +161,11 @@
       "title": "Helsingin kaupungin aineistot",
       "licence": "© Helsingin kaupunki (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)"
     },
+    "viabundus": {
+      "title": "Viabundus-projektin aineistot",
+      "year": "Vuosi ({{selectedYear}})",
+      "licence": "© Viabundus-projekti (<a href='https://creativecommons.org/licenses/by-sa/4.0/deed.fi'>CC BY-SA 4.0</a>)"
+    },
     "3Dmodels": {
       "title": "3D-mallit"
     },
@@ -222,7 +229,10 @@
         "rajauksenTyyppi": "Rajauksen tyyppi"
       },
       "downloadGeometry": "Lataa GeoJSON paikkatieto",
-      "muinaisjäännökset": "Muinaisjäännökset"
+      "muinaisjäännökset": "Muinaisjäännökset",
+      "lähteet": "Lähteet",
+      "yleisetLähteet": "Yleiset lähteet",
+      "markkinapäivät": "Markkinapäivät"
     },
     "3d": {
       "title": "Kohteen 3D-mallit",
@@ -254,7 +264,8 @@
         "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset",
         "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset",
         "muinaisrannat": "Muinaisrannat",
-        "MaannousuInfo": "Maannousu.info maannousukartta"
+        "MaannousuInfo": "Maannousu.info maannousukartta",
+        "viabundus": "Viabundus-projekti"
       },
       "nameWithLink": {
         "Muinaisjäännösrekisteri": "Muinaisjäännösrekisterit (<a href='https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/r_default.aspx' target='_blank'>lisätietoa</a>)",
@@ -267,7 +278,8 @@
         "3Dmodels": "3D-mallit (<a href='./3d/' target='_blank'>lisätietoa</a>)",
         "maisemanMuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset (<a href='./maisemanmuisti/' target='_blank'>lisätietoa</a>)",
         "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset (<a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>lisätietoa</a>)",
-        "MaannousuInfo": "Maannousukartta (<a href='https://maannousu.info' target='_blank'>lisätietoa</a>)"
+        "MaannousuInfo": "Maannousukartta (<a href='https://maannousu.info' target='_blank'>lisätietoa</a>)",
+        "viabundus": "Viabundus-projekti (<a href='https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin' target='_blank'>lisätietoa</a>)"
       }
     },
     "featureType": {
@@ -283,14 +295,17 @@
       "varkAlue": "Valtakunnallisesti merkittävät arkeologiset kohteet (VARK), aluerajaukset",
       "Ahvenanmaan muinaisjäännösrekisterin kohde": "Ahvenanmaan muinaisjäännösrekisterin kohde",
       "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde": "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde",
-      "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset"
+      "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset",
+      "viabundus": "Viabundus-aineisto",
+      "viabundus-tieverkko": "Tieverkko, Viabundus-aineisto",
+      "viabundus-kaupungin-rajat": "Kaupungin rajat, Viabundus-aineisto"
     },
     "timespan": {
       "prehistoric": "8600 eaa. - 1200 jaa.",
       "historic": "1200 jaa. -",
-      "stoneAge": "8600 – 1500 eaa.",
+      "stoneAge": "8600 - 1500 eaa.",
       "earlyMetalAge": "1500 eaa. - 200 jaa.",
-      "bronzeAge": "1700 – 500 eaa.",
+      "bronzeAge": "1700 - 500 eaa.",
       "ironAge": "500 eaa. - 1200 jaa.",
       "middleAge": "1200 - 1570 jaa.",
       "modern": "1800 jaa. -"
@@ -369,6 +384,27 @@
         "tukikohta": "Tukikohta",
         "laji": "Puolustusasema"
       }
+    },
+    "viabundus": {
+      "place": {
+        "settlement": "Asuttu paikka",
+        "town": "Kaupunki",
+        "fair": "Markkinat",
+        "toll": "Tulli",
+        "bridge": "Silta",
+        "ferry": "Lautta",
+        "harbour": "Satama",
+        "lock": "Sulku"
+      },
+      "road": {
+        "canal": "Kanaali",
+        "coast": "Kulkukelpoinen vesiväylä",
+        "ferry": "Lautta",
+        "land": "Maantie",
+        "river": "Joki",
+        "winter": "Talvitie"
+      },
+      "townOutline": "Kaupungin rajat"
     },
     "museovirasto": {
       "dating": {

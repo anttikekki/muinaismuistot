@@ -9,11 +9,8 @@ import {
   MMLVanhatKartatLayer,
   MaannousuInfoLayer,
   MaannousuInfoLayerIndex,
-  MaisemanMuistiLayer,
-  ModelLayer,
   MuseovirastoLayer
 } from "../common/layers.types"
-import { MaisemanMuistiFeature } from "../common/maisemanMuisti.types"
 import { MapFeature } from "../common/mapFeature.types"
 import {
   MuinaisjaannosAjoitus,
@@ -31,7 +28,6 @@ export enum PageId {
 export interface SelectedFeaturesOnMap {
   features: MapFeature[]
   models: ModelFeature[]
-  maisemanMuistiFeatures: MaisemanMuistiFeature[]
 }
 
 export interface Settings {
@@ -94,17 +90,23 @@ export interface Settings {
     enabled: boolean
   }
   models: {
-    selectedLayers: ModelLayer[]
     url: {
       geojson: string
     }
     enabled: boolean
   }
   maisemanMuisti: {
-    selectedLayers: MaisemanMuistiLayer[]
     url: {
       geojson: string
     }
+    enabled: boolean
+  }
+  viabundus: {
+    selectedYear: number
+    url: {
+      geojson: string
+    }
+    opacity: number
     enabled: boolean
   }
   gtk: {
