@@ -54,7 +54,8 @@ const Settlement: React.FC<{ feature: ViabundusPlaceFeature }> = ({
 
 const Town: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
   const { t } = useTranslation()
-  const { Is_Town, Town_From, Town_To, Town_DescriptionFI } = feature.properties
+  const { Is_Town, Town_From, Town_To, Town_DescriptionFI, population } =
+    feature.properties
 
   if (!Is_Town) {
     return
@@ -69,6 +70,27 @@ const Town: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
           label={t(`details.field.dating`)}
           value={`${Town_From ?? ""} - ${Town_To ?? ""}`}
         />
+      )}
+
+      {population && (
+        <Field label={t(`details.field.asukasluku`)}>
+          <table className="table">
+            <thead>
+              <th>{t(`data.viabundus.population.year`)}</th>
+              <th>{t(`data.viabundus.population.inhabitants`)}</th>
+            </thead>
+            <tbody>
+              {population.map(({ year, inhabitants }, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{year}</td>
+                    <td>{inhabitants === 0 ? "<1000" : `${inhabitants}000`}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </Field>
       )}
 
       <Field label={t(`details.field.description`)}>

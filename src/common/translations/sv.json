@@ -233,7 +233,8 @@
       "lähteet": "Källor",
       "yleisetLähteet": "Allmänna källor",
       "markkinapäivät": "Marknadsdagar",
-      "rekonstruktiotarkkuus": "Rekonstruktionens noggrannhet"
+      "rekonstruktiotarkkuus": "Rekonstruktionens noggrannhet",
+      "asukasluku": "Uppskattad befolkning"
     },
     "3d": {
       "title": "3D-modeller över objektet",
@@ -412,7 +413,11 @@
         "2": "Delvis osäker",
         "3": "Osäker"
       },
-      "townOutline": "Stadsgränser"
+      "townOutline": "Stadsgränser",
+      "population": {
+        "year": "År",
+        "inhabitants": "Invånare"
+      }
     },
     "museovirasto": {
       "dating": {

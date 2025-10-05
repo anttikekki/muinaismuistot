@@ -233,7 +233,8 @@
       "lähteet": "Lähteet",
       "yleisetLähteet": "Yleiset lähteet",
       "markkinapäivät": "Markkinapäivät",
-      "rekonstruktiotarkkuus": "Rekonstruktion tarkkuus"
+      "rekonstruktiotarkkuus": "Rekonstruktion tarkkuus",
+      "asukasluku": "Arvioitu väkiluku"
     },
     "3d": {
       "title": "Kohteen 3D-mallit",
@@ -412,7 +413,11 @@
         "2": "Osittain epävarma",
         "3": "Epävarma"
       },
-      "townOutline": "Kaupungin rajat"
+      "townOutline": "Kaupungin rajat",
+      "population": {
+        "year": "Vuosi",
+        "inhabitants": "Asukkaita"
+      }
     },
     "museovirasto": {
       "dating": {
