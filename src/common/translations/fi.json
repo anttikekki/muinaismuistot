@@ -41,7 +41,14 @@
     "title": "Lisätietoja sivustosta",
     "dataUpdates": {
       "title": "Paikkatietoaineiston ajantasaisuus",
-      "description": "Aineistot päivittyvät realiaikaisesti tälle sivustolle kaikkien tietolähteiden karttapalvelimilta."
+      "description": "Aineistojen päivitystiheys:",
+      "mml": "Realiaikaisesti",
+      "museovirasto": "Uudet kohteet 0-24 tunnin viiveellä, klikkaamalla näytettävät tarkemmat tiedot realiaikaisesti",
+      "ahvenanmaa": "Realiaikaisesti",
+      "gtk": "Realiaikaisesti",
+      "helsinki": "Realiaikaisesti",
+      "viabundus": "Manuaalisesti. Nyt käytössä on aineiston versio 2, joka on julkaistu 25.4.2025",
+      "Maannousu.info": "Realiaikaisesti"
     },
     "symbols": "Karttasymbolit",
     "siteInfo": {
@@ -70,7 +77,7 @@
       "gtk": "Muinaisrantojen ja maaperän aineistot haetaan Geologian tutkimuskeskuksen <a href='https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/' target='_blank'>avoimen WMS-rajapinnan</a> kautta. Muinaisrantojen paikkatietoaineisto on julkaistu <a href='https://www.gtk.fi/peruslisenssi/' target='_blank'>peruslisenssillä</a> (erillislupa aineiston käyttöön saatu 15.1.2021). Maaperän  paikkatietoaineisto on julkaistu <a href='https://www.gtk.fi/avoin-lisenssi/' target='_blank'>avoimella lisenssillä</a> (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0</a>).",
       "maannousuInfo": "Maannousu.info sivuston maannousua kuvaava kartta <a href='https://maannousu.info/integration' target='_blank'>avoimen GeoTIFF-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
       "helsinki": "Helsingin ensimmäisen maailmansodan aikaisten maalinnoitusten aineisto haetaan Helsingin kaupungin <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>avoimen WMS-rajapinnan</a> kautta (paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by/4.0/deed.fi' target='_blank'>Creative Commons CC By 4.0 -lisenssillä</a>).",
-      "viabundus": "Viabundus-projektin aineisto keskiaikaisesta tieverkosta ja asutuksesta on ladattu <a href='https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin' target='_blank'>projektin sivustolta</a> ja sitä muokattu. Alkuperäinen ja muokattu paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by-sa/4.0/deed.fi' target='_blank'>CC BY-SA 4.0 -lisenssillä</a>. Muokatun aineiston voi ladata GeoJSON-muodossa osoitteesta <a href='./viabundus/Viabundus-finland.geojson' target='_blank'>muinaismuistot.info/viabundus/Viabundus-finland.geojson</a>.",
+      "viabundus": "Viabundus-projektin aineisto keskiaikaisesta tieverkosta ja asutuksesta on ladattu <a href='https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin' target='_blank'>projektin sivustolta</a> (versio 2) ja sitä muokattu. Alkuperäinen ja muokattu paikkatietoaineisto on julkaistu <a href='https://creativecommons.org/licenses/by-sa/4.0/deed.fi' target='_blank'>CC BY-SA 4.0 -lisenssillä</a>. Muokatun aineiston voi ladata GeoJSON-muodossa osoitteesta <a href='./viabundus/Viabundus-finland.geojson' target='_blank'>muinaismuistot.info/viabundus/Viabundus-finland.geojson</a>.",
       "maisemanmuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset -kirjan paikkatieto on <a href='./maisemanmuisti/' target='_blank'>tietokannasta</a> johon on koottu kirjan listaamat 205 kohdetta. Kirjan sisällön tekijanoikeus on Museovirastolla, jolta on kysytty lupa aineiston käyttöön.",
       "3DModels": "3D-mallit ovat avoimesta <a href='./3d/' target='_blank'>tietokannasta</a>, joka listaa harrastajien sekä virallisen toimijoiden (museot, Museovirasto, Ahvenanmaan paikallioshallinto) tekemiä 3D-mallinnuksia. Mallien lisenssit on listattu tietokannassa mallikohtaisesti.",
       "sourceCode": "Tämän sivuston tekninen toteutus on <a href='https://github.com/anttikekki/muinaismuistot' target='_blank'>avointa lähdekoodia</a>, lisenssinä on <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE' target='_blank'>MIT</a>."

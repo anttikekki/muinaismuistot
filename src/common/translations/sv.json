@@ -41,7 +41,14 @@
     "title": "Information om webbsidan",
     "dataUpdates": {
       "title": "Datamaterialets aktualitet",
-      "description": "Materialet uppdateras i realtid på denna webbplats från alla datakällornas kartservrar."
+      "description": "Uppdateringsfrekvens för datamängder:",
+      "mml": "I realtid",
+      "museovirasto": "Nya objekt med 0-24 timmars fördröjning, mer detaljerad information visas i realtid vid klick",
+      "ahvenanmaa": "I realtid",
+      "gtk": "I realtid",
+      "helsinki": "I realtid",
+      "viabundus": "Manuellt. Den nuvarande versionen av datamängden är version 2, publicerad 25.4.2025",
+      "Maannousu.info": "I realtid"
     },
     "symbols": "Teckenförklaring",
     "siteInfo": {
@@ -73,7 +80,7 @@
       "maisemanmuisti": "Platsdata från boken Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset hämtas från <a href='./maisemanmuisti/' target='_blank'>en databas</a> som sammanställer samtliga 205 objekt i boken. Upphovsrätten till boken tillhör Museiverket, som har godkänt att informationen används.",
       "3DModels": "3D-modeller hämtas från öppen <a href='./3d/' target='_blank'>databas</a>, som sammanställer modeller från privata och offentliga aktörer (museer, Museiverket, Ålands landskapsregering). Licensuppgifter över modellerna har sammanställts enligt respektive modell i databasen.",
       "sourceCode": "Denna webbplats använder <a href='https://github.com/anttikekki/muinaismuistot' target='_blank'>öppen källkod</a> av licensen <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE' target='_blank'>MIT</a>.",
-      "viabundus": "Materialet från Viabundus-projektet om det medeltida vägnätet och bosättningen har hämtats från <a href='https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin' target='_blank'>projektets webbplats</a> och har bearbetats. Det ursprungliga och det bearbetade geodata-materialet är publicerat under licensen <a href='https://creativecommons.org/licenses/by-sa/4.0/deed.fi' target='_blank'>CC BY-SA 4.0</a>. Det bearbetade materialet kan laddas ner i GeoJSON-format från <a href='./viabundus/Viabundus-finland.geojson' target='_blank'>muinaismuistot.info/viabundus/Viabundus-finland.geojson</a>."
+      "viabundus": "Materialet från Viabundus-projektet om det medeltida vägnätet och bosättningen har hämtats från <a href='https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=eng' target='_blank'>projektets webbplats</a>, har bearbetats och är version 2 av materialet. Det ursprungliga och det bearbetade geodata-materialet är publicerat under licensen <a href='https://creativecommons.org/licenses/by-sa/4.0/deed.sv' target='_blank'>CC BY-SA 4.0</a>. Det bearbetade materialet kan laddas ner i GeoJSON-format från <a href='./viabundus/Viabundus-finland.geojson' target='_blank'>muinaismuistot.info/viabundus/Viabundus-finland.geojson</a>."
     }
   },
   "settings": {
@@ -139,7 +146,7 @@
       "title": "Maannousu.info landhöjningskarta",
       "info": "Beräkningsmodell för landhöjningen: <a href='https://maannousu.info/model-v2' target='_blank'>Glacial Land Adjustment Regenerator (Glare)</a>",
       "info2": "Landhöjningen kan följas under tidsperioden 10 000 f.v.t - 1900 e.v.t Året väljs längst ned på kartan. För åren 10 000 f.v.t - 8500 e.v.t visas även inlandsisen från istiden i Norden.",
-      "licence": "<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>",
+      "licence": "<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>",
       "webGLError": "Din webbläsare stöder inte WebGL-tekniken som krävs för att visa Maannousu.info-kartor. Tyvärr kan Maannousu.info-kartor inte användas på din enhet.",
       "placementSwitch": "Dölj objekt som hamnar under havsytan"
     },
@@ -170,7 +177,7 @@
     "viabundus": {
       "title": "Viabundus-projektets material",
       "year": "År ({{selectedYear}})",
-      "licence": "© Viabundus-projektet (<a href='https://creativecommons.org/licenses/by-sa/4.0/deed.fi'>CC BY-SA 4.0</a>)"
+      "licence": "© Viabundus-projektet (<a href='https://creativecommons.org/licenses/by-sa/4.0/deed.sv'>CC BY-SA 4.0</a>)"
     }
   },
   "search": {
