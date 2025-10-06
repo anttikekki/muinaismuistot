@@ -152,7 +152,9 @@ export enum MuseovirastoLayer {
   Muu_kulttuuriperintokohde_alue = "rajapinta_suojellut:muu_kulttuuriperintokohde_alue",
   Muu_kulttuuriperintokohde_piste = "rajapinta_suojellut:muu_kulttuuriperintokohde_piste",
   VARK_alueet = "rajapinta_suojellut:vark_alueet",
-  VARK_pisteet = "rajapinta_suojellut:vark_pisteet"
+  VARK_pisteet = "rajapinta_suojellut:vark_pisteet",
+  Löytöpaikka_piste = "rajapinta:rajapinta_loytopaikka_piste",
+  Löytöpaikka_alue = "rajapinta:rajapinta_loytopaikka_alue"
 }
 
 export enum AhvenanmaaLayer {

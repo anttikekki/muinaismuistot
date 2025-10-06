@@ -123,6 +123,16 @@ export const MapSymbolPanel: React.FC = () => {
               {t(`data.featureType.Muu kulttuuriperintökohde (alue)`)}
             </span>
           </div>
+
+          <div className="ms-3">
+            <img className="feature-icon" src="images/loytopaikka_piste.png" />
+            <span>{t(`data.featureType.löytöpaikkaPiste`)}</span>
+          </div>
+
+          <div className="ms-3">
+            <img className="feature-icon" src="images/loytopaikka_alue.png" />
+            <span>{t(`data.featureType.löytöpaikkaAlue`)}</span>
+          </div>
         </div>
 
         <h6>

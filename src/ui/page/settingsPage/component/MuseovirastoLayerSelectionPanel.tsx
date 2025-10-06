@@ -231,6 +231,20 @@ export const MuseovirastoLayerSelectionPanel: React.FC = () => {
               onSelectLayer={onSelectLayer}
               disabled={!enabled}
             />
+            <LayerCheckbox
+              label={t(`data.featureType.löytöpaikkaPiste`)}
+              layer={MuseovirastoLayer.Löytöpaikka_piste}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`data.featureType.löytöpaikkaAlue`)}
+              layer={MuseovirastoLayer.Löytöpaikka_alue}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
           </Form.Group>
 
           <h6>

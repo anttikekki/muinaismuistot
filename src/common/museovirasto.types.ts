@@ -309,6 +309,57 @@ export interface VarkPisteFeature
   id: `vark_pisteet.${number}`
 }
 
+export type LöytöpaikkaPisteFeatureProperties = {
+  OBJECTID: number // 38962;
+  mjtunnus: number // 1279;
+  inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1279_P38962";
+  kohdenimi: string // "Melkki länsiranta";
+  kunta: string // "Helsinki"
+  Laji: "löytöpaikka" // "löytöpaikka";
+  tyyppi: string // "alusten hylyt, kivirakenteet";
+  alatyyppi: string // "hylyt (puu), hautakummut";
+  ajoitus: string // "ei määritelty, keskiaikainen";
+  vedenalainen: "K" | "E"
+  zala: null
+  zyla: null
+  KOHDE_APVM: string // "2003-04-03T00:00:00Z",
+  KOHDE_MPVM: string // "2008-04-02T16:29:02.283Z",
+  luontipvm: string // "2003-04-03T00:00:00Z"
+  muutospvm: string // "2011-01-28T00:00:00Z"
+  paikannustapa: string | null // "Null";
+  paikannustarkkuus: string | null // "Ohjeellinen (10 - 100 m)";
+  selite: string // "Paikannettu Kansalaisen karttapaikan avulla sanallisen kuvauksen perusteella.";
+  url: string // "www.kyppi.fi/to.aspx?id=112.1279";
+  x: number // 382363.823
+  y: number // 6667893.676
+}
+
+export interface LöytöpaikkaPisteFeature
+  extends FeatureSupplementaryData,
+    Feature<Point, LöytöpaikkaPisteFeatureProperties> {
+  id: `rajapinta_loytopaikka_piste.${number}`
+}
+
+type LöytöpaikkaAlueFeatureProperties = {
+  OBJECTID: number // 9190
+  mjtunnus: number // 1000007642
+  inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000007642_A9190";
+  kohdenimi: string // "Tukikohta I:tie (Mustavuori)                                                                        ";
+  kunta: string // "Helsinki                                                                                            ";
+  Laji: "löytöpaikka" // "löytöpaikka";                                                                           ";
+  lähdetiedon_ajoitus: string // "1979";
+  digipvm: string // "12.3.2007 15:02:19";
+  digimk: string // "PerusCD";
+  Muutospvm: string // "18.3.2008 09:30:12";
+  url: string // "https://www.museoverkko.fi/netsovellus/esri/broker.aspx?taulu=mjreki.dbo.T_KOHDE&tunnus=1000001634"
+}
+
+export interface LöytöpaikkaAlueFeature
+  extends FeatureSupplementaryData,
+    Feature<Geometry, LöytöpaikkaAlueFeatureProperties> {
+  id: `rajapinta_loytopaikka_alue.${number}`
+}
+
 export type MuseovirastoFeature =
   | MuinaisjaannosPisteFeature
   | MuinaisjaannosAlueFeature
@@ -323,6 +374,8 @@ export type MuseovirastoFeature =
   | MaailmanperintoAlueFeature
   | VarkPisteFeature
   | VarkAlueFeature
+  | LöytöpaikkaPisteFeature
+  | LöytöpaikkaAlueFeature
 
 export type MuseovirastoFeatureInfoResult = {
   type: "FeatureCollection"
@@ -392,6 +445,16 @@ export const isVarkAlueFeature = (
 ): feature is VarkAlueFeature =>
   feature.id?.toString().startsWith("vark_alueet.") ?? false
 
+export const isLöytöpaikkaPisteFeature = (
+  feature: Feature
+): feature is LöytöpaikkaPisteFeature =>
+  feature.id?.toString().startsWith("rajapinta_loytopaikka_piste.") ?? false
+
+export const isLöytöpaikkaAlueFeature = (
+  feature: Feature
+): feature is LöytöpaikkaAlueFeature =>
+  feature.id?.toString().startsWith("rajapinta_loytopaikka_alue.") ?? false
+
 export const isMuseovirastoFeature = (
   feature: MapFeature
 ): feature is MuseovirastoFeature => {
@@ -409,7 +472,9 @@ export const isMuseovirastoFeature = (
       isMaailmanperintoPisteFeature(feature) ||
       isMaailmanperintoAlueFeature(feature) ||
       isVarkPisteFeature(feature) ||
-      isVarkAlueFeature(feature))
+      isVarkAlueFeature(feature) ||
+      isLöytöpaikkaPisteFeature(feature) ||
+      isLöytöpaikkaAlueFeature(feature))
   )
 }
 
@@ -455,6 +520,12 @@ export const getMuseovirastoFeatureLayerName = (
   if (isVarkAlueFeature(feature)) {
     return MuseovirastoLayer.VARK_alueet
   }
+  if (isLöytöpaikkaPisteFeature(feature)) {
+    return MuseovirastoLayer.Löytöpaikka_piste
+  }
+  if (isLöytöpaikkaAlueFeature(feature)) {
+    return MuseovirastoLayer.Löytöpaikka_alue
+  }
   throw new Error(`Tuntematon Museovirasto Feature: ${JSON.stringify(feature)}`)
 }
 
@@ -471,6 +542,8 @@ export const getMuseovirastoFeatureNameField = (
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_piste:
     case MuseovirastoLayer.RKY_viiva:
+    case MuseovirastoLayer.Löytöpaikka_piste:
+    case MuseovirastoLayer.Löytöpaikka_alue:
       return `kohdenimi`
     case MuseovirastoLayer.Maailmanperinto_piste:
     case MuseovirastoLayer.Maailmanperinto_alue:
@@ -489,6 +562,8 @@ export const getMuseovirastoFeatureIdField = (
     case MuseovirastoLayer.Muinaisjaannokset_alue:
     case MuseovirastoLayer.Muu_kulttuuriperintokohde_alue:
     case MuseovirastoLayer.Muu_kulttuuriperintokohde_piste:
+    case MuseovirastoLayer.Löytöpaikka_piste:
+    case MuseovirastoLayer.Löytöpaikka_alue:
       return "mjtunnus"
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:

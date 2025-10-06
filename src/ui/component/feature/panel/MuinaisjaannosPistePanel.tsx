@@ -2,6 +2,7 @@ import React, { useMemo } from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
+  LöytöpaikkaPisteFeature,
   MuinaisjaannosPisteFeature,
   MuuKulttuuriperintokohdePisteFeature
 } from "../../../../common/museovirasto.types"
@@ -30,7 +31,10 @@ import { MuseovirastoLink } from "../component/MuseovirastoLink"
 import { TimespanLabel } from "../component/TimespanLabel"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
-  feature: MuinaisjaannosPisteFeature | MuuKulttuuriperintokohdePisteFeature
+  feature:
+    | MuinaisjaannosPisteFeature
+    | MuuKulttuuriperintokohdePisteFeature
+    | LöytöpaikkaPisteFeature
 }
 
 export const MuinaisjaannosPistePanel: React.FC<Props> = ({

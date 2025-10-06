@@ -32,6 +32,8 @@ import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi,
   MuseovirastoFeature,
+  isLöytöpaikkaAlueFeature,
+  isLöytöpaikkaPisteFeature,
   isMaailmanperintoAlueFeature,
   isMaailmanperintoPisteFeature,
   isMuinaisjaannosAlueFeature,
@@ -73,7 +75,9 @@ export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
       isRKYPisteFeature(feature) ||
       isRKYViivaFeature(feature) ||
       isSuojellutRakennuksetAlueFeature(feature) ||
-      isSuojellutRakennuksetPisteFeature(feature)
+      isSuojellutRakennuksetPisteFeature(feature) ||
+      isLöytöpaikkaPisteFeature(feature) ||
+      isLöytöpaikkaAlueFeature(feature)
     ) {
       return trim(feature.properties.kohdenimi)
     }
@@ -196,6 +200,12 @@ export const getFeatureTypeName = (
     if (isVarkAlueFeature(feature)) {
       return t(`data.featureType.varkAlue`)
     }
+    if (isLöytöpaikkaPisteFeature(feature)) {
+      return t(`data.featureType.löytöpaikkaPiste`)
+    }
+    if (isLöytöpaikkaAlueFeature(feature)) {
+      return t(`data.featureType.löytöpaikkaAlue`)
+    }
     if (isMaalinnoitusYksikkoFeature(feature)) {
       return `${t(`data.featureType.maalinnoitus`)}, ${t(
         `data.helsinki.featureType.yksikkö`
@@ -269,6 +279,13 @@ export const getFeatureTypeName = (
 export const getTypeIconURL = (imageName: string, has3dModels = false) =>
   `images/${imageName}${has3dModels ? "_3d" : ""}.png`
 
+/**
+ * Kuvien lähteet:
+ *
+ * Museovirasto: https://geoserver.museovirasto.fi
+ * - Pisteet: request=GetLegendGraphic&LEGEND_OPTIONS=dpi:150
+ * - Alueet: request=GetLegendGraphic&LEGEND_OPTIONS=dpi:70
+ */
 export const getFeatureTypeIconURL = (feature: MapFeature): string => {
   const has3dModels = "models" in feature ? feature.models.length > 0 : false
   if (isGeoJSONFeature(feature)) {
@@ -319,6 +336,12 @@ export const getFeatureTypeIconURL = (feature: MapFeature): string => {
     }
     if (isVarkAlueFeature(feature)) {
       return getTypeIconURL("vark_alue", has3dModels)
+    }
+    if (isLöytöpaikkaPisteFeature(feature)) {
+      return getTypeIconURL("loytopaikka_piste", has3dModels)
+    }
+    if (isLöytöpaikkaAlueFeature(feature)) {
+      return getTypeIconURL("loytypaikka_alue", has3dModels)
     }
     if (isMaalinnoitusYksikkoFeature(feature)) {
       return getTypeIconURL("maalinnoitus-yksikko", false)
@@ -435,6 +458,10 @@ export const getLayerIconURLs = (layer: FeatureLayer): string[] => {
       return ["images/vark_piste.png"]
     case MuseovirastoLayer.VARK_alueet:
       return ["images/vark_alue.png"]
+    case MuseovirastoLayer.Löytöpaikka_piste:
+      return ["images/loytopaikka_piste.png"]
+    case MuseovirastoLayer.Löytöpaikka_alue:
+      return ["images/loytopaikka_alue.png"]
     case AhvenanmaaLayer.Fornminnen:
       return ["images/ahvenanmaa_muinaisjaannos.png"]
     case AhvenanmaaLayer.MaritimaFornminnen:
@@ -470,7 +497,9 @@ export const getFeatureID = (feature: MapFeature): string => {
       isMuinaisjaannosPisteFeature(feature) ||
       isMuinaisjaannosAlueFeature(feature) ||
       isMuuKulttuuriperintokohdePisteFeature(feature) ||
-      isMuuKulttuuriperintokohdeAlueFeature(feature)
+      isMuuKulttuuriperintokohdeAlueFeature(feature) ||
+      isLöytöpaikkaPisteFeature(feature) ||
+      isLöytöpaikkaAlueFeature(feature)
     ) {
       return String(feature.properties.mjtunnus)
     }
@@ -573,7 +602,9 @@ export const getFeatureRegisterURL = (
       isMuinaisjaannosPisteFeature(feature) ||
       isMuinaisjaannosAlueFeature(feature) ||
       isMuuKulttuuriperintokohdePisteFeature(feature) ||
-      isMuuKulttuuriperintokohdeAlueFeature(feature)
+      isMuuKulttuuriperintokohdeAlueFeature(feature) ||
+      isLöytöpaikkaPisteFeature(feature) ||
+      isLöytöpaikkaAlueFeature(feature)
     ) {
       return getMuinaisjaannosRegisterUrl(feature.properties.mjtunnus, lang)
     }
@@ -618,7 +649,9 @@ export const getFeatureRegisterName = (
       isMuinaisjaannosPisteFeature(feature) ||
       isMuinaisjaannosAlueFeature(feature) ||
       isMuuKulttuuriperintokohdePisteFeature(feature) ||
-      isMuuKulttuuriperintokohdeAlueFeature(feature)
+      isMuuKulttuuriperintokohdeAlueFeature(feature) ||
+      isLöytöpaikkaPisteFeature(feature) ||
+      isLöytöpaikkaAlueFeature(feature)
     ) {
       return t(`details.registerLink.fromMuinaisjaannos`)
     }
@@ -657,6 +690,8 @@ export const getLayerRegisterName = (
     case MuseovirastoLayer.Muinaisjaannokset_alue:
     case MuseovirastoLayer.Muu_kulttuuriperintokohde_piste:
     case MuseovirastoLayer.Muu_kulttuuriperintokohde_alue:
+    case MuseovirastoLayer.Löytöpaikka_piste:
+    case MuseovirastoLayer.Löytöpaikka_alue:
       return t(`data.register.name.Muinaisjäännösrekisteri`)
     case MuseovirastoLayer.RKY_alue:
     case MuseovirastoLayer.RKY_viiva:
@@ -673,6 +708,9 @@ export const getLayerRegisterName = (
     case MuseovirastoLayer.VARK_pisteet:
     case MuseovirastoLayer.VARK_alueet:
       return t(`data.register.name.vark`)
+    case MuseovirastoLayer.Löytöpaikka_piste:
+    case MuseovirastoLayer.Löytöpaikka_alue:
+      return t(`data.register.name.Löytöpaikat`)
     case AhvenanmaaLayer.Fornminnen:
       return t(`data.register.name.Ahvenanmaan muinaisjäännösrekisteri`)
     case AhvenanmaaLayer.MaritimaFornminnen:
@@ -690,7 +728,9 @@ export const getFeatureMunicipality = (
       isMuinaisjaannosPisteFeature(feature) ||
       isMuinaisjaannosAlueFeature(feature) ||
       isSuojellutRakennuksetAlueFeature(feature) ||
-      isSuojellutRakennuksetPisteFeature(feature)
+      isSuojellutRakennuksetPisteFeature(feature) ||
+      isLöytöpaikkaPisteFeature(feature) ||
+      isLöytöpaikkaAlueFeature(feature)
     ) {
       return feature.properties.kunta
     }
@@ -746,7 +786,8 @@ export const splitMuinaisjaannosTyyppi = (
   const tyypit = (() => {
     if (
       isMuinaisjaannosPisteFeature(feature) ||
-      isMuuKulttuuriperintokohdePisteFeature(feature)
+      isMuuKulttuuriperintokohdePisteFeature(feature) ||
+      isLöytöpaikkaPisteFeature(feature)
     ) {
       return [feature.properties.tyyppi]
     }
@@ -770,7 +811,8 @@ export const splitMuinaisjaannosAlatyyppi = (
   const alatyypit = (() => {
     if (
       isMuinaisjaannosPisteFeature(feature) ||
-      isMuuKulttuuriperintokohdePisteFeature(feature)
+      isMuuKulttuuriperintokohdePisteFeature(feature) ||
+      isLöytöpaikkaPisteFeature(feature)
     ) {
       return [feature.properties.alatyyppi]
     }
@@ -798,7 +840,8 @@ export const splitMuinaisjaannosAjoitus = (
   const ajoitus = (() => {
     if (
       isMuinaisjaannosPisteFeature(feature) ||
-      isMuuKulttuuriperintokohdePisteFeature(feature)
+      isMuuKulttuuriperintokohdePisteFeature(feature) ||
+      isLöytöpaikkaPisteFeature(feature)
     ) {
       return [feature.properties.ajoitus]
     }

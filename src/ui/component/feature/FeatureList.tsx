@@ -18,6 +18,8 @@ import {
   MapFeature
 } from "../../../common/mapFeature.types"
 import {
+  isLöytöpaikkaAlueFeature,
+  isLöytöpaikkaPisteFeature,
   isMaailmanperintoAlueFeature,
   isMaailmanperintoPisteFeature,
   isMuinaisjaannosAlueFeature,
@@ -99,13 +101,15 @@ export const FeatureList: React.FC<FeatureListProps> = ({
         if (isGeoJSONFeature(feature)) {
           if (
             isMuinaisjaannosPisteFeature(feature) ||
-            isMuuKulttuuriperintokohdePisteFeature(feature)
+            isMuuKulttuuriperintokohdePisteFeature(feature) ||
+            isLöytöpaikkaPisteFeature(feature)
           ) {
             return <MuinaisjaannosPistePanel feature={feature} {...params} />
           }
           if (
             isMuinaisjaannosAlueFeature(feature) ||
-            isMuuKulttuuriperintokohdeAlueFeature(feature)
+            isMuuKulttuuriperintokohdeAlueFeature(feature) ||
+            isLöytöpaikkaAlueFeature(feature)
           ) {
             return <MuinaisjaannosAluePanel feature={feature} {...params} />
           }

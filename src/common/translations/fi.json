@@ -302,6 +302,8 @@
       "Rakennusperintökohde": "Rakennusperintökohde",
       "varkPiste": "Valtakunnallisesti merkittävät arkeologiset kohteet (VARK), keskipisteet",
       "varkAlue": "Valtakunnallisesti merkittävät arkeologiset kohteet (VARK), aluerajaukset",
+      "löytöpaikkaPiste": "Löytöpaikka",
+      "löytöpaikkaAlue": "Löytöpaikka-alue",
       "Ahvenanmaan muinaisjäännösrekisterin kohde": "Ahvenanmaan muinaisjäännösrekisterin kohde",
       "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde": "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde",
       "maalinnoitus": "Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset",

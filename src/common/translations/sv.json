@@ -302,6 +302,8 @@
       "Rakennusperintökohde": "Byggandsarv",
       "varkPiste": "Arkeologiska områden av riksintresse (VARK), medelpunkter",
       "varkAlue": "Arkeologiska områden av riksintresse (VARK), områdesavgränsningar",
+      "löytöpaikkaPiste": "Fyndplats",
+      "löytöpaikkaAlue": "Fyndplatsområde",
       "Ahvenanmaan muinaisjäännösrekisterin kohde": "Fast fornlämning i fornminnesregister för Åland",
       "Ahvenanmaan merellisen kulttuuriperintörekisterin kohde": "Objekt i register över maritimt kulturarv på Åland",
       "maalinnoitus": "Landfästningar runt Helsingfors under första världskriget",
@@ -312,9 +314,9 @@
     "timespan": {
       "prehistoric": "8600 f.v.t. - 1200 e.v.t.",
       "historic": "1200 e.v.t. -",
-      "stoneAge": "8600 – 1500 f.v.t.",
+      "stoneAge": "8600 - 1500 f.v.t.",
       "earlyMetalAge": "1500 f.v.t. - 200 e.v.t.",
-      "bronzeAge": "1700 – 500 f.v.t.",
+      "bronzeAge": "1700 - 500 f.v.t.",
       "ironAge": "500 f.v.t. - 1200 e.v.t.",
       "middleAge": "1200 - 1570 e.v.t.",
       "modern": "1800 e.v.t. -"
