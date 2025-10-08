@@ -1,6 +1,6 @@
 {
   "name": "muinaismuistot",
-  "version": "1.36.0",
+  "version": "1.36.1",
   "description": "Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa.",
   "scripts": {
     "lint": "npx eslint .",
