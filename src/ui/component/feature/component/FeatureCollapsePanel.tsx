@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useMemo } from "react"
+import React, { MouseEvent, ReactNode, useCallback, useMemo } from "react"
 import { Accordion, Col, Container, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
@@ -26,67 +26,6 @@ export interface FeatureCollapsePanelCommonExternalProps {
   onToggleOpen: () => void
 }
 
-interface FeatureCollapsePanelProps
-  extends FeatureCollapsePanelCommonExternalProps {
-  permanentLink: string | undefined
-  featureName: string
-  featureTypeIconURL: string | undefined
-  featureTypeName: string | undefined
-  children: ReactNode
-}
-
-const FeatureCollapsePanel: React.FC<FeatureCollapsePanelProps> = ({
-  panelId,
-  onToggleOpen,
-  permanentLink,
-  featureName,
-  featureTypeIconURL,
-  featureTypeName,
-  children
-}) => {
-  const dispatch = useDispatch<AppDispatch>()
-  const hidePage = useCallback(() => {
-    dispatch({
-      type: ActionTypeEnum.SHOW_PAGE,
-      pageId: undefined
-    })
-  }, [dispatch])
-
-  const onPermanentLinkClick = () => {
-    hidePage()
-  }
-
-  return (
-    <Accordion.Item eventKey={panelId}>
-      <Accordion.Header onClick={onToggleOpen} as="div">
-        <Container className="ps-0">
-          <Row>
-            <Col xs={10}>
-              <h6 className="mb-0">{featureName}</h6>
-              <div>
-                <img className="feature-icon" src={featureTypeIconURL} />
-                <span>{featureTypeName}</span>
-              </div>
-            </Col>
-            <Col xs={2} className="text-end align-self-center">
-              <a href={permanentLink} onClick={onPermanentLinkClick}>
-                <i
-                  className="bi bi-link-45deg"
-                  aria-hidden="true"
-                  style={{ fontSize: "2rem" }}
-                />
-              </a>
-            </Col>
-          </Row>
-        </Container>
-      </Accordion.Header>
-      <Accordion.Body>
-        <div className="panel-body">{children}</div>
-      </Accordion.Body>
-    </Accordion.Item>
-  )
-}
-
 interface MapFeatureCollapsePanelProps
   extends FeatureCollapsePanelCommonExternalProps {
   feature: MapFeature
@@ -95,19 +34,16 @@ interface MapFeatureCollapsePanelProps
 
 export const MapFeatureCollapsePanel: React.FC<
   MapFeatureCollapsePanelProps
-> = ({
-  titleClickAction,
-  isOpen,
-  panelId,
-  onToggleOpen,
-  feature,
-  children
-}) => {
+> = ({ titleClickAction, panelId, onToggleOpen, feature, children }) => {
   const { t, i18n } = useTranslation()
-  const permanentLink = useMemo(() => {
-    const coordinates = getFeatureLocation(feature)
-    return coordinates && createLocationHash(coordinates)
-  }, [i18n.language, feature])
+  const dispatch = useDispatch<AppDispatch>()
+
+  const coordinates = useMemo(() => getFeatureLocation(feature), [feature])
+  const permanentLink = useMemo(
+    () => coordinates && createLocationHash(coordinates),
+    [i18n.language, coordinates]
+  )
+
   const featureName = useMemo(
     () => getFeatureName(t, feature),
     [i18n.language, feature]
@@ -128,18 +64,53 @@ export const MapFeatureCollapsePanel: React.FC<
     return name + suffix
   }, [i18n.language, titleClickAction, feature])
 
+  const onPermanentLinkClick = useCallback(
+    (event: MouseEvent<HTMLAnchorElement>) => {
+      event.preventDefault()
+      coordinates &&
+        dispatch({
+          type: ActionTypeEnum.SET_LINKED_FEATURE,
+          coordinates: [coordinates[0], coordinates[1]] // [x, y]
+        })
+      dispatch({
+        type: ActionTypeEnum.SHOW_PAGE,
+        pageId: undefined
+      })
+    },
+    [dispatch, coordinates]
+  )
+
   return (
-    <FeatureCollapsePanel
-      titleClickAction={titleClickAction}
-      isOpen={isOpen}
-      panelId={panelId}
-      onToggleOpen={onToggleOpen}
-      permanentLink={permanentLink}
-      featureName={featureName}
-      featureTypeIconURL={featureTypeIconURL}
-      featureTypeName={featureTypeName}
-    >
-      {children}
-    </FeatureCollapsePanel>
+    <Accordion.Item eventKey={panelId}>
+      <Accordion.Header onClick={onToggleOpen} as="div">
+        <Container className="ps-0">
+          <Row>
+            <Col xs={10}>
+              <h6 className="mb-0">{featureName}</h6>
+              <div>
+                <img className="feature-icon" src={featureTypeIconURL} />
+                <span>{featureTypeName}</span>
+              </div>
+            </Col>
+            <Col xs={2} className="text-end align-self-center">
+              <a
+                href={permanentLink}
+                onClick={onPermanentLinkClick}
+                title={t("common.button.featureLocationLink")}
+              >
+                <i
+                  className="bi bi-geo-alt-fill"
+                  aria-hidden="true"
+                  style={{ fontSize: "2rem" }}
+                />
+              </a>
+            </Col>
+          </Row>
+        </Container>
+      </Accordion.Header>
+      <Accordion.Body>
+        <div className="panel-body">{children}</div>
+      </Accordion.Body>
+    </Accordion.Item>
   )
 }

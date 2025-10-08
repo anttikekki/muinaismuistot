@@ -17,11 +17,12 @@ import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi
 } from "../common/museovirasto.types"
-import { PageId, SelectedFeaturesOnMap } from "./storeTypes"
+import { IdentifiedMapFeatures, PageId, Settings } from "./storeTypes"
 
 export enum ActionTypeEnum {
+  FIRST_USER_LOCATION_DETECTION_COMPLETE = "FIRST_USER_LOCATION_DETECTION_COMPLETE",
   CENTER_MAP_TO_CURRENT_POSITION = "CENTER_MAP_TO_CURRENT_POSITION",
-  SET_MAP_LOCATION_AND_SHOW_SELECTED_MARKER = "SET_MAP_LOCATION_AND_SHOW_SELECTED_MARKER",
+  SET_LINKED_FEATURE = "SET_LINKED_FEATURE",
   SEARCH_FEATURES = "SEARCH_FEATURES",
   SEARCH_FEATURES_COMPLETE = "SEARCH_FEATURES_COMPLETE",
   CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE = "CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE",
@@ -35,7 +36,8 @@ export enum ActionTypeEnum {
   SHOW_PAGE = "SHOW_PAGE",
   ZOOM = "ZOOM",
   MOVE_MAANNOUSU_LAYER = "MOVE_MAANNOUSU_LAYER",
-  SELECT_VIABUNDUS_YEAR = "SELECT_VIABUNDUS_YEAR"
+  SELECT_VIABUNDUS_YEAR = "SELECT_VIABUNDUS_YEAR",
+  URL_CHANGED_BY_USER = "URL_CHANGED_BY_USER"
 }
 
 export interface ZoomAction {
@@ -43,12 +45,17 @@ export interface ZoomAction {
   zoomDirection: "in" | "out"
 }
 
+export interface FirstUserLocationDetectionComplete {
+  type: ActionTypeEnum.FIRST_USER_LOCATION_DETECTION_COMPLETE
+}
+
 export interface CenterMapToCurrentPositionAction {
   type: ActionTypeEnum.CENTER_MAP_TO_CURRENT_POSITION
 }
 
 export interface SetMapLocatoinAndShowSelectedMarkerAction {
-  type: ActionTypeEnum.SET_MAP_LOCATION_AND_SHOW_SELECTED_MARKER
+  type: ActionTypeEnum.SET_LINKED_FEATURE
+  /** [x, y] */
   coordinates: [number, number]
 }
 
@@ -64,7 +71,7 @@ export interface SearchFeaturesCompleteAction {
 
 export interface ClickedMapFeatureIdentificationCompleteAction {
   type: ActionTypeEnum.CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE
-  payload: SelectedFeaturesOnMap
+  payload: IdentifiedMapFeatures
 }
 
 export type SelectVisibleLayersAction =
@@ -179,7 +186,13 @@ export interface SelectViabundusYearAction {
   year: number
 }
 
+export interface UrlChangedByUser {
+  type: ActionTypeEnum.URL_CHANGED_BY_USER
+  newSettingsFromURL: Settings
+}
+
 export type ActionTypes =
+  | FirstUserLocationDetectionComplete
   | CenterMapToCurrentPositionAction
   | SetMapLocatoinAndShowSelectedMarkerAction
   | SearchFeaturesAction
@@ -196,3 +209,4 @@ export type ActionTypes =
   | ZoomAction
   | MoveMaannousuLayerAction
   | SelectViabundusYearAction
+  | UrlChangedByUser

@@ -9,18 +9,23 @@ import Fill from "ol/style/Fill"
 import Icon from "ol/style/Icon"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
+import { Settings } from "../../store/storeTypes"
 
 export default class CurrentPositionAndSelectedLocationMarkerLayer {
   private readonly layer: VectorLayer<VectorSource<Feature<Geometry>>>
   private readonly source: VectorSource<Feature<Geometry>>
   private currentPositionFeature?: Feature<Geometry>
-  private selectedLocationFeature?: Feature<Geometry>
+  private linkedFeatureMarker?: Feature<Geometry>
 
-  public constructor() {
+  public constructor(settings: Settings) {
     this.source = new VectorSource()
     this.layer = new VectorLayer({
       source: this.source
     })
+
+    if (settings.linkedFeature) {
+      this.addLinkedFeatureMarker(settings.linkedFeature.coordinates)
+    }
   }
 
   public addCurrentPositionMarker = (coordinates: Coordinate) => {
@@ -54,16 +59,16 @@ export default class CurrentPositionAndSelectedLocationMarkerLayer {
     this.source.addFeature(this.currentPositionFeature)
   }
 
-  public addSelectedLocationFeatureMarker = (coordinates: Coordinate) => {
-    if (this.selectedLocationFeature) {
-      this.selectedLocationFeature.setGeometry(new Point(coordinates))
+  public addLinkedFeatureMarker = (coordinates: Coordinate) => {
+    if (this.linkedFeatureMarker) {
+      this.linkedFeatureMarker.setGeometry(new Point(coordinates))
       return
     }
 
-    this.selectedLocationFeature = new Feature({
+    this.linkedFeatureMarker = new Feature({
       geometry: new Point(coordinates)
     })
-    this.selectedLocationFeature.setStyle(
+    this.linkedFeatureMarker.setStyle(
       new Style({
         image: new Icon({
           src: "images/map-pin.png",
@@ -71,7 +76,7 @@ export default class CurrentPositionAndSelectedLocationMarkerLayer {
         })
       })
     )
-    this.source.addFeature(this.selectedLocationFeature)
+    this.source.addFeature(this.linkedFeatureMarker)
   }
 
   public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> =>

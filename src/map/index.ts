@@ -41,7 +41,6 @@ import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
 import ModelsLayer from "./layer/ModelsLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
 import ViabundusLayer from "./layer/ViabundusLayer"
-import finlandOutlineGeoJson from "./layer/finland-outline.json"
 
 export default class MuinaismuistotMap {
   private readonly store: Store<Settings, ActionTypes>
@@ -60,7 +59,6 @@ export default class MuinaismuistotMap {
   private readonly viabundusLayer: ViabundusLayer
   private readonly gtkLayer: GtkTileLayer
   private readonly helsinkiLayer: HelsinkiTileLayer
-  private readonly finlandOutline: Geometry | undefined
   private tileLoadingCounter = 0
 
   public constructor(store: Store<Settings, ActionTypes>) {
@@ -133,7 +131,7 @@ export default class MuinaismuistotMap {
       this.updateTileLoadingStatus
     )
     this.positionAndSelectedLocation =
-      new CurrentPositionAndSelectedLocationMarkerLayer()
+      new CurrentPositionAndSelectedLocationMarkerLayer(settings)
 
     this.map.addLayer(this.maanmittauslaitosTileLayer.getLayer())
     this.map.addLayer(this.gtkLayer.getLayer())
@@ -159,14 +157,51 @@ export default class MuinaismuistotMap {
       }
     })
 
-    this.geolocation.once("change:position", this.centerToCurrentPositions)
+    this.geolocation.once("change:position", () =>
+      store.dispatch({
+        type: ActionTypeEnum.FIRST_USER_LOCATION_DETECTION_COMPLETE
+      })
+    )
     this.geolocation.on("change:position", this.geolocationChanged)
 
-    this.finlandOutline = new GeoJSON()
-      .readFeatures(finlandOutlineGeoJson, {
-        featureProjection: this.view.getProjection()
-      })[0]
-      .getGeometry()
+    // Keskitetään kartta valittuun kohteeseen heti kun sivu aukeaa
+    if (settings.linkedFeature) {
+      this.view.setCenter(settings.linkedFeature.coordinates)
+    }
+  }
+
+  private setMapLocation = (coordinates: Coordinate) => {
+    this.view.setCenter(coordinates)
+  }
+
+  private geolocationChanged = () => {
+    const position = this.geolocation.getPosition()
+    if (position) {
+      this.positionAndSelectedLocation.addCurrentPositionMarker(position)
+    }
+  }
+
+  private centerToCurrentPositions = () => {
+    const position = this.geolocation.getPosition()
+    if (position) {
+      this.view.setCenter(position)
+    }
+  }
+
+  private firstGeolocationDetetcted = (settings: Settings) => {
+    const position = this.geolocation.getPosition()
+    if (position) {
+      /**
+       * Keskitetään kartta käyttäjän sijaintiin VAIN jos ei ole
+       * valittuna linkitettyä kohdetta. Muuten linkillä sisään tullut
+       * käyttäjä päätyy omaan sijaintiinsa eikä kohteeseen, jota
+       * tuli katsomaan.
+       */
+      if (!settings.linkedFeature) {
+        this.view.setCenter(position)
+      }
+      this.positionAndSelectedLocation.addCurrentPositionMarker(position)
+    }
   }
 
   public mapUpdaterStoreListener: StoreListener = {
@@ -174,15 +209,20 @@ export default class MuinaismuistotMap {
     effect: async (action, listenerApi) => {
       const settings = listenerApi.getState()
       switch (action.type) {
+        case ActionTypeEnum.FIRST_USER_LOCATION_DETECTION_COMPLETE:
+          this.firstGeolocationDetetcted(settings)
+          break
         case ActionTypeEnum.ZOOM:
           this.zoom(action.zoomDirection === "in" ? 1 : -1)
           break
         case ActionTypeEnum.CENTER_MAP_TO_CURRENT_POSITION:
           this.centerToCurrentPositions()
           break
-        case ActionTypeEnum.SET_MAP_LOCATION_AND_SHOW_SELECTED_MARKER:
+        case ActionTypeEnum.SET_LINKED_FEATURE:
           this.setMapLocation(action.coordinates)
-          this.showSelectedLocationMarker(action.coordinates)
+          this.positionAndSelectedLocation.addLinkedFeatureMarker(
+            action.coordinates
+          )
           break
         case ActionTypeEnum.CHANGE_LAYER_OPACITY:
           this.layerOpacityChanged(action.layerGroup, settings)
@@ -525,36 +565,5 @@ export default class MuinaismuistotMap {
         this.viabundusLayer.updateLayerVisibility(settings)
         break
     }
-  }
-
-  private setMapLocation = (coordinates: Coordinate) => {
-    this.view.setCenter(coordinates)
-  }
-
-  private geolocationChanged = () => {
-    const position = this.geolocation.getPosition()
-    if (position) {
-      this.positionAndSelectedLocation.addCurrentPositionMarker(position)
-    }
-  }
-
-  private centerToCurrentPositions = () => {
-    const position = this.geolocation.getPosition()
-    if (position) {
-      const isInsideFinland =
-        this.finlandOutline?.intersectsCoordinate(position)
-
-      // Siirrä kartta sijaintiin vain jos se on Suomen sisällä.
-      // Muuten ulkomaiset käyttäjät heitetään tyhjälle kartalle.
-      if (isInsideFinland === undefined || isInsideFinland === true) {
-        this.view.setCenter(position)
-      }
-    }
-  }
-
-  private showSelectedLocationMarker = (coordinates: Coordinate) => {
-    this.positionAndSelectedLocation.addSelectedLocationFeatureMarker(
-      coordinates
-    )
   }
 }

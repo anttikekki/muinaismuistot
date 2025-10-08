@@ -2,6 +2,7 @@ import { ThunkAction, ThunkDispatch } from "@reduxjs/toolkit"
 import { ModelFeature } from "../common/3dModels.types"
 import {
   AhvenanmaaLayer,
+  FeatureLayer,
   GtkLayer,
   HelsinkiLayer,
   Language,
@@ -25,19 +26,27 @@ export enum PageId {
   Details = "detailsPage"
 }
 
-export interface SelectedFeaturesOnMap {
+export interface IdentifiedMapFeatures {
   features: MapFeature[]
   models: ModelFeature[]
+}
+
+export type LinkedFeature = {
+  /** [x, y] */
+  coordinates: [number, number]
+  layer?: FeatureLayer
+  id?: number
 }
 
 export interface Settings {
   concurrentPendingJobsCounter: number
   showLoadingAnimation: boolean
   visiblePage?: PageId
-  selectedFeaturesOnMap: SelectedFeaturesOnMap
+  identifiedMapFeatures: IdentifiedMapFeatures
   search: {
     features: MapFeature[]
   }
+  linkedFeature?: LinkedFeature
   initialMapZoom: number
   language: Language
   maanmittauslaitos: {

@@ -14,7 +14,8 @@
       "maannousuInfo": {
         "Edellinen vuosi": "Förra året",
         "Seuraava vuosi": "Nästa år"
-      }
+      },
+      "featureLocationLink": "Länk direkt till detta objekt"
     },
     "features": {
       "Alue": "Område",

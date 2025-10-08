@@ -16,6 +16,7 @@ import {
   updateHelsinkiLayerOpacity,
   updateHelsinkiSelectedLayers
 } from "./reducers/helsinkiLayer"
+import { updateLinkedFeatureCoordinates } from "./reducers/linkedFeature"
 import {
   updateMmlPohjakarttaLayerEnabled,
   updateMmlPohjakarttaSelectedLayer,
@@ -75,15 +76,24 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
   }
 
   switch (action.type) {
+    case ActionTypeEnum.URL_CHANGED_BY_USER: {
+      return {
+        ...state,
+        ...action.newSettingsFromURL
+      }
+    }
+    case ActionTypeEnum.SET_LINKED_FEATURE: {
+      return updateLinkedFeatureCoordinates(state, action.coordinates)
+    }
     case ActionTypeEnum.CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE: {
-      const selectedFeaturesOnMap = action.payload
-      if (selectedFeaturesOnMap.features.length === 0) {
+      const identifiedMapFeatures = action.payload
+      if (identifiedMapFeatures.features.length === 0) {
         return state
       }
       return {
         ...state,
         visiblePage: PageId.Details,
-        selectedFeaturesOnMap
+        identifiedMapFeatures
       }
     }
     case ActionTypeEnum.SEARCH_FEATURES: {

@@ -30,6 +30,7 @@ import {
   updateHelsinkiLayerOpacity,
   updateHelsinkiSelectedLayers
 } from "../store/reducers/helsinkiLayer"
+import { updateLinkedFeatureCoordinates } from "../store/reducers/linkedFeature"
 import {
   updateMmlPohjakarttaLayerEnabled,
   updateMmlPohjakarttaSelectedLayer,
@@ -93,6 +94,8 @@ const validateAndUpdateUrlParamToSettings = <
 export const getSettingsFromURL = (): Settings => {
   let newSettings = initialSettings
   const {
+    x,
+    y,
     zoom,
     lang,
     mmlLayer,
@@ -124,6 +127,11 @@ export const getSettingsFromURL = (): Settings => {
     modelsEnabled,
     maisemanMuistiEnabled
   } = parseURLParams() as URLSettings
+
+  // Linked feature
+  if (x !== undefined && y !== undefined) {
+    newSettings = updateLinkedFeatureCoordinates(newSettings, [x, y])
+  }
 
   // Map initial zoom
   if (zoom !== undefined) {

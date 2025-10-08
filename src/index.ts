@@ -1,5 +1,6 @@
 import MuinaismuistotMap from "./map"
 import { addStoreListener, createStore } from "./store"
+import { ActionTypeEnum } from "./store/actionTypes"
 import { createUI } from "./ui"
 import URLUtil from "./url"
 
@@ -11,5 +12,12 @@ addStoreListener(map.mapUpdaterStoreListener)
 
 createUI(store)
 
-const urlUtil = new URLUtil(store.dispatch)
-addStoreListener(urlUtil.urlSettingsUpdaterStoreListener)
+addStoreListener(URLUtil.urlSettingsUpdaterStoreListener)
+
+// Päivitetään kaikki asetukset, kun käyttäjä muuttaa käsin hash-osaa URLista
+window.onhashchange = () => {
+  store.dispatch({
+    type: ActionTypeEnum.URL_CHANGED_BY_USER,
+    newSettingsFromURL: URLUtil.getSettingsFromURL()
+  })
+}

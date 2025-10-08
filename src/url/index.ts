@@ -1,23 +1,12 @@
 import debounce from "debounce"
-import { parseCoordinatesFromURL } from "../common/util/URLHashHelper"
 import { StoreListener } from "../store"
 import { ActionTypeEnum } from "../store/actionTypes"
 import { initialSettings } from "../store/initialSettings"
-import { AppDispatch } from "../store/storeTypes"
 import { getSettingsFromURL } from "./parseURL"
 import { updateSettingsToURL } from "./stringifyToURL"
 
 export default class URLUtil {
-  private prevCoordinatesFromURL: [number, number] | undefined
-
-  public constructor(dispatch: AppDispatch) {
-    window.onhashchange = () => {
-      this.setMapLocationFromURLHash(dispatch)
-    }
-    this.determineStartLocation(dispatch)
-  }
-
-  public urlSettingsUpdaterStoreListener: StoreListener = {
+  public static urlSettingsUpdaterStoreListener: StoreListener = {
     predicate: (action) => {
       switch (action.type) {
         case ActionTypeEnum.CHANGE_LANGUAGE:
@@ -28,48 +17,29 @@ export default class URLUtil {
         case ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING:
         case ActionTypeEnum.MOVE_MAANNOUSU_LAYER:
         case ActionTypeEnum.SELECT_VIABUNDUS_YEAR:
+        case ActionTypeEnum.SET_LINKED_FEATURE:
           return true
         default:
           return false
       }
     },
     /**
-     * Debounce URL updates for 500ms. Opacity slider triggers so many updates,
-     * that Firefox starts to throw errors.
+     * Viivätä URL-päivityksiä 300ms. Läpinäkyvyyden liukusäädin
+     * lähettää niin monta päivitystä, että Firefox alkaa heittää virhettä.
      */
     effect: debounce((action, listenerApi) => {
+      // Kytketään hash-muutoksen kuuntelija pois päältä
+      // URLin päivityksen ajaksi.
+      const onhashchange = window.onhashchange
+      window.onhashchange = null
+
       updateSettingsToURL(initialSettings, listenerApi.getState())
-    }, 500)
-  }
 
-  private determineStartLocation = (dispatch: AppDispatch) => {
-    if (parseCoordinatesFromURL()) {
-      this.setMapLocationFromURLHash(dispatch)
-    } else {
-      dispatch({
-        type: ActionTypeEnum.CENTER_MAP_TO_CURRENT_POSITION
+      // Palautetaan kuuntelija asynkronisesti URLin päivityksen jälkeen
+      window.setTimeout(() => {
+        window.onhashchange = onhashchange
       })
-    }
-  }
-
-  private setMapLocationFromURLHash = (dispatch: AppDispatch) => {
-    const coordinates = parseCoordinatesFromURL()
-    /**
-     * Do not move map to URL coordines multiple times. URL updates when settings are changed
-     * so it would move map back to original target.
-     */
-    const sameAsPrevCoordinates =
-      this.prevCoordinatesFromURL && coordinates
-        ? this.prevCoordinatesFromURL[0] === coordinates[0] &&
-          this.prevCoordinatesFromURL[1] === coordinates[1]
-        : false
-    if (coordinates && !sameAsPrevCoordinates) {
-      dispatch({
-        type: ActionTypeEnum.SET_MAP_LOCATION_AND_SHOW_SELECTED_MARKER,
-        coordinates
-      })
-      this.prevCoordinatesFromURL = coordinates
-    }
+    }, 300)
   }
 
   public static getSettingsFromURL = () => getSettingsFromURL()

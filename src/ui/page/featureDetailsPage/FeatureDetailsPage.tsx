@@ -9,10 +9,10 @@ import { Page } from "../Page"
 export const FeatureDetailsPage: React.FC = () => {
   const { t } = useTranslation()
   const features = useSelector(
-    (settings: Settings) => settings.selectedFeaturesOnMap.features
+    (settings: Settings) => settings.identifiedMapFeatures.features
   )
   const models = useSelector(
-    (settings: Settings) => settings.selectedFeaturesOnMap.models
+    (settings: Settings) => settings.identifiedMapFeatures.models
   )
 
   return (

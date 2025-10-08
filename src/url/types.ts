@@ -1,6 +1,8 @@
 import { Language } from "../common/layers.types"
 
 export interface URLSettings {
+  x?: number
+  y?: number
   zoom?: number
   lang?: Language
   mmlLayer?: string

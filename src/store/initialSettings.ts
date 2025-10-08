@@ -27,7 +27,8 @@ export const initialSettings: Settings = {
   concurrentPendingJobsCounter: 0,
   showLoadingAnimation: false,
   visiblePage: undefined,
-  selectedFeaturesOnMap: {
+  linkedFeature: undefined,
+  identifiedMapFeatures: {
     features: [],
     models: []
   },
