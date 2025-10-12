@@ -133,6 +133,86 @@ export const MapSymbolPanel: React.FC = () => {
             <img className="feature-icon" src="images/loytopaikka_alue.png" />
             <span>{t(`data.featureType.löytöpaikkaAlue`)}</span>
           </div>
+
+          <div className="ms-3">
+            <img
+              className="feature-icon"
+              src="images/havaintokohde_piste.png"
+            />
+            <span>{t(`data.featureType.havaintokohdePiste`)}</span>
+          </div>
+
+          <div className="ms-3">
+            <img className="feature-icon" src="images/havaintokohde_alue.png" />
+            <span>{t(`data.featureType.havaintokohdeAlue`)}</span>
+          </div>
+
+          <div className="ms-3">
+            <img
+              className="feature-icon"
+              src="images/luonnonmuodostuma_piste.png"
+            />
+            <span>{t(`data.featureType.luonnonmuodostumaPiste`)}</span>
+          </div>
+
+          <div className="ms-3">
+            <img
+              className="feature-icon"
+              src="images/luonnonmuodostuma_alue.png"
+            />
+            <span>{t(`data.featureType.luonnonmuodostumaAlue`)}</span>
+          </div>
+
+          <div className="ms-3">
+            <img className="feature-icon" src="images/muu_kohde_piste.png" />
+            <span>{t(`data.featureType.muuKohdePiste`)}</span>
+          </div>
+
+          <div className="ms-3">
+            <img className="feature-icon" src="images/muu_kohde_alue.png" />
+            <span>{t(`data.featureType.muuKohdeAlue`)}</span>
+          </div>
+
+          <div className="ms-3">
+            <img
+              className="feature-icon"
+              src="images/mahdollinen_muinaisjaannos_piste.png"
+            />
+            <span>{t(`data.featureType.mahdollinenMuinaisjäännösPiste`)}</span>
+          </div>
+
+          <div className="ms-3">
+            <img
+              className="feature-icon"
+              src="images/mahdollinen_muinaisjaannos_alue.png"
+            />
+            <span>{t(`data.featureType.mahdollinenMuinaisjäännösAlue`)}</span>
+          </div>
+
+          <div className="ms-3">
+            <img
+              className="feature-icon"
+              src="images/poistettu_kiintea_muinaisjaannos_piste.png"
+            />
+            <span>
+              {t(`data.featureType.poistettuKiinteäMuijaisjäännösPiste`)}
+            </span>
+          </div>
+
+          <div className="ms-3">
+            <img
+              className="feature-icon"
+              src="images/poistettu_kiintea_muinaisjaannos_alue.png"
+            />
+            <span>
+              {t(`data.featureType.poistettuKiinteäMuijaisjäännösAlue`)}
+            </span>
+          </div>
+
+          <div className="ms-3">
+            <img className="feature-icon" src="images/alakohde_piste.png" />
+            <span>{t(`data.featureType.alakohdePiste`)}</span>
+          </div>
         </div>
 
         <h6>

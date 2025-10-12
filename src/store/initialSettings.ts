@@ -71,7 +71,23 @@ export const initialSettings: Settings = {
     enabled: false
   },
   museovirasto: {
-    selectedLayers: Object.values(MuseovirastoLayer),
+    selectedLayers: [
+      MuseovirastoLayer.Muinaisjaannokset_piste,
+      MuseovirastoLayer.Muinaisjaannokset_alue,
+      MuseovirastoLayer.Suojellut_rakennukset_piste,
+      MuseovirastoLayer.Suojellut_rakennukset_alue,
+      MuseovirastoLayer.RKY_alue,
+      MuseovirastoLayer.RKY_piste,
+      MuseovirastoLayer.RKY_viiva,
+      MuseovirastoLayer.Maailmanperinto_piste,
+      MuseovirastoLayer.Maailmanperinto_alue,
+      MuseovirastoLayer.Muu_kulttuuriperintokohde_alue,
+      MuseovirastoLayer.Muu_kulttuuriperintokohde_piste,
+      MuseovirastoLayer.VARK_alueet,
+      MuseovirastoLayer.VARK_pisteet,
+      MuseovirastoLayer.Löytöpaikka_piste,
+      MuseovirastoLayer.Löytöpaikka_alue
+    ],
     selectedMuinaisjaannosTypes: Object.values(MuinaisjaannosTyyppi),
     selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
     url: {

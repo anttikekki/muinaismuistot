@@ -154,7 +154,18 @@ export enum MuseovirastoLayer {
   VARK_alueet = "rajapinta_suojellut:vark_alueet",
   VARK_pisteet = "rajapinta_suojellut:vark_pisteet",
   Löytöpaikka_piste = "rajapinta:rajapinta_loytopaikka_piste",
-  Löytöpaikka_alue = "rajapinta:rajapinta_loytopaikka_alue"
+  Löytöpaikka_alue = "rajapinta:rajapinta_loytopaikka_alue",
+  Alakohde_piste = "rajapinta:alakohde_piste",
+  Havaintokohde_piste = "rajapinta:rajapinta_havaintokohde_piste",
+  Havaintokohde_alue = "rajapinta:rajapinta_havaintokohde_alue",
+  Luonnonmuodostuma_piste = "rajapinta:rajapinta_luonnonmuodostuma_piste",
+  Luonnonmuodostuma_alue = "rajapinta:rajapinta_luonnonmuodostuma_alue",
+  Mahdollinen_muinaisjäännös_piste = "rajapinta:rajapinta_mahdollinen_muinaisjaannos_piste",
+  Mahdollinen_muinaisjäännös_alue = "rajapinta:rajapinta_mahdollinen_muinaisjaannos_alue",
+  Muu_kohde_piste = "rajapinta:rajapinta_muu_kohde_piste",
+  Muu_kohde_alue = "rajapinta:rajapinta_muu_kohde_alue",
+  PoistettuKiinteäMuijaisjäännösPiste = "rajapinta:rajapinta_poistettu_kiintea_muinaisjaannos_piste",
+  PoistettuKiinteäMuijaisjäännösAlue = "rajapinta:rajapinta_poistettu_kiintea_muinaisjaannos_alue"
 }
 
 export enum AhvenanmaaLayer {

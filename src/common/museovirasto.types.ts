@@ -91,28 +91,10 @@ export interface MuinaisjaannosAlueFeature
   id: `muinaisjaannos_alue.${number}`
 }
 
-type MuuKulttuuriperintokohdePisteFeatureProperties = {
-  OBJECTID: number // 130459;
-  mjtunnus: number // 1000030753;
-  inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000030753_P130459";
-  kohdenimi: string // ""Luola G 22 (Herttoniemen yritysalue)";
-  kunta: string // "Helsinki"
-  Laji: "muu kulttuuriperintökohde" // "muu kulttuuriperintökohde"
-  tyyppi: string // "puolustusvarustukset,  ,  ,  ";
-  alatyyppi: string // "luolat,  ,  ,  ";
-  ajoitus: string // "historiallinen, moderni,  ,  ";
-  vedenalainen: "k" | "e" // "E"
-  KOHDE_APVM: string // "2003-04-03T00:00:00Z",
-  KOHDE_MPVM: string // "2008-04-02T16:29:02.283Z",
-  luontipvm: string // "2003-04-03T00:00:00Z"
-  muutospvm: string // "2011-01-28T00:00:00Z"
-  paikannustapa: string | null // "Tarkastus";
-  paikannustarkkuus: string | null // "Tarkka (< 10 m)";
-  selite: string // "Koordinaatit luolan edestä Helsingin kantakartasta";
-  url: string // "www.kyppi.fi/to.aspx?id=112.1000030753";
-  x: number // 391239
-  y: number // 6674656
-}
+type MuuKulttuuriperintokohdePisteFeatureProperties =
+  MuinaisjaannosPisteFeatureProperties & {
+    Laji: "muu kulttuuriperintökohde"
+  }
 
 export interface MuuKulttuuriperintokohdePisteFeature
   extends FeatureSupplementaryData,
@@ -120,19 +102,10 @@ export interface MuuKulttuuriperintokohdePisteFeature
   id: `muu_kulttuuriperintokohde_piste.${number}`
 }
 
-type MuuKulttuuriperintokohdeAlueFeatureProperties = {
-  OBJECTID: number // 9190
-  mjtunnus: number // 1000007642
-  inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000007642_A9190";
-  kohdenimi: string // "Tukikohta I:tie (Mustavuori)                                                                        ";
-  kunta: string // "Helsinki                                                                                            ";
-  Laji: "muu kulttuuriperintökohde" // "muu kulttuuriperintökohde                                                                           ";
-  lähdetiedon_ajoitus: string // "1979";
-  digipvm: string // "12.3.2007 15:02:19";
-  digimk: string // "PerusCD";
-  Muutospvm: string // "18.3.2008 09:30:12";
-  url: string // "https://www.museoverkko.fi/netsovellus/esri/broker.aspx?taulu=mjreki.dbo.T_KOHDE&tunnus=1000001634"
-}
+type MuuKulttuuriperintokohdeAlueFeatureProperties =
+  MuinaisjaannosAlueFeatureProperties & {
+    Laji: "muu kulttuuriperintökohde"
+  }
 
 export interface MuuKulttuuriperintokohdeAlueFeature
   extends FeatureSupplementaryData,
@@ -309,30 +282,10 @@ export interface VarkPisteFeature
   id: `vark_pisteet.${number}`
 }
 
-export type LöytöpaikkaPisteFeatureProperties = {
-  OBJECTID: number // 38962;
-  mjtunnus: number // 1279;
-  inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1279_P38962";
-  kohdenimi: string // "Melkki länsiranta";
-  kunta: string // "Helsinki"
-  Laji: "löytöpaikka" // "löytöpaikka";
-  tyyppi: string // "alusten hylyt, kivirakenteet";
-  alatyyppi: string // "hylyt (puu), hautakummut";
-  ajoitus: string // "ei määritelty, keskiaikainen";
-  vedenalainen: "K" | "E"
-  zala: null
-  zyla: null
-  KOHDE_APVM: string // "2003-04-03T00:00:00Z",
-  KOHDE_MPVM: string // "2008-04-02T16:29:02.283Z",
-  luontipvm: string // "2003-04-03T00:00:00Z"
-  muutospvm: string // "2011-01-28T00:00:00Z"
-  paikannustapa: string | null // "Null";
-  paikannustarkkuus: string | null // "Ohjeellinen (10 - 100 m)";
-  selite: string // "Paikannettu Kansalaisen karttapaikan avulla sanallisen kuvauksen perusteella.";
-  url: string // "www.kyppi.fi/to.aspx?id=112.1279";
-  x: number // 382363.823
-  y: number // 6667893.676
-}
+export type LöytöpaikkaPisteFeatureProperties =
+  MuinaisjaannosPisteFeatureProperties & {
+    Laji: "löytöpaikka" // "löytöpaikka";
+  }
 
 export interface LöytöpaikkaPisteFeature
   extends FeatureSupplementaryData,
@@ -340,18 +293,8 @@ export interface LöytöpaikkaPisteFeature
   id: `rajapinta_loytopaikka_piste.${number}`
 }
 
-type LöytöpaikkaAlueFeatureProperties = {
-  OBJECTID: number // 9190
-  mjtunnus: number // 1000007642
-  inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000007642_A9190";
-  kohdenimi: string // "Tukikohta I:tie (Mustavuori)                                                                        ";
-  kunta: string // "Helsinki                                                                                            ";
-  Laji: "löytöpaikka" // "löytöpaikka";                                                                           ";
-  lähdetiedon_ajoitus: string // "1979";
-  digipvm: string // "12.3.2007 15:02:19";
-  digimk: string // "PerusCD";
-  Muutospvm: string // "18.3.2008 09:30:12";
-  url: string // "https://www.museoverkko.fi/netsovellus/esri/broker.aspx?taulu=mjreki.dbo.T_KOHDE&tunnus=1000001634"
+type LöytöpaikkaAlueFeatureProperties = MuinaisjaannosAlueFeatureProperties & {
+  Laji: "löytöpaikka"
 }
 
 export interface LöytöpaikkaAlueFeature
@@ -360,11 +303,130 @@ export interface LöytöpaikkaAlueFeature
   id: `rajapinta_loytopaikka_alue.${number}`
 }
 
+export type MuuKohdePisteFeatureProperties =
+  MuinaisjaannosPisteFeatureProperties & {
+    Laji: "muu kohde"
+  }
+
+export interface MuuKohdePisteFeature
+  extends FeatureSupplementaryData,
+    Feature<Point, MuuKohdePisteFeatureProperties> {
+  id: `rajapinta_muu_kohde_piste.${number}`
+}
+
+type MuuKohdeAlueFeatureProperties = MuinaisjaannosAlueFeatureProperties & {
+  Laji: "muu kohde"
+}
+
+export interface MuuKohdeAlueFeature
+  extends FeatureSupplementaryData,
+    Feature<Geometry, MuuKohdeAlueFeatureProperties> {
+  id: `rajapinta_muu_kohde_alue.${number}`
+}
+
+export type LuonnonmuodostumaPisteFeatureProperties =
+  MuinaisjaannosPisteFeatureProperties & {
+    Laji: "luonnonmuodostuma"
+  }
+
+export interface LuonnonmuodostumaPisteFeature
+  extends FeatureSupplementaryData,
+    Feature<Point, LuonnonmuodostumaPisteFeatureProperties> {
+  id: `rajapinta_luonnonmuodostuma_piste.${number}`
+}
+
+type LuonnonmuodostumaAlueFeatureProperties =
+  MuinaisjaannosAlueFeatureProperties & {
+    Laji: "luonnonmuodostuma"
+  }
+
+export interface LuonnonmuodostumaAlueFeature
+  extends FeatureSupplementaryData,
+    Feature<Geometry, LuonnonmuodostumaAlueFeatureProperties> {
+  id: `rajapinta_luonnonmuodostuma_alue.${number}`
+}
+
+export type HavaintokohdePisteFeatureProperties =
+  MuinaisjaannosPisteFeatureProperties & {
+    Laji: "havaintokohde"
+  }
+
+export interface HavaintokohdePisteFeature
+  extends FeatureSupplementaryData,
+    Feature<Point, HavaintokohdePisteFeatureProperties> {
+  id: `rajapinta_havaintokohde_piste.${number}`
+}
+
+type HavaintokohdeAlueFeatureProperties =
+  MuinaisjaannosAlueFeatureProperties & {
+    Laji: "havaintokohde"
+  }
+
+export interface HavaintokohdeAlueFeature
+  extends FeatureSupplementaryData,
+    Feature<Geometry, HavaintokohdeAlueFeatureProperties> {
+  id: `rajapinta_havaintokohde_alue.${number}`
+}
+
+export type MahdollinenMuinaisjäännösPisteFeatureProperties =
+  MuinaisjaannosPisteFeatureProperties & {
+    Laji: "mahdollinen muinaisjäännös"
+  }
+
+export interface MahdollinenMuinaisjäännösPisteFeature
+  extends FeatureSupplementaryData,
+    Feature<Point, MahdollinenMuinaisjäännösPisteFeatureProperties> {
+  id: `rajapinta_mahdollinen_muinaisjaannos_piste.${number}`
+}
+
+type MahdollinenMuinaisjäännösAlueFeatureProperties =
+  MuinaisjaannosAlueFeatureProperties & {
+    Laji: "mahdollinen muinaisjäännös"
+  }
+
+export interface MahdollinenMuinaisjäännösAlueFeature
+  extends FeatureSupplementaryData,
+    Feature<Geometry, MahdollinenMuinaisjäännösAlueFeatureProperties> {
+  id: `rajapinta_mahdollinen_muinaisjaannos_alue.${number}`
+}
+
+type PoistettuKiinteäMuijaisjäännösPisteFeatureProperties =
+  MuinaisjaannosPisteFeatureProperties & {
+    Laji: "poistettu kiinteä muinaisjäännös (ei rauhoitettu)"
+  }
+
+export interface PoistettuKiinteäMuijaisjäännösPisteFeature
+  extends FeatureSupplementaryData,
+    Feature<Point, PoistettuKiinteäMuijaisjäännösPisteFeatureProperties> {
+  id: `rajapinta_poistettu_kiintea_muinaisjaannos_piste.${number}`
+}
+
+type PoistettuKiinteäMuijaisjäännösAlueFeatureProperties =
+  MuinaisjaannosAlueFeatureProperties & {
+    Laji: "poistettu kiinteä muinaisjäännös (ei rauhoitettu)"
+  }
+
+export interface PoistettuKiinteäMuijaisjäännösAlueFeature
+  extends FeatureSupplementaryData,
+    Feature<Geometry, PoistettuKiinteäMuijaisjäännösAlueFeatureProperties> {
+  id: `rajapinta_poistettu_kiintea_muinaisjaannos_alue.${number}`
+}
+
+export type AlakohdePisteFeatureProperties =
+  MuinaisjaannosPisteFeatureProperties & {
+    alakohdetunnus: number
+    Laji: string // Kaikki Muinaisjäännösrekisterin muut feature-lajit
+  }
+
+export interface AlakohdePisteFeature
+  extends FeatureSupplementaryData,
+    Feature<Point, AlakohdePisteFeatureProperties> {
+  id: `alakohde_piste.${number}`
+}
+
 export type MuseovirastoFeature =
-  | MuinaisjaannosPisteFeature
-  | MuinaisjaannosAlueFeature
-  | MuuKulttuuriperintokohdePisteFeature
-  | MuuKulttuuriperintokohdeAlueFeature
+  | MuinaisjäännörekisteriPisteFeature
+  | MuinaisjäännörekisteriAlueFeature
   | SuojellutRakennuksetPisteFeature
   | SuojellutRakennuksetAlueFeature
   | RKYAlueFeature
@@ -374,8 +436,6 @@ export type MuseovirastoFeature =
   | MaailmanperintoAlueFeature
   | VarkPisteFeature
   | VarkAlueFeature
-  | LöytöpaikkaPisteFeature
-  | LöytöpaikkaAlueFeature
 
 export type MuseovirastoFeatureInfoResult = {
   type: "FeatureCollection"
@@ -455,15 +515,77 @@ export const isLöytöpaikkaAlueFeature = (
 ): feature is LöytöpaikkaAlueFeature =>
   feature.id?.toString().startsWith("rajapinta_loytopaikka_alue.") ?? false
 
+export const isMuuKohdePisteFeature = (
+  feature: Feature
+): feature is MuuKohdePisteFeature =>
+  feature.id?.toString().startsWith("rajapinta_muu_kohde_piste.") ?? false
+
+export const isMuuKohdeAlueFeature = (
+  feature: Feature
+): feature is MuuKohdeAlueFeature =>
+  feature.id?.toString().startsWith("rajapinta_muu_kohde_alue.") ?? false
+
+export const isLuonnonmuodostumaPisteFeature = (
+  feature: Feature
+): feature is LuonnonmuodostumaPisteFeature =>
+  feature.id?.toString().startsWith("rajapinta_luonnonmuodostuma_piste.") ??
+  false
+
+export const isLuonnonmuodostumaAlueFeature = (
+  feature: Feature
+): feature is LuonnonmuodostumaAlueFeature =>
+  feature.id?.toString().startsWith("rajapinta_luonnonmuodostuma_piste.") ??
+  false
+
+export const isAlakohdePisteFeature = (
+  feature: Feature
+): feature is AlakohdePisteFeature =>
+  feature.id?.toString().startsWith("alakohde_piste.") ?? false
+
+export const isHavaintokohdePisteFeature = (
+  feature: Feature
+): feature is HavaintokohdePisteFeature =>
+  feature.id?.toString().startsWith("rajapinta_havaintokohde_piste.") ?? false
+
+export const isHavaintokohdeAlueFeature = (
+  feature: Feature
+): feature is HavaintokohdeAlueFeature =>
+  feature.id?.toString().startsWith("rajapinta_havaintokohde_alue.") ?? false
+
+export const isMahdollinenMuinaisjäännösPisteFeature = (
+  feature: Feature
+): feature is MahdollinenMuinaisjäännösPisteFeature =>
+  feature.id
+    ?.toString()
+    .startsWith("rajapinta_mahdollinen_muinaisjaannos_piste.") ?? false
+
+export const isMahdollinenMuinaisjäännösAlueFeature = (
+  feature: Feature
+): feature is MahdollinenMuinaisjäännösAlueFeature =>
+  feature.id
+    ?.toString()
+    .startsWith("rajapinta_mahdollinen_muinaisjaannos_alue.") ?? false
+
+export const isPoistettuKiinteäMuijaisjäännösPisteFeature = (
+  feature: Feature
+): feature is PoistettuKiinteäMuijaisjäännösPisteFeature =>
+  feature.id
+    ?.toString()
+    .startsWith("rajapinta_poistettu_kiintea_muinaisjaannos_piste.") ?? false
+
+export const isPoistettuKiinteäMuijaisjäännösAlueFeature = (
+  feature: Feature
+): feature is PoistettuKiinteäMuijaisjäännösAlueFeature =>
+  feature.id
+    ?.toString()
+    .startsWith("rajapinta_poistettu_kiintea_muinaisjaannos_alue.") ?? false
+
 export const isMuseovirastoFeature = (
   feature: MapFeature
 ): feature is MuseovirastoFeature => {
   return (
     "properties" in feature &&
-    (isMuinaisjaannosPisteFeature(feature) ||
-      isMuinaisjaannosAlueFeature(feature) ||
-      isMuuKulttuuriperintokohdePisteFeature(feature) ||
-      isMuuKulttuuriperintokohdeAlueFeature(feature) ||
+    (isMuinaisjäännörekisteriFeature(feature) ||
       isSuojellutRakennuksetPisteFeature(feature) ||
       isSuojellutRakennuksetAlueFeature(feature) ||
       isRKYAlueFeature(feature) ||
@@ -472,11 +594,62 @@ export const isMuseovirastoFeature = (
       isMaailmanperintoPisteFeature(feature) ||
       isMaailmanperintoAlueFeature(feature) ||
       isVarkPisteFeature(feature) ||
-      isVarkAlueFeature(feature) ||
-      isLöytöpaikkaPisteFeature(feature) ||
-      isLöytöpaikkaAlueFeature(feature))
+      isVarkAlueFeature(feature))
   )
 }
+
+export const isMuinaisjäännörekisteriFeature = (
+  feature: Feature
+): feature is
+  | MuinaisjäännörekisteriPisteFeature
+  | MuinaisjäännörekisteriAlueFeature =>
+  isMuinaisjäännörekisteriPisteFeature(feature) ||
+  isMuinaisjäännörekisteriAlueFeature(feature)
+
+export type MuinaisjäännörekisteriPisteFeature =
+  | MuinaisjaannosPisteFeature
+  | MuuKulttuuriperintokohdePisteFeature
+  | LöytöpaikkaPisteFeature
+  | MuuKohdePisteFeature
+  | LuonnonmuodostumaPisteFeature
+  | AlakohdePisteFeature
+  | HavaintokohdePisteFeature
+  | MahdollinenMuinaisjäännösPisteFeature
+  | PoistettuKiinteäMuijaisjäännösPisteFeature
+
+export const isMuinaisjäännörekisteriPisteFeature = (
+  feature: Feature
+): feature is MuinaisjäännörekisteriPisteFeature =>
+  isMuinaisjaannosPisteFeature(feature) ||
+  isMuuKulttuuriperintokohdePisteFeature(feature) ||
+  isLöytöpaikkaPisteFeature(feature) ||
+  isMuuKohdePisteFeature(feature) ||
+  isLuonnonmuodostumaPisteFeature(feature) ||
+  isHavaintokohdePisteFeature(feature) ||
+  isMahdollinenMuinaisjäännösPisteFeature(feature) ||
+  isPoistettuKiinteäMuijaisjäännösPisteFeature(feature) ||
+  isAlakohdePisteFeature(feature)
+
+export type MuinaisjäännörekisteriAlueFeature =
+  | MuinaisjaannosAlueFeature
+  | MuuKulttuuriperintokohdeAlueFeature
+  | LöytöpaikkaAlueFeature
+  | MuuKohdeAlueFeature
+  | LuonnonmuodostumaAlueFeature
+  | MahdollinenMuinaisjäännösAlueFeature
+  | PoistettuKiinteäMuijaisjäännösAlueFeature
+
+export const isMuinaisjäännörekisteriAlueFeature = (
+  feature: Feature
+): feature is MuinaisjäännörekisteriAlueFeature =>
+  isMuinaisjaannosAlueFeature(feature) ||
+  isMuuKulttuuriperintokohdeAlueFeature(feature) ||
+  isLöytöpaikkaAlueFeature(feature) ||
+  isMuuKohdeAlueFeature(feature) ||
+  isLuonnonmuodostumaAlueFeature(feature) ||
+  isMahdollinenMuinaisjäännösAlueFeature(feature) ||
+  isPoistettuKiinteäMuijaisjäännösAlueFeature(feature) ||
+  isHavaintokohdeAlueFeature(feature)
 
 export const getMuseovirastoFeatureLayerName = (
   feature: MuseovirastoFeature
@@ -526,6 +699,39 @@ export const getMuseovirastoFeatureLayerName = (
   if (isLöytöpaikkaAlueFeature(feature)) {
     return MuseovirastoLayer.Löytöpaikka_alue
   }
+  if (isMuuKohdePisteFeature(feature)) {
+    return MuseovirastoLayer.Muu_kohde_piste
+  }
+  if (isMuuKohdeAlueFeature(feature)) {
+    return MuseovirastoLayer.Muu_kohde_alue
+  }
+  if (isLuonnonmuodostumaPisteFeature(feature)) {
+    return MuseovirastoLayer.Luonnonmuodostuma_piste
+  }
+  if (isLuonnonmuodostumaAlueFeature(feature)) {
+    return MuseovirastoLayer.Luonnonmuodostuma_alue
+  }
+  if (isHavaintokohdePisteFeature(feature)) {
+    return MuseovirastoLayer.Havaintokohde_piste
+  }
+  if (isHavaintokohdeAlueFeature(feature)) {
+    return MuseovirastoLayer.Havaintokohde_alue
+  }
+  if (isMahdollinenMuinaisjäännösPisteFeature(feature)) {
+    return MuseovirastoLayer.Mahdollinen_muinaisjäännös_piste
+  }
+  if (isMahdollinenMuinaisjäännösAlueFeature(feature)) {
+    return MuseovirastoLayer.Mahdollinen_muinaisjäännös_alue
+  }
+  if (isPoistettuKiinteäMuijaisjäännösPisteFeature(feature)) {
+    return MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösPiste
+  }
+  if (isPoistettuKiinteäMuijaisjäännösAlueFeature(feature)) {
+    return MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösAlue
+  }
+  if (isAlakohdePisteFeature(feature)) {
+    return MuseovirastoLayer.Alakohde_piste
+  }
   throw new Error(`Tuntematon Museovirasto Feature: ${JSON.stringify(feature)}`)
 }
 
@@ -544,6 +750,17 @@ export const getMuseovirastoFeatureNameField = (
     case MuseovirastoLayer.RKY_viiva:
     case MuseovirastoLayer.Löytöpaikka_piste:
     case MuseovirastoLayer.Löytöpaikka_alue:
+    case MuseovirastoLayer.Havaintokohde_piste:
+    case MuseovirastoLayer.Havaintokohde_alue:
+    case MuseovirastoLayer.Luonnonmuodostuma_piste:
+    case MuseovirastoLayer.Luonnonmuodostuma_alue:
+    case MuseovirastoLayer.Mahdollinen_muinaisjäännös_piste:
+    case MuseovirastoLayer.Mahdollinen_muinaisjäännös_alue:
+    case MuseovirastoLayer.Muu_kohde_piste:
+    case MuseovirastoLayer.Muu_kohde_alue:
+    case MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösPiste:
+    case MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösAlue:
+    case MuseovirastoLayer.Alakohde_piste:
       return `kohdenimi`
     case MuseovirastoLayer.Maailmanperinto_piste:
     case MuseovirastoLayer.Maailmanperinto_alue:
@@ -564,6 +781,17 @@ export const getMuseovirastoFeatureIdField = (
     case MuseovirastoLayer.Muu_kulttuuriperintokohde_piste:
     case MuseovirastoLayer.Löytöpaikka_piste:
     case MuseovirastoLayer.Löytöpaikka_alue:
+    case MuseovirastoLayer.Havaintokohde_piste:
+    case MuseovirastoLayer.Havaintokohde_alue:
+    case MuseovirastoLayer.Luonnonmuodostuma_piste:
+    case MuseovirastoLayer.Luonnonmuodostuma_alue:
+    case MuseovirastoLayer.Mahdollinen_muinaisjäännös_piste:
+    case MuseovirastoLayer.Mahdollinen_muinaisjäännös_alue:
+    case MuseovirastoLayer.Muu_kohde_piste:
+    case MuseovirastoLayer.Muu_kohde_alue:
+    case MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösPiste:
+    case MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösAlue:
+    case MuseovirastoLayer.Alakohde_piste:
       return "mjtunnus"
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
     case MuseovirastoLayer.Suojellut_rakennukset_piste:

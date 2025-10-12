@@ -39,7 +39,20 @@ const muinaisjäännöksetLayers = [
   MuseovirastoLayer.Muinaisjaannokset_alue,
   MuseovirastoLayer.Muu_kulttuuriperintokohde_alue,
   MuseovirastoLayer.Muinaisjaannokset_piste,
-  MuseovirastoLayer.Muu_kulttuuriperintokohde_piste
+  MuseovirastoLayer.Muu_kulttuuriperintokohde_piste,
+  MuseovirastoLayer.Löytöpaikka_piste,
+  MuseovirastoLayer.Löytöpaikka_alue,
+  MuseovirastoLayer.Havaintokohde_piste,
+  MuseovirastoLayer.Havaintokohde_alue,
+  MuseovirastoLayer.Luonnonmuodostuma_piste,
+  MuseovirastoLayer.Luonnonmuodostuma_alue,
+  MuseovirastoLayer.Mahdollinen_muinaisjäännös_piste,
+  MuseovirastoLayer.Mahdollinen_muinaisjäännös_alue,
+  MuseovirastoLayer.Muu_kohde_piste,
+  MuseovirastoLayer.Muu_kohde_alue,
+  MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösPiste,
+  MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösAlue,
+  MuseovirastoLayer.Alakohde_piste
 ]
 
 export const MuseovirastoLayerSelectionPanel: React.FC = () => {
@@ -241,6 +254,83 @@ export const MuseovirastoLayerSelectionPanel: React.FC = () => {
             <LayerCheckbox
               label={t(`data.featureType.löytöpaikkaAlue`)}
               layer={MuseovirastoLayer.Löytöpaikka_alue}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`data.featureType.havaintokohdePiste`)}
+              layer={MuseovirastoLayer.Havaintokohde_piste}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`data.featureType.havaintokohdeAlue`)}
+              layer={MuseovirastoLayer.Havaintokohde_alue}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`data.featureType.luonnonmuodostumaPiste`)}
+              layer={MuseovirastoLayer.Luonnonmuodostuma_piste}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`data.featureType.luonnonmuodostumaAlue`)}
+              layer={MuseovirastoLayer.Luonnonmuodostuma_alue}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`data.featureType.muuKohdePiste`)}
+              layer={MuseovirastoLayer.Muu_kohde_piste}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`data.featureType.muuKohdeAlue`)}
+              layer={MuseovirastoLayer.Muu_kohde_alue}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`data.featureType.mahdollinenMuinaisjäännösPiste`)}
+              layer={MuseovirastoLayer.Mahdollinen_muinaisjäännös_piste}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`data.featureType.mahdollinenMuinaisjäännösAlue`)}
+              layer={MuseovirastoLayer.Mahdollinen_muinaisjäännös_alue}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`data.featureType.poistettuKiinteäMuijaisjäännösPiste`)}
+              layer={MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösPiste}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`data.featureType.poistettuKiinteäMuijaisjäännösAlue`)}
+              layer={MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösAlue}
+              selectedLayers={selectedLayers}
+              onSelectLayer={onSelectLayer}
+              disabled={!enabled}
+            />
+            <LayerCheckbox
+              label={t(`data.featureType.alakohdePiste`)}
+              layer={MuseovirastoLayer.Alakohde_piste}
               selectedLayers={selectedLayers}
               onSelectLayer={onSelectLayer}
               disabled={!enabled}

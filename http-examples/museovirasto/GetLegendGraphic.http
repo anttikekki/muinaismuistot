@@ -1,0 +1,7 @@
+# Piste 21px x 21px, 150 dpi
+https://geoserver.museovirasto.fi/geoserver/ows?service=WMS&version=1.3.0&request=GetLegendGraphic&format=image%2Fpng&layer=rajapinta:rajapinta_havaintokohde_piste&LEGEND_OPTIONS=dpi:150
+
+###
+
+# Alue 20px x 20px, 130 dpi
+https://geoserver.museovirasto.fi/geoserver/ows?service=WMS&version=1.3.0&request=GetLegendGraphic&format=image%2Fpng&layer=rajapinta:rajapinta_havaintokohde_alue&LEGEND_OPTIONS=dpi:130

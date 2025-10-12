@@ -2,9 +2,8 @@ import React, { useMemo } from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
-  LöytöpaikkaPisteFeature,
-  MuinaisjaannosPisteFeature,
-  MuuKulttuuriperintokohdePisteFeature
+  isAlakohdePisteFeature,
+  MuinaisjäännörekisteriPisteFeature
 } from "../../../../common/museovirasto.types"
 import {
   isMuinaisjaannosAjoitus,
@@ -31,10 +30,7 @@ import { MuseovirastoLink } from "../component/MuseovirastoLink"
 import { TimespanLabel } from "../component/TimespanLabel"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
-  feature:
-    | MuinaisjaannosPisteFeature
-    | MuuKulttuuriperintokohdePisteFeature
-    | LöytöpaikkaPisteFeature
+  feature: MuinaisjäännörekisteriPisteFeature
 }
 
 export const MuinaisjaannosPistePanel: React.FC<Props> = ({
@@ -105,6 +101,12 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
           />
         </Field>
         <Field label={t(`details.field.id`)} value={String(mjtunnus)} />
+        {isAlakohdePisteFeature(feature) && (
+          <Field
+            label={t(`details.field.alakohdetunnus`)}
+            value={String(feature.properties.alakohdetunnus)}
+          />
+        )}
 
         {feature.maisemanMuisti.length > 0 && (
           <MaisemanMuistiField feature={feature.maisemanMuisti[0]} />
