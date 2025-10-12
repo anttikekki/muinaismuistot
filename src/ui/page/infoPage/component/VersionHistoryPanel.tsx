@@ -17,7 +17,11 @@ export const VersionHistoryPanel: React.FC = () => {
           </a>{" "}
           aineisto.
         </p>
-        <p>Lisätty Museoviraston muinaisjäännösrekisterin löytöpaikat.</p>
+        <p>
+          Lisätty Museoviraston muinaisjäännösrekisterin löytöpaikat,
+          havaintokohteet, mahdolliset muinaisjäännökset, luonnonmuodostumat,
+          poistetut muinaisjäännökset, muut kohteet ja alakohteet..
+        </p>
 
         <h6>Syyskuu 2025</h6>
         <p>Lisätty mahdollisuus ladata kohteen paikkatieto GeoJSON-muodossa.</p>
