@@ -100,13 +100,25 @@ export const SiteInfoPanel: React.FC = () => {
           </li>
         </ul>
 
+        <h6>{t(`common.organization.viabundus`)}</h6>
+        <ul>
+          <li>
+            <a
+              href="https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin"
+              target="_blank"
+            >
+              {t(`data.register.name.viabundus`)}
+            </a>
+          </li>
+        </ul>
+
         <p>{t(`info.siteInfo.info1`)}</p>
 
         <p>
           {regexifyString({
             pattern: /ICON/gm,
             decorator: () => {
-              return <i className="bi bi-link-45deg" aria-hidden="true" />
+              return <i className="bi bi-geo-alt-fill" aria-hidden="true" />
             },
             input: t(`info.siteInfo.info2`)
           })}
