@@ -14,8 +14,8 @@ import {
   ModelFeatureProperties
 } from "../../common/3dModels.types"
 import { FeatureLayer, MuseovirastoLayer } from "../../common/layers.types"
-import { MapFeature, getFeatureLayer } from "../../common/mapFeature.types"
-import { getFeatureID } from "../../common/util/featureParser"
+import { MapFeature } from "../../common/mapFeature.types"
+import { getFeatureID, getFeatureLayer } from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
 
 export default class ModelsLayer {

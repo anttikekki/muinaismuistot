@@ -1,7 +1,7 @@
 import centroid from "@turf/centroid"
 import { Feature, Position } from "geojson"
 import { TFunction } from "i18next"
-import { ModelFeature } from "../3dModels.types"
+import { ModelFeature, isModelFeature } from "../3dModels.types"
 import { isAhvenanmaaFeature } from "../ahvenanmaa.types"
 import {
   AhvenanmaaLayer,
@@ -16,6 +16,7 @@ import {
 import {
   MaalinnoitusKohdetyyppi,
   MaalinnoitusRajaustyyppi,
+  isMaalinnoitusKarttatekstiFeature,
   isMaalinnoitusKohdeFeature,
   isMaalinnoitusRajausFeature,
   isMaalinnoitusYksikkoFeature
@@ -47,7 +48,6 @@ import {
   isMuinaisjaannosPisteFeature,
   isMuinaisjäännörekisteriFeature,
   isMuinaisjäännörekisteriPisteFeature,
-  isMuseovirastoFeature,
   isMuuKohdeAlueFeature,
   isMuuKohdePisteFeature,
   isMuuKulttuuriperintokohdeAlueFeature,
@@ -65,6 +65,7 @@ import {
 import {
   ViabundusRoadCertainty,
   ViabundusRoadType,
+  isViabundusFeature,
   isViabundusPlaceFeature,
   isViabundusRoadFeature,
   isViabundusTownOutlineFeature
@@ -688,7 +689,7 @@ export const getFeatureRegisterURL = (
   feature: MapFeature,
   lang: Language
 ): string | undefined => {
-  if (isMuseovirastoFeature(feature)) {
+  if (isGeoJSONFeature(feature)) {
     if (isMuinaisjäännörekisteriFeature(feature)) {
       return getMuinaisjaannosRegisterUrl(feature.properties.mjtunnus, lang)
     }
@@ -728,7 +729,7 @@ export const getFeatureRegisterName = (
   t: TFunction,
   feature: MapFeature
 ): string => {
-  if (isMuseovirastoFeature(feature)) {
+  if (isGeoJSONFeature(feature)) {
     if (isMuinaisjäännörekisteriFeature(feature)) {
       return t(`details.registerLink.fromMuinaisjaannos`)
     }
@@ -756,6 +757,125 @@ export const getFeatureRegisterName = (
     }
   }
   return ""
+}
+
+export const getFeatureLayer = (feature: MapFeature): FeatureLayer => {
+  if (isGeoJSONFeature(feature)) {
+    // Museovirasto
+    if (isMuinaisjaannosPisteFeature(feature)) {
+      return MuseovirastoLayer.Muinaisjaannokset_piste
+    }
+    if (isMuinaisjaannosAlueFeature(feature)) {
+      return MuseovirastoLayer.Muinaisjaannokset_alue
+    }
+    if (isMuuKulttuuriperintokohdePisteFeature(feature)) {
+      return MuseovirastoLayer.Muu_kulttuuriperintokohde_piste
+    }
+    if (isMuuKulttuuriperintokohdeAlueFeature(feature)) {
+      return MuseovirastoLayer.Muu_kulttuuriperintokohde_alue
+    }
+    if (isSuojellutRakennuksetPisteFeature(feature)) {
+      return MuseovirastoLayer.Suojellut_rakennukset_piste
+    }
+    if (isSuojellutRakennuksetAlueFeature(feature)) {
+      return MuseovirastoLayer.Suojellut_rakennukset_alue
+    }
+    if (isRKYAlueFeature(feature)) {
+      return MuseovirastoLayer.RKY_alue
+    }
+    if (isRKYPisteFeature(feature)) {
+      return MuseovirastoLayer.RKY_piste
+    }
+    if (isRKYViivaFeature(feature)) {
+      return MuseovirastoLayer.RKY_viiva
+    }
+    if (isMaailmanperintoAlueFeature(feature)) {
+      return MuseovirastoLayer.Maailmanperinto_alue
+    }
+    if (isMaailmanperintoPisteFeature(feature)) {
+      return MuseovirastoLayer.Maailmanperinto_piste
+    }
+    if (isVarkPisteFeature(feature)) {
+      return MuseovirastoLayer.VARK_pisteet
+    }
+    if (isVarkAlueFeature(feature)) {
+      return MuseovirastoLayer.VARK_alueet
+    }
+    if (isLöytöpaikkaPisteFeature(feature)) {
+      return MuseovirastoLayer.Löytöpaikka_piste
+    }
+    if (isLöytöpaikkaAlueFeature(feature)) {
+      return MuseovirastoLayer.Löytöpaikka_alue
+    }
+    if (isMuuKohdePisteFeature(feature)) {
+      return MuseovirastoLayer.Muu_kohde_piste
+    }
+    if (isMuuKohdeAlueFeature(feature)) {
+      return MuseovirastoLayer.Muu_kohde_alue
+    }
+    if (isLuonnonmuodostumaPisteFeature(feature)) {
+      return MuseovirastoLayer.Luonnonmuodostuma_piste
+    }
+    if (isLuonnonmuodostumaAlueFeature(feature)) {
+      return MuseovirastoLayer.Luonnonmuodostuma_alue
+    }
+    if (isHavaintokohdePisteFeature(feature)) {
+      return MuseovirastoLayer.Havaintokohde_piste
+    }
+    if (isHavaintokohdeAlueFeature(feature)) {
+      return MuseovirastoLayer.Havaintokohde_alue
+    }
+    if (isMahdollinenMuinaisjäännösPisteFeature(feature)) {
+      return MuseovirastoLayer.Mahdollinen_muinaisjäännös_piste
+    }
+    if (isMahdollinenMuinaisjäännösAlueFeature(feature)) {
+      return MuseovirastoLayer.Mahdollinen_muinaisjäännös_alue
+    }
+    if (isPoistettuKiinteäMuijaisjäännösPisteFeature(feature)) {
+      return MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösPiste
+    }
+    if (isPoistettuKiinteäMuijaisjäännösAlueFeature(feature)) {
+      return MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösAlue
+    }
+    if (isAlakohdePisteFeature(feature)) {
+      return MuseovirastoLayer.Alakohde_piste
+    }
+
+    // Helsinki: Maalinnoitus
+    if (isMaalinnoitusYksikkoFeature(feature)) {
+      return HelsinkiLayer.Maalinnoitus_yksikot
+    }
+    if (isMaalinnoitusKohdeFeature(feature)) {
+      return HelsinkiLayer.Maalinnoitus_kohteet
+    }
+    if (isMaalinnoitusRajausFeature(feature)) {
+      return HelsinkiLayer.Maalinnoitus_rajaukset
+    }
+    if (isMaalinnoitusKarttatekstiFeature(feature)) {
+      return HelsinkiLayer.Maalinnoitus_karttatekstit
+    }
+
+    // Maiseman muisti
+    if (isMaisemanMuistiFeature(feature)) {
+      return MaisemanMuistiLayer.MaisemanMuisti
+    }
+
+    // 3D-mallit
+    if (isModelFeature(feature)) {
+      return ModelLayer.ModelLayer
+    }
+
+    // Viabundus
+    if (isViabundusFeature(feature)) {
+      return ViabundusLayer.Viabundus
+    }
+  }
+  if (isEsriJSONFeature(feature)) {
+    if (isAhvenanmaaFeature(feature)) {
+      return feature.layerName
+    }
+  }
+  throw new Error(`Tuntematon feature ${JSON.stringify(feature)}`)
 }
 
 export const getLayerRegisterName = (
@@ -811,17 +931,18 @@ export const getLayerRegisterName = (
 export const getFeatureMunicipality = (
   feature: MapFeature
 ): string | undefined => {
-  if (isMuseovirastoFeature(feature)) {
+  if (isGeoJSONFeature(feature)) {
     if (isMuinaisjäännörekisteriFeature(feature)) {
       return feature.properties.kunta
+    }
+    if (isMaisemanMuistiFeature(feature)) {
+      return feature.properties.municipality
     }
   } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
       case AhvenanmaaLayer.Fornminnen:
         return feature.attributes.Kommun
     }
-  } else if (isMaisemanMuistiFeature(feature)) {
-    return feature.properties.municipality
   }
   return undefined
 }

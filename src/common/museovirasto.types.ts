@@ -1,7 +1,6 @@
 import { Feature, Geometry, Point } from "geojson"
 import { FeatureSupplementaryData } from "./featureSupplementaryData.types"
 import { MuseovirastoLayer } from "./layers.types"
-import { MapFeature } from "./mapFeature.types"
 
 export enum MuinaisjaannosTyyppi {
   eiMääritelty = "ei määritelty",
@@ -580,24 +579,6 @@ export const isPoistettuKiinteäMuijaisjäännösAlueFeature = (
     ?.toString()
     .startsWith("rajapinta_poistettu_kiintea_muinaisjaannos_alue.") ?? false
 
-export const isMuseovirastoFeature = (
-  feature: MapFeature
-): feature is MuseovirastoFeature => {
-  return (
-    "properties" in feature &&
-    (isMuinaisjäännörekisteriFeature(feature) ||
-      isSuojellutRakennuksetPisteFeature(feature) ||
-      isSuojellutRakennuksetAlueFeature(feature) ||
-      isRKYAlueFeature(feature) ||
-      isRKYPisteFeature(feature) ||
-      isRKYViivaFeature(feature) ||
-      isMaailmanperintoPisteFeature(feature) ||
-      isMaailmanperintoAlueFeature(feature) ||
-      isVarkPisteFeature(feature) ||
-      isVarkAlueFeature(feature))
-  )
-}
-
 export const isMuinaisjäännörekisteriFeature = (
   feature: Feature
 ): feature is
@@ -650,90 +631,6 @@ export const isMuinaisjäännörekisteriAlueFeature = (
   isMahdollinenMuinaisjäännösAlueFeature(feature) ||
   isPoistettuKiinteäMuijaisjäännösAlueFeature(feature) ||
   isHavaintokohdeAlueFeature(feature)
-
-export const getMuseovirastoFeatureLayerName = (
-  feature: MuseovirastoFeature
-): MuseovirastoLayer => {
-  if (isMuinaisjaannosPisteFeature(feature)) {
-    return MuseovirastoLayer.Muinaisjaannokset_piste
-  }
-  if (isMuinaisjaannosAlueFeature(feature)) {
-    return MuseovirastoLayer.Muinaisjaannokset_alue
-  }
-  if (isMuuKulttuuriperintokohdePisteFeature(feature)) {
-    return MuseovirastoLayer.Muu_kulttuuriperintokohde_piste
-  }
-  if (isMuuKulttuuriperintokohdeAlueFeature(feature)) {
-    return MuseovirastoLayer.Muu_kulttuuriperintokohde_alue
-  }
-  if (isSuojellutRakennuksetPisteFeature(feature)) {
-    return MuseovirastoLayer.Suojellut_rakennukset_piste
-  }
-  if (isSuojellutRakennuksetAlueFeature(feature)) {
-    return MuseovirastoLayer.Suojellut_rakennukset_alue
-  }
-  if (isRKYAlueFeature(feature)) {
-    return MuseovirastoLayer.RKY_alue
-  }
-  if (isRKYPisteFeature(feature)) {
-    return MuseovirastoLayer.RKY_piste
-  }
-  if (isRKYViivaFeature(feature)) {
-    return MuseovirastoLayer.RKY_viiva
-  }
-  if (isMaailmanperintoAlueFeature(feature)) {
-    return MuseovirastoLayer.Maailmanperinto_alue
-  }
-  if (isMaailmanperintoPisteFeature(feature)) {
-    return MuseovirastoLayer.Maailmanperinto_piste
-  }
-  if (isVarkPisteFeature(feature)) {
-    return MuseovirastoLayer.VARK_pisteet
-  }
-  if (isVarkAlueFeature(feature)) {
-    return MuseovirastoLayer.VARK_alueet
-  }
-  if (isLöytöpaikkaPisteFeature(feature)) {
-    return MuseovirastoLayer.Löytöpaikka_piste
-  }
-  if (isLöytöpaikkaAlueFeature(feature)) {
-    return MuseovirastoLayer.Löytöpaikka_alue
-  }
-  if (isMuuKohdePisteFeature(feature)) {
-    return MuseovirastoLayer.Muu_kohde_piste
-  }
-  if (isMuuKohdeAlueFeature(feature)) {
-    return MuseovirastoLayer.Muu_kohde_alue
-  }
-  if (isLuonnonmuodostumaPisteFeature(feature)) {
-    return MuseovirastoLayer.Luonnonmuodostuma_piste
-  }
-  if (isLuonnonmuodostumaAlueFeature(feature)) {
-    return MuseovirastoLayer.Luonnonmuodostuma_alue
-  }
-  if (isHavaintokohdePisteFeature(feature)) {
-    return MuseovirastoLayer.Havaintokohde_piste
-  }
-  if (isHavaintokohdeAlueFeature(feature)) {
-    return MuseovirastoLayer.Havaintokohde_alue
-  }
-  if (isMahdollinenMuinaisjäännösPisteFeature(feature)) {
-    return MuseovirastoLayer.Mahdollinen_muinaisjäännös_piste
-  }
-  if (isMahdollinenMuinaisjäännösAlueFeature(feature)) {
-    return MuseovirastoLayer.Mahdollinen_muinaisjäännös_alue
-  }
-  if (isPoistettuKiinteäMuijaisjäännösPisteFeature(feature)) {
-    return MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösPiste
-  }
-  if (isPoistettuKiinteäMuijaisjäännösAlueFeature(feature)) {
-    return MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösAlue
-  }
-  if (isAlakohdePisteFeature(feature)) {
-    return MuseovirastoLayer.Alakohde_piste
-  }
-  throw new Error(`Tuntematon Museovirasto Feature: ${JSON.stringify(feature)}`)
-}
 
 export const getMuseovirastoFeatureNameField = (
   layer: MuseovirastoLayer

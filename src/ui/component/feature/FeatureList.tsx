@@ -12,11 +12,7 @@ import {
   isMaalinnoitusYksikkoFeature
 } from "../../../common/maalinnoitusHelsinki.types"
 import { isMaisemanMuistiFeature } from "../../../common/maisemanMuisti.types"
-import {
-  getFeatureLayer,
-  isGeoJSONFeature,
-  MapFeature
-} from "../../../common/mapFeature.types"
+import { isGeoJSONFeature, MapFeature } from "../../../common/mapFeature.types"
 import {
   isMaailmanperintoAlueFeature,
   isMaailmanperintoPisteFeature,
@@ -30,7 +26,10 @@ import {
   isVarkAlueFeature,
   isVarkPisteFeature
 } from "../../../common/museovirasto.types"
-import { getFeatureID } from "../../../common/util/featureParser"
+import {
+  getFeatureID,
+  getFeatureLayer
+} from "../../../common/util/featureParser"
 import {
   isViabundusPlaceFeature,
   isViabundusRoadFeature,

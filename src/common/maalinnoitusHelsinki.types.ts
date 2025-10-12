@@ -1,7 +1,5 @@
 import { Feature, Geometry } from "geojson"
 import { FeatureSupplementaryData } from "./featureSupplementaryData.types"
-import { HelsinkiLayer } from "./layers.types"
-import { MapFeature } from "./mapFeature.types"
 
 export enum MaalinnoitusYksikkoLaji {
   Asema = "asema",
@@ -198,33 +196,3 @@ export const isMaalinnoitusKarttatekstiFeature = (
   feature: Feature
 ): feature is MaalinnoitusKarttatekstiFeature =>
   feature.id?.toString().startsWith("Maalinnoitus_karttatekstit.") ?? false
-
-export const isMaalinnoitusFeature = (
-  feature: MapFeature
-): feature is MaalinnoitusFeature => {
-  return (
-    "id" in feature &&
-    (isMaalinnoitusYksikkoFeature(feature) ||
-      isMaalinnoitusKohdeFeature(feature) ||
-      isMaalinnoitusRajausFeature(feature) ||
-      isMaalinnoitusKarttatekstiFeature(feature))
-  )
-}
-
-export const getMaalinnoitusFeatureLayerName = (
-  feature: MaalinnoitusFeature
-): HelsinkiLayer => {
-  if (isMaalinnoitusYksikkoFeature(feature)) {
-    return HelsinkiLayer.Maalinnoitus_yksikot
-  }
-  if (isMaalinnoitusKohdeFeature(feature)) {
-    return HelsinkiLayer.Maalinnoitus_kohteet
-  }
-  if (isMaalinnoitusRajausFeature(feature)) {
-    return HelsinkiLayer.Maalinnoitus_rajaukset
-  }
-  if (isMaalinnoitusKarttatekstiFeature(feature)) {
-    return HelsinkiLayer.Maalinnoitus_karttatekstit
-  }
-  throw new Error(`Tuntematon Maalinnoitus Feature: ${JSON.stringify(feature)}`)
-}
