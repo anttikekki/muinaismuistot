@@ -1,5 +1,6 @@
 import { Position } from "geojson"
 import queryString from "query-string"
+import { LinkedFeature } from "../../store/storeTypes"
 
 export const parseURLParams = () => {
   return queryString.parse(window.location.hash, {
@@ -26,13 +27,13 @@ export const createLocationHash = (
   })
 }
 
-export const parseCoordinatesFromURL = (): [number, number] | null => {
-  const urlParams = parseURLParams()
-  const x = parseFloat(String(urlParams.x))
-  const y = parseFloat(String(urlParams.y))
-
-  if (!isNaN(x) && !isNaN(y)) {
-    return [x, y]
-  }
-  return null
+export const createLinkedFeatureUrl = (linkedFeature: LinkedFeature) => {
+  return stringifyURLParamsToHash({
+    ...parseURLParams(), // Keep old params
+    x: linkedFeature.coordinates[0],
+    y: linkedFeature.coordinates[1],
+    linkedFeatureLayer: linkedFeature.layer,
+    linkedFeatureId: linkedFeature.id,
+    linkedFeatureName: linkedFeature.name
+  })
 }

@@ -38,6 +38,11 @@
       "viabundus": "Viabundus-projektet"
     }
   },
+  "linkedFeature": {
+    "header": "Länkad objekt",
+    "showOnMap": "Visa på kartan",
+    "remove": "Ta bort"
+  },
   "info": {
     "title": "Information om webbsidan",
     "dataUpdates": {

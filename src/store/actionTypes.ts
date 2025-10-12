@@ -17,12 +17,13 @@ import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi
 } from "../common/museovirasto.types"
-import { IdentifiedMapFeatures, PageId, Settings } from "./storeTypes"
+import { IdentifiedMapFeatures, LinkedFeature, PageId } from "./storeTypes"
 
 export enum ActionTypeEnum {
   FIRST_USER_LOCATION_DETECTION_COMPLETE = "FIRST_USER_LOCATION_DETECTION_COMPLETE",
   CENTER_MAP_TO_CURRENT_POSITION = "CENTER_MAP_TO_CURRENT_POSITION",
   SET_LINKED_FEATURE = "SET_LINKED_FEATURE",
+  CENTER_MAP_TO_LINKED_FEATURE = "CENTER_MAP_TO_LINKED_FEATURE",
   SEARCH_FEATURES = "SEARCH_FEATURES",
   SEARCH_FEATURES_COMPLETE = "SEARCH_FEATURES_COMPLETE",
   CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE = "CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE",
@@ -36,8 +37,7 @@ export enum ActionTypeEnum {
   SHOW_PAGE = "SHOW_PAGE",
   ZOOM = "ZOOM",
   MOVE_MAANNOUSU_LAYER = "MOVE_MAANNOUSU_LAYER",
-  SELECT_VIABUNDUS_YEAR = "SELECT_VIABUNDUS_YEAR",
-  URL_CHANGED_BY_USER = "URL_CHANGED_BY_USER"
+  SELECT_VIABUNDUS_YEAR = "SELECT_VIABUNDUS_YEAR"
 }
 
 export interface ZoomAction {
@@ -53,10 +53,13 @@ export interface CenterMapToCurrentPositionAction {
   type: ActionTypeEnum.CENTER_MAP_TO_CURRENT_POSITION
 }
 
-export interface SetMapLocatoinAndShowSelectedMarkerAction {
+export interface SetLinkedFeature {
   type: ActionTypeEnum.SET_LINKED_FEATURE
-  /** [x, y] */
-  coordinates: [number, number]
+  linkedFeature: LinkedFeature | undefined
+}
+
+export interface CenterMapToLinkedFeature {
+  type: ActionTypeEnum.CENTER_MAP_TO_LINKED_FEATURE
 }
 
 export interface SearchFeaturesAction {
@@ -186,15 +189,11 @@ export interface SelectViabundusYearAction {
   year: number
 }
 
-export interface UrlChangedByUser {
-  type: ActionTypeEnum.URL_CHANGED_BY_USER
-  newSettingsFromURL: Settings
-}
-
 export type ActionTypes =
   | FirstUserLocationDetectionComplete
   | CenterMapToCurrentPositionAction
-  | SetMapLocatoinAndShowSelectedMarkerAction
+  | SetLinkedFeature
+  | CenterMapToLinkedFeature
   | SearchFeaturesAction
   | SearchFeaturesCompleteAction
   | ClickedMapFeatureIdentificationCompleteAction
@@ -209,4 +208,3 @@ export type ActionTypes =
   | ZoomAction
   | MoveMaannousuLayerAction
   | SelectViabundusYearAction
-  | UrlChangedByUser

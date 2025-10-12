@@ -7,7 +7,8 @@ import {
   MMLVanhatKartatLayer,
   MaannousuInfoLayer,
   MaannousuInfoLayerIndex,
-  MuseovirastoLayer
+  MuseovirastoLayer,
+  isFeatureLayer
 } from "../common/layers.types"
 import {
   MuinaisjaannosAjoitus,
@@ -30,7 +31,7 @@ import {
   updateHelsinkiLayerOpacity,
   updateHelsinkiSelectedLayers
 } from "../store/reducers/helsinkiLayer"
-import { updateLinkedFeatureCoordinates } from "../store/reducers/linkedFeature"
+import { updateLinkedFeature } from "../store/reducers/linkedFeature"
 import {
   updateMmlPohjakarttaLayerEnabled,
   updateMmlPohjakarttaSelectedLayer,
@@ -96,6 +97,9 @@ export const getSettingsFromURL = (): Settings => {
   const {
     x,
     y,
+    linkedFeatureLayer,
+    linkedFeatureId,
+    linkedFeatureName,
     zoom,
     lang,
     mmlLayer,
@@ -130,7 +134,15 @@ export const getSettingsFromURL = (): Settings => {
 
   // Linked feature
   if (x !== undefined && y !== undefined) {
-    newSettings = updateLinkedFeatureCoordinates(newSettings, [x, y])
+    newSettings = updateLinkedFeature(newSettings, {
+      coordinates: [x, y],
+      layer:
+        linkedFeatureLayer && isFeatureLayer(linkedFeatureLayer)
+          ? linkedFeatureLayer
+          : undefined,
+      id: linkedFeatureId ? String(linkedFeatureId) : undefined,
+      name: linkedFeatureName
+    })
   }
 
   // Map initial zoom

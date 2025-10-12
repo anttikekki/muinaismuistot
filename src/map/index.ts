@@ -219,10 +219,20 @@ export default class MuinaismuistotMap {
           this.centerToCurrentPositions()
           break
         case ActionTypeEnum.SET_LINKED_FEATURE:
-          this.setMapLocation(action.coordinates)
-          this.positionAndSelectedLocation.addLinkedFeatureMarker(
-            action.coordinates
-          )
+          const { linkedFeature } = action
+          if (linkedFeature) {
+            this.setMapLocation(linkedFeature.coordinates)
+            this.positionAndSelectedLocation.showLinkedFeatureMarker(
+              linkedFeature.coordinates
+            )
+          } else {
+            this.positionAndSelectedLocation.hideLinkedFeatureMarker()
+          }
+          break
+        case ActionTypeEnum.CENTER_MAP_TO_LINKED_FEATURE:
+          if (settings.linkedFeature) {
+            this.setMapLocation(settings.linkedFeature.coordinates)
+          }
           break
         case ActionTypeEnum.CHANGE_LAYER_OPACITY:
           this.layerOpacityChanged(action.layerGroup, settings)

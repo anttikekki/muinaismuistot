@@ -15,6 +15,7 @@ import { Settings } from "../store/storeTypes"
 import { LoadingAnimation } from "./component/LoadingAnimation"
 import { CenterToCurrentPositionButton } from "./component/mapButton/CenterToCurrentPositionButton"
 import { FullscreenButton } from "./component/mapButton/FullscreenButton"
+import { LinkedFeatureButton } from "./component/mapButton/LinkedFeatureButton"
 import { MaannnousuInfoYearConrols } from "./component/mapButton/MaannnousuInfoYearConrols"
 import { ShowInfoPageButton } from "./component/mapButton/OpenInfoPageButton"
 import { OpenSearchPageButton } from "./component/mapButton/OpenSearchPageButton"
@@ -60,6 +61,7 @@ export const createUI = (store: Store<Settings, ActionTypes>) => {
       <OpenSearchPageButton />
       <ShowInfoPageButton />
       <OpenSettingsPage />
+      <LinkedFeatureButton />
       <FullscreenButton
         onClick={toggleFullscreen}
         fullscreenPossible={document.fullscreenEnabled}

@@ -24,7 +24,7 @@ export default class CurrentPositionAndSelectedLocationMarkerLayer {
     })
 
     if (settings.linkedFeature) {
-      this.addLinkedFeatureMarker(settings.linkedFeature.coordinates)
+      this.showLinkedFeatureMarker(settings.linkedFeature.coordinates)
     }
   }
 
@@ -59,8 +59,9 @@ export default class CurrentPositionAndSelectedLocationMarkerLayer {
     this.source.addFeature(this.currentPositionFeature)
   }
 
-  public addLinkedFeatureMarker = (coordinates: Coordinate) => {
+  public showLinkedFeatureMarker = (coordinates: Coordinate) => {
     if (this.linkedFeatureMarker) {
+      this.linkedFeatureMarker.setStyle(linkedFeatureMarkerStyle)
       this.linkedFeatureMarker.setGeometry(new Point(coordinates))
       return
     }
@@ -68,17 +69,23 @@ export default class CurrentPositionAndSelectedLocationMarkerLayer {
     this.linkedFeatureMarker = new Feature({
       geometry: new Point(coordinates)
     })
-    this.linkedFeatureMarker.setStyle(
-      new Style({
-        image: new Icon({
-          src: "images/map-pin.png",
-          anchor: [0.5, 1.0]
-        })
-      })
-    )
+    this.linkedFeatureMarker.setStyle(linkedFeatureMarkerStyle)
     this.source.addFeature(this.linkedFeatureMarker)
+  }
+
+  public hideLinkedFeatureMarker = () => {
+    if (this.linkedFeatureMarker) {
+      this.linkedFeatureMarker.setStyle(undefined)
+    }
   }
 
   public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> =>
     this.layer
 }
+
+const linkedFeatureMarkerStyle = new Style({
+  image: new Icon({
+    src: "images/map-pin.png",
+    anchor: [0.5, 1.0]
+  })
+})

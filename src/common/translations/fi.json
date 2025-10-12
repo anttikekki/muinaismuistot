@@ -38,6 +38,11 @@
       "Maannousu.info": "Maannousu.info"
     }
   },
+  "linkedFeature": {
+    "header": "Linkitetty kohde",
+    "showOnMap": "Näytä kartalla",
+    "remove": "Poista"
+  },
   "info": {
     "title": "Lisätietoja sivustosta",
     "dataUpdates": {

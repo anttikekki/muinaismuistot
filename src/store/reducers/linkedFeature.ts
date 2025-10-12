@@ -1,13 +1,11 @@
-import { Settings } from "../storeTypes"
+import { LinkedFeature, Settings } from "../storeTypes"
 
-export const updateLinkedFeatureCoordinates = (
+export const updateLinkedFeature = (
   settings: Settings,
-  coordinates: [number, number]
+  linkedFeature: LinkedFeature | undefined
 ): Settings => {
   return {
     ...settings,
-    linkedFeature: {
-      coordinates
-    }
+    linkedFeature
   }
 }

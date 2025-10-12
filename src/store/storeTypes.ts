@@ -35,7 +35,8 @@ export type LinkedFeature = {
   /** [x, y] */
   coordinates: [number, number]
   layer?: FeatureLayer
-  id?: number
+  id?: string
+  name?: string
 }
 
 export interface Settings {

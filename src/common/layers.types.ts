@@ -207,3 +207,15 @@ export type FeatureLayer =
   | MaisemanMuistiLayer
   | HelsinkiLayer
   | ViabundusLayer
+
+const allFeatureLayers = [
+  Object.values(MuseovirastoLayer),
+  Object.values(AhvenanmaaLayer),
+  Object.values(ModelLayer),
+  Object.values(MaisemanMuistiLayer),
+  Object.values(HelsinkiLayer),
+  Object.values(ViabundusLayer)
+].flat()
+
+export const isFeatureLayer = (layer: string): layer is FeatureLayer =>
+  allFeatureLayers.includes(layer as FeatureLayer)

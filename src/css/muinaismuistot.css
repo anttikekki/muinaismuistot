@@ -23,6 +23,11 @@ body,
   right: 20px;
 }
 
+#linked-feature-popover {
+  /* Bootstrap Popover default Z-index is 1070. Drop it below Offcanvas. */
+  z-index: 1040;
+}
+
 .map-button {
   z-index: 15;
   position: absolute;
@@ -55,6 +60,11 @@ body,
 
 #map-button-settings {
   top: 210px;
+  left: 10px;
+}
+
+#map-button-linked-feature {
+  top: 250px;
   left: 10px;
 }
 
@@ -97,6 +107,11 @@ body,
 
 .feature-icon {
   margin-right: 5px;
+}
+
+.current-linked-feature-accordian-header button,
+.current-linked-feature-accordian-header .accordion-button:not(.collapsed) {
+  background-color: #1987544d;
 }
 
 .ol-scale-line {

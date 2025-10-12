@@ -880,7 +880,7 @@ export const getFeatureLayer = (feature: MapFeature): FeatureLayer => {
 
 export const getLayerRegisterName = (
   t: TFunction,
-  layer: MuseovirastoLayer | AhvenanmaaLayer
+  layer: FeatureLayer
 ): string => {
   switch (layer) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
@@ -916,15 +916,23 @@ export const getLayerRegisterName = (
     case MuseovirastoLayer.VARK_pisteet:
     case MuseovirastoLayer.VARK_alueet:
       return t(`data.register.name.vark`)
-    case MuseovirastoLayer.Löytöpaikka_piste:
-    case MuseovirastoLayer.Löytöpaikka_alue:
-      return t(`data.register.name.Löytöpaikat`)
     case AhvenanmaaLayer.Fornminnen:
       return t(`data.register.name.Ahvenanmaan muinaisjäännösrekisteri`)
     case AhvenanmaaLayer.MaritimaFornminnen:
       return t(
         `data.register.name.Ahvenanmaan merellinen kulttuuriperintörekisteri`
       )
+    case ModelLayer.ModelLayer:
+      return t(`data.register.name.3Dmodels`)
+    case MaisemanMuistiLayer.MaisemanMuisti:
+      return t(`data.register.name.maisemanMuisti`)
+    case HelsinkiLayer.Maalinnoitus_kohteet:
+    case HelsinkiLayer.Maalinnoitus_rajaukset:
+    case HelsinkiLayer.Maalinnoitus_karttatekstit:
+    case HelsinkiLayer.Maalinnoitus_yksikot:
+      return t(`data.register.name.maalinnoitus`)
+    case ViabundusLayer.Viabundus:
+      return t(`data.register.name.viabundus`)
   }
 }
 

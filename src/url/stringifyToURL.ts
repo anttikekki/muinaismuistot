@@ -71,7 +71,7 @@ export const updateSettingsToURL = (
     old: parseURLParams() as URLSettings
   }
 
-  // Linked feature coordinates
+  // Linked feature
   state = updateParam(
     state,
     initialSettings.linkedFeature?.coordinates[0],
@@ -83,6 +83,24 @@ export const updateSettingsToURL = (
     initialSettings.linkedFeature?.coordinates[1],
     currentSettings.linkedFeature?.coordinates[1],
     "y"
+  )
+  state = updateParam(
+    state,
+    initialSettings.linkedFeature?.layer,
+    currentSettings.linkedFeature?.layer,
+    "linkedFeatureLayer"
+  )
+  state = updateParam(
+    state,
+    initialSettings.linkedFeature?.id,
+    currentSettings.linkedFeature?.id,
+    "linkedFeatureId"
+  )
+  state = updateParam(
+    state,
+    initialSettings.linkedFeature?.name,
+    currentSettings.linkedFeature?.name,
+    "linkedFeatureName"
   )
 
   // Language

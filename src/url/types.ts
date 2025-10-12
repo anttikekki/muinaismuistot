@@ -3,6 +3,9 @@ import { Language } from "../common/layers.types"
 export interface URLSettings {
   x?: number
   y?: number
+  linkedFeatureLayer?: string
+  linkedFeatureId?: string
+  linkedFeatureName?: string
   zoom?: number
   lang?: Language
   mmlLayer?: string

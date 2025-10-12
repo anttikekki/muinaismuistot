@@ -3,6 +3,7 @@ import { addStoreListener, createStore } from "./store"
 import { ActionTypeEnum } from "./store/actionTypes"
 import { createUI } from "./ui"
 import URLUtil from "./url"
+import { getSettingsFromURL } from "./url/parseURL"
 
 const preloadedState = URLUtil.getSettingsFromURL()
 const store = createStore(preloadedState)
@@ -14,10 +15,11 @@ createUI(store)
 
 addStoreListener(URLUtil.urlSettingsUpdaterStoreListener)
 
-// Päivitetään kaikki asetukset, kun käyttäjä muuttaa käsin hash-osaa URLista
+// Päivitetään vain linkitetty kohde, kun käyttäjä muuttaa käsin hash-osaa URLista.
 window.onhashchange = () => {
+  const { linkedFeature } = getSettingsFromURL()
   store.dispatch({
-    type: ActionTypeEnum.URL_CHANGED_BY_USER,
-    newSettingsFromURL: URLUtil.getSettingsFromURL()
+    type: ActionTypeEnum.SET_LINKED_FEATURE,
+    linkedFeature
   })
 }
