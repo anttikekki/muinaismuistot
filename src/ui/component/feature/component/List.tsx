@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react"
 
-type Params<T> = {
+interface Params<T> {
   data: T[]
   contentFn: (row: T) => ReactNode
 }

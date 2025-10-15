@@ -7,7 +7,7 @@ export enum ViabundusFeatureType {
   townOutline = "townOutline"
 }
 
-export type ViabunduPopulation = {
+export interface ViabunduPopulation {
   year: number
   /**
    * 0 = < 1000
@@ -17,7 +17,7 @@ export type ViabunduPopulation = {
   inhabitants: number
 }
 
-export type ViabundusFair = {
+export interface ViabundusFair {
   id: number
   nodesid: number
   name: string
@@ -31,7 +31,7 @@ export type ViabundusFair = {
   descriptionFI: string | undefined
 }
 
-export type ViabundusPlaceFeatureProperties = {
+export interface ViabundusPlaceFeatureProperties {
   type: ViabundusFeatureType.place
   id: number
   name: string
@@ -102,7 +102,7 @@ export enum ViabundusRoadCertainty {
   Uncertain = 3 // epävarma
 }
 
-export type ViabundusRoadFeatureProperties = {
+export interface ViabundusRoadFeatureProperties {
   type: ViabundusFeatureType.road
   id: number
   roadType: ViabundusRoadType
@@ -114,7 +114,7 @@ export type ViabundusRoadFeatureProperties = {
   literature: string[] | undefined
 }
 
-export type ViabundusTownOutlineFeatureProperties = {
+export interface ViabundusTownOutlineFeatureProperties {
   type: ViabundusFeatureType.townOutline
   nodesid: number
   name: string

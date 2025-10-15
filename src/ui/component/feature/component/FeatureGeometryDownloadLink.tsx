@@ -12,7 +12,7 @@ import {
 } from "../../../../common/util/featureParser"
 import { isViabundusFeature } from "../../../../common/viabundus.types"
 
-type Props = {
+interface Props {
   feature: MapFeature
 }
 
@@ -76,6 +76,7 @@ const cleanAndConvertFeatureJSON = (feature: MapFeature) => {
     return feature
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { maisemanMuisti, models, ...cleanFeature } = feature
   return cleanFeature
 }

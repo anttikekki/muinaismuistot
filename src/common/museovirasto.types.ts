@@ -39,7 +39,7 @@ export enum MuinaisjaannosAjoitus {
   eiMääritelty = "ei määritelty"
 }
 
-export type MuinaisjaannosPisteFeatureProperties = {
+export interface MuinaisjaannosPisteFeatureProperties {
   OBJECTID: number // 38962;
   mjtunnus: number // 1279;
   inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1279_P38962";
@@ -70,7 +70,7 @@ export interface MuinaisjaannosPisteFeature
   id: `muinaisjaannos_piste.${number}`
 }
 
-type MuinaisjaannosAlueFeatureProperties = {
+interface MuinaisjaannosAlueFeatureProperties {
   OBJECTID: number // 9190
   mjtunnus: number // 1000007642
   inspireID: string // "http://paikkatiedot.fi/so/1000272/ps/ProtectedSite/1000007642_A9190";
@@ -112,7 +112,7 @@ export interface MuuKulttuuriperintokohdeAlueFeature
   id: `muu_kulttuuriperintokohde_alue.${number}`
 }
 
-type SuojellutRakennuksetPisteFeatureProperties = {
+interface SuojellutRakennuksetPisteFeatureProperties {
   OBJECTID: number // "2843";
   KOHDEID: number // "200928";
   rakennusID: number // "305349";
@@ -134,7 +134,7 @@ export interface SuojellutRakennuksetPisteFeature
   id: `suojellut_rakennukset_piste.${number}`
 }
 
-type SuojellutRakennuksetAlueFeatureProperties = {
+interface SuojellutRakennuksetAlueFeatureProperties {
   OBJECTID: number // "2843";
   KOHDEID: number // "200928";
   inspireID: string // "http://paikkatiedot.fi/so/1000000/ps/ProtectedSite/305349_2843";
@@ -151,7 +151,7 @@ export interface SuojellutRakennuksetAlueFeature
   id: `suojellut_rakennukset_alue.${number}`
 }
 
-type RKYAlueFeatureProperties = {
+interface RKYAlueFeatureProperties {
   OBJECTID: number // "1632";
   ID: number // "1570";
   inspireID: string // "http://paikkatiedot.fi/so/1000034/ps/ProtectedSite/1570_A1632";
@@ -166,7 +166,7 @@ export interface RKYAlueFeature
   id: `rky_alue.${number}`
 }
 
-type RKYPisteFeatureProperties = {
+interface RKYPisteFeatureProperties {
   OBJECTID: number //"31";
   ID: string //"4255";
   inspireID: string //"http://paikkatiedot.fi/so/1000034/ps/ProtectedSite/4255_P31";
@@ -180,7 +180,7 @@ export interface RKYPisteFeature
   id: `rky_piste.${number}`
 }
 
-type RKYViivaFeatureProperties = {
+interface RKYViivaFeatureProperties {
   OBJECTID: string //"69";
   ID: string //"2117";
   inspireID: string //"http://paikkatiedot.fi/so/1000034/ps/ProtectedSite/2117_V69";
@@ -195,7 +195,7 @@ export interface RKYViivaFeature
   id: `rky_viiva.${number}`
 }
 
-type MaailmanperintoPisteFeatureProperties = {
+interface MaailmanperintoPisteFeatureProperties {
   Shape: string // "Point";
   OBJECTID: string // "2";
   Nimi: string // "Struven ketju / Stuorrahanoaivi";
@@ -208,7 +208,7 @@ export interface MaailmanperintoPisteFeature
   id: `maailmanperinto_piste.${number}`
 }
 
-type MaailmanperintoAlueFeatureProperties = {
+interface MaailmanperintoAlueFeatureProperties {
   OBJECTID: number // 429;
   Nimi: string // "Suomenllinna";
   URL: string // "http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa#suomenlinna";
@@ -221,7 +221,7 @@ export interface MaailmanperintoAlueFeature
   id: `maailmanperinto_alue.${number}`
 }
 
-type VarkAlueFeatureProperties = {
+interface VarkAlueFeatureProperties {
   VARK_ID: number // 100952
   VARK_nimi: string // "Bembölen myllynpaikka"
   Mj_kohde: string //"Bembölen myllynpaikka"
@@ -251,7 +251,7 @@ export interface VarkAlueFeature
   id: `vark_alueet.${number}`
 }
 
-type VarkPisteFeatureProperties = {
+interface VarkPisteFeatureProperties {
   VARK_ID: number // 100952
   VARK_nimi: string // "Bembölen myllynpaikka"
   Mj_kohde: string //"Bembölen myllynpaikka"
@@ -436,7 +436,7 @@ export type MuseovirastoFeature =
   | VarkPisteFeature
   | VarkAlueFeature
 
-export type MuseovirastoFeatureInfoResult = {
+export interface MuseovirastoFeatureInfoResult {
   type: "FeatureCollection"
   features: MuseovirastoFeature[]
 }

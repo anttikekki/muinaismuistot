@@ -1,7 +1,7 @@
 import { Feature } from "geojson"
 import EsriJSONFormat from "ol/format/EsriJSON"
 import GeoJSONFormat from "ol/format/GeoJSON"
-import { EsriJSONFeature } from "../esriJSON.type"
+import { EsriJSONFeature } from "../mapFeature.types"
 
 const esriFormat = new EsriJSONFormat()
 const geojsonFormat = new GeoJSONFormat()

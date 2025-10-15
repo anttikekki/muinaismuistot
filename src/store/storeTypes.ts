@@ -32,7 +32,7 @@ export interface IdentifiedMapFeatures {
   models: ModelFeature[]
 }
 
-export type LinkedFeature = {
+export interface LinkedFeature {
   /** [x, y] */
   coordinates: [number, number]
   layer?: FeatureLayer

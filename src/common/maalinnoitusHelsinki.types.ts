@@ -20,7 +20,7 @@ export enum MaalinnoitusYksikko {
   Suojavalli = "suojavalli"
 }
 
-type MaalinnoitusYksikkoFeatureProperties = {
+interface MaalinnoitusYksikkoFeatureProperties {
   id: number // 444
   /**
    * Muoto tukikohtanumero:lajinumero/yksikkönumero,yksilöivä tunniste
@@ -77,7 +77,7 @@ export enum MaalinnoitusKohdetyyppi {
   Tykkipatteri = "tykkipatteri"
 }
 
-type MaalinnoitusKohdeFeatureProperties = {
+interface MaalinnoitusKohdeFeatureProperties {
   id: number // 25625
   /**
    * Kohdetyyppi kertoo minkälaisesta maalinnoitus kohteesta on kyse.
@@ -110,7 +110,7 @@ export enum MaalinnoitusRajaustyyppi {
   Puolustusasema = "laji"
 }
 
-type MaalinnoitusRajausFeatureProperties = {
+interface MaalinnoitusRajausFeatureProperties {
   id: number // 26516
   /**
    * Muoto tukikohtanumero:juokseva numero; erottelee tukikohtien alaiset tutkimusalueet
@@ -134,7 +134,7 @@ export interface MaalinnoitusRajausFeature
   id: `"Maalinnoitus_rajaukset.${number}`
 }
 
-type MaalinnoitusKarttatekstiFeatureProperties = {
+interface MaalinnoitusKarttatekstiFeatureProperties {
   id: number // 764
   /**
    * Tukikohtanumero. Kertoo mistä tukikohdasta on kyse.
@@ -172,7 +172,7 @@ export type MaalinnoitusFeature =
   | MaalinnoitusRajausFeature
   | MaalinnoitusKarttatekstiFeature
 
-export type MaalinnoitusFeatureInfoResult = {
+export interface MaalinnoitusFeatureInfoResult {
   type: "FeatureCollection"
   features: MaalinnoitusFeature[]
 }

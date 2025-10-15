@@ -1,24 +1,25 @@
 export interface NavigatorUAData {
-  readonly mobile: boolean;
+  readonly mobile: boolean
 }
 
-let isMobile: boolean | undefined;
+let isMobile: boolean | undefined
 
 export const isMobileDevice = (): boolean => {
   if (isMobile !== undefined) {
-    return isMobile;
+    return isMobile
   }
 
   // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgentData
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const userAgentData = (navigator as any)["userAgentData"] as
     | NavigatorUAData
-    | undefined;
+    | undefined
   if (userAgentData && !!userAgentData.mobile) {
-    isMobile = true;
+    isMobile = true
   } else if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
-    isMobile = true;
+    isMobile = true
   } else {
-    isMobile = false;
+    isMobile = false
   }
-  return isMobile;
-};
+  return isMobile
+}

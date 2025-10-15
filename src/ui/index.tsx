@@ -51,7 +51,12 @@ export const createUI = (store: Store<Settings, ActionTypes>) => {
     }
   })
 
-  const root = createRoot(document.getElementById("ui")!)
+  const targetElement = document.getElementById("ui")
+  if (!targetElement) {
+    throw new Error("UI:n elementti puuttuu DOMista")
+  }
+
+  const root = createRoot(targetElement)
   root.render(
     <Provider store={store}>
       <LoadingAnimation />

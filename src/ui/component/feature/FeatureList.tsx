@@ -59,7 +59,7 @@ import { ViabundusPlacePanel } from "./panel/ViabundusPlacePanel"
 import { ViabundusRoadPanel } from "./panel/ViabundusRoadPanel"
 import { ViabundusTownOutlinePanel } from "./panel/ViabundusTownOutlinePanel"
 
-type FeatureWithMetaData = {
+interface FeatureWithMetaData {
   feature: MapFeature
   featureLayer: FeatureLayer
   featureRegisterId: string
@@ -146,7 +146,7 @@ export const FeatureList: React.FC<FeatureListProps> = ({
 
   return (
     <Accordion activeKey={openPanelId}>
-      {featuresWithMetaData.map((featureWithMetaData, i) => {
+      {featuresWithMetaData.map((featureWithMetaData) => {
         const { feature, panelId } = featureWithMetaData
 
         const params = {

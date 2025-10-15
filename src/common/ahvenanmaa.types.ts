@@ -16,7 +16,7 @@ export interface AhvenanmaaTypeAndDatingFeatureProperties {
   Antal: number // 1
 }
 
-type AhvenanmaaForminnenFeatureProperties = {
+interface AhvenanmaaForminnenFeatureProperties {
   OBJECTID: string // "1401";
   "Fornlämnings ID": string // "Su 12.27";
   Namn: string // "Null";
@@ -47,7 +47,7 @@ export interface AhvenanmaaForminnenFeature
   layerName: AhvenanmaaLayer.Fornminnen
 }
 
-type AhvenanmaaMaritimtKulturarvFeatureProperties = {
+interface AhvenanmaaMaritimtKulturarvFeatureProperties {
   OBJECTID: string //"234",
   MfornID: string //"M1 Ha 445.1",
   "Geomtrin skapad": string //"Null",
