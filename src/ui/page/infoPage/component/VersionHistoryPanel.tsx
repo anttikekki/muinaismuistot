@@ -22,6 +22,10 @@ export const VersionHistoryPanel: React.FC = () => {
           havaintokohteet, mahdolliset muinaisjäännökset, luonnonmuodostumat,
           poistetut muinaisjäännökset, muut kohteet ja alakohteet..
         </p>
+        <p>
+          Kartalla linkitetty kohde näkyy korostettuna kohdelistauksessa. Sille
+          on myös erillinen kontrollipainike kartan vasemmassa reunassa.
+        </p>
 
         <h6>Syyskuu 2025</h6>
         <p>Lisätty mahdollisuus ladata kohteen paikkatieto GeoJSON-muodossa.</p>
