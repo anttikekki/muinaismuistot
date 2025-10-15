@@ -13,7 +13,7 @@ import {
   MaisemanMuistiFeatureProperties
 } from "../../common/maisemanMuisti.types"
 import { MapFeature } from "../../common/mapFeature.types"
-import { getFeatureID } from "../../common/util/featureParser"
+import { getFeatureRegisterID } from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
 
 export default class MaisemanMuistiLayer {
@@ -102,7 +102,7 @@ export default class MaisemanMuistiLayer {
     return {
       ...feature,
       maisemanMuisti: this.getFeaturesForFeatureRegisterId(
-        getFeatureID(feature)
+        getFeatureRegisterID(feature)
       )
     }
   }

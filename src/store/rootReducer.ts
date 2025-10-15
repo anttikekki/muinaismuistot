@@ -79,11 +79,21 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     case ActionTypeEnum.SET_LINKED_FEATURE: {
       return updateLinkedFeature(state, action.linkedFeature)
     }
-    case ActionTypeEnum.CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE: {
-      const identifiedMapFeatures = action.payload
+    case ActionTypeEnum.MAP_FEATURE_IDENTIFICATION_COMPLETE: {
+      const { identifiedMapFeatures } = action
       if (identifiedMapFeatures.features.length === 0) {
         return state
       }
+
+      // Storessa on jo myöhemmin tehdyn kutsun vastaus, hylätään vanhentunut tulos
+      if (
+        state.identifiedMapFeatures?.requestTimestamp &&
+        state.identifiedMapFeatures?.requestTimestamp >
+          action.identifiedMapFeatures.requestTimestamp
+      ) {
+        return state
+      }
+
       return {
         ...state,
         visiblePage: PageId.Details,

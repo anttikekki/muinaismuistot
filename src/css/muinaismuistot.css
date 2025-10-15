@@ -109,9 +109,11 @@ body,
   margin-right: 5px;
 }
 
+/* Asetetaan Bootstrap warning-buttonin väri linkitetyille kohteille */
+#linked-feature-popover .popover-header,
 .current-linked-feature-accordian-header button,
 .current-linked-feature-accordian-header .accordion-button:not(.collapsed) {
-  background-color: #1987544d;
+  background-color: #ffc107;
 }
 
 .ol-scale-line {

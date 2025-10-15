@@ -8,19 +8,16 @@ import { Page } from "../Page"
 
 export const FeatureDetailsPage: React.FC = () => {
   const { t } = useTranslation()
-  const features = useSelector(
-    (settings: Settings) => settings.identifiedMapFeatures.features
-  )
-  const models = useSelector(
-    (settings: Settings) => settings.identifiedMapFeatures.models
+  const identifiedMapFeatures = useSelector(
+    (settings: Settings) => settings.identifiedMapFeatures
   )
 
   return (
     <Page title={t(`details.title`)} pageId={PageId.Details}>
       <FeatureList
         titleClickAction={FeatureTitleClickAction.OpenDetails}
-        features={features}
-        models={models}
+        features={identifiedMapFeatures?.features}
+        models={identifiedMapFeatures?.models}
       />
     </Page>
   )

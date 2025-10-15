@@ -1,11 +1,10 @@
 import React, { MouseEvent, ReactNode, useCallback, useMemo } from "react"
 import { Accordion, Col, Container, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { FeatureLayer } from "../../../../common/layers.types"
 import { MapFeature } from "../../../../common/mapFeature.types"
 import {
-  getFeatureID,
-  getFeatureLayer,
   getFeatureLocation,
   getFeatureMunicipality,
   getFeatureName,
@@ -14,7 +13,7 @@ import {
 } from "../../../../common/util/featureParser"
 import { createLinkedFeatureUrl } from "../../../../common/util/URLHashHelper"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
-import { AppDispatch, Settings } from "../../../../store/storeTypes"
+import { AppDispatch } from "../../../../store/storeTypes"
 
 export enum FeatureTitleClickAction {
   OpenDetails = "openDetails",
@@ -26,6 +25,11 @@ export interface FeatureCollapsePanelCommonExternalProps {
   isOpen: boolean
   panelId: string
   onToggleOpen: () => void
+  openPanelId?: string
+  featureLayer: FeatureLayer
+  featureRegisterId: string
+  featureUniqueLayerId: string
+  isLinkedFeature: boolean
 }
 
 interface MapFeatureCollapsePanelProps
@@ -36,12 +40,18 @@ interface MapFeatureCollapsePanelProps
 
 export const MapFeatureCollapsePanel: React.FC<
   MapFeatureCollapsePanelProps
-> = ({ titleClickAction, panelId, onToggleOpen, feature, children }) => {
+> = ({
+  titleClickAction,
+  panelId,
+  onToggleOpen,
+  feature,
+  featureLayer,
+  featureRegisterId,
+  isLinkedFeature,
+  children
+}) => {
   const { t, i18n } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
-  const currentLinkedFeature = useSelector(
-    (settings: Settings) => settings.linkedFeature
-  )
 
   const featureName = useMemo(
     () => getFeatureName(t, feature),
@@ -63,32 +73,26 @@ export const MapFeatureCollapsePanel: React.FC<
     return name + suffix
   }, [i18n.language, titleClickAction, feature])
 
-  const featureLayer = useMemo(() => getFeatureLayer(feature), [feature])
-  const featureId = useMemo(() => getFeatureID(feature), [feature])
-
-  const pemalinkLinkedFeature = useMemo(
+  const permalinkLinkedFeature = useMemo(
     () => ({
       coordinates: getFeatureLocation(feature) as [number, number],
       layer: featureLayer,
-      id: featureId,
+      id: featureRegisterId,
       name: featureName
     }),
-    [feature, featureLayer, featureId, featureName]
+    [feature, featureLayer, featureRegisterId, featureName]
   )
   const linkedFeaturePermanentLink = useMemo(
-    () => createLinkedFeatureUrl(pemalinkLinkedFeature),
-    [i18n.language, pemalinkLinkedFeature]
+    () => createLinkedFeatureUrl(permalinkLinkedFeature),
+    [i18n.language, permalinkLinkedFeature]
   )
-  const isLinkedFeature =
-    featureLayer === currentLinkedFeature?.layer &&
-    String(featureId) === currentLinkedFeature.id
 
   const onPermanentLinkClick = useCallback(
     (event: MouseEvent<HTMLAnchorElement>) => {
       event.preventDefault()
       dispatch({
         type: ActionTypeEnum.SET_LINKED_FEATURE,
-        linkedFeature: pemalinkLinkedFeature
+        linkedFeature: permalinkLinkedFeature
       })
 
       // Hide open page when user click feature location link
@@ -97,7 +101,7 @@ export const MapFeatureCollapsePanel: React.FC<
         pageId: undefined
       })
     },
-    [dispatch, pemalinkLinkedFeature]
+    [dispatch, permalinkLinkedFeature]
   )
 
   return (

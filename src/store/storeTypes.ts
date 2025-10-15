@@ -27,6 +27,7 @@ export enum PageId {
 }
 
 export interface IdentifiedMapFeatures {
+  requestTimestamp: number
   features: MapFeature[]
   models: ModelFeature[]
 }
@@ -35,6 +36,9 @@ export type LinkedFeature = {
   /** [x, y] */
   coordinates: [number, number]
   layer?: FeatureLayer
+  /**
+   * Featuren rekisteri-id. Tämä ei ole uniikki id.
+   */
   id?: string
   name?: string
 }
@@ -43,7 +47,7 @@ export interface Settings {
   concurrentPendingJobsCounter: number
   showLoadingAnimation: boolean
   visiblePage?: PageId
-  identifiedMapFeatures: IdentifiedMapFeatures
+  identifiedMapFeatures?: IdentifiedMapFeatures
   search: {
     features: MapFeature[]
   }

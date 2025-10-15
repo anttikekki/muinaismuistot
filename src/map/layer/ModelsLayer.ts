@@ -15,7 +15,10 @@ import {
 } from "../../common/3dModels.types"
 import { FeatureLayer, MuseovirastoLayer } from "../../common/layers.types"
 import { MapFeature } from "../../common/mapFeature.types"
-import { getFeatureID, getFeatureLayer } from "../../common/util/featureParser"
+import {
+  getFeatureLayer,
+  getFeatureRegisterID
+} from "../../common/util/featureParser"
 import { Settings } from "../../store/storeTypes"
 
 export default class ModelsLayer {
@@ -147,7 +150,7 @@ export default class ModelsLayer {
     return {
       ...feature,
       models: this.getFeaturesForFeatureRegisterId(
-        getFeatureID(feature),
+        getFeatureRegisterID(feature),
         getFeatureLayer(feature)
       )
     }

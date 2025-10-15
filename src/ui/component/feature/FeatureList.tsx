@@ -1,9 +1,11 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { Accordion } from "react-bootstrap"
+import { useSelector } from "react-redux"
 import { ModelFeature } from "../../../common/3dModels.types"
 import { isAhvenanmaaFeature } from "../../../common/ahvenanmaa.types"
 import {
   AhvenanmaaLayer,
+  FeatureLayer,
   MuseovirastoLayer
 } from "../../../common/layers.types"
 import {
@@ -27,14 +29,16 @@ import {
   isVarkPisteFeature
 } from "../../../common/museovirasto.types"
 import {
-  getFeatureID,
-  getFeatureLayer
+  getFeatureLayer,
+  getFeatureRegisterID,
+  getFeatureUniqueLayerID
 } from "../../../common/util/featureParser"
 import {
   isViabundusPlaceFeature,
   isViabundusRoadFeature,
   isViabundusTownOutlineFeature
 } from "../../../common/viabundus.types"
+import { Settings } from "../../../store/storeTypes"
 import { AhvenanmaaForminnenPanel } from "../../component/feature/panel/AhvenanmaaForminnenPanel"
 import { AhvenanmaaMaritimtKulturarvPanel } from "../../component/feature/panel/AhvenanmaaMaritimtKulturarvPanel"
 import { MaailmanperintokohdePanel } from "../../component/feature/panel/MaailmanperintokohdePanel"
@@ -55,6 +59,29 @@ import { ViabundusPlacePanel } from "./panel/ViabundusPlacePanel"
 import { ViabundusRoadPanel } from "./panel/ViabundusRoadPanel"
 import { ViabundusTownOutlinePanel } from "./panel/ViabundusTownOutlinePanel"
 
+type FeatureWithMetaData = {
+  feature: MapFeature
+  featureLayer: FeatureLayer
+  featureRegisterId: string
+  featureUniqueLayerId: string
+  panelId: string
+}
+
+const wrapFeatureWithMetadata = (feature: MapFeature): FeatureWithMetaData => {
+  const featureLayer = getFeatureLayer(feature)
+  const featureRegisterId = getFeatureRegisterID(feature)
+  const featureUniqueLayerId = getFeatureUniqueLayerID(feature)
+  const panelId = `${featureLayer}-${featureRegisterId}-${featureUniqueLayerId}`
+
+  return {
+    feature,
+    featureLayer,
+    featureRegisterId,
+    featureUniqueLayerId,
+    panelId
+  }
+}
+
 interface FeatureListProps {
   titleClickAction: FeatureTitleClickAction
   features?: MapFeature[]
@@ -66,31 +93,65 @@ export const FeatureList: React.FC<FeatureListProps> = ({
   features = [],
   models = []
 }) => {
-  const [openPanelId, setOpenPanelId] = useState("")
+  const [openPanelId, setOpenPanelId] = useState<string>()
+  const currentLinkedFeature = useSelector(
+    (settings: Settings) => settings.linkedFeature
+  )
+
   const onTogglePanelOpen = useCallback(
     (id: string) => setOpenPanelId(openPanelId === id ? "" : id),
-    [openPanelId]
+    [openPanelId, setOpenPanelId]
   )
-  const getCommonProps = (
-    panelId: string
-  ): FeatureCollapsePanelCommonExternalProps => {
+
+  const featuresWithMetaData = useMemo(
+    () => features.map(wrapFeatureWithMetadata),
+    [features]
+  )
+
+  const linkedFeatureWithMetadata = useMemo(
+    () =>
+      currentLinkedFeature
+        ? featuresWithMetaData.find(
+            ({ featureLayer, featureRegisterId }) =>
+              featureLayer === currentLinkedFeature?.layer &&
+              featureRegisterId === currentLinkedFeature.id
+          )
+        : undefined,
+    [currentLinkedFeature, featuresWithMetaData]
+  )
+  useEffect(() => {
+    if (linkedFeatureWithMetadata) {
+      setOpenPanelId(linkedFeatureWithMetadata.panelId)
+    }
+  })
+
+  const getCommonProps = ({
+    featureLayer,
+    featureRegisterId,
+    featureUniqueLayerId,
+    panelId
+  }: FeatureWithMetaData): FeatureCollapsePanelCommonExternalProps => {
     return {
       titleClickAction,
       isOpen: openPanelId === panelId,
       panelId,
-      onToggleOpen: () => onTogglePanelOpen(panelId)
+      onToggleOpen: () => onTogglePanelOpen(panelId),
+      openPanelId,
+      featureLayer,
+      featureRegisterId,
+      featureUniqueLayerId,
+      isLinkedFeature: linkedFeatureWithMetadata?.panelId === panelId
     }
   }
 
   return (
-    <Accordion defaultActiveKey={openPanelId} activeKey={openPanelId}>
-      {features.map((feature, i) => {
-        const panelId = `${getFeatureLayer(feature)}-${getFeatureID(
-          feature
-        )}-${i}`
+    <Accordion activeKey={openPanelId}>
+      {featuresWithMetaData.map((featureWithMetaData, i) => {
+        const { feature, panelId } = featureWithMetaData
+
         const params = {
           key: panelId,
-          ...getCommonProps(panelId)
+          ...getCommonProps(featureWithMetaData)
         }
 
         if (isGeoJSONFeature(feature)) {

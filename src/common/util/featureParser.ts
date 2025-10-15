@@ -590,7 +590,12 @@ export const getLayerIconURLs = (layer: FeatureLayer): string[] => {
   }
 }
 
-export const getFeatureID = (feature: MapFeature): string => {
+/**
+ * Palauttaa featuren rekisterin id. Eri rekistereissä on käytössä
+ * samoja id-arvoja. Monella featurella voi myös olla samassa rekisterissä
+ * sama rekisteri-id, koska ne kuvaavat esim. samaa kiinteää muinaisjäännöstä.
+ */
+export const getFeatureRegisterID = (feature: MapFeature): string => {
   if (isGeoJSONFeature(feature)) {
     if (isMuinaisjäännörekisteriFeature(feature)) {
       return String(feature.properties.mjtunnus)
@@ -606,7 +611,9 @@ export const getFeatureID = (feature: MapFeature): string => {
       isMaailmanperintoAlueFeature(feature) ||
       isMaailmanperintoPisteFeature(feature)
     ) {
-      return String(feature.properties.OBJECTID) // Not a real stabile register id but data set is really small
+      // Maailmanperintokohteita on Suomessa alle 10 kpl, eikä niillä ole virallista
+      // rekisteri-id:tä
+      return String(feature.properties.OBJECTID)
     }
     if (
       isSuojellutRakennuksetAlueFeature(feature) ||
@@ -640,6 +647,45 @@ export const getFeatureID = (feature: MapFeature): string => {
       case AhvenanmaaLayer.MaritimaFornminnen:
         return feature.attributes.MfornID
     }
+  }
+  throw new Error(`Tuntematon feature: ${JSON.stringify(feature)}`)
+}
+
+export const getFeatureUniqueLayerID = (feature: MapFeature): string => {
+  if (isGeoJSONFeature(feature)) {
+    if (
+      isMuinaisjäännörekisteriFeature(feature) ||
+      isRKYAlueFeature(feature) ||
+      isRKYPisteFeature(feature) ||
+      isRKYViivaFeature(feature) ||
+      isMaailmanperintoAlueFeature(feature) ||
+      isMaailmanperintoPisteFeature(feature) ||
+      isSuojellutRakennuksetAlueFeature(feature) ||
+      isSuojellutRakennuksetPisteFeature(feature)
+    ) {
+      return String(feature.properties.OBJECTID)
+    }
+    if (isVarkPisteFeature(feature) || isVarkAlueFeature(feature)) {
+      return String(feature.properties.VARK_ID)
+    }
+    if (
+      isMaalinnoitusYksikkoFeature(feature) ||
+      isMaalinnoitusKohdeFeature(feature) ||
+      isMaalinnoitusRajausFeature(feature)
+    ) {
+      return String(feature.properties.id)
+    }
+    if (isMaisemanMuistiFeature(feature)) {
+      return String(feature.properties.number)
+    }
+    if (isViabundusPlaceFeature(feature) || isViabundusRoadFeature(feature)) {
+      return `${feature.properties.type}-${feature.properties.id}`
+    }
+    if (isViabundusTownOutlineFeature(feature)) {
+      return `${feature.properties.type}-${feature.properties.nodesid}`
+    }
+  } else if (isAhvenanmaaFeature(feature)) {
+    return String(feature.attributes.OBJECTID)
   }
   throw new Error(`Tuntematon feature: ${JSON.stringify(feature)}`)
 }

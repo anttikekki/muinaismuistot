@@ -28,10 +28,7 @@ export const initialSettings: Settings = {
   showLoadingAnimation: false,
   visiblePage: undefined,
   linkedFeature: undefined,
-  identifiedMapFeatures: {
-    features: [],
-    models: []
-  },
+  identifiedMapFeatures: undefined,
   search: {
     features: []
   },

@@ -7,8 +7,8 @@ import {
 } from "../../../../common/mapFeature.types"
 import { convertFeatureFromEsriJSONtoGeoJSON } from "../../../../common/util/esriToGeoJSONConverter"
 import {
-  getFeatureID,
-  getFeatureName
+  getFeatureName,
+  getFeatureRegisterID
 } from "../../../../common/util/featureParser"
 import { isViabundusFeature } from "../../../../common/viabundus.types"
 
@@ -44,7 +44,7 @@ export const FeatureGeometryDownloadLink: React.FC<Props> = ({ feature }) => {
     return () => URL.revokeObjectURL(url)
   }, [])
 
-  const fileName = `${getFeatureName(t, feature)}-${getFeatureID(feature)}.geojson`
+  const fileName = `${getFeatureName(t, feature)}-${getFeatureRegisterID(feature)}.geojson`
 
   return (
     <a

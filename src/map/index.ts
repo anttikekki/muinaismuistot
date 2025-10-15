@@ -3,7 +3,6 @@ import Collection from "ol/Collection"
 import Feature from "ol/Feature"
 import Geolocation from "ol/Geolocation"
 import Map from "ol/Map"
-import MapBrowserEvent from "ol/MapBrowserEvent"
 import View from "ol/View"
 import { ScaleLine } from "ol/control"
 import { Coordinate } from "ol/coordinate"
@@ -147,7 +146,9 @@ export default class MuinaismuistotMap {
     // Adds Maannousu.info layers to correct index
     this.moveMaannousuLayers(settings.maannousuInfo.placement)
 
-    this.map.on("singleclick", this.indentifyFeaturesOnClickedCoordinate)
+    this.map.on("singleclick", (e) =>
+      this.indentifyFeaturesOnCoordinate(e.coordinate, Date.now())
+    )
 
     this.geolocation = new Geolocation({
       projection: this.view.getProjection(),
@@ -233,6 +234,12 @@ export default class MuinaismuistotMap {
           if (settings.linkedFeature) {
             this.setMapLocation(settings.linkedFeature.coordinates)
           }
+          break
+        case ActionTypeEnum.IDENTIFY_MAP_FEATURES_ON_COORDINATE:
+          this.indentifyFeaturesOnCoordinate(
+            action.coordinates,
+            action.requestTimestamp
+          )
           break
         case ActionTypeEnum.CHANGE_LAYER_OPACITY:
           this.layerOpacityChanged(action.layerGroup, settings)
@@ -340,30 +347,35 @@ export default class MuinaismuistotMap {
     return geojsonFormat.writeFeaturesObject(features).features
   }
 
-  private indentifyFeaturesOnClickedCoordinate = (e: MapBrowserEvent) => {
+  private indentifyFeaturesOnCoordinate = (
+    coordinate: Coordinate,
+    requestTimestamp: number
+  ) => {
     this.showLoadingAnimationInUI(true)
     const mapSize = this.map.getSize()
     if (!mapSize) {
       return
     }
+    const pixel = this.map.getPixelFromCoordinate(coordinate)
+
     const settings = this.store.getState()
 
     const ahvenanmaaQuery = this.ahvenanmaaTileLayer.identifyFeaturesAt(
-      e.coordinate,
+      coordinate,
       mapSize,
       this.map.getView().calculateExtent(mapSize),
       settings
     )
 
     const museovirastoQuery = this.museovirastoTileLayer.identifyFeaturesAt(
-      e.coordinate,
+      coordinate,
       this.view.getResolution(),
       this.view.getProjection(),
       settings
     )
 
     const maalinnoitusQuery = this.helsinkiLayer.identifyFeaturesAt(
-      e.coordinate,
+      coordinate,
       this.view.getResolution(),
       this.view.getProjection(),
       settings
@@ -371,20 +383,20 @@ export default class MuinaismuistotMap {
 
     const modelsResult = settings.models.enabled
       ? this.getFeaturesAtPixelAtGeoJsonLayer(
-          e.pixel,
+          pixel,
           this.modelsLayer.getLayer()
         ).filter((f) => isModelFeature(f))
       : []
 
     const maisemanMuistiResult = settings.maisemanMuisti.enabled
       ? this.getFeaturesAtPixelAtGeoJsonLayer(
-          e.pixel,
+          pixel,
           this.maisemanMuistiLayer.getLayer()
         ).filter((f) => isMaisemanMuistiFeature(f))
       : []
     const viabunduResult = settings.viabundus.enabled
       ? this.getFeaturesAtPixelAtGeoJsonLayer(
-          e.pixel,
+          pixel,
           this.viabundusLayer.getLayer()
         ).filter((f) => isViabundusFeature(f))
       : []
@@ -417,8 +429,9 @@ export default class MuinaismuistotMap {
         )
 
         this.store.dispatch({
-          type: ActionTypeEnum.CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE,
-          payload: {
+          type: ActionTypeEnum.MAP_FEATURE_IDENTIFICATION_COMPLETE,
+          identifiedMapFeatures: {
+            requestTimestamp,
             features: [...features, ...maisemanMuistiFeatures],
             models: modelsResult
           }

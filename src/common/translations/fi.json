@@ -41,7 +41,8 @@
   "linkedFeature": {
     "header": "Linkitetty kohde",
     "showOnMap": "Näytä kartalla",
-    "remove": "Poista"
+    "showFeatureDetails": "Näytä tiedot",
+    "remove": "Poista linkitys"
   },
   "info": {
     "title": "Lisätietoja sivustosta",

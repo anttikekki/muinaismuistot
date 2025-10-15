@@ -41,7 +41,8 @@
   "linkedFeature": {
     "header": "Länkad objekt",
     "showOnMap": "Visa på kartan",
-    "remove": "Ta bort"
+    "showFeatureDetails": "Visa information",
+    "remove": "Ta bort länkning"
   },
   "info": {
     "title": "Information om webbsidan",

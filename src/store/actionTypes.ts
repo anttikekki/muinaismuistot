@@ -26,7 +26,8 @@ export enum ActionTypeEnum {
   CENTER_MAP_TO_LINKED_FEATURE = "CENTER_MAP_TO_LINKED_FEATURE",
   SEARCH_FEATURES = "SEARCH_FEATURES",
   SEARCH_FEATURES_COMPLETE = "SEARCH_FEATURES_COMPLETE",
-  CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE = "CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE",
+  IDENTIFY_MAP_FEATURES_ON_COORDINATE = "IDENTIFY_MAP_FEATURES_ON_COORDINATE",
+  MAP_FEATURE_IDENTIFICATION_COMPLETE = "MAP_FEATURE_IDENTIFICATION_COMPLETE",
   SELECT_VISIBLE_LAYERS = "SELECT_VISIBLE_LAYERS",
   CHANGE_LAYER_OPACITY = "CHANGE_LAYER_OPACITY",
   ENABLE_LAYER_GROUP = "ENABLE_LAYER_GROUP",
@@ -72,9 +73,15 @@ export interface SearchFeaturesCompleteAction {
   searchResultFeatures: MapFeature[]
 }
 
-export interface ClickedMapFeatureIdentificationCompleteAction {
-  type: ActionTypeEnum.CLICKED_MAP_FEATURE_IDENTIFICATION_COMPLETE
-  payload: IdentifiedMapFeatures
+export interface IdentifyMapFeaturesOnCoordinateAction {
+  type: ActionTypeEnum.IDENTIFY_MAP_FEATURES_ON_COORDINATE
+  requestTimestamp: number
+  coordinates: [number, number] // [x, y]
+}
+
+export interface MapFeatureIdentificationCompleteAction {
+  type: ActionTypeEnum.MAP_FEATURE_IDENTIFICATION_COMPLETE
+  identifiedMapFeatures: IdentifiedMapFeatures
 }
 
 export type SelectVisibleLayersAction =
@@ -196,7 +203,8 @@ export type ActionTypes =
   | CenterMapToLinkedFeature
   | SearchFeaturesAction
   | SearchFeaturesCompleteAction
-  | ClickedMapFeatureIdentificationCompleteAction
+  | IdentifyMapFeaturesOnCoordinateAction
+  | MapFeatureIdentificationCompleteAction
   | ChangeLayerOpacityAction
   | EnableLayerGroupAction
   | SelectVisibleLayersAction

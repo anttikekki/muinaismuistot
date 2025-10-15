@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button, OverlayTrigger, Popover, Stack } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
@@ -15,11 +15,12 @@ export const LinkedFeatureButton: React.FunctionComponent = () => {
   const linkedFeature = useSelector(
     (settings: Settings) => settings.linkedFeature
   )
+  const [showPopover, setShowPopover] = useState(false)
 
   if (!linkedFeature) {
     return
   }
-  const { layer, name } = linkedFeature
+  const { layer, name, coordinates } = linkedFeature
 
   const popover = (
     <Popover id="linked-feature-popover">
@@ -47,6 +48,20 @@ export const LinkedFeatureButton: React.FunctionComponent = () => {
             {t("linkedFeature.showOnMap")}
           </Button>
           <Button
+            variant="primary"
+            size="sm"
+            onClick={() => {
+              dispatch({
+                type: ActionTypeEnum.IDENTIFY_MAP_FEATURES_ON_COORDINATE,
+                requestTimestamp: Date.now(),
+                coordinates
+              })
+              setShowPopover(false)
+            }}
+          >
+            {t("linkedFeature.showFeatureDetails")}
+          </Button>
+          <Button
             variant="danger"
             size="sm"
             onClick={() =>
@@ -65,9 +80,15 @@ export const LinkedFeatureButton: React.FunctionComponent = () => {
 
   return (
     <div id="map-button-linked-feature" className="map-button">
-      <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+      <OverlayTrigger
+        trigger="click"
+        placement="right"
+        overlay={popover}
+        show={showPopover}
+        onToggle={(nextShow) => setShowPopover(nextShow)}
+      >
         <Button
-          variant="success"
+          variant="warning"
           size="sm"
           title={t(`linkedFeature.header`) ?? undefined}
         >
