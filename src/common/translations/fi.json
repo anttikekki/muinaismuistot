@@ -4,6 +4,7 @@
     "Jälkeen ajanlaskun alun": "jaa.",
     "button": {
       "close": "Sulje",
+      "languageSelection": "Valitse kieli",
       "zoomOut": "Loitonna",
       "zoomIn": "Lähennä",
       "settings": "Kartan asetukset",
@@ -88,6 +89,26 @@
       "maisemanmuisti": "Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset -kirjan paikkatieto on <a href='./maisemanmuisti/' target='_blank'>tietokannasta</a> johon on koottu kirjan listaamat 205 kohdetta. Kirjan sisällön tekijanoikeus on Museovirastolla, jolta on kysytty lupa aineiston käyttöön.",
       "3DModels": "3D-mallit ovat avoimesta <a href='./3d/' target='_blank'>tietokannasta</a>, joka listaa harrastajien sekä virallisen toimijoiden (museot, Museovirasto, Ahvenanmaan paikallioshallinto) tekemiä 3D-mallinnuksia. Mallien lisenssit on listattu tietokannassa mallikohtaisesti.",
       "sourceCode": "Tämän sivuston tekninen toteutus on <a href='https://github.com/anttikekki/muinaismuistot' target='_blank'>avointa lähdekoodia</a>, lisenssinä on <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE' target='_blank'>MIT</a>."
+    },
+    "versionHistory": {
+      "title": "Versiohistoria",
+      "2025-10": "<p>Lisätty <a href='https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin' target='_blank'>Viabundus-hankkeen</a> aineisto.</p><p>Lisätty Museoviraston muinaisjäännösrekisterin löytöpaikat, havaintokohteet, mahdolliset muinaisjäännökset, luonnonmuodostumat, poistetut muinaisjäännökset, muut kohteet ja alakohteet.</p><p>Kartalla linkitetty kohde näkyy korostettuna kohdelistauksessa. Sille on myös erillinen kontrollipainike kartan vasemmassa reunassa.</p><p>Lisätty sivustolle englanninkielinen käännös.</p>",
+      "2025-09": "<p>Lisätty mahdollisuus ladata kohteen paikkatieto GeoJSON-muodossa.</p><p>Lisätty Museoviraston aineiston tunnisteet näkyviin (esim muinaisjäännösnumero).</p><p>Korjattu Ahvenanmaan merikohteiden 3D-mallien toimivuus.</p><p>Lisätty MML:n <a href='https://www.maanmittauslaitos.fi/tutkimus/teematietoa/korkeusmallit' target='_blank'>korkeusmalli</a> pohjakarttoihin.</p><p>Lisätty Museoviraston <a href='https://www.kyppi.fi/palveluikkuna/VARKL/asp/v_default.aspx' target='_blank'>Valtakunnallisesti merkittävät arkeologiset kohteet (VARK)</a>.</p><p>Lisätty GTK:n maalajien kartta.</p>",
+      "2025-05": "<p>Lisätty <a href='https://maannousu.info/' target='_blank'>Maannousu.info</a> sivuston maannousukartta.</p>",
+      "2025-04": "<p>Lisätty Maanmittauslaitoksen <a href='https://www.maanmittauslaitos.fi/ajankohtaista/yli-30-000-vanhaa-karttaa-jopa-150-vuoden-takaa-nyt-paikkatietona' target='_blank'>vanhoja karttoja</a>.</p>",
+      "2024-01": "<p>Lisätty Museoviraston Muu kulttuuperintökohde -karttataso pisteille ja alueille. Nämä sisältyivät vanhalla karttapalvelimella Kiinteät muinaisjäännökset -karttatasolle mutta uudess palvelimessa ne ovat erillinen taso.</p>",
+      "2023-12": "<p>Vaihdettu Museoviraston karttapalvelin suljetusta ArcGIS <a href='https://kartta.nba.fi' target='_blank'>kartta.nba.fi</a> palvelimesta uuteen <a href='https://geoserver.museovirasto.fi/geoserver' target='_blank'>geoserver.museovirasto.fi</a> palvelimeen. Kiinteiden muinaisjäännösten filtteröinti kartalla on yhä rikki.</p>",
+      "2022-04": "<p>Lisätty <a href='https://en.wikipedia.org/wiki/Progressive_web_application' target='_blank'>Progressive web application</a>-tuki. Nyt sivustoon voi lisätä pikakuvakkeen älylaitteen työpöydälle, josta aukeutuvassa versiossa ei näy selaimen osoitepalkkia.</p>",
+      "2021-03": "<p>Lisätty Helsingin kaupungin <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>Helsingin ensimmäisen maailmansodan aikaiset maalinnoitukset</a>-aineisto karttatasona.</p>",
+      "2021-02": "<p>Lisätty <a href='https://www.gtk.fi/' target='_blank'> Geologian tutkimuskeskuksen</a> <a href='https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html' target='_blank'>Muinaisrannat</a>-aineisto karttatasona.</p>",
+      "2021-01": "<p>Lisätty käännökset ruotsin kielelle (kiitos Jenni Lucenius ja Mikko Helminen!).</p><p>Kiinteiden muinaisjäännösten tyyppi ja alatyyppi ovat nyt linkkejä <a href='http://akp.nba.fi' target='_blank'>Arkeologisen kulttuuriperinnön opas</a> -sivustolle.</p><p>Kokoruudun tila.</p>",
+      "2020-11": "<p>Lisätty <a href='./maisemanmuisti/' target='_blank'>Maiseman muisti - Valtakunnallisesti merkittävät muinaisjäännökset</a> -kirjan paikkatietoaineisto kartalle <img src='images/maiseman-muisti.png' /> korostuksella.</p><p>Karttatasojen näkyvyyksien asetukset päivitetään nyt selaimen osoitepalkkiin jolloin sivun lataaminen uudelleen palauttaa samat asetukset.</p>",
+      "2020-04": "<p>Lisätty 3D-mallien <a href='./3d/' target='_blank'>tietokanta</a> ja karttaan <img src='images/3d_malli_circle.png' /><img src='images/3d_malli_square.png' /> korostus kohteille, joille löytyy 3D-malleja.</p>",
+      "2020-02": "<p>Paikannus päivittää nyt automaattisesti omaa sijaintia kartalla.</p>",
+      "2019-08": "<p>Siirrytty käyttämään Ahvenanmaan maakuntahallinnon uutta <a href='https://www.kartor.ax/datasets/fornminnen'>kartor.ax</a> karttapalvelua. Samalla kohteiden haku alkoi toimimaan myös Ahvenanmaan kohteille.</p>",
+      "2018-12": "<p>Siirrytty käyttämään Maanmittauslaitoksen uutta <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>karttapalvelua</a>, jonka myötä taustakartan ulkonäkö muuttui selkeämmäksi, <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/tuotekuvaukset/ortokuva'>Ortokuvat</a> karttataso saatiin käyttöön ja ruskeat 'Muu kulttuuriperintökohde' -pisteet saatiin kartalle.</p>",
+      "2017-11": "<p>Lisätty kartalle Ahvenanmaan maakuntahallinnon <a href=h'ttp://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret'>muinaijäännösten rekisteri</a>.</p>",
+      "2015-10": "<p>Ensimmäinen versio julkaistu.</p>"
     }
   },
   "settings": {

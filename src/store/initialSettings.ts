@@ -16,7 +16,7 @@ import {
 import { Settings } from "./storeTypes"
 
 const getInitialLang = (): Language => {
-  const lang = navigator.language?.substr(0, 2)
+  const lang = navigator.language?.substring(0, 2)
   if (Object.values(Language).some((v) => v === lang)) {
     return lang as Language
   }

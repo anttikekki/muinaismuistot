@@ -7,6 +7,7 @@ import { initReactI18next } from "react-i18next"
 import { Provider } from "react-redux"
 import { Store } from "redux"
 import { Language } from "../common/layers.types"
+import enTranslations from "../common/translations/en.json"
 import fiTranslations from "../common/translations/fi.json"
 import svTranslations from "../common/translations/sv.json"
 import "../css/muinaismuistot.css"
@@ -40,7 +41,8 @@ export const createUI = (store: Store<Settings, ActionTypes>) => {
   i18n.use(initReactI18next).init({
     resources: {
       fi: { translation: fiTranslations },
-      sv: { translation: svTranslations }
+      sv: { translation: svTranslations },
+      en: { translation: enTranslations }
     },
     lng: store.getState().language,
     supportedLngs: Object.values(Language),

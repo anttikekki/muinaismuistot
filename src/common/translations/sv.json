@@ -4,6 +4,7 @@
     "Jälkeen ajanlaskun alun": "e.v.t.",
     "button": {
       "close": "Stäng",
+      "languageSelection": "Välj språk",
       "zoomOut": "Zooma ut",
       "zoomIn": "Zooma in",
       "settings": "Inställningar",
@@ -88,6 +89,26 @@
       "3DModels": "3D-modeller hämtas från öppen <a href='./3d/' target='_blank'>databas</a>, som sammanställer modeller från privata och offentliga aktörer (museer, Museiverket, Ålands landskapsregering). Licensuppgifter över modellerna har sammanställts enligt respektive modell i databasen.",
       "sourceCode": "Denna webbplats använder <a href='https://github.com/anttikekki/muinaismuistot' target='_blank'>öppen källkod</a> av licensen <a href='https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE' target='_blank'>MIT</a>.",
       "viabundus": "Materialet från Viabundus-projektet om det medeltida vägnätet och bosättningen har hämtats från <a href='https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=eng' target='_blank'>projektets webbplats</a>, har bearbetats och är version 2 av materialet. Det ursprungliga och det bearbetade geodata-materialet är publicerat under licensen <a href='https://creativecommons.org/licenses/by-sa/4.0/deed.sv' target='_blank'>CC BY-SA 4.0</a>. Det bearbetade materialet kan laddas ner i GeoJSON-format från <a href='./viabundus/Viabundus-finland.geojson' target='_blank'>muinaismuistot.info/viabundus/Viabundus-finland.geojson</a>."
+    },
+    "versionHistory": {
+      "title": "Versionshistorik",
+      "2025-10": "<p>Material från <a href='https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin' target='_blank'>Viabundus-projektet</a> har lagts till.</p><p>Tillagt fyndplatser, observationsplatser, möjliga fornlämningar, naturformationer, borttagna lämningar, övriga objekt och delobjekt från Museiverkets fornminnesregister.</p><p>Det länkade objektet på kartan markeras nu i objektlistan. En separat kontrollknapp har också lagts till på kartans vänstra sida.</p><p>En engelskspråkig översättning av webbplatsen har lagts till.</p>",
+      "2025-09": "<p>Möjlighet att ladda ner objektets geografiska data i GeoJSON-format har lagts till.</p><p>Visning av identifierare i Museiverkets material (t.ex. fornlämningsnummer) har lagts till.</p><p>Åtgärdat problem med 3D-modeller för Ålands marina objekt.</p><p>Den nationella lantmäteriverkets <a href='https://www.maanmittauslaitos.fi/tutkimus/teematietoa/korkeusmallit' target='_blank'>höjdmodell</a> har lagts till i bakgrundskartorna.</p><p>Tillagt Museiverkets <a href='https://www.kyppi.fi/palveluikkuna/VARKL/asp/v_default.aspx' target='_blank'>Nationellt betydelsefulla arkeologiska objekt (VARK)</a>.</p><p>Tillagt GTK:s jordartskarta.</p>",
+      "2025-05": "<p>Tillagt landhöjningskartan från <a href='https://maannousu.info/' target='_blank'>Maannousu.info</a>.</p>",
+      "2025-04": "<p>Tillagt historiska kartor från Lantmäteriverkets <a href='https://www.maanmittauslaitos.fi/ajankohtaista/yli-30-000-vanhaa-karttaa-jopa-150-vuoden-takaa-nyt-paikkatietona' target='_blank'>samling av över 30 000 gamla kartor</a>.</p>",
+      "2024-01": "<p>Tillagt kartlager för Museiverkets ”Övriga kulturarvsobjekt” för punkter och områden. Tidigare ingick de i lagret ”Fasta fornlämningar”, men på den nya servern är de ett separat lager.</p>",
+      "2023-12": "<p>Bytt Museiverkets karttjänst från den stängda ArcGIS-servern <a href='https://kartta.nba.fi' target='_blank'>kartta.nba.fi</a> till den nya servern <a href='https://geoserver.museovirasto.fi/geoserver' target='_blank'>geoserver.museovirasto.fi</a>. Filtrering av fasta fornlämningar på kartan fungerar fortfarande inte.</p>",
+      "2022-04": "<p>Tillagt stöd för <a href='https://en.wikipedia.org/wiki/Progressive_web_application' target='_blank'>Progressive Web Application</a>. Webbplatsen kan nu läggas till som en genväg på en mobil enhets startskärm, och öppnas då utan webbläsarens adressfält.</p>",
+      "2021-03": "<p>Tillagt stadens Helsingfors dataset över <a href='https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset' target='_blank'>första världskrigets fältbefästningar</a> som kartlager.</p>",
+      "2021-02": "<p>Tillagt Geologiska forskningscentralens dataset <a href='https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html' target='_blank'>Fornstränder</a> som kartlager.</p>",
+      "2021-01": "<p>Lagt till översättning till svenska (tack till Jenni Lucenius och Mikko Helminen!).</p><p>Typ och undertyp för fasta fornlämningar är nu länkar till webbplatsen <a href='http://akp.nba.fi' target='_blank'>Arkeologiskt kulturarvsguide</a>.</p><p>Helbildsläge tillagt.</p>",
+      "2020-11": "<p>Tillagt geografiskt material från boken <a href='./maisemanmuisti/' target='_blank'>Landskapets minne – Nationellt betydelsefulla fornlämningar</a> till kartan, markerat med <img src='images/maiseman-muisti.png' />.</p><p>Kartlagrens synlighetsinställningar uppdateras nu i webbläsarens adressfält, vilket gör att sidan kan laddas om med samma inställningar.</p>",
+      "2020-04": "<p>Tillagt <a href='./3d/' target='_blank'>databas för 3D-modeller</a> och markeringar (<img src='images/3d_malli_circle.png' /><img src='images/3d_malli_square.png' />) för objekt med tillgängliga 3D-modeller.</p>",
+      "2020-02": "<p>Positionsuppdatering sker nu automatiskt på kartan.</p>",
+      "2019-08": "<p>Bytt till Ålands landskapsregerings nya <a href='https://www.kartor.ax/datasets/fornminnen'>kartor.ax</a>-karttjänst. Sökning fungerar nu även för objekt på Åland.</p>",
+      "2018-12": "<p>Bytt till Lantmäteriverkets nya <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17'>karttjänst</a>, vilket förbättrade bakgrundskartans tydlighet, aktiverade lagret <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/tuotekuvaukset/ortokuva'>Ortofoto</a> och lade till bruna punkter för ”Övriga kulturarvsobjekt”.</p>",
+      "2017-11": "<p>Lagt till Ålands landskapsregerings <a href='http://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret' target='_blank'>fornlämningsregister</a> på kartan.</p>",
+      "2015-10": "<p>Första versionen publicerad.</p>"
     }
   },
   "settings": {

@@ -1,7 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { AhvenanmaaForminnenFeature } from "../../../../common/ahvenanmaa.types"
-import { Language } from "../../../../common/layers.types"
 import {
   getAhvenanmaaForminneDatingText,
   getAhvenanmaaForminnenTypeText
@@ -42,7 +41,7 @@ export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {
         return [
           [
             t(`details.field.mainCategory`),
-            typeLink && i18n.language === Language.FI ? (
+            typeLink ? (
               <a href={typeLink} target="_blank">
                 {type}
               </a>
@@ -52,7 +51,7 @@ export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {
           ],
           [
             t(`details.field.subCategory`),
-            subTypeLink && i18n.language === Language.FI ? (
+            subTypeLink ? (
               <a href={subTypeLink} target="_blank">
                 {subTypeName}
               </a>

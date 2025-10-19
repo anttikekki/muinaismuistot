@@ -1,6 +1,7 @@
 export enum Language {
   FI = "fi",
-  SV = "sv"
+  SV = "sv",
+  EN = "en"
 }
 
 export enum LayerGroup {
