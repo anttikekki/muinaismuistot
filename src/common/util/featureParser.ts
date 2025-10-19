@@ -33,6 +33,7 @@ import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi,
   MuseovirastoFeature,
+  VarkAjoitus,
   isAlakohdePisteFeature,
   isHavaintokohdeAlueFeature,
   isHavaintokohdePisteFeature,
@@ -1027,14 +1028,17 @@ export const getGeoJSONFeatureLocation = (feature: Feature): Position => {
 }
 
 export const isMuinaisjaannosTyyppi = (
-  dating: string
-): dating is MuinaisjaannosTyyppi =>
-  Object.values(MuinaisjaannosTyyppi).includes(dating as MuinaisjaannosTyyppi)
+  type: string
+): type is MuinaisjaannosTyyppi =>
+  Object.values(MuinaisjaannosTyyppi).includes(type as MuinaisjaannosTyyppi)
 
 export const isMuinaisjaannosAjoitus = (
   dating: string
 ): dating is MuinaisjaannosAjoitus =>
   Object.values(MuinaisjaannosAjoitus).includes(dating as MuinaisjaannosAjoitus)
+
+export const isVarkAjoitus = (dating: string): dating is VarkAjoitus =>
+  Object.values(VarkAjoitus).includes(dating as VarkAjoitus)
 
 export const splitMuinaisjaannosTyyppi = (
   feature: MuseovirastoFeature
@@ -1105,41 +1109,6 @@ export const splitMuinaisjaannosAjoitus = (
         (tyyppi) => tyyppi !== MuinaisjaannosAjoitus.eiMääritelty
       )
     : ajoitusSplitted
-}
-
-/**
- * Resolves timespan in years for timing name.
- *
- * @param {string} name Timing name in SE or FI. Example: "Sentida" or "rautakautinen".
- * @return {string} timespan. Example: "1200 - 1600". Returns empty string if there is no timspan for timing name.
- */
-export const getTimespanInYearsForTimingName = (
-  t: TFunction,
-  ajoitus: MuinaisjaannosAjoitus
-): string => {
-  switch (ajoitus) {
-    case "esihistoriallinen":
-      return t(`data.timespan.prehistoric`)
-    case "kivikautinen":
-      return t(`data.timespan.stoneAge`)
-    case "varhaismetallikautinen":
-      return t(`data.timespan.earlyMetalAge`)
-    case "pronssikautinen":
-      return t(`data.timespan.bronzeAge`)
-    case "rautakautinen":
-      return t(`data.timespan.ironAge`)
-    case "keskiaikainen":
-      return t(`data.timespan.middleAge`)
-    case "historiallinen":
-      return t(`data.timespan.historic`)
-    case "moderni":
-      return t(`data.timespan.modern`)
-    case "moniperiodinen":
-    case "ajoittamaton":
-    case "ei määritelty":
-    default:
-      return ""
-  }
 }
 
 /**

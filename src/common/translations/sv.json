@@ -330,16 +330,6 @@
       "viabundus-tieverkko": "Vägnät, Viabundus-material",
       "viabundus-kaupungin-rajat": "Stadsgränser, Viabundus-material"
     },
-    "timespan": {
-      "prehistoric": "8600 f.v.t. - 1200 e.v.t.",
-      "historic": "1200 e.v.t. -",
-      "stoneAge": "8600 - 1500 f.v.t.",
-      "earlyMetalAge": "1500 f.v.t. - 200 e.v.t.",
-      "bronzeAge": "1700 - 500 f.v.t.",
-      "ironAge": "500 f.v.t. - 1200 e.v.t.",
-      "middleAge": "1200 - 1570 e.v.t.",
-      "modern": "1800 e.v.t. -"
-    },
     "gtk": {
       "layer": {
         "muinaisrannat": "Fornstränder (<a href='https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html' target='_blank'>information</a>)",
@@ -448,7 +438,17 @@
       }
     },
     "museovirasto": {
-      "dating": {
+      "muinaisjäännösAjoitusTimespan": {
+        "esihistoriallinen": "8600 f.v.t. - 1200 e.v.t.",
+        "kivikautinen": "8850 - 1700 f.v.t.",
+        "varhaismetallikautinen": "1800 f.v.t. - 300 e.v.t.",
+        "pronssikautinen": "1700 - 500 f.v.t.",
+        "rautakautinen": "500 f.v.t. - 1200 e.v.t.",
+        "keskiaikainen": "1200 - 1520 e.v.t.",
+        "historiallinen": "1200 e.v.t. -",
+        "moderni": "1800 e.v.t. -"
+      },
+      "muinaisjäännösAjoitus": {
         "ajoittamaton": "odaterad",
         "ei määritelty": "ej definierad",
         "esihistoriallinen": "förhistorisk",
@@ -461,6 +461,60 @@
         "rautakautinen ja/tai keskiaikainen": "järnålder och/eller medeltida",
         "rautakautinen": "järnålder",
         "varhaismetallikautinen": "tidig metallålder"
+      },
+      "varkAjoitusTimespan": {
+        "esihistoriallinen": "8600 f.v.t. - 1200 e.v.t.",
+        "kivikautinen": "8850 - 1700 f.v.t.",
+        "mesoliittinen": "8850 - 5200 f.v.t.",
+        "neoliittinen": "5200 - 1700 f.v.t.",
+        "varhaismetallikautinen": "1800 f.v.t. - 300 e.v.t.",
+        "pronssikautinen": "1700 - 500 f.v.t.",
+        "rautakautinen": "500 f.v.t. - 1200 e.v.t.",
+        "esiroomalainen aika": "500 f.v.t. – 50 e.v.t.",
+        "nuorempi roomalaisaika": "150/200 – 375/400 e.v.t.",
+        "vanhempi roomalaisaika": "0/50 – 150/200 e.v.t.",
+        "merovingiaika": "550/600 – 800/825 e.v.t.",
+        "viikinkiaika": "800/825 – 1025/1050/1075 e.v.t.",
+        "ristiretkiaika": "1025/1050/1075 – 1150/1200 e.v.t.",
+        "keskiaikainen": "1200 - 1520 e.v.t.",
+        "historiallinen": "1200 e.v.t. -",
+        "moderni": "1800 e.v.t. -"
+      },
+      "varkAjoitus": {
+        "1100-luku": "1100-talet",
+        "1200-luku": "1200-talet",
+        "1300-luku": "1300-talet",
+        "1400-luku": "1400-talet",
+        "1500-luku": "1500-talet",
+        "1600-luku": "1600-talet",
+        "1700-luku": "1700-talet",
+        "1800-luku": "1800-talet",
+        "1900-luku": "1900-talet",
+        "Vaasa-aika 1523–1617": "Vasatiden 1523–1617",
+        "ajoittamaton": "odaterad",
+        "autonomian aika 1809–1917": "autonomitiden 1809–1917",
+        "ei määritelty": "ej definierad",
+        "esihistoriallinen": "förhistorisk",
+        "esiroomalainen aika": "förromersk tid",
+        "historiallinen": "historisk",
+        "kansainvaellusaika": "folkvandringstid",
+        "keskiaikainen": "medeltida",
+        "kivikautinen": "stenåldern",
+        "merovingiaika": "merovingertiden",
+        "mesoliittinen": "mesolitisk",
+        "moderni": "modern",
+        "neoliittinen": "neolitisk",
+        "nuorempi roomalaisaika": "senare romersk tid",
+        "pronssikautinen": "bronsåldern",
+        "rautakautinen": "järnåldern",
+        "rautakautinen ja/tai keskiaikainen": "järnåldern och/eller medeltiden",
+        "ristiretkiaika": "korstågstiden",
+        "suurvalta-aika 1617–1721": "stormaktstiden 1617–1721",
+        "toinen maailmansota 1939–1945": "andra världskriget 1939–1945",
+        "vanhempi roomalaisaika": "äldre romersk tid",
+        "vapauden aika ja kustavilainen aika 1721–1809": "frihetstiden och gustavianska tiden 1721–1809",
+        "varhaismetallikautinen": "tidig metallålder",
+        "viikinkiaika": "vikingatiden"
       },
       "type": {
         "alusten hylyt": "fartygsvrak",

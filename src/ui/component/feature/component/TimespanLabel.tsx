@@ -1,18 +1,41 @@
 import React from "react"
 import { Badge } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
-import { MuinaisjaannosAjoitus } from "../../../../common/museovirasto.types"
-import { getTimespanInYearsForTimingName } from "../../../../common/util/featureParser"
+import {
+  MuinaisjaannosAjoitus,
+  VarkAjoitus
+} from "../../../../common/museovirasto.types"
 
-interface Props {
+interface MuinaisjäännösTimespanLabelProps {
   dating: MuinaisjaannosAjoitus
 }
 
-export const TimespanLabel: React.FC<Props> = ({ dating }) => {
-  const { t } = useTranslation()
-  const timespan = getTimespanInYearsForTimingName(t, dating)
-  if (!timespan) {
+export const MuinaisjäännösTimespanLabel: React.FC<
+  MuinaisjäännösTimespanLabelProps
+> = ({ dating }) => {
+  const { t, i18n } = useTranslation()
+  // Aikajakson vuodet: https://akp.nba.fi/artikkelit;kronologia
+  const key = `data.museovirasto.muinaisjäännösAjoitusTimespan.${dating}`
+
+  if (!i18n.exists(key)) {
     return null
   }
-  return <Badge bg="secondary ms-1">{timespan}</Badge>
+  return <Badge bg="secondary ms-1">{key}</Badge>
+}
+
+interface VarkTimespanLabelProps {
+  dating: VarkAjoitus
+}
+
+export const VarkTimespanLabel: React.FC<VarkTimespanLabelProps> = ({
+  dating
+}) => {
+  const { t, i18n } = useTranslation()
+  // Aikajakson vuodet: https://akp.nba.fi/artikkelit;kronologia
+  const key = `data.museovirasto.varkAjoitusTimespan.${dating}`
+
+  if (!i18n.exists(key)) {
+    return null
+  }
+  return <Badge bg="secondary ms-1">{t(key)}</Badge>
 }

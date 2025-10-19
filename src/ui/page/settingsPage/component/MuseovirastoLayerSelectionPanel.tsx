@@ -436,11 +436,11 @@ const DatingCheckbox: React.FC<DatingCheckboxProps> = ({
     <Form.Check
       type="checkbox"
       className="ms-3"
-      id={t(`data.museovirasto.dating.${dating}`)}
+      id={t(`data.museovirasto.muinaisjäännösAjoitus.${dating}`)}
       onChange={() => onSelectDating(dating)}
       checked={isSelected}
       disabled={disabled}
-      label={t(`data.museovirasto.dating.${dating}`)}
+      label={t(`data.museovirasto.muinaisjäännösAjoitus.${dating}`)}
     />
   )
 }

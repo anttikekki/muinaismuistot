@@ -8,8 +8,8 @@ import {
 } from "../../../../common/museovirasto.types"
 import {
   getMuinaisjaannosRegisterUrl,
-  isMuinaisjaannosAjoitus,
   isMuinaisjaannosTyyppi,
+  isVarkAjoitus,
   splitMuinaisjaannosAjoitus,
   splitMuinaisjaannosAlatyyppi,
   splitMuinaisjaannosTyyppi
@@ -29,7 +29,7 @@ import { Field } from "../component/Field"
 import { List } from "../component/List"
 import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
-import { TimespanLabel } from "../component/TimespanLabel"
+import { VarkTimespanLabel } from "../component/TimespanLabel"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature: VarkPisteFeature | VarkAlueFeature
@@ -70,9 +70,11 @@ export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
             data={ajoitukset}
             contentFn={(ajoitus) => (
               <div>
-                <span>{t(`data.museovirasto.dating.${ajoitus}`, ajoitus)}</span>
-                {isMuinaisjaannosAjoitus(ajoitus) && (
-                  <TimespanLabel dating={ajoitus} />
+                <span>
+                  {t(`data.museovirasto.varkAjoitus.${ajoitus}`, ajoitus)}
+                </span>
+                {isVarkAjoitus(ajoitus) && (
+                  <VarkTimespanLabel dating={ajoitus} />
                 )}
               </div>
             )}

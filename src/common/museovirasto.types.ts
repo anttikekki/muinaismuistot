@@ -39,6 +39,43 @@ export enum MuinaisjaannosAjoitus {
   eiMääritelty = "ei määritelty"
 }
 
+export enum VarkAjoitus {
+  _1100_LUKU = "1100-luku",
+  _1200_LUKU = "1200-luku",
+  _1300_LUKU = "1300-luku",
+  _1400_LUKU = "1400-luku",
+  _1500_LUKU = "1500-luku",
+  _1600_LUKU = "1600-luku",
+  _1700_LUKU = "1700-luku",
+  _1800_LUKU = "1800-luku",
+  _1900_LUKU = "1900-luku",
+  VAASA_AIKA_1523_1617 = "Vaasa-aika 1523–1617",
+  AJOITTAMATON = "ajoittamaton",
+  AUTONOMIAN_AIKA_1809_1917 = "autonomian aika 1809–1917",
+  EI_MAARITELTY = "ei määritelty",
+  ESIHISTORIALLINEN = "esihistoriallinen",
+  ESIROOMALAINEN_AIKA = "esiroomalainen aika",
+  HISTORIALLINEN = "historiallinen",
+  KANSAINVAELLUSAIKA = "kansainvaellusaika",
+  KESKIAIKAINEN = "keskiaikainen",
+  KIVIKAUTINEN = "kivikautinen",
+  MEROVINGIAIKA = "merovingiaika",
+  MESOLIITTINEN = "mesoliittinen",
+  MODERNI = "moderni",
+  NEOLIITTINEN = "neoliittinen",
+  NUOREMPI_ROOMALAISAIKA = "nuorempi roomalaisaika",
+  PRONSSIKAUTINEN = "pronssikautinen",
+  RAUTAKAUTINEN = "rautakautinen",
+  RAUTAKAUTINEN_JA_TAI_KESKIAIKAINEN = "rautakautinen ja/tai keskiaikainen",
+  RISTIRETKIAIKA = "ristiretkiaika",
+  SUURVALTA_AIKA_1617_1721 = "suurvalta-aika 1617–1721",
+  TOINEN_MAAILMANSOTA_1939_1945 = "toinen maailmansota 1939–1945",
+  VANHEMPI_ROOMALAISAIKA = "vanhempi roomalaisaika",
+  VAPAUDEN_AIKA_JA_KUSTAVILAINEN_AIKA_1721_1809 = "vapauden aika ja kustavilainen aika 1721–1809",
+  VARHAISMETALLIKAUTINEN = "varhaismetallikautinen",
+  VIIKINKIAIKA = "viikinkiaika"
+}
+
 export interface MuinaisjaannosPisteFeatureProperties {
   OBJECTID: number // 38962;
   mjtunnus: number // 1279;

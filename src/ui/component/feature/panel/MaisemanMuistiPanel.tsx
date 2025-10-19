@@ -11,7 +11,7 @@ import {
 import { Field } from "../component/Field"
 import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
 import { MuseovirastoLinkDirect } from "../component/MuseovirastoLink"
-import { TimespanLabel } from "../component/TimespanLabel"
+import { MuinaisjäännösTimespanLabel } from "../component/TimespanLabel"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature: MaisemanMuistiFeature
@@ -42,7 +42,7 @@ export const MaisemanMuistiPanel: React.FC<Props> = ({
         <Field label={t(`details.field.dating`)}>
           <p>
             <span>{trim(feature.properties.dating)}</span>{" "}
-            <TimespanLabel dating={feature.properties.dating} />
+            <MuinaisjäännösTimespanLabel dating={feature.properties.dating} />
           </p>
         </Field>
         <Field

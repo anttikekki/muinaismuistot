@@ -27,7 +27,7 @@ import { Field } from "../component/Field"
 import { List } from "../component/List"
 import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
-import { TimespanLabel } from "../component/TimespanLabel"
+import { MuinaisjäännösTimespanLabel } from "../component/TimespanLabel"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature: MuinaisjäännörekisteriPisteFeature
@@ -64,9 +64,14 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
             data={ajoitukset}
             contentFn={(ajoitus) => (
               <div>
-                <span>{t(`data.museovirasto.dating.${ajoitus}`, ajoitus)}</span>
+                <span>
+                  {t(
+                    `data.museovirasto.muinaisjäännösAjoitus.${ajoitus}`,
+                    ajoitus
+                  )}
+                </span>
                 {isMuinaisjaannosAjoitus(ajoitus) && (
-                  <TimespanLabel dating={ajoitus} />
+                  <MuinaisjäännösTimespanLabel dating={ajoitus} />
                 )}
               </div>
             )}
