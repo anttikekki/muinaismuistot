@@ -20,7 +20,7 @@ export const MuinaisjäännösTimespanLabel: React.FC<
   if (!i18n.exists(key)) {
     return null
   }
-  return <Badge bg="secondary ms-1">{key}</Badge>
+  return <Badge bg="secondary ms-1">{t(key)}</Badge>
 }
 
 interface VarkTimespanLabelProps {
