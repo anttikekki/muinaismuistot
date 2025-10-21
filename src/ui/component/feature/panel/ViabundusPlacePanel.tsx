@@ -1,6 +1,7 @@
 import React from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
+import { Language } from "../../../../common/layers.types"
 import { ViabundusPlaceFeature } from "../../../../common/viabundus.types"
 import {
   FeatureCollapsePanelCommonExternalProps,
@@ -19,15 +20,22 @@ const newLineToBr = (
     </React.Fragment>
   ))
 
+const getDescription = (
+  lang: string,
+  fi: string | undefined,
+  en: string | undefined
+) => (lang === Language.EN ? (en ?? fi) : (fi ?? en))
+
 const Settlement: React.FC<{ feature: ViabundusPlaceFeature }> = ({
   feature
 }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const {
     Is_Settlement,
     Settlement_From,
     Settlement_To,
-    Settlement_DescriptionFI
+    Settlement_DescriptionFI,
+    Settlement_DescriptionEN
   } = feature.properties
 
   if (!Is_Settlement) {
@@ -46,16 +54,28 @@ const Settlement: React.FC<{ feature: ViabundusPlaceFeature }> = ({
       )}
 
       <Field label={t(`details.field.description`)}>
-        {newLineToBr(Settlement_DescriptionFI)}
+        {newLineToBr(
+          getDescription(
+            i18n.language,
+            Settlement_DescriptionFI,
+            Settlement_DescriptionEN
+          )
+        )}
       </Field>
     </>
   )
 }
 
 const Town: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
-  const { t } = useTranslation()
-  const { Is_Town, Town_From, Town_To, Town_DescriptionFI, population } =
-    feature.properties
+  const { t, i18n } = useTranslation()
+  const {
+    Is_Town,
+    Town_From,
+    Town_To,
+    Town_DescriptionFI,
+    Town_DescriptionEN,
+    population
+  } = feature.properties
 
   if (!Is_Town) {
     return
@@ -94,19 +114,22 @@ const Town: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
       )}
 
       <Field label={t(`details.field.description`)}>
-        {newLineToBr(Town_DescriptionFI)}
+        {newLineToBr(
+          getDescription(i18n.language, Town_DescriptionFI, Town_DescriptionEN)
+        )}
       </Field>
     </>
   )
 }
 
 const Bridge: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const {
     Is_Bridge,
     Bridge_From,
     Bridge_To,
     Bridge_DescriptionFI,
+    Bridge_DescriptionEN,
     Bridge_Literature
   } = feature.properties
 
@@ -126,7 +149,13 @@ const Bridge: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
       )}
 
       <Field label={t(`details.field.description`)}>
-        {newLineToBr(Bridge_DescriptionFI)}
+        {newLineToBr(
+          getDescription(
+            i18n.language,
+            Bridge_DescriptionFI,
+            Bridge_DescriptionEN
+          )
+        )}
       </Field>
 
       {Bridge_Literature && Bridge_Literature.length > 0 && (
@@ -145,12 +174,13 @@ const Bridge: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
 }
 
 const Fair: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const {
     Is_Fair,
     Fair_From,
     Fair_To,
     Fair_DescriptionFI,
+    Fair_DescriptionEN,
     Fair_Literature,
     fairs
   } = feature.properties
@@ -171,7 +201,9 @@ const Fair: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
       )}
 
       <Field label={t(`details.field.description`)}>
-        {newLineToBr(Fair_DescriptionFI)}
+        {newLineToBr(
+          getDescription(i18n.language, Fair_DescriptionFI, Fair_DescriptionEN)
+        )}
       </Field>
 
       {fairs && fairs.length > 0 && (
@@ -180,7 +212,13 @@ const Fair: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
             {fairs.map((fair, i) => (
               <li key={i}>
                 <b>{fair.name}:</b>
-                <p>{fair.descriptionFI}</p>
+                <p>
+                  {getDescription(
+                    i18n.language,
+                    Fair_DescriptionFI,
+                    fair.descriptionEN
+                  )}
+                </p>
               </li>
             ))}
           </ul>
@@ -203,9 +241,15 @@ const Fair: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
 }
 
 const Toll: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
-  const { t } = useTranslation()
-  const { Is_Toll, Toll_From, Toll_To, Toll_DescriptionFI, Toll_Literature } =
-    feature.properties
+  const { t, i18n } = useTranslation()
+  const {
+    Is_Toll,
+    Toll_From,
+    Toll_To,
+    Toll_DescriptionFI,
+    Toll_DescriptionEN,
+    Toll_Literature
+  } = feature.properties
 
   if (!Is_Toll) {
     return
@@ -223,7 +267,9 @@ const Toll: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
       )}
 
       <Field label={t(`details.field.description`)}>
-        {newLineToBr(Toll_DescriptionFI)}
+        {newLineToBr(
+          getDescription(i18n.language, Toll_DescriptionFI, Toll_DescriptionEN)
+        )}
       </Field>
 
       {Toll_Literature && Toll_Literature.length > 0 && (
@@ -242,12 +288,13 @@ const Toll: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
 }
 
 const Ferry: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const {
     Is_Ferry,
     Ferry_From,
     Ferry_To,
     Ferry_DescriptionFI,
+    Ferry_DescriptionEN,
     Ferry_Literature
   } = feature.properties
 
@@ -267,7 +314,13 @@ const Ferry: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
       )}
 
       <Field label={t(`details.field.description`)}>
-        {newLineToBr(Ferry_DescriptionFI)}
+        {newLineToBr(
+          getDescription(
+            i18n.language,
+            Ferry_DescriptionFI,
+            Ferry_DescriptionEN
+          )
+        )}
       </Field>
 
       {Ferry_Literature && Ferry_Literature.length > 0 && (

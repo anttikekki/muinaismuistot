@@ -1,6 +1,7 @@
 import React from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
+import { Language } from "../../../../common/layers.types"
 import { ViabundusRoadFeature } from "../../../../common/viabundus.types"
 import {
   FeatureCollapsePanelCommonExternalProps,
@@ -27,9 +28,15 @@ export const ViabundusRoadPanel: React.FC<Props> = ({
   feature,
   ...commonProps
 }) => {
-  const { t } = useTranslation()
-  const { fromyear, toyear, descriptionFI, certainty, literature } =
-    feature.properties
+  const { t, i18n } = useTranslation()
+  const {
+    fromyear,
+    toyear,
+    descriptionFI,
+    descriptionEN,
+    certainty,
+    literature
+  } = feature.properties
 
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
@@ -48,7 +55,11 @@ export const ViabundusRoadPanel: React.FC<Props> = ({
         />
 
         <Field label={t(`details.field.description`)}>
-          {newLineToBr(descriptionFI)}
+          {newLineToBr(
+            i18n.language === Language.EN
+              ? (descriptionEN ?? descriptionFI)
+              : (descriptionFI ?? descriptionEN)
+          )}
         </Field>
 
         {literature && literature.length > 0 && (
