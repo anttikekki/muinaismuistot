@@ -235,8 +235,8 @@ export interface RKYViivaFeature
 interface MaailmanperintoPisteFeatureProperties {
   Shape: string // "Point";
   OBJECTID: string // "2";
-  Nimi: string // "Struven ketju / Stuorrahanoaivi";
-  URL: string // "http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa#struve";
+  nimi: string // "Struven ketju / Stuorrahanoaivi";
+  url: string // "http://www.nba.fi/fi/ajankohtaista/kansainvalinen_toiminta/maailmanperintokohteet_suomessa#struve";
 }
 
 export interface MaailmanperintoPisteFeature
@@ -697,6 +697,7 @@ export const getMuseovirastoFeatureNameField = (
     case MuseovirastoLayer.Alakohde_piste:
       return `kohdenimi`
     case MuseovirastoLayer.Maailmanperinto_piste:
+      return "nimi"
     case MuseovirastoLayer.Maailmanperinto_alue:
       return `Nimi`
     case MuseovirastoLayer.VARK_pisteet:

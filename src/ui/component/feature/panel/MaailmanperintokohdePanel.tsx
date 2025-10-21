@@ -2,6 +2,7 @@ import React from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import {
+  isMaailmanperintoPisteFeature,
   MaailmanperintoAlueFeature,
   MaailmanperintoPisteFeature
 } from "../../../../common/museovirasto.types"
@@ -27,7 +28,11 @@ export const MaailmanperintokohdePanel: React.FC<Props> = ({
       <Form>
         <Field
           label={t(`details.field.name`)}
-          value={feature.properties.Nimi}
+          value={
+            isMaailmanperintoPisteFeature(feature)
+              ? feature.properties.nimi
+              : feature.properties.Nimi
+          }
           suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
         />
         <MuseovirastoLink feature={feature} />

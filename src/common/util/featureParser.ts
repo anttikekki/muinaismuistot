@@ -75,10 +75,10 @@ import { convertFeatureFromEsriJSONtoGeoJSON } from "./esriToGeoJSONConverter"
 
 export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
   if (isGeoJSONFeature(feature)) {
-    if (
-      isMaailmanperintoAlueFeature(feature) ||
-      isMaailmanperintoPisteFeature(feature)
-    ) {
+    if (isMaailmanperintoPisteFeature(feature)) {
+      return trim(feature.properties.nimi)
+    }
+    if (isMaailmanperintoAlueFeature(feature)) {
       return trim(feature.properties.Nimi)
     }
     if (
@@ -695,7 +695,9 @@ const getMaailmanperintoUrl = (
   feature: MaailmanperintoPisteFeature | MaailmanperintoAlueFeature,
   lang: Language
 ): string => {
-  let url = feature.properties.URL
+  let url = isMaailmanperintoPisteFeature(feature)
+    ? feature.properties.url
+    : feature.properties.URL
 
   const hashStartIndex = url.indexOf("#")
   let hash = ""
