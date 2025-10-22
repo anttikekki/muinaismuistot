@@ -509,7 +509,8 @@ export default class MuinaismuistotMap {
 
     const features: MapFeature[] = [
       ...ahvenanmaaResult.results,
-      ...museovirastoResult.features
+      ...museovirastoResult.features,
+      ...this.viabundusLayer.findFeatures(searchText, settings)
     ]
       .map((f) => this.modelsLayer.addModelsToFeature(f))
       .map((f) =>

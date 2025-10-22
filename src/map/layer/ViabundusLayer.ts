@@ -10,7 +10,9 @@ import Icon from "ol/style/Icon"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
 import {
+  ViabundusFeature,
   ViabundusFeatureProperties,
+  ViabundusFeatureType,
   ViabundusRoadCertainty,
   ViabundusRoadType
 } from "../../common/viabundus.types"
@@ -90,8 +92,88 @@ export default class ViabundusLayer {
     this.layer.setStyle(styleFunction(selectedYear))
   }, 200)
 
+  public findFeatures = (
+    searchText: string,
+    settings: Settings
+  ): ViabundusFeature[] => {
+    if (!settings.viabundus.enabled) {
+      return []
+    }
+
+    const geoJsonParser = new GeoJSON()
+    const searchTextLowerCase = searchText.toLowerCase()
+    const result =
+      this.source
+        ?.getFeatures()
+        .filter((f) => f.getProperties().type === ViabundusFeatureType.place)
+        .filter((f) =>
+          isFeatureVisibleInYear(f, settings.viabundus.selectedYear)
+        )
+        .filter((f) =>
+          String(f.getProperties().name ?? "")
+            .toLowerCase()
+            .includes(searchTextLowerCase)
+        ) ?? []
+    return geoJsonParser.writeFeaturesObject(result)
+      .features as ViabundusFeature[]
+  }
+
   public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> =>
     this.layer
+}
+
+const isFeatureVisibleInYear = (
+  feature: FeatureLike,
+  selectedYear: number
+): boolean => {
+  const props = feature.getProperties() as ViabundusFeatureProperties
+  switch (props.type) {
+    case ViabundusFeatureType.place:
+      if (props.Is_Town) {
+        return isYearInTimespan(selectedYear, props.Town_From, props.Town_To)
+      } else if (props.Is_Settlement) {
+        return isYearInTimespan(
+          selectedYear,
+          props.Settlement_From,
+          props.Settlement_To
+        )
+      } else if (props.Is_Bridge) {
+        return isYearInTimespan(
+          selectedYear,
+          props.Bridge_From,
+          props.Bridge_To
+        )
+      } else if (props.Is_Harbour) {
+        return isYearInTimespan(
+          selectedYear,
+          props.Harbour_From,
+          props.Harbour_To
+        )
+      } else if (props.Is_Fair) {
+        return isYearInTimespan(selectedYear, props.Fair_From, props.Fair_To)
+      } else if (props.Is_Toll) {
+        return isYearInTimespan(selectedYear, props.Toll_From, props.Toll_To)
+      }
+      return false
+    case ViabundusFeatureType.road:
+      return isYearInTimespan(selectedYear, props.fromyear, props.toyear)
+    case ViabundusFeatureType.townOutline:
+      return isYearInTimespan(selectedYear, props.fromyear, props.toyear)
+  }
+}
+
+const isYearInTimespan = (
+  selectedYear: number,
+  fromYear: number | undefined,
+  toYear: number | undefined
+): boolean => {
+  if (fromYear && fromYear > selectedYear) {
+    return false
+  }
+  if (toYear && toYear < selectedYear) {
+    return false
+  }
+  return true
 }
 
 const road = new Style({
@@ -160,6 +242,20 @@ const bridge = new Style({
   })
 })
 
+const fair = new Style({
+  image: new Icon({
+    src: "images/viabundus-markkinat.png",
+    anchor: [0.5, 1.0]
+  })
+})
+
+const toll = new Style({
+  image: new Icon({
+    src: "images/viabundus-tulli.png",
+    anchor: [0.5, 1.0]
+  })
+})
+
 const townOutline = new Style({
   stroke: new Stroke({
     color: "#000000",
@@ -170,37 +266,34 @@ const townOutline = new Style({
   })
 })
 
-const isFeatureVisible = (
-  selectedYear: number,
-  fromYear: number | undefined,
-  toYear: number | undefined
-): boolean => {
-  if (fromYear && fromYear > selectedYear) {
-    return false
-  }
-  if (toYear && toYear < selectedYear) {
-    return false
-  }
-  return true
-}
-
 const styleFunction =
   (selectedYear: number) =>
   (feature: FeatureLike): Style | undefined => {
-    const geomType = feature.getGeometry()?.getType()
-    switch (geomType) {
-      case "LineString":
-      case "MultiLineString": {
-        const { roadType, certainty, fromyear, toyear } =
-          feature.getProperties()
+    if (!isFeatureVisibleInYear(feature, selectedYear)) {
+      return undefined
+    }
 
-        if (!isFeatureVisible(selectedYear, fromyear, toyear)) {
-          return undefined
+    const props = feature.getProperties() as ViabundusFeatureProperties
+    switch (props.type) {
+      case ViabundusFeatureType.place:
+        if (props.Is_Town) {
+          return town
+        } else if (props.Is_Settlement) {
+          return settlement
+        } else if (props.Is_Bridge) {
+          return bridge
+        } else if (props.Is_Harbour) {
+          return harbour
+        } else if (props.Is_Fair) {
+          return fair
+        } else if (props.Is_Toll) {
+          return toll
         }
-
-        switch (roadType) {
+        return undefined
+      case ViabundusFeatureType.road:
+        switch (props.roadType) {
           case ViabundusRoadType.land: {
-            if (certainty === ViabundusRoadCertainty.Uncertain) {
+            if (props.certainty === ViabundusRoadCertainty.Uncertain) {
               return roadUncertain
             }
             return road
@@ -208,7 +301,7 @@ const styleFunction =
           case ViabundusRoadType.winter:
             return winterRoad
           case ViabundusRoadType.coast: {
-            if (certainty === ViabundusRoadCertainty.Uncertain) {
+            if (props.certainty === ViabundusRoadCertainty.Uncertain) {
               return waterwayUncertain
             }
             return waterway
@@ -216,44 +309,9 @@ const styleFunction =
           default:
             return road
         }
-      }
-      case "Point":
-      case "MultiPoint": {
-        const { Is_Town, Is_Settlement, Is_Bridge, Is_Harbour } =
-          feature.getProperties()
-        if (Is_Town) {
-          const { Town_From, Town_To } = feature.getProperties()
-          if (!isFeatureVisible(selectedYear, Town_From, Town_To)) {
-            return undefined
-          }
-          return town
-        } else if (Is_Settlement) {
-          const { Settlement_From, Settlement_To } = feature.getProperties()
-          if (!isFeatureVisible(selectedYear, Settlement_From, Settlement_To)) {
-            return undefined
-          }
-          return settlement
-        } else if (Is_Bridge) {
-          const { Bridge_From, Bridge_To } = feature.getProperties()
-          if (!isFeatureVisible(selectedYear, Bridge_From, Bridge_To)) {
-            return undefined
-          }
-          return bridge
-        } else if (Is_Harbour) {
-          const { Harbour_From, Harbour_To } = feature.getProperties()
-          if (!isFeatureVisible(selectedYear, Harbour_From, Harbour_To)) {
-            return undefined
-          }
-          return harbour
-        }
-      }
-      case "Polygon":
-      case "MultiPolygon": {
-        const { fromyear, toyear } = feature.getProperties()
-        if (!isFeatureVisible(selectedYear, fromyear, toyear)) {
-          return undefined
-        }
+      case ViabundusFeatureType.townOutline:
         return townOutline
-      }
+      default:
+        return undefined
     }
   }
