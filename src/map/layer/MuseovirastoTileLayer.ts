@@ -131,6 +131,10 @@ export default class MuseovirastoTileLayer {
     searchText: string,
     settings: Settings
   ): Promise<MuseovirastoFeatureInfoResult> => {
+    if (!settings.museovirasto.enabled) {
+      return emptyIdentifyResult
+    }
+
     let selectedLayers = settings.museovirasto.selectedLayers
 
     //Muinaismustot areas always have same name as main point so do not search those

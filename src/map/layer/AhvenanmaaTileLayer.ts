@@ -139,8 +139,8 @@ export default class AhvenanmaaTileLayer {
     searchText: string,
     settings: Settings
   ): Promise<AhvenanmaaEsriJSONFindResult> => {
-    const { selectedLayers } = settings.ahvenanmaa
-    if (selectedLayers.length === 0) {
+    const { selectedLayers, enabled } = settings.ahvenanmaa
+    if (selectedLayers.length === 0 || !enabled) {
       return { results: [] }
     }
 
