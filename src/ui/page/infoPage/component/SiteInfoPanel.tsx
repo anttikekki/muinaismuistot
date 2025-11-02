@@ -1,7 +1,6 @@
 import React from "react"
 import { Accordion } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
-import regexifyString from "regexify-string"
 
 export const SiteInfoPanel: React.FC = () => {
   const { t } = useTranslation()
@@ -115,13 +114,7 @@ export const SiteInfoPanel: React.FC = () => {
         <p>{t(`info.siteInfo.info1`)}</p>
 
         <p>
-          {regexifyString({
-            pattern: /ICON/gm,
-            decorator: () => {
-              return <i className="bi bi-geo-alt-fill" aria-hidden="true" />
-            },
-            input: t(`info.siteInfo.info2`)
-          })}
+          <Trans i18nKey="info.siteInfo.info2" components={{ i: <i /> }} />
         </p>
 
         <h6>
@@ -139,45 +132,26 @@ export const SiteInfoPanel: React.FC = () => {
 
         <h6>{t(`info.siteInfo.positioningTitle`)}</h6>
         <p>
-          {regexifyString({
-            pattern: /ICON/gm,
-            decorator: (match) => {
-              return (
-                <i key={match} className="bi bi-crosshair" aria-hidden="true" />
-              )
-            },
-            input: t(`info.siteInfo.positioningInfo`)
-          })}
+          <Trans
+            i18nKey="info.siteInfo.positioningInfo"
+            components={{ i: <i /> }}
+          />
         </p>
 
         <h6>{t(`info.siteInfo.searchTitle`)}</h6>
         <p>
-          {regexifyString({
-            pattern: /SEARCH_ICON|PIN_ICON/gm,
-            decorator: (match) => {
-              if (match === "SEARCH_ICON") {
-                return (
-                  <i key={match} className="bi bi-search" aria-hidden="true" />
-                )
-              }
-              if (match === "PIN_ICON") {
-                return <img key={match} src="images/map-pin-small.png" />
-              }
-              return ""
-            },
-            input: t(`info.siteInfo.searchInfo`)
-          })}
+          <Trans
+            i18nKey="info.siteInfo.searchInfo"
+            components={{ i: <i />, img: <img /> }}
+          />
         </p>
 
         <h6>{t(`info.siteInfo.settingsTitle`)}</h6>
         <p>
-          {regexifyString({
-            pattern: /ICON/gm,
-            decorator: (match) => {
-              return <i key={match} className="bi bi-gear" aria-hidden="true" />
-            },
-            input: t(`info.siteInfo.settingsInfo`)
-          })}
+          <Trans
+            i18nKey="info.siteInfo.settingsInfo"
+            components={{ i: <i /> }}
+          />
         </p>
 
         <h6>{t(`info.siteInfo.feedbackTitle`)}</h6>

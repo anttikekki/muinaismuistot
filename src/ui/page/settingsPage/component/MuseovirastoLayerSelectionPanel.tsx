@@ -2,7 +2,6 @@ import React, { useCallback, useMemo } from "react"
 import { Accordion, Alert, Form } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import regexifyString from "regexify-string"
 import { LayerGroup, MuseovirastoLayer } from "../../../../common/layers.types"
 import {
   MuinaisjaannosAjoitus,
@@ -487,34 +486,6 @@ const FeatureLayerFilterPanel: React.FC = () => {
     [dispatch]
   )
 
-  const infoText = useMemo(
-    () =>
-      regexifyString({
-        pattern: /PISTE_ICONS|ALUE_ICONS/gm,
-        decorator: (match) => {
-          if (match === "PISTE_ICONS") {
-            return (
-              <React.Fragment key={match}>
-                <img src="images/muinaisjaannos_kohde.png" />
-                <img src="images/muu_kulttuuriperintokohde_kohde.png" />
-              </React.Fragment>
-            )
-          }
-          if (match === "ALUE_ICONS") {
-            return (
-              <React.Fragment key={match}>
-                <img src="images/muinaisjaannos_alue.png" />
-                <img src="images/muu-kulttuuriperintokohde-alue.png" />
-              </React.Fragment>
-            )
-          }
-          return ""
-        },
-        input: t(`settings.museovirasto.filters.info`)
-      }),
-    [i18n.language]
-  )
-
   const typeCheckboxes = useMemo(
     () =>
       Object.values(MuinaisjaannosTyyppi).map((type) => (
@@ -548,7 +519,12 @@ const FeatureLayerFilterPanel: React.FC = () => {
       <h5 className="mt-4">{t(`settings.museovirasto.filters.title`)}</h5>
 
       <Form>
-        <Alert variant="light">{infoText}</Alert>
+        <Alert variant="light">
+          <Trans
+            i18nKey="settings.museovirasto.filters.info"
+            components={{ img: <img /> }}
+          />
+        </Alert>
 
         <h6>
           <ToggleAllCheckbox

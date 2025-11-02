@@ -63,14 +63,14 @@
       "title": "Information om webbsidan",
       "registerInfo": "På webbsidan kan du visa följande registeruppgifter på karta",
       "info1": "Alla objekt är öppet data och hämtas från respektive organisations karttjänst.",
-      "info2": "Klicka på objekt på kartan för mera information. Information inkluderar länk till organisationens webbsida. Från symbolen vid objektnamn (ICON) sparas länk till objektet.",
+      "info2": "Klicka på objekt på kartan för mera information. Information inkluderar länk till organisationens webbsida. Från symbolen vid objektnamn (<i className='bi bi-geo-alt-fill' aria-hidden='true' />) sparas länk till objektet.",
       "3DModelsInfo": "Vissa objekt är försedda med 3D-modeller från <a href='./3d/' target='_blank'>en databas</a>, som sammanställer modeller från privata och offentliga aktörer (museer, Museiverket, Ålands landskapsregering) i <a href='https://sketchfab.com' target='_blank'>Sketchfab</a> -tjänsten.",
       "positioningTitle": "Lokalisering",
-      "positioningInfo": "Kartvyn öppnar din position om du tillåter åtkomst till platsdata. Visa position genom att klicka på ICON.",
+      "positioningInfo": "Kartvyn öppnar din position om du tillåter åtkomst till platsdata. Visa position genom att klicka på <i className='bi bi-crosshair' aria-hidden='true' />.",
       "searchTitle": "Sökning",
-      "searchInfo": "Objekt i Museiverkets register går att söka enligt namn i sökrutan (SEARCH_ICON). Genom att klicka på sökresultat visar kartvyn objektet med platsnotering PIN_ICON.",
+      "searchInfo": "Objekt i Museiverkets register går att söka enligt namn i sökrutan (<i className='bi bi-search' aria-hidden='true' />). Genom att klicka på sökresultat visar kartvyn objektet med platsnotering <img src='images/map-pin-small.png' />.",
       "settingsTitle": "Inställningar",
-      "settingsInfo": "Byt kartlager mellan bakgrunskarta och terrängkarta på inställningar (ICON). Objekt kan från Museiverkets register kan döljas enligt typ och datering. Detta möjliggör sökningar till exempel på fornlämningar från järnålder.",
+      "settingsInfo": "Byt kartlager mellan bakgrunskarta och terrängkarta på inställningar (<i className='bi bi-gear' aria-hidden='true' />). Objekt kan från Museiverkets register kan döljas enligt typ och datering. Detta möjliggör sökningar till exempel på fornlämningar från järnålder.",
       "feedbackTitle": "Respons",
       "feedbackInfo": "Lämna respons om webbplatsen till adressen <a href='mailto:antti.kekki@gmail.com'>antti.kekki@gmail.com</a>",
       "developersTitle": "Utvecklare",
@@ -182,8 +182,9 @@
       "title": "Museiverkets registerdata",
       "licence": "© Museiverket (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)",
       "filters": {
-        "title": "Fasta fornlämningar",
-        "info": "Avgränsningen går endast att tillämpa för punktobjekt (PISTE_ICONS), inte för areamarkeringar (ALUE_ICONS).",
+        "title": "Objekt från Fornlämningsregistret som visas på kartan",
+        "info": "Begränsningen gäller endast punkter i Fornlämningsregistret, inte områden.",
+
         "type": "Typ",
         "dating": "Datering"
       }
