@@ -101,6 +101,12 @@ export default class MaannousuInfoTileLayerGroup {
     })
   }
 
+  public onZoomChanged(settings: Settings) {
+    this.layers.forEach((layer) => {
+      layer.updateLayerStyle(settings)
+    })
+  }
+
   private setLayerVisible = (nextLayer: MaannousuInfoTileLayer): void => {
     nextLayer.getLayer().setVisible(true)
     this.layers.forEach((prevLayer) => {

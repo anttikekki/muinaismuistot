@@ -70,7 +70,17 @@ export default class MaannousuInfoTileLayer {
     const colorSea = ((): number[] => {
       switch (settings.maanmittauslaitos.basemap.selectedLayer) {
         case MMLPohjakarttaLayer.Maastokartta:
-          return [177, 252, 254, 1]
+          const zoom = settings.mapZoom
+
+          if (zoom <= 4.6) {
+            return [153, 224, 255, 1]
+          }
+          if (zoom > 4.6 && zoom < 7) {
+            return [153, 255, 255, 1]
+          }
+          if (zoom >= 7) {
+            return [128, 255, 255, 1]
+          }
         case MMLPohjakarttaLayer.Taustakartta:
           return [201, 236, 250, 1]
         case MMLPohjakarttaLayer.Ortokuva:

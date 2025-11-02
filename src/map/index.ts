@@ -240,6 +240,9 @@ export default class MuinaismuistotMap {
         case ActionTypeEnum.ZOOM:
           this.zoom(action.zoomDirection === "in" ? 1 : -1)
           break
+        case ActionTypeEnum.ZOOM_CHANGED:
+          this.maannousuInfoTileLayerGroup.onZoomChanged(settings)
+          break
         case ActionTypeEnum.CENTER_MAP_TO_CURRENT_POSITION:
           this.centerToCurrentPositions()
           break
