@@ -122,6 +122,9 @@ export const FeatureList: React.FC<FeatureListProps> = ({
   useEffect(() => {
     if (linkedFeatureWithMetadata) {
       setOpenPanelId(linkedFeatureWithMetadata.panelId)
+    } else if (features.length === 1) {
+      const { panelId } = wrapFeatureWithMetadata(features[0])
+      setOpenPanelId(panelId)
     }
   })
 
