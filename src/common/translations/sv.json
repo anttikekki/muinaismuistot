@@ -214,7 +214,9 @@
     "info": "Du kan söka med objektnamn (t.ex. Turun linna) eller objektets register-id (t.ex. 200284 eller Sa 14.1)",
     "placeholder": "Sök med namn eller beskrivning",
     "searchButton": "Sök",
-    "error": "Sökord behöver innehålla minst tre tecken"
+    "error": "Sökord behöver innehålla minst tre tecken",
+    "searchResultTitle": "Sökresultat",
+    "resultCount": "st"
   },
   "details": {
     "title": "Valda objekt",

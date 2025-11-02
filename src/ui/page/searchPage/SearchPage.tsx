@@ -18,17 +18,23 @@ interface ResultsProps {
 }
 
 const Results: React.FC<ResultsProps> = ({ searchResult }) => {
+  const { t } = useTranslation()
+
   if (!searchResult) {
     return null
   }
+
   const { features } = searchResult
   return (
     <>
       <Row>
         <Col className="gy-3">
           <h6>
-            <span>Hakutulokset</span>
-            <small> ({features.length} kpl)</small>
+            <span>{t("search.searchResultTitle")}</span>
+            <small>
+              {" "}
+              ({features.length} {t("search.resultCount")})
+            </small>
           </h6>
         </Col>
       </Row>

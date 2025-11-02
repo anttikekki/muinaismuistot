@@ -213,7 +213,9 @@
     "info": "Voit hakea kohteen nimellä (esim. Turun linna) tai rekisterin tunnuksella (esim. 200284 tai Sa 14.1)",
     "placeholder": "Kirjoita kohteen nimi tai sen osa",
     "searchButton": "Hae",
-    "error": "Hakusanan pitää olla vähintään kolme merkkiä"
+    "error": "Hakusanan pitää olla vähintään kolme merkkiä",
+    "searchResultTitle": "Hakutulokset",
+    "resultCount": "kpl"
   },
   "details": {
     "title": "Valitut kohteet",

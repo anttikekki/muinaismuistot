@@ -206,14 +206,16 @@
     },
     "maisemanMuisti": {
       "title": "Memory of the Landscape – Nationally Significant Ancient Monuments"
-    },
-    "search": {
-      "title": "Search sites",
-      "info": "You can search by site name (e.g. Turun linna) or register ID (e.g. 200284 or Sa 14.1).",
-      "placeholder": "Enter the name or part of a name",
-      "searchButton": "Search",
-      "error": "The search term must contain at least three characters"
     }
+  },
+  "search": {
+    "title": "Search sites",
+    "info": "You can search by site name (e.g. Turun linna) or register ID (e.g. 200284 or Sa 14.1).",
+    "placeholder": "Enter the name or part of a name",
+    "searchButton": "Search",
+    "error": "The search term must contain at least three characters",
+    "searchResultTitle": "Search Results",
+    "resultCount": "items"
   },
   "details": {
     "title": "Selected sites",
