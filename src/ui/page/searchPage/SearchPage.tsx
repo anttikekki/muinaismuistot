@@ -2,21 +2,26 @@ import React, { useCallback, useEffect, useRef, useState } from "react"
 import { Alert, Button, Col, Form, InputGroup, Row } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { MapFeature } from "../../../common/mapFeature.types"
 import { ActionTypeEnum } from "../../../store/actionTypes"
-import { AppDispatch, PageId, Settings } from "../../../store/storeTypes"
+import {
+  AppDispatch,
+  PageId,
+  SearchResults,
+  Settings
+} from "../../../store/storeTypes"
 import { FeatureList } from "../../component/feature/FeatureList"
 import { FeatureTitleClickAction } from "../../component/feature/component/FeatureCollapsePanel"
 import { Page } from "../Page"
 
 interface ResultsProps {
-  features?: MapFeature[]
+  searchResult?: SearchResults
 }
 
-const Results: React.FC<ResultsProps> = ({ features }) => {
-  if (!features) {
+const Results: React.FC<ResultsProps> = ({ searchResult }) => {
+  if (!searchResult) {
     return null
   }
+  const { features } = searchResult
   return (
     <>
       <Row>
@@ -43,9 +48,7 @@ export const SearchPage: React.FC = () => {
   const [searchText, setSearchText] = useState("")
   const [showSearchTextError, setShowSearchTextError] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
-  const searchResultFeatures = useSelector(
-    (settings: Settings) => settings.search.features
-  )
+  const searchResult = useSelector((settings: Settings) => settings.search)
   const visiblePage = useSelector((settings: Settings) => settings.visiblePage)
 
   useEffect(() => {
@@ -98,7 +101,7 @@ export const SearchPage: React.FC = () => {
         </Col>
       </Row>
 
-      <Results features={searchResultFeatures} />
+      <Results searchResult={searchResult} />
     </Page>
   )
 }

@@ -29,11 +29,9 @@ export const initialSettings: Settings = {
   visiblePage: undefined,
   linkedFeature: undefined,
   identifiedMapFeatures: undefined,
-  search: {
-    features: []
-  },
+  search: undefined,
   mapZoom: 8,
-  mapCenterCoordinates: [385249.63630000036, 6672695.7579], // Helsinki
+  mapCenterCoordinates: undefined,
   language: getInitialLang(),
   maanmittauslaitos: {
     basemap: {

@@ -43,14 +43,16 @@ export interface LinkedFeature {
   name?: string
 }
 
+export interface SearchResults {
+  features: MapFeature[]
+}
+
 export interface Settings {
   concurrentPendingJobsCounter: number
   showLoadingAnimation: boolean
   visiblePage?: PageId
   identifiedMapFeatures?: IdentifiedMapFeatures
-  search: {
-    features: MapFeature[]
-  }
+  search?: SearchResults
   linkedFeature?: LinkedFeature
   mapZoom: number
   mapCenterCoordinates?: [number, number]

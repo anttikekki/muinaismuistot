@@ -113,9 +113,7 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
     case ActionTypeEnum.SEARCH_FEATURES: {
       return {
         ...state,
-        search: {
-          features: []
-        }
+        search: undefined
       }
     }
     case ActionTypeEnum.SEARCH_FEATURES_COMPLETE: {
