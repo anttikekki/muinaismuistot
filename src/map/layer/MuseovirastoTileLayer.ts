@@ -224,6 +224,14 @@ export default class MuseovirastoTileLayer {
             case MuseovirastoLayer.Muu_kulttuuriperintokohde_piste:
             case MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösPiste:
             case MuseovirastoLayer.Muinaisjaannokset_piste: {
+              // Kaikki tyypit tai ajoitukset on piilotettu, ei ole mitään näytettävää koko tasolla
+              if (
+                selectedMuinaisjaannosDatings.length === 0 ||
+                selectedMuinaisjaannosTypes.length === 0
+              ) {
+                return "EXCLUDE"
+              }
+
               const filters: string[] = []
               if (hasDatingsFilter) {
                 // Add '%' prefix and postfix wildcard because values are like 'keskiaikainen, rautakautinen, , ,'
@@ -243,7 +251,7 @@ export default class MuseovirastoTileLayer {
               return filters.join(" AND ")
             }
             default:
-              // No filter for this layer, include all values
+              // No filter for this layer, include all features
               return "INCLUDE"
           }
         })
