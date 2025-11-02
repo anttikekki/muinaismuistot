@@ -434,10 +434,12 @@ export default class MuinaismuistotMap {
         ).filter((f) => isMaisemanMuistiFeature(f))
       : []
     const viabunduResult = settings.viabundus.enabled
-      ? this.getFeaturesAtPixelAtGeoJsonLayer(
-          pixel,
-          this.viabundusLayer.getLayer()
-        ).filter((f) => isViabundusFeature(f))
+      ? this.viabundusLayer.removeDuplicateRoadFeatures(
+          this.getFeaturesAtPixelAtGeoJsonLayer(
+            pixel,
+            this.viabundusLayer.getLayer()
+          ).filter((f) => isViabundusFeature(f))
+        )
       : []
 
     Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery]).then(

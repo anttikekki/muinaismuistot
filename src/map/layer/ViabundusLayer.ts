@@ -10,10 +10,12 @@ import Icon from "ol/style/Icon"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
 import {
+  isViabundusRoadFeature,
   ViabundusFeature,
   ViabundusFeatureProperties,
   ViabundusFeatureType,
   ViabundusRoadCertainty,
+  ViabundusRoadFeature,
   ViabundusRoadType
 } from "../../common/viabundus.types"
 import { Settings } from "../../store/storeTypes"
@@ -105,21 +107,69 @@ export default class ViabundusLayer {
     const result =
       this.source
         ?.getFeatures()
-        .filter((f) => f.getProperties().type === ViabundusFeatureType.place)
+        .filter(
+          (f) =>
+            f.getProperties().type === ViabundusFeatureType.place ||
+            f.getProperties().type === ViabundusFeatureType.road
+        )
         .filter((f) =>
           isFeatureVisibleInYear(f, settings.viabundus.selectedYear)
         )
-        .filter((f) =>
-          String(f.getProperties().name ?? "")
-            .toLowerCase()
-            .includes(searchTextLowerCase)
-        ) ?? []
-    return geoJsonParser.writeFeaturesObject(result)
-      .features as ViabundusFeature[]
+        .filter((f) => {
+          if (f.getProperties().type === ViabundusFeatureType.place) {
+            return String(f.getProperties().name ?? "")
+              .toLowerCase()
+              .includes(searchTextLowerCase)
+          }
+          if (f.getProperties().type === ViabundusFeatureType.road) {
+            return (
+              String(f.getProperties().descriptionFI ?? "")
+                .toLowerCase()
+                .includes(searchTextLowerCase) ||
+              String(f.getProperties().descriptionEN ?? "")
+                .toLowerCase()
+                .includes(searchTextLowerCase)
+            )
+          }
+        }) ?? []
+    return this.removeDuplicateRoadFeatures(
+      geoJsonParser.writeFeaturesObject(result).features as ViabundusFeature[]
+    )
   }
 
   public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> =>
     this.layer
+
+  /**
+   * Viabundus-aineiston tiet on pilkottu pieniksi palasiksi, joita löytyy sanahaulla
+   * tai identify-haulla monta samaa. Poistetaan duplikaatit, koska niitä ei tarvita
+   * hakutuloksissa. Ne tarvitaan kyllä teiden piirtämisessä, joten niitä ei voi poistaa
+   * lähtöaineistosta.
+   */
+  public removeDuplicateRoadFeatures = (
+    features: ViabundusFeature[]
+  ): ViabundusFeature[] => {
+    const uniqRoads = features
+      .filter((f) => isViabundusRoadFeature(f))
+      .reduce((prev, current) => {
+        if (
+          prev.some(
+            (f) =>
+              f.properties.roadType === current.properties.roadType &&
+              f.properties.fromyear === current.properties.fromyear &&
+              f.properties.toyear === current.properties.toyear &&
+              f.properties.descriptionFI === current.properties.descriptionFI &&
+              f.properties.descriptionEN === current.properties.descriptionEN
+          )
+        ) {
+          return prev
+        }
+
+        return [...prev, current]
+      }, [] as ViabundusRoadFeature[])
+
+    return [...features.filter((f) => !isViabundusRoadFeature(f)), ...uniqRoads]
+  }
 }
 
 const isFeatureVisibleInYear = (
