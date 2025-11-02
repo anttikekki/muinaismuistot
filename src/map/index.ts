@@ -42,6 +42,17 @@ import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
 import ViabundusLayer from "./layer/ViabundusLayer"
 
 const FINNISH_EPSG_3067 = "EPSG:3067"
+const INITIAL_MAP_CENTER = [385249.63630000036, 6672695.7579] // Helsinki
+
+const isInitialMapCenter = (coordinate?: Coordinate): boolean => {
+  if (!coordinate) {
+    return false
+  }
+  return (
+    coordinate[0] === INITIAL_MAP_CENTER[0] &&
+    coordinate[1] === INITIAL_MAP_CENTER[1]
+  )
+}
 
 export default class MuinaismuistotMap {
   private readonly store: Store<Settings, ActionTypes>
@@ -77,9 +88,7 @@ export default class MuinaismuistotMap {
     getProjection(FINNISH_EPSG_3067)?.setExtent(extent)
 
     this.view = new View({
-      center: settings.mapCenterCoordinates ?? [
-        385249.63630000036, 6672695.7579
-      ], // Default: Helsinki
+      center: settings.mapCenterCoordinates ?? INITIAL_MAP_CENTER, // Default: Helsinki
       projection: FINNISH_EPSG_3067,
       zoom: settings.mapZoom,
       enableRotation: false
@@ -222,7 +231,10 @@ export default class MuinaismuistotMap {
        * käyttäjä päätyy omaan sijaintiinsa eikä kohteeseen/paikkaam, jota
        * tuli katsomaan.
        */
-      if (!settings.linkedFeature && !settings.mapCenterCoordinates) {
+      if (
+        !settings.linkedFeature &&
+        isInitialMapCenter(this.view.getCenter())
+      ) {
         this.view.setCenter(position)
       }
       this.positionAndSelectedLocation.addCurrentPositionMarker(position)
