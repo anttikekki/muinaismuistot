@@ -215,27 +215,37 @@ export default class MuseovirastoTileLayer {
     if (hasDatingsFilter || hasTypeFilter) {
       return selectedLayers
         .map((layer) => {
-          if (layer === MuseovirastoLayer.Muinaisjaannokset_piste) {
-            const filters: string[] = []
-            if (hasDatingsFilter) {
-              // Add '%' prefix and postfix wildcard because values are like 'keskiaikainen, rautakautinen, , ,'
-              const filter = selectedMuinaisjaannosDatings
-                .map((dating) => `ajoitus LIKE '%${dating}%'`)
-                .join(" OR ")
-              filters.push(`(${filter})`)
-            }
-            if (hasTypeFilter) {
-              // Add '%' prefix and postfix wildcard because values are like 'hautapaikat, työ- ja valmistuspaikat, , '
-              const filter = selectedMuinaisjaannosTypes
-                .map((type) => `tyyppi LIKE '%${type}%'`)
-                .join(" OR ")
-              filters.push(`(${filter})`)
-            }
+          switch (layer) {
+            case MuseovirastoLayer.Havaintokohde_piste:
+            case MuseovirastoLayer.Luonnonmuodostuma_piste:
+            case MuseovirastoLayer.Löytöpaikka_piste:
+            case MuseovirastoLayer.Mahdollinen_muinaisjäännös_piste:
+            case MuseovirastoLayer.Muu_kohde_piste:
+            case MuseovirastoLayer.Muu_kulttuuriperintokohde_piste:
+            case MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösPiste:
+            case MuseovirastoLayer.Muinaisjaannokset_piste: {
+              const filters: string[] = []
+              if (hasDatingsFilter) {
+                // Add '%' prefix and postfix wildcard because values are like 'keskiaikainen, rautakautinen, , ,'
+                const filter = selectedMuinaisjaannosDatings
+                  .map((dating) => `ajoitus LIKE '%${dating}%'`)
+                  .join(" OR ")
+                filters.push(`(${filter})`)
+              }
+              if (hasTypeFilter) {
+                // Add '%' prefix and postfix wildcard because values are like 'hautapaikat, työ- ja valmistuspaikat, , '
+                const filter = selectedMuinaisjaannosTypes
+                  .map((type) => `tyyppi LIKE '%${type}%'`)
+                  .join(" OR ")
+                filters.push(`(${filter})`)
+              }
 
-            return filters.join(" AND ")
+              return filters.join(" AND ")
+            }
+            default:
+              // No filter for this layer, include all values
+              return "INCLUDE"
           }
-          // No filter for this layer, include all values
-          return "INCLUDE"
         })
         .join(";")
     }
