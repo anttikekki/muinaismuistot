@@ -37,6 +37,8 @@ export enum ActionTypeEnum {
   SHOW_LOADING_ANIMATION = "SHOW_LOADING_ANIMATION",
   SHOW_PAGE = "SHOW_PAGE",
   ZOOM = "ZOOM",
+  ZOOM_CHANGED = "ZOOM_CHANGED",
+  MAP_CENTER_CHANGED = "MAP_CENTER_CHANGED",
   MOVE_MAANNOUSU_LAYER = "MOVE_MAANNOUSU_LAYER",
   SELECT_VIABUNDUS_YEAR = "SELECT_VIABUNDUS_YEAR"
 }
@@ -44,6 +46,16 @@ export enum ActionTypeEnum {
 export interface ZoomAction {
   type: ActionTypeEnum.ZOOM
   zoomDirection: "in" | "out"
+}
+
+export interface ZoomChangedAction {
+  type: ActionTypeEnum.ZOOM_CHANGED
+  zoom: number
+}
+
+export interface MapCenterChangedAction {
+  type: ActionTypeEnum.MAP_CENTER_CHANGED
+  coordinates: [number, number] // [x, y]
 }
 
 export interface FirstUserLocationDetectionComplete {
@@ -214,5 +226,7 @@ export type ActionTypes =
   | ShowLoadingAnimationAction
   | ShowPageAction
   | ZoomAction
+  | ZoomChangedAction
+  | MapCenterChangedAction
   | MoveMaannousuLayerAction
   | SelectViabundusYearAction

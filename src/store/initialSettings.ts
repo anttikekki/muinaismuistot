@@ -32,7 +32,8 @@ export const initialSettings: Settings = {
   search: {
     features: []
   },
-  initialMapZoom: 8,
+  mapZoom: 8,
+  mapCenterCoordinates: [385249.63630000036, 6672695.7579], // Helsinki
   language: getInitialLang(),
   maanmittauslaitos: {
     basemap: {

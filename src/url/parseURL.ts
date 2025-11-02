@@ -101,6 +101,7 @@ export const getSettingsFromURL = (): Settings => {
     linkedFeatureId,
     linkedFeatureName,
     zoom,
+    center,
     lang,
     mmlLayer,
     mmlLayerEnabled,
@@ -145,11 +146,19 @@ export const getSettingsFromURL = (): Settings => {
     })
   }
 
-  // Map initial zoom
+  // Map zoom
   if (zoom !== undefined) {
     newSettings = {
       ...newSettings,
-      initialMapZoom: zoom
+      mapZoom: zoom
+    }
+  }
+
+  // Map center
+  if (center !== undefined && Array.isArray(center) && center.length === 2) {
+    newSettings = {
+      ...newSettings,
+      mapCenterCoordinates: [center[0], center[1]]
     }
   }
 

@@ -52,7 +52,8 @@ export interface Settings {
     features: MapFeature[]
   }
   linkedFeature?: LinkedFeature
-  initialMapZoom: number
+  mapZoom: number
+  mapCenterCoordinates?: [number, number]
   language: Language
   maanmittauslaitos: {
     basemap: {

@@ -16,6 +16,8 @@ export const urlSettingsUpdaterStoreListener: StoreListener = {
       case ActionTypeEnum.MOVE_MAANNOUSU_LAYER:
       case ActionTypeEnum.SELECT_VIABUNDUS_YEAR:
       case ActionTypeEnum.SET_LINKED_FEATURE:
+      case ActionTypeEnum.ZOOM_CHANGED:
+      case ActionTypeEnum.MAP_CENTER_CHANGED:
         return true
       default:
         return false
@@ -36,6 +38,6 @@ export const urlSettingsUpdaterStoreListener: StoreListener = {
     // Palautetaan kuuntelija asynkronisesti URLin päivityksen jälkeen
     window.setTimeout(() => {
       window.onhashchange = onhashchange
-    })
+    }, 100)
   }, 300)
 }

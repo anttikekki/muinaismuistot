@@ -41,6 +41,8 @@ import ModelsLayer from "./layer/ModelsLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
 import ViabundusLayer from "./layer/ViabundusLayer"
 
+const FINNISH_EPSG_3067 = "EPSG:3067"
+
 export default class MuinaismuistotMap {
   private readonly store: Store<Settings, ActionTypes>
   private readonly map: Map
@@ -65,18 +67,21 @@ export default class MuinaismuistotMap {
     const settings = store.getState()
 
     proj4.defs(
-      "EPSG:3067",
+      FINNISH_EPSG_3067,
       "+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
     )
     registerProj4(proj4)
 
+    // MML:n taustakartan alue
     const extent: Extent = [50199.4814, 6582464.0358, 761274.6247, 7799839.8902]
-    getProjection("EPSG:3067")?.setExtent(extent)
+    getProjection(FINNISH_EPSG_3067)?.setExtent(extent)
 
     this.view = new View({
-      center: [385249.63630000036, 6672695.7579],
-      projection: "EPSG:3067",
-      zoom: settings.initialMapZoom,
+      center: settings.mapCenterCoordinates ?? [
+        385249.63630000036, 6672695.7579
+      ], // Default: Helsinki
+      projection: FINNISH_EPSG_3067,
+      zoom: settings.mapZoom,
       enableRotation: false
     })
 
@@ -169,6 +174,24 @@ export default class MuinaismuistotMap {
     if (settings.linkedFeature) {
       this.view.setCenter(settings.linkedFeature.coordinates)
     }
+
+    this.map.on("moveend", () => {
+      const zoom = this.view.getZoom()
+      if (zoom !== undefined) {
+        store.dispatch({
+          type: ActionTypeEnum.ZOOM_CHANGED,
+          zoom
+        })
+      }
+
+      const mapCenter = this.view.getCenter()
+      if (mapCenter) {
+        store.dispatch({
+          type: ActionTypeEnum.MAP_CENTER_CHANGED,
+          coordinates: [mapCenter[0], mapCenter[1]]
+        })
+      }
+    })
   }
 
   private setMapLocation = (coordinates: Coordinate) => {
@@ -194,11 +217,12 @@ export default class MuinaismuistotMap {
     if (position) {
       /**
        * Keskitetään kartta käyttäjän sijaintiin VAIN jos ei ole
-       * valittuna linkitettyä kohdetta. Muuten linkillä sisään tullut
-       * käyttäjä päätyy omaan sijaintiinsa eikä kohteeseen, jota
+       * valittuna linkitettyä kohdetta, eikä osoitteessa ole kartan
+       * sijaintia. Muuten linkillä sisään tullut
+       * käyttäjä päätyy omaan sijaintiinsa eikä kohteeseen/paikkaam, jota
        * tuli katsomaan.
        */
-      if (!settings.linkedFeature) {
+      if (!settings.linkedFeature && !settings.mapCenterCoordinates) {
         this.view.setCenter(position)
       }
       this.positionAndSelectedLocation.addCurrentPositionMarker(position)

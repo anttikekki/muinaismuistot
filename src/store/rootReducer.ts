@@ -76,6 +76,16 @@ export const rootReducer: Reducer<Settings, ActionTypes> = (state, action) => {
   }
 
   switch (action.type) {
+    case ActionTypeEnum.ZOOM_CHANGED:
+      return {
+        ...state,
+        mapZoom: action.zoom
+      }
+    case ActionTypeEnum.MAP_CENTER_CHANGED:
+      return {
+        ...state,
+        mapCenterCoordinates: action.coordinates
+      }
     case ActionTypeEnum.SET_LINKED_FEATURE: {
       return updateLinkedFeature(state, action.linkedFeature)
     }

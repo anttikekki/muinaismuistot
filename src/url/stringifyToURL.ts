@@ -111,6 +111,22 @@ export const updateSettingsToURL = (
     "lang"
   )
 
+  // Map zoom
+  state = updateParam(
+    state,
+    initialSettings.mapZoom,
+    currentSettings.mapZoom,
+    "zoom"
+  )
+
+  // Map center
+  state = updateParam(
+    state,
+    initialSettings.mapCenterCoordinates,
+    currentSettings.mapCenterCoordinates,
+    "center"
+  )
+
   // MML layer
   state = updateParam(
     state,

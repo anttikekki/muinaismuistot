@@ -7,6 +7,7 @@ export interface URLSettings {
   linkedFeatureId?: string
   linkedFeatureName?: string
   zoom?: number
+  center?: number[]
   lang?: Language
   mmlLayer?: string
   mmlLayerEnabled?: boolean
