@@ -96,8 +96,10 @@ const Town: React.FC<{ feature: ViabundusPlaceFeature }> = ({ feature }) => {
         <Field label={t(`details.field.asukasluku`)}>
           <table className="table">
             <thead>
-              <th>{t(`data.viabundus.population.year`)}</th>
-              <th>{t(`data.viabundus.population.inhabitants`)}</th>
+              <tr>
+                <th>{t(`data.viabundus.population.year`)}</th>
+                <th>{t(`data.viabundus.population.inhabitants`)}</th>
+              </tr>
             </thead>
             <tbody>
               {population.map(({ year, inhabitants }, i) => {
