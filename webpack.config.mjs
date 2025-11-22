@@ -8,7 +8,7 @@ import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import CopyWebpackPlugin from "copy-webpack-plugin"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import "webpack"
-import BundleAnalyzerPlugin from "webpack-bundle-analyzer"
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 
 const SHOW_BUNDLE_ANALYZER = process.env.SHOW_BUNDLE_ANALYZER !== undefined
 
@@ -50,6 +50,30 @@ export default {
   // Hide chunk size warnings on "npm run build:prod"
   performance: {
     hints: false
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        bootstrap: {
+          test: /[\\/]node_modules[\\/]bootstrap[\\/]/,
+          name: "bootstrap",
+          chunks: "all",
+          enforce: true
+        },
+        bootstrapIcons: {
+          test: /[\\/]node_modules[\\/]bootstrap-icons[\\/]/,
+          name: "bootstrap-icons",
+          chunks: "all",
+          enforce: true
+        },
+        reactDom: {
+          test: /[\\/]node_modules[\\/]react-dom[\\/]/,
+          name: "react-dom",
+          chunks: "all",
+          enforce: true
+        }
+      }
+    }
   },
   plugins: [
     new CleanWebpackPlugin(),
