@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const AhvenanmaaTypeAndDatingField: React.FC<Props> = ({ feature }) => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   const subFeatureTypesAndDatings =
     feature.attributes.typeAndDating?.map(
