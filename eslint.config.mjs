@@ -1,11 +1,12 @@
 // @ts-check
 
+import { defineConfig } from "eslint/config"
 import tseslint from "typescript-eslint"
 
-export default tseslint.config(
+export default defineConfig(
   tseslint.configs.stylistic,
   tseslint.configs.strict,
   {
-    ignores: ["infra", "scripts"]
+    ignores: ["dist", "infra", "scripts"]
   }
 )
