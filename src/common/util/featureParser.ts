@@ -734,6 +734,17 @@ export const getMuinaisjaannosRegisterUrl = (
   return url
 }
 
+export const getVARKRegisterUrl = (
+  mjtunnus: string | number,
+  lang: Language
+): string => {
+  let url = `https://www.kyppi.fi/palveluikkuna/VARKL/asp/v_kohde_det.aspx?KOHDE_ID=${mjtunnus}`
+  if (lang === Language.SV) {
+    url = url.replace("/v_kohde_det.aspx", "/sv_kohde_det.aspx")
+  }
+  return url
+}
+
 export const getFeatureRegisterURL = (
   feature: MapFeature,
   lang: Language

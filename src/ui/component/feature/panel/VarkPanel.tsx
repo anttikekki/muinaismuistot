@@ -8,6 +8,7 @@ import {
 } from "../../../../common/museovirasto.types"
 import {
   getMuinaisjaannosRegisterUrl,
+  getVARKRegisterUrl,
   isMuinaisjaannosTyyppi,
   isVarkAjoitus,
   splitMuinaisjaannosAjoitus,
@@ -37,8 +38,16 @@ interface Props extends FeatureCollapsePanelCommonExternalProps {
 
 export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
   const { t, i18n } = useTranslation()
-  const { VARK_ID, VARK_nimi, Kunta, Maakunta, Mj_kohde, Mj_tunnus } =
-    feature.properties
+  const {
+    VARK_ID,
+    VARK_nimi,
+    Kunta,
+    Maakunta,
+    Mj_kohde,
+    Mj_kohde2,
+    Mj_tunnus,
+    Mj_tunnus2
+  } = feature.properties
 
   const tyypit = useMemo(() => splitMuinaisjaannosTyyppi(feature), [feature])
   const alatyypit = useMemo(
@@ -50,9 +59,19 @@ export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
     [feature]
   )
   const muinaisjäännökset = useMemo(() => {
-    const mjTunnukset = Mj_tunnus.split(", ").filter((x) => !!x)
-    const mjNimet = Mj_kohde.split(", ").filter((x) => !!x)
-    return mjTunnukset.map((mjTunnus, i) => [mjNimet[i], mjTunnus])
+    const mjTunnukset = [Mj_tunnus, Mj_tunnus2]
+      .filter((x) => !!x)
+      .join(", ")
+      .split(", ")
+      .filter((x) => !!x)
+    const mjNimet = [Mj_kohde, Mj_kohde2]
+      .filter((x) => !!x)
+      .join(", ")
+      .split(", ")
+      .filter((x) => !!x)
+    return mjTunnukset
+      .map((mjTunnus, i) => [mjNimet[i], mjTunnus])
+      .filter((pair) => !!pair[0] && !!pair[1])
   }, [feature])
 
   return (
@@ -115,10 +134,7 @@ export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
             contentFn={([nimi, mjtunnus]) => (
               <Link
                 text={nimi}
-                url={getMuinaisjaannosRegisterUrl(
-                  mjtunnus,
-                  i18n.language as Language
-                )}
+                url={getVARKRegisterUrl(mjtunnus, i18n.language as Language)}
               />
             )}
           />
