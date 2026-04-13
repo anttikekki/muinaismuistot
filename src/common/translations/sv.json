@@ -273,7 +273,8 @@
       "yleisetLähteet": "Allmänna källor",
       "markkinapäivät": "Marknadsdagar",
       "rekonstruktiotarkkuus": "Rekonstruktionens noggrannhet",
-      "asukasluku": "Uppskattad befolkning"
+      "asukasluku": "Uppskattad befolkning",
+      "finnaText": "Hittade {{resultCount}} fotografier av objektet från webbplatsen <a href='{{finnaUIUrl}}' target='_blank'>Finna.fi</a>."
     },
     "3d": {
       "title": "3D-modeller över objektet",

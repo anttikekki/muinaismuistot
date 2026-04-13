@@ -272,7 +272,8 @@
       "yleisetLähteet": "Yleiset lähteet",
       "markkinapäivät": "Markkinapäivät",
       "rekonstruktiotarkkuus": "Rekonstruktion tarkkuus",
-      "asukasluku": "Arvioitu väkiluku"
+      "asukasluku": "Arvioitu väkiluku",
+      "finnaText": "Kohteesta löytyi {{resultCount}} kpl valokuvia <a href='{{finnaUIUrl}}' target='_blank'>Finna.fi</a> sivustolta."
     },
     "3d": {
       "title": "Kohteen 3D-mallit",

@@ -28,6 +28,7 @@ import { List } from "../component/List"
 import { MaisemanMuistiField } from "../component/MaisemanMuistiField"
 import { MuseovirastoLink } from "../component/MuseovirastoLink"
 import { MuinaisjäännösTimespanLabel } from "../component/TimespanLabel"
+import { FinnaImagesField } from "../component/FinnaImagesField"
 
 interface Props extends FeatureCollapsePanelCommonExternalProps {
   feature: MuinaisjäännörekisteriPisteFeature
@@ -119,6 +120,7 @@ export const MuinaisjaannosPistePanel: React.FC<Props> = ({
 
         <MuseovirastoLink feature={feature} />
 
+        {commonProps.isOpen && <FinnaImagesField mjtunnus={mjtunnus} />}
         {commonProps.isOpen && <EmbeddedModels models={feature.models} />}
       </Form>
     </MapFeatureCollapsePanel>

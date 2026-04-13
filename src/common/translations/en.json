@@ -272,7 +272,8 @@
       "yleisetLähteet": "General sources",
       "markkinapäivät": "Market days",
       "rekonstruktiotarkkuus": "Reconstruction accuracy",
-      "asukasluku": "Estimated population"
+      "asukasluku": "Estimated population",
+      "finnaText": "Found {{resultCount}} photographs of the site from the <a href='{{finnaUIUrl}}' target='_blank'>Finna.fi</a> service."
     },
     "3d": {
       "title": "3D models of the site",
