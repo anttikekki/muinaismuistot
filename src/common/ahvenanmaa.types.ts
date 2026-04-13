@@ -18,7 +18,7 @@ export interface AhvenanmaaTypeAndDatingFeatureProperties {
 
 interface AhvenanmaaForminnenFeatureProperties {
   OBJECTID: string // "1401";
-  "Fornlämnings ID": string // "Su 12.27";
+  FornlämningsID: string // "Su 12.27";
   Namn: string // "Null";
   Beskrivning: string // "Null";
   Kommun: string // "Sund";

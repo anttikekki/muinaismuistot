@@ -149,7 +149,7 @@ export default class AhvenanmaaTileLayer {
         const searchFields = (() => {
           switch (layer) {
             case AhvenanmaaLayer.Fornminnen:
-              return "Fornlämnings ID, Namn , Beskrivning"
+              return "FornlämningsID, Namn , Beskrivning"
             case AhvenanmaaLayer.MaritimaFornminnen:
               return "MfornID, Namn , Beskrivning"
           }
@@ -188,7 +188,7 @@ export default class AhvenanmaaTileLayer {
       results: data.results.map((result): AhvenanmaaFeature => {
         if (result.layerName === AhvenanmaaLayer.Fornminnen) {
           const typeAndDating = typeAndDatingMap.get(
-            result.attributes["Fornlämnings ID"]
+            result.attributes.FornlämningsID
           )
           if (typeAndDating) {
             return {

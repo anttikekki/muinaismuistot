@@ -136,7 +136,7 @@ export const getFeatureName = (t: TFunction, feature: MapFeature): string => {
   } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
       case AhvenanmaaLayer.Fornminnen: {
-        const id = trim(feature.attributes["Fornlämnings ID"])
+        const id = trim(feature.attributes.FornlämningsID)
         const name = trim(feature.attributes.Namn)
         const types =
           feature.attributes.typeAndDating
@@ -644,7 +644,7 @@ export const getFeatureRegisterID = (feature: MapFeature): string => {
   } else if (isAhvenanmaaFeature(feature)) {
     switch (feature.layerName) {
       case AhvenanmaaLayer.Fornminnen:
-        return feature.attributes["Fornlämnings ID"]
+        return feature.attributes.FornlämningsID
       case AhvenanmaaLayer.MaritimaFornminnen:
         return feature.attributes.MfornID
     }

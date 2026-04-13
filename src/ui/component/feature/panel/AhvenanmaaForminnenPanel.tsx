@@ -25,7 +25,7 @@ export const AhvenanmaaForminnenPanel: React.FC<Props> = ({
       <Form>
         <Field
           label={t(`details.field.id`)}
-          value={feature.attributes["Fornlämnings ID"]}
+          value={feature.attributes.FornlämningsID}
           suffixColum={<FeatureGeometryDownloadLink feature={feature} />}
         />
         <Field
