@@ -151,54 +151,51 @@ export const FeatureList: React.FC<FeatureListProps> = ({
     <Accordion activeKey={openPanelId}>
       {featuresWithMetaData.map((featureWithMetaData) => {
         const { feature, panelId } = featureWithMetaData
-
-        const params = {
-          key: panelId,
-          ...getCommonProps(featureWithMetaData)
-        }
+        const params = getCommonProps(featureWithMetaData)
+        
 
         if (isGeoJSONFeature(feature)) {
           if (isMuinaisjäännörekisteriPisteFeature(feature)) {
-            return <MuinaisjaannosPistePanel feature={feature} {...params} />
+            return <MuinaisjaannosPistePanel key={panelId} feature={feature} {...params} />
           }
           if (isMuinaisjäännörekisteriAlueFeature(feature)) {
-            return <MuinaisjaannosAluePanel feature={feature} {...params} />
+            return <MuinaisjaannosAluePanel key={panelId} feature={feature} {...params} />
           }
           if (
             isRKYAlueFeature(feature) ||
             isRKYPisteFeature(feature) ||
             isRKYViivaFeature(feature)
           ) {
-            return <RKYPanel feature={feature} {...params} />
+            return <RKYPanel key={panelId} feature={feature} {...params} />
           }
           if (
             isMaailmanperintoAlueFeature(feature) ||
             isMaailmanperintoPisteFeature(feature)
           ) {
-            return <MaailmanperintokohdePanel feature={feature} {...params} />
+            return <MaailmanperintokohdePanel key={panelId} feature={feature} {...params} />
           }
           if (
             isSuojellutRakennuksetAlueFeature(feature) ||
             isSuojellutRakennuksetPisteFeature(feature)
           ) {
-            return <SuojellutRakennuksetPanel feature={feature} {...params} />
+            return <SuojellutRakennuksetPanel key={panelId} feature={feature} {...params} />
           }
 
           if (isMaalinnoitusYksikkoFeature(feature)) {
-            return <MaalinnoitusYksikkoPanel feature={feature} {...params} />
+            return <MaalinnoitusYksikkoPanel key={panelId} feature={feature} {...params} />
           }
           if (isMaalinnoitusKohdeFeature(feature)) {
-            return <MaalinnoitusKohdePanel feature={feature} {...params} />
+            return <MaalinnoitusKohdePanel key={panelId} feature={feature} {...params} />
           }
           if (isMaalinnoitusRajausFeature(feature)) {
-            return <MaalinnoitusRajausPanel feature={feature} {...params} />
+            return <MaalinnoitusRajausPanel key={panelId} feature={feature} {...params} />
           }
           if (isVarkPisteFeature(feature) || isVarkAlueFeature(feature)) {
-            return <VarkPanel feature={feature} {...params} />
+            return <VarkPanel key={panelId} feature={feature} {...params} />
           }
           if (isMaisemanMuistiFeature(feature)) {
             return (
-              <MaisemanMuistiPanel
+              <MaisemanMuistiPanel key={panelId} 
                 feature={feature}
                 {...params}
                 models={
@@ -220,22 +217,22 @@ export const FeatureList: React.FC<FeatureListProps> = ({
             )
           }
           if (isViabundusPlaceFeature(feature)) {
-            return <ViabundusPlacePanel feature={feature} {...params} />
+            return <ViabundusPlacePanel key={panelId} feature={feature} {...params} />
           }
           if (isViabundusRoadFeature(feature)) {
-            return <ViabundusRoadPanel feature={feature} {...params} />
+            return <ViabundusRoadPanel key={panelId} feature={feature} {...params} />
           }
           if (isViabundusTownOutlineFeature(feature)) {
-            return <ViabundusTownOutlinePanel feature={feature} {...params} />
+            return <ViabundusTownOutlinePanel key={panelId} feature={feature} {...params} />
           }
         }
         if (isAhvenanmaaFeature(feature)) {
           switch (feature.layerName) {
             case AhvenanmaaLayer.Fornminnen:
-              return <AhvenanmaaForminnenPanel feature={feature} {...params} />
+              return <AhvenanmaaForminnenPanel key={panelId} feature={feature} {...params} />
             case AhvenanmaaLayer.MaritimaFornminnen:
               return (
-                <AhvenanmaaMaritimtKulturarvPanel
+                <AhvenanmaaMaritimtKulturarvPanel key={panelId} 
                   feature={feature}
                   {...params}
                 />
