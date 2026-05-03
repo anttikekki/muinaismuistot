@@ -1,8 +1,8 @@
 import React, { Suspense, use, useMemo } from "react"
-import { Trans, useTranslation } from "react-i18next"
-import { Alert, Col, Row, Spinner } from "react-bootstrap"
+import { Trans } from "react-i18next"
+import { Alert, Col, Row } from "react-bootstrap"
 
-type FinnaResult = { resultCount: number }
+interface FinnaResult { resultCount: number }
 
 const fetchFinnaImageCount = async (mjtunnus: number): Promise<FinnaResult> => {
   const response = await fetch(

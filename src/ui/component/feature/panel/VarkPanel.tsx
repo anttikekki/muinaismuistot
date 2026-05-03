@@ -7,7 +7,6 @@ import {
   VarkPisteFeature
 } from "../../../../common/museovirasto.types"
 import {
-  getMuinaisjaannosRegisterUrl,
   getVARKRegisterUrl,
   isMuinaisjaannosTyyppi,
   isVarkAjoitus,
