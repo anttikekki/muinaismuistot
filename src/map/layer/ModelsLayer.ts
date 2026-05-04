@@ -13,7 +13,11 @@ import {
   ModelFeature,
   ModelFeatureProperties
 } from "../../common/3dModels.types"
-import { FeatureLayer, MuseovirastoLayer } from "../../common/layers.types"
+import {
+  AhvenanmaaLayer,
+  FeatureLayer,
+  MuseovirastoLayer
+} from "../../common/layers.types"
 import { MapFeature } from "../../common/mapFeature.types"
 import {
   getFeatureLayer,
@@ -24,46 +28,9 @@ import { Settings } from "../../store/storeTypes"
 export default class ModelsLayer {
   private readonly layer: VectorLayer<VectorSource<Feature<Geometry>>>
   private source?: VectorSource<Feature<Geometry>>
-  private readonly stylePointCircle: Style
-  private readonly stylePointSquare: Style
-  private readonly stylePolygon: Style
   private readonly featuresForRegisterId = new Map<string, ModelFeature[]>()
 
   public constructor(settings: Settings) {
-    this.stylePointCircle = new Style({
-      image: new Circle({
-        stroke: new Stroke({
-          color: "black",
-          width: 2
-        }),
-        radius: 7
-      })
-    })
-    this.stylePointSquare = new Style({
-      image: new RegularShape({
-        stroke: new Stroke({
-          color: "black",
-          width: 2
-        }),
-        points: 4,
-        radius: 7,
-        angle: Math.PI / 4
-      })
-    })
-    this.stylePolygon = new Style({
-      stroke: new Stroke({
-        color: "black",
-        width: 4
-      }),
-      fill: new Fill({
-        /**
-         * Polygon feature transparent fill is required or this layers getFeaturesAtPixel() wont find
-         * polygon features if center of the feature is clicked. Fill fixes this.
-         */
-        color: "rgba(255, 255, 255, 0.01)"
-      })
-    })
-
     this.source = new VectorSource({
       features: []
     })
@@ -87,27 +54,20 @@ export default class ModelsLayer {
   }
 
   private styleForFeature = (feature: FeatureLike) => {
-    switch (feature.getGeometry()?.getType()) {
-      case "Point": {
-        const properties = feature.getProperties() as ModelFeatureProperties
-        if (
-          properties.registryItem.type ===
-          MuseovirastoLayer.Muinaisjaannokset_piste
-        ) {
-          return this.stylePointCircle
-        }
-        if (
-          properties.registryItem.type ===
-          MuseovirastoLayer.Suojellut_rakennukset_piste
-        ) {
-          return this.stylePointSquare
-        }
-        return this.stylePointCircle
-      }
-      case "Polygon":
-        return this.stylePolygon
+    const properties = feature.getProperties() as ModelFeatureProperties
+
+    switch (properties.registryItem.type) {
+      case MuseovirastoLayer.Muinaisjaannokset_piste:
+        return muinaisjaannoksetPisteStyle
+      case MuseovirastoLayer.Suojellut_rakennukset_piste:
+        return suojellutRakennuksetPisteStyle
+      case MuseovirastoLayer.RKY_alue:
+        return rkyAlueStyle
+      case AhvenanmaaLayer.Fornminnen:
+      case AhvenanmaaLayer.MaritimaFornminnen:
+        return ahvenanmaaAlueStyle
       default:
-        return this.stylePointCircle
+        return undefined
     }
   }
 
@@ -159,3 +119,67 @@ export default class ModelsLayer {
   public getLayer = (): VectorLayer<VectorSource<Feature<Geometry>>> =>
     this.layer
 }
+
+const muinaisjaannoksetPisteStyle: Style[] = [
+  new Style({
+    image: new Circle({
+      radius: 11,
+      fill: new Fill({
+        color: "black"
+      })
+    })
+  }),
+  new Style({
+    image: new Circle({
+      radius: 5,
+      fill: new Fill({
+        color: "#FF0000"
+      })
+    })
+  })
+]
+
+const suojellutRakennuksetPisteStyle: Style[] = [
+  new Style({
+    image: new RegularShape({
+      points: 4,
+      radius: 12,
+      angle: Math.PI / 4,
+      fill: new Fill({ color: "black" })
+    })
+  }),
+  new Style({
+    image: new RegularShape({
+      points: 4,
+      radius: 5,
+      angle: Math.PI / 4,
+      fill: new Fill({ color: "#37a800" })
+    })
+  })
+]
+
+const rkyAlueStyle: Style[] = [
+  new Style({
+    stroke: new Stroke({ color: "black", width: 4 }),
+    fill: new Fill({
+      /**
+       * Polygon feature transparent fill is required or this layers getFeaturesAtPixel() wont find
+       * polygon features if center of the feature is clicked. Fill fixes this.
+       */
+      color: "rgba(255, 255, 255, 0.01)"
+    })
+  })
+]
+
+const ahvenanmaaAlueStyle: Style[] = [
+  new Style({
+    stroke: new Stroke({ color: "black", width: 12 }),
+    fill: new Fill({
+      /**
+       * Polygon feature transparent fill is required or this layers getFeaturesAtPixel() wont find
+       * polygon features if center of the feature is clicked. Fill fixes this.
+       */
+      color: "rgba(255, 255, 255, 0.01)"
+    })
+  })
+]

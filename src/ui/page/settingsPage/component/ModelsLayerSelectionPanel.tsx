@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { LayerGroup, ModelLayer } from "../../../../common/layers.types"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { LayerFeatureIcons } from "../../../component/LayerFeatureIcons"
+import { LayerIcon } from "../../../component/feature/component/Icon"
 
 export const ModelsLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
@@ -45,10 +45,10 @@ export const ModelsLayerSelectionPanel: React.FC = () => {
             />
           </h6>
           <Form.Group className="mb-3">
-            <LayerFeatureIcons
-              layer={ModelLayer.ModelLayer}
-              label={t(`common.features.3D-malli`)}
-            />
+            <div className="ms-3">
+              <LayerIcon layer={ModelLayer.ModelLayer} />
+              <span>{t(`common.features.3D-malli`)}</span>
+            </div>
           </Form.Group>
         </Form>
       </Accordion.Body>

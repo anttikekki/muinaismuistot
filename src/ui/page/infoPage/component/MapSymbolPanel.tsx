@@ -1,6 +1,26 @@
 import React from "react"
 import { Accordion } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
+import {
+  LayerIcon,
+  MaalinnoitusFeatureIcon,
+  ViabundusFeatureIcon
+} from "../../../component/feature/component/Icon"
+import {
+  AhvenanmaaLayer,
+  HelsinkiLayer,
+  MaisemanMuistiLayer,
+  MuseovirastoLayer
+} from "../../../../common/layers.types"
+import {
+  MaalinnoitusKohdetyyppi,
+  MaalinnoitusRajaustyyppi
+} from "../../../../common/maalinnoitusHelsinki.types"
+import {
+  ViabundusFeatureType,
+  ViabundusRoadCertainty,
+  ViabundusRoadType
+} from "../../../../common/viabundus.types"
 
 export const MapSymbolPanel: React.FC = () => {
   const { t } = useTranslation()
@@ -17,17 +37,17 @@ export const MapSymbolPanel: React.FC = () => {
 
         <div className="mb-3">
           <div className="ms-3">
-            <img className="feature-icon" src="images/rky_piste.png" />
+            <LayerIcon layer={MuseovirastoLayer.RKY_piste} />
             <span>{t(`common.features.Kohde`)}</span>
           </div>
 
           <div className="ms-3">
-            <img className="feature-icon" src="images/rky_viiva.png" />
+            <LayerIcon layer={MuseovirastoLayer.RKY_viiva} />
             <span>{t(`common.features.Viiva`)}</span>
           </div>
 
           <div className="ms-3">
-            <img className="feature-icon" src="images/rky_alue.png" />
+            <LayerIcon layer={MuseovirastoLayer.RKY_alue} />
             <span>{t(`common.features.Alue`)}</span>
           </div>
         </div>
@@ -41,18 +61,12 @@ export const MapSymbolPanel: React.FC = () => {
 
         <div className="mb-3">
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/maailmanperinto_piste.png"
-            />
+            <LayerIcon layer={MuseovirastoLayer.Maailmanperinto_piste} />
             <span>{t(`common.features.Kohde`)}</span>
           </div>
 
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/maailmanperinto_alue.png"
-            />
+            <LayerIcon layer={MuseovirastoLayer.Maailmanperinto_alue} />
             <span>{t(`common.features.Alue`)}</span>
           </div>
         </div>
@@ -66,18 +80,12 @@ export const MapSymbolPanel: React.FC = () => {
 
         <div className="mb-3">
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/rakennusperintorekisteri_rakennus.png"
-            />
+            <LayerIcon layer={MuseovirastoLayer.Suojellut_rakennukset_piste} />
             <span>{t(`common.features.Rakennus`)}</span>
           </div>
 
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/rakennusperintorekisteri_alue.png"
-            />
+            <LayerIcon layer={MuseovirastoLayer.Suojellut_rakennukset_alue} />
             <span>{t(`common.features.Alue`)}</span>
           </div>
         </div>
@@ -91,33 +99,25 @@ export const MapSymbolPanel: React.FC = () => {
 
         <div className="mb-3">
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/muinaisjaannos_kohde.png"
-            />
+            <LayerIcon layer={MuseovirastoLayer.Muinaisjaannokset_piste} />
             <span>{t(`data.featureType.Kiinteä muinaisjäännös`)}</span>
           </div>
 
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/muinaisjaannos_alue.png"
-            />
+            <LayerIcon layer={MuseovirastoLayer.Muinaisjaannokset_alue} />
             <span>{t(`data.featureType.Kiinteä muinaisjäännös (alue)`)}</span>
           </div>
 
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/muu_kulttuuriperintokohde_kohde.png"
+            <LayerIcon
+              layer={MuseovirastoLayer.Muu_kulttuuriperintokohde_piste}
             />
             <span>{t(`data.featureType.Muu kulttuuriperintökohde`)}</span>
           </div>
 
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/muu-kulttuuriperintokohde-alue.png"
+            <LayerIcon
+              layer={MuseovirastoLayer.Muu_kulttuuriperintokohde_alue}
             />
             <span>
               {t(`data.featureType.Muu kulttuuriperintökohde (alue)`)}
@@ -125,74 +125,62 @@ export const MapSymbolPanel: React.FC = () => {
           </div>
 
           <div className="ms-3">
-            <img className="feature-icon" src="images/loytopaikka_piste.png" />
+            <LayerIcon layer={MuseovirastoLayer.Löytöpaikka_piste} />
             <span>{t(`data.featureType.löytöpaikkaPiste`)}</span>
           </div>
 
           <div className="ms-3">
-            <img className="feature-icon" src="images/loytopaikka_alue.png" />
+            <LayerIcon layer={MuseovirastoLayer.Löytöpaikka_alue} />
             <span>{t(`data.featureType.löytöpaikkaAlue`)}</span>
           </div>
 
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/havaintokohde_piste.png"
-            />
+            <LayerIcon layer={MuseovirastoLayer.Havaintokohde_piste} />
             <span>{t(`data.featureType.havaintokohdePiste`)}</span>
           </div>
 
           <div className="ms-3">
-            <img className="feature-icon" src="images/havaintokohde_alue.png" />
+            <LayerIcon layer={MuseovirastoLayer.Havaintokohde_alue} />
             <span>{t(`data.featureType.havaintokohdeAlue`)}</span>
           </div>
 
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/luonnonmuodostuma_piste.png"
-            />
+            <LayerIcon layer={MuseovirastoLayer.Luonnonmuodostuma_piste} />
             <span>{t(`data.featureType.luonnonmuodostumaPiste`)}</span>
           </div>
 
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/luonnonmuodostuma_alue.png"
-            />
+            <LayerIcon layer={MuseovirastoLayer.Luonnonmuodostuma_alue} />
             <span>{t(`data.featureType.luonnonmuodostumaAlue`)}</span>
           </div>
 
           <div className="ms-3">
-            <img className="feature-icon" src="images/muu_kohde_piste.png" />
+            <LayerIcon layer={MuseovirastoLayer.Muu_kohde_piste} />
             <span>{t(`data.featureType.muuKohdePiste`)}</span>
           </div>
 
           <div className="ms-3">
-            <img className="feature-icon" src="images/muu_kohde_alue.png" />
+            <LayerIcon layer={MuseovirastoLayer.Muu_kohde_alue} />
             <span>{t(`data.featureType.muuKohdeAlue`)}</span>
           </div>
 
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/mahdollinen_muinaisjaannos_piste.png"
+            <LayerIcon
+              layer={MuseovirastoLayer.Mahdollinen_muinaisjäännös_piste}
             />
             <span>{t(`data.featureType.mahdollinenMuinaisjäännösPiste`)}</span>
           </div>
 
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/mahdollinen_muinaisjaannos_alue.png"
+            <LayerIcon
+              layer={MuseovirastoLayer.Mahdollinen_muinaisjäännös_alue}
             />
             <span>{t(`data.featureType.mahdollinenMuinaisjäännösAlue`)}</span>
           </div>
 
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/poistettu_kiintea_muinaisjaannos_piste.png"
+            <LayerIcon
+              layer={MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösPiste}
             />
             <span>
               {t(`data.featureType.poistettuKiinteäMuijaisjäännösPiste`)}
@@ -200,9 +188,8 @@ export const MapSymbolPanel: React.FC = () => {
           </div>
 
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/poistettu_kiintea_muinaisjaannos_alue.png"
+            <LayerIcon
+              layer={MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösAlue}
             />
             <span>
               {t(`data.featureType.poistettuKiinteäMuijaisjäännösAlue`)}
@@ -210,7 +197,7 @@ export const MapSymbolPanel: React.FC = () => {
           </div>
 
           <div className="ms-3">
-            <img className="feature-icon" src="images/alakohde_piste.png" />
+            <LayerIcon layer={MuseovirastoLayer.Alakohde_piste} />
             <span>{t(`data.featureType.alakohdePiste`)}</span>
           </div>
         </div>
@@ -224,12 +211,12 @@ export const MapSymbolPanel: React.FC = () => {
 
         <div className="mb-3">
           <div className="ms-3">
-            <img className="feature-icon" src="images/vark_piste.png" />
+            <LayerIcon layer={MuseovirastoLayer.VARK_pisteet} />
             <span>{t(`common.features.keskipisteet`)}</span>
           </div>
 
           <div className="ms-3">
-            <img className="feature-icon" src="images/vark_alue.png" />
+            <LayerIcon layer={MuseovirastoLayer.VARK_alueet} />
             <span>{t(`common.features.aluerajaukset`)}</span>
           </div>
         </div>
@@ -242,10 +229,7 @@ export const MapSymbolPanel: React.FC = () => {
         </h6>
         <div className="mb-3">
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/ahvenanmaa_muinaisjaannos.png"
-            />
+            <LayerIcon layer={AhvenanmaaLayer.Fornminnen} />
             <span>{t(`common.features.Kohde`)}</span>
           </div>
         </div>
@@ -258,7 +242,7 @@ export const MapSymbolPanel: React.FC = () => {
         </h6>
         <div className="mb-3">
           <div className="ms-3">
-            <img className="feature-icon" src="images/ahvenanmaa_hylky.png" />
+            <LayerIcon layer={AhvenanmaaLayer.MaritimaFornminnen} />
             <span>{t(`common.features.Kohde`)}</span>
           </div>
         </div>
@@ -271,38 +255,44 @@ export const MapSymbolPanel: React.FC = () => {
         </h6>
         <div className="mb-3">
           <div className="ms-3">
-            <img className="feature-icon" src="images/maalinnoitus-asema.png" />
+            <MaalinnoitusFeatureIcon
+              layer={HelsinkiLayer.Maalinnoitus_kohteet}
+              type={MaalinnoitusKohdetyyppi.Asema}
+            />
             <span>{t(`data.helsinki.feature.asema`)}</span>
           </div>
           <div className="ms-3">
-            <img className="feature-icon" src="images/maalinnoitus-luola.png" />
+            <MaalinnoitusFeatureIcon
+              layer={HelsinkiLayer.Maalinnoitus_kohteet}
+              type={MaalinnoitusKohdetyyppi.Luola}
+            />
             <span>{t(`data.helsinki.feature.luola`)}</span>
           </div>
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/maalinnoitus-tykkitie.png"
+            <MaalinnoitusFeatureIcon
+              layer={HelsinkiLayer.Maalinnoitus_kohteet}
+              type={MaalinnoitusKohdetyyppi.Tykkitie}
             />
             <span>{t(`data.helsinki.feature.tykkitie`)}</span>
           </div>
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/maalinnoitus-tykkipatteri.png"
+            <MaalinnoitusFeatureIcon
+              layer={HelsinkiLayer.Maalinnoitus_kohteet}
+              type={MaalinnoitusKohdetyyppi.Tykkipatteri}
             />
             <span>{t(`data.helsinki.feature.tykkipatteri`)}</span>
           </div>
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/maalinnoitus-puolustusaseman-raja.png"
+            <MaalinnoitusFeatureIcon
+              layer={HelsinkiLayer.Maalinnoitus_rajaukset}
+              type={MaalinnoitusRajaustyyppi.Tukikohta}
             />
             <span>{t(`data.helsinki.feature.puolustusasemanRaja`)}</span>
           </div>
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/maalinnoitus-tukikohdan-raja.png"
+            <MaalinnoitusFeatureIcon
+              layer={HelsinkiLayer.Maalinnoitus_rajaukset}
+              type={MaalinnoitusRajaustyyppi.Puolustusasema}
             />
             <span>{t(`data.helsinki.feature.tukikohdanRaja`)}</span>
           </div>
@@ -316,66 +306,86 @@ export const MapSymbolPanel: React.FC = () => {
         </h6>
         <div className="mb-3">
           <div className="ms-3">
-            <img className="feature-icon" src="images/viabundus-kaupunki.png" />
+            <ViabundusFeatureIcon
+              type={ViabundusFeatureType.place}
+              Is_Town={true}
+            />
             <span>{t(`data.viabundus.place.town`)}</span>
           </div>
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/viabundus-asuttu-paikka.png"
+            <ViabundusFeatureIcon
+              type={ViabundusFeatureType.place}
+              Is_Settlement={true}
             />
             <span>{t(`data.viabundus.place.settlement`)}</span>
           </div>
           <div className="ms-3">
-            <img className="feature-icon" src="images/viabundus-silta.png" />
+            <ViabundusFeatureIcon
+              type={ViabundusFeatureType.place}
+              Is_Bridge={true}
+            />
             <span>{t(`data.viabundus.place.bridge`)}</span>
           </div>
           <div className="ms-3">
-            <img className="feature-icon" src="images/viabundus-satama.png" />
+            <ViabundusFeatureIcon
+              type={ViabundusFeatureType.place}
+              Is_Harbour={true}
+            />
             <span>{t(`data.viabundus.place.harbour`)}</span>
           </div>
           <div className="ms-3">
-            <img className="feature-icon" src="images/viabundus-lossi.png" />
+            <ViabundusFeatureIcon
+              type={ViabundusFeatureType.place}
+              Is_Ferry={true}
+            />
             <span>{t(`data.viabundus.place.ferry`)}</span>
           </div>
           <div className="ms-3">
-            <img className="feature-icon" src="images/viabundus-tulli.png" />
+            <ViabundusFeatureIcon
+              type={ViabundusFeatureType.place}
+              Is_Toll={true}
+            />
             <span>{t(`data.viabundus.place.toll`)}</span>
           </div>
           <div className="ms-3">
-            <img className="feature-icon" src="images/viabundus-maantie.png" />
+            <ViabundusFeatureIcon
+              type={ViabundusFeatureType.road}
+              roadType={ViabundusRoadType.land}
+            />
             <span>{t(`data.viabundus.road.land`)}</span>
           </div>
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/viabundus-maantie-epavarma.png"
+            <ViabundusFeatureIcon
+              type={ViabundusFeatureType.road}
+              roadType={ViabundusRoadType.land}
+              certainty={ViabundusRoadCertainty.Uncertain}
             />
             <span>{t(`data.viabundus.road.landUncertain`)}</span>
           </div>
           <div className="ms-3">
-            <img className="feature-icon" src="images/viabundus-talvitie.png" />
+            <ViabundusFeatureIcon
+              type={ViabundusFeatureType.road}
+              roadType={ViabundusRoadType.winter}
+            />
             <span>{t(`data.viabundus.road.winter`)}</span>
           </div>
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/viabundus-vesivayla.png"
+            <ViabundusFeatureIcon
+              type={ViabundusFeatureType.road}
+              roadType={ViabundusRoadType.coast}
             />
             <span>{t(`data.viabundus.road.coast`)}</span>
           </div>
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/viabundus-vesivayla-epavarma.png"
+            <ViabundusFeatureIcon
+              type={ViabundusFeatureType.road}
+              roadType={ViabundusRoadType.coast}
+              certainty={ViabundusRoadCertainty.Uncertain}
             />
             <span>{t(`data.viabundus.road.coastUncertain`)}</span>
           </div>
           <div className="ms-3">
-            <img
-              className="feature-icon"
-              src="images/viabundus-kaupungin-rajat.png"
-            />
+            <ViabundusFeatureIcon type={ViabundusFeatureType.townOutline} />
             <span>{t(`data.viabundus.townOutline`)}</span>
           </div>
         </div>
@@ -388,7 +398,6 @@ export const MapSymbolPanel: React.FC = () => {
         </h6>
         <div className="mb-3">
           <div className="ms-3">
-            <img className="feature-icon" src="images/3d_malli_circle.png" />
             <img className="feature-icon" src="images/3d_malli_square.png" />
             <span>{t(`common.features.3D-malli`)}</span>
           </div>
@@ -402,7 +411,7 @@ export const MapSymbolPanel: React.FC = () => {
         </h6>
         <div className="mb-3">
           <div className="ms-3">
-            <img className="feature-icon" src="images/maiseman-muisti.png" />
+            <LayerIcon layer={MaisemanMuistiLayer.MaisemanMuisti} />
             <span>
               {t(
                 `common.features.Valtakunnallisesti merkittävä muinaisjäännös`

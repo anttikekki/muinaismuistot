@@ -2,12 +2,10 @@ import React, { useState } from "react"
 import { Button, OverlayTrigger, Popover, Stack } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import {
-  getLayerIconURLs,
-  getLayerRegisterName
-} from "../../../common/util/featureParser"
+import { getLayerRegisterName } from "../../../common/util/featureParser"
 import { ActionTypeEnum } from "../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../store/storeTypes"
+import { LayerIcon } from "../feature/component/Icon"
 
 export const LinkedFeatureButton: React.FunctionComponent = () => {
   const { t } = useTranslation()
@@ -30,7 +28,7 @@ export const LinkedFeatureButton: React.FunctionComponent = () => {
           <Stack gap={1} className="mb-2">
             <div>{name}</div>
             <div>
-              <img className="feature-icon" src={getLayerIconURLs(layer)[0]} />
+              <LayerIcon layer={layer} />
               <span>{getLayerRegisterName(t, layer)}</span>
             </div>
           </Stack>

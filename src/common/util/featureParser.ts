@@ -14,8 +14,6 @@ import {
   ViabundusLayer
 } from "../layers.types"
 import {
-  MaalinnoitusKohdetyyppi,
-  MaalinnoitusRajaustyyppi,
   isMaalinnoitusKarttatekstiFeature,
   isMaalinnoitusKohdeFeature,
   isMaalinnoitusRajausFeature,
@@ -64,8 +62,6 @@ import {
   isVarkPisteFeature
 } from "../museovirasto.types"
 import {
-  ViabundusRoadCertainty,
-  ViabundusRoadType,
   isViabundusFeature,
   isViabundusPlaceFeature,
   isViabundusRoadFeature,
@@ -240,6 +236,12 @@ export const getFeatureTypeName = (
     if (isMahdollinenMuinaisjäännösAlueFeature(feature)) {
       return t(`data.featureType.mahdollinenMuinaisjäännösAlue`)
     }
+    if (isPoistettuKiinteäMuijaisjäännösPisteFeature(feature)) {
+      return t(`data.featureType.poistettuKiinteäMuijaisjäännösPiste`)
+    }
+    if (isPoistettuKiinteäMuijaisjäännösAlueFeature(feature)) {
+      return t(`data.featureType.poistettuKiinteäMuijaisjäännösAlue`)
+    }
     if (isAlakohdePisteFeature(feature)) {
       return t(`data.featureType.alakohdePiste`)
     }
@@ -311,284 +313,6 @@ export const getFeatureTypeName = (
     }
   }
   return ""
-}
-
-export const getTypeIconURL = (
-  imageName: string,
-  has3dModels = false
-): string => `images/${imageName}${has3dModels ? "_3d" : ""}.png`
-
-/**
- * Kuvien lähteet:
- *
- * Museovirasto: https://geoserver.museovirasto.fi
- * - Pisteet: request=GetLegendGraphic&LEGEND_OPTIONS=dpi:150
- * - Alueet: request=GetLegendGraphic&LEGEND_OPTIONS=dpi:70
- */
-export const getFeatureTypeIconURL = (feature: MapFeature): string => {
-  const has3dModels = "models" in feature ? feature.models.length > 0 : false
-  if (isGeoJSONFeature(feature)) {
-    if (isMuinaisjaannosPisteFeature(feature)) {
-      if (feature.maisemanMuisti.length > 0) {
-        return getTypeIconURL("maiseman-muisti", has3dModels)
-      }
-      return getTypeIconURL("muinaisjaannos_kohde", has3dModels)
-    }
-    if (isMuinaisjaannosAlueFeature(feature)) {
-      return getTypeIconURL("muinaisjaannos_alue", has3dModels)
-    }
-    if (isMuuKulttuuriperintokohdePisteFeature(feature)) {
-      return getTypeIconURL("muu_kulttuuriperintokohde_kohde", has3dModels)
-    }
-    if (isMuuKulttuuriperintokohdeAlueFeature(feature)) {
-      return getTypeIconURL("muu-kulttuuriperintokohde-alue", has3dModels)
-    }
-    if (isMuuKulttuuriperintokohdePisteFeature(feature)) {
-      return getTypeIconURL("muu_kulttuuriperintokohde_kohde", has3dModels)
-    }
-    if (isMuuKulttuuriperintokohdeAlueFeature(feature)) {
-      return getTypeIconURL("muu-kulttuuriperintokohde-alue", has3dModels)
-    }
-    if (isRKYAlueFeature(feature)) {
-      return getTypeIconURL("rky_alue", has3dModels)
-    }
-    if (isRKYPisteFeature(feature)) {
-      return getTypeIconURL("rky_piste", has3dModels)
-    }
-    if (isRKYViivaFeature(feature)) {
-      return getTypeIconURL("rky_viiva", has3dModels)
-    }
-    if (isMaailmanperintoAlueFeature(feature)) {
-      return getTypeIconURL("maailmanperinto_alue", has3dModels)
-    }
-    if (isMaailmanperintoPisteFeature(feature)) {
-      return getTypeIconURL("maailmanperinto_piste", has3dModels)
-    }
-    if (isSuojellutRakennuksetAlueFeature(feature)) {
-      return getTypeIconURL("rakennusperintorekisteri_alue", has3dModels)
-    }
-    if (isSuojellutRakennuksetPisteFeature(feature)) {
-      return getTypeIconURL("rakennusperintorekisteri_rakennus", has3dModels)
-    }
-    if (isVarkPisteFeature(feature)) {
-      return getTypeIconURL("vark_piste", has3dModels)
-    }
-    if (isVarkAlueFeature(feature)) {
-      return getTypeIconURL("vark_alue", has3dModels)
-    }
-    if (isLöytöpaikkaPisteFeature(feature)) {
-      return getTypeIconURL("loytopaikka_piste", has3dModels)
-    }
-    if (isLöytöpaikkaAlueFeature(feature)) {
-      return getTypeIconURL("loytopaikka_alue", has3dModels)
-    }
-    if (isMuuKohdePisteFeature(feature)) {
-      return getTypeIconURL("muu_kohde_piste", has3dModels)
-    }
-    if (isMuuKohdeAlueFeature(feature)) {
-      return getTypeIconURL("muu_kohde_alue", has3dModels)
-    }
-    if (isLuonnonmuodostumaPisteFeature(feature)) {
-      return getTypeIconURL("luonnonmuodostuma_piste", has3dModels)
-    }
-    if (isLuonnonmuodostumaAlueFeature(feature)) {
-      return getTypeIconURL("luonnonmuodostuma_alue", has3dModels)
-    }
-    if (isHavaintokohdePisteFeature(feature)) {
-      return getTypeIconURL("havaintokohde_piste", has3dModels)
-    }
-    if (isHavaintokohdeAlueFeature(feature)) {
-      return getTypeIconURL("havaintokohde_alue", has3dModels)
-    }
-    if (isMahdollinenMuinaisjäännösPisteFeature(feature)) {
-      return getTypeIconURL("mahdollinen_muinaisjaannos_piste", has3dModels)
-    }
-    if (isMahdollinenMuinaisjäännösAlueFeature(feature)) {
-      return getTypeIconURL("mahdollinen_muinaisjaannos_alue", has3dModels)
-    }
-    if (isPoistettuKiinteäMuijaisjäännösPisteFeature(feature)) {
-      return getTypeIconURL(
-        "poistettu_kiintea_muinaisjaannos_piste",
-        has3dModels
-      )
-    }
-    if (isPoistettuKiinteäMuijaisjäännösAlueFeature(feature)) {
-      return getTypeIconURL(
-        "poistettu_kiintea_muinaisjaannos_alue",
-        has3dModels
-      )
-    }
-    if (isAlakohdePisteFeature(feature)) {
-      return getTypeIconURL("alakohde_piste", has3dModels)
-    }
-    if (isMaalinnoitusYksikkoFeature(feature)) {
-      return getTypeIconURL("maalinnoitus-yksikko", false)
-    }
-    if (isMaalinnoitusKohdeFeature(feature)) {
-      switch (feature.properties.kohdetyyppi) {
-        case MaalinnoitusKohdetyyppi.Asema:
-          return getTypeIconURL("maalinnoitus-asema", false)
-        case MaalinnoitusKohdetyyppi.Luola:
-          return getTypeIconURL("maalinnoitus-luola", false)
-        case MaalinnoitusKohdetyyppi.Tykkipatteri:
-          return getTypeIconURL("maalinnoitus-tykkipatteri", false)
-        case MaalinnoitusKohdetyyppi.Tykkitie:
-          return getTypeIconURL("maalinnoitus-tykkitie", false)
-      }
-    }
-    if (isMaalinnoitusRajausFeature(feature)) {
-      switch (feature.properties.rajaustyyppi) {
-        case MaalinnoitusRajaustyyppi.Tukikohta:
-          return getTypeIconURL("maalinnoitus-tukikohdan-raja", false)
-        case MaalinnoitusRajaustyyppi.Puolustusasema:
-          return getTypeIconURL("maalinnoitus-puolustusaseman-raja", false)
-      }
-    }
-    if (isMaisemanMuistiFeature(feature)) {
-      return getTypeIconURL("maiseman-muisti", has3dModels)
-    }
-    if (isViabundusPlaceFeature(feature)) {
-      const {
-        Is_Town,
-        Is_Settlement,
-        Is_Bridge,
-        Is_Ferry,
-        Is_Fair,
-        Is_Toll,
-        Is_Harbour
-      } = feature.properties
-      if (Is_Town) {
-        return getTypeIconURL("viabundus-kaupunki")
-      } else if (Is_Settlement) {
-        return getTypeIconURL("viabundus-asuttu-paikka")
-      } else if (Is_Bridge) {
-        return getTypeIconURL("viabundus-silta")
-      } else if (Is_Ferry) {
-        return getTypeIconURL("viabundus-lossi")
-      } else if (Is_Fair) {
-        return getTypeIconURL("viabundus-markkinat")
-      } else if (Is_Toll) {
-        return getTypeIconURL("viabundus-tulli")
-      } else if (Is_Harbour) {
-        return getTypeIconURL("viabundus-satama")
-      }
-      return getTypeIconURL("viabundus-maantie")
-    }
-    if (isViabundusRoadFeature(feature)) {
-      const { roadType, certainty } = feature.properties
-      switch (roadType) {
-        case ViabundusRoadType.winter:
-          return getTypeIconURL("viabundus-talvitie")
-        case ViabundusRoadType.coast: {
-          if (certainty === ViabundusRoadCertainty.Uncertain) {
-            return getTypeIconURL("viabundus-vesivayla-epavarma")
-          }
-          return getTypeIconURL("viabundus-vesivayla")
-        }
-        case ViabundusRoadType.land:
-        default: {
-          if (certainty === ViabundusRoadCertainty.Uncertain) {
-            return getTypeIconURL("viabundus-maantie-epavarma")
-          }
-          return getTypeIconURL("viabundus-maantie")
-        }
-      }
-    }
-    if (isViabundusTownOutlineFeature(feature)) {
-      return getTypeIconURL("viabundus-kaupungin-rajat")
-    }
-  } else if (isAhvenanmaaFeature(feature)) {
-    switch (feature.layerName) {
-      case AhvenanmaaLayer.Fornminnen:
-        return getTypeIconURL("ahvenanmaa_muinaisjaannos", has3dModels)
-      case AhvenanmaaLayer.MaritimaFornminnen:
-        return getTypeIconURL("ahvenanmaa_hylky", has3dModels)
-    }
-  }
-  throw new Error(`Tuntematon feature: ${JSON.stringify(feature)}`)
-}
-
-export const getLayerIconURLs = (layer: FeatureLayer): string[] => {
-  switch (layer) {
-    case MuseovirastoLayer.Muinaisjaannokset_piste:
-      return ["images/muinaisjaannos_kohde.png"]
-    case MuseovirastoLayer.Muinaisjaannokset_alue:
-      return ["images/muinaisjaannos_alue.png"]
-    case MuseovirastoLayer.Muu_kulttuuriperintokohde_piste:
-      return ["images/muu_kulttuuriperintokohde_kohde.png"]
-    case MuseovirastoLayer.Muu_kulttuuriperintokohde_alue:
-      return ["images/muu-kulttuuriperintokohde-alue.png"]
-    case MuseovirastoLayer.RKY_alue:
-      return ["images/rky_alue.png"]
-    case MuseovirastoLayer.RKY_viiva:
-      return ["images/rky_viiva.png"]
-    case MuseovirastoLayer.RKY_piste:
-      return ["images/rky_piste.png"]
-    case MuseovirastoLayer.Maailmanperinto_alue:
-      return ["images/maailmanperinto_alue.png"]
-    case MuseovirastoLayer.Maailmanperinto_piste:
-      return ["images/maailmanperinto_piste.png"]
-    case MuseovirastoLayer.Suojellut_rakennukset_alue:
-      return ["images/rakennusperintorekisteri_alue.png"]
-    case MuseovirastoLayer.Suojellut_rakennukset_piste:
-      return ["images/rakennusperintorekisteri_rakennus.png"]
-    case MuseovirastoLayer.VARK_pisteet:
-      return ["images/vark_piste.png"]
-    case MuseovirastoLayer.VARK_alueet:
-      return ["images/vark_alue.png"]
-    case MuseovirastoLayer.Löytöpaikka_piste:
-      return ["images/loytopaikka_piste.png"]
-    case MuseovirastoLayer.Löytöpaikka_alue:
-      return ["images/loytopaikka_alue.png"]
-    case MuseovirastoLayer.Havaintokohde_piste:
-      return [getTypeIconURL("havaintokohde_piste")]
-    case MuseovirastoLayer.Havaintokohde_alue:
-      return [getTypeIconURL("havaintokohde_alue")]
-    case MuseovirastoLayer.Luonnonmuodostuma_piste:
-      return [getTypeIconURL("luonnonmuodostuma_piste")]
-    case MuseovirastoLayer.Luonnonmuodostuma_alue:
-      return [getTypeIconURL("luonnonmuodostuma_alue")]
-    case MuseovirastoLayer.Mahdollinen_muinaisjäännös_piste:
-      return [getTypeIconURL("mahdollinen_muinaisjaannos_piste")]
-    case MuseovirastoLayer.Mahdollinen_muinaisjäännös_alue:
-      return [getTypeIconURL("mahdollinen_muinaisjaannos_alue")]
-    case MuseovirastoLayer.Muu_kohde_piste:
-      return [getTypeIconURL("muu_kohde_piste")]
-    case MuseovirastoLayer.Muu_kohde_alue:
-      return [getTypeIconURL("muu_kohde_alue")]
-    case MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösPiste:
-      return [getTypeIconURL("poistettu_kiintea_muinaisjaannos_piste")]
-    case MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösAlue:
-      return [getTypeIconURL("poistettu_kiintea_muinaisjaannos_alue")]
-    case MuseovirastoLayer.Alakohde_piste:
-      return [getTypeIconURL("alakohde_piste")]
-    case AhvenanmaaLayer.Fornminnen:
-      return ["images/ahvenanmaa_muinaisjaannos.png"]
-    case AhvenanmaaLayer.MaritimaFornminnen:
-      return ["images/ahvenanmaa_hylky.png"]
-    case ModelLayer.ModelLayer:
-      return ["images/3d_malli_circle.png", "images/3d_malli_square.png"]
-    case MaisemanMuistiLayer.MaisemanMuisti:
-      return ["images/maiseman-muisti.png"]
-    case HelsinkiLayer.Maalinnoitus_kohteet:
-      return [
-        "images/maalinnoitus-asema.png",
-        "images/maalinnoitus-luola.png",
-        "images/maalinnoitus-tykkitie.png",
-        "images/maalinnoitus-tykkipatteri.png"
-      ]
-    case HelsinkiLayer.Maalinnoitus_rajaukset:
-      return [
-        "images/maalinnoitus-tukikohdan-raja.png",
-        "images/maalinnoitus-puolustusaseman-raja.png"
-      ]
-    case HelsinkiLayer.Maalinnoitus_karttatekstit:
-      return ["images/maalinnoitus-teksti-viite.png"]
-    case HelsinkiLayer.Maalinnoitus_yksikot:
-      return ["images/maalinnoitus-yksikko.png"]
-    case ViabundusLayer.Viabundus:
-      return ["images/viabundus-kaupunki.png"]
-  }
 }
 
 /**

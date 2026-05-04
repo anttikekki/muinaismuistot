@@ -8,12 +8,12 @@ import {
   getFeatureLocation,
   getFeatureMunicipality,
   getFeatureName,
-  getFeatureTypeIconURL,
   getFeatureTypeName
 } from "../../../../common/util/featureParser"
 import { createLinkedFeatureUrl } from "../../../../common/util/URLHashHelper"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch } from "../../../../store/storeTypes"
+import { FeatureIcon } from "./Icon"
 
 export enum FeatureTitleClickAction {
   OpenDetails = "openDetails",
@@ -32,8 +32,7 @@ export interface FeatureCollapsePanelCommonExternalProps {
   isLinkedFeature: boolean
 }
 
-interface MapFeatureCollapsePanelProps
-  extends FeatureCollapsePanelCommonExternalProps {
+interface MapFeatureCollapsePanelProps extends FeatureCollapsePanelCommonExternalProps {
   feature: MapFeature
   children: ReactNode
 }
@@ -56,10 +55,6 @@ export const MapFeatureCollapsePanel: React.FC<
   const featureName = useMemo(
     () => getFeatureName(t, feature),
     [i18n.language, feature]
-  )
-  const featureTypeIconURL = useMemo(
-    () => getFeatureTypeIconURL(feature),
-    [feature]
   )
   const featureTypeName = useMemo(() => {
     const municipality = getFeatureMunicipality(feature)
@@ -118,7 +113,7 @@ export const MapFeatureCollapsePanel: React.FC<
             <Col xs={10}>
               <h6 className="mb-0">{featureName}</h6>
               <div>
-                <img className="feature-icon" src={featureTypeIconURL} />
+                <FeatureIcon feature={feature} uniqueFeatureId={panelId} />
                 <span>{featureTypeName}</span>
               </div>
             </Col>

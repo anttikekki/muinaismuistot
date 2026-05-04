@@ -7,9 +7,13 @@ import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
 import { ToggleAllCheckbox } from "../../../component/ToggleAllCheckbox"
 import { toggleSelection } from "../../../util"
-import { FeatureImageAndLabel } from "./FeatureImageAndLabel"
 import { LayerCheckbox } from "./LayerCheckbox"
 import { LayerTransparencyInput } from "./LayerTransparencyInput"
+import { MaalinnoitusFeatureIcon } from "../../../component/feature/component/Icon"
+import {
+  MaalinnoitusKohdetyyppi,
+  MaalinnoitusRajaustyyppi
+} from "../../../../common/maalinnoitusHelsinki.types"
 
 const FeatureLabelsForLayer: React.FC<{ layer: HelsinkiLayer }> = ({
   layer
@@ -19,35 +23,53 @@ const FeatureLabelsForLayer: React.FC<{ layer: HelsinkiLayer }> = ({
     case HelsinkiLayer.Maalinnoitus_kohteet:
       return (
         <>
-          <FeatureImageAndLabel
-            iconPath="images/maalinnoitus-asema.png"
-            label={t(`data.helsinki.feature.asema`)}
-          />
-          <FeatureImageAndLabel
-            iconPath="images/maalinnoitus-luola.png"
-            label={t(`data.helsinki.feature.luola`)}
-          />
-          <FeatureImageAndLabel
-            iconPath="images/maalinnoitus-tykkitie.png"
-            label={t(`data.helsinki.feature.tykkitie`)}
-          />
-          <FeatureImageAndLabel
-            iconPath="images/maalinnoitus-tykkipatteri.png"
-            label={t(`data.helsinki.feature.tykkipatteri`)}
-          />
+          <div className="ms-3">
+            <MaalinnoitusFeatureIcon
+              layer={HelsinkiLayer.Maalinnoitus_kohteet}
+              type={MaalinnoitusKohdetyyppi.Asema}
+            />
+            <span>{t(`data.helsinki.feature.asema`)}</span>
+          </div>
+          <div className="ms-3">
+            <MaalinnoitusFeatureIcon
+              layer={HelsinkiLayer.Maalinnoitus_kohteet}
+              type={MaalinnoitusKohdetyyppi.Luola}
+            />
+            <span>{t(`data.helsinki.feature.luola`)}</span>
+          </div>
+          <div className="ms-3">
+            <MaalinnoitusFeatureIcon
+              layer={HelsinkiLayer.Maalinnoitus_kohteet}
+              type={MaalinnoitusKohdetyyppi.Tykkitie}
+            />
+            <span>{t(`data.helsinki.feature.tykkitie`)}</span>
+          </div>
+          <div className="ms-3">
+            <MaalinnoitusFeatureIcon
+              layer={HelsinkiLayer.Maalinnoitus_kohteet}
+              type={MaalinnoitusKohdetyyppi.Tykkipatteri}
+            />
+            <span>{t(`data.helsinki.feature.tykkipatteri`)}</span>
+          </div>
         </>
       )
     case HelsinkiLayer.Maalinnoitus_rajaukset:
       return (
         <>
-          <FeatureImageAndLabel
-            iconPath="images/maalinnoitus-puolustusaseman-raja.png"
-            label={t(`data.helsinki.feature.puolustusasemanRaja`)}
-          />
-          <FeatureImageAndLabel
-            iconPath="images/maalinnoitus-tukikohdan-raja.png"
-            label={t(`data.helsinki.feature.tukikohdanRaja`)}
-          />
+          <div className="ms-3">
+            <MaalinnoitusFeatureIcon
+              layer={HelsinkiLayer.Maalinnoitus_rajaukset}
+              type={MaalinnoitusRajaustyyppi.Tukikohta}
+            />
+            <span>{t(`data.helsinki.feature.puolustusasemanRaja`)}</span>
+          </div>
+          <div className="ms-3">
+            <MaalinnoitusFeatureIcon
+              layer={HelsinkiLayer.Maalinnoitus_rajaukset}
+              type={MaalinnoitusRajaustyyppi.Puolustusasema}
+            />
+            <span>{t(`data.helsinki.feature.tukikohdanRaja`)}</span>
+          </div>
         </>
       )
     default:

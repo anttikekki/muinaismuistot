@@ -8,7 +8,7 @@ import {
 } from "../../../../common/layers.types"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { LayerFeatureIcons } from "../../../component/LayerFeatureIcons"
+import { LayerIcon } from "../../../component/feature/component/Icon"
 
 export const MaisemanMuistiLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
@@ -51,12 +51,14 @@ export const MaisemanMuistiLayerSelectionPanel: React.FC = () => {
             />
           </h6>
           <Form.Group className="mb-3">
-            <LayerFeatureIcons
-              layer={MaisemanMuistiLayer.MaisemanMuisti}
-              label={t(
-                `common.features.Valtakunnallisesti merkittävä muinaisjäännös`
-              )}
-            />
+            <div className="ms-3">
+              <LayerIcon layer={MaisemanMuistiLayer.MaisemanMuisti} />
+              <span>
+                {t(
+                  `common.features.Valtakunnallisesti merkittävä muinaisjäännös`
+                )}
+              </span>
+            </div>
           </Form.Group>
         </Form>
       </Accordion.Body>

@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react"
 import { Form } from "react-bootstrap"
 import { FeatureLayer } from "../../../../common/layers.types"
-import { getLayerIconURLs } from "../../../../common/util/featureParser"
+import { LayerIcon } from "../../../component/feature/component/Icon"
 
 interface LayerCheckboxProps<T extends FeatureLayer> {
   label: string
@@ -37,11 +37,7 @@ export const LayerCheckbox = <T extends FeatureLayer>(
       disabled={disabled}
       label={
         <>
-          {showIcon
-            ? getLayerIconURLs(layer).map((url, index) => (
-                <img className="feature-icon" key={index} src={url} />
-              ))
-            : null}
+          {showIcon ? <LayerIcon layer={layer} /> : null}
 
           <span>{label}</span>
           {children}

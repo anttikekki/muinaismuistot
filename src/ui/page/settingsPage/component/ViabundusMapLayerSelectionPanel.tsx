@@ -5,8 +5,13 @@ import { useDispatch, useSelector } from "react-redux"
 import { LayerGroup } from "../../../../common/layers.types"
 import { ActionTypeEnum } from "../../../../store/actionTypes"
 import { AppDispatch, Settings } from "../../../../store/storeTypes"
-import { FeatureImageAndLabel } from "./FeatureImageAndLabel"
 import { LayerTransparencyInput } from "./LayerTransparencyInput"
+import { ViabundusFeatureIcon } from "../../../component/feature/component/Icon"
+import {
+  ViabundusFeatureType,
+  ViabundusRoadCertainty,
+  ViabundusRoadType
+} from "../../../../common/viabundus.types"
 
 export const ViabundusMapLayerSelectionPanel: React.FC = () => {
   const { t } = useTranslation()
@@ -59,54 +64,90 @@ export const ViabundusMapLayerSelectionPanel: React.FC = () => {
           </h6>
 
           <Form.Group className="mb-4">
-            <FeatureImageAndLabel
-              iconPath="images/viabundus-kaupunki.png"
-              label={t(`data.viabundus.place.town`)}
-            />
-            <FeatureImageAndLabel
-              iconPath="images/viabundus-asuttu-paikka.png"
-              label={t(`data.viabundus.place.settlement`)}
-            />
-            <FeatureImageAndLabel
-              iconPath="images/viabundus-silta.png"
-              label={t(`data.viabundus.place.bridge`)}
-            />
-            <FeatureImageAndLabel
-              iconPath="images/viabundus-satama.png"
-              label={t(`data.viabundus.place.harbour`)}
-            />
-            <FeatureImageAndLabel
-              iconPath="images/viabundus-lossi.png"
-              label={t(`data.viabundus.place.ferry`)}
-            />
-            <FeatureImageAndLabel
-              iconPath="images/viabundus-tulli.png"
-              label={t(`data.viabundus.place.toll`)}
-            />
-            <FeatureImageAndLabel
-              iconPath="images/viabundus-maantie.png"
-              label={t(`data.viabundus.road.land`)}
-            />
-            <FeatureImageAndLabel
-              iconPath="images/viabundus-maantie-epavarma.png"
-              label={t(`data.viabundus.road.landUncertain`)}
-            />
-            <FeatureImageAndLabel
-              iconPath="images/viabundus-talvitie.png"
-              label={t(`data.viabundus.road.winter`)}
-            />
-            <FeatureImageAndLabel
-              iconPath="images/viabundus-vesivayla.png"
-              label={t(`data.viabundus.road.coast`)}
-            />
-            <FeatureImageAndLabel
-              iconPath="images/viabundus-vesivayla-epavarma.png"
-              label={t(`data.viabundus.road.coastUncertain`)}
-            />
-            <FeatureImageAndLabel
-              iconPath="images/viabundus-kaupungin-rajat.png"
-              label={t(`data.viabundus.townOutline`)}
-            />
+            <div className="ms-3">
+              <ViabundusFeatureIcon
+                type={ViabundusFeatureType.place}
+                Is_Town={true}
+              />
+              <span>{t(`data.viabundus.place.town`)}</span>
+            </div>
+            <div className="ms-3">
+              <ViabundusFeatureIcon
+                type={ViabundusFeatureType.place}
+                Is_Settlement={true}
+              />
+              <span>{t(`data.viabundus.place.settlement`)}</span>
+            </div>
+            <div className="ms-3">
+              <ViabundusFeatureIcon
+                type={ViabundusFeatureType.place}
+                Is_Bridge={true}
+              />
+              <span>{t(`data.viabundus.place.bridge`)}</span>
+            </div>
+            <div className="ms-3">
+              <ViabundusFeatureIcon
+                type={ViabundusFeatureType.place}
+                Is_Harbour={true}
+              />
+              <span>{t(`data.viabundus.place.harbour`)}</span>
+            </div>
+            <div className="ms-3">
+              <ViabundusFeatureIcon
+                type={ViabundusFeatureType.place}
+                Is_Ferry={true}
+              />
+              <span>{t(`data.viabundus.place.ferry`)}</span>
+            </div>
+            <div className="ms-3">
+              <ViabundusFeatureIcon
+                type={ViabundusFeatureType.place}
+                Is_Toll={true}
+              />
+              <span>{t(`data.viabundus.place.toll`)}</span>
+            </div>
+            <div className="ms-3">
+              <ViabundusFeatureIcon
+                type={ViabundusFeatureType.road}
+                roadType={ViabundusRoadType.land}
+              />
+              <span>{t(`data.viabundus.road.land`)}</span>
+            </div>
+            <div className="ms-3">
+              <ViabundusFeatureIcon
+                type={ViabundusFeatureType.road}
+                roadType={ViabundusRoadType.land}
+                certainty={ViabundusRoadCertainty.Uncertain}
+              />
+              <span>{t(`data.viabundus.road.landUncertain`)}</span>
+            </div>
+            <div className="ms-3">
+              <ViabundusFeatureIcon
+                type={ViabundusFeatureType.road}
+                roadType={ViabundusRoadType.winter}
+              />
+              <span>{t(`data.viabundus.road.winter`)}</span>
+            </div>
+            <div className="ms-3">
+              <ViabundusFeatureIcon
+                type={ViabundusFeatureType.road}
+                roadType={ViabundusRoadType.coast}
+              />
+              <span>{t(`data.viabundus.road.coast`)}</span>
+            </div>
+            <div className="ms-3">
+              <ViabundusFeatureIcon
+                type={ViabundusFeatureType.road}
+                roadType={ViabundusRoadType.coast}
+                certainty={ViabundusRoadCertainty.Uncertain}
+              />
+              <span>{t(`data.viabundus.road.coastUncertain`)}</span>
+            </div>
+
+            <div className="ms-3">
+              <ViabundusFeatureIcon type={ViabundusFeatureType.townOutline} />
+              <span>{t(`data.viabundus.road.townOutline`)}</span>
+            </div>
           </Form.Group>
 
           <h6>
