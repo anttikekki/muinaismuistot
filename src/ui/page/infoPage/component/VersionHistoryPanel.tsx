@@ -10,6 +10,12 @@ export const VersionHistoryPanel: React.FC = () => {
         {t("info.versionHistory.title")}
       </Accordion.Header>
       <Accordion.Body>
+        <h6>5/2026</h6>
+        <Trans
+          i18nKey="info.versionHistory.2026-05"
+          components={{ a: <a /> }}
+        />
+
         <h6>10/2025</h6>
         <Trans
           i18nKey="info.versionHistory.2025-10"
