@@ -38,6 +38,7 @@ type IconParams = {
   fillPattern?: "crosshatch"
   strokeColor: string
   dashed?: boolean
+  has3dModels?: boolean
 }
 
 const Icon: React.FC<IconParams> = ({
@@ -46,7 +47,8 @@ const Icon: React.FC<IconParams> = ({
   fillColor,
   fillPattern,
   strokeColor,
-  dashed
+  dashed,
+  has3dModels
 }) => {
   const size = 25
 
@@ -75,32 +77,78 @@ const Icon: React.FC<IconParams> = ({
         </defs>
       )}
 
-      {type === "square" && (
-        <rect
-          x="2"
-          y="2"
-          width="20"
-          height="20"
-          fill={
-            fillPattern === "crosshatch"
-              ? `url(#icon-crosshatch-${uniqueId})`
-              : fillColor
-          }
-          stroke={strokeColor}
-          strokeWidth="2"
-        />
-      )}
+      {type === "square" &&
+        (has3dModels ? (
+          <>
+            <rect
+              x="2"
+              y="2"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="#000000"
+              strokeWidth="4"
+            />
+            <rect
+              x="5"
+              y="5"
+              width="14"
+              height="14"
+              fill={
+                fillPattern === "crosshatch"
+                  ? `url(#icon-crosshatch-${uniqueId})`
+                  : fillColor
+              }
+              stroke={strokeColor}
+              strokeWidth="2"
+            />
+          </>
+        ) : (
+          <rect
+            x="2"
+            y="2"
+            width="20"
+            height="20"
+            fill={
+              fillPattern === "crosshatch"
+                ? `url(#icon-crosshatch-${uniqueId})`
+                : fillColor
+            }
+            stroke={strokeColor}
+            strokeWidth="2"
+          />
+        ))}
 
-      {type === "circle" && (
-        <circle
-          cx="12"
-          cy="12"
-          r="9"
-          fill={fillColor}
-          stroke={strokeColor}
-          strokeWidth="2"
-        />
-      )}
+      {type === "circle" &&
+        (has3dModels ? (
+          <>
+            <circle
+              cx="12"
+              cy="12"
+              r="6"
+              fill="none"
+              stroke="#000000"
+              strokeWidth="9"
+            />
+            <circle
+              cx="12"
+              cy="12"
+              r="6"
+              fill={fillColor}
+              stroke={strokeColor}
+              strokeWidth="2"
+            />
+          </>
+        ) : (
+          <circle
+            cx="12"
+            cy="12"
+            r="9"
+            fill={fillColor}
+            stroke={strokeColor}
+            strokeWidth="2"
+          />
+        ))}
 
       {type === "line" && (
         <line
@@ -115,15 +163,24 @@ const Icon: React.FC<IconParams> = ({
         />
       )}
 
-      {type === "star" && (
-        <path
-          d="M12 4L14.63 9.32L20.5 10.18L16.25 14.32L17.25 20.17L12 17.4L6.75 20.17L7.75 14.32L3.5 10.18L9.37 9.32L12 4Z"
-          fill={fillColor}
-          stroke={strokeColor}
-          strokeWidth="2"
-          strokeLinejoin="round"
-        />
-      )}
+      {type === "star" &&
+        (has3dModels ? (
+          <path
+            d="M12 4L14.63 9.32L20.5 10.18L16.25 14.32L17.25 20.17L12 17.4L6.75 20.17L7.75 14.32L3.5 10.18L9.37 9.32L12 4Z"
+            fill={fillColor}
+            stroke="#000000"
+            strokeWidth="3"
+            strokeLinejoin="round"
+          />
+        ) : (
+          <path
+            d="M12 4L14.63 9.32L20.5 10.18L16.25 14.32L17.25 20.17L12 17.4L6.75 20.17L7.75 14.32L3.5 10.18L9.37 9.32L12 4Z"
+            fill={fillColor}
+            stroke={strokeColor}
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+        ))}
 
       {type === "pentagon" && (
         <path
@@ -141,11 +198,13 @@ const Icon: React.FC<IconParams> = ({
 type LayerIconParams = {
   layer: FeatureLayer
   uniqueId?: string
+  has3dModels?: boolean
 }
 
 export const LayerIcon: React.FC<LayerIconParams> = ({
   layer,
-  uniqueId = layer
+  uniqueId = layer,
+  has3dModels
 }) => {
   switch (layer) {
     case MuseovirastoLayer.Muinaisjaannokset_piste:
@@ -155,6 +214,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="circle"
           fillColor="#ff0000"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Muinaisjaannokset_alue:
@@ -165,6 +225,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           fillColor="#ff0000"
           fillPattern="crosshatch"
           strokeColor="#ff0000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Muu_kulttuuriperintokohde_piste:
@@ -174,6 +235,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="circle"
           fillColor="#b67f4a"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Muu_kulttuuriperintokohde_alue:
@@ -184,6 +246,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           fillColor="#b67f4a"
           fillPattern="crosshatch"
           strokeColor="#b67f4a"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.RKY_alue:
@@ -194,6 +257,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           fillColor="#006fff"
           fillPattern="crosshatch"
           strokeColor="#006fff"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.RKY_viiva:
@@ -205,6 +269,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="square"
           fillColor="#006fff"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Maailmanperinto_alue:
@@ -215,6 +280,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           fillColor="#ffa901"
           fillPattern="crosshatch"
           strokeColor="#ffa901"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Maailmanperinto_piste:
@@ -224,6 +290,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="pentagon"
           fillColor="#ffa901"
           strokeColor="#ffa901"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Suojellut_rakennukset_alue:
@@ -234,6 +301,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           fillColor="#37a800"
           fillPattern="crosshatch"
           strokeColor="#37a800"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Suojellut_rakennukset_piste:
@@ -243,6 +311,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="square"
           fillColor="#37a800"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.VARK_pisteet:
@@ -252,6 +321,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="circle"
           fillColor="#8401a8"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.VARK_alueet:
@@ -262,6 +332,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           fillColor="#8401a8"
           fillPattern="crosshatch"
           strokeColor="#8401a8"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Löytöpaikka_piste:
@@ -271,6 +342,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="circle"
           fillColor="#ff7f02"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Löytöpaikka_alue:
@@ -281,6 +353,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           fillColor="#ff7f02"
           fillPattern="crosshatch"
           strokeColor="#ff7f02"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Havaintokohde_piste:
@@ -290,6 +363,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="square"
           fillColor="#ff0000"
           strokeColor="#ff0000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Havaintokohde_alue:
@@ -299,6 +373,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="square"
           fillColor="#aaaaaa"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Luonnonmuodostuma_piste:
@@ -308,6 +383,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="circle"
           fillColor="#00c6ff"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Luonnonmuodostuma_alue:
@@ -318,6 +394,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           fillColor="#00c6ff"
           fillPattern="crosshatch"
           strokeColor="#00c6ff"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Mahdollinen_muinaisjäännös_piste:
@@ -327,6 +404,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="circle"
           fillColor="#cb00ff"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Mahdollinen_muinaisjäännös_alue:
@@ -337,6 +415,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           fillColor="#cb00ff"
           fillPattern="crosshatch"
           strokeColor="#cb00ff"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Muu_kohde_piste:
@@ -346,6 +425,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="circle"
           fillColor="#ffffff"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Muu_kohde_alue:
@@ -356,6 +436,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           fillColor="#c0c0c0"
           fillPattern="crosshatch"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösPiste:
@@ -365,6 +446,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="circle"
           fillColor="#908e8e"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.PoistettuKiinteäMuijaisjäännösAlue:
@@ -375,6 +457,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           fillColor="#908e8e"
           fillPattern="crosshatch"
           strokeColor="#908e8e"
+          has3dModels={has3dModels}
         />
       )
     case MuseovirastoLayer.Alakohde_piste:
@@ -385,6 +468,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           fillColor="#ff0000"
           fillPattern="crosshatch"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case AhvenanmaaLayer.Fornminnen:
@@ -395,10 +479,34 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="square"
           fillColor="#5b8846"
           strokeColor="#010101"
+          has3dModels={has3dModels}
         />
       )
     case ModelLayer.ModelLayer:
-      return ["images/3d_malli_square.png"]
+      return (
+        <>
+          <LayerIcon
+            layer={MuseovirastoLayer.Muinaisjaannokset_piste}
+            uniqueId="ModelLayer-Muinaisjaannokset_piste"
+            has3dModels={true}
+          />
+          <LayerIcon
+            layer={MuseovirastoLayer.RKY_alue}
+            uniqueId="ModelLayer-RKY_alue"
+            has3dModels={true}
+          />
+          <LayerIcon
+            layer={MuseovirastoLayer.Suojellut_rakennukset_piste}
+            uniqueId="ModelLayer-Suojellut_rakennukset_piste"
+            has3dModels={true}
+          />
+          <LayerIcon
+            layer={MaisemanMuistiLayer.MaisemanMuisti}
+            uniqueId="ModelLayer-MaisemanMuisti"
+            has3dModels={true}
+          />
+        </>
+      )
     case MaisemanMuistiLayer.MaisemanMuisti:
       return (
         <Icon
@@ -406,6 +514,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="star"
           fillColor="#f1615b"
           strokeColor="#f1615b"
+          has3dModels={has3dModels}
         />
       )
     case HelsinkiLayer.Maalinnoitus_yksikot:
@@ -415,6 +524,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="circle"
           fillColor="#000000"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case HelsinkiLayer.Maalinnoitus_kohteet:
@@ -426,6 +536,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
           type="square"
           fillColor="#eeecea"
           strokeColor="#000000"
+          has3dModels={has3dModels}
         />
       )
     case ViabundusLayer.Viabundus:
@@ -445,6 +556,8 @@ export const FeatureIcon: React.FC<FeatureIconParams> = ({
   feature,
   uniqueFeatureId
 }) => {
+  const has3dModels = "models" in feature ? feature.models.length > 0 : false
+
   if (isGeoJSONFeature(feature)) {
     if (isMaalinnoitusKohdeFeature(feature)) {
       return (
@@ -513,7 +626,13 @@ export const FeatureIcon: React.FC<FeatureIconParams> = ({
   }
 
   const layer = getFeatureLayer(feature)
-  return <LayerIcon layer={layer} uniqueId={uniqueFeatureId} />
+  return (
+    <LayerIcon
+      layer={layer}
+      uniqueId={uniqueFeatureId}
+      has3dModels={has3dModels}
+    />
+  )
 }
 
 type MaalinnoitusFeatureIconParams =
@@ -700,3 +819,13 @@ export const ViabundusFeatureIcon: React.FC<ViabundusFeatureIconParams> = (
       return null
   }
 }
+
+type ModelFeatureIcon = {
+  layer: FeatureLayer
+  uniqueId?: string
+}
+
+export const ModelFeatureIcon: React.FC<ModelFeatureIcon> = ({
+  layer,
+  uniqueId
+}) => {}

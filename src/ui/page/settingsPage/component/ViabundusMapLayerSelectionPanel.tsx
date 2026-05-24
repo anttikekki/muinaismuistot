@@ -146,7 +146,7 @@ export const ViabundusMapLayerSelectionPanel: React.FC = () => {
 
             <div className="ms-3">
               <ViabundusFeatureIcon type={ViabundusFeatureType.townOutline} />
-              <span>{t(`data.viabundus.road.townOutline`)}</span>
+              <span>{t(`data.viabundus.townOutline`)}</span>
             </div>
           </Form.Group>
 

@@ -10,6 +10,7 @@ import {
   AhvenanmaaLayer,
   HelsinkiLayer,
   MaisemanMuistiLayer,
+  ModelLayer,
   MuseovirastoLayer
 } from "../../../../common/layers.types"
 import {
@@ -21,6 +22,7 @@ import {
   ViabundusRoadCertainty,
   ViabundusRoadType
 } from "../../../../common/viabundus.types"
+import ModelsLayer from "../../../../map/layer/ModelsLayer"
 
 export const MapSymbolPanel: React.FC = () => {
   const { t } = useTranslation()
@@ -398,7 +400,7 @@ export const MapSymbolPanel: React.FC = () => {
         </h6>
         <div className="mb-3">
           <div className="ms-3">
-            <img className="feature-icon" src="images/3d_malli_square.png" />
+            <LayerIcon layer={ModelLayer.ModelLayer} />
             <span>{t(`common.features.3D-malli`)}</span>
           </div>
         </div>
