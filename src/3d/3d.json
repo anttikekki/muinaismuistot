@@ -11,6 +11,81 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [218054.2352, 6794579.9755]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Luittilanjärvi NE",
+          "id": 51010022,
+          "type": "rajapinta_suojellut:muinaisjaannos_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.51010022",
+          "municipality": "Eurajoki"
+        },
+        "model": {
+          "name": "Cairn Luittilanjärvi NE, Eurajoki Finland",
+          "url": "https://sketchfab.com/models/cb9aa26e71b9476b8bca03de5a6654e1"
+        },
+        "author": "Tia Hyvärinen",
+        "authorUrl": "https://sketchfab.com/Tia.H",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2026-06-26"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [218054.2352, 6794579.9755]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Luittilanjärvi NE",
+          "id": 51010022,
+          "type": "rajapinta_suojellut:muinaisjaannos_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.51010022",
+          "municipality": "Eurajoki"
+        },
+        "model": {
+          "name": "Secondary Stone Circle, Eurajoki Finland",
+          "url": "https://sketchfab.com/models/d11395cd1d34410785f1a1378273d438"
+        },
+        "author": "Tia Hyvärinen",
+        "authorUrl": "https://sketchfab.com/Tia.H",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2026-06-26"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [208533, 6791260]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Nielu II",
+          "id": 684010132,
+          "type": "rajapinta_suojellut:muinaisjaannos_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.684010132",
+          "municipality": "Rauma"
+        },
+        "model": {
+          "name": "Cairn Nielu II, Rauma Finland",
+          "url": "https://sketchfab.com/models/8ea1c3b028e044399ee25910830aa958"
+        },
+        "author": "Tia Hyvärinen",
+        "authorUrl": "https://sketchfab.com/Tia.H",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2026-06-26"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [251829.6468, 6800230.8668]
       },
       "properties": {
