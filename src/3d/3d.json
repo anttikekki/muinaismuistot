@@ -4249,50 +4249,6 @@
     {
       "type": "Feature",
       "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [237951.7759999996, 6701673.6918],
-            [237587.6891999999, 6701564.6088],
-            [237400.4003999997, 6701673.089199999],
-            [237296.44020000007, 6701695.834799999],
-            [237305.2291000001, 6702009.8408],
-            [237255.48599999957, 6702372.268200001],
-            [237349.01449999958, 6702416.751],
-            [237518.13609999977, 6702454.3254],
-            [237578.7137000002, 6702283.1051],
-            [237662.97360000014, 6702298.6029],
-            [237743.95139999967, 6702314.410599999],
-            [237804.58609999996, 6702288.985300001],
-            [237890.60280000046, 6702214.8585],
-            [237946.52099999972, 6702102.888],
-            [237917.66889999993, 6701821.826199999],
-            [237951.7759999996, 6701673.6918]
-          ]
-        ]
-      },
-      "properties": {
-        "registryItem": {
-          "name": "Brinkhallin kartano",
-          "id": 612,
-          "type": "rajapinta_suojellut:rky_alue",
-          "url": "http://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=612",
-          "municipality": "Turku"
-        },
-        "model": {
-          "name": "Brinkhallin kartano",
-          "url": "https://sketchfab.com/models/8ccdf9103a62400987e4e5dfdad3e37e"
-        },
-        "author": "Lassi Kaukonen",
-        "authorUrl": "https://sketchfab.com/thesidekick",
-        "licence": "Copyright (C) Lassi Kaukonen",
-        "licenceUrl": "",
-        "createdDate": "2020-04-27"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
         "type": "Point",
         "coordinates": [216866.5571999997, 6726127.869899999]
       },
