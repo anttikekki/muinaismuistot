@@ -126,7 +126,7 @@ export const FeatureList: React.FC<FeatureListProps> = ({
       const { panelId } = wrapFeatureWithMetadata(features[0])
       setOpenPanelId(panelId)
     }
-  })
+  }, [linkedFeatureWithMetadata])
 
   const getCommonProps = ({
     featureLayer,

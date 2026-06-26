@@ -6,11 +6,9 @@ import {
 import {
   isMaalinnoitusKohdeFeature,
   isMaalinnoitusRajausFeature,
-  isMaalinnoitusYksikkoFeature,
   MaalinnoitusKohdetyyppi,
   MaalinnoitusRajaustyyppi
 } from "../../../../common/maalinnoitusHelsinki.types"
-import { isAhvenanmaaFeature } from "../../../../common/ahvenanmaa.types"
 import {
   AhvenanmaaLayer,
   FeatureLayer,
@@ -20,7 +18,6 @@ import {
   MuseovirastoLayer,
   ViabundusLayer
 } from "../../../../common/layers.types"
-import { isMaisemanMuistiFeature } from "../../../../common/maisemanMuisti.types"
 import {
   isViabundusPlaceFeature,
   isViabundusRoadFeature,
@@ -825,7 +822,4 @@ type ModelFeatureIcon = {
   uniqueId?: string
 }
 
-export const ModelFeatureIcon: React.FC<ModelFeatureIcon> = ({
-  layer,
-  uniqueId
-}) => {}
+export const ModelFeatureIcon: React.FC<ModelFeatureIcon> = () => {}
