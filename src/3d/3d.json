@@ -11,6 +11,31 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [214830, 6799266]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Riutanahde",
+          "id": 51010007,
+          "type": "rajapinta_suojellut:muinaisjaannos_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.51010007",
+          "municipality": "Eurajoki"
+        },
+        "model": {
+          "name": "Riutanahde cairn 2, Eurajoki Finland",
+          "url": "https://sketchfab.com/models/81b0bf7d54f8433e95773bbdb984cfa9"
+        },
+        "author": "Tia Hyvärinen",
+        "authorUrl": "https://sketchfab.com/Tia.H",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2026-06-29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [218054.2352, 6794579.9755]
       },
       "properties": {
