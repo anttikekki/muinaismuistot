@@ -1,0 +1,16 @@
+{
+  "name": "roykkioiden-koot-data-processing",
+  "version": "1.0.0",
+  "description": "Museoviraston hautaröykkiöaineiston hakeminen ja käsittely.",
+  "type": "module",
+  "scripts": {
+    "start": "npm run step:1",
+    "step:1": "node 1_fetch-site-index.mjs",
+    "test": "node --test"
+  },
+  "author": "Antti Kekki",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  }
+}

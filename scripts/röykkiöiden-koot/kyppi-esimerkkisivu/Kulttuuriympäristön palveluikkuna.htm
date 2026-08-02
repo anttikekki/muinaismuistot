@@ -1,0 +1,2129 @@
+<!DOCTYPE HTML>
+<html lang="fi">
+<head>
+<title>Kulttuuriymp&auml;rist&ouml;n palveluikkuna</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="kulttuuriymp&auml;rist&ouml;n palveluikkuna">
+<link rel="stylesheet" type="text/css" href="../../../../css/julkinen_wcag_02.css">
+<script src="/inc/cs.js" language="JavaScript" charset="iso-8859-1"></script>
+
+</head>
+<body onLoad="lataaValinnat(document.forms[1].ALATYYPPI_KDI, 0);rajaaValinnat(document.forms[1].TYYPPI_KDI, document.forms[1].ALATYYPPI_KDI, 0, '');">
+
+<div class="ykontti">    
+<div class="sub">
+<table width="310" border="0" cellspacing="0" cellpadding="4">
+  <tr>
+	 <td width="310" valign="middle" align="center" class="htaus"><a href="https://www.museovirasto.fi/fi/" target="_blank"><img src="../img/museovirasto.gif" border="0" height="60" alt="Museovirasto"></a></td>
+  </tr>
+</table>
+</div>
+<div class="sub">	
+<table width="320" border="0" cellspacing="0" cellpadding="2">
+<form action="https://www.kyppi.fi/palveluikkuna/portti/read/asp/r_kohde_list.aspx" method="post" onSubmit="return tarkastaMinimimitta(this.KOHDE_NIMI, 'kohteen nimi', 4)">
+        <tr>
+		  <td class="htaus"><a href="../../../portti/read/asp/default.aspx" class="valk">KULTTUURIYMP&Auml;RIST&Ouml;N PALVELUIKKUNA</a></td>
+        </tr>
+        <tr>
+          <td class="htaus"><input type="text" class="pikahaku" id="kohteen nimi" name="KOHDE_NIMI" placeholder="haku kohteen nimell&auml; tai nimen osalla" title="haku kohteen nimell&auml; tai nimen osalla">&nbsp;<input type="submit" name="hae" value="hae" class="hae"></td>
+        </tr>
+</form>
+</table>
+</div>
+<div class="sub">	
+<table width="310" border="0" cellspacing="0" cellpadding="4">
+        <tr>
+          <td class="htaus"><a href="https://kartta.museoverkko.fi/?action=showRegistryItem&id=531010025&registry=ancientMonument" class="valk" target="_blank">siirry kartalle</a></td>
+          <td class="htaus" align="right"><a href="../../../omatunnus/edit/asp/default.aspx" class="valk">omat tiedot</a></td>
+        </tr>
+        <tr>
+          <td class="htaus"><a href="rsv_default.aspx" class="valk">p&aring; svenska</a></td>
+          <td class="htaus" align="right">&nbsp;</td>
+        </tr>
+</table>
+</div>
+</div>		  
+
+<div class="akontti">
+<div class="sub">	
+<form action="r_kohde_list.aspx" method="post" onSubmit="piilokentatkohde(this); return top.tarkastaKokonaisluvut(this);">
+  <table cellpadding="1" cellspacing="0">
+    <tr>
+      <td class="vtaus">&nbsp;</td>
+      <td class="vtaus">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td> 
+      <td class="norm"><h1><a href="r_default.aspx" class="must">ARKEOLOGISET KOHTEET</a></h1></td>
+    </tr>
+    <tr>
+      <td class="vtaus"></td> 
+      <td class="vtaus"><a href="r_ohje.aspx"><img src="../img/ohje.gif" width="18" height="18" alt="ohjesivu" border="0"></a></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      <td class="norm"><input type="checkbox" name="L10002" value="K" checked id="kiinte&auml; muinaisj&auml;&auml;nn&ouml;s">&nbsp;<label for="kiinte&auml; muinaisj&auml;&auml;nn&ouml;s">kiinte&auml; muinaisj&auml;&auml;nn&ouml;s</label></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      <td class="norm"><input type="checkbox" name="L10001" value="K" checked id="mahdollinen muinaisj&auml;&auml;nn&ouml;s">&nbsp;<label for="mahdollinen muinaisj&auml;&auml;nn&ouml;s">mahdollinen muinaisj&auml;&auml;nn&ouml;s</label></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      <td class="norm"><input type="checkbox" name="L10007" value="K" checked id="muu kulttuuriperint&ouml;kohde">&nbsp;<label for="muu kulttuuriperint&ouml;kohde">muu kulttuuriperint&ouml;kohde</label></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      <td class="norm"><input type="checkbox" name="L10009" value="K" checked id="havaintokohde">&nbsp;<label for="havaintokohde">havaintokohde</label></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      <td class="norm"><input type="checkbox" name="L10003" value="K" checked id="l&ouml;yt&ouml;paikka">&nbsp;<label for="l&ouml;yt&ouml;paikka">l&ouml;yt&ouml;paikka</label></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      <td class="norm"><input type="checkbox" name="L10004" value="K" checked id="luonnonmuodostuma">&nbsp;<label for="luonnonmuodostuma">luonnonmuodostuma</label></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      <td class="norm"><input type="checkbox" name="L10008" value="K" checked id="poistettu">&nbsp;<label for="poistettu">poistettu kiinte&auml; muinais-<br>&nbsp;&nbsp;&nbsp;&nbsp;j&auml;&auml;nn&ouml;s (ei rauhoitettu)</label></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      <td class="norm"><input type="checkbox" name="L10006" value="K" checked id="muu">&nbsp;<label for="muu">muu kohde</label></td>
+    </tr>
+    <tr>
+      <td class="vtaus"></td> 
+      <td class="vtaus" height="8"></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td> 
+      <td class="norm"><label for="kunta">kunta</label></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td> 
+      <td class="vtaus"><select name="KUNTA_ID" class="kapea" id="kunta">
+<option value="">- kaikki</option>
+<option value="20">Akaa</option>
+<option value="5">Alaj&auml;rvi</option>
+<option value="9">Alavieska</option>
+<option value="10">Alavus</option>
+<option value="16">Asikkala</option>
+<option value="18">Askola</option>
+<option value="19">Aura</option>
+<option value="35">Br&auml;nd&ouml;</option>
+<option value="43">Ecker&ouml;</option>
+<option value="46">Enonkoski</option>
+<option value="47">Enonteki&ouml;</option>
+<option value="49">Espoo</option>
+<option value="50">Eura</option>
+<option value="51">Eurajoki</option>
+<option value="52">Evij&auml;rvi</option>
+<option value="60">Finstr&ouml;m</option>
+<option value="61">Forssa</option>
+<option value="62">F&ouml;gl&ouml;</option>
+<option value="65">Geta</option>
+<option value="69">Haapaj&auml;rvi</option>
+<option value="71">Haapavesi</option>
+<option value="72">Hailuoto</option>
+<option value="74">Halsua</option>
+<option value="75">Hamina</option>
+<option value="76">Hammarland</option>
+<option value="77">Hankasalmi</option>
+<option value="78">Hanko</option>
+<option value="79">Harjavalta</option>
+<option value="81">Hartola</option>
+<option value="82">Hattula</option>
+<option value="86">Hausj&auml;rvi</option>
+<option value="111">Heinola</option>
+<option value="90">Hein&auml;vesi</option>
+<option value="91">Helsinki</option>
+<option value="97">Hirvensalmi</option>
+<option value="98">Hollola</option>
+
+<option value="102">Huittinen</option>
+<option value="103">Humppila</option>
+<option value="105">Hyrynsalmi</option>
+<option value="106">Hyvink&auml;&auml;</option>
+<option value="108">H&auml;meenkyr&ouml;</option>
+<option value="109">H&auml;meenlinna</option>
+<option value="139">Ii</option>
+<option value="140">Iisalmi</option>
+<option value="142">Iitti</option>
+<option value="143">Ikaalinen</option>
+<option value="145">Ilmajoki</option>
+<option value="146">Ilomantsi</option>
+<option value="153">Imatra</option>
+<option value="148">Inari</option>
+<option value="149">Inkoo</option>
+<option value="151">Isojoki</option>
+<option value="152">Isokyr&ouml;</option>
+<option value="165">Janakkala</option>
+<option value="167">Joensuu</option>
+<option value="169">Jokioinen</option>
+<option value="170">Jomala</option>
+<option value="171">Joroinen</option>
+<option value="172">Joutsa</option>
+
+<option value="176">Juuka</option>
+<option value="177">Juupajoki</option>
+<option value="178">Juva</option>
+<option value="179">Jyv&auml;skyl&auml;</option>
+<option value="181">J&auml;mij&auml;rvi</option>
+<option value="182">J&auml;ms&auml;</option>
+<option value="186">J&auml;rvenp&auml;&auml;</option>
+<option value="202">Kaarina</option>
+<option value="204">Kaavi</option>
+<option value="205">Kajaani</option>
+<option value="208">Kalajoki</option>
+<option value="211">Kangasala</option>
+<option value="213">Kangasniemi</option>
+<option value="214">Kankaanp&auml;&auml;</option>
+<option value="216">Kannonkoski</option>
+<option value="217">Kannus</option>
+<option value="218">Karijoki</option>
+<option value="224">Karkkila</option>
+<option value="226">Karstula</option>
+<option value="230">Karvia</option>
+<option value="231">Kaskinen</option>
+<option value="232">Kauhajoki</option>
+<option value="233">Kauhava</option>
+<option value="235">Kauniainen</option>
+<option value="236">Kaustinen</option>
+<option value="239">Keitele</option>
+<option value="240">Kemi</option>
+<option value="320">Kemij&auml;rvi</option>
+<option value="241">Keminmaa</option>
+<option value="322">Kemi&ouml;nsaari</option>
+<option value="244">Kempele</option>
+<option value="245">Kerava</option>
+<option value="249">Keuruu</option>
+<option value="250">Kihni&ouml;</option>
+<option value="256">Kinnula</option>
+<option value="257">Kirkkonummi</option>
+<option value="260">Kitee</option>
+<option value="261">Kittil&auml;</option>
+<option value="263">Kiuruvesi</option>
+<option value="265">Kivij&auml;rvi</option>
+<option value="271">Kokem&auml;ki</option>
+<option value="272">Kokkola</option>
+<option value="273">Kolari</option>
+<option value="275">Konnevesi</option>
+<option value="276">Kontiolahti</option>
+<option value="280">Korsn&auml;s</option>
+<option value="284">Koski Tl</option>
+<option value="285">Kotka</option>
+<option value="286">Kouvola</option>
+<option value="287">Kristiinankaupunki</option>
+<option value="288">Kruunupyy</option>
+<option value="290">Kuhmo</option>
+<option value="291">Kuhmoinen</option>
+<option value="295">Kumlinge</option>
+<option value="297">Kuopio</option>
+<option value="300">Kuortane</option>
+<option value="301">Kurikka</option>
+<option value="304">Kustavi</option>
+<option value="305">Kuusamo</option>
+<option value="312">Kyyj&auml;rvi</option>
+<option value="316">K&auml;rk&ouml;l&auml;</option>
+<option value="317">K&auml;rs&auml;m&auml;ki</option>
+<option value="318">K&ouml;kar</option>
+<option value="398">Lahti</option>
+<option value="399">Laihia</option>
+<option value="400">Laitila</option>
+<option value="407">Lapinj&auml;rvi</option>
+<option value="402">Lapinlahti</option>
+<option value="403">Lappaj&auml;rvi</option>
+<option value="405">Lappeenranta</option>
+<option value="408">Lapua</option>
+<option value="410">Laukaa</option>
+<option value="416">Lemi</option>
+<option value="417">Lemland</option>
+<option value="418">Lemp&auml;&auml;l&auml;</option>
+<option value="420">Lepp&auml;virta</option>
+<option value="421">Lestij&auml;rvi</option>
+<option value="422">Lieksa</option>
+<option value="423">Lieto</option>
+<option value="425">Liminka</option>
+<option value="426">Liperi</option>
+<option value="444">Lohja</option>
+<option value="430">Loimaa</option>
+<option value="433">Loppi</option>
+<option value="434">Loviisa</option>
+<option value="435">Luhanka</option>
+<option value="436">Lumijoki</option>
+<option value="438">Lumparland</option>
+<option value="440">Luoto</option>
+<option value="441">Luum&auml;ki</option>
+
+<option value="475">Maalahti</option>
+<option value="478">Maarianhamina</option>
+<option value="480">Marttila</option>
+<option value="481">Masku</option>
+<option value="483">Merij&auml;rvi</option>
+<option value="484">Merikarvia</option>
+<option value="489">Miehikk&auml;l&auml;</option>
+<option value="491">Mikkeli</option>
+<option value="494">Muhos</option>
+<option value="495">Multia</option>
+<option value="498">Muonio</option>
+<option value="499">Mustasaari</option>
+<option value="500">Muurame</option>
+<option value="503">Myn&auml;m&auml;ki</option>
+<option value="504">Myrskyl&auml;</option>
+<option value="505">M&auml;nts&auml;l&auml;</option>
+<option value="508">M&auml;ntt&auml;-Vilppula</option>
+<option value="507">M&auml;ntyharju</option>
+<option value="529">Naantali</option>
+<option value="531">Nakkila</option>
+<option value="535">Nivala</option>
+<option value="536">Nokia</option>
+<option value="538">Nousiainen</option>
+<option value="541">Nurmes</option>
+<option value="543">Nurmij&auml;rvi</option>
+<option value="545">N&auml;rpi&ouml;</option>
+<option value="560">Orimattila</option>
+<option value="561">Orip&auml;&auml;</option>
+<option value="562">Orivesi</option>
+<option value="563">Oulainen</option>
+<option value="564">Oulu</option>
+<option value="309">Outokumpu</option>
+<option value="576">Padasjoki</option>
+<option value="577">Paimio</option>
+<option value="578">Paltamo</option>
+<option value="445">Parainen</option>
+<option value="580">Parikkala</option>
+<option value="581">Parkano</option>
+<option value="599">Peders&ouml;re</option>
+<option value="583">Pelkosenniemi</option>
+<option value="854">Pello</option>
+<option value="584">Perho</option>
+
+<option value="592">Pet&auml;j&auml;vesi</option>
+<option value="593">Pieks&auml;m&auml;ki</option>
+<option value="595">Pielavesi</option>
+<option value="598">Pietarsaari</option>
+<option value="601">Pihtipudas</option>
+<option value="604">Pirkkala</option>
+<option value="607">Polvij&auml;rvi</option>
+<option value="608">Pomarkku</option>
+<option value="609">Pori</option>
+<option value="611">Pornainen</option>
+<option value="638">Porvoo</option>
+<option value="614">Posio</option>
+<option value="615">Pudasj&auml;rvi</option>
+<option value="616">Pukkila</option>
+<option value="619">Punkalaidun</option>
+<option value="620">Puolanka</option>
+<option value="623">Puumala</option>
+<option value="624">Pyht&auml;&auml;</option>
+<option value="625">Pyh&auml;joki</option>
+<option value="626">Pyh&auml;j&auml;rvi</option>
+<option value="630">Pyh&auml;nt&auml;</option>
+<option value="631">Pyh&auml;ranta</option>
+<option value="635">P&auml;lk&auml;ne</option>
+<option value="636">P&ouml;yty&auml;</option>
+<option value="678">Raahe</option>
+<option value="710">Raasepori</option>
+<option value="680">Raisio</option>
+<option value="681">Rantasalmi</option>
+<option value="683">Ranua</option>
+<option value="684">Rauma</option>
+<option value="686">Rautalampi</option>
+<option value="687">Rautavaara</option>
+<option value="689">Rautj&auml;rvi</option>
+<option value="691">Reisj&auml;rvi</option>
+<option value="694">Riihim&auml;ki</option>
+<option value="697">Ristij&auml;rvi</option>
+<option value="698">Rovaniemi</option>
+<option value="700">Ruokolahti</option>
+<option value="702">Ruovesi</option>
+<option value="704">Rusko</option>
+<option value="707">R&auml;&auml;kkyl&auml;</option>
+<option value="729">Saarij&auml;rvi</option>
+<option value="732">Salla</option>
+<option value="734">Salo</option>
+<option value="736">Saltvik</option>
+<option value="790">Sastamala</option>
+<option value="738">Sauvo</option>
+<option value="739">Savitaipale</option>
+<option value="740">Savonlinna</option>
+<option value="742">Savukoski</option>
+<option value="743">Sein&auml;joki</option>
+<option value="746">Sievi</option>
+<option value="747">Siikainen</option>
+<option value="748">Siikajoki</option>
+<option value="791">Siikalatva</option>
+<option value="749">Siilinj&auml;rvi</option>
+<option value="751">Simo</option>
+<option value="753">Sipoo</option>
+<option value="755">Siuntio</option>
+<option value="758">Sodankyl&auml;</option>
+<option value="759">Soini</option>
+<option value="761">Somero</option>
+<option value="762">Sonkaj&auml;rvi</option>
+<option value="765">Sotkamo</option>
+<option value="766">Sottunga</option>
+<option value="768">Sulkava</option>
+<option value="771">Sund</option>
+<option value="777">Suomussalmi</option>
+<option value="778">Suonenjoki</option>
+<option value="781">Sysm&auml;</option>
+<option value="783">S&auml;kyl&auml;</option>
+<option value="831">Taipalsaari</option>
+<option value="832">Taivalkoski</option>
+<option value="833">Taivassalo</option>
+<option value="834">Tammela</option>
+<option value="837">Tampere</option>
+<option value="844">Tervo</option>
+<option value="845">Tervola</option>
+<option value="846">Teuva</option>
+<option value="848">Tohmaj&auml;rvi</option>
+<option value="849">Toholampi</option>
+<option value="850">Toivakka</option>
+<option value="851">Tornio</option>
+<option value="853">Turku</option>
+<option value="857">Tuusniemi</option>
+<option value="858">Tuusula</option>
+<option value="859">Tyrn&auml;v&auml;</option>
+<option value="886">Ulvila</option>
+<option value="887">Urjala</option>
+<option value="889">Utaj&auml;rvi</option>
+<option value="890">Utsjoki</option>
+<option value="892">Uurainen</option>
+<option value="893">Uusikaarlepyy</option>
+<option value="895">Uusikaupunki</option>
+<option value="785">Vaala</option>
+<option value="905">Vaasa</option>
+<option value="908">Valkeakoski</option>
+
+<option value="92">Vantaa</option>
+<option value="915">Varkaus</option>
+<option value="918">Vehmaa</option>
+<option value="921">Vesanto</option>
+<option value="922">Vesilahti</option>
+<option value="924">Veteli</option>
+<option value="925">Vierem&auml;</option>
+<option value="927">Vihti</option>
+<option value="931">Viitasaari</option>
+<option value="934">Vimpeli</option>
+<option value="935">Virolahti</option>
+<option value="936">Virrat</option>
+<option value="941">V&aring;rd&ouml;</option>
+<option value="946">V&ouml;yri</option>
+<option value="976">Ylitornio</option>
+<option value="977">Ylivieska</option>
+<option value="980">Yl&ouml;j&auml;rvi</option>
+<option value="981">Yp&auml;j&auml;</option>
+<option value="989">&Auml;ht&auml;ri</option>
+<option value="992">&Auml;&auml;nekoski</option>
+<option value="0">monta kuntaa</option>
+<option value="-1">ei kuntatietoa</option>
+<option value="-2">ulkomaat</option>
+        </select> </td>
+    </tr>
+    <tr>
+      <td class="vtaus"></td>
+      <td class="vtaus"></td>
+    </tr>
+    <tr>
+      <td class="vtaus"></td> 
+      <td class="vtaus" height="8"></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      <td class="norm"><label for="vanhakunta">vanha kunta</label></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td>
+      <td class="vtaus"><select name="VANHAKUNTA_ID" class="kapea" id="vanhakunta">
+<option value=""></option>
+<option value="1">Ahlainen</option>
+<option value="2">Aitolahti</option>
+<option value="3">Akaa</option>
+<option value="4">Alah&auml;rm&auml;</option>
+<option value="6">Alastaro</option>
+<option value="7">Alatornio</option>
+<option value="8">Alaveteli</option>
+<option value="11">Angelniemi</option>
+<option value="12">Anjala</option>
+<option value="754">Anjalankoski</option>
+<option value="14">Anttola</option>
+<option value="15">Artj&auml;rvi</option>
+<option value="17">Askainen</option>
+<option value="33">Bj&ouml;rk&ouml;by</option>
+<option value="34">Bromarv</option>
+<option value="39">Degerby</option>
+<option value="40">Dragsfj&auml;rd</option>
+<option value="44">Elim&auml;ki</option>
+<option value="45">Eno</option>
+<option value="48">Er&auml;j&auml;rvi</option>
+<option value="70">Haapasaari</option>
+<option value="73">Halikko</option>
+<option value="83">Hauho</option>
+<option value="84">Haukipudas</option>
+<option value="85">Haukivuori</option>
+<option value="68">Heinola</option>
+<option value="89">Heinolan mlk</option>
+<option value="94">Hiittinen</option>
+<option value="95">Himanka</option>
+<option value="96">Hinnerjoki</option>
+<option value="99">Honkajoki</option>
+<option value="100">Honkilahti</option>
+<option value="101">Houtskari</option>
+<option value="107">Hyvink&auml;&auml;n mlk</option>
+<option value="283">H&auml;meenkoski</option>
+<option value="110">H&auml;meenlinnan mlk</option>
+<option value="141">Iisalmen mlk</option>
+<option value="144">Ikaalinen</option>
+<option value="150">Ini&ouml;</option>
+<option value="163">Jaala</option>
+<option value="164">Jalasj&auml;rvi</option>
+<option value="165">Jepua</option>
+<option value="173">Joutseno</option>
+<option value="174">Juankoski</option>
+<option value="175">Jurva</option>
+<option value="180">Jyv&auml;skyl&auml;n mlk</option>
+<option value="183">J&auml;ms&auml;nkoski</option>
+<option value="184">J&auml;ppil&auml;</option>
+<option value="185">J&auml;&auml;ski</option>
+<option value="203">Kaarlela</option>
+<option value="206">Kajaanin mlk</option>
+<option value="207">Kakskerta</option>
+<option value="209">Kalanti</option>
+<option value="210">Kalvola</option>
+<option value="212">Kangaslampi</option>
+<option value="219">Karinainen</option>
+<option value="220">Karjaa</option>
+<option value="221">Karjaan mlk</option>
+<option value="222">Karjala</option>
+<option value="223">Karjalohja</option>
+<option value="225">Karkku</option>
+<option value="227">Karttula</option>
+<option value="228">Karuna</option>
+<option value="229">Karunki</option>
+<option value="237">Kauvatsa</option>
+<option value="238">Keiky&auml;</option>
+<option value="242">Kemij&auml;rven mlk</option>
+<option value="243">Kemi&ouml;</option>
+<option value="246">Kerim&auml;ki</option>
+<option value="247">Kestil&auml;</option>
+<option value="248">Kes&auml;lahti</option>
+<option value="251">Kiihtelysvaara</option>
+<option value="252">Kiikala</option>
+<option value="253">Kiikka</option>
+<option value="254">Kiikoinen</option>
+<option value="255">Kiiminki</option>
+<option value="259">Kisko</option>
+<option value="262">Kiukainen</option>
+<option value="266">Kodisjoki</option>
+<option value="267">Koij&auml;rvi</option>
+<option value="278">Koij&auml;rvi</option>
+<option value="270">Koivulahti</option>
+<option value="274">Konginkangas</option>
+<option value="277">Korpilahti</option>
+<option value="279">Korppoo</option>
+<option value="281">Kortesj&auml;rvi</option>
+<option value="282">Koskenp&auml;&auml;</option>
+<option value="289">Kuhmalahti</option>
+<option value="292">Kuivaniemi</option>
+<option value="293">Kullaa</option>
+<option value="298">Kuopion mlk</option>
+<option value="299">Kuorevesi</option>
+<option value="303">Kuru</option>
+<option value="306">Kuusankoski</option>
+<option value="307">Kuusisto</option>
+<option value="308">Kuusjoki</option>
+<option value="310">Kylm&auml;koski</option>
+<option value="311">Kymi</option>
+<option value="315">K&auml;lvi&auml;</option>
+<option value="319">K&ouml;yli&ouml;</option>
+<option value="401">Lammi</option>
+<option value="406">Lappi</option>
+<option value="409">Lapv&auml;&auml;rtti</option>
+<option value="413">Lavia</option>
+<option value="414">Lehtim&auml;ki</option>
+<option value="415">Leivonm&auml;ki</option>
+<option value="419">Lemu</option>
+<option value="424">Liljendal</option>
+<option value="427">Lohja</option>
+<option value="428">Lohjan kunta</option>
+<option value="429">Lohtaja</option>
+<option value="432">Lokalahti</option>
+<option value="439">Luopioinen</option>
+<option value="442">Luvia</option>
+<option value="443">L&auml;ngelm&auml;ki</option>
+<option value="476">Maaninka</option>
+<option value="477">Maaria</option>
+<option value="479">Maksamaa</option>
+<option value="482">Mellil&auml;</option>
+<option value="485">Merimasku</option>
+<option value="486">Messukyl&auml;</option>
+<option value="487">Mets&auml;maa</option>
+<option value="490">Mietoinen</option>
+<option value="492">Mikkelin mlk</option>
+<option value="493">Mouhij&auml;rvi</option>
+<option value="496">Mumsala</option>
+<option value="501">Muurla</option>
+<option value="502">Muuruvesi</option>
+<option value="506">M&auml;ntt&auml;</option>
+<option value="530">Naantalin mlk</option>
+<option value="532">Nastola</option>
+<option value="533">Nauvo</option>
+<option value="534">Nilsi&auml;</option>
+<option value="537">Noormarkku</option>
+<option value="540">Nummi-Pusula</option>
+<option value="542">Nurmeksen mlk</option>
+<option value="544">Nurmo</option>
+<option value="559">Oravainen</option>
+<option value="565">Oulujoki</option>
+<option value="567">Oulunsalo</option>
+<option value="584">Paattinen</option>
+<option value="575">Paavola</option>
+<option value="573">Parainen</option>
+<option value="579">Paraisten mlk</option>
+<option value="585">Pernaja</option>
+<option value="586">Perni&ouml;</option>
+<option value="587">Pertteli</option>
+<option value="589">Per&auml;sein&auml;joki</option>
+<option value="590">Petolahti</option>
+<option value="594">Pieks&auml;m&auml;en mlk</option>
+<option value="640">Pieks&auml;nmaa</option>
+<option value="596">Pielisensuu</option>
+<option value="597">Pielisj&auml;rvi</option>
+<option value="600">Pihlajavesi</option>
+<option value="602">Piikki&ouml;</option>
+<option value="603">Piippola</option>
+<option value="605">Pirttikyl&auml;</option>
+<option value="606">Pohja</option>
+<option value="607">Pohjaslahti</option>
+<option value="610">Porin mlk</option>
+<option value="612">Porvoo</option>
+<option value="613">Porvoon mlk</option>
+<option value="617">Pulkkila</option>
+<option value="618">Punkaharju</option>
+<option value="621">Purmo</option>
+<option value="622">Pusula</option>
+<option value="627">Pyh&auml;j&auml;rvi Ul</option>
+<option value="632">Pyh&auml;selk&auml;</option>
+<option value="633">Pylk&ouml;nm&auml;ki</option>
+<option value="679">Raippaluoto</option>
+<option value="682">Rantsila</option>
+<option value="685">Rauman mlk</option>
+<option value="688">Rautio</option>
+<option value="692">Renko</option>
+<option value="693">Revonlahti</option>
+<option value="695">Riistavesi</option>
+<option value="696">Ristiina</option>
+<option value="699">Rovaniemen mlk</option>
+<option value="701">Ruotsinpyht&auml;&auml;</option>
+<option value="708">Ruukki</option>
+<option value="705">Rym&auml;ttyl&auml;</option>
+<option value="728">Saari</option>
+<option value="730">Sahalahti</option>
+<option value="735">Saloinen</option>
+<option value="737">Sammatti</option>
+<option value="741">Savonranta</option>
+<option value="744">Sein&auml;joen mlk</option>
+<option value="750">Siipyy</option>
+<option value="752">Simpele</option>
+<option value="756">Snappertuna</option>
+<option value="760">Somerniemi</option>
+<option value="769">Sulva</option>
+
+<option value="770">Sumiainen</option>
+<option value="772">Suodenniemi</option>
+<option value="774">Suolahti</option>
+<option value="775">Suomenniemi</option>
+<option value="776">Suomusj&auml;rvi</option>
+<option value="779">Suoniemi</option>
+<option value="782">S&auml;kkij&auml;rvi</option>
+<option value="784">S&auml;rkisalo</option>
+<option value="786">S&auml;yneinen</option>
+<option value="788">S&auml;&auml;ksm&auml;ki</option>
+<option value="789">S&auml;&auml;minki</option>
+<option value="836">Tammisaaren mlk</option>
+<option value="835">Tammisaari</option>
+<option value="838">Tarvasjoki</option>
+<option value="839">Teerij&auml;rvi</option>
+<option value="840">Teisko</option>
+<option value="841">Temmes</option>
+<option value="842">Tenhola</option>
+<option value="847">Tiukka</option>
+<option value="864">Toijala</option>
+<option value="852">Tottij&auml;rvi</option>
+<option value="855">Tuulos</option>
+<option value="856">Tuupovaara</option>
+<option value="850">Tyrv&auml;nt&ouml;</option>
+<option value="861">Tyrv&auml;&auml;</option>
+<option value="863">T&ouml;ys&auml;</option>
+<option value="885">Ullava</option>
+<option value="888">Uskela</option>
+<option value="894">Uudenkaarlepyyn mlk</option>
+<option value="891">Uukuniemi</option>
+<option value="896">Uusikaupungin mlk</option>
+<option value="906">Vahto</option>
+<option value="909">Valkeala</option>
+<option value="911">Valtimo</option>
+<option value="912">Vammala</option>
+
+<option value="913">Vampula</option>
+<option value="914">Vanaja</option>
+<option value="916">Varpaisj&auml;rvi</option>
+<option value="919">Vehmersalmi</option>
+<option value="920">Velkua</option>
+<option value="926">Vihanti</option>
+<option value="928">Viiala</option>
+<option value="932">Viljakkala</option>
+<option value="933">Vilppula</option>
+<option value="937">Virtasalmi</option>
+<option value="940">Vuolijoki</option>
+<option value="942">V&auml;h&auml;kyr&ouml;</option>
+<option value="943">V&auml;rtsil&auml;</option>
+<option value="923">V&auml;stanfj&auml;rd</option>
+<option value="944">V&ouml;yri</option>
+<option value="945">V&ouml;yri-Maksamaa</option>
+<option value="972">Yli-Ii</option>
+<option value="971">Ylih&auml;rm&auml;</option>
+<option value="973">Ylikiiminki</option>
+<option value="974">Ylimarkku</option>
+<option value="975">Ylistaro</option>
+<option value="978">Yl&auml;maa</option>
+<option value="979">Yl&auml;ne</option>
+<option value="988">&Auml;ets&auml;</option>
+<option value="990">&Auml;ht&auml;v&auml;</option>
+<option value="993">&Auml;&auml;nekosken mlk</option>
+<option value="997">&Ouml;ja</option>
+</select> 
+      </td>
+    </tr>
+    <tr>
+      <td class="vtaus"></td>
+      <td class="vtaus" height="8"></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td>
+      <td colspan="2" class="norm"><label for="maakunta">maakunta</label></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td>
+      <td colspan="2" class="vtaus"><select class="kapea" name="MAAKUNTA_ID" id="maakunta">
+<option value="">- kaikki</option>
+<option value="20">Ahvenanmaa</option>
+<option value="9">Etel&auml;-Karjala</option>
+<option value="14">Etel&auml;-Pohjanmaa</option>
+<option value="10">Etel&auml;-Savo</option>
+<option value="18">Kainuu</option>
+<option value="5">Kanta-H&auml;me</option>
+<option value="16">Keski-Pohjanmaa</option>
+<option value="13">Keski-Suomi</option>
+<option value="8">Kymenlaakso</option>
+<option value="19">Lappi</option>
+<option value="6">Pirkanmaa</option>
+<option value="15">Pohjanmaa</option>
+<option value="12">Pohjois-Karjala</option>
+<option value="17">Pohjois-Pohjanmaa</option>
+<option value="11">Pohjois-Savo</option>
+<option value="7">P&auml;ij&auml;t-H&auml;me</option>
+<option value="4">Satakunta</option>
+<option value="1">Uusimaa</option>
+<option value="2">Varsinais-Suomi</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td class="vtaus"></td> 
+      <td height="10" colspan="2" class="vtaus"></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td> 
+      <td class="norm"><label for="tyyppi">tyyppi</label></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td> 
+      <td class="vtaus"><select name="TYYPPI_KDI" class="kapea" onChange="rajaaValinnat(this, this.form.ALATYYPPI_KDI, 0, '')" id="tyyppi">
+	     <option value="">- kaikki</option>
+<option value="12000">ei m&auml;&auml;ritelty</option>
+<option value="12017">alusten hylyt</option>
+<option value="12001">asuinpaikat</option>
+<option value="12002">hautapaikat</option>
+<option value="12003">kirkkorakenteet</option>
+<option value="12004">kivirakenteet</option>
+<option value="12005">kulkuv&auml;yl&auml;t</option>
+<option value="12006">kultti- ja tarinapaikat</option>
+<option value="12007">luonnonmuodostumat</option>
+<option value="12008">l&ouml;yt&ouml;paikat</option>
+<option value="12009">maarakenteet</option>
+
+<option value="12011">puolustusvarustukset</option>
+<option value="12018">puurakenteet</option>
+<option value="12012">raaka-aineen hankintapaikat</option>
+<option value="12013">taide, muistomerkit</option>
+<option value="12014">tapahtumapaikat</option>
+<option value="12015">teollisuuskohteet</option>
+<option value="12016">ty&ouml;- ja valmistuspaikat</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td> 
+      <td class="norm"><label for="tyypin tarkenne">tyypin tarkenne</label></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td> 
+      <td class="vtaus"><select name="ALATYYPPI_KDI" class="kapea" id="tyypin tarkenne">
+	      <option value="">- kaikki</option>
+<option value="13000" id="12000">ei m&auml;&auml;ritelty</option>
+<option value="13001" id="12001">asumuspainanteet</option>
+<option value="13002" id="12001">er&auml;sijat</option>
+<option value="13205" id="12001">karjamajat</option>
+<option value="13003" id="12001">kartanot</option>
+<option value="13004" id="12001">kaupungit</option>
+<option value="13005" id="12001">kodanpohjat</option>
+<option value="13006" id="12001">kuninkaankartanot</option>
+<option value="13007" id="12001">kyl&auml;npaikat</option>
+<option value="13008" id="12001">kent&auml;t (gieddi)</option>
+<option value="13200" id="12001">liesikiveykset</option>
+<option value="13199" id="12001">liesilatomukset (&aacute;rran)</option>
+<option value="13206" id="12001">m&auml;kituvat</option>
+<option value="13009" id="12001">pappilat</option>
+<option value="13010" id="12001">piilopirtit</option>
+<option value="13011" id="12001">puistot</option>
+<option value="13012" id="12001">puutarhat</option>
+<option value="13183" id="12001">sotilasleirit</option>
+<option value="13013" id="12001">talonpohjat</option>
+<option value="13207" id="12001">talvikyl&auml;t</option>
+<option value="13208" id="12001">tomtning-j&auml;&auml;nn&ouml;kset</option>
+<option value="13014" id="12001">torpat</option>
+<option value="13209" id="12001">tupasijat</option>
+<option value="13015" id="12001">virkatalot</option>
+<option value="13016" id="12001">yksin&auml;istalot</option>
+<option value="13017" id="12002">hautakammiot</option>
+<option value="13018" id="12002">hautakummut</option>
+<option value="13019" id="12002">hautar&ouml;ykki&ouml;t</option>
+<option value="13020" id="12002">hautasaaret</option>
+<option value="13021" id="12002">hautausmaat</option>
+<option value="13022" id="12002">joukkohaudat</option>
+<option value="13023" id="12002">kes&auml;haudat</option>
+<option value="13024" id="12002">kivilatomukset</option>
+<option value="13025" id="12002">kirkkohaudat</option>
+<option value="13026" id="12002">laivalatomukset</option>
+<option value="13027" id="12002">lapinrauniot</option>
+<option value="13028" id="12002">ortodoksikalmistot</option>
+<option value="13029" id="12002">palokuoppahaudat</option>
+<option value="13215" id="12002">polttohaudat</option>
+<option value="13030" id="12002">polttokentt&auml;kalmistot</option>
+<option value="13216" id="12002">punamultahaudat</option>
+<option value="13031" id="12002">ruttohautausmaat</option>
+<option value="13218" id="12002">ruumishaudat</option>
+<option value="13032" id="12002">ruumiskalmistot</option>
+<option value="13033" id="12002">tarhakalmistot</option>
+<option value="13034" id="12003">luuhuoneet</option>
+<option value="13035" id="12003">kellotapulinpaikat</option>
+<option value="13036" id="12003">kirkkomaat</option>
+<option value="13222" id="12003">kirkkorakennukset</option>
+<option value="13037" id="12003">kirkonpaikat</option>
+<option value="13038" id="12003">kirkonrauniot</option>
+<option value="13039" id="12003">luostarinpaikat</option>
+<option value="13040" id="12003">tsasounanpaikat</option>
+<option value="13041" id="12004">j&auml;tinkirkot</option>
+<option value="13042" id="12004">kaivot</option>
+<option value="13043" id="12004">kellarit</option>
+<option value="13044" id="12004">kiukaat</option>
+<option value="13045" id="12004">kiviaidat</option>
+<option value="13046" id="12004">kivimuurit</option>
+<option value="13047" id="12004">kivip&ouml;yd&auml;t</option>
+<option value="13048" id="12004">kivivallit</option>
+<option value="13049" id="12004">latomukset</option>
+<option value="13050" id="12004">purnut</option>
+<option value="13051" id="12004">rajamerkit</option>
+<option value="13052" id="12004">rakkakuopat</option>
+<option value="13053" id="12004">ryss&auml;nuunit</option>
+<option value="13054" id="12004">r&ouml;ykki&ouml;t</option>
+<option value="13055" id="12004">uunit</option>
+<option value="13195" id="12005">aallonmurtajat</option>
+<option value="13056" id="12005">kanavat</option>
+<option value="13057" id="12005">kapulatiet</option>
+<option value="13058" id="12005">kiinnitysrenkaat</option>
+<option value="13059" id="12005">kummelit</option>
+<option value="13063" id="12005">laiturit</option>
+<option value="13210" id="12005">lentokent&auml;t</option>
+<option value="13060" id="12005">majakat</option>
+<option value="13061" id="12005">merimerkit</option>
+<option value="13062" id="12005">merkkikivet</option>
+<option value="13184" id="12005">merkkipuut</option>
+<option value="13185" id="12005">optiset lenn&auml;tinasemat</option>
+<option value="13196" id="12005">painolastipaikat</option>
+<option value="13064" id="12005">polut</option>
+<option value="13065" id="12005">portaat</option>
+<option value="13066" id="12005">pitkospuut</option>
+<option value="13067" id="12005">ratapohjat</option>
+<option value="13068" id="12005">satamat</option>
+<option value="13069" id="12005">sillanpaikat</option>
+<option value="13070" id="12005">sillat</option>
+<option value="13071" id="12005">tienpohjat</option>
+<option value="13072" id="12005">valkamat</option>
+<option value="13217" id="12005">veneenvetom&ouml;lj&auml;t</option>
+<option value="13073" id="12005">veneenvetopaikat</option>
+<option value="13219" id="12005">vetokannakset</option>
+<option value="13074" id="12005">virstanpylv&auml;&auml;t</option>
+<option value="13075" id="12006">jatulintarhat</option>
+<option value="13076" id="12006">karsikkopaikat</option>
+<option value="13221" id="12006">kuppikalliot</option>
+<option value="13077" id="12006">kuppikivet</option>
+<option value="13078" id="12006">k&auml;r&auml;j&auml;paikat</option>
+<option value="13079" id="12006">l&auml;hteet</option>
+<option value="13080" id="12006">miekanhiontakivet</option>
+<option value="13081" id="12006">muistopaikat</option>
+<option value="13187" id="12006">piiskauspet&auml;j&auml;t</option>
+<option value="13082" id="12006">ristikivet</option>
+<option value="13083" id="12006">seidat</option>
+<option value="13084" id="12006">tarinapaikat</option>
+<option value="13085" id="12006">uhrikivet</option>
+<option value="13086" id="12006">uhrilehdot</option>
+<option value="13186" id="12006">uhripuut</option>
+<option value="13087" id="12007">luolat</option>
+<option value="13088" id="12007">pirunpellot</option>
+<option value="13089" id="12007">rantakivikot</option>
+<option value="13090" id="12008">irtol&ouml;yt&ouml;paikat</option>
+<option value="13091" id="12008">k&auml;tk&ouml;t</option>
+<option value="13092" id="12009">kaivannot</option>
+<option value="13093" id="12009">kummut</option>
+<option value="13094" id="12009">kuopat</option>
+<option value="13095" id="12009">painanteet</option>
+<option value="13096" id="12009">vallit</option>
+<option value="13097" id="12010">ei m&auml;&auml;ritelty</option>
+<option value="13098" id="12011">ammusvarastot</option>
+<option value="13099" id="12011">esilinnat</option>
+<option value="13100" id="12011">hirsivarustukset</option>
+<option value="13101" id="12011">kivilinnat</option>
+<option value="13102" id="12011">kivivarustukset</option>
+<option value="13212" id="12011">korsut</option>
+<option value="13103" id="12011">linnamalmit</option>
+<option value="13104" id="12011">linnakkeet</option>
+<option value="13105" id="12011">linnat</option>
+<option value="13106" id="12011">linnavuoret</option>
+<option value="13107" id="12011">linnoitukset</option>
+<option value="13108" id="12011">luolat</option>
+<option value="13109" id="12011">maavallit</option>
+<option value="13110" id="12011">muinaislinnat</option>
+<option value="13111" id="12011">paaluvarustukset</option>
+<option value="13112" id="12011">panssariesteet</option>
+<option value="13214" id="12011">piikkilankaesteet</option>
+<option value="13113" id="12011">suojahuoneet</option>
+<option value="13114" id="12011">taistelukaivannot</option>
+<option value="13115" id="12011">tornit</option>
+<option value="13116" id="12011">tulipes&auml;kkeet</option>
+<option value="13117" id="12011">tykkiasemat</option>
+<option value="13118" id="12011">tykkitiet</option>
+<option value="13211" id="12011">t&auml;hystysasemat</option>
+<option value="13119" id="12011">vallihaudat</option>
+<option value="13120" id="12011">valonheitinasemat</option>
+<option value="13220" id="12011">v&auml;yl&auml;esteet</option>
+<option value="13121" id="12011">yhdyshaudat</option>
+<option value="13122" id="12012">hiekanottokuopat</option>
+<option value="13123" id="12012">kaivokset</option>
+<option value="13124" id="12012">louhokset</option>
+<option value="13125" id="12012">savenottokuopat</option>
+<option value="13126" id="12013">hakkaukset</option>
+<option value="13127" id="12013">kaiverrukset</option>
+<option value="13128" id="12013">kalliomaalaukset</option>
+<option value="13129" id="12013">kalliopiirrokset</option>
+<option value="13130" id="12013">kompassiruusut</option>
+<option value="13131" id="12013">muistomerkit</option>
+<option value="13203" id="12015">harkkohytit</option>
+<option value="13204" id="12015">h&ouml;yrysahat</option>
+<option value="13132" id="12015">keramiikkatehtaat</option>
+<option value="13133" id="12015">kuonakasat</option>
+<option value="13134" id="12015">kuparinsulattamot</option>
+<option value="13135" id="12015">lasitehtaat</option>
+<option value="13136" id="12015">manufaktuurit</option>
+<option value="13137" id="12015">masuunit</option>
+<option value="13138" id="12015">paperitehtaat</option>
+<option value="13139" id="12015">pikiruukit</option>
+<option value="13140" id="12015">rautaruukit</option>
+<option value="13141" id="12015">salpietarikeittim&ouml;t</option>
+<option value="13142" id="12015">savupiiput</option>
+<option value="13143" id="12015">telakat</option>
+<option value="13144" id="12015">terva- ja t&auml;rp&auml;ttitehtaat</option>
+<option value="13145" id="12015">tiilitehtaat</option>
+<option value="13146" id="12015">uittolaitteet</option>
+<option value="13147" id="12015">vesisahat</option>
+<option value="13197" id="12014">haaksirikkopaikat</option>
+<option value="13148" id="12014">rangaistuspaikat</option>
+<option value="13149" id="12014">taistelupaikat</option>
+<option value="13150" id="12016">hangakset</option>
+<option value="13151" id="12016">hiilimiilut</option>
+<option value="13189" id="12016">hospitaalit ja sairaalat</option>
+<option value="13152" id="12016">kalastuspaikat</option>
+<option value="13153" id="12016">kalkkiuunit</option>
+<option value="13154" id="12016">kaskir&ouml;ykki&ouml;t</option>
+<option value="13155" id="12016">keittokuopat</option>
+<option value="13156" id="12016">keramiikanpolttouunit</option>
+<option value="13157" id="12016">kestikievarit</option>
+<option value="13158" id="12016">kullanhuuhdonnan j&auml;&auml;nn&ouml;kset</option>
+<option value="13159" id="12016">kylpyl&auml;t</option>
+<option value="13191" id="12016">k&auml;sittelypaikat</option>
+<option value="13160" id="12016">laivanrakennuspaikat</option>
+<option value="13161" id="12016">lapinpadot</option>
+<option value="13162" id="12016">linnustuspaikat</option>
+<option value="13188" id="12016">luotsi- ja tulliasemat</option>
+<option value="13198" id="12016">maanmittauspisteet</option>
+<option value="13163" id="12016">markkinapaikat</option>
+<option value="13164" id="12016">muinaispellot</option>
+<option value="13165" id="12016">mukulakivikasat</option>
+<option value="13166" id="12016">nauriskuopat</option>
+<option value="13167" id="12016">pajat</option>
+<option value="13168" id="12016">poroaidat</option>
+<option value="13169" id="12016">potaskauunit</option>
+<option value="13170" id="12016">pyyntikuopat</option>
+<option value="13171" id="12016">pyyntitukikohdat</option>
+<option value="13190" id="12016">rajapostikonttorit</option>
+<option value="13172" id="12016">raudanvalmistuspaikat</option>
+<option value="13173" id="12016">sirpalekivikasat</option>
+<option value="13174" id="12016">sudenkuopat</option>
+<option value="13175" id="12016">tervahaudat</option>
+<option value="13176" id="12016">terveysl&auml;hteet</option>
+<option value="13177" id="12016">tiilenpolttouunit</option>
+<option value="13178" id="12016">tulisijat</option>
+<option value="13179" id="12016">tuulimyllyt</option>
+<option value="13180" id="12016">vesimyllyt</option>
+<option value="13181" id="12016">viljelm&auml;t</option>
+<option value="13182" id="12016">viljelyr&ouml;ykki&ouml;t</option>
+<option value="13194" id="12017">hylyt (metalli)</option>
+<option value="13193" id="12017">hylyt (puu)</option>
+<option value="13192" id="12017">ruuhet</option>
+<option value="13201" id="12018">aidat</option>
+<option value="13202" id="12018">rajamerkit, puu</option> 
+        </select></td>
+    </tr>
+    <tr>
+      <td class="vtaus"></td>
+      <td class="vtaus" height="8"></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td> 
+      <td class="norm"><label for="ajoitus">ajoitus</label></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td> 
+      <td class="vtaus"><select name="AJOITUS_KDI" class="kapea" id="ajoitus">
+	      <option value="">- kaikki</option>
+	      <option value="99">- kaikki esihistorialliset</option>
+	      <option value="999">- kaikki historialliset</option>
+	      
+	      <option value="11004">esihistoriallinen</option>
+	      <option value="11019">kivikautinen</option>
+	      <option value="11040">varhaismetallikautinen</option>
+	      <option value="11028">pronssikautinen</option>
+	      <option value="11033">rautakautinen</option>
+	      <option value="11010">keskiaikainen</option>
+	      <option value="11006">historiallinen</option>
+	      <option value="11042">moderni</option>
+	      <option value="11002">ajoittamaton</option>
+	      <option value="11000">ei m&auml;&auml;ritelty</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td class="vtaus"></td>
+      <td class="vtaus" height="8"></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td> 
+      <td class="norm"><label for="vedenalainen">vedenalainen kohde</label></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td> 
+      <td class="vtaus"><select name="VEDENALAINEN" class="kapea" id="vedenalainen">
+	      <option value="">- kaikki</option>
+<option value="k">kyll&auml;</option>
+<option value="e">ei</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td class="vtaus"></td> 
+      <td class="vtaus" height="8"></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td> 
+      <td class="norm"><label for="kohdenimi">kohdenimi</label></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td> 
+      <td class="vtaus"><input name="KOHDE_NIMI" type="text" class="kapea" id="kohdenimi"></td>
+    </tr>
+    <tr>
+      <td class="vtaus"></td> 
+      <td class="vtaus" height="8"></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td> 
+      <td class="norm"><label for="kohde_id">kohdetunnus</label>
+        <input type="hidden" name="_kokonaisluku" value="KOHDE_ID" title="kohdetunnus-kentt&auml;&auml;n tulee t&auml;ytt&auml;&auml;&nbsp;kokonaisluku."></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td> 
+      <td class="vtaus"><input name="KOHDE_ID" type="text" class="kapea" id="kohde_id"></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td>
+      <td class="vtaus">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td>
+      <td class="norm"><input type="checkbox" name="VARKKOHDE" id="VARKKOHDE" value="K"><label for="VARKKOHDE">&nbsp;valtakunnallisesti merkittävä arkeologinen kohde VARK</label></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td> 
+      <td class="vtaus">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td> 
+      <td class="vtaus"><input type="submit" class="kapea" name="Hae" value="Hae"></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td>
+      <td class="vtaus">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td> 
+      <td class="vtaus"><input type="reset" name="Poista valinnat" class="kapea" value="Poista valinnat"></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td> 
+      <td class="vtaus">
+	  <input type="hidden" name="KUNTA_NIMI"><input type="hidden" name="MAAKUNTA_NIMI">
+	  <input type="hidden" name="VANHAKUNTA_NIMI">
+      <input type="hidden" name="TYYPPI_SELITE">
+      <input type="hidden" name="ALATYYPPI_SELITE">
+      <input type="hidden" name="AJOITUS_SELITE">
+      <input type="hidden" name="VEDENALAINEN_SELITE">
+	  </td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      <td class="norm"><a href="r_tilasto_mkl.aspx" class="puna">kohteet maakunnittain</a></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      <td class="norm"><a href="r_tilasto_mkm.aspx" class="puna">kohteet vastuumuseoittain</a></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      <td class="norm"><a href="r_tilasto_yke.aspx" class="puna">kohteet ELY-keskuksittain</a></td>
+    </tr>
+    <tr>
+      <td class="vtaus">&nbsp;</td>
+      <td class="vtaus">&nbsp;</td>
+    </tr>
+  </table>
+</form>
+</div>
+
+<div class="kapenee">
+<table width="100%" border="0" cellspacing="0" cellpadding="4">
+  <tr>
+    <td class="norm" colspan="2">&nbsp;</td>
+  </tr>
+
+        <tr>
+          <td class="otsa" title="kohteen sijaintikunta" id="kohteen_sijaintikunta">Nakkila</td>
+          <td align="right" class="otsa">
+
+        
+        <img src="../img/alue.gif" border="0" title="kohde on paikannettu alueena">
+        
+
+
+			</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="otsa" title="Kohde on muinaismuistolain (295/1963) tarkoittama arkeologinen jäännös. Kiinteät muinaisjäännökset ovat rauhoitettuja muistoina Suomen aikaisemmasta asutuksesta ja historiasta. Kiinteän muinaisjäännöksen kaivaminen, peittäminen, muuttaminen, vahingoittaminen, poistaminen ja muu kajoaminen on kiellettyä ilman lain mukaista lupaa. Myös yli sata vuotta sitten uponneiden alusten hylyt kuuluvat muinaismuistolain rauhoituksen piiriin.">kiinteä muinaisjäännös</td>
+        </tr>
+        <tr>
+          <td class="otsa" title="kohteen nimi" id="kohteen_nimi"><h1>Keskimäki</h1></td>
+          <td align="right" class="otsa" title="kohteen yksil&ouml;iv&auml;kohdetunnus" id="kohdetunnus">531010025</td>
+        </tr>
+
+  <tr>
+    <td colspan="2"><iframe src="https://kartta.museoverkko.fi/?lang=fi&uuid=a47cd711-ec4c-4ffc-8b00-66a930721e98&coord=235179_6815818&zoomLevel=9" style="border:none;width:100%;height:300px"></iframe></td>
+  </tr>
+
+         <tr>
+           <td class="norm" colspan="2" height="12"></td>
+         </tr>
+        <tr> 
+          <td class="norm1">Tyyppi:</td>
+          <td class="norm">
+			  <a href="http://akp.nba.fi/wiki;luokka;hautaaminen" target="_blank" title="linkki arkeologisen kulttuuriperinn&ouml;n oppaaseen" class="puna">hautapaikat</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			  <a href="http://akp.nba.fi/wiki;hautar%C3%B6ykki%C3%B6" target="_blank" title="linkki arkeologisen kulttuuriperinn&ouml;n oppaaseen" class="puna">hautaröykkiöt</a>
+			</td>
+          </tr>
+        
+        
+        <tr>
+          <td class="norm">Ajoitus:</td>
+          <td class="norm">pronssikautinen, ei määritelty </td>
+          </tr>
+        
+        
+         <tr>
+           <td class="norm" colspan="2" height="12"></td>
+         </tr>
+        <tr>
+          <td class="norm">Tallennusperuste:</td>
+          <td class="norm">muinaismuistolaki 295/1963</td>
+        </tr>
+        
+                
+		
+        
+        
+        <tr>
+        <td class="norm" valign="top">Paikkatietoselite:</td>
+        <td class="norm" valign="top">keskikoordinaatti</td>
+        </tr>
+        <tr>
+        <td colspan="2" valign="top" class="norm">
+			Z/m.mpy alin: 30.00
+			
+            
+			</td>
+        </tr>
+        
+        <tr>
+    <td class="norm" colspan="2" valign="top" align="right"><a href="javascript:history.back( )" class="puna"><img src="../img/nayta.gif" border="0" alt="">&nbsp;takaisin</a></td>
+  </tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td class="norm" height="4"></td>
+      </tr>
+    <tr>
+      <td class="hdr"><a href="javascript:vaihda_nakyvyys(document.getElementById('koordinaatit_kuvake'), 'koordinaatit')"><img id="koordinaatit_kuvake" src="../img/plus.gif" alt="n&auml;yt&auml;/piilota kaikki koordinaatit"></a>&nbsp;Koordinaatit</td>
+    </tr>
+</table>	
+
+<span id="koordinaatit" style="display:none">
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+    <tr>
+      <td class="norm">  
+        ETRS-TM35FIN P: 6815818 I: 235179 <br>
+        YKJ P: 6818678 I: 3235243 <br>
+        ETRS89/WGS84 Lat: 61.38567151&deg; Lon: 22.04012634&deg;<br>
+        ETRS89/WGS84 Lat: 61&deg; 23.1403' Lon: 22&deg; 2.4076'<br>
+        ETRS89/WGS84 Lat: 61&deg; 23' 8.4174" Lon: 22&deg; 2' 24.4548"<br>
+      </td>
+      </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+</span>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td class="norm" height="4"></td>
+      </tr>
+    <tr>
+      <td class="hdr"><a href="javascript:vaihda_nakyvyys(document.getElementById('kuvaus_kuvake'), 'kuvaus')"><img id="kuvaus_kuvake" src="../img/plus.gif" alt="n&auml;yt&auml;/piilota kuvaus"></a>&nbsp;Kuvaus</td>
+    </tr>
+</table>	
+
+<span id="kuvaus" style="display:none">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+    <tr>
+          <td class="norm">Röykkiöt sijaitsevat Kokemäenjoesta 1,9 km ja Nakkila-Harjavalta tiestä 1,2 km koilliseen metsän reunassa, jokseenkin tasaisella maalla. <br>Pohjoiseen johtavan tien länsipuolella metsänlaidassa on röykkiön pohja, joka on pienten kiviliuskojen peitossa. Muodoltaan se on soikeahko ja kooltaan 10 x 6 m. Edellisestä 30 m lounaaseen, melkein tasaisella maalla on matala röykkiö. Se on muodoltaan kumpumainen ja soikeahko ja kooltaan 6 x 9 m. Korkeus on 0,5 m. <br><br>Edellisestä neljä metri kaakkoon on epäsäännöllinen, pitkänomainen röykkiö, joka on kooltaan 5 x 6 m. Edellisestä kymmenkunta metriä lounaaseen on röykkiönpohja, josta erottuu osittain säilynyt reunakehä. Keskellä on maakivi. Röykkiön halkaisija on 8 m. Viides röykkiö on edellisestä röykkiöstä parikymmentä metriä länsilounaaseen. Se on häviteyn suuren röykkiön pohja. Sen reunat ovat korkeampana jääneet jäljelle. Röykkiön halkaisija 17 x 16 m. <br><br>Kuudes röykkiö on pohjoiseen menevän tien itäpuolella, metsätieuran varressa. Röykkiön koko on 4x5 m. Seitsemäs röykkiö sijaitsee edellisestä 15 m itään metsätien eteläpuolella. Se on matala, kooltaan 5x6 m. Kahdeksas röykkiö sijoittuu 50 m päähän edellisistä metsäojan itäpuolelle. Röykkiö on metrin korkuinen symmetrinen kumpu, jonka koko on 8x10 m. Yhdeksäs röykkiö sijaitsee edellisestä 10 m etelään. Sen koko on 6x4 m. Pohjoispää on kuopalla.</td>
+      </tr>
+    <tr>
+          <td class="leimat">Luonti: 7.11.1996 Viimeisin muutos: 22.4.2010</td>
+      </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+</span>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="531010025">
+    <tr>
+      <td height="4" class="norm"></td>
+    </tr>
+    <tr>
+      <td class="hdr"><a href="javascript:vaihda_nakyvyys(document.getElementById('alakohdelist_kuvake'), 'alakohdelist')"><img id="alakohdelist_kuvake" src="../img/plus.gif" alt="n&auml;yt&auml;/piilota alakohteet"></a>&nbsp;Alakohteet</td>
+    </tr>
+</table>
+
+
+<span id="alakohdelist" style="display:none">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="bkgr">Röykkiö 1</td>
+      </tr>
+        <tr> 
+          <td class="norm">Tyyppi: hautapaikat, hautaröykkiöt </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Ajoitus: pronssikautinen </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Koordinaatit ETRS-TM35FIN P: 6815818 I: 235179</td>
+      </tr>
+        
+        
+        <tr> 
+          <td class="norm">Kuvaus: Tien länsipuolella oleva, osittain tien leikkaama röykkiön pohja.</td>
+          </tr>
+        <tr> 
+          <td class="leimat">Luonti: 22.4.2010 </td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="bkgr">Röykkiö 2</td>
+      </tr>
+        <tr> 
+          <td class="norm">Tyyppi: hautapaikat, hautaröykkiöt </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Ajoitus: pronssikautinen </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Koordinaatit ETRS-TM35FIN P: 6815845 I: 235159</td>
+      </tr>
+        
+        
+        <tr> 
+          <td class="norm">Kuvaus: Röykkiön päällä kasvaa muutama kuusi, koivu ja heinää.</td>
+          </tr>
+        <tr> 
+          <td class="leimat">Luonti: 22.4.2010 </td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="bkgr">Röykkiö 3</td>
+      </tr>
+        <tr> 
+          <td class="norm">Tyyppi: hautapaikat, hautaröykkiöt </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Ajoitus: pronssikautinen </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Koordinaatit ETRS-TM35FIN P: 6815834 I: 235167</td>
+      </tr>
+        
+        
+        <tr> 
+          <td class="norm">Kuvaus: Röykkiö on sammaloitunut ja kivenoton vuoksi epäsäännöllisen muotoinen</td>
+          </tr>
+        <tr> 
+          <td class="leimat">Luonti: 22.4.2010 </td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="bkgr">Röykkiö 4</td>
+      </tr>
+        <tr> 
+          <td class="norm">Tyyppi: hautapaikat, hautaröykkiöt </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Ajoitus: pronssikautinen </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Koordinaatit ETRS-TM35FIN P: 6815821 I: 235155</td>
+      </tr>
+        
+        
+        <tr> 
+          <td class="norm">Kuvaus: Paikalla on isoja maakiviä.</td>
+          </tr>
+        <tr> 
+          <td class="leimat">Luonti: 22.4.2010 </td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="bkgr">Röykkiö 5</td>
+      </tr>
+        <tr> 
+          <td class="norm">Tyyppi: hautapaikat, hautaröykkiöt </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Ajoitus: pronssikautinen </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Koordinaatit ETRS-TM35FIN P: 6815835 I: 235118</td>
+      </tr>
+        
+        
+        
+        <tr> 
+          <td class="leimat">Luonti: 22.4.2010 </td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="bkgr">Röykkiö 6</td>
+      </tr>
+        <tr> 
+          <td class="norm">Tyyppi: hautapaikat, hautaröykkiöt </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Ajoitus: pronssikautinen </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Koordinaatit ETRS-TM35FIN P: 6815816 I: 235225</td>
+      </tr>
+        
+        
+        <tr> 
+          <td class="norm">Kuvaus: Röykkiö erottuu kumpuna ja vaikuttaa hyvin säilyneeltä.</td>
+          </tr>
+        <tr> 
+          <td class="leimat">Luonti: 22.4.2010 </td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="bkgr">Röykkiö 7</td>
+      </tr>
+        <tr> 
+          <td class="norm">Tyyppi: hautapaikat, hautaröykkiöt </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Ajoitus: pronssikautinen </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Koordinaatit ETRS-TM35FIN P: 6815812 I: 235244</td>
+      </tr>
+        
+        
+        <tr> 
+          <td class="norm">Kuvaus: Röykkiö erottuu kumpuna ja vaikuttaa hyvin säilyneeltä.</td>
+          </tr>
+        <tr> 
+          <td class="leimat">Luonti: 22.4.2010 </td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="bkgr">Röykkiö 8</td>
+      </tr>
+        <tr> 
+          <td class="norm">Tyyppi: hautapaikat, hautaröykkiöt </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Ajoitus: pronssikautinen </td>
+      </tr>
+        
+        <tr>
+          <td class="norm">Ajoitus: rautakautinen </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Koordinaatit ETRS-TM35FIN P: 6815760 I: 235295</td>
+      </tr>
+        
+        
+        <tr> 
+          <td class="norm">Kuvaus: Röykkiö on kasattu pienistä kivistä ja on hyvin säilynyt.</td>
+          </tr>
+        <tr> 
+          <td class="leimat">Luonti: 22.4.2010 </td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td class="bkgr">Röykkiö 9</td>
+      </tr>
+        <tr> 
+          <td class="norm">Tyyppi: hautapaikat, hautaröykkiöt </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Ajoitus: pronssikautinen </td>
+      </tr>
+        
+        
+        <tr>
+          <td class="norm">Koordinaatit ETRS-TM35FIN P: 6815750 I: 235284</td>
+      </tr>
+        
+        
+        <tr> 
+          <td class="norm">Kuvaus: Röykkiöstä on matkaa eteläpuolella olevalle pellolle 20 m. Tien itäpuolinen alue on ehjää sammalpohjaista vanhaa kuusimetsää.</td>
+          </tr>
+        <tr> 
+          <td class="leimat">Luonti: 22.4.2010 </td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+</span>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="531010025">
+    <tr>
+      <td height="4" class="norm"></td>
+      </tr>
+    <tr>
+      <td class="hdr"><a href="javascript:vaihda_nakyvyys(document.getElementById('tutkimuslist_kuvake'), 'tutkimuslist')"><img id="tutkimuslist_kuvake" src="../img/plus.gif" alt="n&auml;yt&auml;/piilota tutkimukset"></a>&nbsp;Tutkimukset</td>
+    </tr>
+</table>	
+
+
+<span id="tutkimuslist" style="display:none">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td class="bkgr">Unto Salo inventointi 1952</td>
+        </tr>
+        
+        <tr> 
+          <td class="norm">Huomautuksia: Inventointikertomuksen kohteet 65-70 s. 62-64</td>
+          </tr>
+		<tr> 
+          <td class="leimat">Luonti: 1.1.1900 Viimeisin muutos: 29.12.1999</td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td class="bkgr">Turun yliopisto inventointi 1985</td>
+        </tr>
+        
+        <tr> 
+          <td class="norm">Huomautuksia: Luettelo Suomen rannikon hautaraunioista Karhunhammas 14</td>
+          </tr>
+		<tr> 
+          <td class="leimat">Luonti: 1.1.1900 Viimeisin muutos: 29.12.1999</td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td class="bkgr">Jouni Taivainen/Satakunnan Museo inventointi 2001</td>
+        </tr>
+        
+        <tr> 
+          <td class="norm">Huomautuksia: Nakkilan kunnan kiinteät muinaisjäännökset kohde 25 s. 40</td>
+          </tr>
+		<tr> 
+          <td class="leimat">Luonti: 15.4.2010 </td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td class="bkgr">Esa Hertell/Satakunnan Museo inventointi 2009</td>
+        </tr>
+        
+        <tr> 
+          <td class="norm">Huomautuksia: Nakkilan kaava-alueen muinaisjäännösinventointi s. 13</td>
+          </tr>
+		<tr> 
+          <td class="leimat">Luonti: 22.4.2010 </td>
+        </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+      </tr>
+</table>	
+
+</span>
+
+
+
+<span id="liite" style="display:none">
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td colspan="2" valign="top" class="ladattava">Ladattava tiedosto saattaa sis&auml;lt&auml;&auml;kuvia, karttoja tai muita sis&auml;lt&ouml;j&auml;jotka ovat tekij&auml;noikeuksin suojattuja. Tiedoston tekij&auml;noikeudet kuuluvat tutkimusraportin tekij&auml;lle ja muille raportissa mainituille tahoille. Sis&auml;ll&ouml;n jatkok&auml;ytt&ouml;&auml;varten on hankittava lupa tekij&auml;noikeuksien haltijalta.</td>
+        </tr>
+
+    <tr>
+      <td colspan="2" class="norm">&nbsp;</td>
+      </tr>
+</table>	
+</span>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="531010025">
+    <tr>
+      <td height="4" class="norm"></td>
+      </tr>
+    <tr>
+      <td class="hdr"><a href="javascript:vaihda_nakyvyys(document.getElementById('linkki_kuvake'), 'linkki')"><img id="linkki_kuvake" src="../img/plus.gif" alt="n&auml;yt&auml;/piilota linkit muihin aineistoihin"></a>&nbsp;Linkit Museoviraston muihin aineistoihin </td>
+    </tr>
+</table>	
+
+
+<span id="linkki" style="display:none">
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+ <tr> 
+    <td class="vtaus" colspan="3"> 
+      <table width="100%" border="0" cellspacing="1" cellpadding="1">
+        
+        <tr> 
+          <td colspan="3" class="bkgr">Arkeologiset hankkeet</td>
+        </tr> 
+        <tr> 
+          <td class="norm" height="18"><a href="/to.aspx?id=113.9650" target="_blank" class="puna"><img src="../img/nuoli.gif" border="0" alt="">&nbsp;Nakkila, Inventointi 2009 Esa Hertell</a></td>
+          <td class="norm" height="18" align="right"><img src="../img/liite.gif" border="0" title="tietueeseen on liitetty liitteit&auml;" alt="tietueeseen on liitetty liitteit&auml;">&nbsp;</td>
+          <td class="norm" height="18" align="right"></td>
+        </tr>
+        
+        <tr> 
+          <td colspan="3" class="bkgr">Kulttuuriympäristön tutkimusraportit / arkeologia</td>
+        </tr> 
+        <tr> 
+          <td class="norm" height="18"><a href="/to.aspx?id=129.135743" target="_blank" class="puna"><img src="../img/nuoli.gif" border="0" alt="">&nbsp;Kertomus Nakkilan pitäjän kiinteistä muinaisjäännöksistä (Huom. digitoimattomia karttaliitteitä); Inventointi; 1952</a></td>
+          <td class="norm" height="18" align="right"><img src="../img/liite.gif" border="0" title="tietueeseen on liitetty liitteit&auml;" alt="tietueeseen on liitetty liitteit&auml;">&nbsp;</td>
+          <td class="norm" height="18" align="right"></td>
+        </tr>
+        
+         
+        <tr> 
+          <td class="norm" height="18"><a href="/to.aspx?id=129.126003" target="_blank" class="puna"><img src="../img/nuoli.gif" border="0" alt="">&nbsp;Nakkila Inventointi 2001; Inventointi; 2001</a></td>
+          <td class="norm" height="18" align="right"><img src="../img/liite.gif" border="0" title="tietueeseen on liitetty liitteit&auml;" alt="tietueeseen on liitetty liitteit&auml;">&nbsp;</td>
+          <td class="norm" height="18" align="right"></td>
+        </tr>
+        
+      </table>
+    </td>
+  </tr>
+</table>	
+</span>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+    <tr>
+      <td class="norm">&nbsp;</td>
+    </tr>
+	<tr id="kuvaotsikkorivi">
+	</tr>
+	<tr id="kuvarivi">
+	</tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+    <tr>
+      <td class="norm">&nbsp;</td>
+    </tr>
+	<tr id="finnaotsikkorivi">
+	</tr>
+	<tr id="finnarivi">
+	</tr>
+	<tr id="finna_muutkuinkuvat_otsikkorivi">
+	</tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+    <tr>
+      <td class="norm">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="norm"><label for="kopioi">kopioi linkki t&auml;lle sivulle:</label> <input type="text" value="https://www.kyppi.fi/to.aspx?id=112.531010025" class="kopioi" readonly="" id="kopioi"></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="norm"><a href="r_tietuepalaute_edit.aspx?TIETUE_ID=531010025"><img src="../img/palaute_kohteesta.gif" border="0" width="210" alt="kysy tai anna palautetta t&auml;m&auml;n kohteen tiedoista"></a></td>
+    </tr>
+    <tr>
+      <td class="norm">&nbsp;</td>
+    </tr>
+</table>
+</div>
+</div>
+
+<div align="center">    
+<br>
+<a href="https://www.museovirasto.fi/fi/" target="_blank" class="must" title="Verkkopalveluun voi vapaasti linkitt&auml;&auml; ja teksti&auml; saa lainata tekij&auml;noikeuslain mukaisesti, l&auml;hde ja p&auml;iv&auml;m&auml;&auml;r&auml; on mainittava. Aineistoa saa k&auml;ytt&auml;&auml; vain lain ja hyv&auml;n tavan mukaisiin tarkoituksiin. Valokuvien tekij&auml;noikeudet ovat Museovirastolla ja/tai valokuvaajilla. Valokuvat ovat Museoviraston kuva-arkiston kokoelmasta.">&copy;&nbsp;Museovirasto</a>
+<br>
+<a href="https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/saavutettavuusselosteet" target="_blank" class="must"><small>saavutettavuusseloste</small></a><br>
+<a href="https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietosuoja" target="_blank" class="must"><small>tietosuojaseloste</small></a><br>
+<br>	
+</div>
+
+<!-- The Modal -->
+<div id="modaali" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <table border="0" bgcolor="#666666" align="center" width="100%">
+		<tr>
+			<td colspan="3" align="right"><span class="close">×</span></td>
+		</tr>
+		<tr>
+		    <td><span class="close" onclick="vaihda(-1)">&lt;</span></td>
+			<td align="middle">
+			<img id="piilokuva" class="piilokuva" alt="">
+			<img id="kuva" alt="">
+			</td>
+			<td align="right"><span class="close" onclick="vaihda(1)">&gt;</span></td>
+		</tr>
+		<tr>
+			<td colspan="3" class="selite" id="selite"></td>
+		</tr>
+		<tr>
+			<td colspan="3" class="copyright" id="copyright"></td>
+		</tr>
+	</table>
+  </div>
+</div>
+
+<style>
+body {font-family: Verdana, sans-serif; margin: 0;}
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal-content {
+    background-color: #666666;
+    margin: auto;
+    padding: 10px;
+    border: 1px solid #888;
+    width: 80%;
+}
+.close {
+    color: #aaaaaa;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+td.selite { font-family:Verdana; color:#ffffff; text-align:center; padding:30px}
+td.copyright { font-family:Verdana; color:#cccccc; font-size:smaller; text-align:center; padding:30px}
+img.pikkukuva { cursor: pointer; height:100px; padding-left:10px}
+img.piilokuva { display:none }
+</style>
+
+<script>
+var activeindex = 0;
+var modal = document.getElementById('myModal');
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+var kuvat = document.getElementsByClassName("myImages");
+
+function openModal(index)
+{
+  activeindex = index - 1;
+  nayta_kuva(index);
+  modal.style.display = "block";
+}
+function nayta_kuva(index)
+{
+  for(i=0;i< kuvat.length;i++){ kuvat[i].style.display = "none";}
+  kuvat[index-1].style.display = "block";
+  var leveys = skaalaus(kuvat[index-1].width, kuvat[index-1].height) + "%";
+  kuvat[index-1].style.width = leveys;
+  document.getElementById("selite").innerText = kuvat[index-1].alt;// + " " + leveys;// + " " + activeindex;
+}
+function skaalaus(kuvanleveys, kuvankorkeus)
+{
+  var peruskoko = 45;
+  var kerroin = 30;
+  if( kuvanleveys == kuvankorkeus ) { return peruskoko; }
+  if( kuvanleveys > kuvankorkeus ) {
+	var kuvasuhde_vaaka = (1.0 * kuvanleveys) / kuvankorkeus;
+	var skaalaus_vaaka = peruskoko + Math.floor(kerroin * (kuvasuhde_vaaka - 1));
+	return skaalaus_vaaka;
+	}
+  else {
+	var kuvasuhde_pysty = (1.0 * kuvankorkeus) / kuvanleveys;
+	var skaalaus_pysty = peruskoko - Math.floor(kerroin * (kuvasuhde_pysty - 1));
+	return skaalaus_pysty;
+	}
+}
+function vaihda(siirto)
+{
+  var uusi_indeksi = activeindex + 1 + siirto;
+  if( uusi_indeksi > kuvat.length ) { uusi_indeksi = 1; }
+  if( uusi_indeksi < 1 ) { uusi_indeksi = kuvat.length; }
+  activeindex = uusi_indeksi - 1;
+  nayta_kuva(uusi_indeksi);
+}
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+<script src="/inc/jquery-3.2.1.js"></script>
+
+<script>
+var _kohdenimi = document.getElementById("kohteen_nimi").innerText;
+var _kohde_id = document.getElementById("kohdetunnus").innerText;
+var _kuntanimi = document.getElementById("kohteen_sijaintikunta").innerText; // ei tarvita?
+
+var _indeksi = 0; //aktiivinen indeksi
+var _pikkukuvalkm = 4; //n&auml;yt&ouml;ss&auml; n&auml;ytett&auml;v&auml; maksimim&auml;&auml;r&auml; pikkukuvia
+var _finna = false;
+
+var _modaali = document.getElementById("modaali");
+var _sulje = document.getElementsByClassName("close")[0];
+var _kuvarivi = document.getElementById("kuvarivi");
+var _finnarivi = document.getElementById("finnarivi");
+var _finnaotsikkorivi = document.getElementById("finnaotsikkorivi");
+var _finna_muutkuinkuvat_otsikkorivi = document.getElementById("finna_muutkuinkuvat_otsikkorivi");
+var _kuvaotsikkorivi = document.getElementById("kuvaotsikkorivi");
+var _kuva = document.getElementById("kuva");
+var _piilokuva = document.getElementById("piilokuva");
+var _selite = document.getElementById("selite");
+var _copyright = document.getElementById("copyright");
+
+var _kuvat = [];
+var _finnakuvat = [];
+var _kuvahaku_url = "hae_kohteen_kuvat_json.aspx?KOHDE_ID=" + _kohde_id;
+var _uri = 'https://api.finna.fi/v1/search?lookfor=geographic_id_str_mv:"(mjr)' + _kohde_id + '"&filter[]=online_boolean:"1"&filter[]=usage_rights_str_mv:"usage_E"&filter[]=format:"0/Image/"&field[]=id&field[]=imageRights&field[]=images&field[]=title&field[]=year&field[]=nonPresenterAuthors&limit=10';
+var _katso_kaikki_uri = 'https://finna.fi/Search/Results?lookfor=geographic_id_str_mv:"(mjr)' + _kohde_id + '"&filter[]=online_boolean:"1"&filter[]=usage_rights_str_mv:"usage_E"&filter[]=format:"0/Image/"';
+
+var _res = encodeURI(_uri); 
+var _res_kaikki = encodeURI(_katso_kaikki_uri); 
+
+//kuvakarusellifunktiot
+function avaa_modaali(indeksi, finna)
+{
+  _finna = finna;
+  _indeksi = indeksi - 1;
+  nayta_kuva(indeksi);
+  _modaali.style.display = "block";
+}
+function nayta_kuva(indeksi)
+{
+  var polku = ( _finna ) 
+    ? "https://finna.fi" + finnakuvat.records[indeksi-1].images[0]
+//    : "http://kyppi.local/palveluikkuna/mjreki/read/asp/hae_kuva.aspx?id=" + kuvat[indeksi-1].KUVA_ID + "&ttyyppi=jpg&kunta_id=" + kuvat[indeksi-1].KUNTA_ID;
+    : "https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/hae_kuva.aspx?id=" + kuvat[indeksi-1].KUVA_ID + "&ttyyppi=jpg&kunta_id=" + kuvat[indeksi-1].KUNTA_ID;
+  _piilokuva.src = polku;
+  _kuva.src = polku;
+  var leveys = skaalaus(piilokuva.width, piilokuva.height) + "%";
+  kuva.style.width = leveys;
+  var selite = "";
+  if( _finna ) {
+	var tekija = ( finnakuvat.records[indeksi-1].nonPresenterAuthors[0] ) ? finnakuvat.records[indeksi-1].nonPresenterAuthors[0].name + " " : "";
+	selite = finnakuvat.records[indeksi-1].title + " [" + tekija  +  finnakuvat.records[indeksi-1].year + "]"
+	}
+  else {
+	selite = kuvat[indeksi-1].KUVA_KUVAAJA + " " + kuvat[indeksi-1].KUVA_KUVAUSAIKA;
+	}
+  _selite.innerText = selite;
+  _copyright.innerText = ( _finna ) 
+	? ((finnakuvat.records[indeksi-1].imageRights) ? finnakuvat.records[indeksi-1].imageRights.description[0] : "")
+	: "";
+  }
+function skaalaus(kuvanleveys, kuvankorkeus)
+{
+  var peruskoko = 45;
+  var kerroin = 30;
+  if( kuvanleveys == kuvankorkeus ) { return peruskoko; }
+  if( kuvanleveys > kuvankorkeus ) {
+	var kuvasuhde_vaaka = (1.0 * kuvanleveys) / kuvankorkeus;
+	var skaalaus_vaaka = peruskoko + Math.floor(kerroin * (kuvasuhde_vaaka - 1));
+	return skaalaus_vaaka;
+	}
+  else {
+	var kuvasuhde_pysty = (1.0 * kuvankorkeus) / kuvanleveys;
+	var skaalaus_pysty = peruskoko - Math.floor(kerroin * (kuvasuhde_pysty - 1));
+	return skaalaus_pysty;
+	}
+}
+function vaihda(siirto)
+{
+  var kokoelma = (_finna) ? finnakuvat.records: kuvat;
+  var uusi_indeksi = _indeksi + 1 + siirto;
+  if( uusi_indeksi > kokoelma.length ) { uusi_indeksi = 1; }
+  if( uusi_indeksi < 1 ) { uusi_indeksi = kokoelma.length; }
+  _indeksi = uusi_indeksi - 1;
+  nayta_kuva(uusi_indeksi);
+}
+
+_sulje.onclick = function() {
+    _modaali.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == _modaali) {
+        _modaali.style.display = "none";
+    }
+}  
+//DHTML-elementtien luontifuntiot
+function luo_td(luokka, sisalto)
+{
+  var td = document.createElement("td");
+  td.className = luokka;
+  if( sisalto.length ) { 
+    var i;
+    for(i=0;i<sisalto.length;i++)
+    td.appendChild(sisalto[i]); 
+    }
+  return td;
+} 
+function luo_textnode(teksti)
+{
+  var sisalto = teksti;
+  var textnode = document.createTextNode(sisalto);
+  return textnode;
+}
+function luo_a(luokka, osoite, sisalto, kohde)
+{
+  var a = document.createElement("a");
+  a.className = luokka;
+  a.href = osoite;
+  if( sisalto.length ) { 
+    var i;
+    for(i=0;i<sisalto.length;i++)
+    a.appendChild(sisalto[i]); 
+    }
+  if(kohde != null) {a.target = kohde; }
+  return a;
+}
+//kaikki argumentit paitsi title pakollisia
+function luo_pikkukuva(luokka, polku, alt, parametri, finna)
+{
+  var img = document.createElement("img");
+  img.className = luokka;
+  img.src = polku;
+  if( alt != null ) {img.alt = alt.trim();}
+  img.addEventListener("click", function() { avaa_modaali(parametri, finna);});
+  return img;
+}
+//AJAX-datafunktiot
+//FINNA kuvat
+var jqxhr1 = $.getJSON(_res, function(){
+	}).done( function (data) {
+	finnakuvat = data;
+	var kuvalkm = finnakuvat.resultCount;
+	var naytettavalkm = finnakuvat.records.length;
+	if( kuvalkm > 0 )
+	{ 
+		rakenna_pikkukuvarivi(data.records, true);
+		var lkmteksti = ( kuvalkm > naytettavalkm ) ? naytettavalkm + "/" + kuvalkm: kuvalkm + "";
+		var finnateksti = "Kuvahaku Finnasta " + lkmteksti + " kpl";
+		var ft = luo_textnode(finnateksti);
+		var finnateksti2 = "Katso kaikki kuvat Finnassa";
+		var ft2 = luo_textnode(finnateksti2);
+		var vali = luo_textnode(" ");
+		var linkkisisalto = [ft2];
+		var linkki = luo_a("puna", _res_kaikki, linkkisisalto, "_blank")
+		var sisalto = [ft, vali, linkki];
+		var solu = luo_td("hdr", sisalto);
+		_finnaotsikkorivi.appendChild(solu);
+	}
+	}).fail( function () {
+	}); 	
+//Museoviraston kuvat	
+var jqxhr2 = $.getJSON(_kuvahaku_url, function(){
+	}).done( function (data) {
+	kuvat = data;
+	var kuvalkm = kuvat.length;
+	if( kuvalkm > 0 )
+	{ 
+		rakenna_pikkukuvarivi(data, false);
+		var kuvateksti = "Kohteen kuvat " + kuvalkm + " kpl";
+		var kt = luo_textnode(kuvateksti);
+		var sisalto = [kt];
+		var solu = luo_td("hdr", sisalto);
+		_kuvaotsikkorivi.appendChild(solu);
+	}
+	
+	}).fail( function () {
+	});
+
+
+//Ajax-datan j&auml;lkik&auml;sittely  
+function rakenna_pikkukuvarivi(kokoelma, finna)
+{
+var kuvia = kokoelma.length;
+if( kuvia > _pikkukuvalkm ) { kuvia = _pikkukuvalkm; }
+var i;
+var sisalto = [];
+for(i=0; i<kuvia; i++) {
+    var parametri = i + 1;
+	var polku = ( finna ) 
+		? "https://finna.fi" + kokoelma[i].images[0] + "&w=150&h=150"
+//		: "http://kyppi.local/palveluikkuna/mjreki/read/asp/hae_kuva.aspx?id=" + kokoelma[i].KUVA_ID + "&ttyyppi=jpg&kunta_id=" + kokoelma[i].KUNTA_ID;
+		: "https://www.kyppi.fi/palveluikkuna/mjreki/read/asp/hae_kuva.aspx?id=" + kokoelma[i].KUVA_ID + "&ttyyppi=jpg&kunta_id=" + kokoelma[i].KUNTA_ID;
+	
+	var alt = kokoelma[i].KUVA_KUVAAJA + " " + kokoelma[i].KUVA_KUVAUSAIKA; 
+	if ( finna )
+		{
+			alt = kokoelma[i].title + " [";
+			if(kokoelma[i].nonPresenterAuthors[0])
+				{
+					alt += kokoelma[i].nonPresenterAuthors[0].name;
+					alt += " ";
+				}
+			alt += kokoelma[i].year + "]";
+		}
+	
+	var uusikuva = luo_pikkukuva("pikkukuva", polku, alt, parametri, finna);
+	sisalto.push(uusikuva);
+	}
+var solu = luo_td("norm", sisalto);
+if( finna )	 {
+	_finnarivi.appendChild(solu);
+	}
+else {
+	_kuvarivi.appendChild(solu);
+	}
+}  
+
+</script>
+
+	
+<script>
+function piilokentatkohde(lomake){
+  lomake.KUNTA_NIMI.value=lomake.KUNTA_ID[lomake.KUNTA_ID.selectedIndex].text;
+  lomake.MAAKUNTA_NIMI.value=lomake.MAAKUNTA_ID[lomake.MAAKUNTA_ID.selectedIndex].text;
+  lomake.VANHAKUNTA_NIMI.value=lomake.VANHAKUNTA_ID[lomake.VANHAKUNTA_ID.selectedIndex].text;
+  lomake.TYYPPI_SELITE.value=lomake.TYYPPI_KDI[lomake.TYYPPI_KDI.selectedIndex].text;
+  lomake.ALATYYPPI_SELITE.value=lomake.ALATYYPPI_KDI[lomake.ALATYYPPI_KDI.selectedIndex].text;
+  lomake.AJOITUS_SELITE.value=lomake.AJOITUS_KDI[lomake.AJOITUS_KDI.selectedIndex].text;
+  lomake.VEDENALAINEN_SELITE.value=lomake.VEDENALAINEN[lomake.VEDENALAINEN.selectedIndex].text;
+  }
+function tarkastaMinimimitta(kentta, kenttanimi, minimimitta)
+{
+  var arvo = kentta.value;
+  var virheilmoitus;
+  var trimmattuarvo = top.trimL(top.trimR(arvo));
+  if(trimmattuarvo.length > 0 && trimmattuarvo.length < minimimitta)
+  {
+    virheilmoitus = "Kentän '" + kenttanimi + "' hakuehto on liian lyhyt, hakuehdon minimipituus on " + minimimitta + " merkkiä.";
+    alert(virheilmoitus);
+	return false;
+  }
+  kentta.value = trimmattuarvo;
+  return true;
+}
+function vaihda_nakyvyys(kuvake, lohkoid)
+{
+  var piilossa = (kuvake.src.indexOf("plus.gif") > 0 );
+  var kuvspan = document.getElementById(lohkoid);
+  var uusi_kuvakesrc = (piilossa) ? "../img/minus.gif": "../img/plus.gif";
+  var uusi_display = (piilossa) ? "block" : "none";
+  kuvspan.style.display =  uusi_display;
+  kuvake.src = uusi_kuvakesrc;
+}
+function tyhjenna_lomake(lomake) 
+{
+  lomake.L10002.checked = false;
+  lomake.L10001.checked = false;
+  lomake.L10007.checked = false;
+  lomake.L10003.checked = false;
+  lomake.L10004.checked = false;
+  lomake.L10006.checked = false;
+  nollaa_valikko(lomake.KUNTA_ID);
+  nollaa_valikko(lomake.VANHAKUNTA_ID);
+  nollaa_valikko(lomake.MAAKUNTA_ID);
+  nollaa_valikko(lomake.TYYPPI_KDI);
+  nollaa_valikko(lomake.ALATYYPPI_KDI);
+  nollaa_valikko(lomake.AJOITUS_KDI);
+  nollaa_valikko(lomake.VEDENALAINEN);
+  lomake.KOHDE_NIMI.value = "";
+  lomake.KOHDE_ID.value = "";
+}
+function nollaa_valikko(valikko)
+{
+  var indeksi = (valikko[0].value=="") ? 0: 1;
+  valikko.selectedIndex = indeksi;
+}
+</script>
+</body>
+</html>
+

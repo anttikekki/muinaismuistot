@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "muinaisjaannos_piste.1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [293225.0793, 7025540.5469]
+      },
+      "geometry_name": "Shape",
+      "properties": {
+        "OBJECTID": 1,
+        "mjtunnus": 4010002,
+        "kohdenimi": "Suorsanmäki     ",
+        "kunta": "Kauhava     ",
+        "Laji": "kiinteä muinaisjäännös     ",
+        "tyyppi": "hautapaikat,  ,  ,  ",
+        "alatyyppi": "hautaröykkiöt,  ,  ,  ",
+        "ajoitus": "pronssikautinen,  ,  ,  ",
+        "selite": " ",
+        "url": "https://www.kyppi.fi/to.aspx?id=112.4010002"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "muinaisjaannos_piste.49",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [273229.2091, 6766831.3786]
+      },
+      "geometry_name": "Shape",
+      "properties": {
+        "OBJECTID": 49,
+        "mjtunnus": 6010009,
+        "kohdenimi": "Isovarenmäki     ",
+        "kunta": "Loimaa     ",
+        "Laji": "kiinteä muinaisjäännös     ",
+        "tyyppi": "hautapaikat,  ,  ,  ",
+        "alatyyppi": "hautaröykkiöt,  ,  ,  ",
+        "ajoitus": "pronssikautinen, rautakautinen,  ,  ",
+        "selite": " ",
+        "url": "https://www.kyppi.fi/to.aspx?id=112.6010009"
+      }
+    }
+  ],
+  "numberMatched": 3,
+  "numberReturned": 2,
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::3067"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "muinaisjaannos_piste.100",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [250000, 6800000]
+      },
+      "geometry_name": "Shape",
+      "properties": {
+        "OBJECTID": 100,
+        "mjtunnus": 123456789,
+        "kohdenimi": "Testikohde     ",
+        "kunta": "Testikunta     ",
+        "Laji": "kiinteä muinaisjäännös     ",
+        "tyyppi": "hautapaikat,  ,  ,  ",
+        "alatyyppi": "hautaröykkiöt,  ,  ,  ",
+        "ajoitus": "ajoittamaton,  ,  ,  ",
+        "selite": " ",
+        "url": "https://www.kyppi.fi/to.aspx?id=112.123456789"
+      }
+    }
+  ],
+  "numberMatched": 3,
+  "numberReturned": 1,
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::3067"
+    }
+  }
+}
