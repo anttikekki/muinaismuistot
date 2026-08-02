@@ -118,6 +118,18 @@ kokonaista raakavastausta ei tallenneta. Vaihe kirjoittaa:
 - API-kutsujen, välimuistiosumien, virheiden ja tokenkäytön yhteenvedon
   tiedostoon `intermediate/4_extraction-report.json`
 
+Validoi vaiheen 4 tulokset paikallisesti ilman uusia API-kutsuja:
+
+```bash
+npm run step:5
+```
+
+Vaihe kirjoittaa validoidut tulokset tiedostoon `intermediate/5_validated.jsonl`,
+käsin tarkistettavat kohteet tiedostoon `intermediate/5_review.json` ja
+yhteenvedon tiedostoon `intermediate/5_validation-report.json`. Tarkistusraportti
+sisältää ongelmien lisäksi alkuperäisen kuvauksen ja alakohteet sekä mallin
+poimimat röykkiöt, mitat ja lähdekatkelmat rinnakkaista tarkistamista varten.
+
 Valinta `--all` voi aiheuttaa merkittäviä API-kuluja. Koko aineiston ajo
 kannattaa tehdä vasta yksittäisten kohteiden tulosten tarkistamisen jälkeen.
 Rajattu ajo rakentaa yhdistetyn JSONL-tiedoston uudelleen kaikista nykyisellä
