@@ -10,10 +10,11 @@ Skriptit ovat bash- tai Node.js-skriptejä, jotka suoritetaan omalla koneella.
 
 ## Toteutus ja käyttö
 
-Tällä hetkellä toteutettu dataputken ensimmäinen vaihe
-`1_fetch-site-index.mjs` hakee hautaröykkiökohteiden luettelon Museoviraston
-WFS-palvelusta. Myöhempiä Kyppi-sivujen lataus- ja analyysivaiheita ei ole
-vielä toteutettu.
+Dataputken kaksi ensimmäistä vaihetta on toteutettu. `1_fetch-site-index.mjs`
+hakee hautaröykkiökohteiden luettelon Museoviraston WFS-palvelusta ja
+`2_download-pages.mjs` lataa valittujen kohteiden Kyppi-sivut paikallisiksi
+HTML-tiedostoiksi. HTML:n jäsennys- ja analyysivaiheita ei ole vielä
+toteutettu.
 
 Vaatimuksena on Node.js 22 tai uudempi. Asenna hakemiston npm-paketti ja aja
 testit:
@@ -48,8 +49,29 @@ Ensimmäinen vaihe kirjoittaa seuraavat tiedostot:
   `intermediate/1_sites.geojson`
 - ajon kysely- ja sivutustiedot tiedostoon `intermediate/1_manifest.json`
 
+Lataa toisessa vaiheessa yksittäinen Kyppi-sivu `mjtunnus`-arvon perusteella:
+
+```bash
+npm run step:2 -- --site 531010025
+```
+
+Useamman yksittäisen kohteen voi ladata toistamalla `--site`-valinnan. Pienen
+otoksen voi valita kohdeluettelon alusta valinnalla `--limit N`. Koko aineisto
+ladataan vain nimenomaisella valinnalla `--all`, jotta tuhansien pyyntöjen ajo
+ei käynnisty vahingossa.
+
+Onnistuneesti ladattu ja tiivisteeltään muuttumaton sivu ohitetaan seuraavalla
+ajolla. Valinta `--force` pakottaa uudelleenlatauksen. Latausten oletusväli on
+yksi sekunti, oletusrinnakkaisuus yksi ja sallittu enimmäisrinnakkaisuus kolme.
+
+Toinen vaihe kirjoittaa:
+
+- HTML-sivut hakemistoon `source-data/pages/<mjtunnus>.html`
+- onnistumiset, virheet, uudelleenohjausten lopulliset URL:t, HTTP-metatiedot
+  ja SHA-256-tiivisteet tiedostoon `intermediate/2_download-manifest.json`
+
 Generoidut `source-data`, `intermediate` ja `results`-hakemistot on rajattu
-versionhallinnan ulkopuolelle. Ensimmäisen vaiheen tarkempi rakenne ja
+versionhallinnan ulkopuolelle. Vaiheiden tarkempi rakenne ja
 myöhempien vaiheiden suunnitelma on kuvattu tiedostossa
 [TOTEUTUSSUUNNITELMA.md](./TOTEUTUSSUUNNITELMA.md).
 

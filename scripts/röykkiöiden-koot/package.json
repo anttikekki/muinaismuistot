@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run step:1",
     "step:1": "node 1_fetch-site-index.mjs",
+    "step:2": "node 2_download-pages.mjs",
     "test": "node --test"
   },
   "author": "Antti Kekki",
