@@ -45,5 +45,15 @@ export const DATA_PATHS = Object.freeze({
     SCRIPT_DIRECTORY,
     "intermediate",
     "2_download-manifest.json"
+  ),
+  parsedSiteContentFile: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "3_site-content.jsonl"
+  ),
+  parseReportFile: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "3_parse-report.json"
   )
 })

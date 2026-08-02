@@ -7,11 +7,15 @@
     "start": "npm run step:1",
     "step:1": "node 1_fetch-site-index.mjs",
     "step:2": "node 2_download-pages.mjs",
+    "step:3": "node 3_extract-page-content.mjs",
     "test": "node --test"
   },
   "author": "Antti Kekki",
   "license": "MIT",
   "engines": {
     "node": ">=22"
+  },
+  "dependencies": {
+    "cheerio": "1.2.0"
   }
 }

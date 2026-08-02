@@ -187,11 +187,11 @@ rakentuneita paikallisia HTML-fixtureja ennen massaprosessointia.
 ## 4. Röykkiöiden mittojen poimiminen kielimallilla
 
 Tiedosto `4_extract-mound-dimensions.mjs` lähettää yhden kohteen tiedot
-kerrallaan kielimallille. Syötteenä annetaan pääkuvaus sekä jäsennetty
+kerrallaan OpenAI-kielimallille OpenAI API:n kautta. Syötteenä annetaan pääkuvaus sekä jäsennetty
 Alakohteet-taulukko, jotta malli voi yhdistää tekstissä luetellut röykkiöt
 alakohteiden määrään ja järjestykseen. Toteutus eristetään `lib/llm.mjs`-
-moduuliin, jotta malli ja API voidaan myöhemmin vaihtaa muuttamatta muuta
-dataputkea.
+moduuliin. Käytettävä OpenAI-malli ja API-kutsun muut yksityiskohdat valitaan
+vaiheen 4 toteutuksen yhteydessä.
 
 API-avain luetaan ympäristömuuttujasta. Avainta, autentikointitietoja tai
 kokonaisia API-vastauksia ei lisätä versionhallintaan. Mallin nimi,

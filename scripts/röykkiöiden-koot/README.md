@@ -10,11 +10,12 @@ Skriptit ovat bash- tai Node.js-skriptejä, jotka suoritetaan omalla koneella.
 
 ## Toteutus ja käyttö
 
-Dataputken kaksi ensimmäistä vaihetta on toteutettu. `1_fetch-site-index.mjs`
+Dataputken kolme ensimmäistä vaihetta on toteutettu. `1_fetch-site-index.mjs`
 hakee hautaröykkiökohteiden luettelon Museoviraston WFS-palvelusta ja
 `2_download-pages.mjs` lataa valittujen kohteiden Kyppi-sivut paikallisiksi
-HTML-tiedostoiksi. HTML:n jäsennys- ja analyysivaiheita ei ole vielä
-toteutettu.
+HTML-tiedostoiksi. `3_extract-page-content.mjs` jäsentää sivujen kuvaukset ja
+alakohteet rakenteiseen JSONL-muotoon. Kielimallilla tehtävää mittatietojen
+poimintaa ei ole vielä toteutettu.
 
 Vaatimuksena on Node.js 22 tai uudempi. Asenna hakemiston npm-paketti ja aja
 testit:
@@ -69,6 +70,21 @@ Toinen vaihe kirjoittaa:
 - HTML-sivut hakemistoon `source-data/pages/<mjtunnus>.html`
 - onnistumiset, virheet, uudelleenohjausten lopulliset URL:t, HTTP-metatiedot
   ja SHA-256-tiivisteet tiedostoon `intermediate/2_download-manifest.json`
+
+Jäsennä kolmannessa vaiheessa kaikki onnistuneesti ladatut sivut:
+
+```bash
+npm run step:3
+```
+
+Paikallisen jäsennyksen voi rajata valinnoilla `--site MJTUNNUS` tai
+`--limit N`. Vaihe ei tee verkkokutsuja. Se tarkistaa HTML-tiedoston SHA-256-
+tiivisteen vaiheen 2 manifestista ja kirjoittaa:
+
+- kohdekohtaiset rakenteiset tietueet tiedostoon
+  `intermediate/3_site-content.jsonl`
+- yhteenvedon ja varoitusmäärät tiedostoon
+  `intermediate/3_parse-report.json`
 
 Generoidut `source-data`, `intermediate` ja `results`-hakemistot on rajattu
 versionhallinnan ulkopuolelle. Vaiheiden tarkempi rakenne ja
@@ -218,4 +234,4 @@ Esimerkkivastaus:
 
 ### Aineiston analysointi
 
-Haetut kuvaustekstit pitää prosessoida jonkun suurem kielimallin (LLM) avulla, joka osaa poimia vapaamuotoisesta suomenkielisestä tekstistä röykkiöiden koot rakenteelliseen muotoon JSON-tiedostoon. LLM:ää pitää kutsua skriptissä sen APIn kautta, jolle annetaan kerrallaan yksi tai useampi kohteen kovausteksti.
+Haetut kuvaustekstit pitää prosessoida OpenAI-kielimallin avulla, joka osaa poimia vapaamuotoisesta suomenkielisestä tekstistä röykkiöiden koot rakenteelliseen muotoon JSON-tiedostoon. OpenAI API:a pitää kutsua skriptissä siten, että sille annetaan kerrallaan yksi tai useampi kohteen kuvausteksti. Tämä toteutetaan dataputken vaiheessa 4.
