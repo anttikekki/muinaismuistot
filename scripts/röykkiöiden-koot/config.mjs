@@ -30,6 +30,16 @@ export const KYPPI_CONFIG = Object.freeze({
     "muinaismuistot.info-data-script/1.0 (+https://www.muinaismuistot.info)"
 })
 
+export const OPENAI_CONFIG = Object.freeze({
+  model: "gpt-5.6-luna",
+  reasoningEffort: "medium",
+  maxOutputTokens: 8_000,
+  requestTimeoutMs: 120_000,
+  maxRetries: 2,
+  concurrency: 1,
+  maxConcurrency: 3
+})
+
 export const DATA_PATHS = Object.freeze({
   wfsPagesDirectory: path.join(SCRIPT_DIRECTORY, "source-data", "wfs", "pages"),
   wfsFeaturesDirectory: path.join(
@@ -55,5 +65,20 @@ export const DATA_PATHS = Object.freeze({
     SCRIPT_DIRECTORY,
     "intermediate",
     "3_parse-report.json"
+  ),
+  llmResponsesDirectory: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "llm-responses"
+  ),
+  moundDimensionsFile: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "4_mound-dimensions.jsonl"
+  ),
+  extractionReportFile: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "4_extraction-report.json"
   )
 })

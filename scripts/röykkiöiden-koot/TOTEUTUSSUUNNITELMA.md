@@ -187,11 +187,18 @@ rakentuneita paikallisia HTML-fixtureja ennen massaprosessointia.
 ## 4. Röykkiöiden mittojen poimiminen kielimallilla
 
 Tiedosto `4_extract-mound-dimensions.mjs` lähettää yhden kohteen tiedot
-kerrallaan OpenAI-kielimallille OpenAI API:n kautta. Syötteenä annetaan pääkuvaus sekä jäsennetty
-Alakohteet-taulukko, jotta malli voi yhdistää tekstissä luetellut röykkiöt
-alakohteiden määrään ja järjestykseen. Toteutus eristetään `lib/llm.mjs`-
-moduuliin. Käytettävä OpenAI-malli ja API-kutsun muut yksityiskohdat valitaan
-vaiheen 4 toteutuksen yhteydessä.
+kerrallaan OpenAI-kielimallille OpenAI API:n kautta. Syötteenä annetaan
+pääkuvaus sekä jäsennetty Alakohteet-taulukko, jotta malli voi yhdistää
+tekstissä luetellut röykkiöt alakohteiden määrään ja järjestykseen. Toteutus
+on eristetty `lib/llm.mjs`-moduuliin ja vastausskeema `lib/schemas.mjs`-
+moduuliin.
+
+Toteutus käyttää virallista OpenAI Node.js SDK:ta, Responses API:a ja
+Structured Outputs -vastausta tiukalla JSON Schemalla. Oletusmalli on
+`gpt-5.6-luna`, päättelytaso `medium`, promptiversio 1 ja skeemaversio 1.
+API-pyynnössä käytetään asetusta `store: false`. Malli, päättelytaso,
+tokenraja, aikakatkaisu ja uudelleenyritysten määrä määritellään keskitetysti
+`config.mjs`-tiedostossa.
 
 API-avain luetaan ympäristömuuttujasta. Avainta, autentikointitietoja tai
 kokonaisia API-vastauksia ei lisätä versionhallintaan. Mallin nimi,
@@ -206,7 +213,9 @@ tuloksen ehdotettu rakenne on:
   "statedMoundCount": 9,
   "mounds": [
     {
+      "sourceOrder": 1,
       "ordinal": 1,
+      "direction": null,
       "lengthM": {
         "min": 10,
         "max": 10,
@@ -222,7 +231,8 @@ tuloksen ehdotettu rakenne on:
       "shape": "soikeahko",
       "status": "röykkiön pohja",
       "confidence": "high",
-      "needsReview": false
+      "needsReview": false,
+      "evidence": ["Muodoltaan se on soikeahko ja kooltaan 10 x 6 m."]
     }
   ],
   "notes": []

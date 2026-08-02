@@ -8,6 +8,7 @@
     "step:1": "node 1_fetch-site-index.mjs",
     "step:2": "node 2_download-pages.mjs",
     "step:3": "node 3_extract-page-content.mjs",
+    "step:4": "node 4_extract-mound-dimensions.mjs",
     "test": "node --test"
   },
   "author": "Antti Kekki",
@@ -16,6 +17,7 @@
     "node": ">=22"
   },
   "dependencies": {
-    "cheerio": "1.2.0"
+    "cheerio": "1.2.0",
+    "openai": "7.3.0"
   }
 }

@@ -10,12 +10,12 @@ Skriptit ovat bash- tai Node.js-skriptejä, jotka suoritetaan omalla koneella.
 
 ## Toteutus ja käyttö
 
-Dataputken kolme ensimmäistä vaihetta on toteutettu. `1_fetch-site-index.mjs`
+Dataputken neljä ensimmäistä vaihetta on toteutettu. `1_fetch-site-index.mjs`
 hakee hautaröykkiökohteiden luettelon Museoviraston WFS-palvelusta ja
 `2_download-pages.mjs` lataa valittujen kohteiden Kyppi-sivut paikallisiksi
 HTML-tiedostoiksi. `3_extract-page-content.mjs` jäsentää sivujen kuvaukset ja
-alakohteet rakenteiseen JSONL-muotoon. Kielimallilla tehtävää mittatietojen
-poimintaa ei ole vielä toteutettu.
+alakohteet rakenteiseen JSONL-muotoon. `4_extract-mound-dimensions.mjs` poimii
+kuvauksista röykkiöiden mitat OpenAI-kielimallilla rakenteiseen muotoon.
 
 Vaatimuksena on Node.js 22 tai uudempi. Asenna hakemiston npm-paketti ja aja
 testit:
@@ -85,6 +85,44 @@ tiivisteen vaiheen 2 manifestista ja kirjoittaa:
   `intermediate/3_site-content.jsonl`
 - yhteenvedon ja varoitusmäärät tiedostoon
   `intermediate/3_parse-report.json`
+
+Neljäs vaihe käyttää OpenAI Node.js SDK:ta, Responses API:a ja tiukkaa JSON
+Schema -vastausmuotoa. Oletusmalli on `gpt-5.6-luna`. Aseta API-avain vain
+ympäristömuuttujaan:
+
+```bash
+export OPENAI_API_KEY="oma-api-avain"
+```
+
+Testaa ensin yhdellä vaiheen 3 kohteella:
+
+```bash
+npm run step:4 -- --site 262010002
+```
+
+Skripti vaatii aina rajauksen `--site MJTUNNUS`, `--limit N`, `--all` tai
+`--retry-failed`, joten koko maksullinen ajo ei käynnisty vahingossa. Saman
+syötteen, mallin, promptiversion ja skeemaversion onnistunut vastaus luetaan
+seuraavalla ajolla välimuistista ilman API-kutsua. `--force` ohittaa
+välimuistin. Mallin voi vaihtaa valinnalla `--model MODEL` ja rinnakkaisuuden
+valinnalla `--concurrency N`; enimmäisrinnakkaisuus on kolme.
+
+Vaihe lähettää OpenAI API:lle kohteen nimen, kuvauksen ja jäsennetyt
+alakohdetiedot. Pyynnöissä käytetään asetusta `store: false`. API-avainta tai
+kokonaista raakavastausta ei tallenneta. Vaihe kirjoittaa:
+
+- kohdekohtaiset onnistumiset ja virheet hakemistoon
+  `intermediate/llm-responses`
+- yhdistetyt mittatiedot tiedostoon
+  `intermediate/4_mound-dimensions.jsonl`
+- API-kutsujen, välimuistiosumien, virheiden ja tokenkäytön yhteenvedon
+  tiedostoon `intermediate/4_extraction-report.json`
+
+Valinta `--all` voi aiheuttaa merkittäviä API-kuluja. Koko aineiston ajo
+kannattaa tehdä vasta yksittäisten kohteiden tulosten tarkistamisen jälkeen.
+Rajattu ajo rakentaa yhdistetyn JSONL-tiedoston uudelleen kaikista nykyisellä
+mallilla kelvollisista välimuistituloksista, joten aiemmin käsitellyt kohteet
+säilyvät mukana.
 
 Generoidut `source-data`, `intermediate` ja `results`-hakemistot on rajattu
 versionhallinnan ulkopuolelle. Vaiheiden tarkempi rakenne ja
