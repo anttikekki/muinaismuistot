@@ -44,8 +44,16 @@ test("run tekee API-kutsun, tallentaa välimuistin ja käyttää sitä seuraaval
   assert.equal(cached.report.successfulSites, 1)
   assert.equal(apiCalls, 1)
 
-  const cacheFiles = await fs.readdir(paths.llmResponsesDirectory)
-  assert.equal(cacheFiles.filter((file) => file.endsWith(".json")).length, 1)
+  const versionDirectories = await fs.readdir(paths.llmResponsesDirectory)
+  assert.deepEqual(versionDirectories, ["prompt-v4-schema-v2"])
+  const modelDirectory = path.join(
+    paths.llmResponsesDirectory,
+    "prompt-v4-schema-v2",
+    OPENAI_CONFIG.model
+  )
+  assert.deepEqual(await fs.readdir(modelDirectory), ["123.json"])
+  const cacheRecord = JSON.parse(await fs.readFile(path.join(modelDirectory, "123.json")))
+  assert.match(cacheRecord.cacheKey, /^[a-f0-9]{64}$/)
   const outputLines = (await fs.readFile(paths.moundDimensionsFile, "utf8"))
     .trim()
     .split("\n")

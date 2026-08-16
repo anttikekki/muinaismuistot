@@ -113,7 +113,8 @@ asetusta `store: false`. API-avainta tai
 kokonaista raakavastausta ei tallenneta. Vaihe kirjoittaa:
 
 - kohdekohtaiset onnistumiset ja virheet hakemistoon
-  `intermediate/llm-responses`
+  `intermediate/llm-responses/prompt-vN-schema-vN/<malli>/<mjtunnus>.json`.
+  Syötteen tiiviste säilytetään JSON-tietueessa, ei tiedostonimessä.
 - yhdistetyt mittatiedot tiedostoon
   `intermediate/4_mound-dimensions.jsonl`
 - API-kutsujen, välimuistiosumien ja virheiden yhteenvedon

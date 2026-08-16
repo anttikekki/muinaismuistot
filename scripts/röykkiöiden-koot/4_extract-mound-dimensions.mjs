@@ -236,7 +236,8 @@ export async function selectSites(
     const failedSites = []
     for (const site of sites) {
       const cache = cachePaths(responsesDirectory, site, model)
-      if ((await fileExists(cache.error)) && !(await fileExists(cache.success))) {
+      const validSuccess = await readValidCache(cache.success, site, model)
+      if ((await fileExists(cache.error)) && !validSuccess) {
         failedSites.push(site)
       }
     }
@@ -289,11 +290,15 @@ function validateOptions({
 
 function cachePaths(directory, site, model) {
   const key = buildExtractionCacheKey({ site, model })
-  const baseName = `${site.mjtunnus}-${key}`
+  const versionDirectory = path.join(
+    directory,
+    `prompt-v${MOUND_EXTRACTION_PROMPT_VERSION}-schema-v${MOUND_EXTRACTION_SCHEMA_VERSION}`,
+    encodeURIComponent(model)
+  )
   return {
     key,
-    success: path.join(directory, `${baseName}.json`),
-    error: path.join(directory, `${baseName}.error.json`)
+    success: path.join(versionDirectory, `${site.mjtunnus}.json`),
+    error: path.join(versionDirectory, `${site.mjtunnus}.error.json`)
   }
 }
 

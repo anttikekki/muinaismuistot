@@ -245,9 +245,12 @@ Promptiin kirjataan ainakin seuraavat tulkintasäännöt:
 - röykkiöiden määrä ja järjestys päätellään vain Kuvaus-osion leipätekstistä
 
 Kohdekohtaiset vastaukset tallennetaan välimuistiin hakemistoon
-`intermediate/llm-responses`. Välimuistin avain muodostetaan kohdetunnuksesta,
-tekstin tiivisteestä, mallista, promptiversiosta ja skeemaversiosta. Näin vain
-muuttuneet tai epäonnistuneet kohteet tarvitsee käsitellä uudelleen.
+`intermediate/llm-responses/prompt-vN-schema-vN/<malli>`. Luettava tiedostonimi
+on `<mjtunnus>.json` tai virheelle `<mjtunnus>.error.json`. Välimuistiavaimen
+tiiviste muodostetaan kohdetunnuksesta, tekstistä, mallista, promptiversiosta
+ja skeemaversiosta ja tallennetaan JSON-tietueen sisälle. Näin eri versiot ja
+mallit pysyvät erillään ja vain muuttuneet tai epäonnistuneet kohteet tarvitsee
+käsitellä uudelleen.
 
 Komentorivivalinnoilla voidaan käsitellä yksittäinen kohde, pieni otos,
 ainoastaan aiemmin epäonnistuneet kohteet tai koko aineisto. Skripti raportoi
