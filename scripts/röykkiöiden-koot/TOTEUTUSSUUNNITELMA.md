@@ -248,9 +248,14 @@ Kohdekohtaiset vastaukset tallennetaan välimuistiin hakemistoon
 `intermediate/llm-responses/prompt-vN-schema-vN/<malli>`. Luettava tiedostonimi
 on `<mjtunnus>.json` tai virheelle `<mjtunnus>.error.json`. Välimuistiavaimen
 tiiviste muodostetaan kohdetunnuksesta, tekstistä, mallista, promptiversiosta
-ja skeemaversiosta ja tallennetaan JSON-tietueen sisälle. Näin eri versiot ja
-mallit pysyvät erillään ja vain muuttuneet tai epäonnistuneet kohteet tarvitsee
-käsitellä uudelleen.
+ja skeemaversiosta ja tallennetaan JSON-tietueen sisälle. Tiivistettä tai API-
+vastauksen teknisiä tunnisteita ei kopioida yhdistettyyn tulosaineistoon. Näin
+eri versiot ja mallit pysyvät erillään ja vain muuttuneet tai epäonnistuneet
+kohteet tarvitsee käsitellä uudelleen.
+
+Välimuistitietueen oman rakenteen versio on `cacheFormatVersion`. LLM:n
+tuottaman `result`-rakenteen versio on pyynnön `resultSchemaVersion`, jotta eri
+rakenteiden versionumerot eivät sekoitu toisiinsa.
 
 Komentorivivalinnoilla voidaan käsitellä yksittäinen kohde, pieni otos,
 ainoastaan aiemmin epäonnistuneet kohteet tai koko aineisto. Skripti raportoi

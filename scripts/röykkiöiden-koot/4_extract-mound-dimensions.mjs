@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import crypto from "node:crypto"
 import path from "node:path"
 import { pathToFileURL } from "node:url"
 
@@ -14,7 +13,6 @@ import {
 } from "./lib/files.mjs"
 import {
   buildExtractionCacheKey,
-  buildModelInput,
   createOpenAIClient,
   extractMoundDimensions,
   MOUND_EXTRACTION_PROMPT_VERSION
@@ -96,7 +94,7 @@ export async function run({
         completed.push({ index: work.index, record, cached: false })
       } catch (error) {
         const failure = {
-          schemaVersion: 1,
+          cacheFormatVersion: 1,
           cacheKey: work.cache.key,
           failedAt: now().toISOString(),
           request: requestMetadata(work.site, model),
@@ -125,12 +123,10 @@ export async function run({
   const output = outputRecords.map((record) => ({
     ...record.result,
     extraction: {
-      cacheKey: record.cacheKey,
       createdAt: record.createdAt,
       model: record.request.model,
       promptVersion: record.request.promptVersion,
-      schemaVersion: record.request.schemaVersion,
-      response: record.response
+      resultSchemaVersion: record.request.resultSchemaVersion
     }
   }))
   const jsonLines = output.map((result) => JSON.stringify(result)).join("\n")
@@ -309,7 +305,7 @@ async function readValidCache(file, site, model) {
     record.cacheKey !== buildExtractionCacheKey({ site, model }) ||
     record.request?.model !== model ||
     record.request?.promptVersion !== MOUND_EXTRACTION_PROMPT_VERSION ||
-    record.request?.schemaVersion !== MOUND_EXTRACTION_SCHEMA_VERSION
+    record.request?.resultSchemaVersion !== MOUND_EXTRACTION_SCHEMA_VERSION
   ) {
     return undefined
   }
@@ -319,26 +315,20 @@ async function readValidCache(file, site, model) {
 
 function createCacheRecord({ site, model, cacheKey, createdAt, extraction }) {
   return {
-    schemaVersion: 1,
+    cacheFormatVersion: 1,
     cacheKey,
     createdAt,
     request: requestMetadata(site, model),
-    response: extraction.response,
     result: extraction.result
   }
 }
 
 function requestMetadata(site, model) {
-  const input = buildModelInput(site)
   return {
     mjtunnus: site.mjtunnus,
     model,
     promptVersion: MOUND_EXTRACTION_PROMPT_VERSION,
-    schemaVersion: MOUND_EXTRACTION_SCHEMA_VERSION,
-    inputSha256: crypto
-      .createHash("sha256")
-      .update(JSON.stringify(input))
-      .digest("hex")
+    resultSchemaVersion: MOUND_EXTRACTION_SCHEMA_VERSION
   }
 }
 

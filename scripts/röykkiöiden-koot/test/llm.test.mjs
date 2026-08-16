@@ -48,9 +48,7 @@ test("extractMoundDimensions jäsentää ja validoi OpenAI-vastauksen", async ()
   const extraction = await extractMoundDimensions({ client, site })
 
   assert.deepEqual(extraction.result, result)
-  assert.equal(extraction.response.id, "resp_test")
-  assert.equal(extraction.response.model, OPENAI_CONFIG.model)
-  assert.equal("usage" in extraction.response, false)
+  assert.deepEqual(Object.keys(extraction), ["result"])
 })
 
 test("extractMoundDimensions hylkää väärän tunnuksen ja keskeneräisen vastauksen", async () => {

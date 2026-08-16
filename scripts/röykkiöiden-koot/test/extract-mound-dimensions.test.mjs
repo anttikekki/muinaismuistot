@@ -60,6 +60,16 @@ test("run tekee API-kutsun, tallentaa välimuistin ja käyttää sitä seuraaval
     .map(JSON.parse)
   assert.equal(outputLines[0].mjtunnus, "123")
   assert.equal(outputLines[0].extraction.model, OPENAI_CONFIG.model)
+  assert.equal(outputLines[0].extraction.resultSchemaVersion, 2)
+  assert.equal("schemaVersion" in outputLines[0].extraction, false)
+  assert.equal("cacheKey" in outputLines[0].extraction, false)
+  assert.equal("response" in outputLines[0].extraction, false)
+  assert.equal("inputSha256" in cacheRecord.request, false)
+  assert.equal("response" in cacheRecord, false)
+  assert.equal(cacheRecord.cacheFormatVersion, 1)
+  assert.equal("schemaVersion" in cacheRecord, false)
+  assert.equal(cacheRecord.request.resultSchemaVersion, 2)
+  assert.equal("schemaVersion" in cacheRecord.request, false)
 })
 
 test("run tallentaa virheen ja --retry-failed käsittelee sen myöhemmin", async (t) => {

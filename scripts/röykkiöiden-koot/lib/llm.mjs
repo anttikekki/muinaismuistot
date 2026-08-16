@@ -129,14 +129,7 @@ export async function extractMoundDimensions({
   }
   assertMoundExtractionResult(result, site.mjtunnus)
 
-  return {
-    result,
-    response: {
-      id: response.id,
-      model: response.model,
-      status: response.status
-    }
-  }
+  return { result }
 }
 
 export function buildExtractionCacheKey({ site, model }) {
