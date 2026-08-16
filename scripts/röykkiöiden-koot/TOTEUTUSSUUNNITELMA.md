@@ -300,23 +300,34 @@ korjauksen syy. Näin koko tulos voidaan rakentaa uudelleen toistettavasti.
 ## 6. Julkaistavan tietokannan rakentaminen
 
 Tiedosto `6_build-database.mjs` yhdistää alkuperäisen WFS-geometrian,
-kohdetiedot, hyväksytyt kielimallin tulokset ja käsin tehdyt korjaukset.
+kohdetiedot, hyväksytyt ja tarkistettavat kielimallin tulokset sekä käsin
+tehdyt korjaukset. Rakenteeltaan virheellisiä tuloksia ei julkaista.
 
 Ensisijainen julkaisuformaatti on GeoJSON `FeatureCollection`, koska se voidaan
-ladata suoraan OpenLayersiin. Yksi feature vastaa yhtä Museoviraston kohdetta,
-ja kohteen röykkiöt ovat `properties.mounds`-taulukossa. Jos myöhemmät
-käyttötapaukset tarvitsevat röykkiöt erillisinä riveinä, samasta validoidusta
-lähteestä voidaan tuottaa myös tavallinen JSON-tiedosto.
+ladata suoraan OpenLayersiin. Yksi Feature vastaa aina yhtä röykkiötä, jotta
+jokainen röykkiö voidaan visualisoida, suodattaa ja valita OpenLayersissa
+itsenäisenä karttakohteena. Museoviraston kohteen useita röykkiöitä ei
+sisällytetä yhden Featuren taulukko-ominaisuuteen.
+
+Koska WFS-aineisto sisältää kohdetason geometrian eikä yksittäisten röykkiöiden
+sijainteja, saman Museoviraston kohteen röykkiö-Featuret käyttävät samaa
+alkuperäistä EPSG:3067-pistegeometriaa. Jokainen Feature saa yksilöllisen
+tunnisteen yhdistämällä `mjtunnus`- ja `sourceOrder`-arvot, esimerkiksi
+`531010025-1`. `sourceOrder` säilytetään myös properties-tiedoissa.
 
 Julkaistavaan tietueeseen sisällytetään:
 
+- yksilöllinen Feature-tunniste `<mjtunnus>-<sourceOrder>`
 - `mjtunnus`, WFS Featuren tunnus, nimi ja kunta
+- röykkiön `sourceOrder`
 - alkuperäinen EPSG:3067-geometria
 - WFS:n `url`-kentästä saatu Kyppi-lähdelinkki
 - normalisoidut tyyppi-, alatyyppi- ja ajoitustaulukot
-- rakenteiset röykkiö- ja mittatiedot
+- kyseisen röykkiön rakenteiset mitta-, muoto- ja tilatiedot
+- mitoista johdettu pinta-ala ja tilavuus silloin, kun laskentaan tarvittavat
+  mitat ovat saatavilla
 - tieto puuttuvista mitoista
-- tarkistustila
+- tarkistustila ja validoinnin havaintokoodit
 - tietokannan skeemaversio
 - lähdeaineiston ja analyysin ajankohdat
 
@@ -324,9 +335,20 @@ Julkaistavaan aineistoon ei kopioida kokonaisia Kyppi-kuvauksia tai raakaa
 HTML:ää. Tarvittava jäljitettävyys säilytetään lähdelinkillä, tunnuksilla,
 tiivisteillä ja paikallisilla välituloksilla.
 
-Rakennusvaihe tarkistaa vielä, ettei tietokannassa ole tunnusduplikaatteja,
-virheellisiä geometrioita tai julkaisuun hyväksymättömiä tuloksia. Lopputulos
-kirjoitetaan esimerkiksi tiedostoon `results/6_mounds.geojson`.
+Pinta-ala lasketaan pituudesta ja leveydestä ellipsin kaavalla
+`π × pituus × leveys / 4`. Jos käytettävissä on vain halkaisija, käytetään
+ympyrän kaavaa `π × halkaisija² / 4`. Tilavuus lasketaan puolikkaan ellipsoidin
+mallilla `2/3 × pinta-ala × korkeus`. Pinta-alaa ei lasketa ilman sekä pituutta
+että leveyttä tai halkaisijaa, eikä tilavuutta ilman pinta-alaan tarvittavia
+mittoja ja korkeutta. Mittavälien minimi- ja maksimiarvot sekä lähdemittojen
+`approximate`-tieto säilytetään. Johdettuun kenttään kirjataan myös käytetty
+laskentamenetelmä.
+
+Rakennusvaihe tarkistaa vielä, ettei tietokannassa ole Feature-tunnusten
+duplikaatteja, virheellisiä geometrioita tai rakenteeltaan virheellisiä
+tuloksia. Lisäksi tarkistetaan, että julkaistujen Featurejen määrä vastaa
+julkaistujen röykkiöiden määrää. Lopputulos kirjoitetaan esimerkiksi tiedostoon
+`results/6_mounds.geojson`.
 
 ## 7. Tuloksen vienti käyttöliittymään
 
@@ -461,8 +483,9 @@ uudelleen hallitusti.
 
 ### Kokonaisuus 3: julkaisu
 
-1. Yhdistetään hyväksytyt tulokset sijainteihin ja kohdetietoihin.
-2. Tuotetaan ja validoidaan lopullinen GeoJSON-tiedosto.
+1. Yhdistetään hyväksytyt röykkiöt kohdetason sijainteihin ja kohdetietoihin.
+2. Tuotetaan lopullinen GeoJSON siten, että jokainen röykkiö on oma Feature,
+   ja validoidaan Featurejen tunnukset, geometriat ja lukumäärä.
 3. Toteutetaan käyttöliittymään kopioiva skripti.
 4. Dokumentoidaan koko ajo ja aineiston päivittäminen.
 5. Ajetaan laadunvarmistus koko aineistolle ja tarkistetaan otos käsin.

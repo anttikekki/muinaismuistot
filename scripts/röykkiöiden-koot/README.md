@@ -149,6 +149,22 @@ palauttaa havaintoja. Kuittaukset tallennetaan tiedostoon
 `intermediate/5_review-acknowledgements.json` ja ne säilyvät vaiheen 5
 uudelleenajojen välillä. Muuttuneesta LLM-tuloksesta syntyy uusi havainto.
 
+Rakenna validoiduista tuloksista OpenLayersissa käytettävä GeoJSON:
+
+```bash
+npm run step:6
+```
+
+Vaihe kirjoittaa tietokannan tiedostoon `results/6_mounds.geojson`, lajiteltavan
+taulukkonäkymän tiedostoon `results/6_mounds.html` ja rakennusraportin tiedostoon
+`results/6_build-report.json`. Taulukkoa voi järjestää minkä tahansa sarakkeen
+perusteella ja rajata nimi-, kunta-, tunnus- tai validointitilahakulla. Jokainen
+hyväksytyn tai tarkistettavan kohteen röykkiö on oma Feature. Vaihe laskee
+saatavilla olevista mitoista myös
+ellipsin tai ympyrän pinta-alan sekä korkeuden ollessa tiedossa puolikkaan
+ellipsoidin tilavuuden. Feature sisältää validointitilan ja havaintokoodit.
+Rakenteeltaan virheellisiä kohteita ei julkaista.
+
 Valinta `--all` voi aiheuttaa merkittäviä API-kuluja. Koko aineiston ajo
 kannattaa tehdä vasta yksittäisten kohteiden tulosten tarkistamisen jälkeen.
 Rajattu ajo rakentaa yhdistetyn JSONL-tiedoston uudelleen kaikista nykyisellä

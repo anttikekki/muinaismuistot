@@ -85,5 +85,8 @@ export const DATA_PATHS = Object.freeze({
   reviewFile: path.join(SCRIPT_DIRECTORY, "intermediate", "5_review.json"),
   reviewHtmlFile: path.join(SCRIPT_DIRECTORY, "intermediate", "5_review.html"),
   reviewAcknowledgementsFile: path.join(SCRIPT_DIRECTORY, "intermediate", "5_review-acknowledgements.json"),
-  validationReportFile: path.join(SCRIPT_DIRECTORY, "intermediate", "5_validation-report.json")
+  validationReportFile: path.join(SCRIPT_DIRECTORY, "intermediate", "5_validation-report.json"),
+  moundsDatabaseFile: path.join(SCRIPT_DIRECTORY, "results", "6_mounds.geojson"),
+  moundsDatabaseHtmlFile: path.join(SCRIPT_DIRECTORY, "results", "6_mounds.html"),
+  databaseBuildReportFile: path.join(SCRIPT_DIRECTORY, "results", "6_build-report.json")
 })
