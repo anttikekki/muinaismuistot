@@ -19,7 +19,6 @@ const HTML = `<!doctype html><html><body>
   <tr><td class="norm">Ajoitus:</td><td class="norm">pronssikautinen</td></tr></table>
   <span id="koordinaatit">ETRS-TM35FIN P: 6800000 I: 250000</span>
   <span id="kuvaus"><table><tr><td class="norm">Halkaisija on 10 m.</td></tr></table></span>
-  <span id="alakohdelist"></span>
 </body></html>`
 
 test("run tarkistaa tiivisteen ja kirjoittaa JSONL-tuloksen sekä raportin", async (t) => {
@@ -45,7 +44,6 @@ test("run tarkistaa tiivisteen ja kirjoittaa JSONL-tuloksen sekä raportin", asy
   })
 
   assert.equal(parsedSites.length, 1)
-  assert.equal(parsedSites[0].name, "Testikohde")
   assert.equal(parsedSites[0].description, "Halkaisija on 10 m.")
   assert.equal(parsedSites[0].source.file, "../source-data/pages/123.html")
   assert.deepEqual(report, {
@@ -55,7 +53,6 @@ test("run tarkistaa tiivisteen ja kirjoittaa JSONL-tuloksen sekä raportin", asy
     selection: { siteIds: [], limit: null },
     parsedSites: 1,
     sitesWithDescription: 1,
-    subSites: 0,
     sitesNeedingReview: 0,
     warnings: 0
   })

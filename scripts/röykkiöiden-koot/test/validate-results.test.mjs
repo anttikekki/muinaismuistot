@@ -50,20 +50,19 @@ test("tarkistusraportti sisältää lähde- ja poimintatiedot", async (t) => {
     validationReportFile: path.join(directory, "report.json")
   }
   const source = site()
-  source.name = "Testikohde"
   const result = extraction()
   result.mounds[0].needsReview = true
   await fs.writeFile(paths.parsedSiteContentFile, `${JSON.stringify(source)}\n`)
   await fs.writeFile(paths.moundDimensionsFile, `${JSON.stringify(result)}\n`)
   await run({ paths })
   const review = JSON.parse(await fs.readFile(paths.reviewFile))
-  assert.equal(review.sites[0].name, "Testikohde")
+  assert.equal(review.sites[0].name, null)
   assert.equal(review.sites[0].sourceData.description, source.description)
   assert.deepEqual(review.sites[0].extractedData.mounds, result.mounds)
 })
 
 function site() {
-  return { mjtunnus: "123", description: "Röykkiön halkaisija on noin 11 m.", subSites: [], parsing: { needsReview: false } }
+  return { mjtunnus: "123", description: "Röykkiön halkaisija on noin 11 m.", parsing: { needsReview: false } }
 }
 
 function extraction() {

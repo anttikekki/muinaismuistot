@@ -9,7 +9,7 @@ import {
   MOUND_EXTRACTION_SCHEMA_VERSION
 } from "./schemas.mjs"
 
-export const MOUND_EXTRACTION_PROMPT_VERSION = 1
+export const MOUND_EXTRACTION_PROMPT_VERSION = 2
 
 export const MOUND_EXTRACTION_INSTRUCTIONS = `
 Poimi annetusta suomalaisen arkeologisen kohteen kuvauksesta jokainen erillinen
@@ -32,12 +32,8 @@ Tulkintasäännöt:
 - Säilytä erilliset röykkiöt lähdetekstin järjestyksessä sourceOrder-kentässä.
 - statedMoundCount on tekstissä erillisiksi röykkiöiksi tunnistettujen
   rakenteiden määrä. Käytä null-arvoa, jos määrää ei voi päätellä luotettavasti.
-- Alakohde ei aina tarkoita erillistä röykkiötä. Esimerkiksi saman pitkän
-  rakenteen pohjois- ja eteläpää ovat yksi rakenne, eivät kaksi röykkiötä.
-- Käytä alakohteiden ordinal- ja direction-tunnisteita, kun ne selvästi
-  vastaavat kuvauksen röykkiöitä. Muussa tapauksessa käytä null-arvoa.
-- Alakohteiden määrää tai tietoja ei saa käyttää puuttuvien mittojen
-  keksimiseen.
+- Käytä ordinal- ja direction-tunnisteita vain, kun ne käyvät ilmi annetusta
+  kuvauksesta. Muussa tapauksessa käytä null-arvoa.
 - Jos samaa röykkiötä koskevat mitat ovat ristiriidassa tai viittaus on
   epäselvä, säilytä vain perusteltu tieto, aseta needsReview=true ja selitä
   epäselvyys notes-kentässä.
@@ -61,18 +57,7 @@ export function createOpenAIClient({
 export function buildModelInput(site) {
   return {
     mjtunnus: site.mjtunnus,
-    name: site.name,
-    description: site.description,
-    subSites: site.subSites.map((subSite) => ({
-      sourceOrder: subSite.sourceOrder,
-      name: subSite.name,
-      ordinal: subSite.ordinal,
-      direction: subSite.direction,
-      types: subSite.types,
-      datings: subSite.datings,
-      coordinates: subSite.coordinates,
-      description: subSite.description
-    }))
+    description: site.description
   }
 }
 

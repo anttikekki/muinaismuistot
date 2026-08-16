@@ -69,7 +69,6 @@ export async function run({
     },
     parsedSites: parsedSites.length,
     sitesWithDescription: parsedSites.filter((site) => site.description).length,
-    subSites: parsedSites.reduce((sum, site) => sum + site.subSites.length, 0),
     sitesNeedingReview: parsedSites.filter((site) => site.parsing.needsReview).length,
     warnings: parsedSites.reduce(
       (sum, site) => sum + site.parsing.warnings.length,
@@ -173,9 +172,8 @@ async function main() {
 
   const { report } = await run(options)
   console.log(
-    `Valmis. Jäsennettiin ${report.parsedSites} kohdetta ja ` +
-      `${report.subSites} alakohdetta; tarkistettavia kohteita ` +
-      `${report.sitesNeedingReview}.`
+    `Valmis. Jäsennettiin ${report.parsedSites} kohteen kuvaukset; ` +
+      `tarkistettavia kohteita ${report.sitesNeedingReview}.`
   )
   console.log(`Tulos: ${DATA_PATHS.parsedSiteContentFile}`)
 }

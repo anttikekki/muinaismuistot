@@ -16,57 +16,23 @@ const exampleHtml = await fs.readFile(
   "utf8"
 )
 
-test("parseKyppiPage jäsentää Keskimäen pääkohteen ja yhdeksän alakohdetta", () => {
+test("parseKyppiPage jäsentää Keskimäen Kuvaus-osion leipätekstin", () => {
   const site = parseKyppiPage(exampleHtml, {
     expectedMjtunnus: "531010025"
   })
 
-  assert.equal(site.schemaVersion, 2)
+  assert.equal(site.schemaVersion, 3)
   assert.equal(site.mjtunnus, "531010025")
-  assert.equal(site.pageMjtunnus, "531010025")
-  assert.equal(site.name, "Keskimäki")
-  assert.equal(site.municipality, "Nakkila")
-  assert.deepEqual(site.types, ["hautapaikat", "hautaröykkiöt"])
-  assert.deepEqual(site.datings, ["pronssikautinen", "ei määritelty"])
-  assert.deepEqual(site.coordinates, {
-    crs: "EPSG:3067",
-    northing: 6815818,
-    easting: 235179
-  })
   assert.match(site.description, /^Röykkiöt sijaitsevat Kokemäenjoesta/)
   assert.match(site.description, /Korkeus on 0,5 m\./)
-  assert.equal(site.subSites.length, 9)
   assert.equal(site.parsing.needsReview, false)
   assert.deepEqual(site.parsing.warnings, [])
-})
-
-test("parseKyppiPage säilyttää alakohteiden järjestyksen ja rakenteiset tiedot", () => {
-  const site = parseKyppiPage(exampleHtml, {
-    expectedMjtunnus: "531010025"
-  })
-  const first = site.subSites[0]
-  const fifth = site.subSites[4]
-  const eighth = site.subSites[7]
-
-  assert.deepEqual(first, {
-    sourceOrder: 1,
-    name: "Röykkiö 1",
-    ordinal: 1,
-    direction: null,
-    types: ["hautapaikat", "hautaröykkiöt"],
-    datings: ["pronssikautinen"],
-    coordinates: {
-      crs: "EPSG:3067",
-      northing: 6815818,
-      easting: 235179
-    },
-    description: "Tien länsipuolella oleva, osittain tien leikkaama röykkiön pohja."
-  })
-  assert.equal(fifth.ordinal, 5)
-  assert.equal(fifth.description, null)
-  assert.deepEqual(eighth.datings, ["pronssikautinen", "rautakautinen"])
-  assert.equal(eighth.coordinates.northing, 6815760)
-  assert.equal(eighth.coordinates.easting, 235295)
+  assert.deepEqual(Object.keys(site).sort(), [
+    "description",
+    "mjtunnus",
+    "parsing",
+    "schemaVersion"
+  ])
 })
 
 test("parseKyppiPage säilyttää Kuvaus-osion kappalejaon", () => {
@@ -78,36 +44,19 @@ test("parseKyppiPage säilyttää Kuvaus-osion kappalejaon", () => {
   assert.equal(site.description, "Ensimmäinen kappale.\n\nToinen kappale.")
 })
 
-test("parseKyppiPage tunnistaa kauttaviivalla annetun alakohdenumeron", () => {
+test("parseKyppiPage ohittaa muut HTML-osiot kokonaan", () => {
   const html = createMinimalHtml({
     description: "Kuvaus.",
-    subSites: `<table><tr><td class="bkgr">Hammarsboda 4/2</td></tr></table>`
+    extra: `<span id="muu-osio">Tätä sisältöä ei jäsennetä.</span>`
   })
   const site = parseKyppiPage(html, { expectedMjtunnus: "123" })
 
-  assert.equal(site.subSites[0].ordinal, 2)
+  assert.equal(site.description, "Kuvaus.")
+  assert.equal("otherContent" in site, false)
   assert.equal(site.parsing.needsReview, false)
 })
 
-test("parseKyppiPage tunnistaa N- ja S-tunnisteet ilmansuunniksi", () => {
-  const html = createMinimalHtml({
-    description: "Kuvaus.",
-    subSites: `
-      <table><tr><td class="bkgr">Röykkiö N</td></tr></table>
-      <table><tr><td class="bkgr">Röykkiö S</td></tr></table>
-    `
-  })
-  const site = parseKyppiPage(html, { expectedMjtunnus: "123" })
-
-  assert.equal(site.subSites[0].ordinal, null)
-  assert.equal(site.subSites[0].direction, "north")
-  assert.equal(site.subSites[1].ordinal, null)
-  assert.equal(site.subSites[1].direction, "south")
-  assert.equal(site.parsing.needsReview, false)
-  assert.deepEqual(site.parsing.warnings, [])
-})
-
-test("parseKyppiPage merkitsee puuttuvat osiot ja tunnusristiriidan tarkistettavaksi", () => {
+test("parseKyppiPage merkitsee puuttuvan kuvauksen tarkistettavaksi", () => {
   const html = `<!doctype html><html><body>
     <div id="kohdetunnus">456</div>
     <div id="kohteen_nimi">Testi</div>
@@ -115,12 +64,10 @@ test("parseKyppiPage merkitsee puuttuvat osiot ja tunnusristiriidan tarkistettav
   const site = parseKyppiPage(html, { expectedMjtunnus: "123" })
 
   assert.equal(site.parsing.needsReview, true)
-  assert.match(site.parsing.warnings.join("\n"), /ei vastaa odotettua tunnusta/)
   assert.match(site.parsing.warnings.join("\n"), /puuttuu Kuvaus-osio/)
-  assert.match(site.parsing.warnings.join("\n"), /puuttuu Alakohteet-osio/)
 })
 
-function createMinimalHtml({ description, subSites = "" }) {
+function createMinimalHtml({ description, extra = "" }) {
   return `<!doctype html><html><body>
     <div id="kohteen_sijaintikunta">Testikunta</div>
     <div id="kohteen_nimi">Testikohde</div>
@@ -130,6 +77,6 @@ function createMinimalHtml({ description, subSites = "" }) {
     </td></tr><tr><td class="norm">Ajoitus:</td><td class="norm">pronssikautinen</td></tr></table>
     <span id="koordinaatit">ETRS-TM35FIN P: 6800000 I: 250000</span>
     <span id="kuvaus"><table><tr><td class="norm">${description}</td></tr></table></span>
-    <span id="alakohdelist">${subSites}</span>
+    ${extra}
   </body></html>`
 }

@@ -31,6 +31,10 @@ test("buildOpenAIRequest käyttää Responses API:n strict Structured Outputs -m
   assert.equal(request.text.format.schema, MOUND_EXTRACTION_JSON_SCHEMA)
   assert.equal(request.metadata.mjtunnus, "262010002")
   assert.match(MOUND_EXTRACTION_INSTRUCTIONS, /Älä tulkitse kohteen sijaintia/)
+  assert.deepEqual(buildModelInput(site), {
+    mjtunnus: "262010002",
+    description: site.description
+  })
   assert.deepEqual(JSON.parse(request.input), buildModelInput(site))
 })
 
@@ -138,12 +142,10 @@ function fakeClient(result) {
 
 function createSite(mjtunnus) {
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     mjtunnus,
-    name: "Heikkilä",
     description:
       "Sen halkaisija on noin 11 m. Sen korkeus on 30–70 cm. Kohde on 100 m tiestä.",
-    subSites: [],
     parsing: { needsReview: false, warnings: [] }
   }
 }

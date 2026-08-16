@@ -141,12 +141,10 @@ prosessointia varten eikä sitä julkaista sovelluksen mukana.
 ## 3. HTML-sivujen jäsentäminen
 
 Tiedosto `3_extract-page-content.mjs` lukee paikalliset HTML-tiedostot ja
-erottaa niistä vähintään seuraavat tiedot:
-
-- kohteen nimi ja tunnukset
-- Kuvaus-osion teksti
-- Alakohteet-osion röykkiöt erillisinä rakenteisina tietueina
-- sivulla mahdollisesti olevat sijainti- ja luokittelutiedot
+erottaa niistä analyysin ainoaksi lähtödataksi Kuvaus-osion leipätekstin.
+HTML:stä ei jäsennetä muita sisältötietoja. Kohteen tunnus ja muut
+jäljitettävyystiedot liitetään tietueeseen aiempien vaiheiden WFS-aineistosta
+ja latausmanifestista.
 
 HTML käsitellään DOM-jäsentimellä. Osioita ei poimita pelkillä säännöllisillä
 lausekkeilla, koska sivun välilyönnit, rivinvaihdot ja sisäkkäiset elementit
@@ -161,37 +159,28 @@ ensimmäisenä todellisena fixture-tiedostona. Sen rakenteen perusteella:
 - varsinaisesta kuvauksesta jätetään pois `td.leimat`-metatiedot
 - kuvauksen `<br>`-elementit muunnetaan rivinvaihdoiksi ennen tekstin
   normalisointia
-- alakohteet löytyvät elementistä `span#alakohdelist`
-- jokainen sen sisällä oleva taulukko vastaa yhtä alakohdetta
-- `td.bkgr` sisältää alakohteen nimen, kuten `Röykkiö 1`
-- `td.norm`-riveiltä jäsennetään tyyppi, ajoitus, ETRS-TM35FIN-koordinaatit ja
-  mahdollinen kuvaus
 
-Jäsennin ei oleta, että kaikilla alakohteilla on kuvaus tai vain yksi ajoitus.
-Alakohteen koordinaatit tallennetaan erillisinä EPSG:3067-koordinaatteina.
-Alakohteiden järjestysnumero poimitaan nimestä silloin, kun se on saatavilla;
-muussa tapauksessa säilytetään lähdejärjestys ja merkitään tietue
-tarkistettavaksi.
+Muita HTML-sivun sisältöosioita ei jäsennetä eikä käytetä mittatietojen
+poiminnan, validoinnin tai julkaistavan aineiston lähteenä.
 
 Tuloksena kirjoitetaan `intermediate/3_site-content.jsonl`, jossa yksi rivi
 vastaa yhtä kohdetta. Tietue sisältää lähdetiedoston, hakupäivän,
-sisältötiivisteen sekä tiedon siitä, löytyivätkö Kuvaus- ja Alakohteet-osiot.
-Puuttuvat osiot eivät keskeytä koko ajoa, vaan kohde merkitään
-tarkistettavaksi.
+sisältötiivisteen sekä tiedon siitä, löytyikö Kuvaus-osio. Puuttuva tai tyhjä
+Kuvaus-osio ei keskeytä koko ajoa, vaan kohde merkitään tarkistettavaksi.
 
 Jäsentimen ensimmäinen hyväksymistesti käyttää mukana olevaa Nakkilan
-Keskimäen sivua: tuloksessa pitää olla pääkuvaus ja yhdeksän järjestyksessä
-olevaa alakohdetta. Tämän lisäksi testataan pienellä määrällä eri tavoin
-rakentuneita paikallisia HTML-fixtureja ennen massaprosessointia.
+Keskimäen sivua: tuloksessa pitää olla Kuvaus-osion leipäteksti ilman osion
+metatietoja. Tämän lisäksi testataan pienellä määrällä eri tavoin rakentuneita
+paikallisia HTML-fixtureja ennen massaprosessointia.
 
 ## 4. Röykkiöiden mittojen poimiminen kielimallilla
 
 Tiedosto `4_extract-mound-dimensions.mjs` lähettää yhden kohteen tiedot
-kerrallaan OpenAI-kielimallille OpenAI API:n kautta. Syötteenä annetaan
-pääkuvaus sekä jäsennetty Alakohteet-taulukko, jotta malli voi yhdistää
-tekstissä luetellut röykkiöt alakohteiden määrään ja järjestykseen. Toteutus
-on eristetty `lib/llm.mjs`-moduuliin ja vastausskeema `lib/schemas.mjs`-
-moduuliin.
+kerrallaan OpenAI-kielimallille OpenAI API:n kautta. Sisältösyötteenä annetaan
+ainoastaan Kuvaus-osion leipäteksti. Malli päättelee röykkiöiden määrän,
+järjestyksen ja mitat vain tästä tekstistä; muilta HTML-sivun osioilta ei
+anneta täydentävää tietoa. Toteutus on eristetty `lib/llm.mjs`-moduuliin ja
+vastausskeema `lib/schemas.mjs`-moduuliin.
 
 Toteutus käyttää virallista OpenAI Node.js SDK:ta, Responses API:a ja
 Structured Outputs -vastausta tiukalla JSON Schemalla. Oletusmalli on
@@ -255,10 +244,7 @@ Promptiin kirjataan ainakin seuraavat tulkintasäännöt:
 - korkeus yhdistetään vain röykkiöön, johon lauseyhteys sen liittää
 - puuttuva tieto esitetään arvolla `null`
 - epäselvä viittaus tai tulkinta merkitään käsin tarkistettavaksi
-- Alakohteet-osiota käytetään määrän tarkistamiseen, ei puuttuvien mittojen
-  keksimiseen
-- Alakohteiden koordinaatteja ja kuvauksia saa käyttää oikean röykkiön
-  tunnistamiseen, mutta niiden etäisyyslukuja ei saa tulkita kooksi
+- röykkiöiden määrä ja järjestys päätellään vain Kuvaus-osion leipätekstistä
 
 Kohdekohtaiset vastaukset tallennetaan välimuistiin hakemistoon
 `intermediate/llm-responses`. Välimuistin avain muodostetaan kohdetunnuksesta,
@@ -283,11 +269,9 @@ Automaattiset tarkistukset kattavat vähintään:
 - negatiiviset, nollan suuruiset ja selvästi epärealistiset mitat
 - `min <= max` -ehdon
 - löydettyjen röykkiöiden määrän suhteessa ilmoitettuun määrään
-- Alakohteet-osion määrän suhteessa kuvauksesta löydettyyn määrään
-- Alakohteiden nimistä poimittujen järjestysnumeroiden aukot ja duplikaatit
 - kuvauksessa olevat mittailmaisut, joille ei löydy vastaavaa poimintaa
 - poimitut mitat, joille ei löydy tukea alkuperäisestä tekstistä
-- kohteet, joista kuvaus, alakohteet tai kaikki mitat puuttuvat
+- kohteet, joista kuvaus tai kaikki mitat puuttuvat
 - matalan luottamuksen ja epäselvän viittauksen tapaukset
 
 Tarkistus ei automaattisesti hylkää kohdetta vain siksi, ettei kaikkien
@@ -372,9 +356,8 @@ repossa oleva Nakkilan Keskimäen HTML-sivu sekä seuraavat tapaukset:
 - sijaintien välisiä metrimittoja, joita ei saa tulkita kooksi
 - eri järjestyksessä ilmoitettu leveys, pituus ja korkeus
 - epätarkat ilmaukset kuten "noin" ja "kymmenkunta"
-- eriävä röykkiömäärä kuvauksen ja Alakohteet-osion välillä
 - kuvaus, jossa käyttökelpoisia mittoja ei ole
-- HTML-sivu, josta Kuvaus- tai Alakohteet-osio puuttuu
+- HTML-sivu, josta Kuvaus-osio puuttuu tai jonka Kuvaus-osio on tyhjä
 - virhesivu tai muuttunut HTML-rakenne
 - WFS Feature, jonka merkkijonoissa on loppuun täytettyjä välilyöntejä
 - WFS:n pilkuilla täytetyt `tyyppi`-, `alatyyppi`- ja `ajoitus`-kentät
@@ -452,8 +435,8 @@ Työ kannattaa jakaa kolmeen toimitettavaan kokonaisuuteen.
    tiedostojen tallennus.
 3. Toteutetaan WFS-kenttien normalisointi sekä paikalliset JSON-testit.
 4. Toteutetaan WFS:n `url`-kenttää käyttävä, jatkettava HTML-lataaja.
-5. Toteutetaan `#kuvaus`- ja `#alakohdelist`-elementtien jäsennin mukana olevan
-   Kyppi-esimerkkisivun avulla.
+5. Toteutetaan `#kuvaus`-elementin leipätekstijäsennin mukana olevan Kyppi-
+   esimerkkisivun avulla.
 6. Lisätään poikkeavien ja puuttuvien HTML-osioiden fixture-testit.
 
 Kokonaisuus on valmis, kun pieni ja koko aineisto voidaan hakea paikallisiksi,

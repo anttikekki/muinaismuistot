@@ -169,11 +169,9 @@ function createClient(onCall = () => {}) {
 
 function createSite(mjtunnus) {
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     mjtunnus,
-    name: `Kohde ${mjtunnus}`,
     description: "Sen halkaisija on noin 11 m ja korkeus 30–70 cm.",
-    subSites: [],
     parsing: { needsReview: false, warnings: [] }
   }
 }

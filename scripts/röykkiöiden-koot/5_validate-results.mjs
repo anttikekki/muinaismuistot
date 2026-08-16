@@ -68,7 +68,6 @@ export function createReviewEntry(extraction, site) {
     sourceData: site
       ? {
           description: site.description ?? null,
-          subSites: site.subSites ?? [],
           parsing: site.parsing ?? null,
           source: site.source ?? null
         }
@@ -91,14 +90,7 @@ export function validateExtraction(extraction, site, issues = []) {
   if (extraction.statedMoundCount !== null && extraction.statedMoundCount !== extraction.mounds.length) {
     add(issues, "mound_count_mismatch", `Ilmoitettu määrä ${extraction.statedMoundCount}, poimittu ${extraction.mounds.length}`)
   }
-  const ordinalSubSites = site.subSites.filter((subSite) => subSite.ordinal !== null)
-  const ordinals = ordinalSubSites.map((subSite) => subSite.ordinal)
-  if (new Set(ordinals).size !== ordinals.length) add(issues, "duplicate_subsite_ordinal", "Alakohteiden järjestysnumeroissa on duplikaatteja")
-  if (ordinals.length && Math.max(...ordinals) !== ordinals.length) add(issues, "subsite_ordinal_gap", "Alakohteiden järjestysnumeroissa on aukkoja")
-  if (ordinalSubSites.length && extraction.mounds.length !== ordinalSubSites.length) {
-    add(issues, "subsite_count_mismatch", `Numeroituja alakohteita ${ordinalSubSites.length}, poimittuja röykkiöitä ${extraction.mounds.length}`)
-  }
-  const sourceText = normalize([site.description, ...site.subSites.map((item) => item.description)].filter(Boolean).join(" "))
+  const sourceText = normalize(site.description ?? "")
   for (const mound of extraction.mounds) {
     if (mound.needsReview || mound.confidence === "low") add(issues, "model_review", `Röykkiö ${mound.sourceOrder} vaatii mallin mukaan tarkistuksen`)
     if (MEASUREMENT_FIELDS.every((field) => mound[field] === null)) add(issues, "measurements_missing", `Röykkiöltä ${mound.sourceOrder} puuttuvat kaikki mitat`)

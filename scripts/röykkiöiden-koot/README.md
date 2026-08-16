@@ -13,9 +13,9 @@ Skriptit ovat bash- tai Node.js-skriptejä, jotka suoritetaan omalla koneella.
 Dataputken neljä ensimmäistä vaihetta on toteutettu. `1_fetch-site-index.mjs`
 hakee hautaröykkiökohteiden luettelon Museoviraston WFS-palvelusta ja
 `2_download-pages.mjs` lataa valittujen kohteiden Kyppi-sivut paikallisiksi
-HTML-tiedostoiksi. `3_extract-page-content.mjs` jäsentää sivujen kuvaukset ja
-alakohteet rakenteiseen JSONL-muotoon. `4_extract-mound-dimensions.mjs` poimii
-kuvauksista röykkiöiden mitat OpenAI-kielimallilla rakenteiseen muotoon.
+HTML-tiedostoiksi. `3_extract-page-content.mjs` jäsentää sivuilta vain Kuvaus-
+osion leipätekstin JSONL-muotoon. `4_extract-mound-dimensions.mjs` poimii tästä
+kuvauksesta röykkiöiden mitat OpenAI-kielimallilla rakenteiseen muotoon.
 
 Vaatimuksena on Node.js 22 tai uudempi. Asenna hakemiston npm-paketti ja aja
 testit:
@@ -107,8 +107,9 @@ seuraavalla ajolla välimuistista ilman API-kutsua. `--force` ohittaa
 välimuistin. Mallin voi vaihtaa valinnalla `--model MODEL` ja rinnakkaisuuden
 valinnalla `--concurrency N`; enimmäisrinnakkaisuus on kolme.
 
-Vaihe lähettää OpenAI API:lle kohteen nimen, kuvauksen ja jäsennetyt
-alakohdetiedot. Pyynnöissä käytetään asetusta `store: false`. API-avainta tai
+Vaihe lähettää OpenAI API:lle kohteen tunnuksen ja Kuvaus-osion leipätekstin.
+Muita HTML-sivun osioita ei jäsennetä eikä lähetetä. Pyynnöissä käytetään
+asetusta `store: false`. API-avainta tai
 kokonaista raakavastausta ei tallenneta. Vaihe kirjoittaa:
 
 - kohdekohtaiset onnistumiset ja virheet hakemistoon
@@ -127,7 +128,7 @@ npm run step:5
 Vaihe kirjoittaa validoidut tulokset tiedostoon `intermediate/5_validated.jsonl`,
 käsin tarkistettavat kohteet tiedostoon `intermediate/5_review.json` ja
 yhteenvedon tiedostoon `intermediate/5_validation-report.json`. Tarkistusraportti
-sisältää ongelmien lisäksi alkuperäisen kuvauksen ja alakohteet sekä mallin
+sisältää ongelmien lisäksi alkuperäisen kuvauksen sekä mallin
 poimimat röykkiöt, mitat ja lähdekatkelmat rinnakkaista tarkistamista varten.
 
 Valinta `--all` voi aiheuttaa merkittäviä API-kuluja. Koko aineiston ajo
@@ -177,7 +178,7 @@ Tyyppi `hautapaikat` ja sen alla alatyyppi `hautaröykkiöt`.
 
 ### Aineiston haku
 
-Aineisto ei ole avointa dataa, joten näitä tekstejä ei saa ladattua yhtenä tiedostona. Ne pitää käydä hakemassa koneellisesti yksi kerrallaan lataamalla kohteen Html-sivu ja etsimällä sielä osio "Kuvaus", joka pitää tallentaa skrptiä ajavan koneen levylle. Myös osio "Alakohteet" pitää tallentaa, koska siellä on listaus röykkiöiden määrästä, jos niitä on monta. Hakua ei saa tehdä isolla rinnakkaisuudella tai liian nopeasti, jottei kyppi.fi kuormitu. Esimerkki kyppi.fi esimerkkisivusta on tiedostossa [kyppi-esimerkkisivu/Kulttuuriympäristön palveluikkuna.htm](./kyppi-esimerkkisivu/Kulttuuriympäristön%20palveluikkuna.htm).
+Aineisto ei ole avointa dataa, joten näitä tekstejä ei saa ladattua yhtenä tiedostona. Ne pitää käydä hakemassa koneellisesti yksi kerrallaan lataamalla kohteen Html-sivu ja etsimällä sieltä osio "Kuvaus", jonka leipäteksti tallennetaan skriptiä ajavan koneen levylle. Muita sivun sisältöosioita ei jäsennetä. Hakua ei saa tehdä isolla rinnakkaisuudella tai liian nopeasti, jottei kyppi.fi kuormitu. Esimerkki kyppi.fi esimerkkisivusta on tiedostossa [kyppi-esimerkkisivu/Kulttuuriympäristön palveluikkuna.htm](./kyppi-esimerkkisivu/Kulttuuriympäristön%20palveluikkuna.htm).
 
 Listan Suomen röykkiöistä saa kahdella eri tavalla:
 
