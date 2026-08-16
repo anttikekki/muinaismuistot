@@ -140,7 +140,6 @@ export async function run({
   )
 
   const apiCallRecords = completed.filter((item) => !item.cached)
-  const usage = sumUsage(apiCallRecords.map((item) => item.record.response.usage))
   const report = {
     schemaVersion: 1,
     generatedAt: now().toISOString(),
@@ -164,7 +163,6 @@ export async function run({
     successfulSites: completed.length,
     failedSites: failures.length,
     outputSites: output.length,
-    usage,
     failures
   }
   await writeJsonAtomic(paths.extractionReportFile, report)
@@ -337,25 +335,6 @@ function requestMetadata(site, model) {
       .update(JSON.stringify(input))
       .digest("hex")
   }
-}
-
-function sumUsage(usages) {
-  const total = {
-    inputTokens: 0,
-    cachedInputTokens: 0,
-    outputTokens: 0,
-    reasoningTokens: 0,
-    totalTokens: 0
-  }
-  for (const usage of usages) {
-    if (!usage) continue
-    total.inputTokens += usage.input_tokens ?? 0
-    total.cachedInputTokens += usage.input_tokens_details?.cached_tokens ?? 0
-    total.outputTokens += usage.output_tokens ?? 0
-    total.reasoningTokens += usage.output_tokens_details?.reasoning_tokens ?? 0
-    total.totalTokens += usage.total_tokens ?? 0
-  }
-  return total
 }
 
 async function readJsonLines(file) {

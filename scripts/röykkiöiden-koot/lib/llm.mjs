@@ -9,7 +9,7 @@ import {
   MOUND_EXTRACTION_SCHEMA_VERSION
 } from "./schemas.mjs"
 
-export const MOUND_EXTRACTION_PROMPT_VERSION = 3
+export const MOUND_EXTRACTION_PROMPT_VERSION = 4
 
 export const MOUND_EXTRACTION_INSTRUCTIONS = `
 Poimi annetusta suomalaisen arkeologisen kohteen kuvauksesta jokainen erillinen
@@ -32,8 +32,6 @@ Tulkintasäännöt:
 - Säilytä erilliset röykkiöt lähdetekstin järjestyksessä sourceOrder-kentässä.
 - statedMoundCount on tekstissä erillisiksi röykkiöiksi tunnistettujen
   rakenteiden määrä. Käytä null-arvoa, jos määrää ei voi päätellä luotettavasti.
-- Käytä ordinal- ja direction-tunnisteita vain, kun ne käyvät ilmi annetusta
-  kuvauksesta. Muussa tapauksessa käytä null-arvoa.
 - Jos samaa röykkiötä koskevat mitat ovat ristiriidassa tai viittaus on
   epäselvä, säilytä vain perusteltu tieto, aseta needsReview=true ja selitä
   epäselvyys notes-kentässä.
@@ -45,7 +43,7 @@ Tulkintasäännöt:
   korjaa, käännä tai selitä lähdetekstiä evidence-kentässä. Jos tarvittava tuki
   on lähdetekstin eri kohdissa, palauta kohdat erillisinä evidence-taulukon
   katkelmina.
-- Puuttuva mitta, muoto, tila, ordinal tai direction on null.
+- Puuttuva mitta, muoto tai tila on null.
 - confidence kuvaa poiminnan varmuutta, ei kohteen arkeologista varmuutta.
 `.trim()
 
@@ -136,8 +134,7 @@ export async function extractMoundDimensions({
     response: {
       id: response.id,
       model: response.model,
-      status: response.status,
-      usage: response.usage ?? null
+      status: response.status
     }
   }
 }

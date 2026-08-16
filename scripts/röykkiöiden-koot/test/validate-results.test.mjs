@@ -92,7 +92,7 @@ function site() {
 function extraction() {
   return {
     mjtunnus: "123", statedMoundCount: 1,
-    mounds: [{ sourceOrder: 1, ordinal: null, direction: null, lengthM: null, widthM: null,
+    mounds: [{ sourceOrder: 1, lengthM: null, widthM: null,
       diameterM: { min: 11, max: 11, approximate: true }, heightM: null,
       shape: null, status: null, confidence: "high", needsReview: false,
       evidence: ["Röykkiön halkaisija on noin 11 m."] }],

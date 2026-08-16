@@ -50,7 +50,7 @@ test("extractMoundDimensions jäsentää ja validoi OpenAI-vastauksen", async ()
   assert.deepEqual(extraction.result, result)
   assert.equal(extraction.response.id, "resp_test")
   assert.equal(extraction.response.model, OPENAI_CONFIG.model)
-  assert.equal(extraction.response.usage.total_tokens, 150)
+  assert.equal("usage" in extraction.response, false)
 })
 
 test("extractMoundDimensions hylkää väärän tunnuksen ja keskeneräisen vastauksen", async () => {
@@ -159,8 +159,6 @@ export function createExtractionResult(mjtunnus) {
     mounds: [
       {
         sourceOrder: 1,
-        ordinal: null,
-        direction: null,
         lengthM: null,
         widthM: null,
         diameterM: { min: 11, max: 11, approximate: true },

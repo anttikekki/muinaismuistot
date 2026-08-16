@@ -34,13 +34,7 @@ test("run tekee API-kutsun, tallentaa välimuistin ja käyttää sitä seuraaval
   assert.equal(first.report.cacheHits, 0)
   assert.equal(first.report.successfulSites, 1)
   assert.equal(first.report.failedSites, 0)
-  assert.deepEqual(first.report.usage, {
-    inputTokens: 100,
-    cachedInputTokens: 20,
-    outputTokens: 50,
-    reasoningTokens: 10,
-    totalTokens: 150
-  })
+  assert.equal("usage" in first.report, false)
   assert.equal(first.output[0].mounds[0].diameterM.min, 11)
   assert.equal(apiCalls, 1)
 
@@ -213,8 +207,6 @@ function createExtractionResult(mjtunnus) {
     mounds: [
       {
         sourceOrder: 1,
-        ordinal: null,
-        direction: null,
         lengthM: null,
         widthM: null,
         diameterM: { min: 11, max: 11, approximate: true },

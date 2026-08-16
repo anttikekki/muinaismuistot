@@ -1,18 +1,7 @@
-export const MOUND_EXTRACTION_SCHEMA_VERSION = 1
+export const MOUND_EXTRACTION_SCHEMA_VERSION = 2
 
 const NULLABLE_STRING = {
   anyOf: [{ type: "string" }, { type: "null" }]
-}
-
-const NULLABLE_INTEGER = {
-  anyOf: [{ type: "integer", minimum: 1 }, { type: "null" }]
-}
-
-const NULLABLE_DIRECTION = {
-  anyOf: [
-    { type: "string", enum: ["north", "south"] },
-    { type: "null" }
-  ]
 }
 
 const MEASUREMENT = {
@@ -49,8 +38,6 @@ export const MOUND_EXTRACTION_JSON_SCHEMA = {
         additionalProperties: false,
         properties: {
           sourceOrder: { type: "integer", minimum: 1 },
-          ordinal: NULLABLE_INTEGER,
-          direction: NULLABLE_DIRECTION,
           lengthM: MEASUREMENT,
           widthM: MEASUREMENT,
           diameterM: MEASUREMENT,
@@ -69,8 +56,6 @@ export const MOUND_EXTRACTION_JSON_SCHEMA = {
         },
         required: [
           "sourceOrder",
-          "ordinal",
-          "direction",
           "lengthM",
           "widthM",
           "diameterM",
@@ -129,13 +114,6 @@ function validateMound(mound) {
   if (!Number.isInteger(mound.sourceOrder) || mound.sourceOrder < 1) {
     throw new Error("OpenAI-tuloksen sourceOrder on virheellinen")
   }
-  if (mound.ordinal !== null && (!Number.isInteger(mound.ordinal) || mound.ordinal < 1)) {
-    throw new Error("OpenAI-tuloksen ordinal on virheellinen")
-  }
-  if (![null, "north", "south"].includes(mound.direction)) {
-    throw new Error("OpenAI-tuloksen direction on virheellinen")
-  }
-
   for (const field of ["lengthM", "widthM", "diameterM", "heightM"]) {
     validateMeasurement(mound[field], field)
   }

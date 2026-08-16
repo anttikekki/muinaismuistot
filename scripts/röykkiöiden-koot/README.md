@@ -116,7 +116,7 @@ kokonaista raakavastausta ei tallenneta. Vaihe kirjoittaa:
   `intermediate/llm-responses`
 - yhdistetyt mittatiedot tiedostoon
   `intermediate/4_mound-dimensions.jsonl`
-- API-kutsujen, välimuistiosumien, virheiden ja tokenkäytön yhteenvedon
+- API-kutsujen, välimuistiosumien ja virheiden yhteenvedon
   tiedostoon `intermediate/4_extraction-report.json`
 
 Validoi vaiheen 4 tulokset paikallisesti ilman uusia API-kutsuja:

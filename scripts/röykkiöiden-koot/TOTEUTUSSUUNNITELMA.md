@@ -203,8 +203,6 @@ tuloksen ehdotettu rakenne on:
   "mounds": [
     {
       "sourceOrder": 1,
-      "ordinal": 1,
-      "direction": null,
       "lengthM": {
         "min": 10,
         "max": 10,
@@ -253,8 +251,7 @@ muuttuneet tai epäonnistuneet kohteet tarvitsee käsitellä uudelleen.
 
 Komentorivivalinnoilla voidaan käsitellä yksittäinen kohde, pieni otos,
 ainoastaan aiemmin epäonnistuneet kohteet tai koko aineisto. Skripti raportoi
-API-kutsujen määrän ja palvelun palauttamat tokenmäärät, jotta ajon kustannus
-voidaan arvioida.
+API-kutsujen määrän; tokenien kulutusta seurataan OpenAI-palvelun dashboardista.
 
 ## 5. Deterministinen validointi ja käsintarkistus
 
