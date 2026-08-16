@@ -137,6 +137,18 @@ poimimat röykkiöt, mitat ja lähdekatkelmat rinnakkaista tarkistamista varten.
 Komento tulostaa lisäksi terminaaliin jokaisesta tarkistettavasta kohteesta
 tunnuksen, nimen ja kunnan, ongelmakoodit sekä Kyppi-linkin.
 
+Käynnistä kuittaukset tallentava paikallinen tarkistusnäkymä komennolla:
+
+```bash
+npm run review
+```
+
+Avaa sen jälkeen `http://127.0.0.1:4173`. Näkymässä voi suodattaa kohteita
+havaintotyypin perusteella, näyttää vain uudet havainnot sekä kuitata ja
+palauttaa havaintoja. Kuittaukset tallennetaan tiedostoon
+`intermediate/5_review-acknowledgements.json` ja ne säilyvät vaiheen 5
+uudelleenajojen välillä. Muuttuneesta LLM-tuloksesta syntyy uusi havainto.
+
 Valinta `--all` voi aiheuttaa merkittäviä API-kuluja. Koko aineiston ajo
 kannattaa tehdä vasta yksittäisten kohteiden tulosten tarkistamisen jälkeen.
 Rajattu ajo rakentaa yhdistetyn JSONL-tiedoston uudelleen kaikista nykyisellä

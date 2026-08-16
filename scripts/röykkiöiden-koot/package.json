@@ -10,6 +10,7 @@
     "step:3": "node 3_extract-page-content.mjs",
     "step:4": "node 4_extract-mound-dimensions.mjs",
     "step:5": "node 5_validate-results.mjs",
+    "review": "node review-server.mjs",
     "test": "node --test"
   },
   "author": "Antti Kekki",

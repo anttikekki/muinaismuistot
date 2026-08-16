@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import fs from "node:fs/promises"
+import crypto from "node:crypto"
 import path from "node:path"
 import { pathToFileURL } from "node:url"
 
@@ -69,6 +70,10 @@ export async function run({ paths = DATA_PATHS, now = () => new Date() } = {}) {
 }
 
 export function renderReviewHtml({ generatedAt, report, sites }) {
+  const issueCodes = [...new Set(sites.flatMap((site) => site.issues.map((issue) => issue.code)))].sort()
+  const filters = issueCodes.map((code) =>
+    `<label><input class="type-filter" type="checkbox" value="${escapeHtml(code)}" checked> ${escapeHtml(code)}</label>`
+  ).join("\n")
   const siteCards = sites.length
     ? sites.map(renderSiteCard).join("\n")
     : '<p class="empty">Ei tarkistettavia kohteita.</p>'
@@ -91,6 +96,11 @@ export function renderReviewHtml({ generatedAt, report, sites }) {
     .issues { margin: 12px 0 18px; padding: 0; list-style: none; }
     .issue { background: #fff2cf; border-left: 5px solid #d58b00; margin: 6px 0; padding: 8px 10px; }
     .issue.error { background: #ffe2df; border-color: #bd2c20; }
+    .issue.acknowledged { background: #edf0eb; border-color: #78806f; color: #625d53; }
+    .issue button { margin-left: 10px; }
+    .filters { background: white; border: 1px solid #d8d2c5; border-radius: 10px; padding: 14px 18px; margin-top: 14px; }
+    .filter-types { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 10px; }
+    button { cursor: pointer; padding: 5px 9px; }
     .columns { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 22px; }
     .description { white-space: pre-wrap; line-height: 1.55; background: #faf8f3; padding: 14px; border-radius: 6px; }
     .mound { border: 1px solid #ddd7ca; border-radius: 7px; padding: 12px; margin-bottom: 12px; }
@@ -113,8 +123,55 @@ export function renderReviewHtml({ generatedAt, report, sites }) {
       <span><strong>${report.reviewSites}</strong> tarkistettava</span>
       <span><strong>${report.invalidSites}</strong> virheellinen</span>
     </div>
+    <div class="filters">
+      <strong>Suodatus</strong>
+      <label><input id="only-new" type="checkbox" checked> Näytä vain kuittaamattomat havainnot</label>
+      <div class="filter-types">${filters || "Ei havaintotyyppejä"}</div>
+    </div>
   </header>
   <main>${siteCards}</main>
+  <script>
+    const acknowledged = new Set()
+    async function loadAcknowledgements() {
+      try {
+        const response = await fetch('/api/acknowledgements')
+        if (!response.ok) throw new Error()
+        const data = await response.json()
+        for (const id of Object.keys(data.acknowledgements || {})) acknowledged.add(id)
+      } catch {
+        document.body.insertAdjacentHTML('afterbegin', '<p class="issue error">Kuittaukset toimivat vain komennolla npm run review käynnistetyssä näkymässä.</p>')
+      }
+      applyFilters()
+    }
+    async function toggleAcknowledgement(button) {
+      const issue = button.closest('.issue')
+      const id = issue.dataset.observationId
+      const wasAcknowledged = acknowledged.has(id)
+      const response = await fetch('/api/acknowledgements/' + encodeURIComponent(id), {
+        method: wasAcknowledged ? 'DELETE' : 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      if (!response.ok) return window.alert('Kuittauksen tallentaminen epäonnistui.')
+      if (wasAcknowledged) acknowledged.delete(id); else acknowledged.add(id)
+      applyFilters()
+    }
+    function applyFilters() {
+      const selected = new Set([...document.querySelectorAll('.type-filter:checked')].map((item) => item.value))
+      const onlyNew = document.querySelector('#only-new').checked
+      for (const issue of document.querySelectorAll('.issue[data-observation-id]')) {
+        const isAcknowledged = acknowledged.has(issue.dataset.observationId)
+        issue.classList.toggle('acknowledged', isAcknowledged)
+        issue.querySelector('button').textContent = isAcknowledged ? 'Palauta uudeksi' : 'Kuittaa'
+        issue.hidden = !selected.has(issue.dataset.issueCode) || (onlyNew && isAcknowledged)
+      }
+      for (const site of document.querySelectorAll('.site')) {
+        site.hidden = ![...site.querySelectorAll('.issue[data-observation-id]')].some((issue) => !issue.hidden)
+      }
+    }
+    document.querySelectorAll('.type-filter, #only-new').forEach((input) => input.addEventListener('change', applyFilters))
+    document.querySelectorAll('.acknowledge').forEach((button) => button.addEventListener('click', () => toggleAcknowledgement(button)))
+    loadAcknowledgements()
+  </script>
 </body>
 </html>
 `
@@ -126,7 +183,7 @@ function renderSiteCard(site) {
     ? `<a href="${escapeHtml(site.sourceUrl)}" target="_blank" rel="noreferrer">Avaa Kyppi-sivu</a>`
     : "Lähdelinkki puuttuu"
   const issues = site.issues.map((issue) =>
-    `<li class="issue ${issue.severity === "error" ? "error" : ""}"><strong>${escapeHtml(issue.code)}</strong>: ${escapeHtml(issue.message)}</li>`
+    `<li class="issue ${issue.severity === "error" ? "error" : ""}" data-observation-id="${escapeHtml(issue.observationId)}" data-issue-code="${escapeHtml(issue.code)}"><strong>${escapeHtml(issue.code)}</strong>: ${escapeHtml(issue.message)} <button type="button" class="acknowledge">Kuittaa</button></li>`
   ).join("")
   const mounds = site.extractedData.mounds.map(renderMound).join("") || "<p>Ei poimittuja röykkiöitä.</p>"
   const notes = site.extractedData.notes.length
@@ -181,13 +238,26 @@ function escapeHtml(value) {
 }
 
 export function createReviewEntry(extraction, site, metadata) {
+  const resultFingerprint = crypto.createHash("sha256").update(JSON.stringify({
+    statedMoundCount: extraction.statedMoundCount,
+    mounds: extraction.mounds,
+    notes: extraction.notes
+  })).digest("hex")
   return {
     mjtunnus: extraction.mjtunnus,
     name: metadata?.name ?? null,
     municipality: metadata?.municipality ?? null,
     sourceUrl: metadata?.url ?? site?.source?.finalUrl ?? site?.source?.sourceUrl ?? null,
     status: extraction.validation.status,
-    issues: extraction.validation.issues,
+    issues: extraction.validation.issues.map((issue) => ({
+      ...issue,
+      observationId: crypto.createHash("sha256").update(JSON.stringify({
+        mjtunnus: extraction.mjtunnus,
+        code: issue.code,
+        message: issue.message,
+        resultFingerprint
+      })).digest("hex")
+    })),
     sourceData: site
       ? {
           description: site.description ?? null,

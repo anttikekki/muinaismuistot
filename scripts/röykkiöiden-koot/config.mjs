@@ -84,5 +84,6 @@ export const DATA_PATHS = Object.freeze({
   validatedResultsFile: path.join(SCRIPT_DIRECTORY, "intermediate", "5_validated.jsonl"),
   reviewFile: path.join(SCRIPT_DIRECTORY, "intermediate", "5_review.json"),
   reviewHtmlFile: path.join(SCRIPT_DIRECTORY, "intermediate", "5_review.html"),
+  reviewAcknowledgementsFile: path.join(SCRIPT_DIRECTORY, "intermediate", "5_review-acknowledgements.json"),
   validationReportFile: path.join(SCRIPT_DIRECTORY, "intermediate", "5_validation-report.json")
 })
