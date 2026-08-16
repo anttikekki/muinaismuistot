@@ -47,20 +47,137 @@ export async function run({ paths = DATA_PATHS, now = () => new Date() } = {}) {
     totalMounds: validated.reduce((sum, item) => sum + (item.mounds?.length ?? 0), 0),
     issueCounts: countIssues(validated)
   }
+  const reviewEntries = reviewSites.map((item) =>
+    createReviewEntry(
+      item,
+      sitesById.get(item.mjtunnus),
+      siteMetadata.get(item.mjtunnus)
+    )
+  )
   await writeFileAtomic(paths.validatedResultsFile, validated.length ? `${validated.map(JSON.stringify).join("\n")}\n` : "")
   await writeJsonAtomic(paths.reviewFile, {
     schemaVersion: 1,
     generatedAt,
-    sites: reviewSites.map((item) =>
-      createReviewEntry(
-        item,
-        sitesById.get(item.mjtunnus),
-        siteMetadata.get(item.mjtunnus)
-      )
-    )
+    sites: reviewEntries
   })
+  await writeFileAtomic(
+    paths.reviewHtmlFile ?? path.join(path.dirname(paths.reviewFile), "5_review.html"),
+    renderReviewHtml({ generatedAt, report, sites: reviewEntries })
+  )
   await writeJsonAtomic(paths.validationReportFile, report)
   return { validated, reviewSites, report }
+}
+
+export function renderReviewHtml({ generatedAt, report, sites }) {
+  const siteCards = sites.length
+    ? sites.map(renderSiteCard).join("\n")
+    : '<p class="empty">Ei tarkistettavia kohteita.</p>'
+  return `<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Röykkiötietojen tarkistus</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; background: #f4f1ea; color: #25231f; }
+    body { max-width: 1500px; margin: 0 auto; padding: 24px; }
+    header { margin-bottom: 24px; }
+    h1, h2, h3 { margin-top: 0; }
+    .summary, .site { background: white; border: 1px solid #d8d2c5; border-radius: 10px; box-shadow: 0 2px 8px #0001; }
+    .summary { display: flex; gap: 24px; flex-wrap: wrap; padding: 14px 18px; }
+    .site { margin: 22px 0; padding: 20px; }
+    .site-head { display: flex; justify-content: space-between; gap: 20px; align-items: start; }
+    .meta, .muted { color: #625d53; }
+    .issues { margin: 12px 0 18px; padding: 0; list-style: none; }
+    .issue { background: #fff2cf; border-left: 5px solid #d58b00; margin: 6px 0; padding: 8px 10px; }
+    .issue.error { background: #ffe2df; border-color: #bd2c20; }
+    .columns { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 22px; }
+    .description { white-space: pre-wrap; line-height: 1.55; background: #faf8f3; padding: 14px; border-radius: 6px; }
+    .mound { border: 1px solid #ddd7ca; border-radius: 7px; padding: 12px; margin-bottom: 12px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { text-align: left; vertical-align: top; padding: 5px 8px; border-bottom: 1px solid #eee9df; }
+    th { width: 34%; color: #625d53; }
+    blockquote { margin: 7px 0; padding: 8px 10px; border-left: 4px solid #8b8171; background: #f7f5f0; }
+    a { color: #075a9c; }
+    .notes { background: #edf4ff; padding: 10px 14px; border-radius: 6px; }
+    @media (max-width: 900px) { .columns { grid-template-columns: 1fr; } .site-head { display: block; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Röykkiötietojen tarkistus</h1>
+    <p class="muted">Luotu ${escapeHtml(generatedAt)}</p>
+    <div class="summary">
+      <span><strong>${report.totalSites}</strong> kohdetta</span>
+      <span><strong>${report.acceptedSites}</strong> hyväksytty</span>
+      <span><strong>${report.reviewSites}</strong> tarkistettava</span>
+      <span><strong>${report.invalidSites}</strong> virheellinen</span>
+    </div>
+  </header>
+  <main>${siteCards}</main>
+</body>
+</html>
+`
+}
+
+function renderSiteCard(site) {
+  const title = [site.name, site.municipality].filter(Boolean).join(", ") || "Nimetön kohde"
+  const link = site.sourceUrl
+    ? `<a href="${escapeHtml(site.sourceUrl)}" target="_blank" rel="noreferrer">Avaa Kyppi-sivu</a>`
+    : "Lähdelinkki puuttuu"
+  const issues = site.issues.map((issue) =>
+    `<li class="issue ${issue.severity === "error" ? "error" : ""}"><strong>${escapeHtml(issue.code)}</strong>: ${escapeHtml(issue.message)}</li>`
+  ).join("")
+  const mounds = site.extractedData.mounds.map(renderMound).join("") || "<p>Ei poimittuja röykkiöitä.</p>"
+  const notes = site.extractedData.notes.length
+    ? `<div class="notes"><strong>Mallin muistiinpanot</strong><ul>${site.extractedData.notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}</ul></div>`
+    : ""
+  return `<article class="site">
+    <div class="site-head">
+      <div><h2>${escapeHtml(title)}</h2><div class="meta">mjtunnus ${escapeHtml(site.mjtunnus)} · ilmoitettu määrä ${escapeHtml(displayValue(site.extractedData.statedMoundCount))} · poimittu ${site.extractedData.mounds.length}</div></div>
+      <div>${link}</div>
+    </div>
+    <ul class="issues">${issues}</ul>
+    <div class="columns">
+      <section><h3>Alkuperäinen kuvaus</h3><div class="description">${escapeHtml(site.sourceData?.description ?? "Kuvaus puuttuu")}</div></section>
+      <section><h3>Poimittu tulos</h3>${notes}${mounds}</section>
+    </div>
+  </article>`
+}
+
+function renderMound(mound) {
+  const evidence = mound.evidence.length
+    ? mound.evidence.map((item) => `<blockquote>${escapeHtml(item)}</blockquote>`).join("")
+    : '<p class="muted">Ei lähdekatkelmia.</p>'
+  return `<div class="mound">
+    <h3>Röykkiö ${mound.sourceOrder}</h3>
+    <table>
+      <tr><th>Pituus</th><td>${formatMeasurement(mound.lengthM)}</td></tr>
+      <tr><th>Leveys</th><td>${formatMeasurement(mound.widthM)}</td></tr>
+      <tr><th>Halkaisija</th><td>${formatMeasurement(mound.diameterM)}</td></tr>
+      <tr><th>Korkeus</th><td>${formatMeasurement(mound.heightM)}</td></tr>
+      <tr><th>Muoto</th><td>${escapeHtml(displayValue(mound.shape))}</td></tr>
+      <tr><th>Tila</th><td>${escapeHtml(displayValue(mound.status))}</td></tr>
+      <tr><th>Varmuus</th><td>${escapeHtml(mound.confidence)}</td></tr>
+      <tr><th>Mallin tarkistuspyyntö</th><td>${mound.needsReview ? "kyllä" : "ei"}</td></tr>
+    </table>
+    <h3>Lähdekatkelmat</h3>${evidence}
+  </div>`
+}
+
+function formatMeasurement(measurement) {
+  if (!measurement) return "–"
+  const value = measurement.min === measurement.max
+    ? measurement.min
+    : `${measurement.min}–${measurement.max}`
+  return `${measurement.approximate ? "noin " : ""}${escapeHtml(value)} m`
+}
+
+function displayValue(value) { return value === null || value === undefined || value === "" ? "–" : String(value) }
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[character])
 }
 
 export function createReviewEntry(extraction, site, metadata) {
@@ -178,6 +295,7 @@ async function main() {
     }
   }
   console.log(`Tulos: ${DATA_PATHS.validatedResultsFile}`)
+  console.log(`Tarkistusnäkymä: ${DATA_PATHS.reviewHtmlFile}`)
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

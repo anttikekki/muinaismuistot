@@ -6,6 +6,7 @@ import test from "node:test"
 
 import {
   formatReviewList,
+  renderReviewHtml,
   run,
   validateExtraction
 } from "../5_validate-results.mjs"
@@ -41,6 +42,30 @@ test("run kirjoittaa validoidun aineiston, tarkistusjonon ja raportin", async (t
   assert.equal(report.acceptedSites, 1)
   assert.equal(report.totalMounds, 1)
   assert.equal(JSON.parse(await fs.readFile(paths.reviewFile)).sites.length, 0)
+  assert.match(await fs.readFile(path.join(directory, "5_review.html"), "utf8"), /Ei tarkistettavia kohteita/)
+})
+
+test("renderReviewHtml näyttää kuvauksen, virheet, mitat ja lähdekatkelmat", () => {
+  const result = extraction()
+  result.validation = { status: "review", issues: [
+    { code: "model_review", severity: "warning", message: "Tarkista tulos" }
+  ] }
+  const entry = {
+    ...result,
+    name: "Testi <kohde>", municipality: "Testikunta", sourceUrl: "https://example.test/123",
+    status: "review", issues: result.validation.issues,
+    sourceData: { description: site().description },
+    extractedData: { statedMoundCount: 1, mounds: result.mounds, notes: ["Huomio"] }
+  }
+  const html = renderReviewHtml({
+    generatedAt: "2026-08-16T12:00:00Z",
+    report: { totalSites: 1, acceptedSites: 0, reviewSites: 1, invalidSites: 0 },
+    sites: [entry]
+  })
+  assert.match(html, /Testi &lt;kohde&gt;/)
+  assert.match(html, /model_review/)
+  assert.match(html, /11 m/)
+  assert.match(html, /Röykkiön halkaisija on noin 11 m\./)
 })
 
 test("tarkistusraportti sisältää lähde- ja poimintatiedot", async (t) => {

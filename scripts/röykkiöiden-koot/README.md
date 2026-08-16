@@ -128,7 +128,10 @@ npm run step:5
 
 Vaihe kirjoittaa validoidut tulokset tiedostoon `intermediate/5_validated.jsonl`,
 käsin tarkistettavat kohteet tiedostoon `intermediate/5_review.json` ja
-yhteenvedon tiedostoon `intermediate/5_validation-report.json`. Tarkistusraportti
+helposti luettavan tarkistusnäkymän tiedostoon `intermediate/5_review.html` sekä
+yhteenvedon tiedostoon `intermediate/5_validation-report.json`. HTML-näkymä
+esittää kohteen virheet, kuvauksen, mitat, mallin muistiinpanot ja lähdekatkelmat
+yhdellä sivulla. JSON-tarkistusraportti
 sisältää ongelmien lisäksi alkuperäisen kuvauksen sekä mallin
 poimimat röykkiöt, mitat ja lähdekatkelmat rinnakkaista tarkistamista varten.
 Komento tulostaa lisäksi terminaaliin jokaisesta tarkistettavasta kohteesta
