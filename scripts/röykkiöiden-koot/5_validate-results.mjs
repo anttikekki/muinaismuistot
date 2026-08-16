@@ -11,9 +11,10 @@ import { assertMoundExtractionResult } from "./lib/schemas.mjs"
 const MEASUREMENT_FIELDS = ["lengthM", "widthM", "diameterM", "heightM"]
 
 export async function run({ paths = DATA_PATHS, now = () => new Date() } = {}) {
-  const [sites, extractions] = await Promise.all([
+  const [sites, extractions, siteMetadata] = await Promise.all([
     readJsonLines(paths.parsedSiteContentFile),
-    readJsonLines(paths.moundDimensionsFile)
+    readJsonLines(paths.moundDimensionsFile),
+    readSiteMetadata(paths.siteIndexFile)
   ])
   const sitesById = new Map(sites.map((site) => [site.mjtunnus, site]))
   const seen = new Set()
@@ -51,18 +52,23 @@ export async function run({ paths = DATA_PATHS, now = () => new Date() } = {}) {
     schemaVersion: 1,
     generatedAt,
     sites: reviewSites.map((item) =>
-      createReviewEntry(item, sitesById.get(item.mjtunnus))
+      createReviewEntry(
+        item,
+        sitesById.get(item.mjtunnus),
+        siteMetadata.get(item.mjtunnus)
+      )
     )
   })
   await writeJsonAtomic(paths.validationReportFile, report)
   return { validated, reviewSites, report }
 }
 
-export function createReviewEntry(extraction, site) {
+export function createReviewEntry(extraction, site, metadata) {
   return {
     mjtunnus: extraction.mjtunnus,
-    name: site?.name ?? null,
-    municipality: site?.municipality ?? null,
+    name: metadata?.name ?? null,
+    municipality: metadata?.municipality ?? null,
+    sourceUrl: metadata?.url ?? site?.source?.finalUrl ?? site?.source?.sourceUrl ?? null,
     status: extraction.validation.status,
     issues: extraction.validation.issues,
     sourceData: site
@@ -79,6 +85,24 @@ export function createReviewEntry(extraction, site) {
       extraction: extraction.extraction ?? null
     }
   }
+}
+
+export function formatReviewList(reviewSites, sitesById, siteMetadata) {
+  if (reviewSites.length === 0) return ["Ei tarkistettavia kohteita."]
+
+  return reviewSites.map((item) => {
+    const site = sitesById.get(item.mjtunnus)
+    const metadata = siteMetadata.get(item.mjtunnus)
+    const label = [metadata?.name, metadata?.municipality].filter(Boolean).join(", ")
+    const issueCodes = [...new Set(item.validation.issues.map((issue) => issue.code))]
+    const url = metadata?.url ?? site?.source?.finalUrl ?? site?.source?.sourceUrl
+    return [
+      item.mjtunnus,
+      label || null,
+      issueCodes.join(", "),
+      url || null
+    ].filter(Boolean).join(" | ")
+  })
 }
 
 export function validateExtraction(extraction, site, issues = []) {
@@ -123,9 +147,36 @@ async function readJsonLines(file) {
   })
 }
 
+async function readSiteMetadata(file) {
+  if (!file) return new Map()
+  try {
+    const featureCollection = JSON.parse(await fs.readFile(file, "utf8"))
+    return new Map((featureCollection.features ?? []).map((feature) => {
+      const properties = feature.properties ?? {}
+      return [properties.mjtunnus, {
+        name: properties.kohdenimi ?? null,
+        municipality: properties.kunta ?? null,
+        url: properties.url ?? null
+      }]
+    }))
+  } catch (error) {
+    if (error.code === "ENOENT") return new Map()
+    throw error
+  }
+}
+
 async function main() {
-  const { report } = await run()
+  const { report, reviewSites } = await run()
   console.log(`Valmis. Hyväksytty ${report.acceptedSites}, tarkistettavia ${report.reviewSites}, virheellisiä ${report.invalidSites}.`)
+  if (reviewSites.length > 0) {
+    const sites = await readJsonLines(DATA_PATHS.parsedSiteContentFile)
+    const sitesById = new Map(sites.map((site) => [site.mjtunnus, site]))
+    const siteMetadata = await readSiteMetadata(DATA_PATHS.siteIndexFile)
+    console.log("\nTarkistettavat kohteet (mjtunnus | nimi, kunta | syyt | linkki):")
+    for (const line of formatReviewList(reviewSites, sitesById, siteMetadata)) {
+      console.log(`- ${line}`)
+    }
+  }
   console.log(`Tulos: ${DATA_PATHS.validatedResultsFile}`)
 }
 

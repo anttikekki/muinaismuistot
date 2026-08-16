@@ -31,6 +31,8 @@ test("buildOpenAIRequest käyttää Responses API:n strict Structured Outputs -m
   assert.equal(request.text.format.schema, MOUND_EXTRACTION_JSON_SCHEMA)
   assert.equal(request.metadata.mjtunnus, "262010002")
   assert.match(MOUND_EXTRACTION_INSTRUCTIONS, /Älä tulkitse kohteen sijaintia/)
+  assert.match(MOUND_EXTRACTION_INSTRUCTIONS, /Älä lyhennä evidence-katkelmia/)
+  assert.match(MOUND_EXTRACTION_INSTRUCTIONS, /erillisinä evidence-taulukon/)
   assert.deepEqual(buildModelInput(site), {
     mjtunnus: "262010002",
     description: site.description

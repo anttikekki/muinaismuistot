@@ -4,7 +4,11 @@ import os from "node:os"
 import path from "node:path"
 import test from "node:test"
 
-import { run, validateExtraction } from "../5_validate-results.mjs"
+import {
+  formatReviewList,
+  run,
+  validateExtraction
+} from "../5_validate-results.mjs"
 
 test("validateExtraction hyväksyy lähdetekstin tukeman tuloksen", () => {
   assert.deepEqual(validateExtraction(extraction(), site()), [])
@@ -59,6 +63,26 @@ test("tarkistusraportti sisältää lähde- ja poimintatiedot", async (t) => {
   assert.equal(review.sites[0].name, null)
   assert.equal(review.sites[0].sourceData.description, source.description)
   assert.deepEqual(review.sites[0].extractedData.mounds, result.mounds)
+})
+
+test("formatReviewList tulostaa tunnuksen, metatiedot, syyt ja linkin", () => {
+  const result = extraction()
+  result.validation = {
+    status: "review",
+    issues: [{ code: "model_review", severity: "warning", message: "Tarkista" }]
+  }
+  const lines = formatReviewList(
+    [result],
+    new Map([["123", site()]]),
+    new Map([["123", {
+      name: "Testikohde",
+      municipality: "Testikunta",
+      url: "https://example.test/123"
+    }]])
+  )
+  assert.deepEqual(lines, [
+    "123 | Testikohde, Testikunta | model_review | https://example.test/123"
+  ])
 })
 
 function site() {

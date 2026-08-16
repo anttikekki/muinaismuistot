@@ -9,7 +9,7 @@ import {
   MOUND_EXTRACTION_SCHEMA_VERSION
 } from "./schemas.mjs"
 
-export const MOUND_EXTRACTION_PROMPT_VERSION = 2
+export const MOUND_EXTRACTION_PROMPT_VERSION = 3
 
 export const MOUND_EXTRACTION_INSTRUCTIONS = `
 Poimi annetusta suomalaisen arkeologisen kohteen kuvauksesta jokainen erillinen
@@ -37,8 +37,14 @@ Tulkintasäännöt:
 - Jos samaa röykkiötä koskevat mitat ovat ristiriidassa tai viittaus on
   epäselvä, säilytä vain perusteltu tieto, aseta needsReview=true ja selitä
   epäselvyys notes-kentässä.
-- evidence sisältää lyhyet lähdetekstin katkelmat, jotka suoraan tukevat
-  kyseisen röykkiön mittoja. Älä lisää muuta tekstiä evidence-kenttään.
+- evidence sisältää lyhyet, yhtenäiset ja sanatarkat lähdetekstin katkelmat,
+  jotka suoraan tukevat kyseisen röykkiön tietoja. Kopioi jokainen katkelma
+  sellaisenaan lähdetekstistä.
+- Älä lyhennä evidence-katkelmia kolmella pisteellä (... tai …), hakasulkeilla
+  tai millään muulla poisjättöä kuvaavalla merkinnällä. Älä myöskään muotoile,
+  korjaa, käännä tai selitä lähdetekstiä evidence-kentässä. Jos tarvittava tuki
+  on lähdetekstin eri kohdissa, palauta kohdat erillisinä evidence-taulukon
+  katkelmina.
 - Puuttuva mitta, muoto, tila, ordinal tai direction on null.
 - confidence kuvaa poiminnan varmuutta, ei kohteen arkeologista varmuutta.
 `.trim()

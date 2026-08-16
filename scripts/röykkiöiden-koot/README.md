@@ -130,6 +130,8 @@ käsin tarkistettavat kohteet tiedostoon `intermediate/5_review.json` ja
 yhteenvedon tiedostoon `intermediate/5_validation-report.json`. Tarkistusraportti
 sisältää ongelmien lisäksi alkuperäisen kuvauksen sekä mallin
 poimimat röykkiöt, mitat ja lähdekatkelmat rinnakkaista tarkistamista varten.
+Komento tulostaa lisäksi terminaaliin jokaisesta tarkistettavasta kohteesta
+tunnuksen, nimen ja kunnan, ongelmakoodit sekä Kyppi-linkin.
 
 Valinta `--all` voi aiheuttaa merkittäviä API-kuluja. Koko aineiston ajo
 kannattaa tehdä vasta yksittäisten kohteiden tulosten tarkistamisen jälkeen.
