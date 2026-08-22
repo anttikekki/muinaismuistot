@@ -22,7 +22,6 @@ import {
   ViabundusRoadCertainty,
   ViabundusRoadType
 } from "../../../../common/viabundus.types"
-import ModelsLayer from "../../../../map/layer/ModelsLayer"
 
 export const MapSymbolPanel: React.FC = () => {
   const { t } = useTranslation()

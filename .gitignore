@@ -3,3 +3,6 @@ node_modules/
 dist/
 scripts/viabundus/results
 scripts/viabundus/source-data
+scripts/röykkiöiden-koot/source-data
+scripts/röykkiöiden-koot/intermediate
+scripts/röykkiöiden-koot/results

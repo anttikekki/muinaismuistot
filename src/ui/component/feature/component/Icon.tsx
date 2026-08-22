@@ -822,4 +822,6 @@ type ModelFeatureIcon = {
   uniqueId?: string
 }
 
-export const ModelFeatureIcon: React.FC<ModelFeatureIcon> = () => {}
+export const ModelFeatureIcon: React.FC<ModelFeatureIcon> = () => {
+  return null
+}
