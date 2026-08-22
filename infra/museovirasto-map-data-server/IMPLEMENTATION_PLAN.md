@@ -6,7 +6,7 @@ Toteutetaan muinaismuistot.info-sivustolle oma, Cloudflaren kautta tarjottava ka
 
 Ensimmäisen tuotantoversion pitää:
 
-- näyttää README:ssä luetellut 26 karttatasoa myös koko Suomen näkymässä;
+- näyttää README:ssä luetellut 26 WMS:ää vastaavaa loogista tasovalintaa myös koko Suomen näkymässä, vaikka uusi aineisto säilytetään 12 fyysisenä MVT-lähdetasona;
 - palauttaa kartalla klikattujen kohteiden tunniste- ja ominaisuustiedot;
 - tukea vähintään kohteen nimellä tehtävää kirjainkoosta riippumatonta hakua; haun vasteaika saa olla kartan selaamista hitaampi, koska toimintoa käytetään harvoin;
 - päivittää Museoviraston kerran vuorokaudessa julkaisema aineisto automaattisesti;
@@ -31,11 +31,13 @@ Ratkaisun osat ovat:
 
 PMTiles vähentää hallittavien objektien määrää verrattuna miljooniin erillisiin tiilitiedostoihin. Ratkaisun toimivuus OpenLayersin, R2:n HTTP Range -pyyntöjen ja Worker-välimuistin kanssa varmistetaan teknisessä kokeessa ennen tuotantototeutusta.
 
-Kaikki 26 karttatasoa tallennetaan saman PMTiles-arkiston MVT-tiiliin erillisinä nimettyinä `source-layer`-tasoina. Käyttäjä voi valita tasot dynaamisesti, mutta valinta tehdään OpenLayersin tyylisuodatuksella eikä vaihtamalla tiililähdettä. Piilotetulle tasolle ei palauteta tyyliä, eikä sen kohteita huomioida karttaklikkauksen tuloksissa. Sama näkymä ja zoom-taso ladataan näin vain kerran Museoviraston aineistoa varten riippumatta valittujen tasojen määrästä.
+GeoPackage-tuotteen 12 fyysistä kohdetasoa tallennetaan saman PMTiles-arkiston MVT-tiiliin 12 nimettynä `source-layer`-tasona. WMS:n 26 loogista tasoa ei kopioida sellaisenaan PMTilesiin. Erityisesti arkeologisten kohteiden 16 piste-/aluetasoa esitetään kahdella MVT-lähdetasolla (`arkeologiset_kohteet_piste_t` ja `arkeologiset_kohteet_alue_t`), joiden kohteita suodatetaan normalisoidun `laji`-attribuutin perusteella. `alakohde_piste` säilyy omana lähdetasonaan.
+
+Käyttäjä voi edelleen valita kaikki nykyiset loogiset tasot dynaamisesti, mutta valinta tehdään OpenLayersin tyylisuodatuksella eikä vaihtamalla tiililähdettä. Piilotetulle lähdetason ja attribuuttisuodattimen yhdistelmälle ei palauteta tyyliä, eikä sen kohteita huomioida karttaklikkauksen tuloksissa. Sama näkymä ja zoom-taso ladataan näin vain kerran Museoviraston aineistoa varten riippumatta valittujen tasojen määrästä.
 
 Yhden arkiston haittana hyväksytään, että ladattu tiili voi sisältää myös piilotettujen tasojen ominaisuuksia. Rakennusvaiheen tiilikokobudjetti, geometriayleistys ja pienten zoom-tasojen aggregointi ovat siksi pakollisia. Pyyntömäärää ja siirrettyä datamäärää mitataan koko OpenLayers-kokonaisuudesta, johon kuuluvat myös erillinen taustakartta ja muiden lähteiden karttatasot.
 
-Sanahaku toteutetaan tarkoituksella yksinkertaisesti ilman Museoviraston WFS-riippuvuutta. Päivitysajo poimii GeoPackage-tiedostoista D1-tauluun vain kohteen sisäisen ja lähteen tunnisteen, alkuperäisen ja normalisoidun nimen, karttatason, kohdetyypin sekä kohteen keskipisteen tai rajauslaatikon. Worker tekee parametrisoidun osajonohaun normalisoidusta nimestä, esimerkiksi `LIKE '%hakusana%'`, rajaa tulosmäärän ja välimuistittaa vastauksen. Kymmenien tuhansien rivien lineaarinen haku saa olla hieman hidas, koska toimintoa käytetään harvoin. FTS-, trigrammi- tai erillinen hakupalvelu lisätään vasta, jos mitattu käytettävyys sitä edellyttää.
+Sanahaku toteutetaan tarkoituksella yksinkertaisesti ilman Museoviraston WFS-riippuvuutta. Päivitysajo poimii GeoPackage-tiedostoista D1-tauluun vain kohteen sisäisen ja lähteen tunnisteen, alkuperäisen ja normalisoidun nimen, fyysisen lähdetason, loogisen tason/lajin sekä kohteen keskipisteen tai rajauslaatikon. Saman loogisen kohteen piste- ja alue-esitykset yhdistetään hakemistossa rekisterin pysyvällä tunnisteella, jotta haku ei palauta tarpeettomia kaksoiskappaleita. Worker tekee parametrisoidun osajonohaun normalisoidusta nimestä, esimerkiksi `LIKE '%hakusana%'`, rajaa tulosmäärän ja välimuistittaa vastauksen. Satojentuhansien lähderivien lineaarinen haku saa olla hieman hidas, koska toimintoa käytetään harvoin. FTS-, trigrammi- tai erillinen hakupalvelu lisätään vasta, jos mitattu käytettävyys sitä edellyttää.
 
 ### 2.2 Zoom-tasot ja mobiilisuorituskyky
 
@@ -65,7 +67,11 @@ Rajapintojen vastaukset versioidaan ja niiden skeemat dokumentoidaan. Hakuparame
 
 Päivitys toteutetaan ensin CI-ajona, esimerkiksi GitHub Actionsissa, koska ZIP-paketin purku ja GeoPackage-tiedostojen raskaat geometriamuunnokset eivät sovi hyvin lyhytkestoiseen Worker-ajoon. Cloudflare vastaa tuotantoaineiston säilytyksestä ja tarjoamisesta.
 
-ZIP-paketin odotettu rakenne validoidaan README:ssä dokumentoitua tiedostolistaa vasten. Syötteenä käytetään kaikkia `.gpkg`-tiedostoja. Mukana olevat `.qml`-tiedostot eivät sisällä varsinaista kohdeaineistoa, mutta niitä käytetään referenssinä OpenLayers-tyylien määrittelyssä. Rakennusputkeen tehdään eksplisiittinen mäppäys GeoPackage-tiedostoista ja niiden sisäisistä tasoista 26 julkaistavaan MVT-`source-layer`-tasoon. Erityisesti arkeologisten kohteiden yhdistettyjen piste- ja aluetiedostojen jako julkaistaviin kohdetyyppeihin perustuu lähdeaineiston kenttiin eikä tiedostonimeen yksin.
+ZIP-paketin odotettu rakenne validoidaan README:ssä dokumentoitua tiedostolistaa vasten. Syötteenä käytetään kaikkia 12 `.gpkg`-tiedostoa ja niiden yhtä kohdetasoa. Mukana olevat `.qml`-tiedostot eivät sisällä varsinaista kohdeaineistoa, mutta niitä käytetään referenssinä OpenLayers-tyylien määrittelyssä. Rakennusputkeen tehdään eksplisiittinen mäppäys 12 GeoPackage-kohdetasosta 12 MVT-`source-layer`-tasoon sekä erillinen käyttöliittymämäppäys 26 loogiseen tasovalintaan. Arkeologisten kohteiden looginen jako perustuu `laji`-kenttään eikä erillisiin MVT-lähdetasoihin.
+
+Kenttien nimet normalisoidaan kirjainkoon suhteen (esimerkiksi `Laji`/`laji`, `Nimi`/`nimi` ja `URL`/`url`), mutta alkuperäinen lähdearvo säilytetään tarvittaessa jäljitettävyyttä varten. Arvojoukkojen normalisointi käsittelee ainakin `K`/`k`- ja `E`/`e`-muodot sekä dokumentoidun `Maastonimittaus`/aineistossa olevan `Maastomittaus`-eron. PDF-tietotuoteseloste on vuodelta 2017 ja toimii semanttisena referenssinä, ei nykyisen aineiston hylkäysperusteena. Nykyiset ja uudet arvojoukkoarvot raportoidaan rakennuksessa.
+
+Moniarvoisia `tyyppi`-, `alatyyppi`- ja `suojeluryhmä`-kenttiä ei pilkota tavallisella pilkkujaolla, koska pilkku esiintyy myös käsitteiden sisällä ja aineisto käyttää tyhjiä arvopaikkoja. Ensimmäisessä versiossa raakamuoto säilytetään. Jos yksittäisiin arvoihin perustuva suodatus tarvitaan, jäsennys toteutetaan erikseen lähdemallin rakenteen tuntevalla muunnoksella ja testataan inventoiduilla arvojoukoilla.
 
 Päivitysajon vaiheet:
 
@@ -74,9 +80,9 @@ Päivitysajon vaiheet:
 3. Lataa ZIP väliaikaiseen työtilaan ja laske sille SHA-256-tiiviste.
 4. Tarkista ZIP:n eheys, pura paketti ja varmista, että README:ssä luetellut `.gpkg`-tiedostot ovat mukana. Tunnista puuttuvat, ylimääräiset ja uudelleennimetyt tiedostot ennen muunnosta.
 5. Listaa jokaisen GeoPackage-tiedoston sisäiset tasot ja varmista niiden geometriatyypit, koordinaattijärjestelmä, pakolliset kentät ja tietuemäärät.
-6. Normalisoi lähdetasojen nimet ja kentät sisäiseen skeemaan ja jaa yhdistetyt arkeologiset aineistot julkaistaviin kohdetyyppeihin.
+6. Normalisoi lähdetasojen ja kenttien nimet sisäiseen skeemaan. Johda arkeologisille riveille normalisoitu `laji_key`, jota käytetään loogiseen tasovalintaan, mutta älä jaa rivejä erillisiin fyysisiin MVT-lähdetasoihin.
 7. Muunna geometriat `EPSG:3857`-koordinaatistoon, korjaa mahdollisuuksien mukaan virheelliset geometriat ja raportoi hylätyt tietueet.
-8. Rakenna yksi zoom-tasoittain yleistetty PMTiles-arkisto, jossa kaikki lähdetasot säilyvät erillisinä nimettyinä MVT-lähdetasoina, sekä mahdollinen ominaisuustietoaineisto ja D1:een vietävä suppea hakuaineisto.
+8. Rakenna yksi zoom-tasoittain yleistetty PMTiles-arkisto, jossa 12 GeoPackage-kohdetasoa säilyvät 12 erillisenä nimettynä MVT-lähdetasona, sekä mahdollinen ominaisuustietoaineisto ja D1:een vietävä deduplikoitu hakuaineisto.
 9. Suorita automaattiset laatu- ja suorituskykytarkistukset.
 10. Siirrä artefaktit R2:een uuden, muuttumattoman versionimen alle, esimerkiksi `datasets/<sha256>/map.pmtiles`.
 11. Tuo hakurivit D1:een uuden aineistoversion tunnisteella ja tarkista rivimäärä sekä koehakujen tulokset.
@@ -89,23 +95,29 @@ Jos lähde ei ole muuttunut, ajo päättyy ilman uudelleenrakennusta. Epäonnist
 
 ### Vaihe 0: Lähtötilanteen mittaus ja skeeman kartoitus
 
-- Lataa yksi tuotantoaineisto ja listaa jokaisen GeoPackage-tiedoston sisäiset tasot, kentät, geometriatyypit, koordinaattijärjestelmät ja tietuemäärät.
-- Tee versionhallittu mäppäys README:ssä luetelluista tiedostoista ja niiden sisäisistä tasoista 26 julkaistavaan karttatasoon. Dokumentoi yhdistettyjen arkeologisten aineistojen jakamiseen käytettävät kenttäarvot.
-- Vertaa mukana toimitettuja QML-tyylejä nykyisiin WMS-/OpenLayers-tyyleihin ja kirjaa, mitä niistä hyödynnetään.
-- Selvitä, mikä kenttä toimii pysyvänä kohdetunnuksena tasojen välillä.
-- Kirjaa nykyisten OpenLayers-tyylien, hakutulosten ja `GetFeatureInfo`-vastauksen käyttämät kentät.
-- Mittaa nykyisen ratkaisun latausajat ja siirretyt tavumäärät vähintään koko Suomen, maakunta-/kaupunkitason ja lähitason näkymissä. Näitä käytetään vertailutasona.
+- [x] Lataa yksi tuotantoaineisto ja listaa jokaisen GeoPackage-tiedoston sisäiset tasot, kentät, geometriatyypit, koordinaattijärjestelmät ja tietuemäärät.
+- [x] Dokumentoi lähdeaineiston arvojoukot, PDF-tietomalli ja niiden väliset ristiriidat.
+- [x] Dokumentoi 12 fyysisen GeoPackage-tason suhde WMS:n ja käyttöliittymän 26 loogiseen tasoon sekä arkeologisten tasojen `laji`-arvot.
+- [x] Selvitä loogiset pysyvät kohdetunnukset, geometriarivien tunnisteet ja tasojen väliset suhteet. Dokumentoi erikseen D1-haun deduplikointiavain ja MVT-feature-ID:n muodostussääntö.
+- [x] Tee 12 MVT-lähdetason ja 26 käyttöliittymän loogisen tasovalinnan versionhallittu, koneellisesti luettava mäppäyskonfiguraatio.
+- [ ] Vertaa mukana toimitettuja QML-tyylejä nykyisiin WMS-/OpenLayers-tyyleihin ja kirjaa, mitä niistä hyödynnetään.
+- [ ] Kirjaa nykyisen OpenLayers-toteutuksen, haku-, tyyppi-/ajoitussuodattimien ja `GetFeatureInfo`-vastauksen käyttämä kenttäsopimus. Tarkista erityisesti moniarvoisten `tyyppi`-, `alatyyppi`- ja `ajoitus`-kenttien nykyinen pilkkominen inventoitua aineistoa vasten.
+- [ ] Mittaa nykyisen ratkaisun latausajat, HTTP-pyyntömäärät ja siirretyt tavumäärät vähintään koko Suomen, maakunta-/kaupunkitason ja lähitason näkymissä. Sisällytä mittaukseen taustakartta ja muut samanaikaiset karttatasot.
 
-**Tuotos:** versionhallittu lähdeskeeman kuvaus, tasomäppäys ja suorituskyvyn lähtötaso.
+**Tuotos:** versionhallittu lähdeskeeman kuvaus, arvojoukkoanalyysi, fyysisten ja loogisten tasojen mäppäys sekä suorituskyvyn lähtötaso.
 
-Ensimmäinen lähdeaineiston lataus ja GeoPackage-inventaario on toteutettu toistettavilla Bash-skripteillä. Koko vaihe ajetaan komennolla `infra/museovirasto-map-data-server/scripts/run-phase-0-source-inventory.sh`. Ladattu ja purettu aineisto tallennetaan gitistä ohitettuun `infra/museovirasto-map-data-server/data/`-hakemistoon, ja generoitu tulos on tiedostossa [SOURCE_DATA_INVENTORY.md](SOURCE_DATA_INVENTORY.md).
+Lähdeaineiston lataus, GeoPackage-inventaario, arvojoukkoanalyysi, PDF-tietomallin vertailu ja tunnisteanalyysi on toteutettu toistettavilla Bash-skripteillä. Koko analyysi ajetaan komennolla `infra/museovirasto-map-data-server/scripts/run-phase-0-source-inventory.sh`. Ladattu ja purettu aineisto sekä PDF tallennetaan gitistä ohitettuun `infra/museovirasto-map-data-server/data/`-hakemistoon, ja generoitu tulos on tiedostossa [SOURCE_DATA_INVENTORY.md](SOURCE_DATA_INVENTORY.md). Inventoitu versio sisältää 12 fyysistä kohdetasoa ja 268 965 lähderiviä. Inventaarion havaitsemat skeema-, tunniste- ja arvojoukkopoikkeamat toimivat rakennusputken ensimmäisenä regressiotasona.
+
+Tasomäppäys on tiedostossa [layer-mapping.json](layer-mapping.json). Konfiguraatio validoidaan lähdeaineistoa vasten komennolla `infra/museovirasto-map-data-server/scripts/05-validate-layer-mapping.sh`, joka on osa vaiheen 0 yhteisajoa.
+
+**Seuraava tehtävä:** vertaa mukana toimitettuja QML-tyylejä nykyiseen WMS-/OpenLayers-esitykseen ja dokumentoi MVT-tyylisopimus. Tyylisopimuksen pitää käyttää `layer-mapping.json`-tiedoston fyysisiä ja loogisia tasotunnisteita.
 
 ### Vaihe 1: Tekninen proof of concept
 
 - Muunna edustava osa tai koko aineisto vektoritiiliksi esimerkiksi GDAL- ja Tippecanoe-työkaluilla.
 - Testaa geometriayleistys, pistetiheys, klusterointi sekä ominaisuuksien tunnistaminen OpenLayersissa.
-- Paketoi kaikki 26 lähdetasoa yhteen PMTiles-arkistoon, tallenna se R2:een ja varmista Range-pyynnöt sekä välimuistuminen Cloudflaren kautta.
-- Varmista, että tasoja voi näyttää ja piilottaa ilman uusia Museovirasto-tiililähteitä tai saman tiilen lataamista erikseen tasoa kohden.
+- Paketoi kaikki 12 fyysistä lähdetasoa yhteen PMTiles-arkistoon, tallenna se R2:een ja varmista Range-pyynnöt sekä välimuistuminen Cloudflaren kautta.
+- Varmista, että 26 loogista tasovalintaa voi näyttää ja piilottaa `source-layer`- ja `laji_key`-suodattimilla ilman uusia Museovirasto-tiililähteitä tai saman tiilen lataamista erikseen valintaa kohden.
 - Mittaa arkiston koko, tyypillisten ja pahimpien tiilien koko, koko karttanäkymän HTTP-pyyntömäärä, siirretty datamäärä, renderöintiaika ja muistinkäyttö hitaaksi simuloidulla mobiililaitteella. Mittaukseen sisällytetään taustakartta ja muiden lähteiden karttatasot.
 - Tuo D1:een suppea hakutaulu ja toteuta Workeriin yksinkertainen osajonohaku. Varmista ääkkösten, kirjainkoon, osittaisten hakujen, välimuistin ja tulosrajan toiminta.
 - Vahvista yhden PMTiles-arkiston suorituskykybudjetit ja kirjaa D1:n lineaarisen haun mitattu vasteaika vertailutiedoksi.
@@ -116,9 +128,11 @@ Ensimmäinen lähdeaineiston lataus ja GeoPackage-inventaario on toteutettu tois
 
 - Tee lukituilla työkaluversionumeroilla ajettava rakennusskripti tai kontti.
 - Toteuta taso- ja kenttämäppäys konfiguraationa, ei hajautettuina oletuksina koodissa.
-- Lisää aineiston validointi, geometriakorjaukset, tiivisteet, manifesti ja koneellisesti luettava rakennusraportti.
+- Lisää aineiston validointi, geometriakorjaukset, tiivisteet, manifesti ja koneellisesti luettava rakennusraportti. Validoi 12 odotettua GeoPackage-kohdetasoa, pysyvät tunnistekentät, geometriatyypit ja kriittiset luokittelukentät.
+- Vertaa kenttiä, tietuemääriä ja arvojoukkoja versionhallittuun inventaariotasoon. Puuttuva kriittinen kenttä tai taso estää julkaisun; uusi arvojoukkoarvo aiheuttaa raportin ja hälytyksen, mutta ei automaattisesti hylkää aineistoa.
+- Muodosta MVT-feature-ID tunnisteanalyysissä kuvatusta komposiittiavaimesta vakaana 64-bittisenä hajautuksena ja keskeytä rakennus, jos samalla lähdetasolla havaitaan törmäys.
 - Lisää tiilien zoom-/yleistyssäännöt sekä tiilikoon tarkistus.
-- Muodosta hakutaulun tuontiaineisto ja normalisoi nimet yhden dokumentoidun säännön mukaisesti. Pidä skeema tarkoituksella suppeana.
+- Muodosta hakutaulun tuontiaineisto, yhdistä saman rekisterikohteen eri geometriat pysyvällä tunnisteella ja normalisoi nimet yhden dokumentoidun säännön mukaisesti. Pidä skeema tarkoituksella suppeana.
 - Lisää yksikkö- ja integraatiotestit muunnoksille.
 
 **Tuotos:** paikallisesti ja CI:ssä samalla tavalla valmistuvat versionoidut artefaktit.
@@ -137,7 +151,7 @@ Ensimmäinen lähdeaineiston lataus ja GeoPackage-inventaario on toteutettu tois
 ### Vaihe 4: OpenLayers-integraatio
 
 - Lisää uusi vektoritiililähde feature flagin taakse nykyisen WMS-ratkaisun rinnalle.
-- Siirrä kaikkien lähdetasojen näkyvyys- ja tyylisäännöt yhden OpenLayers-vektoritiililähteen tyylifunktioon. Tasovalinta muuttaa vain näkyvien `source-layer`-tasojen joukkoa eikä luo uutta lähdettä.
+- Siirrä kaikkien loogisten tasojen näkyvyys- ja tyylisäännöt yhden OpenLayers-vektoritiililähteen tyylifunktioon. Tasovalinta muuttaa näkyvien `source-layer`- ja `laji_key`-yhdistelmien joukkoa eikä luo uutta lähdettä.
 - Rajaa karttaklikkauksen osumat käyttäjän valitsemiin näkyviin tasoihin.
 - Toteuta klusterien esitys, zoomaus klusteria valittaessa ja yksittäisten ominaisuuksien klikkaustunnistus.
 - Korvaa WFS-nimihaku uudella hakuendpointilla ja sovita tulos nykyiseen käyttöliittymään.
@@ -160,12 +174,14 @@ Ensimmäinen lähdeaineiston lataus ja GeoPackage-inventaario on toteutettu tois
 
 Lopulliset numeroarvot vahvistetaan proof of conceptin jälkeen. Alustavat hyväksymiskriteerit ovat:
 
-- Kaikki lähdeaineistosta hyväksytyt 26 tasoa esiintyvät rakennusraportissa ja ovat joko näkyvissä tai tarkoituksellisesti aggregoituina määritellyillä zoom-tasoilla.
+- Kaikki 12 fyysistä GeoPackage-kohdetasoa esiintyvät rakennusraportissa ja PMTiles-metadatassa. Kaikki 26 loogista käyttöliittymätasoa on määritetty lähdetason ja tarvittaessa `laji_key`-suodattimen yhdistelmään sekä joko näkyviin tai tarkoituksellisesti aggregoituihin kohteisiin määritellyillä zoom-tasoilla.
+- Rakennusraportin arkeologisten pisteiden ja alueiden rivimäärät täsmäävät lähdeaineistoon sekä kokonaisuutena että `laji_key`-arvoittain. Muunnos ei kopioi samaa geometriaa eri MVT-lähdetasoihin WMS-jaon jäljittelemiseksi.
+- Tuntematon uusi `laji`-arvo säilyy PMTiles-aineistossa tunnistettavalla varatyylillä ja aiheuttaa hälytyksen; se ei katoa kartalta hiljaisesti.
 - Automaattinen päivitys julkaisee uuden muuttuneen aineiston 6 tunnin kuluessa Museoviraston päivitysajasta.
 - Epäonnistunut tai puutteellinen aineisto ei korvaa aktiivista versiota.
 - Kartan ensimmäinen käyttökelpoinen näkymä latautuu tavallisella 4G-yhteydellä mediaaniltaan alle 2 sekunnissa tuetulla keskitason mobiililaitteella; p95-tavoite on alle 4 sekuntia.
 - Yhden 256 pikselin vektoritiilen pakattu koko on normaalisti alle 100 kt eikä ylitä 300 kt ilman erikseen hyväksyttyä poikkeusta.
-- Kaikkien 26 tason näyttäminen tai niiden näkyvyyden vaihtaminen käyttää yhtä Museovirasto-vektoritiililähdettä; yksittäistä tiiltä ei pyydetä uudelleen eri lähdetasojen vuoksi.
+- Kaikkien 26 loogisen tason näyttäminen tai niiden näkyvyyden vaihtaminen käyttää yhtä Museovirasto-vektoritiililähdettä; yksittäistä tiiltä ei pyydetä uudelleen eri lähdetasojen tai `laji`-suodattimien vuoksi.
 - Koko karttanäkymän HTTP-pyyntömäärälle asetetaan proof of conceptissa budjetti, jossa huomioidaan PMTiles-arkiston lisäksi taustakartta ja muiden lähteiden karttatasot.
 - Välimuistissa oleva haku vastaa p95 alle 500 millisekunnissa. Välimuistista puuttuvan D1-haun tavoite määritetään prototyypin mittauksen perusteella, ja haulla on aina sovittu tulosraja.
 - Karttaklikkaus löytää kaikki näkyvät, klikkaustoleranssin sisällä olevat päällekkäiset kohteet ja näyttää oikean kohdetunnuksen.
@@ -189,6 +205,10 @@ Testikokonaisuuteen kuuluvat rakennusputken yksikkötestit, tunnettuun pieneen u
 | Riski | Vaikutus | Lievennys |
 | --- | --- | --- |
 | Lähdetasojen nimet tai skeema muuttuvat | Päivitys voi tuottaa väärän tai puutteellisen aineiston | Tiukka skeemavalidointi, tietuemäärien poikkeamahälytys ja atominen julkaisu |
+| Uusi tai muuttunut `laji`-arvo puuttuu käyttöliittymämäppäyksestä | Kohteita voi jäädä piiloon tai väärään loogiseen tasoon | Arvojoukkovertailu, tuntemattoman arvon varatyyli, rivimäärätäsmäytys ja hälytys |
+| 12 fyysisen tason ja 26 loogisen valinnan mäppäys ajautuu erilleen | Tasovalinta näyttää vääriä kohteita | Yksi versionhallittu mäppäyskonfiguraatio sekä muunnoksen ja OpenLayersin yhteiset sopimustestit |
+| Moniarvokenttä pilkotaan virheellisesti pilkuista | Tyyppi-, alatyyppi- tai suojelutieto vääristyy | Säilytä raakamuoto ensiversiossa; toteuta mahdollinen jäsennys erikseen fixture- ja arvojoukkotesteillä |
+| Vanhaa PDF-skeemaa käytetään nykyisen aineiston totuutena | Kelvollinen uusi aineisto voidaan hylätä | Käytä GeoPackage-inventaariota teknisenä lähtötasona ja PDF:ää vain semanttisena referenssinä |
 | Koko Suomen tiilet kasvavat liian suuriksi | Hidas mobiilikäyttö ja renderöinti | Zoom-kohtainen klusterointi, geometriayleistys, attribuuttien karsinta ja tiilikokobudjetti |
 | PMTilesin Range-pyynnöt eivät välimuistitu odotetusti | Suurempi viive tai R2-kustannus | Mitataan PoC:ssa; varavaihtoehto on esigeneroidut MVT-tiilet R2:ssa |
 | D1:n lineaarinen osajonohaku hidastuu aineiston kasvaessa | Harvoin käytetyn haun vasteaika kasvaa | Tulosraja ja hakutulosvälimuisti; tarvittaessa myöhemmin FTS- tai trigrammi-indeksi |

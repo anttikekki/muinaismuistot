@@ -27,7 +27,7 @@ Muinaismuistot.info sivyston käyttö on tämän vuoksi erityisen tahmeaa ja hid
 
 ## Kartta-aineiston kuvaus
 
-Kaikki WMS-rajapinnasta haetut karttatasot rekisterin mukaan ryhmiteltynä:
+WMS-rajapinnasta haetaan 26 loogista karttatasoa. Tasot rekisterin mukaan ryhmiteltynä:
 
 - Rakennusperintörekisteri
     - suojellut_rakennukset_piste
@@ -61,7 +61,7 @@ Kaikki WMS-rajapinnasta haetut karttatasot rekisterin mukaan ryhmiteltynä:
     - poistettu_kiintea_muinaisjaannos_alue
     - alakohde_piste
 
-Kohteita oneri karttatasoilla yhteensä kymmeniä tuhansia. Kohteet ovat joko pisteitä, alueita tai viivoja.
+Kohteita on eri karttatasoilla yhteensä kymmeniä tuhansia. Kohteet ovat joko pisteitä, alueita tai viivoja.
 
 ### Tiedostolataus
 
@@ -70,14 +70,14 @@ Avoimen aineiston pystyy myös lataamaan kokonaisuudessaan [Museoviraston avoime
 - [Aineiston zip-tiedoston latauslinkki](https://mverkkodatashare.blob.core.windows.net/share/tutkija.zip)
 - [Datan kuvaus PDF-muodossa](https://museovirasto-craft-assets-production.s3.eu-north-1.amazonaws.com/Tietotuotemaarittely_kulttuuriymparisto_kaikki.pdf)
 
-Sivuston mukaan aineistot päivittyvät joka päivä klo 00:00 UTC. Zip-tiedoston koko on noin 35 megatavuam joka on purettuna noin 150 megatavua. Datan tiedostomuoto on GeoPackage.
+Sivuston mukaan aineistot päivittyvät joka päivä klo 00:00 UTC. Zip-tiedoston koko on noin 35 megatavua ja purettuna noin 150 megatavua. Datan tiedostomuoto on GeoPackage.
 
 Zipin sisältämät tiedostot:
 
 - VARK_aluerajaukset.gpkg
 - VARK_keskipisteet.gpkg
 - arkeologiset_kohteet_alakohteet_piste.gpkg
-- arkeologiset_kohteet_alakohteet_piste.qml	
+- arkeologiset_kohteet_alakohteet_piste.qml
 - arkeologiset_kohteet_alue_t.gpkg
 - arkeologiset_kohteet_alue_t.qml
 - arkeologiset_kohteet_piste_t.gpkg
@@ -93,6 +93,40 @@ Zipin sisältämät tiedostot:
 - suojellut_rakennukset_alue.gpkg
 - suojellut_rakennukset_piste.gpkg
 - suojellut_rakennukset_piste.qml
+
+#### GeoPackage-tiedostojen karttatasot
+
+WMS:n 26 karttatasoa ja ZIP-tuotteen GeoPackage-rakenne eivät vastaa toisiaan yksi yhteen. ZIP sisältää 12 GeoPackage-tiedostoa, ja nykyisessä aineistoversiossa jokainen tiedosto sisältää yhden varsinaisen kohdetason. GeoPackage-kohdetasot ovat:
+
+| GeoPackage-tiedosto | Sisäinen kohdetaso | Geometriatyyppi | Tietueita inventoidussa aineistossa |
+| --- | --- | --- | ---: |
+| `VARK_aluerajaukset.gpkg` | `VARK_aluerajaukset` | `GEOMETRY` | 1 010 |
+| `VARK_keskipisteet.gpkg` | `VARK_keskipisteet` | `POINT` | 1 010 |
+| `arkeologiset_kohteet_alakohteet_piste.gpkg` | `arkeologiset_kohteet_alakohteet_piste` | `POINT` | 63 216 |
+| `arkeologiset_kohteet_alue_t.gpkg` | `arkeologiset_kohteet_alue_t` | `POLYGON` | 86 703 |
+| `arkeologiset_kohteet_piste_t.gpkg` | `arkeologiset_kohteet_piste_t` | `POINT` | 112 441 |
+| `maailmanperintokohde_alue.gpkg` | `maailmanperintokohde_alue` | `POLYGON` | 50 |
+| `maailmanperintokohde_piste.gpkg` | `maailmanperintokohde_piste` | `POINT` | 6 |
+| `rky_alue.gpkg` | `rky_alue` | `GEOMETRY` | 1 851 |
+| `rky_piste.gpkg` | `rky_piste` | `POINT` | 64 |
+| `rky_viiva.gpkg` | `rky_viiva` | `MULTILINESTRING` | 186 |
+| `suojellut_rakennukset_alue.gpkg` | `suojellut_rakennukset_alue` | `GEOMETRY` | 138 |
+| `suojellut_rakennukset_piste.gpkg` | `suojellut_rakennukset_piste` | `POINT` | 2 290 |
+
+Tietuemäärät kuvaavat yhtä ladattua tuotantoaineistoversiota ja muuttuvat aineiston päivittyessä. Tarkempi generoitu skeema- ja arvojoukkoanalyysi on tiedostossa [SOURCE_DATA_INVENTORY.md](SOURCE_DATA_INVENTORY.md).
+
+#### WMS- ja GeoPackage-rakenteiden suhde
+
+Muiden rekisterien osalta fyysiset GeoPackage-kohdetasot vastaavat pääosin WMS-tasoja: rakennusperinnöllä on piste- ja aluetaso, RKY:llä piste-, viiva- ja aluetaso, maailmanperinnöllä piste- ja aluetaso sekä VARK-aineistolla keskipiste- ja aluerajaustaso.
+
+Merkittävin ero on arkeologisissa kohteissa:
+
+- GeoPackage-tuote sisältää yhden yhteisen pistetason `arkeologiset_kohteet_piste_t` ja yhden yhteisen aluetason `arkeologiset_kohteet_alue_t`.
+- Molemmissa yhteisissä tasoissa kohdetyyppi määräytyy `Laji`-kentän perusteella. Aineistossa esiintyvät lajit ovat `kiinteä muinaisjäännös`, `muu kulttuuriperintökohde`, `löytöpaikka`, `havaintokohde`, `luonnonmuodostuma`, `mahdollinen muinaisjäännös`, `muu kohde` ja `poistettu kiinteä muinaisjäännös (ei rauhoitettu)`.
+- WMS julkaisee nämä kahdeksan lajia erillisinä piste- ja aluetasoina. Näin kahdesta GeoPackage-kohdetasosta muodostuu 16 WMS-tasoa.
+- Arkeologisten alakohteiden GeoPackage-pistetaso julkaistaan WMS:ssä omana `alakohde_piste`-tasonaan.
+
+WMS:n 26 tason kokonaismäärä muodostuu siten 16 arkeologisen lajin piste-/aluetasosta, yhdestä alakohdetasosta sekä yhdeksästä muiden rekisterien tasosta. Luku 26 kuvaa WMS:n julkaisutapaa, ei ladattavan ZIP-tuotteen fyysisten GeoPackage-kohdetasojen määrää.
 
 ## Suorituskykyongelman ratkaisu
 
