@@ -6,3 +6,4 @@ scripts/viabundus/source-data
 scripts/röykkiöiden-koot/source-data
 scripts/röykkiöiden-koot/intermediate
 scripts/röykkiöiden-koot/results
+infra/museovirasto-map-data-server/data

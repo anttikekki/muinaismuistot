@@ -16,11 +16,11 @@ const updateParams = (
   currentValues: string[],
   key: keyof URLSettings
 ): URLSettingsState => {
-  if (
-    (initialValues.length === 0 && currentValues.length === 0) ||
-    (initialValues.length > 0 &&
-      initialValues.every((v) => currentValues.includes(v)))
-  ) {
+  const valuesAreEqual =
+    initialValues.length === currentValues.length &&
+    initialValues.every((value) => currentValues.includes(value))
+
+  if (valuesAreEqual) {
     return {
       ...state,
       old: {
