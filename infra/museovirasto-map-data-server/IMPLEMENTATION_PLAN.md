@@ -100,7 +100,7 @@ Jos lähde ei ole muuttunut, ajo päättyy ilman uudelleenrakennusta. Epäonnist
 - [x] Dokumentoi 12 fyysisen GeoPackage-tason suhde WMS:n ja käyttöliittymän 26 loogiseen tasoon sekä arkeologisten tasojen `laji`-arvot.
 - [x] Selvitä loogiset pysyvät kohdetunnukset, geometriarivien tunnisteet ja tasojen väliset suhteet. Dokumentoi erikseen D1-haun deduplikointiavain ja MVT-feature-ID:n muodostussääntö.
 - [x] Tee 12 MVT-lähdetason ja 26 käyttöliittymän loogisen tasovalinnan versionhallittu, koneellisesti luettava mäppäyskonfiguraatio.
-- [ ] Vertaa mukana toimitettuja QML-tyylejä nykyisiin WMS-/OpenLayers-tyyleihin ja kirjaa, mitä niistä hyödynnetään.
+- [x] Vertaa mukana toimitettuja QML-tyylejä nykyisiin WMS-/OpenLayers-tyyleihin ja kirjaa, mitä niistä hyödynnetään.
 - [ ] Kirjaa nykyisen OpenLayers-toteutuksen, haku-, tyyppi-/ajoitussuodattimien ja `GetFeatureInfo`-vastauksen käyttämä kenttäsopimus. Tarkista erityisesti moniarvoisten `tyyppi`-, `alatyyppi`- ja `ajoitus`-kenttien nykyinen pilkkominen inventoitua aineistoa vasten.
 - [ ] Mittaa nykyisen ratkaisun latausajat, HTTP-pyyntömäärät ja siirretyt tavumäärät vähintään koko Suomen, maakunta-/kaupunkitason ja lähitason näkymissä. Sisällytä mittaukseen taustakartta ja muut samanaikaiset karttatasot.
 
@@ -110,7 +110,9 @@ Lähdeaineiston lataus, GeoPackage-inventaario, arvojoukkoanalyysi, PDF-tietomal
 
 Tasomäppäys on tiedostossa [layer-mapping.json](layer-mapping.json). Konfiguraatio validoidaan lähdeaineistoa vasten komennolla `infra/museovirasto-map-data-server/scripts/05-validate-layer-mapping.sh`, joka on osa vaiheen 0 yhteisajoa.
 
-**Seuraava tehtävä:** vertaa mukana toimitettuja QML-tyylejä nykyiseen WMS-/OpenLayers-esitykseen ja dokumentoi MVT-tyylisopimus. Tyylisopimuksen pitää käyttää `layer-mapping.json`-tiedoston fyysisiä ja loogisia tasotunnisteita.
+Tyylivertailu ja MVT/OpenLayers-tyylisopimus ovat tiedostossa [STYLE_COMPARISON.md](STYLE_COMPARISON.md). Nykyinen kartta todettiin WMS:n palvelimella renderöimäksi rasteriksi: sivustolla ei ole ennestään Museoviraston varsinaisen aineiston OpenLayers-vektorityyliä. UI:n SVG-kuvakkeet ja 3D-mallien `ModelsLayer` ovat erillisiä visuaalisia jäljitelmiä. Migraation vertailutasoksi valittiin nykyinen WMS/UI-ilme, ja QML:stä hyödynnetään `Laji`-kategorisointi sekä geometriatyyppien ja mittasuhteiden referenssi. WMS-tyylien koneellinen tarkistus tehdään komennolla `infra/museovirasto-map-data-server/scripts/06-inventory-styles.sh`, joka on osa vaiheen 0 yhteisajoa.
+
+**Seuraava tehtävä:** kirjaa nykyisen OpenLayers-toteutuksen, haun, tyyppi-/ajoitussuodattimien ja `GetFeatureInfo`-vastauksen käyttämä kenttäsopimus. Tarkista erityisesti moniarvoisten `tyyppi`-, `alatyyppi`- ja `ajoitus`-kenttien nykyinen pilkkominen inventoitua aineistoa vasten.
 
 ### Vaihe 1: Tekninen proof of concept
 
