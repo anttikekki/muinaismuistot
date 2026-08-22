@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Museovirasto PMTiles PoC</title>
+    <script type="module" src="/map.ts"></script>
+  </head>
+  <body>
+    <main>
+      <aside>
+        <h1>Museovirasto PMTiles PoC</h1>
+        <p>Yksi PMTiles-lähde, 12 fyysistä lähdetasoa ja 26 loogista tasovalintaa.</p>
+        <div class="toolbar">
+          <button id="all-on" type="button">Kaikki päälle</button>
+          <button id="all-off" type="button">Kaikki pois</button>
+        </div>
+        <fieldset>
+          <legend>Loogiset tasot</legend>
+          <div id="layer-controls">Ladataan…</div>
+        </fieldset>
+        <section aria-labelledby="diagnostics-heading">
+          <h2 id="diagnostics-heading">Diagnostiikka</h2>
+          <dl>
+            <dt>PMTiles-pyynnöt</dt><dd id="request-count">0</dd>
+            <dt>Siirretyt tavut</dt><dd id="transfer-bytes">0</dd>
+            <dt>Ensimmäinen renderöinti</dt><dd id="render-time">–</dd>
+            <dt>Zoom</dt><dd id="zoom">–</dd>
+          </dl>
+        </section>
+        <section aria-labelledby="feature-heading">
+          <h2 id="feature-heading">Valittu kohde</h2>
+          <pre id="feature-info">Klikkaa karttakohdetta.</pre>
+        </section>
+      </aside>
+      <div id="map" aria-label="Kartta"></div>
+    </main>
+  </body>
+</html>

@@ -7,7 +7,7 @@ ARCHIVE="${1:-$PROJECT_DIR/data/poc/museovirasto-poc.pmtiles}"
 PMTILES="${PMTILES:-$PROJECT_DIR/data/tools/pmtiles}"
 MAPPING_FILE="$PROJECT_DIR/layer-mapping.json"
 
-for command_name in jq stat; do
+for command_name in jq stat tippecanoe-decode; do
   command -v "$command_name" >/dev/null 2>&1 || {
     echo "Required command not found: $command_name" >&2
     exit 1
@@ -49,9 +49,31 @@ unknown_laji_count="$(
   exit 1
 }
 
+z0_counts="$(
+  tippecanoe-decode "$ARCHIVE" 0 0 0 |
+    jq -c 'reduce .features[] as $layer ({}; .[$layer.properties.layer] = ($layer.features | length))'
+)"
+
+while IFS=$'\t' read -r layer_id expected_count; do
+  actual_count="$(jq -r --arg layer "$layer_id" '.[$layer] // 0' <<<"$z0_counts")"
+  [[ "$actual_count" == "$expected_count" ]] || {
+    echo "Point retention mismatch at zoom 0 for $layer_id: metadata=$expected_count z0=$actual_count" >&2
+    exit 1
+  }
+done < <(
+  jq -r --argjson metadata "$metadata" '
+    .physicalLayers[]
+    | select(.geometryType == "POINT")
+    | .mvtSourceLayer as $id
+    | [$id, ($metadata.tilestats.layers[] | select(.layer == $id) | .count)]
+    | @tsv
+  ' "$MAPPING_FILE"
+)
+
 echo "PMTiles PoC is structurally valid."
 echo "Archive: $ARCHIVE"
 echo "Archive bytes: $(stat -f '%z' "$ARCHIVE")"
 echo "Source layers: $layer_count"
+echo "All point features retained at zoom 0: yes"
 echo "Layers: $(jq -r '[.vector_layers[].id] | sort | join(", ")' <<<"$metadata")"
 echo "PMTiles CLI: $("$PMTILES" version)"

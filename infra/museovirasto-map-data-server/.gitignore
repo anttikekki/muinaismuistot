@@ -1,1 +1,4 @@
 /data/
+/poc/.wrangler/
+/poc/dist/
+/poc/node_modules/

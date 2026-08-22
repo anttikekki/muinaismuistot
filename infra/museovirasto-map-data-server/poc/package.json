@@ -1,0 +1,25 @@
+{
+  "name": "museovirasto-pmtiles-poc",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "npm run build && wrangler dev --local",
+    "seed": "bash ../scripts/12-seed-local-r2-poc.sh",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.worker.json --noEmit && tsc -p tsconfig.web.json --noEmit"
+  },
+  "dependencies": {
+    "ol": "10.10.0",
+    "ol-pmtiles": "2.0.2"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "latest",
+    "typescript": "latest",
+    "vite": "latest",
+    "vitest": "latest",
+    "wrangler": "latest"
+  }
+}

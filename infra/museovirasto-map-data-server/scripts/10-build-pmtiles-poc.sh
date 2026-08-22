@@ -62,9 +62,10 @@ tippecanoe \
   --attribution="Museovirasto" \
   --minimum-zoom=0 \
   --maximum-zoom=14 \
-  --maximum-tile-bytes=300000 \
-  --drop-densest-as-needed \
-  --coalesce-densest-as-needed \
+  --drop-rate=1 \
+  --no-feature-limit \
+  --no-tile-size-limit \
+  --no-tiny-polygon-reduction \
   --use-attribute-for-id=source_fid \
   --read-parallel \
   --quiet \

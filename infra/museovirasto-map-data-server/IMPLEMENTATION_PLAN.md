@@ -121,16 +121,16 @@ Nykyisen WMS-ratkaisun kevyt suorituskyvyn lähtötaso on tiedostossa [CURRENT_M
 ### Vaihe 1: Tekninen proof of concept
 
 - [x] Muunna koko aineisto GDAL- ja Tippecanoe-työkaluilla yhdeksi paikalliseksi, rakenteellisesti validoiduksi PMTiles-arkistoksi. Nykyinen PoC sisältää 12 MVT-lähdetasoa ja 268 964 renderöitävää geometriaa; yksi lähteen geometriaton tietue jätetään dokumentoidusti pois.
-- Testaa geometriayleistys, pistetiheys, klusterointi sekä ominaisuuksien tunnistaminen OpenLayersissa.
-- [ ] Tallenna paikallisesti rakennettu 12 lähdetason arkisto R2:een ja varmista Range-pyynnöt sekä välimuistuminen Cloudflaren kautta.
-- Varmista, että 26 loogista tasovalintaa voi näyttää ja piilottaa `source-layer`- ja `laji_key`-suodattimilla ilman uusia Museovirasto-tiililähteitä tai saman tiilen lataamista erikseen valintaa kohden.
+- [ ] Tarkista paikallisella, muinaismuistot.info-sovelluksesta irrallisella OpenLayers-sivulla geometriayleistys, pistetiheys, alustavat tyylit sekä ominaisuuksien tunnistaminen kolmella edustavalla zoom-tasolla. Tekninen sivu ja yksi PMTiles-lähde on toteutettu; visuaalinen hyväksyntä on kesken.
+- [x] Tallenna arkisto Wranglerin paikallisesti simuloimaan R2-bucketiin. Toteuta ja testaa Worker, joka validoi selaimen yhden byte range -pyynnön, lukee vain sovitun välin R2-bindingista ja palauttaa standardinmukaisen `206 Partial Content` -vastauksen. PoC ei oleta 206-vastausten välimuistittuvan; oikea staging-R2 siirretään Cloudflare-vaiheeseen.
+- [x] Toteuta 26 loogisen tasovalinnan näyttäminen ja piilottaminen yhden OpenLayers `PMTilesVectorSource` -olion `source-layer`- ja `laji_key`-tyylisuodattimilla. Valinnat eivät luo uusia PMTiles-lähteitä tai muuta tiili-URL:ia.
 - Mittaa arkiston koko, tyypillisten ja pahimpien tiilien koko, koko karttanäkymän HTTP-pyyntömäärä, siirretty datamäärä, renderöintiaika ja muistinkäyttö hitaaksi simuloidulla mobiililaitteella. Mittaukseen sisällytetään taustakartta ja muiden lähteiden karttatasot.
 - Tuo D1:een suppea hakutaulu ja toteuta Workeriin yksinkertainen osajonohaku. Varmista ääkkösten, kirjainkoon, osittaisten hakujen, välimuistin ja tulosrajan toiminta.
 - Vahvista yhden PMTiles-arkiston suorituskykybudjetit ja kirjaa D1:n lineaarisen haun mitattu vasteaika vertailutiedoksi.
 
 **Tuotos:** selaimessa toimiva kokeilu ja mitattu arkkitehtuuripäätös.
 
-**Seuraava tehtävä:** avaa paikallinen PMTiles-arkisto OpenLayersissa, kytke 26 loogista tasovalintaa yhden lähteen `source-layer`- ja `laji_key`-suodattimiin ja tarkista tyylit, yleistys sekä kohteiden tunnistaminen koko Suomen, kaupunki-/maakunta- ja lähitason näkymissä.
+**Seuraava tehtävä:** avaa valmis paikallinen PoC selaimessa ja tarkista tyylit, yleistys sekä kohteiden tunnistaminen koko Suomen, kaupunki-/maakunta- ja lähitason näkymissä. Kirjaa pyyntömäärät, siirretyt tavut ja havaitut kartografiset puutteet.
 
 ### Vaihe 2: Toistettava rakennusputki
 
