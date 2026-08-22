@@ -11,6 +11,31 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [240975, 6820677]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kotasaarensuo",
+          "id": 1000031723,
+          "type": "rajapinta_suojellut:muinaisjaannos_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000031723",
+          "municipality": "Ulvila"
+        },
+        "model": {
+          "name": "Lieden kaivausalue, taso 3",
+          "url": "https://sketchfab.com/models/ddb5e5a3bba343228a4c3c557ab2d7c9"
+        },
+        "author": "Tia Hyvärinen",
+        "authorUrl": "https://sketchfab.com/Tia.H",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2026-08-22"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [214830, 6799266]
       },
       "properties": {
