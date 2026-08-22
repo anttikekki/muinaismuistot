@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "description": "Phase 1 PoC projection from the 12 GeoPackage layers to normalized MVT attributes.",
+  "layers": [
+    {
+      "id": "vark_areas",
+      "geoPackageFile": "VARK_aluerajaukset.gpkg",
+      "geoPackageLayer": "VARK_aluerajaukset",
+      "sql": "SELECT fid AS source_fid, CAST(VARK_ID AS TEXT) AS registry_id, trim(VARK_nimi) AS name, trim(Kunta) AS municipality, Tyyppi AS types_raw, Alatyyppi AS subtypes_raw, trim(Ajoitus) AS datings_raw, geom FROM VARK_aluerajaukset"
+    },
+    {
+      "id": "vark_points",
+      "geoPackageFile": "VARK_keskipisteet.gpkg",
+      "geoPackageLayer": "VARK_keskipisteet",
+      "sql": "SELECT fid AS source_fid, CAST(VARK_ID AS TEXT) AS registry_id, trim(VARK_nimi) AS name, trim(Kunta) AS municipality, Tyyppi AS types_raw, Alatyyppi AS subtypes_raw, trim(Ajoitus) AS datings_raw, geom FROM VARK_keskipisteet"
+    },
+    {
+      "id": "archaeological_subsites_points",
+      "geoPackageFile": "arkeologiset_kohteet_alakohteet_piste.gpkg",
+      "geoPackageLayer": "arkeologiset_kohteet_alakohteet_piste",
+      "sql": "SELECT fid AS source_fid, CAST(mjtunnus AS TEXT) AS registry_id, CAST(alakohdetunnus AS TEXT) AS subsite_id, trim(kohdenimi) AS name, trim(alakohdenimi) AS subsite_name, trim(kunta) AS municipality, CASE trim(lower(laji)) WHEN 'kiinteä muinaisjäännös' THEN 'kiintea_muinaisjaannos' WHEN 'muu kulttuuriperintökohde' THEN 'muu_kulttuuriperintokohde' WHEN 'löytöpaikka' THEN 'loytopaikka' WHEN 'havaintokohde' THEN 'havaintokohde' WHEN 'luonnonmuodostuma' THEN 'luonnonmuodostuma' WHEN 'mahdollinen muinaisjäännös' THEN 'mahdollinen_muinaisjaannos' WHEN 'muu kohde' THEN 'muu_kohde' WHEN 'poistettu kiinteä muinaisjäännös (ei rauhoitettu)' THEN 'poistettu_kiintea_muinaisjaannos' ELSE 'unknown' END AS laji_key, tyyppi AS types_raw, alatyyppi AS subtypes_raw, ajoitus AS datings_raw, geom FROM arkeologiset_kohteet_alakohteet_piste"
+    },
+    {
+      "id": "archaeological_areas",
+      "geoPackageFile": "arkeologiset_kohteet_alue_t.gpkg",
+      "geoPackageLayer": "arkeologiset_kohteet_alue_t",
+      "excludedNullGeometries": 1,
+      "sql": "SELECT fid AS source_fid, CAST(mjtunnus AS TEXT) AS registry_id, trim(kohdenimi) AS name, trim(kunta) AS municipality, CASE trim(lower(Laji)) WHEN 'kiinteä muinaisjäännös' THEN 'kiintea_muinaisjaannos' WHEN 'muu kulttuuriperintökohde' THEN 'muu_kulttuuriperintokohde' WHEN 'löytöpaikka' THEN 'loytopaikka' WHEN 'havaintokohde' THEN 'havaintokohde' WHEN 'luonnonmuodostuma' THEN 'luonnonmuodostuma' WHEN 'mahdollinen muinaisjäännös' THEN 'mahdollinen_muinaisjaannos' WHEN 'muu kohde' THEN 'muu_kohde' WHEN 'poistettu kiinteä muinaisjäännös (ei rauhoitettu)' THEN 'poistettu_kiintea_muinaisjaannos' ELSE 'unknown' END AS laji_key, tyyppi AS types_raw, alatyyppi AS subtypes_raw, ajoitus AS datings_raw, geom FROM arkeologiset_kohteet_alue_t WHERE geom IS NOT NULL"
+    },
+    {
+      "id": "archaeological_points",
+      "geoPackageFile": "arkeologiset_kohteet_piste_t.gpkg",
+      "geoPackageLayer": "arkeologiset_kohteet_piste_t",
+      "sql": "SELECT fid AS source_fid, CAST(mjtunnus AS TEXT) AS registry_id, trim(kohdenimi) AS name, trim(kunta) AS municipality, CASE trim(lower(Laji)) WHEN 'kiinteä muinaisjäännös' THEN 'kiintea_muinaisjaannos' WHEN 'muu kulttuuriperintökohde' THEN 'muu_kulttuuriperintokohde' WHEN 'löytöpaikka' THEN 'loytopaikka' WHEN 'havaintokohde' THEN 'havaintokohde' WHEN 'luonnonmuodostuma' THEN 'luonnonmuodostuma' WHEN 'mahdollinen muinaisjäännös' THEN 'mahdollinen_muinaisjaannos' WHEN 'muu kohde' THEN 'muu_kohde' WHEN 'poistettu kiinteä muinaisjäännös (ei rauhoitettu)' THEN 'poistettu_kiintea_muinaisjaannos' ELSE 'unknown' END AS laji_key, tyyppi AS types_raw, alatyyppi AS subtypes_raw, ajoitus AS datings_raw, geom FROM arkeologiset_kohteet_piste_t"
+    },
+    {
+      "id": "world_heritage_areas",
+      "geoPackageFile": "maailmanperintokohde_alue.gpkg",
+      "geoPackageLayer": "maailmanperintokohde_alue",
+      "sql": "SELECT fid AS source_fid, CAST(ID AS TEXT) AS registry_id, trim(Nimi) AS name, trim(aluetyyppi) AS area_type, geom FROM maailmanperintokohde_alue"
+    },
+    {
+      "id": "world_heritage_points",
+      "geoPackageFile": "maailmanperintokohde_piste.gpkg",
+      "geoPackageLayer": "maailmanperintokohde_piste",
+      "sql": "SELECT fid AS source_fid, CAST(ID AS TEXT) AS registry_id, trim(nimi) AS name, geom FROM maailmanperintokohde_piste"
+    },
+    {
+      "id": "rky_areas",
+      "geoPackageFile": "rky_alue.gpkg",
+      "geoPackageLayer": "rky_alue",
+      "sql": "SELECT fid AS source_fid, CAST(ID AS TEXT) AS registry_id, trim(kohdenimi) AS name, trim(nimi) AS part_name, geom FROM rky_alue"
+    },
+    {
+      "id": "rky_points",
+      "geoPackageFile": "rky_piste.gpkg",
+      "geoPackageLayer": "rky_piste",
+      "sql": "SELECT fid AS source_fid, CAST(ID AS TEXT) AS registry_id, trim(kohdenimi) AS name, geom FROM rky_piste"
+    },
+    {
+      "id": "rky_lines",
+      "geoPackageFile": "rky_viiva.gpkg",
+      "geoPackageLayer": "rky_viiva",
+      "sql": "SELECT fid AS source_fid, CAST(ID AS TEXT) AS registry_id, trim(kohdenimi) AS name, geom FROM rky_viiva"
+    },
+    {
+      "id": "protected_building_areas",
+      "geoPackageFile": "suojellut_rakennukset_alue.gpkg",
+      "geoPackageLayer": "suojellut_rakennukset_alue",
+      "sql": "SELECT fid AS source_fid, CAST(KOHDEID AS TEXT) AS registry_id, trim(kohdenimi) AS name, trim(Kunta) AS municipality, suojeluryhmä AS protection_groups_raw, trim(suojelun_tila) AS protection_status, geom FROM suojellut_rakennukset_alue"
+    },
+    {
+      "id": "protected_building_points",
+      "geoPackageFile": "suojellut_rakennukset_piste.gpkg",
+      "geoPackageLayer": "suojellut_rakennukset_piste",
+      "sql": "SELECT fid AS source_fid, CAST(KOHDEID AS TEXT) AS registry_id, CAST(rakennusID AS TEXT) AS building_id, trim(kohdenimi) AS name, trim(rakennusnimi) AS building_name, trim(Kunta) AS municipality, suojeluryhmä AS protection_groups_raw, trim(suojelun_tila) AS protection_status, geom FROM suojellut_rakennukset_piste"
+    }
+  ]
+}

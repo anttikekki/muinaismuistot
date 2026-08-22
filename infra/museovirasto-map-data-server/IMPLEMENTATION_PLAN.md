@@ -116,19 +116,21 @@ Nykyisen käyttöliittymän, karttaklikkauksen, haun ja suodatuksen kenttäsopim
 
 Nykyisen WMS-ratkaisun kevyt suorituskyvyn lähtötaso on tiedostossa [CURRENT_MAP_PERFORMANCE.md](CURRENT_MAP_PERFORMANCE.md). Kaikki 26 loogista tasoa sisältävän yhden 256 × 256 WMS-kuvan mediaanivaste oli koko Suomen rajauksella 33,70 sekuntia, Helsingin rajauksella 1,47 sekuntia ja lähirajauksella 0,78 sekuntia. Mittaus toistetaan tarvittaessa komennolla `infra/museovirasto-map-data-server/scripts/08-measure-current-wms.sh`; sitä ei ajeta vaiheen 0 yhteisajossa, koska se mittaa ajankohdasta riippuvaa ulkoista palvelua. Tarkka koko selainnäkymän vertailu tehdään vaiheessa 1 PMTiles-PoC:ta vasten.
 
-**Vaihe 0 on valmis. Seuraava tehtävä:** aloita vaiheen 1 proof of concept muuntamalla edustava osa tai koko tuotantoaineisto yhdeksi, 12 MVT-lähdetasoa sisältäväksi PMTiles-arkistoksi lukituilla työkaluversioilla.
+**Vaihe 0 on valmis.** Vaihe 1 on aloitettu koko tuotantoaineiston PMTiles-muunnoksella. Ensimmäisen ajon tulokset ja avoimet kysymykset on kirjattu tiedostoon [PMTILES_POC.md](PMTILES_POC.md).
 
 ### Vaihe 1: Tekninen proof of concept
 
-- Muunna edustava osa tai koko aineisto vektoritiiliksi esimerkiksi GDAL- ja Tippecanoe-työkaluilla.
+- [x] Muunna koko aineisto GDAL- ja Tippecanoe-työkaluilla yhdeksi paikalliseksi, rakenteellisesti validoiduksi PMTiles-arkistoksi. Nykyinen PoC sisältää 12 MVT-lähdetasoa ja 268 964 renderöitävää geometriaa; yksi lähteen geometriaton tietue jätetään dokumentoidusti pois.
 - Testaa geometriayleistys, pistetiheys, klusterointi sekä ominaisuuksien tunnistaminen OpenLayersissa.
-- Paketoi kaikki 12 fyysistä lähdetasoa yhteen PMTiles-arkistoon, tallenna se R2:een ja varmista Range-pyynnöt sekä välimuistuminen Cloudflaren kautta.
+- [ ] Tallenna paikallisesti rakennettu 12 lähdetason arkisto R2:een ja varmista Range-pyynnöt sekä välimuistuminen Cloudflaren kautta.
 - Varmista, että 26 loogista tasovalintaa voi näyttää ja piilottaa `source-layer`- ja `laji_key`-suodattimilla ilman uusia Museovirasto-tiililähteitä tai saman tiilen lataamista erikseen valintaa kohden.
 - Mittaa arkiston koko, tyypillisten ja pahimpien tiilien koko, koko karttanäkymän HTTP-pyyntömäärä, siirretty datamäärä, renderöintiaika ja muistinkäyttö hitaaksi simuloidulla mobiililaitteella. Mittaukseen sisällytetään taustakartta ja muiden lähteiden karttatasot.
 - Tuo D1:een suppea hakutaulu ja toteuta Workeriin yksinkertainen osajonohaku. Varmista ääkkösten, kirjainkoon, osittaisten hakujen, välimuistin ja tulosrajan toiminta.
 - Vahvista yhden PMTiles-arkiston suorituskykybudjetit ja kirjaa D1:n lineaarisen haun mitattu vasteaika vertailutiedoksi.
 
 **Tuotos:** selaimessa toimiva kokeilu ja mitattu arkkitehtuuripäätös.
+
+**Seuraava tehtävä:** avaa paikallinen PMTiles-arkisto OpenLayersissa, kytke 26 loogista tasovalintaa yhden lähteen `source-layer`- ja `laji_key`-suodattimiin ja tarkista tyylit, yleistys sekä kohteiden tunnistaminen koko Suomen, kaupunki-/maakunta- ja lähitason näkymissä.
 
 ### Vaihe 2: Toistettava rakennusputki
 
