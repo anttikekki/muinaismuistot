@@ -102,7 +102,7 @@ Jos lähde ei ole muuttunut, ajo päättyy ilman uudelleenrakennusta. Epäonnist
 - [x] Tee 12 MVT-lähdetason ja 26 käyttöliittymän loogisen tasovalinnan versionhallittu, koneellisesti luettava mäppäyskonfiguraatio.
 - [x] Vertaa mukana toimitettuja QML-tyylejä nykyisiin WMS-/OpenLayers-tyyleihin ja kirjaa, mitä niistä hyödynnetään.
 - [x] Kirjaa nykyisen OpenLayers-toteutuksen, haku-, tyyppi-/ajoitussuodattimien ja `GetFeatureInfo`-vastauksen käyttämä kenttäsopimus. Tarkista erityisesti moniarvoisten `tyyppi`-, `alatyyppi`- ja `ajoitus`-kenttien nykyinen pilkkominen inventoitua aineistoa vasten.
-- [ ] Mittaa nykyisen ratkaisun latausajat, HTTP-pyyntömäärät ja siirretyt tavumäärät vähintään koko Suomen, maakunta-/kaupunkitason ja lähitason näkymissä. Sisällytä mittaukseen taustakartta ja muut samanaikaiset karttatasot.
+- [x] Mittaa nykyisen Museovirasto-WMS:n yhden 256 × 256 karttakuvan vasteaika ja koko vähintään koko Suomen, kaupunkitason ja lähitason rajauksilla. Dokumentoi taustakartan ja muiden samanaikaisten karttatasojen karkea pyyntömäärä; siirrä tarkka selaimen end-to-end-vertailu vaiheeseen 1, jossa PMTiles-toteutus toimii vertailukohteena.
 
 **Tuotos:** versionhallittu lähdeskeeman kuvaus, arvojoukkoanalyysi, fyysisten ja loogisten tasojen mäppäys sekä suorituskyvyn lähtötaso.
 
@@ -114,7 +114,9 @@ Tyylivertailu ja MVT/OpenLayers-tyylisopimus ovat tiedostossa [STYLE_COMPARISON.
 
 Nykyisen käyttöliittymän, karttaklikkauksen, haun ja suodatuksen kenttäsopimus sekä uuden rajapinnan normalisointisäännöt ovat tiedostossa [FIELD_CONTRACT.md](FIELD_CONTRACT.md). Tuotantoaineistoon vertaaminen osoitti, ettei nykyistä `split(", ")` -logiikkaa voi käyttää rakennusputken parserina: nelipaikkaisissa moniarvokentissä on tyhjiä paikkoja ja pilkkuja myös käsitteiden sisällä. Uusi API palauttaa normalisoidut arvot JSON-taulukkoina ja säilyttää raakamuodot jäljitettävyyttä varten. Pakolliset lähdekentät validoidaan komennolla `infra/museovirasto-map-data-server/scripts/07-validate-field-contract.sh`, joka on osa vaiheen 0 yhteisajoa.
 
-**Seuraava tehtävä:** mittaa nykyisen ratkaisun latausajat, HTTP-pyyntömäärät ja siirretyt tavumäärät vähintään koko Suomen, maakunta-/kaupunkitason ja lähitason näkymissä. Sisällytä mittaukseen taustakartta ja muut samanaikaiset karttatasot.
+Nykyisen WMS-ratkaisun kevyt suorituskyvyn lähtötaso on tiedostossa [CURRENT_MAP_PERFORMANCE.md](CURRENT_MAP_PERFORMANCE.md). Kaikki 26 loogista tasoa sisältävän yhden 256 × 256 WMS-kuvan mediaanivaste oli koko Suomen rajauksella 33,70 sekuntia, Helsingin rajauksella 1,47 sekuntia ja lähirajauksella 0,78 sekuntia. Mittaus toistetaan tarvittaessa komennolla `infra/museovirasto-map-data-server/scripts/08-measure-current-wms.sh`; sitä ei ajeta vaiheen 0 yhteisajossa, koska se mittaa ajankohdasta riippuvaa ulkoista palvelua. Tarkka koko selainnäkymän vertailu tehdään vaiheessa 1 PMTiles-PoC:ta vasten.
+
+**Vaihe 0 on valmis. Seuraava tehtävä:** aloita vaiheen 1 proof of concept muuntamalla edustava osa tai koko tuotantoaineisto yhdeksi, 12 MVT-lähdetasoa sisältäväksi PMTiles-arkistoksi lukituilla työkaluversioilla.
 
 ### Vaihe 1: Tekninen proof of concept
 

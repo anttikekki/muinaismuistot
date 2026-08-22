@@ -11,3 +11,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 "$SCRIPT_DIR/05-validate-layer-mapping.sh"
 "$SCRIPT_DIR/06-inventory-styles.sh"
 "$SCRIPT_DIR/07-validate-field-contract.sh"
+
+# The network performance baseline is intentionally not run here. Execute
+# 08-measure-current-wms.sh separately when a new time-stamped sample is needed.
