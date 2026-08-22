@@ -71,7 +71,7 @@ ZIP-paketin odotettu rakenne validoidaan README:ssä dokumentoitua tiedostolista
 
 Kenttien nimet normalisoidaan kirjainkoon suhteen (esimerkiksi `Laji`/`laji`, `Nimi`/`nimi` ja `URL`/`url`), mutta alkuperäinen lähdearvo säilytetään tarvittaessa jäljitettävyyttä varten. Arvojoukkojen normalisointi käsittelee ainakin `K`/`k`- ja `E`/`e`-muodot sekä dokumentoidun `Maastonimittaus`/aineistossa olevan `Maastomittaus`-eron. PDF-tietotuoteseloste on vuodelta 2017 ja toimii semanttisena referenssinä, ei nykyisen aineiston hylkäysperusteena. Nykyiset ja uudet arvojoukkoarvot raportoidaan rakennuksessa.
 
-Moniarvoisia `tyyppi`-, `alatyyppi`- ja `suojeluryhmä`-kenttiä ei pilkota tavallisella pilkkujaolla, koska pilkku esiintyy myös käsitteiden sisällä ja aineisto käyttää tyhjiä arvopaikkoja. Ensimmäisessä versiossa raakamuoto säilytetään. Jos yksittäisiin arvoihin perustuva suodatus tarvitaan, jäsennys toteutetaan erikseen lähdemallin rakenteen tuntevalla muunnoksella ja testataan inventoiduilla arvojoukoilla.
+Moniarvoisia `tyyppi`-, `alatyyppi`-, `ajoitus`- ja `suojeluryhmä`-kenttiä ei pilkota tavallisella pilkkujaolla, koska pilkku esiintyy myös käsitteiden sisällä ja aineisto käyttää tyhjiä arvopaikkoja. Raakamuoto säilytetään jäljitettävyyttä varten. Nykyisen arkeologisten pisteiden tyyppi- ja ajoitussuodatuksen vuoksi rakennusputki muodostaa lisäksi normalisoidut avainjoukot lähdemallin rakenteen ja versionhallittujen arvosanojen avulla. Tuntematon tai monitulkintainen yhdistelmä raportoidaan, eikä sitä hiljaisesti pilkota väärin. API palauttaa moniarvot JSON-taulukkoina; MVT:ssä suodatukseen käytetään PoC:ssa valittavaa kompaktia esitystä.
 
 Päivitysajon vaiheet:
 
@@ -101,7 +101,7 @@ Jos lähde ei ole muuttunut, ajo päättyy ilman uudelleenrakennusta. Epäonnist
 - [x] Selvitä loogiset pysyvät kohdetunnukset, geometriarivien tunnisteet ja tasojen väliset suhteet. Dokumentoi erikseen D1-haun deduplikointiavain ja MVT-feature-ID:n muodostussääntö.
 - [x] Tee 12 MVT-lähdetason ja 26 käyttöliittymän loogisen tasovalinnan versionhallittu, koneellisesti luettava mäppäyskonfiguraatio.
 - [x] Vertaa mukana toimitettuja QML-tyylejä nykyisiin WMS-/OpenLayers-tyyleihin ja kirjaa, mitä niistä hyödynnetään.
-- [ ] Kirjaa nykyisen OpenLayers-toteutuksen, haku-, tyyppi-/ajoitussuodattimien ja `GetFeatureInfo`-vastauksen käyttämä kenttäsopimus. Tarkista erityisesti moniarvoisten `tyyppi`-, `alatyyppi`- ja `ajoitus`-kenttien nykyinen pilkkominen inventoitua aineistoa vasten.
+- [x] Kirjaa nykyisen OpenLayers-toteutuksen, haku-, tyyppi-/ajoitussuodattimien ja `GetFeatureInfo`-vastauksen käyttämä kenttäsopimus. Tarkista erityisesti moniarvoisten `tyyppi`-, `alatyyppi`- ja `ajoitus`-kenttien nykyinen pilkkominen inventoitua aineistoa vasten.
 - [ ] Mittaa nykyisen ratkaisun latausajat, HTTP-pyyntömäärät ja siirretyt tavumäärät vähintään koko Suomen, maakunta-/kaupunkitason ja lähitason näkymissä. Sisällytä mittaukseen taustakartta ja muut samanaikaiset karttatasot.
 
 **Tuotos:** versionhallittu lähdeskeeman kuvaus, arvojoukkoanalyysi, fyysisten ja loogisten tasojen mäppäys sekä suorituskyvyn lähtötaso.
@@ -112,7 +112,9 @@ Tasomäppäys on tiedostossa [layer-mapping.json](layer-mapping.json). Konfigura
 
 Tyylivertailu ja MVT/OpenLayers-tyylisopimus ovat tiedostossa [STYLE_COMPARISON.md](STYLE_COMPARISON.md). Nykyinen kartta todettiin WMS:n palvelimella renderöimäksi rasteriksi: sivustolla ei ole ennestään Museoviraston varsinaisen aineiston OpenLayers-vektorityyliä. UI:n SVG-kuvakkeet ja 3D-mallien `ModelsLayer` ovat erillisiä visuaalisia jäljitelmiä. Migraation vertailutasoksi valittiin nykyinen WMS/UI-ilme, ja QML:stä hyödynnetään `Laji`-kategorisointi sekä geometriatyyppien ja mittasuhteiden referenssi. WMS-tyylien koneellinen tarkistus tehdään komennolla `infra/museovirasto-map-data-server/scripts/06-inventory-styles.sh`, joka on osa vaiheen 0 yhteisajoa.
 
-**Seuraava tehtävä:** kirjaa nykyisen OpenLayers-toteutuksen, haun, tyyppi-/ajoitussuodattimien ja `GetFeatureInfo`-vastauksen käyttämä kenttäsopimus. Tarkista erityisesti moniarvoisten `tyyppi`-, `alatyyppi`- ja `ajoitus`-kenttien nykyinen pilkkominen inventoitua aineistoa vasten.
+Nykyisen käyttöliittymän, karttaklikkauksen, haun ja suodatuksen kenttäsopimus sekä uuden rajapinnan normalisointisäännöt ovat tiedostossa [FIELD_CONTRACT.md](FIELD_CONTRACT.md). Tuotantoaineistoon vertaaminen osoitti, ettei nykyistä `split(", ")` -logiikkaa voi käyttää rakennusputken parserina: nelipaikkaisissa moniarvokentissä on tyhjiä paikkoja ja pilkkuja myös käsitteiden sisällä. Uusi API palauttaa normalisoidut arvot JSON-taulukkoina ja säilyttää raakamuodot jäljitettävyyttä varten. Pakolliset lähdekentät validoidaan komennolla `infra/museovirasto-map-data-server/scripts/07-validate-field-contract.sh`, joka on osa vaiheen 0 yhteisajoa.
+
+**Seuraava tehtävä:** mittaa nykyisen ratkaisun latausajat, HTTP-pyyntömäärät ja siirretyt tavumäärät vähintään koko Suomen, maakunta-/kaupunkitason ja lähitason näkymissä. Sisällytä mittaukseen taustakartta ja muut samanaikaiset karttatasot.
 
 ### Vaihe 1: Tekninen proof of concept
 
@@ -209,7 +211,7 @@ Testikokonaisuuteen kuuluvat rakennusputken yksikkötestit, tunnettuun pieneen u
 | Lähdetasojen nimet tai skeema muuttuvat | Päivitys voi tuottaa väärän tai puutteellisen aineiston | Tiukka skeemavalidointi, tietuemäärien poikkeamahälytys ja atominen julkaisu |
 | Uusi tai muuttunut `laji`-arvo puuttuu käyttöliittymämäppäyksestä | Kohteita voi jäädä piiloon tai väärään loogiseen tasoon | Arvojoukkovertailu, tuntemattoman arvon varatyyli, rivimäärätäsmäytys ja hälytys |
 | 12 fyysisen tason ja 26 loogisen valinnan mäppäys ajautuu erilleen | Tasovalinta näyttää vääriä kohteita | Yksi versionhallittu mäppäyskonfiguraatio sekä muunnoksen ja OpenLayersin yhteiset sopimustestit |
-| Moniarvokenttä pilkotaan virheellisesti pilkuista | Tyyppi-, alatyyppi- tai suojelutieto vääristyy | Säilytä raakamuoto ensiversiossa; toteuta mahdollinen jäsennys erikseen fixture- ja arvojoukkotesteillä |
+| Moniarvokenttä pilkotaan virheellisesti pilkuista | Tyyppi-, alatyyppi-, ajoitus- tai suojelutieto vääristyy | Säilytä raakamuoto, muodosta normalisoidut avainjoukot lähdemallin tuntevalla parserilla ja validoi ne fixture- sekä arvojoukkotesteillä |
 | Vanhaa PDF-skeemaa käytetään nykyisen aineiston totuutena | Kelvollinen uusi aineisto voidaan hylätä | Käytä GeoPackage-inventaariota teknisenä lähtötasona ja PDF:ää vain semanttisena referenssinä |
 | Koko Suomen tiilet kasvavat liian suuriksi | Hidas mobiilikäyttö ja renderöinti | Zoom-kohtainen klusterointi, geometriayleistys, attribuuttien karsinta ja tiilikokobudjetti |
 | PMTilesin Range-pyynnöt eivät välimuistitu odotetusti | Suurempi viive tai R2-kustannus | Mitataan PoC:ssa; varavaihtoehto on esigeneroidut MVT-tiilet R2:ssa |
