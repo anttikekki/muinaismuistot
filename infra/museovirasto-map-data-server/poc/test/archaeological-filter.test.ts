@@ -1,65 +1,33 @@
 import { describe, expect, it } from "vitest"
-import {
-  archaeologicalDatings,
-  archaeologicalTypes,
-  matchesArchaeologicalFilter,
-} from "../web/archaeological-filter"
+import { archaeologicalDatings, archaeologicalTypes, compileArchaeologicalFilter, matchesArchaeologicalFilter } from "../web/archaeological-filter"
 
 const allTypes = new Set<string>(archaeologicalTypes)
 const allDatings = new Set<string>(archaeologicalDatings)
 
-describe("archaeological point filters", () => {
+describe("compact archaeological point filters", () => {
   it("matches the bronze-age burial cairn use case", () => {
-    expect(
-      matchesArchaeologicalFilter(
-        {
-          typesRaw: "hautapaikat,  ,  ,",
-          subtypesRaw: "hautaröykkiöt, kuppikivet,  ,",
-          datingsRaw: "pronssikautinen, rautakautinen,  ,",
-        },
-        {
-          selectedTypes: new Set(["hautapaikat"]),
-          selectedDatings: new Set(["pronssikautinen"]),
-          subtype: "Hautaröykkiöt",
-        },
-      ),
-    ).toBe(true)
+    const filter = compileArchaeologicalFilter(new Set(["hautapaikat"]), new Set(["pronssikautinen"]), "Hautaröykkiöt")
+    expect(matchesArchaeologicalFilter({ typeMask: 8, datingMask: 16, subtypeCodes: "c.1z" }, filter)).toBe(true)
   })
 
   it("uses OR within a dimension and AND between dimensions", () => {
-    expect(
-      matchesArchaeologicalFilter(
-        {
-          typesRaw: "asuinpaikat, hautapaikat,  ,",
-          subtypesRaw: "hautaröykkiöt,  ,  ,",
-          datingsRaw: "rautakautinen,  ,  ,",
-        },
-        {
-          selectedTypes: new Set(["asuinpaikat", "kivirakenteet"]),
-          selectedDatings: new Set(["pronssikautinen"]),
-          subtype: "",
-        },
-      ),
-    ).toBe(false)
+    const filter = compileArchaeologicalFilter(new Set(["asuinpaikat", "kivirakenteet"]), new Set(["pronssikautinen"]), "")
+    expect(matchesArchaeologicalFilter({ typeMask: 12, datingMask: 32, subtypeCodes: "c" }, filter)).toBe(false)
   })
 
-  it("passes all values when all current options are selected", () => {
-    expect(
-      matchesArchaeologicalFilter(
-        { typesRaw: "", subtypesRaw: "", datingsRaw: "" },
-        { selectedTypes: allTypes, selectedDatings: allDatings, subtype: "" },
-      ),
-    ).toBe(true)
+  it("passes empty source classifications when all options are selected", () => {
+    const filter = compileArchaeologicalFilter(allTypes, allDatings, "")
+    expect(matchesArchaeologicalFilter({ typeMask: 0, datingMask: 0, subtypeCodes: "" }, filter)).toBe(true)
   })
 
-  it("excludes all archaeological points when either selection is empty", () => {
-    const properties = { typesRaw: "hautapaikat", subtypesRaw: "hautaröykkiöt", datingsRaw: "pronssikautinen" }
-    expect(
-      matchesArchaeologicalFilter(properties, {
-        selectedTypes: new Set(),
-        selectedDatings: allDatings,
-        subtype: "",
-      }),
-    ).toBe(false)
+  it("excludes all points when either selection is empty", () => {
+    const filter = compileArchaeologicalFilter(new Set(), allDatings, "")
+    expect(matchesArchaeologicalFilter({ typeMask: 8, datingMask: 16, subtypeCodes: "c" }, filter)).toBe(false)
+  })
+
+  it("retains subtype substring matching through the vocabulary", () => {
+    const filter = compileArchaeologicalFilter(allTypes, allDatings, "röykkiöt")
+    expect(matchesArchaeologicalFilter({ typeMask: 8, datingMask: 16, subtypeCodes: "c" }, filter)).toBe(true)
+    expect(matchesArchaeologicalFilter({ typeMask: 8, datingMask: 16, subtypeCodes: "d" }, filter)).toBe(false)
   })
 })

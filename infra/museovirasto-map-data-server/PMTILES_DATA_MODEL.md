@@ -2,7 +2,7 @@
 
 ## Tarkoitus ja rajaus
 
-Tämä dokumentti kuvaa 23.8.2026 rakennetun PMTiles-PoC-arkiston toteutuneen MVT-skeeman kenttäkohtaisesti ja määrittää tavoiteskeeman. Tavoite on pitää tiilissä vain kartan piirtämiseen, dynaamisiin tasovalintoihin, nykyiseen arkeologisten pisteiden suodatukseen ja kohteen yksilöintiin tarvittava tieto.
+Tämä dokumentti kuvaa 23.8.2026 rakennetun kompaktin PMTiles-PoC-arkiston toteutuneen MVT-skeeman kenttäkohtaisesti. Se erottaa nykyisen kompaktin skeeman sitä edeltäneestä leveästä vertailuskeemasta sekä kirjaa vielä avoimet tuotantotietomallin päätökset. Tiilissä pidetään vain kartan piirtämiseen, dynaamisiin tasovalintoihin ja arkeologisten pisteiden suodatukseen tarvittava tieto.
 
 Kohdepaneelin näyttötiedot, sanahaku ja laajat raakakentät eivät lähtökohtaisesti kuulu MVT-tiiliin. Ne on tarkoitus palauttaa suppeasta hakuaineistosta tai valitun kohteen ominaisuustieto-endpointista. Rajaus perustuu tiedostossa [`FIELD_CONTRACT.md`](FIELD_CONTRACT.md) kuvattuun käyttöliittymän kenttäsopimukseen.
 
@@ -11,10 +11,10 @@ Toteutunut skeema on tarkistettu komennolla:
 ```bash
 infra/museovirasto-map-data-server/data/tools/pmtiles show \
   --metadata \
-  infra/museovirasto-map-data-server/data/poc/museovirasto-poc.pmtiles
+  infra/museovirasto-map-data-server/data/poc/museovirasto-poc-compact.pmtiles
 ```
 
-Arkistossa on 12 MVT `source-layer` -tasoa. Kaikki varsinaiset ominaisuuskentät ovat MVT-metadatan mukaan merkkijonoja. Geometria ja MVT-feature-ID eivät näy `vector_layers.fields`-luettelossa.
+Arkistossa on 12 MVT `source-layer` -tasoa. `laji_key` ja `subtype_codes` ovat MVT-metadatan mukaan merkkijonoja; `type_mask` ja `dating_mask` ovat numeroita. Geometria ja MVT-feature-ID eivät näy `vector_layers.fields`-luettelossa.
 
 ## Tunnisteet ja geometria
 
@@ -27,105 +27,103 @@ Arkistossa on 12 MVT `source-layer` -tasoa. Kaikki varsinaiset ominaisuuskentät
 
 Nykyinen `source_fid` ei ole riittävän vakaa tuotantotunniste aineistoversioiden välillä. Tavoitetunnisteen tarkka esitys ratkaistaan ennen ominaisuustieto-endpointia. Kun selain voi hakea valitun kohteen tiedot MVT-feature-ID:n, lähdetason ja aineistoversion perusteella, `registry_id`-kenttää ei tarvitse toistaa jokaisessa tiilessä.
 
-## Toteutunut tasokohtainen skeema
+## Nykyinen kompakti PoC-skeema
 
 `ID` tarkoittaa MVT-feature-ID:tä, ei ominaisuuskenttää.
 
 | MVT source-layer | Geometria | Tietueita | Toteutuneet ominaisuuskentät |
 | --- | --- | ---: | --- |
-| `archaeological_areas` | Polygon | 86 702 | `registry_id`, `name`, `municipality`, `laji_key`, `types_raw`, `subtypes_raw`, `datings_raw` |
-| `archaeological_points` | Point | 112 441 | `registry_id`, `name`, `municipality`, `laji_key`, `types_raw`, `subtypes_raw`, `datings_raw` |
-| `archaeological_subsites_points` | Point | 63 216 | `registry_id`, `subsite_id`, `name`, `subsite_name`, `municipality`, `laji_key`, `types_raw`, `subtypes_raw`, `datings_raw` |
-| `protected_building_areas` | Polygon | 138 | `registry_id`, `name`, `municipality`, `protection_groups_raw`, `protection_status` |
-| `protected_building_points` | Point | 2 290 | `registry_id`, `building_id`, `name`, `building_name`, `municipality`, `protection_groups_raw`, `protection_status` |
-| `rky_areas` | Polygon | 1 851 | `registry_id`, `name`, `part_name` |
-| `rky_lines` | LineString | 186 | `registry_id`, `name` |
-| `rky_points` | Point | 64 | `registry_id`, `name` |
-| `vark_areas` | Polygon | 1 010 | `registry_id`, `name`, `municipality`, `types_raw`, `subtypes_raw`, `datings_raw` |
-| `vark_points` | Point | 1 010 | `registry_id`, `name`, `municipality`, `types_raw`, `subtypes_raw`, `datings_raw` |
-| `world_heritage_areas` | Polygon | 50 | `registry_id`, `name`, `area_type` |
-| `world_heritage_points` | Point | 6 | `registry_id`, `name` |
+| `archaeological_areas` | Polygon | 86 702 | `laji_key` |
+| `archaeological_points` | Point | 112 441 | `laji_key`, `type_mask`, `subtype_codes`, `dating_mask` |
+| `archaeological_subsites_points` | Point | 63 216 | ei ominaisuuskenttiä |
+| `protected_building_areas` | Polygon | 138 | ei ominaisuuskenttiä |
+| `protected_building_points` | Point | 2 290 | ei ominaisuuskenttiä |
+| `rky_areas` | Polygon | 1 851 | ei ominaisuuskenttiä |
+| `rky_lines` | LineString | 186 | ei ominaisuuskenttiä |
+| `rky_points` | Point | 64 | ei ominaisuuskenttiä |
+| `vark_areas` | Polygon | 1 010 | ei ominaisuuskenttiä |
+| `vark_points` | Point | 1 010 | ei ominaisuuskenttiä |
+| `world_heritage_areas` | Polygon | 50 | ei ominaisuuskenttiä |
+| `world_heritage_points` | Point | 6 | ei ominaisuuskenttiä |
 
-Tämä on PoC:n nykytila, ei hyväksytty tuotantoskeema.
+Validointiskripti tarkistaa tämän kenttäjoukon täsmällisesti. Ylimääräinen kenttä kompaktissa arkistossa keskeyttää validoinnin. Skeema on nykyisen PoC:n toteutunut minimimalli, mutta ei vielä hyväksytty tuotantoskeema, koska vakaa feature-ID ja ominaisuustieto-endpoint puuttuvat.
+
+## Historiallinen leveä vertailuskeema
+
+Ensimmäinen 138 301 298 tavun suorituskykyarkisto sisälsi renderöintikenttien lisäksi muun muassa `registry_id`-, `name`-, `municipality`-, `types_raw`-, `subtypes_raw`- ja `datings_raw`-kenttiä. Rakennus-, RKY-, VARK- ja maailmanperintötasoilla oli vastaavasti niiden näyttö- ja raakakenttiä. Leveää arkistoa käytettiin sen osoittamiseen, että kaikki pisteet voidaan säilyttää matalilla zoom-tasoilla, sekä kompaktin skeeman vaikutuksen mittaamiseen. Nykyinen selain-PoC ei enää käytä leveää skeemaa.
 
 ## Kenttäkohtainen arvio
 
-| Kenttä | Nykyiset tasot | Nykyinen käyttötarkoitus PoC:ssa | Päätös tavoiteskeemaan |
+| Kenttä | Leveän vertailuarkiston tasot | Käyttötarkoitus | Toteutunut päätös kompaktissa PoC:ssa |
 | --- | --- | --- | --- |
-| `laji_key` | arkeologiset alueet, pisteet ja alakohteet | jakaa kaksi fyysistä pääkohdetasoa kahdeksaan loogiseen tasoon ja valitsee tyylin | **Säilytä pääkohteiden pisteillä ja alueilla.** Poista alakohteilta, joiden nykyinen looginen taso ja tähtityyli eivät riipu lajista. Tuntematon arvo säilytetään `unknown`-arvona. |
-| `types_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö; PoC:ssa mahdollinen väliaikainen selainfiltteri | **Korvaa arkeologisilla pisteillä kompaktilla normalisoidulla suodatusarvolla.** Poista muilta tasoilta MVT:stä. Säilytä raakamuoto ominaisuustietoaineistossa. |
-| `subtypes_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö; käyttäjän tutkimuskäyttötapa tarvitsee arkeologisten pisteiden alatyyppisuodatuksen, vaikka nykyinen sivusto ei muodosta siitä CQL-ehtoa | **Korvaa arkeologisilla pisteillä kompaktilla normalisoidulla suodatusarvolla.** Poista muilta tasoilta MVT:stä ja säilytä raakamuoto ominaisuustietoaineistossa. |
-| `datings_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö; arkeologisten pisteiden ajoitussuodatus | **Korvaa arkeologisilla pisteillä kompaktilla normalisoidulla suodatusarvolla.** Poista muilta tasoilta MVT:stä. Säilytä raakamuoto ominaisuustietoaineistossa. |
-| `registry_id` | kaikki tasot | rekisteritunnuksen näyttö ja kohteen tunnistaminen | **Poista MVT:stä**, kun vakaa MVT-feature-ID ja ominaisuustieto-endpoint toimivat. Pidä siihen asti PoC:ssa klikkauksen tarkistusta varten. |
-| `name` | kaikki tasot | PoC näyttää nimen heti karttaklikkauksessa | **Poista MVT:stä** ja hae ominaisuustieto-endpointista. Mittaa ensin, onko endpointin viive hyväksyttävä; nimi voidaan pitää vain, jos välitön klikkauspalaute sitä edellyttää. |
-| `municipality` | arkeologiset tasot, VARK ja suojellut rakennukset | kohdepaneelin näyttö | **Poista MVT:stä.** Ei vaikuta piirtämiseen tai nykyiseen karttasuodatukseen. |
-| `subsite_id` | arkeologiset alakohteet | alakohteen yksilöinti ja näyttö | **Poista ominaisuutena**, kun MVT-feature-ID yksilöi alakohteen. Säilytä ominaisuustietoaineistossa. |
-| `subsite_name` | arkeologiset alakohteet | kohdepaneelin näyttö | **Poista MVT:stä.** |
-| `building_id` | suojeltujen rakennusten pisteet | rakennuksen yksilöinti ja näyttö | **Poista ominaisuutena**, kun MVT-feature-ID yksilöi rakennuksen. Säilytä ominaisuustietoaineistossa. |
-| `building_name` | suojeltujen rakennusten pisteet | kohdepaneelin näyttö | **Poista MVT:stä.** |
-| `protection_groups_raw` | suojeltujen rakennusten pisteet ja alueet | kohdepaneelin näyttö | **Poista MVT:stä.** Säilytä ja normalisoi ominaisuustietoaineistossa. |
-| `protection_status` | suojeltujen rakennusten pisteet ja alueet | kohdepaneelin näyttö | **Poista MVT:stä**, ellei siitä myöhemmin tehdä karttatyyliä tai suodatinta. |
-| `part_name` | RKY-alueet | alueosan näyttönimi | **Poista MVT:stä.** |
-| `area_type` | maailmanperintöalueet | kohdepaneelin näyttö | **Poista MVT:stä.** |
+| `laji_key` | arkeologiset alueet, pisteet ja alakohteet | jakaa kaksi fyysistä pääkohdetasoa kahdeksaan loogiseen tasoon ja valitsee tyylin | **Säilytetty pääkohteiden pisteillä ja alueilla, poistettu alakohteilta.** Tuntematon arvo estää validoinnin läpäisyn. |
+| `types_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö ja leveän PoC:n väliaikainen selainfiltteri | **Korvattu arkeologisilla pisteillä `type_mask`-kentällä ja poistettu muilta tasoilta.** Raakamuoto kuuluu myöhempään ominaisuustietoaineistoon. |
+| `subtypes_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö ja arkeologisten pisteiden alatyyppisuodatus | **Korvattu arkeologisilla pisteillä `subtype_codes`-kentällä ja poistettu muilta tasoilta.** Raakamuoto kuuluu myöhempään ominaisuustietoaineistoon. |
+| `datings_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö ja arkeologisten pisteiden ajoitussuodatus | **Korvattu arkeologisilla pisteillä `dating_mask`-kentällä ja poistettu muilta tasoilta.** Raakamuoto kuuluu myöhempään ominaisuustietoaineistoon. |
+| `registry_id` | kaikki tasot | rekisteritunnuksen näyttö ja kohteen tunnistaminen | **Poistettu MVT:stä.** Tuotanto tarvitsee ennen käyttöönottoa vakaan MVT-feature-ID:n ja ominaisuustieto-endpointin. |
+| `name` | kaikki tasot | kohdepaneelin välitön näyttö | **Poistettu MVT:stä.** Nimi haetaan myöhemmin ominaisuustieto-endpointista; endpointin hyväksyttävä viive on vielä mitattava. |
+| `municipality` | arkeologiset tasot, VARK ja suojellut rakennukset | kohdepaneelin näyttö | **Poistettu MVT:stä.** Ei vaikuta piirtämiseen tai nykyiseen karttasuodatukseen. |
+| `subsite_id` | arkeologiset alakohteet | alakohteen yksilöinti ja näyttö | **Poistettu MVT-ominaisuuksista.** Säilytetään myöhemmin ominaisuustietoaineistossa; tuotanto edellyttää vakaata feature-ID:tä. |
+| `subsite_name` | arkeologiset alakohteet | kohdepaneelin näyttö | **Poistettu MVT:stä.** |
+| `building_id` | suojeltujen rakennusten pisteet | rakennuksen yksilöinti ja näyttö | **Poistettu MVT-ominaisuuksista.** Säilytetään myöhemmin ominaisuustietoaineistossa; tuotanto edellyttää vakaata feature-ID:tä. |
+| `building_name` | suojeltujen rakennusten pisteet | kohdepaneelin näyttö | **Poistettu MVT:stä.** |
+| `protection_groups_raw` | suojeltujen rakennusten pisteet ja alueet | kohdepaneelin näyttö | **Poistettu MVT:stä.** Säilytetään ja normalisoidaan myöhemmin ominaisuustietoaineistossa. |
+| `protection_status` | suojeltujen rakennusten pisteet ja alueet | kohdepaneelin näyttö | **Poistettu MVT:stä.** Päätös arvioidaan uudelleen vain, jos kentästä tehdään karttatyyli tai suodatin. |
+| `part_name` | RKY-alueet | alueosan näyttönimi | **Poistettu MVT:stä.** |
+| `area_type` | maailmanperintöalueet | kohdepaneelin näyttö | **Poistettu MVT:stä.** |
 
-## Suodatuskenttien tavoite-esitys
+## Suodatuskenttien toteutunut esitys
 
 Nykyisiä `types_raw`, `subtypes_raw` ja `datings_raw` -merkkijonoja ei pidä lukita tuotantotiiliin. Ne ovat pitkiä, sisältävät tyhjiä arvopaikkoja ja vaativat selaimessa lähdeaineiston rakennetta tuntevan parserin.
 
-Arkeologisten pisteiden seuraavassa PoC:ssa tarvitaan käyttäjän kuvaaman kaltaiset yhdistelmät, esimerkiksi:
+Arkeologisten pisteiden PoC tukee käyttäjän kuvaaman kaltaisia yhdistelmiä, esimerkiksi:
 
 ```text
 laji_key = kiintea_muinaisjaannos
-dating = pronssikausi
-type = hautaroykkio
+type = hautapaikat
+subtype = hautaröykkiöt
+dating = pronssikautinen
 ```
 
-Tavoitevaihtoehdot ovat:
+Kompakti PoC käyttää 19 päätyypille ja 12 ajoitukselle kokonaislukubittimaskeja. Arkeologisten pääkohteiden raakakentistä löytyvät 211 atomista alatyyppiä saavat versionoidut, järjestysnumerosta base36-muotoon muunnetut koodit. Featuren `subtype_codes` on pisteillä erotettu koodijoukko. Koodisto tuotetaan deterministisesti tiedostoon `poc/web/filter-vocabulary.json`; tuntematon arvo keskeyttää rakennuksen.
 
-1. versionhallittuun arvojoukkoon perustuvat bittimaskit, jos arvojen määrä mahtuu selaimessa turvallisesti käsiteltävään kokonaislukuun; tai
-2. lyhyiden numeeristen koodien erotinmerkillä rajattu jäsenjoukko.
+Jäsenyystesti on tyypeille ja ajoituksille täsmällinen bittitesti. Alatyyppikentän käyttäjälle näkyvä osajonohaku tehdään koodiston nimistä kerran suodattimen muuttuessa ja featureille testataan vain koodijäsenyys. Näin käyttöliittymän nykyinen osajonokäytös säilyy ilman pitkiä raakamerkkijonoja jokaisessa tiilifeaturessa.
 
-Ratkaisu valitaan mittaamalla todelliset arvojoukot ja MVT-koko. Molemmissa vaihtoehdoissa jäsenyystestin pitää olla täsmällinen; raakamerkkijonon osajonohakua ei käytetä lopullisessa toteutuksessa.
-
-Alustava tavoiteskeema arkeologiselle pisteelle on:
+Toteutunut skeema arkeologiselle pisteelle on:
 
 ```json
 {
   "id": "MVT feature ID, ei ominaisuus",
   "laji_key": "kiintea_muinaisjaannos",
-  "type_filter": "kompakti normalisoitu jäsenjoukko",
-  "subtype_filter": "kompakti normalisoitu jäsenjoukko",
-  "dating_filter": "kompakti normalisoitu jäsenjoukko"
+  "type_mask": 8,
+  "subtype_codes": "c.20",
+  "dating_mask": 16
 }
 ```
 
 Muille fyysisille tasoille ei tarvita ominaisuuskenttiä, jos niiden tyyli ja näkyvyys määräytyvät `source-layer`-tason perusteella ja klikkaus käyttää MVT-feature-ID:tä. Arkeologinen alue tarvitsee lisäksi `laji_key`-kentän, koska yksi fyysinen taso vastaa kahdeksaa loogista aluetasoa.
 
-## Tavoitemalli tasoittain
+## Kompaktin mallin perustelut tasoittain
 
-| MVT source-layer | Tavoitteen feature-ominaisuudet | Peruste |
+| MVT source-layer | Toteutuneet feature-ominaisuudet | Peruste |
 | --- | --- | --- |
-| `archaeological_points` | `laji_key`, `type_filter`, `subtype_filter`, `dating_filter` | looginen taso sekä tyyppi-, alatyyppi- ja ajoitussuodatus |
+| `archaeological_points` | `laji_key`, `type_mask`, `subtype_codes`, `dating_mask` | looginen taso sekä tyyppi-, alatyyppi- ja ajoitussuodatus |
 | `archaeological_areas` | `laji_key` | looginen taso |
 | muut 10 tasoa | ei ominaisuuksia | `source-layer` määrää näkyvyyden ja tyylin; ID riittää ominaisuustietojen hakuun |
 
-Tämä on minimimalli. Mahdollinen `name` on ainoa perusteltu lisäkenttäehdokas, ja se hyväksytään vain erillisellä klikkausviiveen ja arkistokoon mittauksella.
+Tämä on nykyinen minimimalli. Mahdollinen `name` on ainoa perusteltu lisäkenttäehdokas, ja se hyväksytään vain erillisellä klikkausviiveen ja arkistokoon mittauksella.
 
-## Vaikutus nykyiseen PoC:iin
+## Mitattu vaikutus
 
-Nykyistä leveää arkistoa käytetään vielä seuraavassa selainfiltterikokeessa, koska normalisoituja suodatuskenttiä ei ole muodostettu. Se mahdollistaa todellisen käyttötapauksen todentamisen ennen tietomallin kaventamista. Raakakenttien säilyttäminen tässä välivaiheessa ei tarkoita, että ne hyväksytään tuotantoon.
+Kompakti arkisto pienensi muuten identtisen ja kaikki geometriat säilyttävän arkiston 138 301 298 tavusta 54 762 752 tavuun eli noin 60,4 prosenttia. Pronssikautisten hautaröykkiöiden tulosjoukko pysyi täsmälleen 1 467 kohteessa.
 
-Seuraavat toteutusaskeleet ovat:
+Koko Suomen aloitusnäkymässä PMTiles Range -pyyntöjen määrä säilyi kuudessa ja siirretty määrä pieneni 4 535 650 tavusta 835 056 tavuun eli noin 81,6 prosenttia. Kenttien tiivistämisen jälkeen pahimman suodattamattoman näkymän pullonkaula on yli 200 000 vektorifeaturen selainrenderöinti, ei PMTiles-siirto.
 
-1. vahvista nykyisen käyttöliittymän todelliset tyyppi-, alatyyppi- ja ajoitussuodattimet;
-2. muodosta normalisoidut suodatusavaimet versionhallittujen arvojoukkojen perusteella;
-3. rakenna nykyisestä ja tavoiteskeemasta muuten identtiset PMTiles-arkistot;
-4. vertaa arkiston kokoa, koko Suomen Range-siirtoa, MVT:n purkuaikaa ja renderöintinopeutta;
-5. poista kenttä vain, kun sen korvaava tunniste-, haku- tai ominaisuustietopolku on testattu.
+Seuraava tietomalliin liittyvä työ on vakaan, aineistoversion ja lähdetason huomioivan feature-ID:n määrittely sekä sitä käyttävän ominaisuustieto-endpointin kokeilu. Kohteen nimiä tai muita näyttökenttiä ei palauteta MVT:hen ilman mitattua tarvetta.
 
 ## Hyväksymissäännöt
 
-- PMTiles-metadatan kenttäjoukon pitää vastata versionhallittua tavoiteskeemaa; ylimääräinen kenttä estää julkaisun.
+- PMTiles-metadatan kenttäjoukon pitää vastata versionhallittua kompaktia skeemaa; ylimääräinen kenttä estää julkaisun.
 - Raakamuotoisia moniarvokenttiä ei julkaista tuotanto-MVT:ssä.
 - Karttatyylin tai aktiivisen suodatuksen tarvitsemaa kenttää ei saa poistaa.
 - Suodatettu koko Suomen näkymä näyttää kaikki ehdot täyttävät yksittäiset pisteet; kenttäkarsinta ei saa muuttaa osumajoukkoa.

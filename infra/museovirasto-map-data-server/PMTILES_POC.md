@@ -44,6 +44,7 @@ brew install gdal tippecanoe jq
 infra/museovirasto-map-data-server/scripts/09-download-pmtiles-cli.sh
 infra/museovirasto-map-data-server/scripts/10-build-pmtiles-poc.sh
 infra/museovirasto-map-data-server/scripts/11-validate-pmtiles-poc.sh
+infra/museovirasto-map-data-server/scripts/13-build-compact-pmtiles-poc.sh
 ```
 
 Kenttäprojektiot ja lähdetasot ovat tiedostossa `poc-layer-config.json`. Rakennusskripti tarkistaa niiden vastaavan `layer-mapping.json`-tiedostoa ja vertaa jokaisen välivaiheen tietuemäärää lähdeaineistoon.
@@ -98,3 +99,25 @@ Tuotantototeutuksen pitää:
 - sallia rajan ja aggregointisäännön säätäminen ilman aineiston tietomallin muuttamista.
 
 Ensimmäinen kokeiltava hystereesi voi esimerkiksi ottaa aggregoinnin käyttöön yli 40 000 kohteella ja poistaa sen käytöstä vasta määrän alittaessa 20 000. Arvot ovat mittaushypoteesi, eivät lopullinen päätös.
+
+## Kompakti kenttämalli
+
+Rinnakkainen kompakti arkisto säilyttää samat 12 lähdetasoa, kaikki featuret ja samat geometriat mutta poistaa karttarenderöinnille tarpeettomat näyttökentät. Arkeologisilla pääkohdepisteillä säilyvät `laji_key`, 19 tyypin `type_mask`, 12 ajoituksen `dating_mask` ja 211 atomisen alatyypin `subtype_codes`. Arkeologisilla alueilla säilyy `laji_key`; muilla tasoilla ei ole MVT-feature-ID:n lisäksi ominaisuuksia.
+
+Arkisto pieneni 138 301 298 tavusta 54 762 752 tavuun eli noin 60,4 prosenttia ilman kohteiden harvennusta. Rakennus ja validointi vahvistivat kaikki 12 lähdetasoa sekä kaikkien pistetasojen täydet määrät zoomilla 0. Pronssikautisten hautaröykkiöiden tarkistus tuotti kompaktista arkistosta samat 1 467 osumaa kuin lähde-GeoPackage ja leveä arkisto.
+
+Kompakti arkisto rakennetaan komennolla `scripts/13-build-compact-pmtiles-poc.sh`. Skripti generoi lähdeaineistosta versionoidun `poc/web/filter-vocabulary.json`-koodiston ja keskeyttää, jos tyypin, ajoituksen tai alatyypin raakaarvoa ei voida esittää koodistolla. `npm run seed` käyttää kompaktia arkistoa oletuksena. Seuraava manuaalinen vertailu on koko Suomen Range-tavumäärä ja samojen suodattamattomien sekä 1 467 kohteen selainmittausten toisto.
+
+Kompaktin arkiston ensimmäinen koko Suomen selainmittaus tuotti seuraavat luvut:
+
+| Mittari | Leveä arkisto | Kompakti arkisto |
+| --- | ---: | ---: |
+| PMTiles Range -pyynnöt | 6 | 6 |
+| siirretyt tavut | 4 535 650 | 835 056 |
+| muutos siirretyissä tavuissa | – | −81,6 % |
+
+Pyyntömäärä pysyi tavoitteiden mukaisesti samana, mutta siirto pieneni noin 3,70 Mt. Arkiston 60,4 prosentin kokonaiskoon pienennystä suurempi näkymäkohtainen hyöty johtuu siitä, että koko Suomen näkymän matalien zoomien tiilisisällöstä suuri osa oli toistuvia raakamuotoisia ominaisuustietoja.
+
+Suodattamattomassa aloitusnäkymässä OpenLayers käsitteli 227 013 näkyvää featurea. Loppunäkymän valmistuminen vei 618 ms, renderöintikierroksia syntyi 4,9/s ja p95-ruutuväli oli 529 ms. Seuraavassa karttaliikkeessä OpenLayers käytti välimuistittuja renderöintiohjeita: uudelleentyylittelykutsuja ei tullut, loppunäkymä valmistui 3 ms:ssa, renderöintikierroksia syntyi 5,7/s ja p95-ruutuväli oli 262 ms. Verkkosiirto ei siis enää ole tämän pahimman tapauksen pullonkaula; kuorma syntyy yli 200 000 vektorifeaturen piirto-ohjeiden luonnista ja compositoinnista.
+
+Diagnostiikan 7 ms:n `Ensimmäinen renderöinti` ei kuvaa aineiston valmistumista, koska OpenLayers voi lähettää ensimmäisen `rendercomplete`-tapahtuman ennen PMTiles-tiilien purkua ja tyylittelyä. Aloitusnäkymän vertailukelpoinen luku on tässä mittauksessa 618 ms:n liikkeen loppu → valmis -mittaus. Diagnostiikassa tämä ensirenderöintimittari pitää seuraavaksi nimetä tai korvata datan valmistumisen mittarilla.

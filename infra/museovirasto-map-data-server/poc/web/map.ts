@@ -16,6 +16,7 @@ import { PMTilesVectorSource } from "ol-pmtiles"
 import {
   archaeologicalDatings,
   archaeologicalTypes,
+  compileArchaeologicalFilter,
   matchesArchaeologicalFilter,
 } from "./archaeological-filter"
 
@@ -46,6 +47,7 @@ let latestInputAt: number | undefined
 let renderFrameIntervals: number[] = []
 let inputToRenderLatencies: number[] = []
 let archaeologicalSubtype = ""
+let activeArchaeologicalFilter = compileArchaeologicalFilter(selectedArchaeologicalTypes, selectedArchaeologicalDatings, archaeologicalSubtype)
 
 const nativeFetch = globalThis.fetch.bind(globalThis)
 globalThis.fetch = async (input, init) => {
@@ -192,15 +194,11 @@ function styleFeature(feature: FeatureLike): Style | undefined {
     sourceLayer === "archaeological_points" &&
     !matchesArchaeologicalFilter(
       {
-        typesRaw: String(feature.get("types_raw") ?? ""),
-        subtypesRaw: String(feature.get("subtypes_raw") ?? ""),
-        datingsRaw: String(feature.get("datings_raw") ?? ""),
+        typeMask: Number(feature.get("type_mask") ?? 0),
+        subtypeCodes: String(feature.get("subtype_codes") ?? ""),
+        datingMask: Number(feature.get("dating_mask") ?? 0),
       },
-      {
-        selectedTypes: selectedArchaeologicalTypes,
-        selectedDatings: selectedArchaeologicalDatings,
-        subtype: archaeologicalSubtype,
-      },
+      activeArchaeologicalFilter,
     )
   ) {
     return undefined
@@ -346,6 +344,7 @@ function configureArchaeologicalFilters(): void {
     window.clearTimeout(subtypeTimer)
     subtypeTimer = window.setTimeout(() => {
       archaeologicalSubtype = subtype.value
+      refreshArchaeologicalFilter()
       vectorLayer.changed()
     }, 150)
   })
@@ -369,6 +368,7 @@ function createCheckboxFilter(
       input.checked = true
       input.addEventListener("change", () => {
         input.checked ? selected.add(value) : selected.delete(value)
+        refreshArchaeologicalFilter()
         vectorLayer.changed()
       })
       label.append(input, document.createTextNode(value))
@@ -388,7 +388,12 @@ function setFilterSelection(
     input.checked = visible
     if (visible) selected.add(input.value)
   })
+  refreshArchaeologicalFilter()
   if (render) vectorLayer.changed()
+}
+
+function refreshArchaeologicalFilter(): void {
+  activeArchaeologicalFilter = compileArchaeologicalFilter(selectedArchaeologicalTypes, selectedArchaeologicalDatings, archaeologicalSubtype)
 }
 
 configureArchaeologicalFilters()
@@ -420,5 +425,6 @@ document.querySelector("#bronze-cairns")?.addEventListener("click", () => {
   const subtype = document.querySelector<HTMLInputElement>("#archaeological-subtype")
   if (subtype) subtype.value = "hautaröykkiöt"
   archaeologicalSubtype = "hautaröykkiöt"
+  refreshArchaeologicalFilter()
   vectorLayer.changed()
 })

@@ -130,7 +130,7 @@ Nykyisen WMS-ratkaisun kevyt suorituskyvyn lähtötaso on tiedostossa [CURRENT_M
 
 **Tuotos:** selaimessa toimiva kokeilu ja mitattu arkkitehtuuripäätös.
 
-PMTiles-arkiston toteutunut leveä PoC-skeema ja kenttäkohtainen minimointipäätös on dokumentoitu tiedostossa [PMTILES_DATA_MODEL.md](PMTILES_DATA_MODEL.md). Nykyisiä raakamuotoisia suodatuskenttiä käytetään selainfiltterikokeen lähtötietona; tuotanto-MVT:n tavoite sisältää arkeologisilla pisteillä `laji_key`-kentän ja kompaktit normalisoidut tyyppi-, alatyyppi- ja ajoitussuodattimet, arkeologisilla alueilla `laji_key`-kentän ja muilla tasoilla vain MVT-feature-ID:n. Selain-PoC:ssa on toteutettu nykyiset 19 päätyyppiä ja 12 ajoitusta, erillinen alatyyppiehto sekä 1 467 lähdekohteen pronssikautisten hautaröykkiöiden vertailuvalinta.
+PMTiles-arkiston toteutunut leveä PoC-skeema ja kenttäkohtainen minimointipäätös on dokumentoitu tiedostossa [PMTILES_DATA_MODEL.md](PMTILES_DATA_MODEL.md). Kompakti rinnakkaisarkisto on toteutettu: arkeologisilla pisteillä ovat `laji_key`, 19 tyypin ja 12 ajoituksen bittimaskit sekä 211 alatyypin lyhyt koodijoukko, arkeologisilla alueilla `laji_key` ja muilla tasoilla vain MVT-feature-ID. Arkisto pieneni 138 301 298 tavusta 54 762 752 tavuun ilman geometrian tai kohteiden karsimista. Selain-PoC käyttää jo kompakteja kenttiä, ja 1 467 pronssikautisen hautaröykkiön vertailuosumat säilyivät täsmälleen samoina.
 
 Pronssikautisten hautaröykkiöiden suodatettu koko Suomen näkymä toimi manuaalisessa kokeessa erittäin nopeasti. Tämän vuoksi yksittäiset pisteet säilytetään arkistossa ja suodatetut, selainbudjettiin mahtuvat tulokset piirretään tarkasti myös matalilla zoomeilla. Mahdollinen dynaaminen aggregointi rajataan myöhemmin vain liian suuriin aktiivisiin tulosjoukkoihin; kiinteää matalan zoomin aggregointia ei käytetä ainoana esityksenä.
 
@@ -138,7 +138,9 @@ Myös kaikkien 41 549 kiinteän muinaisjäännöksen pisteen koko Suomen näkym�
 
 **PoC:n arkkitehtuuripäätös:** jatka yhdellä PMTiles-arkistolla, jossa kaikki yksittäiset pisteet säilyvät jokaisella zoom-tasolla. Selain soveltaa dynaamiset suodattimet ennen esitystavan valintaa. Alustava aggregoinnin aktivointialue on 20 000–40 000 aktiivista näkyvää kohdetta; tarkka raja, laitekohtainen käyttäytyminen ja aggregointitapa hiotaan toistuvilla mittauksilla. Tuotannossa käytetään hystereesiä, jotta esitys ei vaihdu jatkuvasti rajan ympärillä. Kiinteää rakennusvaiheen matalan zoomin aggregointia ei tehdä ainoaksi esitykseksi.
 
-**Seuraava tehtävä:** avaa valmis paikallinen PoC selaimessa ja tarkista tyylit, yleistys sekä kohteiden tunnistaminen koko Suomen, kaupunki-/maakunta- ja lähitason näkymissä. Kirjaa pyyntömäärät, siirretyt tavut ja havaitut kartografiset puutteet.
+Kompaktin arkiston koko Suomen aloitusnäkymä käytti edelleen vain kuusi PMTiles Range -pyyntöä, mutta siirretty määrä pieneni 4 535 650 tavusta 835 056 tavuun eli 81,6 prosenttia. Kaikkien tasojen suodattamaton 227 013 näkyvän featuren näkymä jäi selaimen renderöintipullonkaulaksi: aloitusnäkymän valmistuminen 618 ms, 4,9 renderöintikierrosta/s ja p95-ruutuväli 529 ms. Tämä vahvistaa, että seuraava optimointi kohdistetaan aktiivisen tulosjoukon dynaamiseen esitystapaan, ei HTTP-pyyntöjen määrään tai PMTiles-kenttiin.
+
+**Seuraava tehtävä:** korvaa harhaanjohtava ensimmäisen renderöinnin mittari datan valmistumisen mittarilla ja toteuta PoC:iin aktiivisen tulosjoukon määrään perustuva dynaamisen aggregoinnin ensimmäinen versio säädettävällä 20 000/40 000 kohteen hystereesillä. Tarkasti suodatetun aineiston pitää edelleen näkyä yksittäisinä pisteinä. Tämän jälkeen toista koko Suomen, kaupunki-/maakunta- ja lähitason mittaukset sekä tarkista tyylit ja kohteiden tunnistaminen.
 
 ### Vaihe 2: Toistettava rakennusputki
 

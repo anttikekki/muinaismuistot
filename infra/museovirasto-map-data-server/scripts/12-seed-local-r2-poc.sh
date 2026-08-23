@@ -4,11 +4,11 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 POC_DIR="$PROJECT_DIR/poc"
-ARCHIVE="$PROJECT_DIR/data/poc/museovirasto-poc.pmtiles"
+ARCHIVE="${1:-$PROJECT_DIR/data/poc/museovirasto-poc-compact.pmtiles}"
 
 [[ -s "$ARCHIVE" ]] || {
   echo "PMTiles archive not found: $ARCHIVE" >&2
-  echo "Run scripts/10-build-pmtiles-poc.sh first." >&2
+  echo "Run scripts/13-build-compact-pmtiles-poc.sh first." >&2
   exit 1
 }
 [[ -x "$POC_DIR/node_modules/.bin/wrangler" ]] || {
