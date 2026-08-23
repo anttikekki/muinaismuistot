@@ -68,7 +68,7 @@ function featureId(layerId, sourceFid) {
   return featureId
 }
 
-async function transform([vocabularyPath, layerId, profile, representation = "default", representationZoom]) {
+async function transform([vocabularyPath, layerId, profile, representation = "default", representationZoom, identityMode = "fid"]) {
   const vocabulary = JSON.parse(await readFile(vocabularyPath, "utf8"))
   const subtypeIndexes = new Map(vocabulary.subtypes.map((value, index) => [value, index + 1]))
   const input = createInterface({ input: process.stdin, crlfDelay: Infinity })
@@ -76,7 +76,10 @@ async function transform([vocabularyPath, layerId, profile, representation = "de
     if (!line.trim()) continue
     const feature = JSON.parse(line)
     const source = feature.properties ?? {}
-    const properties = { source_fid: featureId(layerId, source.gpkg_fid) }
+    const properties = identityMode === "fid"
+      ? { source_fid: featureId(layerId, source.gpkg_fid) }
+      : { registry_id: String(source.registry_id) }
+    if (identityMode !== "fid" && identityMode !== "registry") throw new Error(`Unknown identity mode: ${identityMode}`)
     if (profile === "archaeological-filters") {
       properties.laji_key = source.laji_key
       properties.type_mask = mask(source.types_raw, vocabulary.types, "type")
@@ -135,6 +138,6 @@ async function details([mappingPath, layerId]) {
 
 const [command, ...args] = process.argv.slice(2)
 if (command === "vocabulary" && args.length === 3) await generateVocabulary(args)
-else if (command === "transform" && args.length >= 3 && args.length <= 5) await transform(args)
+else if (command === "transform" && args.length >= 3 && args.length <= 6) await transform(args)
 else if (command === "details" && args.length === 2) await details(args)
 else throw new Error("Usage: compact-filter-data.mjs vocabulary <gpkg> <layer> <output> | transform <vocabulary> <layer-id> <profile> [default|centroid|polygon] | details <layer-mapping> <layer-id>")

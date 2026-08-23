@@ -6,7 +6,7 @@ PoC hyväksytään jatkokehityksen pohjaksi. Tuotantoratkaisun lähtöarkkitehtu
 
 Kaikki yksittäiset kohteet säilyvät arkistossa. Selain suodattaa ensin ja valitsee vasta sen jälkeen tarkan tai aggregoidun esityksen. Alustava aggregoinnin hystereesi on 20 000/40 000 aktiivista pistettä. Aluetasot esitetään keskipisteinä zoomeilla 0–9 ja polygoneina zoomeilla 10–14.
 
-Pysyvä kohdeviite on `logicalLayerId + registryId`. Nykyisen aineistojulkaisun karttaklikkaus käyttää `sourceLayer + fid` -avainta. `fid` hyväksytään PoC-ratkaisuksi, mutta ei vielä lukituksi tuotantoskeemaksi: sen lisääminen kasvatti koko Suomen Range-siirron 835 056 tavusta 1 766 264 tavuun eli noin 111 prosenttia. Vaiheessa 2 rakennetaan vertailu ilman MVT-feature-ID:tä ja `registry_id`-ominaisuudella ennen skeeman lukitsemista.
+Pysyvä kohdeviite on `logicalLayerId + registryId`. Nykyisen aineistojulkaisun karttaklikkaus käyttää `sourceLayer + fid` -avainta. Vaiheen 2 vertailussa ID:tön `registry_id`-ominaisuusmalli kasvatti arkistoa 10,4 prosenttia ja koko Suomen Range-siirtoa 1 766 264 tavusta 2 123 282 tavuun. Se ylitti 2 Mt budjetin ja heikensi selaimen deduplikointia, joten MVT-feature-ID:n `fid`-malli säilytetään. Mittaus on dokumentoitu tiedostossa [IDENTITY_MODEL_COMPARISON.md](IDENTITY_MODEL_COMPARISON.md).
 
 ## Paikallisen työpöytä-PoC:n budjetit
 
