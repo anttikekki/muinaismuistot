@@ -158,16 +158,16 @@ Paikallinen kylmän Chromen mittaus on dokumentoitu tiedostossa [POC_BROWSER_PER
 
 Lineaarinen osajonohaku mitattiin paikallisesta 268 964 rivin D1-simulaatiosta viidellä peräkkäisellä pyynnöllä. Ensimmäinen kylmä `turku`-haku vei 199 ms ja seuraavat noin 55–58 ms. Lämmitetyt `röykkiö`- ja `kirkko`-haut vastasivat noin 56–61 ms:ssa, tulokseton haku noin 51–55 ms:ssa ja yleinen rekisteritunnushaku noin 72–76 ms:ssa. `turku` palautti 11 ryhmiteltyä tulosta; yleiset haut saavuttivat 50 tuloksen rajan. Tulos vahvistaa, ettei harvoin käytetty PoC-haku tarvitse vielä FTS-ratkaisua.
 
-**Seuraava tehtävä:** aloita vaihe 2 lukitsemalla rakennustyökalujen versiot ja kokoamalla nykyiset skriptit yhdeksi toistettavaksi rakennusajoksi ilman konttia.
+**Seuraava tehtävä:** rakenna rinnakkainen ID:tön `registry_id`-arkisto ja vertaa sitä nykyiseen `fid`-malliin samoilla koko-, Range- ja selainmittauksilla ennen tuotantoskeeman lukitsemista.
 
 ### Vaihe 2: Toistettava rakennusputki
 
-- Tee lukituilla työkaluversionumeroilla ajettava rakennusskripti tai kontti.
-- Toteuta taso- ja kenttämäppäys konfiguraationa, ei hajautettuina oletuksina koodissa.
-- Lisää aineiston validointi, geometriakorjaukset, tiivisteet, manifesti ja koneellisesti luettava rakennusraportti. Validoi 12 odotettua GeoPackage-kohdetasoa, pysyvät tunnistekentät, geometriatyypit ja kriittiset luokittelukentät.
-- Vertaa kenttiä, tietuemääriä ja arvojoukkoja versionhallittuun inventaariotasoon. Puuttuva kriittinen kenttä tai taso estää julkaisun; uusi arvojoukkoarvo aiheuttaa raportin ja hälytyksen, mutta ei automaattisesti hylkää aineistoa.
+- [x] Tee lukituilla työkaluversionumeroilla ajettava rakennusskripti ilman konttia. `build-tool-versions.json` lukitsee GDAL-, Tippecanoe-, Node-, npm-, jq-, PMTiles- ja Wrangler-versiot; npm-paketit ovat täsmällisinä `package-lock.json`-tiedostossa. `scripts/17-build-release-artifacts.sh` validoi työkalut, mäppäyksen ja lähdekentät, rakentaa ja validoi PMTilesin, rakentaa D1-tuonnin sekä ajaa TypeScript-tarkistuksen yhdellä komennolla. Ohje on tiedostossa [BUILD_PIPELINE.md](BUILD_PIPELINE.md).
+- [x] Toteuta taso- ja kenttämäppäys konfiguraationa, ei hajautettuina oletuksina koodissa. `poc-layer-config.json` määrittää jokaiselle fyysiselle tasolle lähdeprojektion, muunnosprofiilin ja matalan zoomin keskipiste-esityksen sekä suodatusten arvosanalähteen. Rakennuskoodi ei enää päättele näitä tasonimestä. Validointi varmistaa konfiguraation täydellisyyden ja yhdenmukaisuuden `layer-mapping.json`-tiedoston kanssa.
+- [x] Lisää aineiston validointi, eksplisiittinen geometriapolitiikka, tiivisteet, manifesti ja koneellisesti luettava rakennusraportti. Virheellinen geometria estää rakennuksen eikä sitä korjata hiljaisesti; tasokohtainen sallittu NULL-määrä validoidaan. Manifesti sisältää 12 lähdetiedoston ja artefaktien SHA-256-tiivisteet, yhteisen lähdetiivisteen, konfiguraatiotiivisteet, työkaluversiot, koot ja keskeiset tietuemäärät. Nykyisessä aineistossa ei ole virheellisiä geometrioita ja vain yksi ennalta dokumentoitu geometriaton rivi.
+- [x] Vertaa kenttiä, tietuemääriä ja arvojoukkoja versionhallittuun lähtötasoon. Pakolliset kentät validoidaan kenttäsopimuksella ja puuttuva tai tyhjä taso estää julkaisun. Päivittäistä rivimäärää ei lukita: muutos kirjataan ja yli 30 prosenttia aiheuttaa varoituksen. Uusi tyyppi-, ajoitus- tai alatyyppiarvo aiheuttaa varoituksen mutta ei automaattista hylkäystä. `source-baseline-report.json` liitetään tiivisteineen rakennusmanifestiin.
 - Käytä MVT-feature-ID:nä GeoPackagen `fid`-arvoa ja validoi sen kelvollisuus. Käytä sitä vain saman aineistojulkaisun kartta- ja D1-aineiston yhdistämiseen.
-- Lisää tiilien zoom-/yleistyssäännöt sekä tiilikoon tarkistus.
+- [x] Lisää tiilien zoom-/yleistyssäännöt sekä tiilikoon tarkistus. `poc-layer-config.json` määrittää zoomit 0–14, alueiden keskipisteet zoomeille 0–9, polygonit zoomeille 10–14 sekä Tippecanoen säilytysasetukset. Rakennus estyy yli 75 000 000 tavun arkistosta, yli 1 500 000 tavun pakkaamattomasta zoomin 0 tiilestä tai väärästä zoomialueesta. Nykyinen tulos on 66 963 838 tavua ja 1 118 628 tavua. Selainbudjetit 8 Range-pyyntöä / 2 000 000 tavua tarkistetaan Chrome-ajossa.
 - Muodosta ominaisuus- ja hakutaulun tuontiaineisto kaikista lähderiveistä. Indeksoi `logicalLayerId + registryId` pysyviä linkkejä varten ja palauta kaikki saman rekisterikohteen geometriat yhdistämättä tai poistamatta niitä. Pidä skeema tarkoituksella suppeana.
 - Lisää yksikkö- ja integraatiotestit muunnoksille.
 

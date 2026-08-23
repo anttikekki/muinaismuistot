@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "countWarningPercent": 30,
+  "layerCounts": {
+    "vark_areas": 1010,
+    "vark_points": 1010,
+    "archaeological_subsites_points": 63216,
+    "archaeological_areas": 86703,
+    "archaeological_points": 112441,
+    "world_heritage_areas": 50,
+    "world_heritage_points": 6,
+    "rky_areas": 1851,
+    "rky_points": 64,
+    "rky_lines": 186,
+    "protected_building_areas": 138,
+    "protected_building_points": 2290
+  }
+}

@@ -21,6 +21,12 @@ Rakenna PMTiles-arkisto ensin projektihakemistossa, jos sitä ei vielä ole:
 infra/museovirasto-map-data-server/scripts/13-build-compact-pmtiles-poc.sh
 ```
 
+Vaiheen 2 suositeltu yhteisajo rakentaa ja validoi sekä PMTiles-arkiston että D1-tuonnin lukituilla työkaluversioilla:
+
+```bash
+infra/museovirasto-map-data-server/scripts/17-build-release-artifacts.sh
+```
+
 Asenna PoC:n riippuvuudet ja siirrä arkisto paikalliseen R2-simulaatioon:
 
 ```bash

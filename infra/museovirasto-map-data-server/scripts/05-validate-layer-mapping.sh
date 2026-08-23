@@ -5,6 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 SOURCE_DIR="${1:-$PROJECT_DIR/data/tutkija}"
 MAPPING_FILE="${2:-$PROJECT_DIR/layer-mapping.json}"
+BUILD_CONFIG="$PROJECT_DIR/poc-layer-config.json"
 UI_LAYER_TYPES_FILE="$PROJECT_DIR/../../src/common/layers.types.ts"
 
 for command_name in jq sqlite3; do
@@ -45,7 +46,7 @@ while IFS=$'\t' read -r id gpkg_file gpkg_layer geometry_type; do
     [[ -z "$required_field" ]] && continue
     field_count="$(sqlite3 "$source_file" "SELECT COUNT(*) FROM pragma_table_info('$gpkg_layer') WHERE lower(name) = lower('$required_field');")"
     [[ "$field_count" -eq 1 ]] || { echo "Error: field '$required_field' missing from $gpkg_file/$gpkg_layer." >&2; exit 1; }
-  done < <(jq -r --arg id "$id" '.physicalLayers[] | select(.id == $id) | [.logicalIdFields[], .parentIdFields[]?, (.featureIdentity.inspireIdField // empty), .featureIdentity.fallbackFields[]?, (.derivedFields // {} | to_entries[] | .value.sourceField)] | .[]' "$MAPPING_FILE")
+  done < <(jq -r --arg id "$id" '.physicalLayers[] | select(.id == $id) | [.logicalIdFields[], .parentIdFields[]?, .featureIdentity.rowIdField, (.derivedFields // {} | to_entries[] | .value.sourceField)] | .[]' "$MAPPING_FILE")
 done < <(jq -r '.physicalLayers[] | [.id, .geoPackageFile, .geoPackageLayer, .geometryType] | @tsv' "$MAPPING_FILE")
 
 while IFS=$'\t' read -r logical_id source_layer filter_field filter_value; do
@@ -83,3 +84,27 @@ if [[ -f "$UI_LAYER_TYPES_FILE" ]]; then
 fi
 
 echo "Layer mapping is valid: $physical_count physical layers and $logical_count logical layers."
+
+build_layers="$(jq -S -c '[.layers[] | {id, geoPackageFile, geoPackageLayer}] | sort_by(.id)' "$BUILD_CONFIG")"
+mapped_layers="$(jq -S -c '[.physicalLayers[] | {id, geoPackageFile, geoPackageLayer}] | sort_by(.id)' "$MAPPING_FILE")"
+[[ "$build_layers" == "$mapped_layers" ]] || { echo "Error: build configuration differs from layer mapping." >&2; exit 1; }
+
+jq -e '
+  (.filterVocabularySource.geoPackageFile | type == "string" and length > 0) and
+  (.filterVocabularySource.geoPackageLayer | type == "string" and length > 0) and
+  ([.layers[] |
+    (.transformProfile == "none" or .transformProfile == "logical-filter" or .transformProfile == "archaeological-filters") and
+    ((.lowZoomCentroid // false) | type == "boolean") and
+    (.sql | type == "string" and contains("registry_id") and contains("geom"))
+  ] | all)
+' "$BUILD_CONFIG" >/dev/null || { echo "Error: incomplete build configuration." >&2; exit 1; }
+
+jq -e '
+  (.tiling.minimumZoom | type == "number") and
+  (.tiling.maximumZoom | type == "number") and
+  (.tiling.lowZoomCentroidMaximumZoom + 1 == .tiling.polygonMinimumZoom) and
+  (.tiling.featureLimit == false) and (.tiling.tileSizeLimit == false) and (.tiling.tinyPolygonReduction == false) and
+  (.budgets.maximumArchiveBytes > 0) and (.budgets.maximumZoomZeroTileBytes > 0)
+' "$BUILD_CONFIG" >/dev/null || { echo "Error: invalid tiling rules or budgets." >&2; exit 1; }
+
+echo "Build configuration is complete and matches the layer mapping."

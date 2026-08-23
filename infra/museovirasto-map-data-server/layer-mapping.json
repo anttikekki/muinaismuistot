@@ -9,7 +9,7 @@
       "mvtSourceLayer": "vark_areas",
       "geometryType": "GEOMETRY",
       "logicalIdFields": ["VARK_ID"],
-      "featureIdentity": { "fallbackFields": ["VARK_ID"] }
+      "featureIdentity": { "rowIdField": "fid" }
     },
     {
       "id": "vark_points",
@@ -18,7 +18,7 @@
       "mvtSourceLayer": "vark_points",
       "geometryType": "POINT",
       "logicalIdFields": ["VARK_ID"],
-      "featureIdentity": { "fallbackFields": ["VARK_ID"] }
+      "featureIdentity": { "rowIdField": "fid" }
     },
     {
       "id": "archaeological_subsites_points",
@@ -27,7 +27,7 @@
       "mvtSourceLayer": "archaeological_subsites_points",
       "geometryType": "POINT",
       "logicalIdFields": ["mjtunnus", "alakohdetunnus"],
-      "featureIdentity": { "inspireIdField": "inspireID" }
+      "featureIdentity": { "rowIdField": "fid" }
     },
     {
       "id": "archaeological_areas",
@@ -36,7 +36,7 @@
       "mvtSourceLayer": "archaeological_areas",
       "geometryType": "POLYGON",
       "logicalIdFields": ["mjtunnus"],
-      "featureIdentity": { "inspireIdField": "inspireID" },
+      "featureIdentity": { "rowIdField": "fid" },
       "derivedFields": {
         "laji_key": {
           "sourceField": "Laji",
@@ -61,7 +61,7 @@
       "mvtSourceLayer": "archaeological_points",
       "geometryType": "POINT",
       "logicalIdFields": ["mjtunnus"],
-      "featureIdentity": { "inspireIdField": "inspireID" },
+      "featureIdentity": { "rowIdField": "fid" },
       "derivedFields": {
         "laji_key": {
           "sourceField": "Laji",
@@ -86,7 +86,7 @@
       "mvtSourceLayer": "world_heritage_areas",
       "geometryType": "POLYGON",
       "logicalIdFields": ["ID"],
-      "featureIdentity": { "inspireIdField": "inspireID" }
+      "featureIdentity": { "rowIdField": "fid" }
     },
     {
       "id": "world_heritage_points",
@@ -95,7 +95,7 @@
       "mvtSourceLayer": "world_heritage_points",
       "geometryType": "POINT",
       "logicalIdFields": ["ID"],
-      "featureIdentity": { "inspireIdField": "inspireID" }
+      "featureIdentity": { "rowIdField": "fid" }
     },
     {
       "id": "rky_areas",
@@ -104,7 +104,7 @@
       "mvtSourceLayer": "rky_areas",
       "geometryType": "GEOMETRY",
       "logicalIdFields": ["ID"],
-      "featureIdentity": { "inspireIdField": "inspireID" }
+      "featureIdentity": { "rowIdField": "fid" }
     },
     {
       "id": "rky_points",
@@ -113,7 +113,7 @@
       "mvtSourceLayer": "rky_points",
       "geometryType": "POINT",
       "logicalIdFields": ["ID"],
-      "featureIdentity": { "inspireIdField": "inspireID" }
+      "featureIdentity": { "rowIdField": "fid" }
     },
     {
       "id": "rky_lines",
@@ -122,7 +122,7 @@
       "mvtSourceLayer": "rky_lines",
       "geometryType": "MULTILINESTRING",
       "logicalIdFields": ["ID"],
-      "featureIdentity": { "inspireIdField": "inspireID" }
+      "featureIdentity": { "rowIdField": "fid" }
     },
     {
       "id": "protected_building_areas",
@@ -131,7 +131,7 @@
       "mvtSourceLayer": "protected_building_areas",
       "geometryType": "GEOMETRY",
       "logicalIdFields": ["KOHDEID"],
-      "featureIdentity": { "inspireIdField": "inspireID" }
+      "featureIdentity": { "rowIdField": "fid" }
     },
     {
       "id": "protected_building_points",
@@ -141,7 +141,7 @@
       "geometryType": "POINT",
       "logicalIdFields": ["rakennusID"],
       "parentIdFields": ["KOHDEID"],
-      "featureIdentity": { "inspireIdField": "inspireID", "fallbackFields": ["rakennusID"] }
+      "featureIdentity": { "rowIdField": "fid" }
     }
   ],
   "logicalLayers": [
