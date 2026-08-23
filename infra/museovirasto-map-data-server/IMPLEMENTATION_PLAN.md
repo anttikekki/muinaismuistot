@@ -164,7 +164,11 @@ Rakennusputki laskee nyt D1:n 268 964 rivin kokonaismäärän ja 12 tasokohtaist
 
 Muunnostestit kattavat numeerisen lajikoodin, moniarvoiset tyyppi- ja ajoitusmaskit, usean alatyypin koodauksen sekä tuntemattomien laji-, tyyppi-, ajoitus- ja alatyyppiarvojen aiheuttaman virheen. Pieni integraatiotesti rakentaa kahden featuren PMTiles-arkiston ja D1-tuonnin, tarkistaa yhteiset ID:t sekä saman rekisteritunnuksen kahden geometriarivin säilymisen.
 
-**Seuraava tehtävä:** lukitse vaiheen 2 julkaisu- ja versiopaketin nimeäminen sekä atomisen PMTiles/D1-julkaisun metatietosopimus ennen Cloudflare-vaihetta.
+Julkaisu- ja aktivointisopimus on lukittu tiedostossa [RELEASE_CONTRACT.md](RELEASE_CONTRACT.md). Rakennus johtaa lähde-, konfiguraatio-, PMTiles-, D1- ja sanastotiivisteistä deterministisen `museovirasto-<20 hex>` -tunnisteen. `release-descriptor.json` määrittää muuttumattomat R2-avaimet, D1-version, skeemaversiot, tiivisteet ja API-reitit. `current-candidate.json` on tarkoituksella inaktiivinen: vaihe 2 ei muuta ulkoista ympäristöä.
+
+Atomisen käyttöönoton ainoa aktiivinen osoitin tulee olemaan D1:n `dataset_current`. PMTiles- ja sanasto-objektit ladataan ensin versionoiduille R2-avaimille ja D1-rivit tuodaan samalla `releaseId`-arvolla. Osoitin vaihdetaan D1-transaktiossa vasta validointien jälkeen. Karttaklikkauksen täsmähaku käyttää tulevassa tuotantoskeemassa `releaseId + sourceLayer + featureId` -avainta; pysyvät linkit ja sanahaku käyttävät aina aktiivista versiota.
+
+**Vaihe 2 on valmis. Seuraava tehtävä:** aloita vaihe 3 toteuttamalla D1:n versionoidut julkaisutaulut ja Workerin `/api/meta`- sekä versionoidut PMTiles-reitit ensin paikalliseen Wrangler-ympäristöön.
 
 ### Vaihe 2: Toistettava rakennusputki
 
