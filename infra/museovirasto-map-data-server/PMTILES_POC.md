@@ -1,5 +1,7 @@
 # PMTiles proof of concept
 
+Arkiston nykyinen ja tavoiteltu kenttäkohtainen tietomalli on dokumentoitu tiedostossa [`PMTILES_DATA_MODEL.md`](PMTILES_DATA_MODEL.md).
+
 ## Ensimmäinen rakennettu arkisto
 
 Vaiheen 1 ensimmäinen tekninen koe muuntaa koko inventoidun tuotantoaineiston yhdeksi PMTiles-arkistoksi. Arkisto sisältää samat 12 fyysistä lähdetasoa kuin `layer-mapping.json`; käyttöliittymän 26 loogista tasoa muodostetaan myöhemmin näiden lähdetasojen ja `laji_key`-suodattimien avulla.

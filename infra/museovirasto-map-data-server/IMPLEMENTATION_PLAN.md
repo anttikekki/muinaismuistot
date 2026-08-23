@@ -130,6 +130,8 @@ Nykyisen WMS-ratkaisun kevyt suorituskyvyn lähtötaso on tiedostossa [CURRENT_M
 
 **Tuotos:** selaimessa toimiva kokeilu ja mitattu arkkitehtuuripäätös.
 
+PMTiles-arkiston toteutunut leveä PoC-skeema ja kenttäkohtainen minimointipäätös on dokumentoitu tiedostossa [PMTILES_DATA_MODEL.md](PMTILES_DATA_MODEL.md). Nykyisiä raakamuotoisia suodatuskenttiä käytetään vain seuraavan selainfiltterikokeen lähtötietona; tuotanto-MVT:n tavoite sisältää arkeologisilla pisteillä `laji_key`-kentän ja kompaktit normalisoidut tyyppi-/ajoitussuodattimet, arkeologisilla alueilla `laji_key`-kentän ja muilla tasoilla vain MVT-feature-ID:n.
+
 **Seuraava tehtävä:** avaa valmis paikallinen PoC selaimessa ja tarkista tyylit, yleistys sekä kohteiden tunnistaminen koko Suomen, kaupunki-/maakunta- ja lähitason näkymissä. Kirjaa pyyntömäärät, siirretyt tavut ja havaitut kartografiset puutteet.
 
 ### Vaihe 2: Toistettava rakennusputki
