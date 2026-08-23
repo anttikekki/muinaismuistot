@@ -2,7 +2,7 @@ import "ol/ol.css"
 import "./styles.css"
 
 import Feature, { FeatureLike } from "ol/Feature"
-import Map from "ol/Map"
+import OLMap from "ol/Map"
 import View from "ol/View"
 import MVT from "ol/format/MVT"
 import VectorTileLayer from "ol/layer/VectorTile"
@@ -22,9 +22,16 @@ type LogicalLayer = {
 
 const archiveUrl = `${location.origin}/pmtiles/museovirasto-poc.pmtiles`
 const enabled = new Set<string>()
+const unfilteredLogicalIdBySource = new Map<string, string>()
+const filteredLogicalIdsBySource = new Map<string, { field: string; idsByValue: Map<string, string> }>()
+const styleByLogicalId = new Map<string, Style>()
 const startedAt = performance.now()
 let requestCount = 0
 let transferredBytes = 0
+let styleCallCount = 0
+let movementStartedAt: number | undefined
+let movementEndedAt: number | undefined
+let movementRenderFrames = 0
 
 const nativeFetch = globalThis.fetch.bind(globalThis)
 globalThis.fetch = async (input, init) => {
@@ -51,7 +58,7 @@ const vectorLayer = new VectorTileLayer({
   style: styleFeature,
 })
 
-const map = new Map({
+const map = new OLMap({
   target: "map",
   layers: [vectorLayer],
   view: new View({
@@ -66,8 +73,23 @@ let firstRenderRecorded = false
 map.once("rendercomplete", () => {
   firstRenderRecorded = true
   setText("render-time", `${Math.round(performance.now() - startedAt)} ms`)
+  updateStyleCallCount()
 })
 map.getView().on("change:resolution", updateDiagnostics)
+map.on("movestart", () => {
+  styleCallCount = 0
+  movementStartedAt = performance.now()
+  movementEndedAt = undefined
+  movementRenderFrames = 0
+})
+map.on("moveend", () => {
+  movementEndedAt = performance.now()
+})
+map.on("postrender", () => {
+  if (movementStartedAt !== undefined) movementRenderFrames += 1
+})
+map.on("rendercomplete", updateStyleCallCount)
+map.on("rendercomplete", finishMovementMeasurement)
 
 map.on("singleclick", (event) => {
   const hit = map.forEachFeatureAtPixel(event.pixel, (feature) => feature, {
@@ -87,7 +109,7 @@ async function loadControls(): Promise<void> {
   const response = await nativeFetch("/api/layers")
   if (!response.ok) throw new Error(`Layer mapping failed: ${response.status}`)
   logicalLayers = (await response.json()) as LogicalLayer[]
-  logicalLayers.forEach((layer) => enabled.add(layer.id))
+  configureStyleLookups(logicalLayers)
 
   const controls = document.querySelector<HTMLDivElement>("#layer-controls")
   if (!controls) return
@@ -122,23 +144,51 @@ function setAll(visible: boolean): void {
 }
 
 function styleFeature(feature: FeatureLike): Style | undefined {
+  styleCallCount += 1
   const sourceLayer = String(feature.get("layer") ?? "")
-  const logical = logicalLayers.find(
-    (candidate) =>
-      enabled.has(candidate.id) &&
-      candidate.sourceLayer === sourceLayer &&
-      (!candidate.filter || feature.get(candidate.filter.field) === candidate.filter.equals),
-  )
-  if (!logical) return undefined
+  const filtered = filteredLogicalIdsBySource.get(sourceLayer)
+  const logicalId = filtered
+    ? filtered.idsByValue.get(String(feature.get(filtered.field) ?? ""))
+    : unfilteredLogicalIdBySource.get(sourceLayer)
 
-  const color = colorFor(logical.id)
-  const geometryType = feature.getGeometry()?.getType() ?? ""
-  if (geometryType.includes("Point")) {
-    return new Style({ image: pointSymbol(logical.id, color) })
+  return logicalId && enabled.has(logicalId) ? styleByLogicalId.get(logicalId) : undefined
+}
+
+function configureStyleLookups(layers: LogicalLayer[]): void {
+  unfilteredLogicalIdBySource.clear()
+  filteredLogicalIdsBySource.clear()
+  styleByLogicalId.clear()
+  enabled.clear()
+
+  for (const layer of layers) {
+    enabled.add(layer.id)
+    styleByLogicalId.set(layer.id, createStyle(layer))
+
+    if (!layer.filter) {
+      unfilteredLogicalIdBySource.set(layer.sourceLayer, layer.id)
+      continue
+    }
+
+    let lookup = filteredLogicalIdsBySource.get(layer.sourceLayer)
+    if (!lookup) {
+      lookup = { field: layer.filter.field, idsByValue: new Map() }
+      filteredLogicalIdsBySource.set(layer.sourceLayer, lookup)
+    }
+    if (lookup.field !== layer.filter.field) {
+      throw new Error(`Multiple filter fields configured for ${layer.sourceLayer}`)
+    }
+    lookup.idsByValue.set(layer.filter.equals, layer.id)
+  }
+}
+
+function createStyle(layer: LogicalLayer): Style {
+  const color = colorFor(layer.id)
+  if (layer.sourceLayer.endsWith("_points")) {
+    return new Style({ image: pointSymbol(layer.id, color) })
   }
   return new Style({
     fill: new Fill({ color: withAlpha(color, 0.16) }),
-    stroke: new Stroke({ color, width: geometryType.includes("Line") ? 2.5 : 1.5 }),
+    stroke: new Stroke({ color, width: layer.sourceLayer.endsWith("_lines") ? 2.5 : 1.5 }),
   })
 }
 
@@ -181,6 +231,32 @@ function updateDiagnostics(): void {
   setText("transfer-bytes", new Intl.NumberFormat("fi-FI").format(transferredBytes))
   setText("zoom", (map.getView().getZoom() ?? 0).toFixed(2))
   if (!firstRenderRecorded) setText("render-time", "Ladataan…")
+}
+
+function updateStyleCallCount(): void {
+  setText("style-call-count", new Intl.NumberFormat("fi-FI").format(styleCallCount))
+}
+
+function finishMovementMeasurement(): void {
+  if (movementStartedAt === undefined || movementEndedAt === undefined) return
+
+  const completedAt = performance.now()
+  const movementDuration = movementEndedAt - movementStartedAt
+  const settleDuration = completedAt - movementEndedAt
+  const totalDuration = completedAt - movementStartedAt
+  const renderRate = totalDuration > 0 ? (movementRenderFrames * 1000) / totalDuration : 0
+
+  setText("movement-time", formatMilliseconds(movementDuration))
+  setText("settle-time", formatMilliseconds(settleDuration))
+  setText("movement-total-time", formatMilliseconds(totalDuration))
+  setText("movement-render-rate", `${renderRate.toFixed(1)} kierrosta/s`)
+
+  movementStartedAt = undefined
+  movementEndedAt = undefined
+}
+
+function formatMilliseconds(value: number): string {
+  return `${Math.round(value)} ms`
 }
 
 function setText(id: string, value: string): void {
