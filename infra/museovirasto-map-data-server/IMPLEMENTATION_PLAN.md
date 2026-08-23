@@ -168,7 +168,7 @@ Julkaisu- ja käyttöönottosopimus on lukittu tiedostossa [RELEASE_CONTRACT.md]
 
 Käyttöönotto pidetään sivuston kokoon nähden yksinkertaisena. Selain aloittaa latauksen suoraan vakio-osoitteesta `/pmtiles/current.pmtiles`, eikä `/api/meta` kuulu kriittiseen latauspolkuun. D1:ssä on vain yksi aktiivinen `feature_details`-aineisto. Karttaklikkauksen avain on `sourceLayer + featureId`; pysyvät linkit käyttävät `logicalLayerId + registryId` -avainta ja palauttavat aina uusimman aineiston.
 
-**Vaihe 2 on valmis.** Vaihe 3:n paikallinen käyttöönotto käyttää yöllistä huoltoikkunaa: uusi aineisto rakennetaan ja validoidaan sivussa, palvelu asetetaan hetkeksi huoltotilaan, aktiivinen D1-sisältö ja R2:n `current.pmtiles` korvataan ja savutestien jälkeen huoltotila poistetaan. Päivittäinen versio on lähdeaineiston julkaisuaika muodossa `YYYYMMDDT000000Z`; SHA-256-tiivisteet säilyvät vain eheystarkistuksina.
+**Vaihe 2 on valmis.** Vaihe 3:n paikallinen käyttöönotto tehdään yöllä: uusi aineisto rakennetaan ja validoidaan sivussa, aktiivinen D1-sisältö ja R2:n `current.pmtiles` korvataan peräkkäin ja julkaisu hyväksytään smoke-testillä. Erillistä huoltotilaa ei käytetä, koska sen dynaaminen hallinta lisäisi tähän palveluun tarpeetonta tilaa tai Worker-deployita. Päivittäinen versio on lähdeaineiston julkaisuaika muodossa `YYYYMMDDT000000Z`; SHA-256-tiivisteet säilyvät vain eheystarkistuksina.
 
 Worker tarjoaa valinnaisen, lyhyesti välimuistitetun `/api/meta`-reitin diagnostiikkaa varten. Se ei ole edellytys PMTiles-pyynnöille tai ominaisuustietojen hauille. Aikaleimalliset `releases/<version>/...`-avaimet voidaan säilyttää palautuspaketteina, mutta selain ei käytä niitä normaalisti.
 
@@ -194,7 +194,7 @@ Worker tarjoaa valinnaisen, lyhyesti välimuistitetun `/api/meta`-reitin diagnos
 - [x] Toteuta yhtä aktiivista D1-aineistoa käyttävät ominaisuus-, rekisteri- ja sanahaut. Kaikki käyttäjän arvot sidotaan parametrisoituihin kyselyihin.
 - [x] Pidä valinnainen `/api/meta` lyhyesti välimuistissa, mutta älä vaadi sitä ennen kartan latausta.
 - [x] Toteuta health-endpoint ja julkaisu-smoke-testit. `/health` tarkistaa aktiivisen PMTiles-objektin, aikaleimallisen metatiedon ja D1-aineiston sekä palauttaa virhetilassa `503`; toistettava smoke-testi kattaa lisäksi Range-, massa-, rekisteri- ja sanahaun.
-- Toteuta huoltotila sekä epäonnistuneen aktivoinnin ja palautuksen integraatiotestit.
+- [x] Toteuta epäonnistuneen päivityksen ja palautuksen integraatiotestit. Backup/restore-skriptit kattavat PMTilesin, metadatan ja D1-rivit; nopea integraatiotesti käyttää täysin eristettyä pientä Wrangler-tilaa eikä kopioi varsinaista 268 964 rivin PoC-aineistoa. Erillinen huoltotila arvioitiin ja jätettiin tarkoituksella pois liian monimutkaisena.
 - Lisää lokitus, virhemittarit, kustannusseuranta ja hälytys puuttuvasta tai vanhentuneesta aineistosta.
 - Varmista, ettei R2:n kirjoitusavaimia tai muita ylläpitosalaisuuksia toimiteta selaimelle.
 

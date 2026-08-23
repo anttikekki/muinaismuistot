@@ -45,6 +45,8 @@ Avaa <http://localhost:8787>. Selain aloittaa kartan latauksen suoraan vakio-oso
 
 Kun paikallinen Worker on käynnissä, aja toisessa terminaalissa `npm run smoke`. Testi tarkistaa `/health`-reitin, PMTiles Range -vastauksen sekä ominaisuus-, rekisteri- ja sanahaun oikealla siemennetyllä aineistolla. `/health` palauttaa `503`, jos `current.pmtiles`, kelvollinen `current.json` tai vähintään yksi D1-rivi puuttuu.
 
+`npm run test:rollback` testaa R2-metadatan ja D1-rivien varmuuskopioinnin sekä palautuksen pienessä, eristetyssä väliaikaisessa Wrangler-ympäristössä; testi ei muuta varsinaista PoC-aineistoa. Käyttöönotossa ei ole erillistä huoltotilaa: etukäteen validoidut D1- ja PMTiles-aineistot vaihdetaan yöllä peräkkäin, minkä jälkeen smoke-testi joko hyväksyy julkaisun tai käynnistää palautuksen.
+
 ## Tarkistukset
 
 ```bash

@@ -11,6 +11,7 @@
     "seed:r2": "bash ../scripts/12-seed-local-r2-poc.sh",
     "seed:d1": "bash ../scripts/15-seed-local-d1-poc.sh",
     "smoke": "bash ../scripts/26-smoke-test-service.sh",
+    "test:rollback": "bash ../scripts/29-test-local-rollback.sh",
     "test": "vitest run",
     "test:build": "node --test ../scripts/*.test.mjs",
     "test:watch": "vitest",

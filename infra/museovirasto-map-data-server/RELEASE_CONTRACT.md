@@ -35,12 +35,10 @@ Karttaklikkauksen massahaku käyttää `sourceLayer + featureId` -pareja. Pysyv�
 3. Johda aikaleimaversio ja tallenna kaikkien artefaktien SHA-256-tiivisteet julkaisudeskriptoriin.
 4. Aja skeema-, rivimäärä-, geometria-, koodisto- ja PMTiles–D1-identiteettitarkistukset.
 5. Säilytä tarvittaessa palautuspaketti avaimilla `releases/<version>/map.pmtiles`, `releases/<version>/release.json` ja vastaavilla aikaleimallisilla nimillä.
-6. Aseta palvelu huoltotilaan. Huoltotila saa palauttaa kartta- ja data-API-kutsuille selkeän `503`-vastauksen.
-7. Korvaa D1:n `feature_details` yhden transaktion sisällä ja R2:n `current.pmtiles` sekä `current.json` uusilla artefakteilla.
-8. Savutestaa PMTiles Range -pyyntö, karttaklikkauksen massahaku, rekisteritunnushaku ja sanahaku.
-9. Poista huoltotila.
+6. Korvaa D1:n `feature_details` yhden transaktion sisällä ja R2:n `current.pmtiles` sekä `current.json` uusilla artefakteilla.
+7. Savutestaa PMTiles Range -pyyntö, karttaklikkauksen massahaku, rekisteritunnushaku ja sanahaku.
 
-R2:n ja D1:n vaihtoa ei yritetä tehdä hajautettuna atomisena operaationa. Huoltotila estää tarkoituksella käyttäjiä näkemästä lyhyttä sekatilaa. Jos savutesti epäonnistuu, palauta edellisen aikaleimaversion PMTiles ja D1-varmuuskopio ennen huoltotilan poistamista.
+R2:n ja D1:n vaihtoa ei yritetä tehdä hajautettuna atomisena operaationa eikä erillistä huoltotilaa ylläpidetä. Yölliseen vaihtoon voi siksi sisältyä lyhyt sekatila, joka hyväksytään tämän sivuston liikennemäärällä. Jos smoke-testi epäonnistuu, palauta edellisen aikaleimaversion PMTiles, metadata ja D1-varmuuskopio välittömästi.
 
 ## Välimuisti
 
