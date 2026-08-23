@@ -77,7 +77,7 @@ See [GitHub releases](https://github.com/anttikekki/muinaismuistot/releases)
 
 ## Infrastructure
 
-The whole UI is just static `html` and `js` files from Webpack build that are hosted in [GitHub pages](https://pages.github.com/) of this repository: [https://anttikekki.github.io/muinaismuistot](https://anttikekki.github.io/muinaismuistot). [Cloudflare](https://www.cloudflare.com) is used as a reverse proxy to add HTTPS support.
+The whole UI is just static `html` and `js` files from Webpack build that are hosted in [Cloudflare](https://www.cloudflare.com).
 
 There is no hosted backend server. Browser calls directly data providers map servers to fetch map tile images and data.
 

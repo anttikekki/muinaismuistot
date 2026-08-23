@@ -1,0 +1,36 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "muinaismuistot",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-23",
+  "assets": {
+    "directory": "../../dist",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none",
+    "run_worker_first": true
+  },
+  "env": {
+    "production": {
+      "name": "muinaismuistot",
+      "workers_dev": false,
+      "preview_urls": false,
+      "routes": [
+        {
+          "pattern": "muinaismuistot.info",
+          "custom_domain": true
+        },
+        {
+          "pattern": "www.muinaismuistot.info",
+          "custom_domain": true
+        }
+      ]
+    },
+    "preview": {
+      "name": "muinaismuistot-preview",
+      "workers_dev": true,
+      "preview_urls": true,
+      "routes": []
+    }
+  }
+}

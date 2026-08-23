@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:137.0) Gecko/20100101 Firefox/137.0">
   <diagram id="vIS98_wAug5bRttO1ruv" name="Page-1">
-    <mxGraphModel dx="1601" dy="873" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1938" dy="1013" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -20,7 +20,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="-d85q1kpaTbKizXLM7eA-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="60" width="173" x="38" y="488" as="geometry" />
+          <mxGeometry height="134" width="173" x="38" y="488" as="geometry" />
         </mxCell>
         <mxCell id="-d85q1kpaTbKizXLM7eA-10" parent="1" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/cloudflare-128.png" value="" vertex="1">
           <mxGeometry height="54" width="54" x="49" y="488" as="geometry" />
@@ -37,26 +37,6 @@
         <mxCell id="-d85q1kpaTbKizXLM7eA-13" connectable="0" parent="-d85q1kpaTbKizXLM7eA-12" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="https://muinaismuistot.info" vertex="1">
           <mxGeometry relative="1" x="-0.0889" y="-1" as="geometry">
             <mxPoint x="-5" y="38" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="-d85q1kpaTbKizXLM7eA-14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="60" width="171" x="39" y="643" as="geometry" />
-        </mxCell>
-        <mxCell id="-d85q1kpaTbKizXLM7eA-15" parent="1" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.weblogos.github" value="" vertex="1">
-          <mxGeometry height="50" width="50" x="49" y="648" as="geometry" />
-        </mxCell>
-        <mxCell id="-d85q1kpaTbKizXLM7eA-16" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="GitHub Pages" vertex="1">
-          <mxGeometry height="15" width="80" x="103" y="663" as="geometry" />
-        </mxCell>
-        <mxCell id="-d85q1kpaTbKizXLM7eA-17" edge="1" parent="1" source="-d85q1kpaTbKizXLM7eA-9" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="-d85q1kpaTbKizXLM7eA-14" value="">
-          <mxGeometry height="50" relative="1" width="50" as="geometry">
-            <mxPoint x="124" y="558" as="sourcePoint" />
-            <mxPoint x="123.99999999999997" y="632" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="-d85q1kpaTbKizXLM7eA-18" connectable="0" parent="-d85q1kpaTbKizXLM7eA-17" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="http://muinaismuistot.info" vertex="1">
-          <mxGeometry relative="1" x="-0.0889" y="-1" as="geometry">
-            <mxPoint x="-1" y="15" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="-d85q1kpaTbKizXLM7eA-19" parent="1" style="points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image;image=img/lib/allied_telesis/computer_and_terminals/Server_Desktop.svg;" value="&lt;div&gt;National Land Survey of Finland&lt;/div&gt;&lt;div&gt;avoin-karttakuva.maanmittauslaitos.fi&lt;br&gt;&lt;/div&gt;" vertex="1">
@@ -177,6 +157,9 @@
           <mxGeometry relative="1" x="-0.0125" y="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="wqqqb7OaITN4eJ-iD_qk-1" parent="1" style="shape=datastore;whiteSpace=wrap;html=1;" value="R2" vertex="1">
+          <mxGeometry height="60" width="60" x="94.5" y="542" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

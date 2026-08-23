@@ -1,0 +1,26 @@
+{
+  "name": "muinaismuistot-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "test": "npm --prefix ../.. run build:prod && vitest run",
+    "test:watch": "vitest",
+    "types": "wrangler types",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p test/tsconfig.json",
+    "deploy:dry-run": "wrangler deploy --env production --dry-run",
+    "deploy": "npm test && npm run typecheck && wrangler deploy --env production",
+    "deploy:preview:dry-run": "wrangler deploy --env preview --dry-run",
+    "deploy:preview": "npm test && npm run typecheck && wrangler deploy --env preview"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.0.0",
+    "typescript": "6.0.3",
+    "vitest": "^4.1.11",
+    "wrangler": "^4.125.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
