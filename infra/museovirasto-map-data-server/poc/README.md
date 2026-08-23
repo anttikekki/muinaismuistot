@@ -43,7 +43,10 @@ Avaa <http://localhost:8787>. `npm run seed` tarvitsee ajaa uudelleen PMTiles-ar
 npm test
 npm run typecheck
 npm run build
+npm run measure:browser # PoC-palvelimen ollessa käynnissä toisessa terminaalissa
 ```
+
+Selainmittaus avaa kylmällä Chrome-profiililla koko Suomen, suodatetun koko Suomen, kaupunki- ja lähitason vakionäkymät. Tulokset tulostuvat JSON-muodossa. Mittausmenetelmä ja hyväksytty vertailuajo on dokumentoitu tiedostossa `../POC_BROWSER_PERFORMANCE.md`.
 
 Ominaisuustietojen paikallinen D1 rakennetaan ja alustetaan projektin juuresta:
 

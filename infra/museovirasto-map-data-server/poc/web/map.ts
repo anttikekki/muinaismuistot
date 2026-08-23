@@ -42,6 +42,14 @@ type FeatureBatchResult = {
 }
 
 const archiveUrl = `${location.origin}/pmtiles/museovirasto-poc.pmtiles`
+const benchmarkName = new URLSearchParams(location.search).get("benchmark")
+const benchmarkViews: Record<string, { center: [number, number]; zoom: number }> = {
+  finland: { center: [25.2, 64.5], zoom: 5 },
+  bronze: { center: [25.2, 64.5], zoom: 5 },
+  city: { center: [24.94, 60.17], zoom: 10 },
+  near: { center: [24.94, 60.17], zoom: 14 },
+}
+const initialView = benchmarkViews[benchmarkName ?? ""] ?? benchmarkViews.finland
 const enabled = new Set<string>()
 const unfilteredLogicalIdBySource = new Map<string, string>()
 const filteredLogicalIdsBySource = new Map<string, { field: string; idsByValue: Map<string, string> }>()
@@ -110,8 +118,8 @@ const map = new OLMap({
   target: "map",
   layers: [vectorLayer, aggregateLayer],
   view: new View({
-    center: fromLonLat([25.2, 64.5]),
-    zoom: 5,
+    center: fromLonLat(initialView.center),
+    zoom: initialView.zoom,
     minZoom: 0,
     maxZoom: 14,
   }),
@@ -272,6 +280,7 @@ async function loadControls(): Promise<void> {
 
   document.querySelector("#all-on")?.addEventListener("click", () => setAll(true))
   document.querySelector("#all-off")?.addEventListener("click", () => setAll(false))
+  if (benchmarkName === "bronze") document.querySelector<HTMLButtonElement>("#bronze-cairns")?.click()
   vectorLayer.changed()
 }
 
@@ -493,7 +502,35 @@ function markInitialDataReady(signature: string): void {
     return
   }
   initialDataReady = true
-  setText("data-ready-time", formatMilliseconds(performance.now() - startedAt))
+  const readyMilliseconds = performance.now() - startedAt
+  setText("data-ready-time", formatMilliseconds(readyMilliseconds))
+  publishBenchmarkResult(readyMilliseconds)
+}
+
+function publishBenchmarkResult(readyMilliseconds: number): void {
+  const resources = performance.getEntriesByType("resource") as PerformanceResourceTiming[]
+  const memory = (performance as Performance & { memory?: { usedJSHeapSize: number } }).memory
+  const result = {
+    view: benchmarkName ?? "finland",
+    zoom: map.getView().getZoom(),
+    readyMilliseconds: Math.round(readyMilliseconds),
+    pmtilesRequests: requestCount,
+    pmtilesBytes: transferredBytes,
+    resourceRequests: resources.length,
+    resourceTransferBytes: resources.reduce((sum, entry) => sum + entry.transferSize, 0),
+    usedJsHeapBytes: memory?.usedJSHeapSize ?? null,
+    loadedFeatures: parseDisplayedCount("loaded-feature-count"),
+    activePoints: parseDisplayedCount("active-point-count"),
+    aggregateMarkers: parseDisplayedCount("aggregate-count"),
+    presentationMode: document.getElementById("presentation-mode")?.textContent ?? "",
+  }
+  document.body.dataset.benchmarkReady = "true"
+  const output = document.getElementById("benchmark-result")
+  if (output) output.textContent = JSON.stringify(result)
+}
+
+function parseDisplayedCount(id: string): number {
+  return Number((document.getElementById(id)?.textContent ?? "0").replaceAll(/\D/g, ""))
 }
 
 function rebuildAggregates(activePoints: Array<{ feature: FeatureLike; logicalId: string }>): void {

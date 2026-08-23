@@ -124,7 +124,7 @@ Nykyisen WMS-ratkaisun kevyt suorituskyvyn lähtötaso on tiedostossa [CURRENT_M
 - [x] Tarkista paikallisella, muinaismuistot.info-sovelluksesta irrallisella OpenLayers-sivulla geometriayleistys, pistetiheys, alustavat tyylit sekä ominaisuuksien tunnistaminen kolmella edustavalla zoom-tasolla. Koko Suomen tarkka ja aggregoitu esitys, suodatettu 1 467 kohteen näkymä, zoomiraja 9→10 sekä päällekkäisten kohteiden ominaisuushaku on hyväksytty manuaalisesti. Uudelleen rakennettu arkisto läpäisee rakenteellisen validoinnin: 12 lähdetasoa, kaikki pistetietueet zoomilla 0 ja kaikkien aluelähdetasojen keskipisteet zoomilla 0.
 - [x] Tallenna arkisto Wranglerin paikallisesti simuloimaan R2-bucketiin. Toteuta ja testaa Worker, joka validoi selaimen yhden byte range -pyynnön, lukee vain sovitun välin R2-bindingista ja palauttaa standardinmukaisen `206 Partial Content` -vastauksen. PoC ei oleta 206-vastausten välimuistittuvan; oikea staging-R2 siirretään Cloudflare-vaiheeseen.
 - [x] Toteuta 26 loogisen tasovalinnan näyttäminen ja piilottaminen yhden OpenLayers `PMTilesVectorSource` -olion `source-layer`- ja `laji_key`-tyylisuodattimilla. Valinnat eivät luo uusia PMTiles-lähteitä tai muuta tiili-URL:ia.
-- Mittaa arkiston koko, tyypillisten ja pahimpien tiilien koko, koko karttanäkymän HTTP-pyyntömäärä, siirretty datamäärä, renderöintiaika ja muistinkäyttö hitaaksi simuloidulla mobiililaitteella. Mittaukseen sisällytetään taustakartta ja muiden lähteiden karttatasot.
+- [x] Mittaa paikallisen irrallisen PoC:n kylmä lataus koko Suomen, suodatetun koko Suomen, kaupunki- ja lähitason näkymissä. Toistettava Chrome-ajuri mittaa PMTiles-pyynnöt ja -tavut, datan valmistumisajan, featuremäärät, esitystavan ja JS-heapin. Koko tuotantosivun mobiilimittaus taustakarttoineen ja muiden lähteiden tasoineen siirtyy vaiheeseen 4, koska niitä ei tarkoituksella ole irrallisessa PoC:ssa.
 - Tuo D1:een suppea hakutaulu ja toteuta Workeriin yksinkertainen osajonohaku. Varmista ääkkösten, kirjainkoon, osittaisten hakujen, välimuistin ja tulosrajan toiminta.
 - Vahvista yhden PMTiles-arkiston suorituskykybudjetit ja kirjaa D1:n lineaarisen haun mitattu vasteaika vertailutiedoksi.
 
@@ -152,7 +152,9 @@ Ominaisuustietojen massahaun PoC on toteutettu yksinkertaisella kaksiosaisella t
 
 Uudelleen rakennettu paikallinen D1 sisältää 268 964 ominaisuusriviä kaikilta 12 lähdetasolta: vain yksi geometriaton arkeologinen aluerivi jää pois. Rekisteritunnusindeksi tukee tarkoituksellista yksi-moneen-suhdetta. `fid`-tunnisteilla rakennettu PMTiles-arkisto on 66 963 838 tavua; koko Suomen Range-siirto mitataan vielä uudelleen tällä arkistolla.
 
-**Seuraava tehtävä:** mittaa paikalliseen R2-simulaatioon viedyn 66 963 838 tavun `fid`-arkiston Range-siirto ja selainresurssit koko Suomen, kaupunki-/maakunta- ja lähitason näkymissä. Sisällytä mittaukseen 1 467 pronssikautisen hautaröykkiön tarkka esitys ja pahimman tapauksen aggregoitu esitys. Tämän jälkeen toteuta samaan D1-aineistoon yksinkertainen nimihaku.
+Paikallinen kylmän Chromen mittaus on dokumentoitu tiedostossa [POC_BROWSER_PERFORMANCE.md](POC_BROWSER_PERFORMANCE.md). Koko Suomen suodattamaton näkymä valmistui 383 ms:ssa kuudella Range-pyynnöllä ja 1 766 264 siirretyllä PMTiles-tavulla; 158 671 aktiivista pistettä esitettiin 19 aggregaattina. Kaupunkitaso valmistui 125 ms:ssa ja lähitaso 87 ms:ssa. Suodatettu pronssikautisten hautaröykkiöiden näkymä piirsi näkyvän selainrajauksen 331 osumaa yksittäisinä kohteina; koko aineiston tunnettu tulosjoukko on edelleen 1 467.
+
+**Seuraava tehtävä:** toteuta samaan D1-aineistoon yksinkertainen nimihaku ja mittaa lineaarisen osajonohaun vasteaika.
 
 ### Vaihe 2: Toistettava rakennusputki
 
