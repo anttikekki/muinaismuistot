@@ -9,6 +9,7 @@
     "measure:browser": "node scripts/measure-browser.mjs",
     "seed": "bash ../scripts/12-seed-local-r2-poc.sh",
     "test": "vitest run",
+    "test:build": "node --test ../scripts/compact-filter-data.test.mjs",
     "test:watch": "vitest",
     "typecheck": "tsc -p tsconfig.worker.json --noEmit && tsc -p tsconfig.json --noEmit"
   },

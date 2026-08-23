@@ -22,8 +22,10 @@ run_step "Build compact PMTiles" "$SCRIPT_DIR/13-build-compact-pmtiles-poc.sh"
 run_step "Validate compact PMTiles" "$SCRIPT_DIR/11-validate-pmtiles-poc.sh" "$ARCHIVE"
 run_step "Validate zoom and tile budgets" "$SCRIPT_DIR/21-validate-tiling-budgets.sh"
 run_step "Build D1 feature import" "$SCRIPT_DIR/14-build-feature-details-sql.sh"
+run_step "Validate PMTiles and D1 identities" "$SCRIPT_DIR/24-validate-pmtiles-d1-identities.sh"
 run_step "Create checksummed build manifest" "$SCRIPT_DIR/19-create-build-manifest.sh"
 run_step "Type-check Worker and browser PoC" npm --prefix "$PROJECT_DIR/poc" run typecheck
+run_step "Test build transformations" npm --prefix "$PROJECT_DIR/poc" run test:build
 
 echo
 echo "Release artifacts built and validated."

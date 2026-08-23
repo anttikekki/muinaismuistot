@@ -64,7 +64,7 @@ function mask(raw, values, kind) {
   let result = 0
   for (const value of atomicValues(raw, kind)) {
     const index = indexes.get(value)
-    if (index === undefined) continue
+    if (index === undefined) throw new Error(`Unknown ${kind} value: ${value}`)
     result += 2 ** index
   }
   return result
@@ -96,8 +96,9 @@ async function transform([vocabularyPath, layerId, profile, representation = "de
       properties.dating_mask = mask(source.datings_raw, vocabulary.datings, "dating")
       properties.subtype_codes = atomicValues(source.subtypes_raw, "subtype").map((value) => {
         const code = subtypeIndexes.get(value)
-        return code?.toString(36)
-      }).filter(Boolean).join(".")
+        if (code === undefined) throw new Error(`Unknown subtype value: ${value}`)
+        return code.toString(36)
+      }).join(".")
     } else if (profile === "logical-filter") {
       properties.laji_key = kindIndexes.get(source.laji_key)
       if (!properties.laji_key) throw new Error(`Unknown laji_key in ${layerId}: ${source.laji_key}`)

@@ -24,10 +24,14 @@ artifacts="$(jq -cn \
   --argjson pmtiles "$(file_entry "$BUILD_DIR/museovirasto-poc-compact.pmtiles" "museovirasto-poc-compact.pmtiles")" \
   --argjson vocabulary "$(file_entry "$PROJECT_DIR/poc/web/filter-vocabulary.json" "filter-vocabulary.json")" \
   --argjson d1 "$(file_entry "$BUILD_DIR/feature-details.sql" "feature-details.sql")" \
+  --argjson d1Report "$(file_entry "$BUILD_DIR/feature-details-report.json" "feature-details-report.json")" \
+  --argjson identityReport "$(file_entry "$BUILD_DIR/pmtiles-d1-identity-report.json" "pmtiles-d1-identity-report.json")" \
   --argjson geometry "$(file_entry "$BUILD_DIR/source-geometry-report.json" "source-geometry-report.json")" \
   --argjson baseline "$(file_entry "$BUILD_DIR/source-baseline-report.json" "source-baseline-report.json")" \
   --argjson tiling "$(file_entry "$BUILD_DIR/tiling-budget-report.json" "tiling-budget-report.json")" \
-  '[$pmtiles,$vocabulary,$d1,$geometry,$baseline,$tiling]')"
+  '[$pmtiles,$vocabulary,$d1,$d1Report,$identityReport,$geometry,$baseline,$tiling]')"
+
+d1_rows="$(jq -r '.d1Rows' "$BUILD_DIR/feature-details-report.json")"
 
 jq -n \
   --arg createdAt "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
@@ -36,7 +40,7 @@ jq -n \
   --arg layerMappingSha256 "$(sha256 "$PROJECT_DIR/layer-mapping.json")" \
   --arg filterVocabularySha256 "$(sha256 "$PROJECT_DIR/poc/web/filter-vocabulary.json")" \
   --argjson tools "$(cat "$PROJECT_DIR/build-tool-versions.json")" \
-  --argjson sources "$sources" --argjson artifacts "$artifacts" \
-  '{schemaVersion:1,createdAt:$createdAt,sourceDigest:$sourceDigest,configuration:{buildConfigSha256:$buildConfigSha256,layerMappingSha256:$layerMappingSha256,filterVocabularySha256:$filterVocabularySha256},tools:$tools,sources:$sources,artifacts:$artifacts,counts:{physicalLayers:12,logicalLayers:26,d1Rows:268964}}' > "$MANIFEST_TMP"
+  --argjson sources "$sources" --argjson artifacts "$artifacts" --argjson d1Rows "$d1_rows" \
+  '{schemaVersion:1,createdAt:$createdAt,sourceDigest:$sourceDigest,configuration:{buildConfigSha256:$buildConfigSha256,layerMappingSha256:$layerMappingSha256,filterVocabularySha256:$filterVocabularySha256},tools:$tools,sources:$sources,artifacts:$artifacts,counts:{physicalLayers:12,logicalLayers:26,d1Rows:$d1Rows}}' > "$MANIFEST_TMP"
 mv "$MANIFEST_TMP" "$MANIFEST"
 echo "Build manifest created: $MANIFEST"

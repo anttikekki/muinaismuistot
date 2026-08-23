@@ -31,21 +31,28 @@ Yhteisajo:
 4. validoi NULL- ja virheelliset geometriat eksplisiittisen geometriapolitiikan mukaan;
 5. rakentaa kompaktin PMTiles-arkiston;
 6. validoi arkiston rakenteen, kentät ja zoomin 0 kohdemäärät;
-7. rakentaa 268 964 rivin D1-tuontitiedoston;
-8. muodostaa lähde- ja artefaktitiivisteet sisältävän rakennusmanifestin;
-9. ajaa Worker- ja selainkoodin TypeScript-tarkistuksen.
+7. rakentaa D1-tuontitiedoston ja laskee sen kokonais- sekä tasokohtaiset rivimäärät päivän aineistosta;
+8. vertaa kaikki PMTiles-rakennussyötteen `source-layer + fid` -avaimet D1-tuontiin ja varmistaa, että jokaiselle zoomin 0 PMTiles-featurelle löytyy D1-rivi;
+9. muodostaa lähde- ja artefaktitiivisteet sisältävän rakennusmanifestin ilman kovakoodattuja aineistorivimääriä;
+10. ajaa Worker- ja selainkoodin TypeScript-tarkistuksen sekä rakennusmuunnosten testit.
 
 Tuotokset kirjoitetaan gitistä ohitettuun `data/poc`-hakemistoon:
 
 - `museovirasto-poc-compact.pmtiles`
 - `poc/web/filter-vocabulary.json` (versionhallittu ja selainrakennukseen sisältyvä koodisto)
 - `feature-details.sql`
+- `feature-details-report.json`
+- `pmtiles-d1-identity-report.json`
 - `source-geometry-report.json`
 - `source-baseline-report.json`
 - `tiling-budget-report.json`
 - `build-manifest.json`
 
 Geometriapolitiikan `invalidGeometry: fail` ja `repair: none` estävät virheellisen geometrian hiljaisen korjauksen tai pudotuksen. Sallittu NULL-määrä määritellään tasokohtaisesti. Manifesti sisältää lähde- ja konfiguraatiotiivisteet, lukitut työkaluversiot, artefaktien koot ja SHA-256-tiivisteet sekä keskeiset tietuemäärät. Myös PMTilesin `laji_key`-, tyyppi-, ajoitus- ja alatyyppikoodit avaava `filter-vocabulary.json` on manifestissa omana artefaktinaan ja konfiguraatiotiivisteenään, joten arkisto ja sitä tulkitseva sanasto voidaan julkaista yhtenä versiona.
+
+D1-rivimäärä luetaan manifestiin `feature-details-report.json`-raportista. Raportti sisältää jokaiselle 12 tasolle lähderivit, hyväksytyt geometriattomat poikkeukset ja tuotetut D1-rivit. Nykyisessä aineistossa lähderivejä on 268 965 ja D1-rivejä 268 964, koska yksi ennalta hyväksytty arkeologinen aluerivi on geometriaton.
+
+`pmtiles-d1-identity-report.json` varmistaa, että PMTiles-rakennussyötteen kaikki 268 964 `source-layer + fid` -avainta vastaavat D1-tuontia ja ettei zoomin 0 PMTilesissä ole D1:stä puuttuvaa tunnistetta. Zoomin 0 arkistossa on 268 905 tunnistetta: 59 RKY-viivaa yksinkertaistuu pois matalimmalta zoomilta mutta säilyy D1:ssä ja tarkemmilla zoomeilla. Pisteiden ja aluekeskipisteiden täydellisyys tarkistetaan erikseen PMTiles-validoinnissa.
 
 `source-data-baseline.json` on versionhallittu vertailutaso, ei päivittäisen rivimäärän lukko. Tyhjä tai puuttuva taso estää rakennuksen. Jokainen rivimäärämuutos kirjataan raporttiin ja yli 30 prosentin muutos merkitään varoitukseksi. Uudet laji-, tyyppi-, ajoitus- ja alatyyppiarvot merkitään varoituksiksi; lähtötasossa sallittu mutta kyseisen päivän aineistosta puuttuva arvo raportoidaan ilman varoitusta. Päivän lähderivien ja päivän tuotosten tarkka täsmäytys säilyy erillisenä julkaisun estävänä tarkistuksena.
 

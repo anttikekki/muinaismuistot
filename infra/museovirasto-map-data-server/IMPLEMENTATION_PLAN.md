@@ -160,7 +160,11 @@ Lineaarinen osajonohaku mitattiin paikallisesta 268 964 rivin D1-simulaatiosta v
 
 Rinnakkainen ID:tön `registry_id`-arkisto on rakennettu ja mitattu. Se oli 10,4 prosenttia fid-arkistoa suurempi, kasvatti koko Suomen Range-siirron 1 766 264 tavusta 2 123 282 tavuun ja poisti luotettavan tiilirajat ylittävän deduplikointiavaimen. Vaihtoehto hylättiin, ja perustelut sekä toistettava koe ovat tiedostossa [IDENTITY_MODEL_COMPARISON.md](IDENTITY_MODEL_COMPARISON.md).
 
-**Seuraava tehtävä:** viimeistele D1-ominaisuus- ja hakutaulun tuonti osaksi varsinaista rakennusputkea ja lisää muunnosten automaattiset yksikkö- sekä integraatiotestit.
+Rakennusputki laskee nyt D1:n 268 964 rivin kokonaismäärän ja 12 tasokohtaista määrää päivän aineistosta. PMTiles-rakennussyötteen kaikki `source-layer + fid` -avaimet verrataan D1-tuontiin, ja zoomin 0 arkistosta dekoodatuille 268 905 featurelle varmistetaan D1-rivi. Zoomin 0 ja D1:n 59 rivin ero koostuu matalalla zoomilla yksinkertaistuvista RKY-viivoista. Manifestissa ei ole enää kovakoodattua D1-rivimäärää.
+
+Muunnostestit kattavat numeerisen lajikoodin, moniarvoiset tyyppi- ja ajoitusmaskit, usean alatyypin koodauksen sekä tuntemattomien laji-, tyyppi-, ajoitus- ja alatyyppiarvojen aiheuttaman virheen. Pieni integraatiotesti rakentaa kahden featuren PMTiles-arkiston ja D1-tuonnin, tarkistaa yhteiset ID:t sekä saman rekisteritunnuksen kahden geometriarivin säilymisen.
+
+**Seuraava tehtävä:** lukitse vaiheen 2 julkaisu- ja versiopaketin nimeäminen sekä atomisen PMTiles/D1-julkaisun metatietosopimus ennen Cloudflare-vaihetta.
 
 ### Vaihe 2: Toistettava rakennusputki
 
@@ -170,8 +174,8 @@ Rinnakkainen ID:tön `registry_id`-arkisto on rakennettu ja mitattu. Se oli 10,4
 - [x] Vertaa kenttiä, tietuemääriä ja arvojoukkoja versionhallittuun lähtötasoon. Pakolliset kentät validoidaan kenttäsopimuksella ja puuttuva tai tyhjä taso estää julkaisun. Päivittäistä rivimäärää ei lukita: muutos kirjataan ja yli 30 prosenttia aiheuttaa varoituksen. Uusi laji-, tyyppi-, ajoitus- tai alatyyppiarvo aiheuttaa varoituksen mutta ei automaattista hylkäystä. `source-baseline-report.json` liitetään tiivisteineen rakennusmanifestiin.
 - [x] Käytä MVT-feature-ID:nä GeoPackagen `fid`-arvoa ja validoi sen kelvollisuus. Käytä sitä vain saman aineistojulkaisun kartta- ja D1-aineiston yhdistämiseen. ID:tön `registry_id`-ominaisuusmalli rakennettiin toistettavana vertailuna ja hylättiin suuremman arkiston, budjetin ylittävän Range-siirron sekä puuttuvan deduplikointiavaimen vuoksi.
 - [x] Lisää tiilien zoom-/yleistyssäännöt sekä tiilikoon tarkistus. `poc-layer-config.json` määrittää zoomit 0–14, alueiden keskipisteet zoomeille 0–9, polygonit zoomeille 10–14 sekä Tippecanoen säilytysasetukset. Rakennus estyy yli 75 000 000 tavun arkistosta, yli 1 500 000 tavun pakkaamattomasta zoomin 0 tiilestä tai väärästä zoomialueesta. Nykyinen tulos on 63 451 059 tavua ja 1 118 430 tavua. Selainbudjetit 8 Range-pyyntöä / 2 000 000 tavua tarkistetaan Chrome-ajossa.
-- Muodosta ominaisuus- ja hakutaulun tuontiaineisto kaikista lähderiveistä. Indeksoi `logicalLayerId + registryId` pysyviä linkkejä varten ja palauta kaikki saman rekisterikohteen geometriat yhdistämättä tai poistamatta niitä. Pidä skeema tarkoituksella suppeana.
-- Lisää yksikkö- ja integraatiotestit muunnoksille.
+- [x] Muodosta ominaisuus- ja hakutaulun tuontiaineisto kaikista geometriallisista lähderiveistä. Indeksoi `logicalLayerId + registryId` pysyviä linkkejä varten ja palauta kaikki saman rekisterikohteen geometriat yhdistämättä tai poistamatta niitä. Pidä skeema tarkoituksella suppeana. Laske rivimäärät rakennuskohtaisesti ja validoi yhteiset PMTiles/D1-tunnisteet.
+- [x] Lisää yksikkö- ja integraatiotestit muunnoksille. Testaa koodaukset, tuntemattomien arvojen hylkäys, PMTiles-feature-ID:t, D1-avaimet ja saman rekisteritunnuksen yksi-moneen-suhde pienellä testiaineistolla.
 
 **Tuotos:** paikallisesti ja CI:ssä samalla tavalla valmistuvat versionoidut artefaktit.
 
