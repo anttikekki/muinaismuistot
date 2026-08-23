@@ -5,14 +5,19 @@ import Feature, { FeatureLike } from "ol/Feature"
 import OLMap from "ol/Map"
 import View from "ol/View"
 import MVT from "ol/format/MVT"
+import Point from "ol/geom/Point"
+import VectorLayer from "ol/layer/Vector"
 import VectorTileLayer from "ol/layer/VectorTile"
 import { fromLonLat } from "ol/proj"
+import VectorSource from "ol/source/Vector"
 import Fill from "ol/style/Fill"
 import CircleStyle from "ol/style/Circle"
 import RegularShape from "ol/style/RegularShape"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
+import Text from "ol/style/Text"
 import { PMTilesVectorSource } from "ol-pmtiles"
+import { aggregationDisableThreshold, aggregationEnableThreshold, nextAggregationMode } from "./aggregation"
 import {
   archaeologicalDatings,
   archaeologicalTypes,
@@ -34,6 +39,7 @@ const styleByLogicalId = new Map<string, Style>()
 const selectedArchaeologicalTypes = new Set<string>(archaeologicalTypes)
 const selectedArchaeologicalDatings = new Set<string>(archaeologicalDatings)
 const startedAt = performance.now()
+const aggregateGridSize = 64
 let requestCount = 0
 let transferredBytes = 0
 let styleCallCount = 0
@@ -48,6 +54,18 @@ let renderFrameIntervals: number[] = []
 let inputToRenderLatencies: number[] = []
 let archaeologicalSubtype = ""
 let activeArchaeologicalFilter = compileArchaeologicalFilter(selectedArchaeologicalTypes, selectedArchaeologicalDatings, archaeologicalSubtype)
+let aggregationMode = true
+let aggregateBelow = aggregationDisableThreshold
+let aggregateAbove = aggregationEnableThreshold
+let pendingTileLoads = 0
+let tileRevision = 0
+let tileLoadSeen = false
+let initialDataReady = false
+let presentationUpdateScheduled = false
+let presentationUpdateAfterMovement = false
+let presentationSignature = ""
+let presentationInputSignature = ""
+let initialDataCandidateSignature: string | undefined
 
 const nativeFetch = globalThis.fetch.bind(globalThis)
 globalThis.fetch = async (input, init) => {
@@ -73,10 +91,13 @@ const vectorLayer = new VectorTileLayer({
   source,
   style: styleFeature,
 })
+const aggregateSource = new VectorSource<Feature<Point>>()
+const aggregateStyleCache = new Map<string, Style>()
+const aggregateLayer = new VectorLayer({ source: aggregateSource, style: styleAggregate })
 
 const map = new OLMap({
   target: "map",
-  layers: [vectorLayer],
+  layers: [vectorLayer, aggregateLayer],
   view: new View({
     center: fromLonLat([25.2, 64.5]),
     zoom: 5,
@@ -85,11 +106,14 @@ const map = new OLMap({
   }),
 })
 
-let firstRenderRecorded = false
-map.once("rendercomplete", () => {
-  firstRenderRecorded = true
-  setText("render-time", `${Math.round(performance.now() - startedAt)} ms`)
-  updateStyleCallCount()
+source.on("tileloadstart", () => {
+  tileLoadSeen = true
+  pendingTileLoads += 1
+})
+source.on(["tileloadend", "tileloaderror"], () => {
+  pendingTileLoads = Math.max(0, pendingTileLoads - 1)
+  tileRevision += 1
+  schedulePresentationUpdate()
 })
 map.getView().on("change:resolution", updateDiagnostics)
 map.on("movestart", () => {
@@ -118,8 +142,11 @@ map.on("postrender", () => {
   }
   lastRenderFrameAt = renderedAt
 })
-map.on("rendercomplete", updateStyleCallCount)
-map.on("rendercomplete", finishMovementMeasurement)
+map.on("rendercomplete", () => {
+  updateStyleCallCount()
+  finishMovementMeasurement()
+  schedulePresentationUpdate()
+})
 
 const mapViewport = map.getViewport()
 const recordInput = (): void => {
@@ -131,7 +158,7 @@ mapViewport.addEventListener("wheel", recordInput, { passive: true })
 
 map.on("singleclick", (event) => {
   const hit = map.forEachFeatureAtPixel(event.pixel, (feature) => feature, {
-    layerFilter: (layer) => layer === vectorLayer,
+    layerFilter: (layer) => layer === vectorLayer || layer === aggregateLayer,
     hitTolerance: 5,
   })
   const properties = hit instanceof Feature ? hit.getProperties() : hit?.getProperties()
@@ -183,12 +210,20 @@ function setAll(visible: boolean, render = true): void {
 
 function styleFeature(feature: FeatureLike): Style | undefined {
   styleCallCount += 1
+  const logicalId = activeLogicalId(feature)
+  if (!logicalId) return undefined
+  const sourceLayer = String(feature.get("layer") ?? "")
+  if (aggregationMode && sourceLayer.endsWith("_points")) return undefined
+  visibleStyleCallCount += 1
+  return styleByLogicalId.get(logicalId)
+}
+
+function activeLogicalId(feature: FeatureLike): string | undefined {
   const sourceLayer = String(feature.get("layer") ?? "")
   const filtered = filteredLogicalIdsBySource.get(sourceLayer)
   const logicalId = filtered
     ? filtered.idsByValue.get(String(feature.get(filtered.field) ?? ""))
     : unfilteredLogicalIdBySource.get(sourceLayer)
-
   if (!logicalId || !enabled.has(logicalId)) return undefined
   if (
     sourceLayer === "archaeological_points" &&
@@ -200,11 +235,8 @@ function styleFeature(feature: FeatureLike): Style | undefined {
       },
       activeArchaeologicalFilter,
     )
-  ) {
-    return undefined
-  }
-  visibleStyleCallCount += 1
-  return styleByLogicalId.get(logicalId)
+  ) return undefined
+  return logicalId
 }
 
 function configureStyleLookups(layers: LogicalLayer[]): void {
@@ -283,7 +315,174 @@ function updateDiagnostics(): void {
   setText("request-count", String(requestCount))
   setText("transfer-bytes", new Intl.NumberFormat("fi-FI").format(transferredBytes))
   setText("zoom", (map.getView().getZoom() ?? 0).toFixed(2))
-  if (!firstRenderRecorded) setText("render-time", "Ladataan…")
+  if (!initialDataReady) setText("data-ready-time", "Ladataan…")
+}
+
+function schedulePresentationUpdate(): void {
+  if (movementStartedAt !== undefined && movementEndedAt === undefined) {
+    presentationUpdateAfterMovement = true
+    return
+  }
+  if (presentationUpdateScheduled) return
+  presentationUpdateScheduled = true
+  requestAnimationFrame(() => {
+    presentationUpdateScheduled = false
+    updatePresentation()
+  })
+}
+
+function updatePresentation(): void {
+  if (!logicalLayers.length) return
+  const center = map.getView().getCenter() ?? [0, 0]
+  const inputSignature = [
+    tileRevision,
+    (map.getView().getResolution() ?? 0).toPrecision(8),
+    center[0].toFixed(1),
+    center[1].toFixed(1),
+    [...enabled].sort().join(","),
+    activeArchaeologicalFilter.typeMask,
+    activeArchaeologicalFilter.datingMask,
+    activeArchaeologicalFilter.subtypeCodes ? [...activeArchaeologicalFilter.subtypeCodes].join(".") : "all",
+    aggregateBelow,
+    aggregateAbove,
+  ].join("|")
+  if (inputSignature === presentationInputSignature) {
+    markInitialDataReady(presentationSignature)
+    return
+  }
+  const extent = map.getView().calculateExtent(map.getSize())
+  const loaded = vectorLayer.getFeaturesInExtent(extent)
+  const unique = new Map<string, FeatureLike>()
+  loaded.forEach((feature, index) => {
+    const sourceLayer = String(feature.get("layer") ?? "")
+    const id = feature.getId()
+    const geometry = feature.getGeometry()
+    const fallback = geometry ? geometry.getExtent().join(",") : String(index)
+    unique.set(`${sourceLayer}:${id ?? fallback}`, feature)
+  })
+
+  const activePoints: Array<{ feature: FeatureLike; logicalId: string }> = []
+  for (const feature of unique.values()) {
+    const sourceLayer = String(feature.get("layer") ?? "")
+    if (!sourceLayer.endsWith("_points")) continue
+    const logicalId = activeLogicalId(feature)
+    if (logicalId) activePoints.push({ feature, logicalId })
+  }
+
+  const nextMode = nextAggregationMode(aggregationMode, activePoints.length, aggregateBelow, aggregateAbove)
+  const signature = [
+    nextMode ? "aggregate" : "individual",
+    activePoints.length,
+    (map.getView().getResolution() ?? 0).toPrecision(8),
+    center[0].toFixed(1),
+    center[1].toFixed(1),
+    [...enabled].sort().join(","),
+    activeArchaeologicalFilter.typeMask,
+    activeArchaeologicalFilter.datingMask,
+    activeArchaeologicalFilter.subtypeCodes ? [...activeArchaeologicalFilter.subtypeCodes].join(".") : "all",
+  ].join("|")
+
+  setText("loaded-feature-count", formatCount(unique.size))
+  setText("active-point-count", formatCount(activePoints.length))
+  setText("presentation-mode", nextMode ? "Aggregoitu" : "Yksittäiset kohteet")
+  setText("individual-point-count", nextMode ? "0" : formatCount(activePoints.length))
+
+  if (signature === presentationSignature) {
+    presentationInputSignature = inputSignature
+    markInitialDataReady(signature)
+    return
+  }
+
+  const modeChanged = aggregationMode !== nextMode
+  aggregationMode = nextMode
+  presentationSignature = signature
+  presentationInputSignature = inputSignature
+  if (aggregationMode) rebuildAggregates(activePoints)
+  else aggregateSource.clear(true)
+  setText("aggregate-count", aggregationMode ? formatCount(aggregateSource.getFeatures().length) : "0")
+  if (modeChanged) vectorLayer.changed()
+  markInitialDataReady(signature)
+}
+
+function markInitialDataReady(signature: string): void {
+  if (initialDataReady || !tileLoadSeen || pendingTileLoads !== 0) return
+  if (initialDataCandidateSignature !== signature) {
+    initialDataCandidateSignature = signature
+    map.render()
+    return
+  }
+  initialDataReady = true
+  setText("data-ready-time", formatMilliseconds(performance.now() - startedAt))
+}
+
+function rebuildAggregates(activePoints: Array<{ feature: FeatureLike; logicalId: string }>): void {
+  const groups = new Map<string, { count: number; x: number; y: number; logicalCounts: Map<string, number> }>()
+  for (const { feature, logicalId } of activePoints) {
+    const geometry = feature.getGeometry()
+    if (!geometry) continue
+    const featureExtent = geometry.getExtent()
+    const coordinate = [(featureExtent[0] + featureExtent[2]) / 2, (featureExtent[1] + featureExtent[3]) / 2]
+    const pixel = map.getPixelFromCoordinate(coordinate)
+    const cellX = Math.floor(pixel[0] / aggregateGridSize)
+    const cellY = Math.floor(pixel[1] / aggregateGridSize)
+    const key = `${cellX}:${cellY}`
+    const group = groups.get(key)
+    if (group) {
+      group.count += 1
+      group.x += coordinate[0]
+      group.y += coordinate[1]
+      group.logicalCounts.set(logicalId, (group.logicalCounts.get(logicalId) ?? 0) + 1)
+    } else groups.set(key, { count: 1, x: coordinate[0], y: coordinate[1], logicalCounts: new Map([[logicalId, 1]]) })
+  }
+
+  const aggregates = [...groups.entries()].map(([id, group]) => {
+    const dominantLogicalId = [...group.logicalCounts].reduce((dominant, current) =>
+      current[1] > dominant[1] ? current : dominant,
+    )[0]
+    const feature = new Feature({
+      geometry: new Point([group.x / group.count, group.y / group.count]),
+      count: group.count,
+      logicalId: dominantLogicalId,
+      logicalLayerCount: group.logicalCounts.size,
+      presentation: "aggregate",
+    })
+    feature.setId(id)
+    return feature
+  })
+  aggregateSource.clear(true)
+  aggregateSource.addFeatures(aggregates)
+}
+
+function styleAggregate(feature: FeatureLike): Style {
+  const logicalId = String(feature.get("logicalId") ?? "")
+  const count = Number(feature.get("count") ?? 1)
+  const cacheKey = `${logicalId}:${count}`
+  const cached = aggregateStyleCache.get(cacheKey)
+  if (cached) return cached
+  const radius = Math.min(18, 5 + Math.log2(Math.max(1, count)) * 1.4)
+  const style = new Style({
+    image: new CircleStyle({
+      radius,
+      fill: new Fill({ color: withAlpha(colorFor(logicalId), 0.82) }),
+      stroke: new Stroke({ color: "#161616", width: 1.5 }),
+    }),
+    text: new Text({
+      text: count > 1 ? formatCompactCount(count) : "",
+      fill: new Fill({ color: "#fff" }),
+      stroke: new Stroke({ color: "#161616", width: 2 }),
+      font: "bold 10px sans-serif",
+    }),
+  })
+  aggregateStyleCache.set(cacheKey, style)
+  return style
+}
+
+function formatCount(value: number): string {
+  return new Intl.NumberFormat("fi-FI").format(value)
+}
+
+function formatCompactCount(value: number): string {
+  return new Intl.NumberFormat("fi-FI", { notation: "compact", maximumFractionDigits: 1 }).format(value)
 }
 
 function updateStyleCallCount(): void {
@@ -306,6 +505,10 @@ function finishMovementMeasurement(): void {
 
   movementStartedAt = undefined
   movementEndedAt = undefined
+  if (presentationUpdateAfterMovement) {
+    presentationUpdateAfterMovement = false
+    schedulePresentationUpdate()
+  }
 }
 
 function formatMilliseconds(value: number): string {
@@ -396,7 +599,29 @@ function refreshArchaeologicalFilter(): void {
   activeArchaeologicalFilter = compileArchaeologicalFilter(selectedArchaeologicalTypes, selectedArchaeologicalDatings, archaeologicalSubtype)
 }
 
+function configureAggregationThresholds(): void {
+  const below = document.querySelector<HTMLInputElement>("#aggregate-below")
+  const above = document.querySelector<HTMLInputElement>("#aggregate-above")
+  const update = (): void => {
+    const nextBelow = Number(below?.value)
+    const nextAbove = Number(above?.value)
+    if (!Number.isSafeInteger(nextBelow) || !Number.isSafeInteger(nextAbove) || nextBelow < 0 || nextBelow >= nextAbove) {
+      setText("aggregation-threshold-error", "Poistorajan pitää olla aktivointirajaa pienempi.")
+      return
+    }
+    setText("aggregation-threshold-error", "")
+    aggregateBelow = nextBelow
+    aggregateAbove = nextAbove
+    presentationSignature = ""
+    presentationInputSignature = ""
+    schedulePresentationUpdate()
+  }
+  below?.addEventListener("change", update)
+  above?.addEventListener("change", update)
+}
+
 configureArchaeologicalFilters()
+configureAggregationThresholds()
 document.querySelector("#types-all")?.addEventListener("click", () =>
   setFilterSelection("archaeological-types", selectedArchaeologicalTypes, true),
 )

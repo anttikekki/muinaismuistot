@@ -36,6 +36,19 @@
             <input id="archaeological-subtype" type="search" placeholder="esim. hautaröykkiöt" />
           </label>
         </details>
+        <details>
+          <summary>Aggregoinnin PoC-asetukset</summary>
+          <p class="hint">Aggregointi aktivoituu ylemmän rajan ylittyessä ja poistuu käytöstä vasta alemman rajan alittuessa.</p>
+          <label class="subtype-filter">
+            Pois alle
+            <input id="aggregate-below" type="number" min="0" step="1000" value="20000" />
+          </label>
+          <label class="subtype-filter">
+            Päälle yli
+            <input id="aggregate-above" type="number" min="1" step="1000" value="40000" />
+          </label>
+          <p id="aggregation-threshold-error" class="hint" role="status"></p>
+        </details>
         <fieldset>
           <legend>Loogiset tasot</legend>
           <div id="layer-controls">Ladataan…</div>
@@ -45,7 +58,12 @@
           <dl>
             <dt>PMTiles-pyynnöt</dt><dd id="request-count">0</dd>
             <dt>Siirretyt tavut</dt><dd id="transfer-bytes">0</dd>
-            <dt>Ensimmäinen renderöinti</dt><dd id="render-time">–</dd>
+            <dt>Aloitusnäkymän data valmis</dt><dd id="data-ready-time">–</dd>
+            <dt>Ladatut featuret</dt><dd id="loaded-feature-count">0</dd>
+            <dt>Aktiiviset pisteet</dt><dd id="active-point-count">0</dd>
+            <dt>Piirrettävät yksittäiset pisteet</dt><dd id="individual-point-count">0</dd>
+            <dt>Aggregaattimerkit</dt><dd id="aggregate-count">0</dd>
+            <dt>Esitystapa</dt><dd id="presentation-mode">Ladataan…</dd>
             <dt>Uudelleentyylittelykutsut</dt><dd id="style-call-count">0</dd>
             <dt>Näkyvät uudelleentyylittelyt</dt><dd id="visible-style-call-count">0</dd>
             <dt>Liikkeen loppu → valmis</dt><dd id="settle-time">–</dd>

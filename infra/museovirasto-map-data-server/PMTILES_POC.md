@@ -121,3 +121,34 @@ Pyyntömäärä pysyi tavoitteiden mukaisesti samana, mutta siirto pieneni noin 
 Suodattamattomassa aloitusnäkymässä OpenLayers käsitteli 227 013 näkyvää featurea. Loppunäkymän valmistuminen vei 618 ms, renderöintikierroksia syntyi 4,9/s ja p95-ruutuväli oli 529 ms. Seuraavassa karttaliikkeessä OpenLayers käytti välimuistittuja renderöintiohjeita: uudelleentyylittelykutsuja ei tullut, loppunäkymä valmistui 3 ms:ssa, renderöintikierroksia syntyi 5,7/s ja p95-ruutuväli oli 262 ms. Verkkosiirto ei siis enää ole tämän pahimman tapauksen pullonkaula; kuorma syntyy yli 200 000 vektorifeaturen piirto-ohjeiden luonnista ja compositoinnista.
 
 Diagnostiikan 7 ms:n `Ensimmäinen renderöinti` ei kuvaa aineiston valmistumista, koska OpenLayers voi lähettää ensimmäisen `rendercomplete`-tapahtuman ennen PMTiles-tiilien purkua ja tyylittelyä. Aloitusnäkymän vertailukelpoinen luku on tässä mittauksessa 618 ms:n liikkeen loppu → valmis -mittaus. Diagnostiikassa tämä ensirenderöintimittari pitää seuraavaksi nimetä tai korvata datan valmistumisen mittarilla.
+
+## Dynaamisen aggregoinnin ensimmäinen PoC
+
+PoC:ssa on nyt pistetasoille aktiivisen taso- ja suodatusvalinnan jälkeen tehtävä selainpuolinen ruudukkoaggregointi. OpenLayers voi palauttaa saman MVT-featuren leikattuna tai monistettuna useasta tiilestä, joten näkymän laskenta deduplikoi featuret yhdistelmällä `source-layer + MVT feature ID`. Näin hystereesi perustuu yksilöllisiin kohteisiin eikä tiilikopioihin.
+
+Aggregointi on aluksi optimistisesti käytössä, jotta suodattamatonta yli 200 000 featuren aineistoa ei tarvitse ensin piirtää vain määrän selvittämiseksi. Ladattujen tiilien valmistuttua selain:
+
+1. rajaa featuret nykyiseen karttanäkymään;
+2. soveltaa loogiset tasovalinnat ja arkeologisten pisteiden tyyppi-, alatyyppi- ja ajoitussuodattimet;
+3. laskee aktiiviset yksilölliset pisteet;
+4. valitsee yksittäisen tai aggregoidun esityksen 20 000/40 000 kohteen hystereesillä;
+5. ryhmittelee aggregoidussa tilassa pisteet 64 pikselin ruudukkoon siten, että yhteen soluun syntyy vain yksi kokonaismäärän näyttävä symboli; väri tulee solun yleisimmästä loogisesta tasosta.
+
+Kynnysarvot ovat säädettävissä PoC-sivulta ilman koodimuutosta. Polygonit ja viivat piirretään tässä versiossa aina sellaisinaan. Diagnostiikka näyttää ladatut featuret, aktiiviset pisteet, yksittäisinä piirrettävät pisteet, aggregaattimerkit ja valitun esitystavan.
+
+Aikaisempi `Ensimmäinen renderöinti` on korvattu `Aloitusnäkymän data valmis` -mittarilla. Se odottaa näkymän tiililatausten päättymistä, esitystavan laskentaa ja saman esitystilan seuraavaa renderöintikierrosta. Ratkaisu on PoC-mittari; mahdolliset myöhemmin käynnistyvät taustakartta- ja muiden lähteiden pyynnöt pitää tuotantomittauksessa yhdistää samaan valmistumisehtoon.
+
+Ensimmäinen 48 pikselin toteutus muodosti ruudukon erikseen jokaiselle loogiselle tasolle. Koko Suomen näkymään syntyi 549 päällekkäistä aggregaattimerkkiä, joten tulos oli visuaalisesti sekava. Lisäksi ruudukko laskettiin uudelleen kartan liikkeen aikaisissa `rendercomplete`-tapahtumissa, mikä kävi yli 160 000 ladattua featurea läpi toistuvasti ja teki liikkeestä lähes tarkan piste-esityksen veroisen. Korjattu versio käyttää yhtä merkkiä ruutua kohti, pienempiä symboleita ja jättää yksittäisen kohteen lukutekstin pois. Koko näkymän featurejoukko käydään läpi vain, kun tiilisisältö, näkymä, tasovalinta, suodatin tai aggregointiraja muuttuu, ja karttaliikkeen ruudukko päivitetään vasta liikkeen päätyttyä.
+
+Korjatun version manuaalinen koko Suomen testi hyväksyttiin sekä visuaalisesti että suorituskyvyltään. Näkymässä oli 162 131 deduplikoitua ladattua featurea ja 133 070 aktiivista pistettä. Selain muodosti niistä 48 aggregaattimerkkiä. Karttaliikkeen aikana OpenLayers käytti välimuistittuja renderöintiohjeita, joten uudelleentyylittelykutsuja ei syntynyt. Zoomilla 5,22 mitattiin:
+
+| Mittari | Korjattu aggregointi |
+| --- | ---: |
+| aktiiviset pisteet | 133 070 |
+| aggregaattimerkit | 48 |
+| liikkeen loppu → valmis | 1 ms |
+| renderöintikierroksia | 64,8/s |
+| p95-ruutuväli | 56 ms |
+| p95-syöte → renderöinti | 4 ms |
+
+P95-ruutuväli osoittaa, ettei jokainen liikkeen jakso ole täysin tasainen, mutta syöteviive, loppunäkymän valmistuminen ja käyttäjän kokema nopeus ovat tällä testikoneella PoC:lle riittävät. Kuvallinen tarkistus osoitti valtakunnallisen jakauman säilyvän luettavana. Aggregaattisymboli ei kuitenkaan vielä kerro solun eri tasojen koostumusta; väri näyttää vain yleisimmän loogisen tason. Mahdollinen koostumuksen näyttö kuuluu myöhempään käyttöliittymähiomiseen, ei arkkitehtuurin hyväksymiskriteeriin.
