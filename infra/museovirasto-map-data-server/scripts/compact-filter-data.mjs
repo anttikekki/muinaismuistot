@@ -93,13 +93,17 @@ function sqlString(value) {
   return value === null || value === undefined ? "NULL" : `'${String(value).replaceAll("'", "''")}'`
 }
 
+function normalizeSearchText(value) {
+  return String(value ?? "").normalize("NFC").toLocaleLowerCase("fi").trim()
+}
+
 async function details([mappingPath, layerId]) {
   const mapping = JSON.parse(await readFile(mappingPath, "utf8"))
   const logicalLayers = mapping.logicalLayers.filter((layer) => layer.sourceLayer === layerId)
   let values = []
   const flush = () => {
     if (!values.length) return
-    process.stdout.write(`INSERT INTO feature_details (source_layer, feature_id, logical_layer_id, registry_id, name, municipality, properties_json) VALUES\n${values.join(",\n")};\n`)
+    process.stdout.write(`INSERT INTO feature_details (source_layer, feature_id, logical_layer_id, registry_id, name, search_name, municipality, properties_json) VALUES\n${values.join(",\n")};\n`)
     values = []
   }
   const input = createInterface({ input: process.stdin, crlfDelay: Infinity })
@@ -112,7 +116,7 @@ async function details([mappingPath, layerId]) {
     const extra = Object.fromEntries(Object.entries(source).filter(([key]) =>
       !["gpkg_fid", "source_fid", "registry_id", "name", "municipality"].includes(key),
     ))
-    values.push(`(${sqlString(layerId)}, ${id}, ${sqlString(logical.id)}, ${sqlString(source.registry_id)}, ${sqlString(source.name)}, ${sqlString(source.municipality)}, ${sqlString(JSON.stringify(extra))})`)
+    values.push(`(${sqlString(layerId)}, ${id}, ${sqlString(logical.id)}, ${sqlString(source.registry_id)}, ${sqlString(source.name)}, ${sqlString(normalizeSearchText(source.name))}, ${sqlString(source.municipality)}, ${sqlString(JSON.stringify(extra))})`)
     if (values.length === 50) flush()
   }
   flush()

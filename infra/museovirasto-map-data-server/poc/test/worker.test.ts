@@ -20,7 +20,7 @@ beforeEach(async () => {
   await env.MAP_DATA.put(KEY, BODY, {
     httpMetadata: { contentType: "application/vnd.pmtiles" },
   })
-  await env.MAP_FEATURES.prepare("CREATE TABLE IF NOT EXISTS feature_details (source_layer TEXT NOT NULL, feature_id INTEGER NOT NULL, logical_layer_id TEXT NOT NULL, registry_id TEXT, name TEXT, municipality TEXT, properties_json TEXT NOT NULL DEFAULT '{}', PRIMARY KEY (source_layer, feature_id)) WITHOUT ROWID").run()
+  await env.MAP_FEATURES.prepare("CREATE TABLE IF NOT EXISTS feature_details (source_layer TEXT NOT NULL, feature_id INTEGER NOT NULL, logical_layer_id TEXT NOT NULL, registry_id TEXT, name TEXT, search_name TEXT NOT NULL DEFAULT '', municipality TEXT, properties_json TEXT NOT NULL DEFAULT '{}', PRIMARY KEY (source_layer, feature_id)) WITHOUT ROWID").run()
   await env.MAP_FEATURES.prepare("DELETE FROM feature_details").run()
 })
 
@@ -174,5 +174,47 @@ describe("PMTiles byte range Worker", () => {
       body: JSON.stringify({ features: [{ logicalLayerId: "invalid", registryId: "100" }] }),
     }))
     expect(response.status).toBe(400)
+  })
+
+  it("searches names case-insensitively with Finnish characters and groups geometry rows", async () => {
+    const insert = env.MAP_FEATURES.prepare(`
+      INSERT INTO feature_details
+        (source_layer, feature_id, logical_layer_id, registry_id, name, search_name, municipality, properties_json)
+      VALUES (?, ?, ?, ?, ?, ?, ?, '{}')
+    `)
+    await env.MAP_FEATURES.batch([
+      insert.bind("archaeological_areas", 20, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Pyhän Katariinan röykkiö", "pyhän katariinan röykkiö", "Turku"),
+      insert.bind("archaeological_areas", 21, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Pyhän Katariinan röykkiö", "pyhän katariinan röykkiö", "Turku"),
+      insert.bind("rky_points", 22, "rajapinta_suojellut:rky_piste", "200", "Vanha kirkko", "vanha kirkko", "Helsinki"),
+    ])
+
+    const response = await exports.default.fetch(new Request("https://example.test/api/search?q=PYHÄN"))
+    const body = await response.json() as { results: Array<{ registryId: string; geometryCount: number }>; truncated: boolean }
+    expect(response.status).toBe(200)
+    expect(response.headers.get("Cache-Control")).toBe("public, max-age=60")
+    expect(body.results).toEqual([expect.objectContaining({ registryId: "100", geometryCount: 2 })])
+    expect(body.truncated).toBe(false)
+  })
+
+  it("searches partial registry IDs and treats LIKE wildcards literally", async () => {
+    await env.MAP_FEATURES.prepare(`
+      INSERT INTO feature_details
+        (source_layer, feature_id, logical_layer_id, registry_id, name, search_name, municipality)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `).bind("rky_points", 30, "rajapinta_suojellut:rky_piste", "ABC_123%", "Kohde", "kohde", "Turku").run()
+
+    const registry = await exports.default.fetch(new Request("https://example.test/api/search?q=123"))
+    expect((await registry.json() as { results: unknown[] }).results).toHaveLength(1)
+    const wildcard = await exports.default.fetch(new Request("https://example.test/api/search?q=C_1"))
+    expect((await wildcard.json() as { results: unknown[] }).results).toHaveLength(1)
+  })
+
+  it("rejects search terms shorter than three characters and unsupported methods", async () => {
+    for (const query of ["", "a", "ää", "  ab  "]) {
+      const response = await exports.default.fetch(new Request(`https://example.test/api/search?q=${encodeURIComponent(query)}`))
+      expect(response.status).toBe(400)
+    }
+    const post = await exports.default.fetch(new Request("https://example.test/api/search?q=turku", { method: "POST" }))
+    expect(post.status).toBe(405)
   })
 })

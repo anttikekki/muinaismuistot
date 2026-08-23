@@ -59,6 +59,8 @@ Karttaklikkaus kerää enintään 100 näkyvien tasojen päällekkäistä MVT-fe
 
 MVT:n `featureId` on GeoPackagen `fid`, jota käytetään vain saman aineistojulkaisun sisällä. Pysyviä URL-linkkejä varten Worker tarjoaa `POST /api/features/by-register` -massahaun. Sen viitteet ovat `{logicalLayerId, registryId}`-pareja, ja vastaus sisältää kaikki uusimmasta D1-aineistosta löytyvät rivit. Lähderivejä ei deduplikoida.
 
+Yksinkertainen sanahaku on `GET /api/search?q=...`. Hakuehdon pitää olla 3–100 merkkiä. Haku toimii nimien kirjainkoosta riippumattomalla osajonolla ja rekisteritunnuksen osalla, palauttaa enintään 50 rekisterikohdetta ja ilmoittaa `truncated`-lipulla tulosrajan ylittymisestä. Vastauksella on 60 sekunnin julkinen välimuistiotsake.
+
 Vitest-alustus kirjoittaa jokaiseen testiin pienen deterministisen R2-objektin. Testit kattavat täsmällisen, avoimen ja suffix-tavuvälin, loppupään rajauksen, virheelliset ja moniosaiset ranget, puuttuvan rangen, `HEAD`-, `OPTIONS`- ja virheelliset metodit, puuttuvan objektin sekä 26 loogisen tason API-vastauksen.
 
 ## Rajaukset

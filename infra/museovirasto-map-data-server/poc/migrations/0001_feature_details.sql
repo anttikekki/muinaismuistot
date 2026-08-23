@@ -9,5 +9,4 @@ CREATE TABLE feature_details (
   PRIMARY KEY (source_layer, feature_id)
 ) WITHOUT ROWID;
 
-CREATE INDEX feature_details_name ON feature_details(name);
 CREATE INDEX feature_details_registry ON feature_details(logical_layer_id, registry_id);

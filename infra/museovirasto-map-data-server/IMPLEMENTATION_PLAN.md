@@ -125,7 +125,7 @@ Nykyisen WMS-ratkaisun kevyt suorituskyvyn lähtötaso on tiedostossa [CURRENT_M
 - [x] Tallenna arkisto Wranglerin paikallisesti simuloimaan R2-bucketiin. Toteuta ja testaa Worker, joka validoi selaimen yhden byte range -pyynnön, lukee vain sovitun välin R2-bindingista ja palauttaa standardinmukaisen `206 Partial Content` -vastauksen. PoC ei oleta 206-vastausten välimuistittuvan; oikea staging-R2 siirretään Cloudflare-vaiheeseen.
 - [x] Toteuta 26 loogisen tasovalinnan näyttäminen ja piilottaminen yhden OpenLayers `PMTilesVectorSource` -olion `source-layer`- ja `laji_key`-tyylisuodattimilla. Valinnat eivät luo uusia PMTiles-lähteitä tai muuta tiili-URL:ia.
 - [x] Mittaa paikallisen irrallisen PoC:n kylmä lataus koko Suomen, suodatetun koko Suomen, kaupunki- ja lähitason näkymissä. Toistettava Chrome-ajuri mittaa PMTiles-pyynnöt ja -tavut, datan valmistumisajan, featuremäärät, esitystavan ja JS-heapin. Koko tuotantosivun mobiilimittaus taustakarttoineen ja muiden lähteiden tasoineen siirtyy vaiheeseen 4, koska niitä ei tarkoituksella ole irrallisessa PoC:ssa.
-- Tuo D1:een suppea hakutaulu ja toteuta Workeriin yksinkertainen osajonohaku. Varmista ääkkösten, kirjainkoon, osittaisten hakujen, välimuistin ja tulosrajan toiminta.
+- [x] Tuo D1:een suppea hakutaulu ja toteuta Workeriin yksinkertainen osajonohaku. `GET /api/search` vaatii 3–100 merkkiä, hakee normalisoidusta nimestä ja rekisteritunnuksesta, ryhmittelee `logicalLayerId + registryId` -avaimella, rajaa vastauksen 50 tulokseen ja palauttaa 60 sekunnin välimuistiotsakkeen. Testit kattavat ääkköset, kirjainkoon, osittaiset haut, LIKE-jokerien käsittelyn, tulosrajan ja liian lyhyet haut.
 - Vahvista yhden PMTiles-arkiston suorituskykybudjetit ja kirjaa D1:n lineaarisen haun mitattu vasteaika vertailutiedoksi.
 
 **Tuotos:** selaimessa toimiva kokeilu ja mitattu arkkitehtuuripäätös.
@@ -154,7 +154,9 @@ Uudelleen rakennettu paikallinen D1 sisältää 268 964 ominaisuusriviä kaikilt
 
 Paikallinen kylmän Chromen mittaus on dokumentoitu tiedostossa [POC_BROWSER_PERFORMANCE.md](POC_BROWSER_PERFORMANCE.md). Koko Suomen suodattamaton näkymä valmistui 383 ms:ssa kuudella Range-pyynnöllä ja 1 766 264 siirretyllä PMTiles-tavulla; 158 671 aktiivista pistettä esitettiin 19 aggregaattina. Kaupunkitaso valmistui 125 ms:ssa ja lähitaso 87 ms:ssa. Suodatettu pronssikautisten hautaröykkiöiden näkymä piirsi näkyvän selainrajauksen 331 osumaa yksittäisinä kohteina; koko aineiston tunnettu tulosjoukko on edelleen 1 467.
 
-**Seuraava tehtävä:** toteuta samaan D1-aineistoon yksinkertainen nimihaku ja mittaa lineaarisen osajonohaun vasteaika.
+Lineaarinen osajonohaku mitattiin paikallisesta 268 964 rivin D1-simulaatiosta viidellä peräkkäisellä pyynnöllä. Ensimmäinen kylmä `turku`-haku vei 199 ms ja seuraavat noin 55–58 ms. Lämmitetyt `röykkiö`- ja `kirkko`-haut vastasivat noin 56–61 ms:ssa, tulokseton haku noin 51–55 ms:ssa ja yleinen rekisteritunnushaku noin 72–76 ms:ssa. `turku` palautti 11 ryhmiteltyä tulosta; yleiset haut saavuttivat 50 tuloksen rajan. Tulos vahvistaa, ettei harvoin käytetty PoC-haku tarvitse vielä FTS-ratkaisua.
+
+**Seuraava tehtävä:** vahvista vaiheen 1 suorituskykybudjetit ja arkkitehtuuripäätös koottujen PMTiles-, selain- ja D1-mittausten perusteella.
 
 ### Vaihe 2: Toistettava rakennusputki
 

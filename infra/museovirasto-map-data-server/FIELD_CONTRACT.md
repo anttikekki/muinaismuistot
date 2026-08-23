@@ -83,14 +83,12 @@ Arkeologisten kiinteiden muinaisjäännösten alue jätetään nykyisestä haust
 
 Uuden `/api/search`-vastauksen vähimmäiskentät ovat:
 
-- `datasetVersion`, jotta hakutulos voidaan yhdistää samaan karttaversioon;
-- `registry`, `registryId` ja sisäinen `featureKey`;
+- `registryId`;
 - `logicalLayerId` ja `sourceLayer`;
 - `name` sekä tarvittaessa `municipality`;
-- `center` tai `bbox` kartalle siirtymistä varten;
-- `availableGeometryTypes`, jotta saman rekisterikohteen piste- ja alue-esitykset voidaan esittää yhtenä tuloksena.
+- `geometryCount`, joka kertoo hakuehtoon osuneiden, samaan loogiseen tasoon ja rekisteritunnukseen kuuluvien lähderivien määrän. Kohdetta avattaessa rekisteritunnushaku palauttaa kaikki sen nykyiset geometriarivit.
 
-Hakuteksti käsitellään kokonaan tekstinä, ellei se vastaa kokonaisuudessaan sallittua numeerista tunnistemuotoa. Käyttäjän tekstiä ei liitetä SQL- tai CQL-lauseeseen. Haku deduplikoidaan tunnisteanalyysissä määritetyllä rekisteriavaimella.
+`GET /api/search?q=...` hyväksyy 3–100 Unicode-merkkiä. Haku kohdistuu kirjainkoosta riippumattomasti NFC-normalisoituun nimeen sekä osittain rekisteritunnukseen. Käyttäjän teksti välitetään vain parametrina, ja SQL `LIKE` -jokerimerkit käsitellään kirjaimellisina. Vastaus sisältää enintään 50 yhdistelmällä `logicalLayerId + registryId` ryhmiteltyä tulosta sekä `truncated`-lipun. Haku palauttaa aina nykyisen D1-aineiston eikä käytä aineistoversiota.
 
 ## Klikkauksen ja käyttöliittymän kentät
 
