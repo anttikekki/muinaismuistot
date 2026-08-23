@@ -16,7 +16,7 @@ Nykyinen sopimus ei ole eksplisiittinen rajapintaskeema. Se muodostuu `Museovira
 | Tyyppi- ja ajoitussuodatus | WMS `CQL_FILTER` | vain kahdeksan arkeologisen pistetason `tyyppi`- ja `ajoitus`-kentät |
 | Kohdepaneeli | klikkauksen tai haun täydet GeoJSON-kohteet | nimi-, tunniste-, luokittelu-, kunta- ja linkkikentät sekä geometria |
 
-`GetFeatureInfo`- ja WFS-vastauksen `Feature.id` on toiminnallisesti pakollinen. Tyyppivahdit päättelevät loogisen tason tunnisteen alusta, esimerkiksi `muinaisjaannos_piste.`, `rky_alue.` tai `rajapinta_loytopaikka_piste.`. Uusi toteutus ei saa perustaa sisäistä identiteettiä tähän GeoServer-kohtaiseen merkkijonoon, mutta sovitinkerroksen pitää tuottaa käyttöliittymälle yksiselitteinen `logicalLayerId` ja vakaa yksittäisen geometriarivin tunniste.
+`GetFeatureInfo`- ja WFS-vastauksen `Feature.id` on nykyisessä ratkaisussa toiminnallisesti pakollinen. Uudessa toteutuksessa saman aineistojulkaisun geometriarivi yksilöidään yhdistelmällä `sourceLayer + fid`. Julkaisujen välillä pysyvä identiteetti on `logicalLayerId + registryId`, joka voi vastata useita geometriarivejä.
 
 Karttaklikkaus ei valitse vain päällimmäistä kohdetta. Nykyinen käyttöliittymä avaa sivupaneeliin listan kaikista klikkaustoleranssin sisällä olevista, näkyviin tasoihin kuuluvista päällekkäisistä kohteista. Uusi ominaisuustietorajapinta on siksi massahaku, ei yhtä featurea palveleva endpoint. Selain kerää ensin MVT-osumien `sourceLayer`- ja `featureId`-parit, deduplikoi ne ja tekee yhden pyynnön.
 
@@ -105,7 +105,7 @@ Seuraavat kentät ovat nykyisten näkymien kannalta merkityksellisiä. Lähteen 
 | Maailmanperintö | `registryId` (`ID`; nykykoodi käyttää virheellisesti/vanhentuneesti `OBJECTID`-kenttää), `name` (`nimi`/`Nimi`), `areaType` (`aluetyyppi`), `url` (`url`/`URL`) ja geometria |
 | VARK | `registryId` (`VARK_ID`), `name` (`VARK_nimi`), kunta, maakunta, tyypit, alatyypit, ajoitukset, liittyvien muinaisjäännösten nimet ja tunnukset, `Linkki` ja geometria |
 
-Nykyinen `getFeatureUniqueLayerID` käyttää useimmille WMS-tasoille `OBJECTID`-kenttää. GeoPackage käyttää sen sijasta `fid`-pääavainta eikä nykyisissä maailmanperintöaineistoissa ole `OBJECTID`-kenttää. Uusi `featureKey` muodostetaan tunnistesopimuksen mukaisesti lähdetasosta ja vakaasta lähdeidentiteetistä; käyttöliittymä ei saa riippua `OBJECTID`-nimestä.
+Nykyinen `getFeatureUniqueLayerID` käyttää useimmille WMS-tasoille `OBJECTID`-kenttää. GeoPackage-sovitin palauttaa sen vastineena `fid`-pääavaimen. Arvo erottaa saman rekisteritunnuksen geometriarivit nykyisessä vastauksessa, mutta sen ei tarvitse säilyä samana aineistojulkaisusta toiseen. Pysyvä linkki käyttää vain loogista tasoa ja rekisteritunnusta.
 
 ## Tyyppi- ja ajoitussuodattimet
 

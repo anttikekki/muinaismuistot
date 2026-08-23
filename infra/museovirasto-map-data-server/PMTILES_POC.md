@@ -9,7 +9,7 @@ Vaiheen 1 ensimmäinen tekninen koe muuntaa koko inventoidun tuotantoaineiston y
 Ensimmäisen, myöhemmin liian harvaksi todetun ajon tulos:
 
 - lähdegeometrioita: 268 965
-- arkistoon hyväksyttyjä geometrioita: 268 964
+- arkistoon hyväksyttäviä geometrioita: 268 964
 - pois jätettyjä geometrioita: yksi geometriaton `archaeological_areas`-tietue (`fid=44923`)
 - PMTiles-arkiston koko: 81 014 022 tavua (noin 77,3 MiB)
 - zoom-tasot: 0–14
@@ -55,7 +55,7 @@ Kenttäprojektiot ja lähdetasot ovat tiedostossa `poc-layer-config.json`. Raken
 - Ensimmäinen arkisto käytti Tippecanoen `--drop-densest-as-needed`- ja `--coalesce-densest-as-needed`-asetuksia sekä 300 000 tavun tiilirajaa. Lisäksi Tippecanoen oletuspudotus harventaa pisteitä maksimizoomia alemmilla tasoilla. Koko Suomen näkymässä seurauksena näkyi esimerkiksi vain viisi kiinteän muinaisjäännöksen pistettä, joten arkisto ei kelvannut koko aineiston selainkuorman mittaamiseen.
 - Suorituskyky-PoC rakennetaan tämän havainnon vuoksi asetuksilla `--drop-rate=1`, `--no-feature-limit`, `--no-tile-size-limit` ja `--no-tiny-polygon-reduction`. Tavoite ei ole tuotantokartografia vaan tarkoituksellinen pahimman tapauksen koe: kaikki pisteet ja pienet polygonit säilyvät myös matalilla zoom-tasoilla, vaikka tiilet kasvavat erittäin suuriksi.
 - Raakamuotoiset tyyppi-, alatyyppi- ja ajoituskentät kasvattavat arkistoa ja metadataa. OpenLayers-kokeessa selvitetään, mitkä attribuutit tarvitaan todella karttatyyleihin ja kohteen tunnistamiseen; sanahaku ei edellytä niiden säilyttämistä jokaisessa tiilessä.
-- `source_fid` toimii tässä kokeessa MVT-tunnisteena. Tuotantoputkessa se korvataan suunnitelman mukaisella vakaalla komposiittitunnisteella.
+- Välivaiheen `source_fid` sisältää suoraan GeoPackagen `fid`-arvon. Se yksilöi geometriarivin nykyisessä aineistojulkaisussa; pysyvät linkit käyttävät loogista tasoa ja rekisteritunnusta.
 - Suorituskykyarkistolla ei ole Tippecanoen tiilikoko- tai kohdemäärärajaa. Tyypillisten ja pahimpien tiilien koko, selaimen renderöintikyky ja HTTP Range -pyynnöt ovat tämän kokeen varsinaisia mittaustuloksia. Mahdollinen tuotantoratkaisu tarvitsee mittausten perusteella erikseen päätettävän zoom-kohtaisen esityksen, kuten klusteroinnin tai muun eksplisiittisen aggregoinnin; kohteiden hiljainen pudottaminen ei ole hyväksyttävä ratkaisu.
 
 Seuraava vaihe 1:n tehtävä on avata arkisto OpenLayersissa paikallisesti, toteuttaa 26 loogisen tason näkyvyys yhdestä lähteestä ja tarkistaa tyylit sekä kohteiden valinta kolmella edustavalla zoom-tasolla.
@@ -163,3 +163,13 @@ Kaikki viisi aluetasoja sisältävää fyysistä lähdetasoa julkaistaan nyt sam
 Muutos koskee tasoja `archaeological_areas`, `protected_building_areas`, `rky_areas`, `vark_areas` ja `world_heritage_areas`. Molemmat esitykset käyttävät samaa MVT-`source-layer`-nimeä, joten arkistojen, HTTP-pyyntöjen tai loogisten tasovalintojen määrä ei kasva. Selain tunnistaa matalan zoomin pistegeometrian geometriatyypistä ja ottaa sen mukaan samaan dynaamiseen aggregointiin kuin varsinaiset pistetasot.
 
 Rakennus validoi jokaiselle aluetasolle yhtä monta keskipistettä kuin lähteessä on kelvollisia geometrioita. Arkistovalidointi vahvistaa zoomilla 0 kaikkien viiden aluetason täydet tietuemäärät ja ainoaksi geometriatyypiksi `Point`. Uusi arkisto on 54 075 777 tavua, kun pelkkiä polygoneja sisältänyt kompakti versio oli 54 762 752 tavua. Muutos siis pienensi koko arkistoa noin 687 kt samalla, kun matalilla zoomeilla säilyvät nyt kaikki aluekohteet ennustettavasti keskipisteinä.
+
+## Yksinkertaistettu tunniste ja D1-massahaku
+
+PoC käyttää saman aineistojulkaisun MVT:n ja D1:n yhteisenä avaimena yhdistelmää `source-layer + feature ID`, jossa feature ID on suoraan GeoPackagen `fid`. Lähderivejä ei deduplikoida, joten myös suojeltujen rakennuspisteiden kaikki 2 290 riviä säilyvät. Pysyvä URL käyttää yhdistelmää `logicalLayerId + registryId`; sillä tehtävä D1-haku palauttaa kaikki nykyisen aineiston vastaavat rivit.
+
+Kaikki 268 964 geometriallisen lähderivin `fid`-tunnisteita käyttävä arkisto on 66 963 838 tavua. Aikaisemmat vakaasta geometriarivi-identiteetistä tehdyt kokeet on hylätty tarpeettomina. Koko Suomen Range-siirto mitataan uudelleen nykyisellä arkistolla.
+
+Skripti `scripts/14-build-feature-details-sql.sh` muodostaa 268 964 rivin D1-tuontiaineiston samoilla `fid`-tunnisteilla kuin PMTiles-rakennus. Worker tarjoaa karttaklikkaukselle `POST /api/features/batch` -täsmähaun ja pysyville linkeille `POST /api/features/by-register` -massahaun. Jälkimmäinen hyväksyy enintään 100 `{logicalLayerId, registryId}`-viitettä ja palauttaa jokaiselle kaikki uusimman aineiston geometriarivit. D1-indeksi on yhdistelmällä `(logical_layer_id, registry_id)`.
+
+Paikallinen end-to-end-koe palautti featurelle `archaeological_points:134403` oikean nimen, rekisteritunnuksen, kunnan ja luokittelukentät sekä raportoi samassa vastauksessa puuttuvan `rky_points`-viitteen. Worker vastasi 108 ms:ssa.

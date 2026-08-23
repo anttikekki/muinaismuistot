@@ -31,6 +31,16 @@ type LogicalLayer = {
   filter?: { field: string; equals: string }
 }
 
+type FeatureBatchResult = {
+  features: Array<{
+    sourceLayer: string
+    featureId: string
+    logicalLayerId: string
+    properties: Record<string, unknown>
+  }>
+  missing: Array<{ sourceLayer: string; featureId: string }>
+}
+
 const archiveUrl = `${location.origin}/pmtiles/museovirasto-poc.pmtiles`
 const enabled = new Set<string>()
 const unfilteredLogicalIdBySource = new Map<string, string>()
@@ -157,17 +167,82 @@ const recordInput = (): void => {
 mapViewport.addEventListener("pointermove", recordInput, { passive: true })
 mapViewport.addEventListener("wheel", recordInput, { passive: true })
 
-map.on("singleclick", (event) => {
-  const hit = map.forEachFeatureAtPixel(event.pixel, (feature) => feature, {
-    layerFilter: (layer) => layer === vectorLayer || layer === aggregateLayer,
-    hitTolerance: 5,
+map.on("singleclick", (event) => { void handleMapClick(event.pixel) })
+
+async function handleMapClick(pixel: number[]): Promise<void> {
+  const aggregate = map.forEachFeatureAtPixel(pixel, (feature, layer) =>
+    layer === aggregateLayer ? feature : undefined,
+  { hitTolerance: 5 })
+  if (aggregate) {
+    const geometry = aggregate.getGeometry()
+    map.getView().animate({
+      center: geometry ? [(geometry.getExtent()[0] + geometry.getExtent()[2]) / 2, (geometry.getExtent()[1] + geometry.getExtent()[3]) / 2] : undefined,
+      zoom: Math.min((map.getView().getZoom() ?? 0) + 2, 14),
+      duration: 250,
+    })
+    return
+  }
+
+  const references = new Map<string, { sourceLayer: string; featureId: string }>()
+  for (const feature of map.getFeaturesAtPixel(pixel, { layerFilter: (layer) => layer === vectorLayer, hitTolerance: 5 })) {
+    if (!activeLogicalId(feature)) continue
+    const sourceLayer = String(feature.get("layer") ?? "")
+    const id = feature.getId()
+    if (id === undefined) continue
+    const featureId = String(id)
+    references.set(`${sourceLayer}:${featureId}`, { sourceLayer, featureId })
+    if (references.size === 100) break
+  }
+  if (references.size === 0) {
+    setText("feature-info", "Karttakohdetta ei löytynyt.")
+    return
+  }
+
+  setText("feature-info", `Ladataan ${references.size} kohteen tiedot…`)
+  const response = await nativeFetch("/api/features/batch", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ features: [...references.values()] }),
   })
-  const properties = hit instanceof Feature ? hit.getProperties() : hit?.getProperties()
-  const info = properties
-    ? Object.fromEntries(Object.entries(properties).filter(([key]) => key !== "geometry"))
-    : "Karttakohdetta ei löytynyt."
-  setText("feature-info", typeof info === "string" ? info : JSON.stringify(info, null, 2))
-})
+  if (!response.ok) {
+    setText("feature-info", `Ominaisuustietojen lataus epäonnistui (${response.status}).`)
+    return
+  }
+  renderFeatureInfo((await response.json()) as FeatureBatchResult)
+}
+
+function renderFeatureInfo(result: FeatureBatchResult): void {
+  const container = document.getElementById("feature-info")
+  if (!container) return
+  const elements: HTMLElement[] = result.features.map((item) => {
+    const article = document.createElement("article")
+    const heading = document.createElement("h3")
+    heading.textContent = String(item.properties.name ?? "Nimetön kohde")
+    const details = document.createElement("dl")
+    const rows: Array<[string, unknown]> = [
+      ["Taso", shortLabel(item.logicalLayerId)],
+      ["Rekisteritunnus", item.properties.registryId],
+      ["Kunta", item.properties.municipality],
+      ["Feature ID", item.featureId],
+    ]
+    for (const [label, value] of rows) {
+      if (value === null || value === undefined || value === "") continue
+      const term = document.createElement("dt")
+      const description = document.createElement("dd")
+      term.textContent = label
+      description.textContent = String(value)
+      details.append(term, description)
+    }
+    article.append(heading, details)
+    return article
+  })
+  if (result.missing.length) {
+    const warning = document.createElement("p")
+    warning.textContent = `${result.missing.length} kohteen tietoja ei löytynyt.`
+    elements.push(warning)
+  }
+  container.replaceChildren(...elements)
+}
 
 void loadControls()
 

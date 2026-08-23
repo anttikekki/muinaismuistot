@@ -20,10 +20,11 @@ node "$TRANSFORMER" vocabulary \
   "$DATA_DIR/arkeologiset_kohteet_piste_t.gpkg" arkeologiset_kohteet_piste_t "$VOCABULARY"
 
 TIPPECANOE_INPUTS=()
-while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries sql_base64; do
+while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries excluded_duplicate_features sql_base64; do
   source_file="$DATA_DIR/$file_name"
   output_file="$INTERMEDIATE_DIR/$layer_id.geojsonseq"
   sql="$(printf '%s' "$sql_base64" | base64 --decode)"
+  sql="${sql/SELECT /SELECT fid AS gpkg_fid, }"
   echo "Exporting compact $source_layer as $layer_id"
   ogr2ogr -f GeoJSONSeq /vsistdout/ "$source_file" -dialect SQLite -sql "$sql" \
     -t_srs EPSG:4326 -nln "$layer_id" |
@@ -31,7 +32,7 @@ while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries
 
   source_count="$(ogrinfo -ro -so -json "$source_file" "$source_layer" | jq '.layers[0].featureCount')"
   output_count="$(wc -l < "$output_file" | tr -d ' ')"
-  expected_output_count="$((source_count - excluded_null_geometries))"
+  expected_output_count="$((source_count - excluded_null_geometries - excluded_duplicate_features))"
   [[ "$expected_output_count" -eq "$output_count" ]] || {
     echo "Feature count mismatch for $layer_id: expected=$expected_output_count output=$output_count" >&2; exit 1;
   }
@@ -51,7 +52,7 @@ while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries
     }
     TIPPECANOE_INPUTS+=("--named-layer=$layer_id:$centroid_file")
   fi
-done < <(jq -r '.layers[] | [.id, .geoPackageFile, .geoPackageLayer, (.excludedNullGeometries // 0), (.sql | @base64)] | @tsv' "$POC_CONFIG")
+done < <(jq -r '.layers[] | [.id, .geoPackageFile, .geoPackageLayer, (.excludedNullGeometries // 0), 0, (.sql | @base64)] | @tsv' "$POC_CONFIG")
 
 tippecanoe --output="$OUTPUT_FILE" --force --name="Museovirasto compact map data PoC" \
   --description="Compact filter-field comparison; 12 physical source layers" --attribution="Museovirasto" \

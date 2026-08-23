@@ -18,7 +18,7 @@ PoC ei käytä Cloudflare-tiliä, oikeaa R2-bucketia eikä nykyisen sivuston lä
 Rakenna PMTiles-arkisto ensin projektihakemistossa, jos sitä ei vielä ole:
 
 ```bash
-infra/museovirasto-map-data-server/scripts/10-build-pmtiles-poc.sh
+infra/museovirasto-map-data-server/scripts/13-build-compact-pmtiles-poc.sh
 ```
 
 Asenna PoC:n riippuvuudet ja siirrä arkisto paikalliseen R2-simulaatioon:
@@ -44,6 +44,17 @@ npm test
 npm run typecheck
 npm run build
 ```
+
+Ominaisuustietojen paikallinen D1 rakennetaan ja alustetaan projektin juuresta:
+
+```bash
+infra/museovirasto-map-data-server/scripts/14-build-feature-details-sql.sh
+infra/museovirasto-map-data-server/scripts/15-seed-local-d1-poc.sh
+```
+
+Karttaklikkaus kerää enintään 100 näkyvien tasojen päällekkäistä MVT-featurea, deduplikoi `sourceLayer + featureId` -parit ja hakee näyttötiedot yhdellä `POST /api/features/batch` -pyynnöllä. Aggregaattimerkin klikkaus zoomaa kaksi tasoa lähemmäs.
+
+MVT:n `featureId` on GeoPackagen `fid`, jota käytetään vain saman aineistojulkaisun sisällä. Pysyviä URL-linkkejä varten Worker tarjoaa `POST /api/features/by-register` -massahaun. Sen viitteet ovat `{logicalLayerId, registryId}`-pareja, ja vastaus sisältää kaikki uusimmasta D1-aineistosta löytyvät rivit. Lähderivejä ei deduplikoida.
 
 Vitest-alustus kirjoittaa jokaiseen testiin pienen deterministisen R2-objektin. Testit kattavat täsmällisen, avoimen ja suffix-tavuvälin, loppupään rajauksen, virheelliset ja moniosaiset ranget, puuttuvan rangen, `HEAD`-, `OPTIONS`- ja virheelliset metodit, puuttuvan objektin sekä 26 loogisen tason API-vastauksen.
 

@@ -3254,9 +3254,9 @@ Tässä erotetaan **looginen kohdetunniste** ja **geometriarivin tunniste**. Rek
 - Arkeologisen pääkohteen looginen avain on `mjtunnus`. Alakohteen looginen avain on `mjtunnus + alakohdetunnus`. Kaikkien 14 671 alakohteiden erillisen vanhemman `mjtunnus` löytyy pisteaineistosta.
 - Rakennusperinnön kohderyhmän avain on `KOHDEID`; yksittäisen rakennuksen avain on `rakennusID`. Alue liittyy kohderyhmään `KOHDEID`:llä, ei `rakennusID`:llä.
 - RKY:n looginen avain on `ID`, maailmanperintökohteen looginen avain on `ID` ja VARK-kohteen looginen avain on `VARK_ID`.
-- `inspireID` on hyvä geometriarivin avaimen lähtökohta, koska se on yksikäsitteinen kaikissa muissa sitä sisältävissä tasoissa paitsi rakennuspisteissä. Rakennuspisteissä kaksi `inspireID`-arvoa esiintyy kumpikin kahdesti.
-- MVT-feature-ID:n lähtöavain muodostetaan deterministisesti yhdistelmästä `source_layer + inspireID + geometry_part`. Jos `inspireID` puuttuu (VARK), käytetään `source_layer + logical_id + geometry_part`. `geometry_part` johdetaan saman avaimen geometrioiden vakaasta järjestyksestä tai geometriatiivisteestä; GeoPackagen `fid`-arvoa ei oleteta vakaaksi päivittäisten versioiden välillä. Lähtöavain muunnetaan MVT:n vaatimaksi 64-bittiseksi kokonaisluvuksi vakaalla hajautuksella, ja rakennusajo tarkistaa törmäykset.
-- D1-haku deduplikoidaan loogisella avaimella ja rekisterillä. Hakutulos voi tämän jälkeen viitata yhteen tai useaan saman kohteen geometriaan kartalla.
+- MVT-feature-ID on GeoPackagen `fid`. Se yhdistää PMTiles-featuren saman aineistojulkaisun D1-riviin avaimella `source_layer + fid`, mutta sen ei oleteta säilyvän julkaisusta toiseen.
+- Pysyvät linkit käyttävät yhdistelmää `logical_layer_id + registry_id`. Sama rekisteritunnus voi vastata useita lähderivejä, joten D1 palauttaa kaikki nykyisen aineiston osumat eikä deduplikoi geometrioita.
+- Kaikki geometrialliset lähderiveihin kuuluvat rivit säilytetään, mukaan lukien suojeltujen rakennuspisteiden kaksi identtistä riviparia.
 
 ### Tunnisteisiin liittyvät havainnot
 
@@ -3265,4 +3265,3 @@ Tässä erotetaan **looginen kohdetunniste** ja **geometriarivin tunniste**. Rek
 - Rakennuspisteiden 2 290 riviä kuuluvat 866 `KOHDEID`-kohderyhmään ja 2 288 `rakennusID`-rakennukseen.
 - RKY:n ja maailmanperinnön `ID` kuvaa kohdetta, ei geometriariviä. Esimerkiksi maailmanperintöpisteiden kuudella rivillä on vain yksi yhteinen `ID`, mutta kuusi eri `inspireID`-arvoa.
 - VARK on nykyisessä aineistossa siistein yksi-yhteen-suhde: kaikki 1 010 `VARK_ID`-arvoa löytyvät sekä keskipiste- että rajausaineistosta.
-

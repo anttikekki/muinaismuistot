@@ -27,6 +27,10 @@ fieldset { border: 1px solid #bcc4b9; }
 dl { display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 0.75rem; font-size: 0.85rem; }
 dt, dd { margin: 0; }
 pre { padding: 0.65rem; max-height: 16rem; overflow: auto; background: #fff; border: 1px solid #d5dbd2; white-space: pre-wrap; font-size: 0.75rem; }
+.feature-info { display: grid; gap: 0.5rem; font-size: 0.78rem; }
+.feature-info article { padding: 0.55rem; border: 1px solid #d5dbd2; background: #fff; }
+.feature-info h3 { margin: 0 0 0.25rem; }
+.feature-info dl { grid-template-columns: auto 1fr; font-size: 0.75rem; }
 
 @media (max-width: 760px) {
   main { grid-template-columns: 1fr; grid-template-rows: minmax(260px, 48vh) 1fr; }

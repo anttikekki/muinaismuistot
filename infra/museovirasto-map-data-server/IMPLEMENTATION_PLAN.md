@@ -120,8 +120,8 @@ Nykyisen WMS-ratkaisun kevyt suorituskyvyn lähtötaso on tiedostossa [CURRENT_M
 
 ### Vaihe 1: Tekninen proof of concept
 
-- [x] Muunna koko aineisto GDAL- ja Tippecanoe-työkaluilla yhdeksi paikalliseksi, rakenteellisesti validoiduksi PMTiles-arkistoksi. Nykyinen PoC sisältää 12 MVT-lähdetasoa ja 268 964 renderöitävää geometriaa; yksi lähteen geometriaton tietue jätetään dokumentoidusti pois.
-- [ ] Tarkista paikallisella, muinaismuistot.info-sovelluksesta irrallisella OpenLayers-sivulla geometriayleistys, pistetiheys, alustavat tyylit sekä ominaisuuksien tunnistaminen kolmella edustavalla zoom-tasolla. Tekninen sivu ja yksi PMTiles-lähde on toteutettu; visuaalinen hyväksyntä on kesken.
+- [x] Muunna koko aineisto GDAL- ja Tippecanoe-työkaluilla yhdeksi paikalliseksi, rakenteellisesti validoiduksi PMTiles-arkistoksi. Nykyinen PoC sisältää 12 MVT-lähdetasoa ja kaikki 268 964 geometriallista lähderiviä; vain yksi lähteen geometriaton tietue jää pois.
+- [x] Tarkista paikallisella, muinaismuistot.info-sovelluksesta irrallisella OpenLayers-sivulla geometriayleistys, pistetiheys, alustavat tyylit sekä ominaisuuksien tunnistaminen kolmella edustavalla zoom-tasolla. Koko Suomen tarkka ja aggregoitu esitys, suodatettu 1 467 kohteen näkymä, zoomiraja 9→10 sekä päällekkäisten kohteiden ominaisuushaku on hyväksytty manuaalisesti. Uudelleen rakennettu arkisto läpäisee rakenteellisen validoinnin: 12 lähdetasoa, kaikki pistetietueet zoomilla 0 ja kaikkien aluelähdetasojen keskipisteet zoomilla 0.
 - [x] Tallenna arkisto Wranglerin paikallisesti simuloimaan R2-bucketiin. Toteuta ja testaa Worker, joka validoi selaimen yhden byte range -pyynnön, lukee vain sovitun välin R2-bindingista ja palauttaa standardinmukaisen `206 Partial Content` -vastauksen. PoC ei oleta 206-vastausten välimuistittuvan; oikea staging-R2 siirretään Cloudflare-vaiheeseen.
 - [x] Toteuta 26 loogisen tasovalinnan näyttäminen ja piilottaminen yhden OpenLayers `PMTilesVectorSource` -olion `source-layer`- ja `laji_key`-tyylisuodattimilla. Valinnat eivät luo uusia PMTiles-lähteitä tai muuta tiili-URL:ia.
 - Mittaa arkiston koko, tyypillisten ja pahimpien tiilien koko, koko karttanäkymän HTTP-pyyntömäärä, siirretty datamäärä, renderöintiaika ja muistinkäyttö hitaaksi simuloidulla mobiililaitteella. Mittaukseen sisällytetään taustakartta ja muiden lähteiden karttatasot.
@@ -148,7 +148,11 @@ Kaikki viisi aluetasoja sisältävää lähdetasoa käyttävät nyt zoomikohtais
 
 Zoomirajan 9 → 10 manuaalinen tarkistus on tehty: aluetasot vaihtuvat keskipisteistä polygoneiksi ilman näkyvää aukkoa tai päällekkäistä esitystä.
 
-**Seuraava tehtävä:** määritä vakaa tuotannon feature-ID ja toteuta sitä käyttävän ominaisuustietojen massahaun PoC. Karttaklikkaus kerää kaikki näkyvien tasojen päällekkäiset MVT-osumat ja lähettää enintään 100 deduplikoitua `{sourceLayer, featureId}`-paria yhdellä `POST /api/features/batch` -pyynnöllä. Worker hakee tiedot D1:stä yhdellä parametrisoidulla kyselyllä ja palauttaa tulokset pyyntöjärjestyksessä. Aggregaattimerkkiä ei käsitellä yksittäisenä kohteena, vaan sen valinta zoomaa lähemmäs. Massahaun jälkeen varmista vielä 1 467 pronssikautisen hautaröykkiön yksittäinen esitys sekä kaupunki-/maakunta- ja lähitason mittaukset.
+Ominaisuustietojen massahaun PoC on toteutettu yksinkertaisella kaksiosaisella tunnistemallilla. Karttaklikkaus käyttää saman aineistojulkaisun sisäistä `sourceLayer + fid` -avainta ja lähettää enintään 100 deduplikoitua osumaa `POST /api/features/batch` -pyynnöllä. Pysyvät URL-linkit käyttävät vakaata `logicalLayerId + registryId` -avainta ja `POST /api/features/by-register` palauttaa kaikki uusimmasta aineistosta löytyvät geometriarivit. `fid`:ltä ei edellytetä vakautta julkaisujen välillä, eikä lähderivejä deduplikoida.
+
+Uudelleen rakennettu paikallinen D1 sisältää 268 964 ominaisuusriviä kaikilta 12 lähdetasolta: vain yksi geometriaton arkeologinen aluerivi jää pois. Rekisteritunnusindeksi tukee tarkoituksellista yksi-moneen-suhdetta. `fid`-tunnisteilla rakennettu PMTiles-arkisto on 66 963 838 tavua; koko Suomen Range-siirto mitataan vielä uudelleen tällä arkistolla.
+
+**Seuraava tehtävä:** mittaa paikalliseen R2-simulaatioon viedyn 66 963 838 tavun `fid`-arkiston Range-siirto ja selainresurssit koko Suomen, kaupunki-/maakunta- ja lähitason näkymissä. Sisällytä mittaukseen 1 467 pronssikautisen hautaröykkiön tarkka esitys ja pahimman tapauksen aggregoitu esitys. Tämän jälkeen toteuta samaan D1-aineistoon yksinkertainen nimihaku.
 
 ### Vaihe 2: Toistettava rakennusputki
 
@@ -156,9 +160,9 @@ Zoomirajan 9 → 10 manuaalinen tarkistus on tehty: aluetasot vaihtuvat keskipis
 - Toteuta taso- ja kenttämäppäys konfiguraationa, ei hajautettuina oletuksina koodissa.
 - Lisää aineiston validointi, geometriakorjaukset, tiivisteet, manifesti ja koneellisesti luettava rakennusraportti. Validoi 12 odotettua GeoPackage-kohdetasoa, pysyvät tunnistekentät, geometriatyypit ja kriittiset luokittelukentät.
 - Vertaa kenttiä, tietuemääriä ja arvojoukkoja versionhallittuun inventaariotasoon. Puuttuva kriittinen kenttä tai taso estää julkaisun; uusi arvojoukkoarvo aiheuttaa raportin ja hälytyksen, mutta ei automaattisesti hylkää aineistoa.
-- Muodosta MVT-feature-ID tunnisteanalyysissä kuvatusta komposiittiavaimesta vakaana 64-bittisenä hajautuksena ja keskeytä rakennus, jos samalla lähdetasolla havaitaan törmäys.
+- Käytä MVT-feature-ID:nä GeoPackagen `fid`-arvoa ja validoi sen kelvollisuus. Käytä sitä vain saman aineistojulkaisun kartta- ja D1-aineiston yhdistämiseen.
 - Lisää tiilien zoom-/yleistyssäännöt sekä tiilikoon tarkistus.
-- Muodosta hakutaulun tuontiaineisto, yhdistä saman rekisterikohteen eri geometriat pysyvällä tunnisteella ja normalisoi nimet yhden dokumentoidun säännön mukaisesti. Pidä skeema tarkoituksella suppeana.
+- Muodosta ominaisuus- ja hakutaulun tuontiaineisto kaikista lähderiveistä. Indeksoi `logicalLayerId + registryId` pysyviä linkkejä varten ja palauta kaikki saman rekisterikohteen geometriat yhdistämättä tai poistamatta niitä. Pidä skeema tarkoituksella suppeana.
 - Lisää yksikkö- ja integraatiotestit muunnoksille.
 
 **Tuotos:** paikallisesti ja CI:ssä samalla tavalla valmistuvat versionoidut artefaktit.

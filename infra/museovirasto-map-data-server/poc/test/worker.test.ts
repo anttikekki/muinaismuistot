@@ -20,6 +20,8 @@ beforeEach(async () => {
   await env.MAP_DATA.put(KEY, BODY, {
     httpMetadata: { contentType: "application/vnd.pmtiles" },
   })
+  await env.MAP_FEATURES.prepare("CREATE TABLE IF NOT EXISTS feature_details (source_layer TEXT NOT NULL, feature_id INTEGER NOT NULL, logical_layer_id TEXT NOT NULL, registry_id TEXT, name TEXT, municipality TEXT, properties_json TEXT NOT NULL DEFAULT '{}', PRIMARY KEY (source_layer, feature_id)) WITHOUT ROWID").run()
+  await env.MAP_FEATURES.prepare("DELETE FROM feature_details").run()
 })
 
 describe("PMTiles byte range Worker", () => {
@@ -99,5 +101,78 @@ describe("PMTiles byte range Worker", () => {
     const layers = (await response.json()) as unknown[]
     expect(response.status).toBe(200)
     expect(layers).toHaveLength(26)
+  })
+
+  it("returns deduplicated feature details in request order with one batch", async () => {
+    await env.MAP_FEATURES.prepare(`
+      INSERT INTO feature_details
+        (source_layer, feature_id, logical_layer_id, registry_id, name, municipality, properties_json)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `).bind("archaeological_points", 123, "rajapinta_suojellut:muinaisjaannos_piste", "100", "Testikohde", "Turku", '{"kind":"kiinteä muinaisjäännös"}').run()
+
+    const response = await exports.default.fetch(new Request("https://example.test/api/features/batch", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ features: [
+        { sourceLayer: "archaeological_points", featureId: "123" },
+        { sourceLayer: "rky_points", featureId: "456" },
+        { sourceLayer: "archaeological_points", featureId: "123" },
+      ] }),
+    }))
+    const body = await response.json() as { features: Array<{ properties: { name: string } }>; missing: unknown[] }
+    expect(response.status).toBe(200)
+    expect(body.features).toHaveLength(1)
+    expect(body.features[0].properties.name).toBe("Testikohde")
+    expect(body.missing).toEqual([{ sourceLayer: "rky_points", featureId: "456" }])
+  })
+
+  it("validates feature batch requests", async () => {
+    const invalidLayer = await exports.default.fetch(new Request("https://example.test/api/features/batch", {
+      method: "POST",
+      body: JSON.stringify({ features: [{ sourceLayer: "invalid", featureId: "1" }] }),
+    }))
+    expect(invalidLayer.status).toBe(400)
+
+    const tooMany = await exports.default.fetch(new Request("https://example.test/api/features/batch", {
+      method: "POST",
+      body: JSON.stringify({ features: Array.from({ length: 101 }, (_, index) => ({ sourceLayer: "rky_points", featureId: String(index + 1) })) }),
+    }))
+    expect(tooMany.status).toBe(400)
+  })
+
+  it("returns every current row matching a logical layer and registry ID", async () => {
+    const insert = env.MAP_FEATURES.prepare(`
+      INSERT INTO feature_details
+        (source_layer, feature_id, logical_layer_id, registry_id, name, municipality, properties_json)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `)
+    await env.MAP_FEATURES.batch([
+      insert.bind("archaeological_areas", 10, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Ensimmäinen geometria", "Turku", "{}"),
+      insert.bind("archaeological_areas", 11, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Toinen geometria", "Turku", "{}"),
+      insert.bind("archaeological_areas", 12, "rajapinta_suojellut:muinaisjaannos_alue", "200", "Muu kohde", "Turku", "{}"),
+    ])
+
+    const response = await exports.default.fetch(new Request("https://example.test/api/features/by-register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ features: [
+        { logicalLayerId: "rajapinta_suojellut:muinaisjaannos_alue", registryId: "100" },
+        { logicalLayerId: "rajapinta_suojellut:muinaisjaannos_alue", registryId: "999" },
+      ] }),
+    }))
+    const body = await response.json() as { features: Array<{ featureId: string }>; missing: unknown[] }
+    expect(response.status).toBe(200)
+    expect(body.features.map((feature) => feature.featureId)).toEqual(["10", "11"])
+    expect(body.missing).toEqual([
+      { logicalLayerId: "rajapinta_suojellut:muinaisjaannos_alue", registryId: "999" },
+    ])
+  })
+
+  it("validates registry batch requests", async () => {
+    const response = await exports.default.fetch(new Request("https://example.test/api/features/by-register", {
+      method: "POST",
+      body: JSON.stringify({ features: [{ logicalLayerId: "invalid", registryId: "100" }] }),
+    }))
+    expect(response.status).toBe(400)
   })
 })

@@ -54,6 +54,12 @@ function mask(raw, values, kind) {
   return result
 }
 
+function featureId(layerId, sourceFid) {
+  const featureId = Number(sourceFid)
+  if (!Number.isSafeInteger(featureId) || featureId <= 0) throw new Error(`Invalid GeoPackage fid in ${layerId}: ${sourceFid}`)
+  return featureId
+}
+
 async function transform([vocabularyPath, layerId, representation = "default"]) {
   const vocabulary = JSON.parse(await readFile(vocabularyPath, "utf8"))
   const subtypeIndexes = new Map(vocabulary.subtypes.map((value, index) => [value, index + 1]))
@@ -62,7 +68,7 @@ async function transform([vocabularyPath, layerId, representation = "default"]) 
     if (!line.trim()) continue
     const feature = JSON.parse(line)
     const source = feature.properties ?? {}
-    const properties = { source_fid: source.source_fid }
+    const properties = { source_fid: featureId(layerId, source.gpkg_fid) }
     if (layerId === "archaeological_points") {
       properties.laji_key = source.laji_key
       properties.type_mask = mask(source.types_raw, vocabulary.types, "type")
@@ -83,7 +89,37 @@ async function transform([vocabularyPath, layerId, representation = "default"]) 
   }
 }
 
+function sqlString(value) {
+  return value === null || value === undefined ? "NULL" : `'${String(value).replaceAll("'", "''")}'`
+}
+
+async function details([mappingPath, layerId]) {
+  const mapping = JSON.parse(await readFile(mappingPath, "utf8"))
+  const logicalLayers = mapping.logicalLayers.filter((layer) => layer.sourceLayer === layerId)
+  let values = []
+  const flush = () => {
+    if (!values.length) return
+    process.stdout.write(`INSERT INTO feature_details (source_layer, feature_id, logical_layer_id, registry_id, name, municipality, properties_json) VALUES\n${values.join(",\n")};\n`)
+    values = []
+  }
+  const input = createInterface({ input: process.stdin, crlfDelay: Infinity })
+  for await (const line of input) {
+    if (!line.trim()) continue
+    const source = JSON.parse(line).properties ?? {}
+    const id = featureId(layerId, source.gpkg_fid)
+    const logical = logicalLayers.find((layer) => !layer.filter || String(source[layer.filter.field] ?? "") === layer.filter.equals)
+    if (!logical) throw new Error(`No logical layer for ${layerId}: ${JSON.stringify(source)}`)
+    const extra = Object.fromEntries(Object.entries(source).filter(([key]) =>
+      !["gpkg_fid", "source_fid", "registry_id", "name", "municipality"].includes(key),
+    ))
+    values.push(`(${sqlString(layerId)}, ${id}, ${sqlString(logical.id)}, ${sqlString(source.registry_id)}, ${sqlString(source.name)}, ${sqlString(source.municipality)}, ${sqlString(JSON.stringify(extra))})`)
+    if (values.length === 50) flush()
+  }
+  flush()
+}
+
 const [command, ...args] = process.argv.slice(2)
 if (command === "vocabulary" && args.length === 3) await generateVocabulary(args)
 else if (command === "transform" && (args.length === 2 || args.length === 3)) await transform(args)
-else throw new Error("Usage: compact-filter-data.mjs vocabulary <gpkg> <layer> <output> | transform <vocabulary> <layer-id> [default|centroid]")
+else if (command === "details" && args.length === 2) await details(args)
+else throw new Error("Usage: compact-filter-data.mjs vocabulary <gpkg> <layer> <output> | transform <vocabulary> <layer-id> [default|centroid] | details <layer-mapping> <layer-id>")

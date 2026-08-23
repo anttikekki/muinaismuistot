@@ -21,11 +21,13 @@ Arkistossa on 12 MVT `source-layer` -tasoa. `laji_key` ja `subtype_codes` ovat M
 | Osa | Nykyinen toteutus | Käyttö | Tavoite |
 | --- | --- | --- | --- |
 | Geometria | Piste- ja viivatasot säilyttävät geometriatyyppinsä; aluetasot ovat keskipisteitä zoomeilla 0–9 ja yksinkertaistettuja polygoneja zoomeilla 10–14 | piirtäminen, aggregointi ja osumatunnistus | säilytä zoomikohtainen esityssopimus |
-| MVT-feature-ID | GeoPackagen `fid` kopioidaan välivaiheen `source_fid`-kenttään ja annetaan Tippecanoelle `--use-attribute-for-id=source_fid` | OpenLayers-featureen tunnistaminen | korvaa tuotantoputkessa version ja lähdetason huomioivalla dokumentoidulla tunnisteella |
+| MVT-feature-ID | GeoPackagen `fid`. Arvo annetaan Tippecanoelle väliaikaisessa `source_fid`-kentässä `--use-attribute-for-id=source_fid`-asetuksella. | OpenLayers-featureen tunnistaminen ja saman aineistojulkaisun D1-täsmähaun avain yhdessä lähdetason kanssa | validoi jokaisessa rakennuksessa; vakautta julkaisujen välillä ei edellytetä |
 | `source_fid`-ominaisuus | ei esiinny MVT-ominaisuutena | vain ID:n muodostus rakennuksessa | älä lisää ominaisuuskentäksi |
 | `source-layer` | MVT-tason nimi, esimerkiksi `archaeological_points` | fyysinen tasovalinta ja tyylin valinta | säilytä rakenteena, ei erillisenä feature-kenttänä |
 
-Nykyinen `source_fid` ei ole riittävän vakaa tuotantotunniste aineistoversioiden välillä. Tavoitetunnisteen tarkka esitys ratkaistaan ennen ominaisuustieto-endpointia. Kun selain voi hakea valitun kohteen tiedot MVT-feature-ID:n, lähdetason ja aineistoversion perusteella, `registry_id`-kenttää ei tarvitse toistaa jokaisessa tiilessä.
+Toteutunut tunniste käyttää suoraan GeoPackagen paikallista `fid`-järjestysnumeroa. `source-layer + feature ID` muodostaa yhteisen avaimen saman PMTiles-julkaisun ja D1-aineiston välillä. Pysyvä URL ei käytä tätä avainta, vaan yhdistelmää `logicalLayerId + registryId`, jolla D1 palauttaa aina nykyisen aineiston kaikki vastaavat geometriarivit.
+
+Lähderivejä ei deduplikoida. Myös suojeltujen rakennusten pisteaineiston kaksi identtistä riviparia säilyvät omina `fid`-riveinään. Samalla `logicalLayerId + registryId` -avaimella voi tarkoituksellisesti löytyä useita geometrioita, ja rekisteritunnushaku palauttaa ne kaikki.
 
 ## Nykyinen kompakti PoC-skeema
 
@@ -46,7 +48,7 @@ Nykyinen `source_fid` ei ole riittävän vakaa tuotantotunniste aineistoversioid
 | `world_heritage_areas` | Point z0–9, Polygon z10–14 | 50 | ei ominaisuuskenttiä |
 | `world_heritage_points` | Point | 6 | ei ominaisuuskenttiä |
 
-Validointiskripti tarkistaa tämän kenttäjoukon täsmällisesti. Ylimääräinen kenttä kompaktissa arkistossa keskeyttää validoinnin. Skeema on nykyisen PoC:n toteutunut minimimalli, mutta ei vielä hyväksytty tuotantoskeema, koska vakaa feature-ID ja ominaisuustieto-endpoint puuttuvat.
+Validointiskripti tarkistaa tämän kenttäjoukon täsmällisesti. Ylimääräinen kenttä kompaktissa arkistossa keskeyttää validoinnin. Skeema on nykyisen PoC:n toteutunut minimimalli; ominaisuustietojen täsmä- ja rekisteritunnushaut on toteutettu D1-PoC:ssa.
 
 Aluetasojen keskipiste ja polygoniversio käyttävät samaa `source-layer`-nimeä ja samaa MVT-feature-ID:tä eri zoom-alueilla. Näin looginen tasomäppäys, tasovalinnat ja PMTiles-lähteiden määrä eivät muutu. Keskipiste osallistuu matalilla zoomeilla samaan aktiivisen tulosjoukon aggregointiin kuin varsinaiset pistetasot. Zoomilta 10 alkaen keskipistettä ei enää julkaista ja selain saa varsinaisen polygonin.
 
@@ -62,7 +64,7 @@ Ensimmäinen 138 301 298 tavun suorituskykyarkisto sisälsi renderöintikenttien
 | `types_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö ja leveän PoC:n väliaikainen selainfiltteri | **Korvattu arkeologisilla pisteillä `type_mask`-kentällä ja poistettu muilta tasoilta.** Raakamuoto kuuluu myöhempään ominaisuustietoaineistoon. |
 | `subtypes_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö ja arkeologisten pisteiden alatyyppisuodatus | **Korvattu arkeologisilla pisteillä `subtype_codes`-kentällä ja poistettu muilta tasoilta.** Raakamuoto kuuluu myöhempään ominaisuustietoaineistoon. |
 | `datings_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö ja arkeologisten pisteiden ajoitussuodatus | **Korvattu arkeologisilla pisteillä `dating_mask`-kentällä ja poistettu muilta tasoilta.** Raakamuoto kuuluu myöhempään ominaisuustietoaineistoon. |
-| `registry_id` | kaikki tasot | rekisteritunnuksen näyttö ja kohteen tunnistaminen | **Poistettu MVT:stä.** Tuotanto tarvitsee ennen käyttöönottoa vakaan MVT-feature-ID:n ja ominaisuustieto-endpointin. |
+| `registry_id` | kaikki tasot | rekisteritunnuksen näyttö, pysyvät linkit ja kohteen tunnistaminen | **Poistettu MVT:stä.** D1 palauttaa sen `source-layer + fid` -täsmähaulla tai hakee kaikki rivit `logicalLayerId + registryId` -avaimella. |
 | `name` | kaikki tasot | kohdepaneelin välitön näyttö | **Poistettu MVT:stä.** Nimi haetaan myöhemmin ominaisuustieto-endpointista; endpointin hyväksyttävä viive on vielä mitattava. |
 | `municipality` | arkeologiset tasot, VARK ja suojellut rakennukset | kohdepaneelin näyttö | **Poistettu MVT:stä.** Ei vaikuta piirtämiseen tai nykyiseen karttasuodatukseen. |
 | `subsite_id` | arkeologiset alakohteet | alakohteen yksilöinti ja näyttö | **Poistettu MVT-ominaisuuksista.** Säilytetään myöhemmin ominaisuustietoaineistossa; tuotanto edellyttää vakaata feature-ID:tä. |
@@ -117,11 +119,11 @@ Tämä on nykyinen minimimalli. Mahdollinen `name` on ainoa perusteltu lisäkent
 
 ## Mitattu vaikutus
 
-Kompakti arkisto pienensi leveän 138 301 298 tavun arkiston ensin 54 762 752 tavuun. Aluetasojen zoomikohtaisen piste-/polygoni-esityksen jälkeen arkiston koko on 54 075 777 tavua. Kaikki viiden aluetason tietueet ovat keskipisteinä zoomilla 0; polygonit alkavat zoomilta 10. Pronssikautisten hautaröykkiöiden tulosjoukko pysyi täsmälleen 1 467 kohteessa.
+Kompakti arkisto pienensi leveän 138 301 298 tavun arkiston ensin 54 762 752 tavuun. Aluetasojen zoomikohtainen piste-/polygoni-esitys pienensi sen 54 075 777 tavuun. Nykyinen kaikki 268 964 geometriallisen lähderivin `fid`-tunnisteita käyttävä arkisto on 66 963 838 tavua. Kaikki viiden aluetason tietueet ovat keskipisteinä zoomilla 0; polygonit alkavat zoomilta 10. Pronssikautisten hautaröykkiöiden tulosjoukko pysyi täsmälleen 1 467 kohteessa. Koko Suomen Range-siirto pitää mitata uudelleen nykyisellä arkistolla.
 
 Koko Suomen aloitusnäkymässä PMTiles Range -pyyntöjen määrä säilyi kuudessa ja siirretty määrä pieneni 4 535 650 tavusta 835 056 tavuun eli noin 81,6 prosenttia. Kenttien tiivistämisen jälkeen pahimman suodattamattoman näkymän pullonkaula on yli 200 000 vektorifeaturen selainrenderöinti, ei PMTiles-siirto.
 
-Seuraava tietomalliin liittyvä työ on vakaan, aineistoversion ja lähdetason huomioivan feature-ID:n määrittely sekä sitä käyttävän ominaisuustietojen massahaun kokeilu. Yksi karttaklikkaus voi osua useaan päällekkäiseen featureen, joten selain lähettää yhdellä pyynnöllä enintään 100 `{sourceLayer, featureId}`-paria. Kohteen nimiä tai muita näyttökenttiä ei palauteta MVT:hen ilman mitattua tarvetta.
+Ominaisuustietojen massahaku on toteutettu PoC:ssa. Karttaklikkaus lähettää enintään 100 `{sourceLayer, featureId}`-paria, joissa `featureId` on nykyisen GeoPackagen `fid`. Pysyvät linkit käyttävät erillistä `logicalLayerId + registryId` -massahakua, joka palauttaa kaikki nykyisen aineiston osumat. Kohteen nimiä tai muita näyttökenttiä ei palauteta MVT:hen ilman mitattua tarvetta.
 
 ## Hyväksymissäännöt
 
