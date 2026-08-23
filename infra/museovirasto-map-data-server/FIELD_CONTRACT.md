@@ -154,8 +154,7 @@ Kaikille kohteille yhteinen vähimmäismalli on:
 
 ```json
 {
-  "datasetVersion": "sha256:…",
-  "featureKey": "stable-internal-key",
+  "featureId": "12345",
   "sourceLayer": "archaeological_points",
   "logicalLayerId": "rajapinta_suojellut:muinaisjaannos_piste",
   "registry": "archaeological_sites",
@@ -167,14 +166,13 @@ Kaikille kohteille yhteinen vähimmäismalli on:
 }
 ```
 
-MVT-tiileen sisällytetään vain renderöinnin, näkyvyysvalinnan, pisteiden nykyisen tyyppi-/ajoitussuodatuksen ja klikkauksen avaimen tarvitsemat kentät:
+MVT-tiileen sisällytetään vain renderöinnin, näkyvyysvalinnan, pisteiden nykyisen tyyppi-/ajoitussuodatuksen ja klikkauksen tarvitsemat kentät:
 
-- `feature_key`, `logical_layer` tai sen johtamiseen tarvittava `laji_key`;
-- `registry_id` ja tarvittaessa `name`;
+- saman aineistojulkaisun MVT-feature-ID:nä GeoPackagen `fid` sekä loogisen tason johtamiseen tarvittava `laji_key`;
 - arkeologisille pisteille normalisoitu tyyppi- ja ajoitussuodatusarvo;
 - tuntemattoman luokittelun ilmaiseva arvo, jotta kohde ei katoa hiljaisesti.
 
-Laajat näyttökentät ja raakamuodot palautetaan `/api/features/:id`-vastauksessa. Klikkaus lukee ensin MVT-kohteen avaimen ja hakee tiedot vain avattavaa kohdepaneelia varten. PoC:ssa mitataan, onko nimi syytä pitää tiilessä välittömän palautteen vuoksi.
+Laajat näyttökentät ja raakamuodot palautetaan massahaulla. Karttaklikkaus käyttää `sourceLayer + featureId` -viitteitä; pysyvä linkki käyttää `logicalLayerId + registryId` -viitteitä ja saa aina uusimman D1-aineiston kaikki vastaavat rivit. Aineistoversio ei kuulu pysyvään URL-identiteettiin. `fid`-malli on vielä vaiheessa 2 verrattava ID:ttömään `registry_id`-MVT-malliin sen suuren siirtokustannuksen vuoksi.
 
 ## Havaitut nykykoodin poikkeamat
 

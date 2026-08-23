@@ -126,9 +126,11 @@ Nykyisen WMS-ratkaisun kevyt suorituskyvyn lähtötaso on tiedostossa [CURRENT_M
 - [x] Toteuta 26 loogisen tasovalinnan näyttäminen ja piilottaminen yhden OpenLayers `PMTilesVectorSource` -olion `source-layer`- ja `laji_key`-tyylisuodattimilla. Valinnat eivät luo uusia PMTiles-lähteitä tai muuta tiili-URL:ia.
 - [x] Mittaa paikallisen irrallisen PoC:n kylmä lataus koko Suomen, suodatetun koko Suomen, kaupunki- ja lähitason näkymissä. Toistettava Chrome-ajuri mittaa PMTiles-pyynnöt ja -tavut, datan valmistumisajan, featuremäärät, esitystavan ja JS-heapin. Koko tuotantosivun mobiilimittaus taustakarttoineen ja muiden lähteiden tasoineen siirtyy vaiheeseen 4, koska niitä ei tarkoituksella ole irrallisessa PoC:ssa.
 - [x] Tuo D1:een suppea hakutaulu ja toteuta Workeriin yksinkertainen osajonohaku. `GET /api/search` vaatii 3–100 merkkiä, hakee normalisoidusta nimestä ja rekisteritunnuksesta, ryhmittelee `logicalLayerId + registryId` -avaimella, rajaa vastauksen 50 tulokseen ja palauttaa 60 sekunnin välimuistiotsakkeen. Testit kattavat ääkköset, kirjainkoon, osittaiset haut, LIKE-jokerien käsittelyn, tulosrajan ja liian lyhyet haut.
-- Vahvista yhden PMTiles-arkiston suorituskykybudjetit ja kirjaa D1:n lineaarisen haun mitattu vasteaika vertailutiedoksi.
+- [x] Vahvista yhden PMTiles-arkiston suorituskykybudjetit ja kirjaa D1:n lineaarisen haun mitattu vasteaika vertailutiedoksi. Budjetit, avoimet tuotantoportit ja mitattu arkkitehtuuripäätös ovat tiedostossa [POC_PERFORMANCE_BUDGETS.md](POC_PERFORMANCE_BUDGETS.md).
 
 **Tuotos:** selaimessa toimiva kokeilu ja mitattu arkkitehtuuripäätös.
+
+**Vaihe 1 on valmis.** PoC hyväksyy yhden PMTiles-arkiston, selainpuolisen suodatuksen ja dynaamisen aggregoinnin, zoomikohtaiset aluegeometriat, Worker–R2 Range -palvelun sekä D1:n massa- ja sanahaut jatkokehityksen pohjaksi. MVT-feature-ID:n noin 111 prosentin vaikutus koko Suomen siirtoon jää tietoiseksi vaiheessa 2 mitattavaksi tuotantoskeeman optimointikysymykseksi. Mobiili-, tuotantoverkko- ja muiden samanaikaisten karttatasojen budjetit hyväksytään vasta vaiheen 4 integraatiossa.
 
 PMTiles-arkiston toteutunut leveä PoC-skeema ja kenttäkohtainen minimointipäätös on dokumentoitu tiedostossa [PMTILES_DATA_MODEL.md](PMTILES_DATA_MODEL.md). Kompakti rinnakkaisarkisto on toteutettu: arkeologisilla pisteillä ovat `laji_key`, 19 tyypin ja 12 ajoituksen bittimaskit sekä 211 alatyypin lyhyt koodijoukko, arkeologisilla alueilla `laji_key` ja muilla tasoilla vain MVT-feature-ID. Arkisto pieneni 138 301 298 tavusta 54 762 752 tavuun ilman geometrian tai kohteiden karsimista. Selain-PoC käyttää jo kompakteja kenttiä, ja 1 467 pronssikautisen hautaröykkiön vertailuosumat säilyivät täsmälleen samoina.
 
@@ -156,7 +158,7 @@ Paikallinen kylmän Chromen mittaus on dokumentoitu tiedostossa [POC_BROWSER_PER
 
 Lineaarinen osajonohaku mitattiin paikallisesta 268 964 rivin D1-simulaatiosta viidellä peräkkäisellä pyynnöllä. Ensimmäinen kylmä `turku`-haku vei 199 ms ja seuraavat noin 55–58 ms. Lämmitetyt `röykkiö`- ja `kirkko`-haut vastasivat noin 56–61 ms:ssa, tulokseton haku noin 51–55 ms:ssa ja yleinen rekisteritunnushaku noin 72–76 ms:ssa. `turku` palautti 11 ryhmiteltyä tulosta; yleiset haut saavuttivat 50 tuloksen rajan. Tulos vahvistaa, ettei harvoin käytetty PoC-haku tarvitse vielä FTS-ratkaisua.
 
-**Seuraava tehtävä:** vahvista vaiheen 1 suorituskykybudjetit ja arkkitehtuuripäätös koottujen PMTiles-, selain- ja D1-mittausten perusteella.
+**Seuraava tehtävä:** aloita vaihe 2 lukitsemalla rakennustyökalujen versiot ja kokoamalla nykyiset skriptit yhdeksi toistettavaksi rakennusajoksi ilman konttia.
 
 ### Vaihe 2: Toistettava rakennusputki
 
@@ -247,8 +249,8 @@ Testikokonaisuuteen kuuluvat rakennusputken yksikkötestit, tunnettuun pieneen u
 | Koko Suomen tiilet kasvavat liian suuriksi | Hidas mobiilikäyttö ja renderöinti | Zoom-kohtainen klusterointi, geometriayleistys, attribuuttien karsinta ja tiilikokobudjetti |
 | PMTilesin Range-pyynnöt eivät välimuistitu odotetusti | Suurempi viive tai R2-kustannus | Mitataan PoC:ssa; varavaihtoehto on esigeneroidut MVT-tiilet R2:ssa |
 | D1:n lineaarinen osajonohaku hidastuu aineiston kasvaessa | Harvoin käytetyn haun vasteaika kasvaa | Tulosraja ja hakutulosvälimuisti; tarvittaessa myöhemmin FTS- tai trigrammi-indeksi |
-| Kartta ja hakutaulu osoittavat eri aineistoversioon | Hakutuloksessa näkyy puuttuva tai vanha kohde | Versiotunnus jokaisella hakurivillä, yhteinen aktiivisen version osoitin ja atominen julkaisu |
-| Kohdetunnus ei ole vakaa tai uniikki tasojen välillä | Klikkaus ja hakutulos eivät yhdisty tietoihin | Muodosta sisäinen avain lähdetasosta ja lähdetunnuksesta; säilytä molemmat |
+| PMTiles ja D1:n klikkausrivit osoittavat eri aineistojulkaisuun | `sourceLayer + fid` voi palauttaa väärän tai puuttuvan rivin | Julkaise PMTiles ja sitä vastaava D1-aineisto atomisesti; pysyvät linkit käyttävät aina uusinta `logicalLayerId + registryId` -hakua |
+| Rekisteritunnus ei ole rivikohtaisesti uniikki | Pysyvä linkki voi vastata useita geometrioita | Käsittele suhde tarkoituksella yksi-moneen-suhteena ja palauta kaikki nykyiset rivit |
 | Geometriat ovat virheellisiä | Rakennusajo epäonnistuu tai kohteita katoaa | Geometriakorjaus, hylkäysraportti ja hyväksyttävän hävikin nollaraja tai erikseen päätetty raja |
 | Päivittäinen ajo ylittää CI:n ajan tai resurssit | Aineisto vanhenee | Välimuistita työkalut, ohita muuttumaton lähde ja mittaa ajo; siirrä tarvittaessa erilliseen ajopalveluun |
 | Kartan tyylit poikkeavat nykyisestä | Käyttäjä ei tunnista kohdetyyppejä | Versionhallittu tyylimäppäys ja visuaaliset regressiotestit |
@@ -266,4 +268,4 @@ Seuraavat päätökset tehdään vaiheiden 0–1 tulosten perusteella:
 
 ## 9. Suositeltu ensimmäinen työpaketti
 
-Ensimmäisessä työpaketissa toteutetaan vaiheet 0 ja 1 ilman tuotantoliikenteen muutoksia. Työpaketti on valmis, kun todellinen aineistoskeema on dokumentoitu, yksi PMTiles-versio toimii OpenLayersissa R2:n kautta, yksinkertainen D1-nimihaku toimii ja kolmen zoom-tason mobiilimittaukset on kirjattu. Näiden tulosten perusteella lukitaan tuotantoarkkitehtuuri, suorituskykybudjetit ja vaiheiden 2–5 työmäärä.
+Ensimmäinen työpaketti eli vaiheet 0 ja 1 on valmis ilman tuotantoliikenteen muutoksia. Todellinen aineistoskeema on dokumentoitu, yksi PMTiles-versio toimii OpenLayersissa paikallisen R2-simulaation kautta, D1:n ominaisuus- ja nimihaku toimivat ja kolme zoomitasoa on mitattu kylmällä työpöytä-Chromella. Tuotantoarkkitehtuurin lähtöpäätös ja paikalliset regressiobudjetit on lukittu; mobiili- ja koko tuotantosivun budjetit lukitaan vaiheessa 4.

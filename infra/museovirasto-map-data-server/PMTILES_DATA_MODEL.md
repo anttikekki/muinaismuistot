@@ -119,9 +119,9 @@ Tämä on nykyinen minimimalli. Mahdollinen `name` on ainoa perusteltu lisäkent
 
 ## Mitattu vaikutus
 
-Kompakti arkisto pienensi leveän 138 301 298 tavun arkiston ensin 54 762 752 tavuun. Aluetasojen zoomikohtainen piste-/polygoni-esitys pienensi sen 54 075 777 tavuun. Nykyinen kaikki 268 964 geometriallisen lähderivin `fid`-tunnisteita käyttävä arkisto on 66 963 838 tavua. Kaikki viiden aluetason tietueet ovat keskipisteinä zoomilla 0; polygonit alkavat zoomilta 10. Pronssikautisten hautaröykkiöiden tulosjoukko pysyi täsmälleen 1 467 kohteessa. Koko Suomen Range-siirto pitää mitata uudelleen nykyisellä arkistolla.
+Kompakti arkisto pienensi leveän 138 301 298 tavun arkiston ensin 54 762 752 tavuun. Aluetasojen zoomikohtainen piste-/polygoni-esitys pienensi sen 54 075 777 tavuun. Nykyinen kaikki 268 964 geometriallisen lähderivin `fid`-tunnisteita käyttävä arkisto on 66 963 838 tavua. Kaikki viiden aluetason tietueet ovat keskipisteinä zoomilla 0; polygonit alkavat zoomilta 10. Pronssikautisten hautaröykkiöiden tulosjoukko pysyi täsmälleen 1 467 kohteessa.
 
-Koko Suomen aloitusnäkymässä PMTiles Range -pyyntöjen määrä säilyi kuudessa ja siirretty määrä pieneni 4 535 650 tavusta 835 056 tavuun eli noin 81,6 prosenttia. Kenttien tiivistämisen jälkeen pahimman suodattamattoman näkymän pullonkaula on yli 200 000 vektorifeaturen selainrenderöinti, ei PMTiles-siirto.
+Ennen MVT-feature-ID:tä koko Suomen aloitusnäkymä käytti kuusi Range-pyyntöä ja 835 056 tavua. Nykyinen `fid`-arkisto käyttää kylmässä vakioajossa edelleen kuusi pyyntöä mutta 1 766 264 tavua. ID kasvatti siirtoa noin 111 prosenttia, joten vaiheessa 2 verrataan sitä `registry_id`-ominaisuutta käyttävään ID:ttömään malliin. Dynaamisen aggregoinnin jälkeen pahimman suodattamattoman näkymän selainrenderöinti on hyväksyttävä nykyisellä testikoneella.
 
 Ominaisuustietojen massahaku on toteutettu PoC:ssa. Karttaklikkaus lähettää enintään 100 `{sourceLayer, featureId}`-paria, joissa `featureId` on nykyisen GeoPackagen `fid`. Pysyvät linkit käyttävät erillistä `logicalLayerId + registryId` -massahakua, joka palauttaa kaikki nykyisen aineiston osumat. Kohteen nimiä tai muita näyttökenttiä ei palauteta MVT:hen ilman mitattua tarvetta.
 
