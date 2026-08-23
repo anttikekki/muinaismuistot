@@ -17,6 +17,7 @@ import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
 import Text from "ol/style/Text"
 import { PMTilesVectorSource } from "ol-pmtiles"
+import vocabulary from "./filter-vocabulary.json"
 import { aggregationDisableThreshold, aggregationEnableThreshold, nextAggregationMode } from "./aggregation"
 import {
   archaeologicalDatings,
@@ -53,6 +54,7 @@ const initialView = benchmarkViews[benchmarkName ?? ""] ?? benchmarkViews.finlan
 const enabled = new Set<string>()
 const unfilteredLogicalIdBySource = new Map<string, string>()
 const filteredLogicalIdsBySource = new Map<string, { field: string; idsByValue: Map<string, string> }>()
+const archaeologicalKindCodes = new Map(vocabulary.kinds.map((value, index) => [value, String(index + 1)]))
 const styleByLogicalId = new Map<string, Style>()
 const pointStyleByLogicalId = new Map<string, Style>()
 const selectedArchaeologicalTypes = new Set<string>(archaeologicalTypes)
@@ -349,7 +351,11 @@ function configureStyleLookups(layers: LogicalLayer[]): void {
     if (lookup.field !== layer.filter.field) {
       throw new Error(`Multiple filter fields configured for ${layer.sourceLayer}`)
     }
-    lookup.idsByValue.set(layer.filter.equals, layer.id)
+    const filterValue = layer.filter.field === "laji_key"
+      ? archaeologicalKindCodes.get(layer.filter.equals)
+      : layer.filter.equals
+    if (filterValue === undefined) throw new Error(`Unknown ${layer.filter.field} value: ${layer.filter.equals}`)
+    lookup.idsByValue.set(filterValue, layer.id)
   }
 }
 

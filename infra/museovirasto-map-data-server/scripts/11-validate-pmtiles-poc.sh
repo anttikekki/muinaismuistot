@@ -43,8 +43,8 @@ if [[ "$(basename "$ARCHIVE")" == *compact* ]]; then
   actual_fields="$(jq -S -c '[.vector_layers[] | {key: .id, value: .fields}] | from_entries' <<<"$metadata")"
   expected_fields="$(jq -n -S -c --argjson layers "$expected_layers" '
     reduce $layers[] as $layer ({}; .[$layer] = {})
-    | .archaeological_areas = {laji_key: "String"}
-    | .archaeological_points = {dating_mask: "Number", laji_key: "String", subtype_codes: "String", type_mask: "Number"}
+    | .archaeological_areas = {laji_key: "Number"}
+    | .archaeological_points = {dating_mask: "Number", laji_key: "Number", subtype_codes: "String", type_mask: "Number"}
   ')"
   [[ "$actual_fields" == "$expected_fields" ]] || {
     echo "Compact archive field schema does not match the documented minimum" >&2
@@ -67,13 +67,12 @@ if [[ "$(basename "$ARCHIVE")" == *compact* ]]; then
   done < <(jq -r '.tilestats.layers[] | select(.layer | endswith("_areas")) | [.layer, .count] | @tsv' <<<"$metadata")
 fi
 
-unknown_laji_count="$(
-  for layer in archaeological_areas archaeological_points archaeological_subsites_points; do
-    jq --arg layer "$layer" '[.tilestats.layers[] | select(.layer == $layer) | .attributes[]? | select(.attribute == "laji_key") | .values[]? | select(. == "unknown")] | length' <<<"$metadata"
-  done | awk '{ total += $1 } END { print total + 0 }'
+kind_count="$(jq '.kinds | length' "$PROJECT_DIR/poc/web/filter-vocabulary.json")"
+invalid_laji_count="$(
+  jq --argjson maximum "$kind_count" '[.tilestats.layers[] | select(.layer == "archaeological_areas" or .layer == "archaeological_points") | .attributes[]? | select(.attribute == "laji_key") | .values[]? | select(type != "number" or . < 1 or . > $maximum)] | length' <<<"$metadata"
 )"
-[[ "$unknown_laji_count" == "0" ]] || {
-  echo "Archive metadata contains unknown archaeological laji_key values" >&2
+[[ "$invalid_laji_count" == "0" ]] || {
+  echo "Archive metadata contains invalid archaeological laji_key codes" >&2
   exit 1
 }
 

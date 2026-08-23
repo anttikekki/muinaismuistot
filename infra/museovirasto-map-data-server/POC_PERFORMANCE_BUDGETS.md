@@ -19,7 +19,7 @@ Budjetit koskevat kylmää paikallista Chrome-ajoa Apple M1 Max -testikoneella. 
 | Datan valmistuminen | enintään 500 ms | enintään 250 ms | enintään 150 ms |
 | Käytetty JS-heap | enintään 200 MB | enintään 40 MB | enintään 10 MB |
 
-Nykyinen mittaus alittaa nämä rajat: koko Suomi 6 pyyntöä, 1 766 264 tavua, 383 ms ja noin 169 MB; kaupunkitaso 8 pyyntöä, 165 304 tavua, 125 ms ja noin 22 MB; lähitaso 8 pyyntöä, 33 562 tavua, 87 ms ja noin 4 MB.
+Nykyinen numeerisen lajikoodin mittaus alittaa nämä rajat: koko Suomi 6 pyyntöä, 1 765 305 tavua, 456 ms ja noin 175 MB; kaupunkitaso 8 pyyntöä, 164 359 tavua, 137 ms ja noin 27 MB; lähitaso 8 pyyntöä, 32 945 tavua, 83 ms ja noin 4 MB.
 
 ## Renderöintibudjetit
 

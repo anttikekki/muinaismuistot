@@ -38,15 +38,16 @@ Yhteisajo:
 Tuotokset kirjoitetaan gitistä ohitettuun `data/poc`-hakemistoon:
 
 - `museovirasto-poc-compact.pmtiles`
+- `poc/web/filter-vocabulary.json` (versionhallittu ja selainrakennukseen sisältyvä koodisto)
 - `feature-details.sql`
 - `source-geometry-report.json`
 - `source-baseline-report.json`
 - `tiling-budget-report.json`
 - `build-manifest.json`
 
-Geometriapolitiikan `invalidGeometry: fail` ja `repair: none` estävät virheellisen geometrian hiljaisen korjauksen tai pudotuksen. Sallittu NULL-määrä määritellään tasokohtaisesti. Manifesti sisältää lähde- ja konfiguraatiotiivisteet, lukitut työkaluversiot, artefaktien koot ja SHA-256-tiivisteet sekä keskeiset tietuemäärät.
+Geometriapolitiikan `invalidGeometry: fail` ja `repair: none` estävät virheellisen geometrian hiljaisen korjauksen tai pudotuksen. Sallittu NULL-määrä määritellään tasokohtaisesti. Manifesti sisältää lähde- ja konfiguraatiotiivisteet, lukitut työkaluversiot, artefaktien koot ja SHA-256-tiivisteet sekä keskeiset tietuemäärät. Myös PMTilesin `laji_key`-, tyyppi-, ajoitus- ja alatyyppikoodit avaava `filter-vocabulary.json` on manifestissa omana artefaktinaan ja konfiguraatiotiivisteenään, joten arkisto ja sitä tulkitseva sanasto voidaan julkaista yhtenä versiona.
 
-`source-data-baseline.json` on versionhallittu vertailutaso, ei päivittäisen rivimäärän lukko. Tyhjä tai puuttuva taso estää rakennuksen. Jokainen rivimäärämuutos kirjataan raporttiin ja yli 30 prosentin muutos merkitään varoitukseksi. Uudet tyyppi-, ajoitus- ja alatyyppiarvot merkitään varoituksiksi; lähtötasossa sallittu mutta kyseisen päivän aineistosta puuttuva arvo raportoidaan ilman varoitusta. Päivän lähderivien ja päivän tuotosten tarkka täsmäytys säilyy erillisenä julkaisun estävänä tarkistuksena.
+`source-data-baseline.json` on versionhallittu vertailutaso, ei päivittäisen rivimäärän lukko. Tyhjä tai puuttuva taso estää rakennuksen. Jokainen rivimäärämuutos kirjataan raporttiin ja yli 30 prosentin muutos merkitään varoitukseksi. Uudet laji-, tyyppi-, ajoitus- ja alatyyppiarvot merkitään varoituksiksi; lähtötasossa sallittu mutta kyseisen päivän aineistosta puuttuva arvo raportoidaan ilman varoitusta. Päivän lähderivien ja päivän tuotosten tarkka täsmäytys säilyy erillisenä julkaisun estävänä tarkistuksena.
 
 Zoomit, keskipiste-/polygoniraja, Tippecanoen harvennus- ja kokorajoitusten käyttö sekä kokobudjetit ovat `poc-layer-config.json`-tiedoston `tiling`- ja `budgets`-osissa. Rakennus estyy, jos arkisto ylittää 75 000 000 tavua, zoomin 0 pakkaamaton MVT-tiili ylittää 1 500 000 tavua tai arkiston zoomialue poikkeaa asetuksesta 0–14. Koko Suomen selainbudjetti, enintään 8 Range-pyyntöä ja 2 000 000 vastaustavua, validoidaan erillisessä Chrome-mittauksessa eikä staattisesta arkistosta.
 

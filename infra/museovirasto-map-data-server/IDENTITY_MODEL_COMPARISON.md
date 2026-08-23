@@ -14,7 +14,7 @@ Vertailu rakennetaan komennolla:
 infra/museovirasto-map-data-server/scripts/22-build-registry-id-comparison.sh
 ```
 
-Molemmat arkistot rakennettiin samasta tuotantoaineistosta ja samoilla Tippecanoe-asetuksilla. Ainoa tietomalliero oli tunniste: fid-mallissa numeerinen arvo asetettiin MVT-feature-ID:ksi, registry-mallissa ID jätettiin pois ja rekisteritunnus tallennettiin MVT-ominaisuudeksi.
+Molemmat arkistot rakennettiin samasta tuotantoaineistosta ja samoilla Tippecanoe-asetuksilla. Ainoa tietomalliero oli tunniste: fid-mallissa numeerinen arvo asetettiin MVT-feature-ID:ksi, registry-mallissa ID jätettiin pois ja rekisteritunnus tallennettiin MVT-ominaisuudeksi. Taulukon luvut ovat ennen `laji_key`-kentän myöhempää numerokoodausta tehtyä tunnistevertailua; molemmat vertailuarkistot käyttivät silloin samaa merkkijonoista lajikenttää, joten muutos ei vääristä niiden keskinäistä tulosta.
 
 | Mittari | `fid` MVT-feature-ID | `registry_id`-ominaisuus | Muutos |
 | --- | ---: | ---: | ---: |

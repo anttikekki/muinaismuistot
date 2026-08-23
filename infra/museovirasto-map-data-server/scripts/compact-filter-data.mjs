@@ -16,6 +16,16 @@ const datings = [
   "pronssikautinen", "rautakautinen", "rautakautinen ja/tai keskiaikainen",
   "keskiaikainen", "historiallinen", "moderni", "ajoittamaton", "ei määritelty",
 ]
+const kindAliases = new Map([
+  ["kiinteä muinaisjäännös", "kiintea_muinaisjaannos"],
+  ["muu kulttuuriperintökohde", "muu_kulttuuriperintokohde"],
+  ["löytöpaikka", "loytopaikka"],
+  ["havaintokohde", "havaintokohde"],
+  ["luonnonmuodostuma", "luonnonmuodostuma"],
+  ["mahdollinen muinaisjäännös", "mahdollinen_muinaisjaannos"],
+  ["muu kohde", "muu_kohde"],
+  ["poistettu kiinteä muinaisjäännös (ei rauhoitettu)", "poistettu_kiintea_muinaisjaannos"],
+])
 
 function atomicValues(raw, kind) {
   if (!raw) return []
@@ -35,19 +45,17 @@ function distinctRawValues(gpkg, layer, field) {
 }
 
 async function generateVocabulary([gpkg, layer, output]) {
-  const typeSet = new Set()
-  const datingSet = new Set()
+  const kindSet = new Set()
   const subtypeSet = new Set()
-  for (const raw of distinctRawValues(gpkg, layer, "tyyppi")) {
-    for (const value of atomicValues(raw, "type")) typeSet.add(value)
-  }
-  for (const raw of distinctRawValues(gpkg, layer, "ajoitus")) {
-    for (const value of atomicValues(raw, "dating")) datingSet.add(value)
+  for (const raw of distinctRawValues(gpkg, layer, "Laji")) {
+    const kind = kindAliases.get(raw.trim().toLocaleLowerCase("fi"))
+    if (!kind) throw new Error(`Unknown archaeological kind: ${raw}`)
+    kindSet.add(kind)
   }
   for (const raw of distinctRawValues(gpkg, layer, "alatyyppi")) {
     for (const value of atomicValues(raw, "subtype")) subtypeSet.add(value)
   }
-  const vocabulary = { schemaVersion: 1, types: [...typeSet].sort((a, b) => a.localeCompare(b, "fi")), datings: [...datingSet].sort((a, b) => a.localeCompare(b, "fi")), subtypes: [...subtypeSet].sort((a, b) => a.localeCompare(b, "fi")) }
+  const vocabulary = { schemaVersion: 2, kinds: [...kindSet].sort((a, b) => a.localeCompare(b, "fi")), types, datings, subtypes: [...subtypeSet].sort((a, b) => a.localeCompare(b, "fi")) }
   await writeFile(output, `${JSON.stringify(vocabulary, null, 2)}\n`)
 }
 
@@ -70,6 +78,7 @@ function featureId(layerId, sourceFid) {
 
 async function transform([vocabularyPath, layerId, profile, representation = "default", representationZoom, identityMode = "fid"]) {
   const vocabulary = JSON.parse(await readFile(vocabularyPath, "utf8"))
+  const kindIndexes = new Map(vocabulary.kinds.map((value, index) => [value, index + 1]))
   const subtypeIndexes = new Map(vocabulary.subtypes.map((value, index) => [value, index + 1]))
   const input = createInterface({ input: process.stdin, crlfDelay: Infinity })
   for await (const line of input) {
@@ -81,7 +90,8 @@ async function transform([vocabularyPath, layerId, profile, representation = "de
       : { registry_id: String(source.registry_id) }
     if (identityMode !== "fid" && identityMode !== "registry") throw new Error(`Unknown identity mode: ${identityMode}`)
     if (profile === "archaeological-filters") {
-      properties.laji_key = source.laji_key
+      properties.laji_key = kindIndexes.get(source.laji_key)
+      if (!properties.laji_key) throw new Error(`Unknown laji_key in ${layerId}: ${source.laji_key}`)
       properties.type_mask = mask(source.types_raw, vocabulary.types, "type")
       properties.dating_mask = mask(source.datings_raw, vocabulary.datings, "dating")
       properties.subtype_codes = atomicValues(source.subtypes_raw, "subtype").map((value) => {
@@ -89,7 +99,8 @@ async function transform([vocabularyPath, layerId, profile, representation = "de
         return code?.toString(36)
       }).filter(Boolean).join(".")
     } else if (profile === "logical-filter") {
-      properties.laji_key = source.laji_key
+      properties.laji_key = kindIndexes.get(source.laji_key)
+      if (!properties.laji_key) throw new Error(`Unknown laji_key in ${layerId}: ${source.laji_key}`)
     } else if (profile !== "none") {
       throw new Error(`Unknown transform profile for ${layerId}: ${profile}`)
     }

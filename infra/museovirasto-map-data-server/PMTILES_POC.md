@@ -106,7 +106,7 @@ Rinnakkainen kompakti arkisto säilyttää samat 12 lähdetasoa, kaikki featuret
 
 Arkisto pieneni 138 301 298 tavusta 54 762 752 tavuun eli noin 60,4 prosenttia ilman kohteiden harvennusta. Rakennus ja validointi vahvistivat kaikki 12 lähdetasoa sekä kaikkien pistetasojen täydet määrät zoomilla 0. Pronssikautisten hautaröykkiöiden tarkistus tuotti kompaktista arkistosta samat 1 467 osumaa kuin lähde-GeoPackage ja leveä arkisto.
 
-Kompakti arkisto rakennetaan komennolla `scripts/13-build-compact-pmtiles-poc.sh`. Skripti generoi lähdeaineistosta versionoidun `poc/web/filter-vocabulary.json`-koodiston ja keskeyttää, jos tyypin, ajoituksen tai alatyypin raakaarvoa ei voida esittää koodistolla. `npm run seed` käyttää kompaktia arkistoa oletuksena. Seuraava manuaalinen vertailu on koko Suomen Range-tavumäärä ja samojen suodattamattomien sekä 1 467 kohteen selainmittausten toisto.
+Kompakti arkisto rakennetaan komennolla `scripts/13-build-compact-pmtiles-poc.sh`. Versionoitu `poc/web/filter-vocabulary.json` sisältää lajin numerokoodit, tyyppi- ja ajoitusmaskien bittijärjestyksen sekä alatyyppikoodit. Rakennus keskeytyy, jos lähdearvoa ei voida esittää koodistolla. Sanaston tiiviste tallennetaan rakennusmanifestiin, ja selain käyttää samaa tiedostoa. `npm run seed` käyttää kompaktia arkistoa oletuksena.
 
 Kompaktin arkiston ensimmäinen koko Suomen selainmittaus tuotti seuraavat luvut:
 
@@ -168,7 +168,7 @@ Rakennus validoi jokaiselle aluetasolle yhtä monta keskipistettä kuin lähtees
 
 PoC käyttää saman aineistojulkaisun MVT:n ja D1:n yhteisenä avaimena yhdistelmää `source-layer + feature ID`, jossa feature ID on suoraan GeoPackagen `fid`. Lähderivejä ei deduplikoida, joten myös suojeltujen rakennuspisteiden kaikki 2 290 riviä säilyvät. Pysyvä URL käyttää yhdistelmää `logicalLayerId + registryId`; sillä tehtävä D1-haku palauttaa kaikki nykyisen aineiston vastaavat rivit.
 
-Kaikki 268 964 geometriallisen lähderivin `fid`-tunnisteita käyttävä arkisto on 66 963 838 tavua. Aikaisemmat vakaasta geometriarivi-identiteetistä tehdyt kokeet on hylätty tarpeettomina. Koko Suomen Range-siirto mitataan uudelleen nykyisellä arkistolla.
+Kaikki 268 964 geometriallisen lähderivin `fid`-tunnisteita ja numeerista `laji_key`-koodia käyttävä arkisto on 63 451 059 tavua. Aikaisemmat vakaasta geometriarivi-identiteetistä tehdyt kokeet on hylätty tarpeettomina. Koko Suomen mitattu Range-siirto on kuudella pyynnöllä 1 765 305 tavua.
 
 Skripti `scripts/14-build-feature-details-sql.sh` muodostaa 268 964 rivin D1-tuontiaineiston samoilla `fid`-tunnisteilla kuin PMTiles-rakennus. Worker tarjoaa karttaklikkaukselle `POST /api/features/batch` -täsmähaun ja pysyville linkeille `POST /api/features/by-register` -massahaun. Jälkimmäinen hyväksyy enintään 100 `{logicalLayerId, registryId}`-viitettä ja palauttaa jokaiselle kaikki uusimman aineiston geometriarivit. D1-indeksi on yhdistelmällä `(logical_layer_id, registry_id)`.
 

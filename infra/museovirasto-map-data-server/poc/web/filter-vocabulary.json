@@ -1,5 +1,15 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "kinds": [
+    "havaintokohde",
+    "kiintea_muinaisjaannos",
+    "loytopaikka",
+    "luonnonmuodostuma",
+    "mahdollinen_muinaisjaannos",
+    "muu_kohde",
+    "muu_kulttuuriperintokohde",
+    "poistettu_kiintea_muinaisjaannos"
+  ],
   "types": [
     "ei määritelty",
     "alusten hylyt",

@@ -30,11 +30,12 @@ node "$SCRIPT_DIR/compact-filter-data.mjs" vocabulary "$DATA_DIR/$vocabulary_fil
 
 vocabulary_changes="$(jq -n --slurpfile baseline "$VOCABULARY_BASELINE" --slurpfile current "$CURRENT_VOCABULARY" '
   def difference(a;b): [a[] | select(. as $value | b | index($value) | not)];
-  {newTypes:difference($current[0].types;$baseline[0].types), removedTypes:difference($baseline[0].types;$current[0].types),
+  {newKinds:difference($current[0].kinds;$baseline[0].kinds), removedKinds:difference($baseline[0].kinds;$current[0].kinds),
+   newTypes:difference($current[0].types;$baseline[0].types), removedTypes:difference($baseline[0].types;$current[0].types),
    newDatings:difference($current[0].datings;$baseline[0].datings), removedDatings:difference($baseline[0].datings;$current[0].datings),
    newSubtypes:difference($current[0].subtypes;$baseline[0].subtypes), removedSubtypes:difference($baseline[0].subtypes;$current[0].subtypes)}
 ')"
-vocabulary_warning_count="$(jq '[.newTypes,.newDatings,.newSubtypes | length] | add' <<<"$vocabulary_changes")"
+vocabulary_warning_count="$(jq '[.newKinds,.newTypes,.newDatings,.newSubtypes | length] | add' <<<"$vocabulary_changes")"
 
 jq -n --argjson layers "$layers" --argjson vocabulary "$vocabulary_changes" \
   --argjson warningCount "$((warning_count + vocabulary_warning_count))" \

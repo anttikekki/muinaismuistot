@@ -14,7 +14,7 @@ infra/museovirasto-map-data-server/data/tools/pmtiles show \
   infra/museovirasto-map-data-server/data/poc/museovirasto-poc-compact.pmtiles
 ```
 
-Arkistossa on 12 MVT `source-layer` -tasoa. `laji_key` ja `subtype_codes` ovat MVT-metadatan mukaan merkkijonoja; `type_mask` ja `dating_mask` ovat numeroita. Geometria ja MVT-feature-ID eivät näy `vector_layers.fields`-luettelossa.
+Arkistossa on 12 MVT `source-layer` -tasoa. `laji_key`, `type_mask` ja `dating_mask` ovat MVT-metadatan mukaan numeroita; `subtype_codes` on merkkijono. Geometria ja MVT-feature-ID eivät näy `vector_layers.fields`-luettelossa.
 
 ## Tunnisteet ja geometria
 
@@ -93,19 +93,143 @@ Kompakti PoC käyttää 19 päätyypille ja 12 ajoitukselle kokonaislukubittimas
 
 Jäsenyystesti on tyypeille ja ajoituksille täsmällinen bittitesti. Alatyyppikentän käyttäjälle näkyvä osajonohaku tehdään koodiston nimistä kerran suodattimen muuttuessa ja featureille testataan vain koodijäsenyys. Näin käyttöliittymän nykyinen osajonokäytös säilyy ilman pitkiä raakamerkkijonoja jokaisessa tiilifeaturessa.
 
-Toteutunut skeema arkeologiselle pisteelle on:
+## Featuren rakenne ja kenttien kuvaukset
+
+Alla olevissa esimerkeissä `sourceLayer` ja `geometryType` kuvaavat MVT:n rakennetta. Ne eivät ole featuren `properties`-ominaisuuksia. Samoin `id` on Protobuf-featuren numeerinen MVT-feature-ID eikä nimetty ominaisuuskenttä. Geometrian koordinaatit on jätetty esimerkeistä pois, koska ne ovat tiilikoordinaatteja ja vaihtelevat zoomin sekä tiilen mukaan.
+
+| Kenttä | MVT-tyyppi | Tasot | Kuvaus |
+| --- | --- | --- | --- |
+| `id` | unsigned integer | kaikki tasot | GeoPackagen positiivinen `fid`. Tunnistaa featuren yhdessä `source-layer`-nimen kanssa saman aineistojulkaisun PMTiles-arkistossa ja D1-tietokannassa. Ei ole vakaa aineistojulkaisujen välillä. |
+| `source-layer` | layer-rakenne | kaikki tasot | Fyysisen MVT-tason nimi. OpenLayers käyttää sitä tasovalintaan, tyyliin ja `id`:n nimiavaruuteen. Ei toistu jokaisen featuren ominaisuutena. |
+| geometria | MVT geometry | kaikki tasot | Piirrettävä tiilikoordinaatiston geometria. Piste- ja viivatasot säilyttävät tyyppinsä; aluetasot sisältävät pisteen zoomeilla 0–9 ja polygonin zoomeilla 10–14. |
+| `laji_key` | number | `archaeological_points`, `archaeological_areas` | Normalisoidun arkeologisen lajin 1-pohjainen koodi. Jakaa fyysisen lähdetason kahdeksaan käyttöliittymän loogiseen tasoon ja määrää niiden tyylin. Nykyisen sanaston `2` tarkoittaa `kiintea_muinaisjaannos`. |
+| `type_mask` | number | `archaeological_points` | Kohteen yhden tai usean tyypin bittimaski. Koodiston indeksissä `n` oleva tyyppi käyttää bittiä `2^n`; esimerkiksi `8` tarkoittaa nykyisessä koodistossa `hautapaikat`. |
+| `subtype_codes` | string | `archaeological_points` | Yhden tai usean alatyypin pisteellä eroteltu base36-koodijoukko. Koodit ratkaistaan versionoidusta `filter-vocabulary.json`-tiedostosta; esimerkiksi `c.20` tarkoittaa nykyisessä koodistossa `hautaröykkiöt` ja `kuppikalliot`. Tyhjä merkkijono tarkoittaa, ettei alatyyppiä ole. |
+| `dating_mask` | number | `archaeological_points` | Kohteen yhden tai usean ajoituksen bittimaski samalla periaatteella kuin `type_mask`; esimerkiksi `16` tarkoittaa nykyisessä koodistossa `pronssikautinen`. Arvo `0` tarkoittaa, ettei normalisoitua ajoitusta ole. |
+
+Koodien merkitys on sidottu arkiston kanssa julkaistavaan `filter-vocabulary.json`-sanastoversioon. Tämä koskee `laji_key`-koodia, tyyppi- ja ajoitusmaskien bittipaikkoja sekä alatyypin base36-koodeja. Sanasto sisältyy selainrakennukseen ja sen SHA-256-tiiviste tallennetaan rakennusmanifestiin. Koodeja ei saa päätellä käyttöliittymässä kovakoodatusta järjestyksestä.
+
+## Mikä toistuu featurekohtaisesti
+
+| Tieto | Tallennustaso | Toistuminen ja kokovaikutus |
+| --- | --- | --- |
+| `source-layer`-nimi | MVT-layer | Tallennetaan kerran jokaiseen tiileen sisältyvään fyysiseen layeriin, ei jokaiselle featurelle. Featuren layer selviää MVT-rakenteesta. |
+| ominaisuuskenttien nimet | MVT-layerin `keys`-taulu | Kukin käytetty nimi, kuten `laji_key`, tallennetaan tavallisesti kerran kyseisen tiilen layeriin. Feature sisältää vain viittauksen nimeen. |
+| ominaisuuksien eri arvot | MVT-layerin `values`-taulu | Sama arvo tallennetaan layerin tiilessä yhteiseen arvotauluun; feature sisältää viittauksen. Arvotaulu muodostetaan uudelleen jokaisessa tiilessä. |
+| geometrialaji | feature | MVT:n numeerinen enum toistuu jokaisella featurella ja tarvitaan geometrian dekoodaukseen. Dokumentin `geometryType` ei ole merkkijonona arkistossa. |
+| geometria | feature | Jokaisen featuren tiilikoordinaatit ja piirtokomennot tallennetaan featurekohtaisesti. Sama lähdekohde voi esiintyä useassa tiilessä. |
+| MVT-feature-ID | feature | Numeerinen GeoPackage-`fid` tallennetaan jokaiselle feature-esiintymälle. Sama lähdekohde voi toistua tiilirajoilla ja aluekohde eri zoomeilla. |
+| `laji_key`, `type_mask`, `dating_mask`, `subtype_codes` | feature → layerin avain- ja arvotaulut | Kenttien valinta ja arvoviittaukset tallennetaan jokaiselle arkeologiselle featurelle, vaikka varsinaiset nimet ja samanlaiset arvot jaetaan saman tiilen layerissä. |
+
+PMTiles-hakemisto ja MVT:n tiilikohtaiset yhteiset taulut vähentävät toistoa, mutta eivät muodosta koko arkiston laajuista yhteistä sanakirjaa. Sama layerin nimi, kenttänimi tai arvo voi siksi esiintyä pakatussa muodossa useissa eri tiilissä.
+
+## Esimerkkifeaturet fyysisittäin tasoittain
+
+Seuraavat arvot on poimittu 23.8.2026 rakennetun `museovirasto-poc-compact.pmtiles`-arkiston dekoodatusta zoomin 0 tiilestä komennolla `scripts/23-extract-pmtiles-feature-examples.sh`. Skripti kirjoittaa kaikki 12 otosta tiedostoon `data/poc/pmtiles-feature-examples.json` ja varmistaa tasomäärän. Arvot eivät ole pääteltyjä esimerkkiarvoja. `sourceLayer` lisätään esitykseen dekoodatun MVT-layerin nimestä; `id`, geometrialaji ja `properties` ovat valitun todellisen MVT-featuren tietoja. Koordinaatit jätetään dokumentista pois.
+
+### Arkeologiset pääkohteet
+
+`archaeological_points` sisältää kaikki neljä selainfiltterien tarvitsemaa ominaisuutta:
 
 ```json
 {
-  "id": "MVT feature ID, ei ominaisuus",
-  "laji_key": "kiintea_muinaisjaannos",
-  "type_mask": 8,
-  "subtype_codes": "c.20",
-  "dating_mask": 16
+  "sourceLayer": "archaeological_points",
+  "id": 26921,
+  "geometryType": "Point",
+  "properties": {
+    "laji_key": 2,
+    "type_mask": 1024,
+    "dating_mask": 1024,
+    "subtype_codes": "1y"
+  }
 }
 ```
 
-Muille fyysisille tasoille ei tarvita ominaisuuskenttiä, jos niiden tyyli ja näkyvyys määräytyvät `source-layer`-tason perusteella ja klikkaus käyttää MVT-feature-ID:tä. Arkeologinen alue tarvitsee lisäksi `laji_key`-kentän, koska yksi fyysinen taso vastaa kahdeksaa loogista aluetasoa.
+Sanaston perusteella tämän todellisen featuren `laji_key: 2` tarkoittaa kiinteää muinaisjäännöstä, `type_mask: 1024` maarakenteita, `dating_mask: 1024` ajoittamatonta kohdetta ja `subtype_codes: "1y"` kuoppia.
+
+`archaeological_areas` tarvitsee vain loogisen lajin. Sama lähderivi on matalilla zoomeilla pisteenä ja tarkemmilla zoomeilla polygonina:
+
+```json
+{
+  "sourceLayer": "archaeological_areas",
+  "id": 12575,
+  "geometryType": "Point",
+  "properties": {
+    "laji_key": 2
+  }
+}
+```
+
+### Muut fyysiset tasot
+
+Seuraavilla kymmenellä tasolla `source-layer` määrää näkyvyyden ja tyylin. Kohteen tiedot haetaan klikkauksen jälkeen D1:stä yhdistelmällä `sourceLayer + id`, joten MVT-featurella ei ole ominaisuuskenttiä.
+
+```json
+[
+  {
+    "sourceLayer": "archaeological_subsites_points",
+    "id": 9802,
+    "geometryType": "Point",
+    "properties": {}
+  },
+  {
+    "sourceLayer": "protected_building_areas",
+    "id": 94,
+    "geometryType": "Point",
+    "properties": {}
+  },
+  {
+    "sourceLayer": "protected_building_points",
+    "id": 1696,
+    "geometryType": "Point",
+    "properties": {}
+  },
+  {
+    "sourceLayer": "rky_areas",
+    "id": 730,
+    "geometryType": "Point",
+    "properties": {}
+  },
+  {
+    "sourceLayer": "rky_lines",
+    "id": 179,
+    "geometryType": "LineString",
+    "properties": {}
+  },
+  {
+    "sourceLayer": "rky_points",
+    "id": 36,
+    "geometryType": "Point",
+    "properties": {}
+  },
+  {
+    "sourceLayer": "vark_areas",
+    "id": 323,
+    "geometryType": "Point",
+    "properties": {}
+  },
+  {
+    "sourceLayer": "vark_points",
+    "id": 323,
+    "geometryType": "Point",
+    "properties": {}
+  },
+  {
+    "sourceLayer": "world_heritage_areas",
+    "id": 20,
+    "geometryType": "Point",
+    "properties": {}
+  },
+  {
+    "sourceLayer": "world_heritage_points",
+    "id": 2,
+    "geometryType": "Point",
+    "properties": {}
+  }
+]
+```
+
+Eri `source-layer`-tasoilla voi olla sama numeerinen `id`, koska lähdetasojen GeoPackage-`fid`-avaruudet ovat erillisiä. Tämän vuoksi tunnistusavaimesta ei saa jättää fyysisen tason nimeä pois.
 
 ## Kompaktin mallin perustelut tasoittain
 
@@ -119,9 +243,9 @@ Tämä on nykyinen minimimalli. Mahdollinen `name` on ainoa perusteltu lisäkent
 
 ## Mitattu vaikutus
 
-Kompakti arkisto pienensi leveän 138 301 298 tavun arkiston ensin 54 762 752 tavuun. Aluetasojen zoomikohtainen piste-/polygoni-esitys pienensi sen 54 075 777 tavuun. Nykyinen kaikki 268 964 geometriallisen lähderivin `fid`-tunnisteita käyttävä arkisto on 66 963 838 tavua. Kaikki viiden aluetason tietueet ovat keskipisteinä zoomilla 0; polygonit alkavat zoomilta 10. Pronssikautisten hautaröykkiöiden tulosjoukko pysyi täsmälleen 1 467 kohteessa.
+Kompakti arkisto pienensi leveän 138 301 298 tavun arkiston ensin 54 762 752 tavuun. Aluetasojen zoomikohtainen piste-/polygoni-esitys pienensi sen 54 075 777 tavuun. MVT-feature-ID:n lisäämisen jälkeen merkkijonoista `laji_key`-arvoa käyttänyt arkisto oli 66 963 838 tavua. Numeerinen, versionoidusta sanastosta avattava `laji_key` pienensi nykyisen arkiston 63 451 059 tavuun. Kaikki viiden aluetason tietueet ovat keskipisteinä zoomilla 0; polygonit alkavat zoomilta 10. Pronssikautisten hautaröykkiöiden tulosjoukko pysyi täsmälleen 1 467 kohteessa.
 
-Ennen MVT-feature-ID:tä koko Suomen aloitusnäkymä käytti kuusi Range-pyyntöä ja 835 056 tavua. Nykyinen `fid`-arkisto käyttää kylmässä vakioajossa edelleen kuusi pyyntöä mutta 1 766 264 tavua. ID kasvatti siirtoa noin 111 prosenttia. Vaiheen 2 vaihtoehtokoe ei kuitenkaan pienentänyt tätä: ID:tön mutta `registry_id`-ominaisuuden sisältävä arkisto kasvoi 73 920 972 tavuun ja koko Suomen siirto 2 123 282 tavuun. Lisäksi MVT-ID:n puute heikensi selaimen feature-deduplikointia. Siksi `fid` säilyy nykyisenä minimimallina. Tarkka vertailu on tiedostossa [IDENTITY_MODEL_COMPARISON.md](IDENTITY_MODEL_COMPARISON.md).
+Ennen MVT-feature-ID:tä koko Suomen aloitusnäkymä käytti kuusi Range-pyyntöä ja 835 056 tavua. Merkkijonoista lajikoodia käyttänyt `fid`-arkisto käytti 1 766 264 tavua. Numeeriseen `laji_key`-arvoon siirtynyt nykyinen arkisto käyttää kuusi pyyntöä ja 1 765 305 tavua: koko arkisto pieneni selvästi, mutta koko Suomen aloitusnäkymän Range-siirto vain 959 tavua. Vaiheen 2 ID-vaihtoehtokoe ei pienentänyt siirtoa: ID:tön mutta `registry_id`-ominaisuuden sisältävä arkisto kasvoi 73 920 972 tavuun ja koko Suomen siirto 2 123 282 tavuun. Lisäksi MVT-ID:n puute heikensi selaimen feature-deduplikointia. Siksi `fid` säilyy nykyisenä minimimallina. Tarkka ID-vertailu on tiedostossa [IDENTITY_MODEL_COMPARISON.md](IDENTITY_MODEL_COMPARISON.md).
 
 Ominaisuustietojen massahaku on toteutettu PoC:ssa. Karttaklikkaus lähettää enintään 100 `{sourceLayer, featureId}`-paria, joissa `featureId` on nykyisen GeoPackagen `fid`. Pysyvät linkit käyttävät erillistä `logicalLayerId + registryId` -massahakua, joka palauttaa kaikki nykyisen aineiston osumat. Kohteen nimiä tai muita näyttökenttiä ei palauteta MVT:hen ilman mitattua tarvetta.
 
