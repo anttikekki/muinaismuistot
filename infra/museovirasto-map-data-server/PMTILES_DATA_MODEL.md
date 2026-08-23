@@ -54,7 +54,7 @@ Tämä on PoC:n nykytila, ei hyväksytty tuotantoskeema.
 | --- | --- | --- | --- |
 | `laji_key` | arkeologiset alueet, pisteet ja alakohteet | jakaa kaksi fyysistä pääkohdetasoa kahdeksaan loogiseen tasoon ja valitsee tyylin | **Säilytä pääkohteiden pisteillä ja alueilla.** Poista alakohteilta, joiden nykyinen looginen taso ja tähtityyli eivät riipu lajista. Tuntematon arvo säilytetään `unknown`-arvona. |
 | `types_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö; PoC:ssa mahdollinen väliaikainen selainfiltteri | **Korvaa arkeologisilla pisteillä kompaktilla normalisoidulla suodatusarvolla.** Poista muilta tasoilta MVT:stä. Säilytä raakamuoto ominaisuustietoaineistossa. |
-| `subtypes_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö, ei nykyisen sivuston dokumentoidun CQL-suodatuksen kenttä | **Poista MVT:stä**, ellei seuraava käyttöliittymäkoe osoita alatyypin olevan itsenäinen aktiivinen suodatin. Säilytä ominaisuustietoaineistossa. |
+| `subtypes_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö; käyttäjän tutkimuskäyttötapa tarvitsee arkeologisten pisteiden alatyyppisuodatuksen, vaikka nykyinen sivusto ei muodosta siitä CQL-ehtoa | **Korvaa arkeologisilla pisteillä kompaktilla normalisoidulla suodatusarvolla.** Poista muilta tasoilta MVT:stä ja säilytä raakamuoto ominaisuustietoaineistossa. |
 | `datings_raw` | arkeologiset tasot ja VARK | kohdepaneelin näyttö; arkeologisten pisteiden ajoitussuodatus | **Korvaa arkeologisilla pisteillä kompaktilla normalisoidulla suodatusarvolla.** Poista muilta tasoilta MVT:stä. Säilytä raakamuoto ominaisuustietoaineistossa. |
 | `registry_id` | kaikki tasot | rekisteritunnuksen näyttö ja kohteen tunnistaminen | **Poista MVT:stä**, kun vakaa MVT-feature-ID ja ominaisuustieto-endpoint toimivat. Pidä siihen asti PoC:ssa klikkauksen tarkistusta varten. |
 | `name` | kaikki tasot | PoC näyttää nimen heti karttaklikkauksessa | **Poista MVT:stä** ja hae ominaisuustieto-endpointista. Mittaa ensin, onko endpointin viive hyväksyttävä; nimi voidaan pitää vain, jos välitön klikkauspalaute sitä edellyttää. |
@@ -94,6 +94,7 @@ Alustava tavoiteskeema arkeologiselle pisteelle on:
   "id": "MVT feature ID, ei ominaisuus",
   "laji_key": "kiintea_muinaisjaannos",
   "type_filter": "kompakti normalisoitu jäsenjoukko",
+  "subtype_filter": "kompakti normalisoitu jäsenjoukko",
   "dating_filter": "kompakti normalisoitu jäsenjoukko"
 }
 ```
@@ -104,7 +105,7 @@ Muille fyysisille tasoille ei tarvita ominaisuuskenttiä, jos niiden tyyli ja n�
 
 | MVT source-layer | Tavoitteen feature-ominaisuudet | Peruste |
 | --- | --- | --- |
-| `archaeological_points` | `laji_key`, `type_filter`, `dating_filter` | looginen taso, tyyppi- ja ajoitussuodatus |
+| `archaeological_points` | `laji_key`, `type_filter`, `subtype_filter`, `dating_filter` | looginen taso sekä tyyppi-, alatyyppi- ja ajoitussuodatus |
 | `archaeological_areas` | `laji_key` | looginen taso |
 | muut 10 tasoa | ei ominaisuuksia | `source-layer` määrää näkyvyyden ja tyylin; ID riittää ominaisuustietojen hakuun |
 
@@ -128,4 +129,5 @@ Seuraavat toteutusaskeleet ovat:
 - Raakamuotoisia moniarvokenttiä ei julkaista tuotanto-MVT:ssä.
 - Karttatyylin tai aktiivisen suodatuksen tarvitsemaa kenttää ei saa poistaa.
 - Suodatettu koko Suomen näkymä näyttää kaikki ehdot täyttävät yksittäiset pisteet; kenttäkarsinta ei saa muuttaa osumajoukkoa.
+- Dynaaminen aggregointi käyttää samoja normalisoituja suodatuskenttiä ja kohdistuu vasta aktiivisen suodatuksen tulokseen. Kaikki yksittäiset pisteet säilyvät arkistossa aggregointitilasta riippumatta.
 - Kohdepaneelin tiedot eivät saa kadota, vaikka ne siirretään pois MVT:stä.

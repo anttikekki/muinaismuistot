@@ -13,6 +13,11 @@ import RegularShape from "ol/style/RegularShape"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
 import { PMTilesVectorSource } from "ol-pmtiles"
+import {
+  archaeologicalDatings,
+  archaeologicalTypes,
+  matchesArchaeologicalFilter,
+} from "./archaeological-filter"
 
 type LogicalLayer = {
   id: string
@@ -25,13 +30,22 @@ const enabled = new Set<string>()
 const unfilteredLogicalIdBySource = new Map<string, string>()
 const filteredLogicalIdsBySource = new Map<string, { field: string; idsByValue: Map<string, string> }>()
 const styleByLogicalId = new Map<string, Style>()
+const selectedArchaeologicalTypes = new Set<string>(archaeologicalTypes)
+const selectedArchaeologicalDatings = new Set<string>(archaeologicalDatings)
 const startedAt = performance.now()
 let requestCount = 0
 let transferredBytes = 0
 let styleCallCount = 0
+let visibleStyleCallCount = 0
 let movementStartedAt: number | undefined
 let movementEndedAt: number | undefined
 let movementRenderFrames = 0
+let lastRenderFrameAt: number | undefined
+let pendingInputAt: number | undefined
+let latestInputAt: number | undefined
+let renderFrameIntervals: number[] = []
+let inputToRenderLatencies: number[] = []
+let archaeologicalSubtype = ""
 
 const nativeFetch = globalThis.fetch.bind(globalThis)
 globalThis.fetch = async (input, init) => {
@@ -78,18 +92,40 @@ map.once("rendercomplete", () => {
 map.getView().on("change:resolution", updateDiagnostics)
 map.on("movestart", () => {
   styleCallCount = 0
+  visibleStyleCallCount = 0
   movementStartedAt = performance.now()
   movementEndedAt = undefined
   movementRenderFrames = 0
+  lastRenderFrameAt = undefined
+  const startedAt = performance.now()
+  pendingInputAt = latestInputAt !== undefined && startedAt - latestInputAt < 100 ? latestInputAt : undefined
+  renderFrameIntervals = []
+  inputToRenderLatencies = []
 })
 map.on("moveend", () => {
   movementEndedAt = performance.now()
 })
 map.on("postrender", () => {
-  if (movementStartedAt !== undefined) movementRenderFrames += 1
+  if (movementStartedAt === undefined) return
+  const renderedAt = performance.now()
+  movementRenderFrames += 1
+  if (lastRenderFrameAt !== undefined) renderFrameIntervals.push(renderedAt - lastRenderFrameAt)
+  if (pendingInputAt !== undefined) {
+    inputToRenderLatencies.push(renderedAt - pendingInputAt)
+    pendingInputAt = undefined
+  }
+  lastRenderFrameAt = renderedAt
 })
 map.on("rendercomplete", updateStyleCallCount)
 map.on("rendercomplete", finishMovementMeasurement)
+
+const mapViewport = map.getViewport()
+const recordInput = (): void => {
+  latestInputAt = performance.now()
+  if (movementStartedAt !== undefined) pendingInputAt = latestInputAt
+}
+mapViewport.addEventListener("pointermove", recordInput, { passive: true })
+mapViewport.addEventListener("wheel", recordInput, { passive: true })
 
 map.on("singleclick", (event) => {
   const hit = map.forEachFeatureAtPixel(event.pixel, (feature) => feature, {
@@ -134,13 +170,13 @@ async function loadControls(): Promise<void> {
   vectorLayer.changed()
 }
 
-function setAll(visible: boolean): void {
+function setAll(visible: boolean, render = true): void {
   enabled.clear()
   document.querySelectorAll<HTMLInputElement>("#layer-controls input").forEach((input) => {
     input.checked = visible
     if (visible && input.dataset.layerId) enabled.add(input.dataset.layerId)
   })
-  vectorLayer.changed()
+  if (render) vectorLayer.changed()
 }
 
 function styleFeature(feature: FeatureLike): Style | undefined {
@@ -151,7 +187,26 @@ function styleFeature(feature: FeatureLike): Style | undefined {
     ? filtered.idsByValue.get(String(feature.get(filtered.field) ?? ""))
     : unfilteredLogicalIdBySource.get(sourceLayer)
 
-  return logicalId && enabled.has(logicalId) ? styleByLogicalId.get(logicalId) : undefined
+  if (!logicalId || !enabled.has(logicalId)) return undefined
+  if (
+    sourceLayer === "archaeological_points" &&
+    !matchesArchaeologicalFilter(
+      {
+        typesRaw: String(feature.get("types_raw") ?? ""),
+        subtypesRaw: String(feature.get("subtypes_raw") ?? ""),
+        datingsRaw: String(feature.get("datings_raw") ?? ""),
+      },
+      {
+        selectedTypes: selectedArchaeologicalTypes,
+        selectedDatings: selectedArchaeologicalDatings,
+        subtype: archaeologicalSubtype,
+      },
+    )
+  ) {
+    return undefined
+  }
+  visibleStyleCallCount += 1
+  return styleByLogicalId.get(logicalId)
 }
 
 function configureStyleLookups(layers: LogicalLayer[]): void {
@@ -235,21 +290,21 @@ function updateDiagnostics(): void {
 
 function updateStyleCallCount(): void {
   setText("style-call-count", new Intl.NumberFormat("fi-FI").format(styleCallCount))
+  setText("visible-style-call-count", new Intl.NumberFormat("fi-FI").format(visibleStyleCallCount))
 }
 
 function finishMovementMeasurement(): void {
   if (movementStartedAt === undefined || movementEndedAt === undefined) return
 
   const completedAt = performance.now()
-  const movementDuration = movementEndedAt - movementStartedAt
   const settleDuration = completedAt - movementEndedAt
   const totalDuration = completedAt - movementStartedAt
   const renderRate = totalDuration > 0 ? (movementRenderFrames * 1000) / totalDuration : 0
 
-  setText("movement-time", formatMilliseconds(movementDuration))
   setText("settle-time", formatMilliseconds(settleDuration))
-  setText("movement-total-time", formatMilliseconds(totalDuration))
   setText("movement-render-rate", `${renderRate.toFixed(1)} kierrosta/s`)
+  setText("frame-interval-p95", formatPercentile(renderFrameIntervals, 0.95))
+  setText("input-render-p95", formatPercentile(inputToRenderLatencies, 0.95))
 
   movementStartedAt = undefined
   movementEndedAt = undefined
@@ -259,7 +314,111 @@ function formatMilliseconds(value: number): string {
   return `${Math.round(value)} ms`
 }
 
+function formatPercentile(values: number[], percentile: number): string {
+  if (values.length === 0) return "–"
+  const sorted = [...values].sort((left, right) => left - right)
+  const index = Math.min(sorted.length - 1, Math.ceil(sorted.length * percentile) - 1)
+  return formatMilliseconds(sorted[index])
+}
+
 function setText(id: string, value: string): void {
   const element = document.getElementById(id)
   if (element) element.textContent = value
 }
+
+function configureArchaeologicalFilters(): void {
+  createCheckboxFilter(
+    "archaeological-types",
+    archaeologicalTypes,
+    selectedArchaeologicalTypes,
+    "type",
+  )
+  createCheckboxFilter(
+    "archaeological-datings",
+    archaeologicalDatings,
+    selectedArchaeologicalDatings,
+    "dating",
+  )
+
+  const subtype = document.querySelector<HTMLInputElement>("#archaeological-subtype")
+  let subtypeTimer: number | undefined
+  subtype?.addEventListener("input", () => {
+    window.clearTimeout(subtypeTimer)
+    subtypeTimer = window.setTimeout(() => {
+      archaeologicalSubtype = subtype.value
+      vectorLayer.changed()
+    }, 150)
+  })
+}
+
+function createCheckboxFilter(
+  containerId: string,
+  values: readonly string[],
+  selected: Set<string>,
+  name: string,
+): void {
+  const container = document.getElementById(containerId)
+  if (!container) return
+  container.replaceChildren(
+    ...values.map((value) => {
+      const label = document.createElement("label")
+      const input = document.createElement("input")
+      input.type = "checkbox"
+      input.name = name
+      input.value = value
+      input.checked = true
+      input.addEventListener("change", () => {
+        input.checked ? selected.add(value) : selected.delete(value)
+        vectorLayer.changed()
+      })
+      label.append(input, document.createTextNode(value))
+      return label
+    }),
+  )
+}
+
+function setFilterSelection(
+  containerId: string,
+  selected: Set<string>,
+  visible: boolean,
+  render = true,
+): void {
+  selected.clear()
+  document.querySelectorAll<HTMLInputElement>(`#${containerId} input`).forEach((input) => {
+    input.checked = visible
+    if (visible) selected.add(input.value)
+  })
+  if (render) vectorLayer.changed()
+}
+
+configureArchaeologicalFilters()
+document.querySelector("#types-all")?.addEventListener("click", () =>
+  setFilterSelection("archaeological-types", selectedArchaeologicalTypes, true),
+)
+document.querySelector("#types-none")?.addEventListener("click", () =>
+  setFilterSelection("archaeological-types", selectedArchaeologicalTypes, false),
+)
+document.querySelector("#datings-all")?.addEventListener("click", () =>
+  setFilterSelection("archaeological-datings", selectedArchaeologicalDatings, true),
+)
+document.querySelector("#datings-none")?.addEventListener("click", () =>
+  setFilterSelection("archaeological-datings", selectedArchaeologicalDatings, false),
+)
+document.querySelector("#bronze-cairns")?.addEventListener("click", () => {
+  setAll(false, false)
+  const archaeologicalPointLayerId = "rajapinta_suojellut:muinaisjaannos_piste"
+  enabled.add(archaeologicalPointLayerId)
+  document.querySelectorAll<HTMLInputElement>("#layer-controls input").forEach((input) => {
+    if (input.dataset.layerId === archaeologicalPointLayerId) input.checked = true
+  })
+  setFilterSelection("archaeological-types", selectedArchaeologicalTypes, false, false)
+  setFilterSelection("archaeological-datings", selectedArchaeologicalDatings, false, false)
+  selectedArchaeologicalTypes.add("hautapaikat")
+  selectedArchaeologicalDatings.add("pronssikautinen")
+  document.querySelector<HTMLInputElement>('#archaeological-types input[value="hautapaikat"]')!.checked = true
+  document.querySelector<HTMLInputElement>('#archaeological-datings input[value="pronssikautinen"]')!.checked = true
+  const subtype = document.querySelector<HTMLInputElement>("#archaeological-subtype")
+  if (subtype) subtype.value = "hautaröykkiöt"
+  archaeologicalSubtype = "hautaröykkiöt"
+  vectorLayer.changed()
+})

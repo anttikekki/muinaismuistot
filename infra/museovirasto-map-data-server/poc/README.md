@@ -9,6 +9,8 @@ Tämä hakemisto on muinaismuistot.info-sovelluksesta täysin irrallinen teknine
 
 OpenLayersin tyylipolku on rakennettu suorituskykymittausta varten ilman feature-kohtaisia allokaatioita: loogisen tason valinta käyttää esilaskettuja `source-layer`- ja `laji_key`-hakutauluja, ja kaikki `Style`, `Fill`, `Stroke` sekä pistesymbolit luodaan vain kerran konfiguraation latauksessa.
 
+Arkeologisten pääkohdepisteiden PoC-suodattimissa ovat nykyisen sivuston 19 päätyyppiä ja 12 ajoitusta sekä erillinen alatyyppihakuehto. Painike **Pronssikautiset hautaröykkiöt** valitsee vain kiinteiden muinaisjäännösten pistetason sekä ehdot `hautapaikat`, `pronssikautinen` ja `hautaröykkiöt`. Tuotanto-GeoPackagessa yhdistelmään osuu 1 467 pistettä.
+
 PoC ei käytä Cloudflare-tiliä, oikeaa R2-bucketia eikä nykyisen sivuston lähdekoodia.
 
 ## Käynnistäminen
@@ -49,8 +51,9 @@ Vitest-alustus kirjoittaa jokaiseen testiin pienen deterministisen R2-objektin. 
 
 - Alustavat OpenLayers-tyylit toteuttavat tyylisopimuksen värit ja tärkeimmät pistemuodot, mutta eivät vielä alueiden ristikkäisviivoitusta.
 - Rakennusskripti säilyttää suorituskykykokeessa kaikki pisteet myös matalilla zoom-tasoilla ja poistaa Tippecanoen tiilikoko- ja kohdemäärärajat. Tämä on tarkoituksellinen pahimman tapauksen testi, ei ehdotus lopulliseksi kartografiseksi esitykseksi.
+- Selainfiltterit käyttävät PoC:ssa väliaikaisesti MVT:n `types_raw`, `subtypes_raw` ja `datings_raw` -merkkijonoja ja nykyisen sivuston osajonosemantiikkaa. Tuotantomalli korvaa ne dokumentoiduilla kompakteilla jäsenjoukoilla.
 - Diagnostiikka laskee PMTiles-kutsujen vastaustavut selaimen `Content-Length`-otsakkeista. Se ei vastaa oikean R2-palvelun laskutusta tai verkkoviivettä.
-- Diagnostiikan tyylikutsumäärä nollataan karttaliikkeen alussa ja näytetään renderöinnin valmistuttua. Se mittaa OpenLayersin tyylifunktion kutsuja, ei välttämättä ruudulle päätyvien yksilöllisten kohteiden määrää.
-- Liikemittaus erottaa käyttäjän varsinaisen liikkeen keston ja `moveend`-tapahtuman jälkeen ensimmäiseen `rendercomplete`-tapahtumaan kuluvan odotusajan. Lisäksi näytetään koko `movestart`–`rendercomplete`-jakso ja sen OpenLayers-`postrender`-kierrosten määrä sekunnissa. Jälkimmäinen on vertailumittari, ei selaimen näytöltä mitattu tarkka FPS.
+- Diagnostiikan kokonais- ja näkyvien uudelleentyylittelykutsujen määrät nollataan karttaliikkeen alussa ja näytetään renderöinnin valmistuttua. Nolla tarkoittaa, että OpenLayers piirsi liikkeen valmiiksi välimuistitetuista renderöintiohjeista kutsumatta tyylifunktiota uudelleen. Muutoin lukujen erotus näyttää, kuinka suuri osa uudelleen käsitellyistä featureista rajautui pois tasovalinnan tai suodattimen vuoksi. Luvut eivät ole ruudulle piirrettyjen yksilöllisten kohteiden määriä.
+- Liikemittaus näyttää `moveend`-tapahtuman jälkeen ensimmäiseen `rendercomplete`-tapahtumaan kuluvan odotusajan, koko eleen OpenLayers-`postrender`-kierrokset sekunnissa, peräkkäisten renderöintien p95-ruutuvälin sekä viimeisimmästä `pointermove`- tai `wheel`-syötteestä seuraavaan renderöintiin kuluvan p95-ajan. Renderöintikierrokset ovat vertailumittari, eivät selaimen näytöltä mitattu tarkka FPS. Käyttäjän eleen kokonaiskestoa ei raportoida suorituskykymittarina.
 - Worker tekee PoC:n selkeyden vuoksi R2 `head` -kutsun ennen jokaista tavuvälilukua. Mahdollinen metadataoptimointi päätetään vasta mittausten perusteella.
 - PoC ei testaa Cloudflaren edge-välimuistia eikä oleta `206 Partial Content` -vastausten välimuistittuvan.

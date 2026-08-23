@@ -15,6 +15,27 @@
           <button id="all-on" type="button">Kaikki päälle</button>
           <button id="all-off" type="button">Kaikki pois</button>
         </div>
+        <details>
+          <summary>Arkeologisten pisteiden suodattimet</summary>
+          <p class="hint">Suodattimet koskevat nykyisen sivuston tavoin vain arkeologisia pääkohdepisteitä.</p>
+          <button id="bronze-cairns" type="button">Pronssikautiset hautaröykkiöt</button>
+          <h3>Tyyppi</h3>
+          <div class="filter-actions">
+            <button id="types-all" type="button">Kaikki</button>
+            <button id="types-none" type="button">Ei mitään</button>
+          </div>
+          <div id="archaeological-types" class="filter-options"></div>
+          <h3>Ajoitus</h3>
+          <div class="filter-actions">
+            <button id="datings-all" type="button">Kaikki</button>
+            <button id="datings-none" type="button">Ei mitään</button>
+          </div>
+          <div id="archaeological-datings" class="filter-options"></div>
+          <label class="subtype-filter">
+            Alatyyppi sisältää
+            <input id="archaeological-subtype" type="search" placeholder="esim. hautaröykkiöt" />
+          </label>
+        </details>
         <fieldset>
           <legend>Loogiset tasot</legend>
           <div id="layer-controls">Ladataan…</div>
@@ -25,11 +46,12 @@
             <dt>PMTiles-pyynnöt</dt><dd id="request-count">0</dd>
             <dt>Siirretyt tavut</dt><dd id="transfer-bytes">0</dd>
             <dt>Ensimmäinen renderöinti</dt><dd id="render-time">–</dd>
-            <dt>Tyylikutsut liikkeen aikana</dt><dd id="style-call-count">0</dd>
-            <dt>Liikkeen kesto</dt><dd id="movement-time">–</dd>
+            <dt>Uudelleentyylittelykutsut</dt><dd id="style-call-count">0</dd>
+            <dt>Näkyvät uudelleentyylittelyt</dt><dd id="visible-style-call-count">0</dd>
             <dt>Liikkeen loppu → valmis</dt><dd id="settle-time">–</dd>
-            <dt>Liikkeen alku → valmis</dt><dd id="movement-total-time">–</dd>
             <dt>Renderöintikierroksia</dt><dd id="movement-render-rate">–</dd>
+            <dt>Ruutuväli p95</dt><dd id="frame-interval-p95">–</dd>
+            <dt>Syöte → renderöinti p95</dt><dd id="input-render-p95">–</dd>
             <dt>Zoom</dt><dd id="zoom">–</dd>
           </dl>
         </section>

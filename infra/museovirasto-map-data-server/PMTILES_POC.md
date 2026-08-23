@@ -70,3 +70,31 @@ Ensimmäisellä arkistolla tehty end-to-end-tarkistus palautti pyynnölle `bytes
 Seuraavaksi tarvitaan selaimessa tehtävä visuaalinen tarkistus kolmella edustavalla zoom-tasolla. Alueiden ristikkäisviivoitus, symbolien lopulliset pikselikoot ja yleistyksen hyväksyttävyys eivät ole vielä lukittuja.
 
 Täyden pisteaineiston ensimmäisessä selainmittauksessa koko Suomen näkymä siirsi vain noin 4,5 Mt dataa kuudella Range-pyynnöllä, mutta kartan liikuttaminen hidastui M1 Max -koneellakin noin yhteen kuvaan sekunnissa. Tämän jälkeen PoC:n oma tyylifunktio optimoitiin pois tulosta vääristävänä tekijänä: aiempi toteutus kävi featurea kohden lineaarisesti läpi enintään 26 loogista tasoa ja loi uudet OpenLayers-tyylioliot jokaisella kutsulla. Nykyinen toteutus käyttää vakioaikaisia `source-layer`- ja `laji_key`-hakutauluja sekä kerran luotuja ja uudelleenkäytettäviä tyyliolioita. Diagnostiikka näyttää lisäksi karttaliikkeen aikana tehtyjen tyylikutsujen määrän. FPS ja muut selainmittarit on mitattava uudelleen tällä versiolla ennen aggregointipäätöstä.
+
+PoC:ssa on nyt arkeologisten pääkohdepisteiden tyyppi-, alatyyppi- ja ajoitussuodatus. Valmis **Pronssikautiset hautaröykkiöt** -vertailu näyttää vain kiinteiden muinaisjäännösten pisteet, joiden päätyyppi sisältää `hautapaikat`, ajoitus `pronssikautinen` ja alatyyppi `hautaröykkiöt`. Lähde-GeoPackage sisältää ehdot täyttäviä pisteitä 1 467. Näin täyden aineiston ja tutkimuskäytössä tarkasti rajatun aineiston renderöintinopeus voidaan mitata samalla arkistolla ilman rakennusvaiheen aggregointia.
+
+Manuaalisessa kokeessa 1 467 pronssikautisen hautaröykkiön suodatettu koko Suomen näkymä toimi erittäin nopeasti, vaikka PMTiles-arkisto säilytti kaikki yksittäiset pisteet. Havainto tukee adaptiivista ratkaisua: tarkasti suodatettu aineisto piirretään yksittäisinä kohteina eikä sitä saa korvata kiinteällä rakennusvaiheen aggregoinnilla. Laajan suodattamattoman näkymän esitystapa ratkaistaan erikseen.
+
+Optimoidun suodatetun näkymän manuaalisessa liiketestissä loppunäkymä valmistui noin 1 ms:ssa, renderöintikierroksia syntyi noin 73–106 sekunnissa ja p95-ruutuväli oli 11–20 ms. OpenLayers ei kutsunut tyylifunktiota liikkeen aikana uudelleen, vaan käytti välimuistittuja renderöintiohjeita. Näiden lukujen perusteella 1 467 kohteen tarkka matalan zoomin esitys ei tarvitse aggregointia tällä testikoneella.
+
+Kaikkien 41 549 `kiintea_muinaisjaannos`-pisteen koko Suomen näkymä hyväksyttiin samalla M1 Max -testikoneella riittävän nopeaksi, vaikka se ei ollut yhtä sulava. Zoomilla 5 mitattiin loppunäkymän valmistumisajaksi 3 ms, noin 17,4 renderöintikierrosta sekunnissa, p95-ruutuväliksi 141 ms ja p95-syöteviiveeksi 46 ms. OpenLayers käytti myös tässä liikkeen aikana välimuistittuja renderöintiohjeita. Tulos osoittaa, että taso voidaan tarvittaessa näyttää tarkkana; tuotannon automaattinen aggregointi voi silti aktivoitua säädettävän kohderajan perusteella.
+
+141 ms:n p95-ruutuväli vastaa hitaimmassa viidessä prosentissa noin seitsemää renderöintikierrosta sekunnissa, joten tulos ei ole yleinen mobiilihyväksyntä eikä vielä kata kaikkia 112 441 arkeologista pääkohdepistettä tai kaikkia fyysisiä pistetasoja. Nämä tapaukset mitataan erikseen, jos niiden yhtäaikainen näyttäminen kuuluu hyväksyttävään käyttötilanteeseen.
+
+## PoC:n arkkitehtuuripäätös
+
+PMTiles-ratkaisulla jatketaan. Arkisto säilyttää kaikki yksittäiset pisteet myös matalilla zoom-tasoilla, jotta tarkasti suodatetut valtakunnalliset jakaumat eivät katoa. Selain näyttää aktiivisen suodatuksen osumat yksittäisinä niin kauan kuin tulosjoukko mahtuu renderöintibudjettiin.
+
+Dynaamisen aggregoinnin alustava aktivointialue on 20 000–40 000 näkyvää kohdetta. Raja ei ole vielä tuotannon vakio: se kalibroidaan useilla työpöytä- ja mobiililaitteilla käyttäen p95-ruutuväliä, p95-syöteviivettä, muistinkäyttöä ja loppunäkymän valmistumisaikaa. Aggregointi tehdään aktiivisen suodatuksen jälkeen, ei pysyvästi PMTiles-rakennuksessa. Näin noin 99 prosentiksi arvioidut tavanomaiset ja tutkimuksellisesti mielekkäät käyttötapaukset säilyvät tarkkoina.
+
+Tuotantototeutuksen pitää:
+
+- laskea aktiivisen, näkyvään karttanäkymään osuvan tulosjoukon koko;
+- piirtää rajan alittavat tulokset yksittäisinä;
+- aggregoida vain rajan ylittävä aktiivinen tulosjoukko;
+- vaihtaa tilaa ilman uuden PMTiles-arkiston tai erillisten tasokohtaisten tietolähteiden lataamista;
+- kertoa käyttöliittymässä, milloin aggregoitu esitys on käytössä;
+- välttää jatkuva edestakainen vaihtelu käyttämällä kahden rajan hystereesiä;
+- sallia rajan ja aggregointisäännön säätäminen ilman aineiston tietomallin muuttamista.
+
+Ensimmäinen kokeiltava hystereesi voi esimerkiksi ottaa aggregoinnin käyttöön yli 40 000 kohteella ja poistaa sen käytöstä vasta määrän alittaessa 20 000. Arvot ovat mittaushypoteesi, eivät lopullinen päätös.
