@@ -88,6 +88,6 @@ test("small PMTiles and D1 builds retain matching ids and duplicate registry row
   const details = run("node", [transformer, "details", mapping, "archaeological_points"], source)
   assert.equal(details.status, 0, details.stderr)
   assert.equal((details.stdout.match(/'same-register'/g) ?? []).length, 2)
-  assert.match(details.stdout, /\('archaeological_points', 41,/)
-  assert.match(details.stdout, /\('archaeological_points', 42,/)
+  assert.match(details.stdout, /'archaeological_points', 41,/)
+  assert.match(details.stdout, /'archaeological_points', 42,/)
 })

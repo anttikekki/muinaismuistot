@@ -1,7 +1,7 @@
 import layerMapping from "../../layer-mapping.json"
 
-const ARCHIVE_PATH = "/pmtiles/museovirasto-poc.pmtiles"
-const ARCHIVE_KEY = "museovirasto-poc.pmtiles"
+const ARCHIVE_PATH = "/pmtiles/current.pmtiles"
+const ARCHIVE_KEY = "current.pmtiles"
 const ALLOWED_METHODS = "GET, HEAD, POST, OPTIONS"
 const EXPOSED_HEADERS = "Accept-Ranges, Content-Length, Content-Range, ETag"
 
@@ -62,7 +62,7 @@ async function serveArchive(request: Request, env: Env): Promise<Response> {
   baseHeaders.set("Accept-Ranges", "bytes")
   baseHeaders.set("Content-Type", "application/vnd.pmtiles")
   baseHeaders.set("ETag", metadata.httpEtag)
-  baseHeaders.set("Cache-Control", "public, max-age=3600")
+  baseHeaders.set("Cache-Control", "public, max-age=300")
 
   if (request.method === "HEAD") {
     baseHeaders.set("Content-Length", String(metadata.size))
@@ -117,6 +117,16 @@ function featureResponse(row: FeatureDetailRow) {
       municipality: row.municipality,
     },
   }
+}
+
+async function serveCurrentMetadata(request: Request, env: Env): Promise<Response> {
+  if (request.method !== "GET") return methodNotAllowed("GET, OPTIONS")
+  const metadata = await env.MAP_DATA.get("current.json")
+  if (!metadata?.body) return errorResponse("Dataset metadata not found", 503)
+  const headers = corsHeaders()
+  headers.set("Cache-Control", "public, max-age=60")
+  headers.set("Content-Type", "application/json; charset=utf-8")
+  return new Response(metadata.body, { headers })
 }
 
 async function serveFeatureBatch(request: Request, env: Env): Promise<Response> {
@@ -290,6 +300,7 @@ export default {
       if (!["GET", "HEAD"].includes(request.method)) return methodNotAllowed("GET, HEAD, OPTIONS")
       return serveArchive(request, env)
     }
+    if (url.pathname === "/api/meta") return serveCurrentMetadata(request, env)
     if (url.pathname === "/api/features/batch") return serveFeatureBatch(request, env)
     if (url.pathname === "/api/features/by-register") return serveRegistryBatch(request, env)
     if (url.pathname === "/api/search") return serveSearch(request, env, url)

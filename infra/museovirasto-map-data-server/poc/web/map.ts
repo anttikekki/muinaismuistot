@@ -42,7 +42,7 @@ type FeatureBatchResult = {
   missing: Array<{ sourceLayer: string; featureId: string }>
 }
 
-const archiveUrl = `${location.origin}/pmtiles/museovirasto-poc.pmtiles`
+const archiveUrl = new URL("/pmtiles/current.pmtiles", location.origin).href
 const benchmarkName = new URLSearchParams(location.search).get("benchmark")
 const benchmarkViews: Record<string, { center: [number, number]; zoom: number }> = {
   finland: { center: [25.2, 64.5], zoom: 5 },
@@ -92,7 +92,7 @@ const nativeFetch = globalThis.fetch.bind(globalThis)
 globalThis.fetch = async (input, init) => {
   const response = await nativeFetch(input, init)
   const url = typeof input === "string" ? input : input instanceof URL ? input.href : input.url
-  if (url.includes("museovirasto-poc.pmtiles")) {
+  if (url === archiveUrl) {
     requestCount += 1
     transferredBytes += Number(response.headers.get("Content-Length") ?? 0)
     updateDiagnostics()

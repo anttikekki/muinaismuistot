@@ -15,7 +15,7 @@ for command_name in jq ogr2ogr node wc; do
   command -v "$command_name" >/dev/null 2>&1 || { echo "Required command not found: $command_name" >&2; exit 1; }
 done
 mkdir -p "$BUILD_DIR"
-printf 'DELETE FROM feature_details;\nBEGIN TRANSACTION;\n' > "$OUTPUT_FILE"
+printf "BEGIN TRANSACTION;\nDELETE FROM feature_details;\n" > "$OUTPUT_FILE"
 
 total_count=0
 source_total_count=0

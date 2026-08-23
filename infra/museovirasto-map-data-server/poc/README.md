@@ -2,7 +2,7 @@
 
 Tämä hakemisto on muinaismuistot.info-sovelluksesta täysin irrallinen tekninen koe. Se sisältää:
 
-- Cloudflare Workerin, joka validoi yhden HTTP byte range -pyynnön ja lukee vain pyydetyn välin R2-bindingista;
+- Cloudflare Workerin, joka validoi vakio-osoitteeseen `/pmtiles/current.pmtiles` tulevan HTTP byte range -pyynnön ja lukee vain pyydetyn välin R2-bindingista;
 - Wranglerin paikallisesti simuloiman R2-bucketin;
 - Cloudflaren Workers-runtimessa ajettavat Vitest-testit;
 - yksinkertaisen OpenLayers-sivun, joka käyttää yhtä PMTiles-lähdettä ja muodostaa `layer-mapping.json`-tiedoston perusteella 26 loogista tasovalintaa.
@@ -27,7 +27,7 @@ Vaiheen 2 suositeltu yhteisajo rakentaa ja validoi sekä PMTiles-arkiston että 
 infra/museovirasto-map-data-server/scripts/17-build-release-artifacts.sh
 ```
 
-Asenna PoC:n riippuvuudet ja siirrä arkisto paikalliseen R2-simulaatioon:
+Asenna PoC:n riippuvuudet sekä siirrä versionoitu arkisto paikalliseen R2-simulaatioon ja vastaava aineistoversio D1-simulaatioon:
 
 ```bash
 cd infra/museovirasto-map-data-server/poc
@@ -41,7 +41,7 @@ Käynnistä Worker ja staattinen OpenLayers-sivu:
 npm run dev
 ```
 
-Avaa <http://localhost:8787>. `npm run seed` tarvitsee ajaa uudelleen PMTiles-arkiston uudelleenrakentamisen jälkeen. Paikallinen R2-data säilyy gitistä ohitetussa `poc/.wrangler/state`-hakemistossa.
+Avaa <http://localhost:8787>. Selain aloittaa kartan latauksen suoraan vakio-osoitteesta `/pmtiles/current.pmtiles`; valinnainen `/api/meta` ei kuulu kartan kriittiseen latauspolkuun. `npm run seed` tarvitsee ajaa uudelleen julkaisuartefaktien uudelleenrakentamisen jälkeen. Paikallinen R2- ja D1-data säilyvät gitistä ohitetussa `poc/.wrangler/state`-hakemistossa.
 
 ## Tarkistukset
 
@@ -61,7 +61,7 @@ infra/museovirasto-map-data-server/scripts/14-build-feature-details-sql.sh
 infra/museovirasto-map-data-server/scripts/15-seed-local-d1-poc.sh
 ```
 
-Karttaklikkaus kerää enintään 100 näkyvien tasojen päällekkäistä MVT-featurea, deduplikoi `sourceLayer + featureId` -parit ja hakee näyttötiedot yhdellä `POST /api/features/batch` -pyynnöllä. Aggregaattimerkin klikkaus zoomaa kaksi tasoa lähemmäs.
+Karttaklikkaus kerää enintään 100 näkyvien tasojen päällekkäistä MVT-featurea, deduplikoi `sourceLayer + featureId` -parit ja hakee näyttötiedot yhdellä `POST /api/features/batch` -pyynnöllä. Haku kohdistuu aina yhteen aktiiviseen D1-aineistoon. Aggregaattimerkin klikkaus zoomaa kaksi tasoa lähemmäs.
 
 MVT:n `featureId` on GeoPackagen `fid`, jota käytetään vain saman aineistojulkaisun sisällä. Pysyviä URL-linkkejä varten Worker tarjoaa `POST /api/features/by-register` -massahaun. Sen viitteet ovat `{logicalLayerId, registryId}`-pareja, ja vastaus sisältää kaikki uusimmasta D1-aineistosta löytyvät rivit. Lähderivejä ei deduplikoida.
 

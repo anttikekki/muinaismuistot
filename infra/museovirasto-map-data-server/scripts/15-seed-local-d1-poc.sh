@@ -10,4 +10,4 @@ IMPORT_FILE="$PROJECT_DIR/data/poc/feature-details.sql"
 cd "$POC_DIR"
 CI=1 ./node_modules/.bin/wrangler d1 migrations apply museovirasto-map-features-poc --local >/dev/null
 ./node_modules/.bin/wrangler d1 execute museovirasto-map-features-poc --local --file="$IMPORT_FILE" >/dev/null
-echo "Seeded local D1 feature details."
+echo "Replaced local D1 feature details."

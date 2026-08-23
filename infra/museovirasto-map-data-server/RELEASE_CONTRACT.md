@@ -1,81 +1,51 @@
-# Aineistojulkaisun versio- ja aktivointisopimus
+# Aineiston julkaisu- ja käyttöönottosopimus
 
 ## Tavoite
 
-PMTiles-arkiston ja D1-rivien pitää aina edustaa samaa Museoviraston aineistojulkaisua. R2-objektia tai aktiivisen D1-aineiston rivejä ei korvata paikallaan. Uusi julkaisu valmistellaan muuttumattoman `releaseId`-tunnisteen alle ja aktivoidaan yhdellä D1:ssä säilytettävällä `current`-osoittimella vasta kaikkien tarkistusten jälkeen.
+Pienen sivuston päivittäinen käyttöönotto tehdään tarkoituksella yksinkertaisesti. Tuotannossa on yksi aktiivinen PMTiles-arkisto ja yksi aktiivinen D1-aineisto. Uusi Museoviraston aineisto julkaistaan klo 00:00 UTC, joten vaihto ajastetaan Suomen yön hiljaiseen huoltoikkunaan.
 
-Tämä tiedosto lukitsee vaiheen 2 metatietosopimuksen. Varsinaiset R2- ja D1-julkaisukomennot toteutetaan vaiheessa 3 staging-ympäristöä vasten.
+Selain ei hae metatietoja ennen karttaa. Karttaliikenteen vakio-osoite on aina `/pmtiles/current.pmtiles`, ja ominaisuustietojen API käyttää aina aktiivista D1-aineistoa.
 
-## Julkaisutunniste
+## Versio
 
-Rakennusputki tuottaa `releaseId`-arvon muodossa:
-
-```text
-museovirasto-<20 heksamerkkiä>
-```
-
-Tunniste johdetaan SHA-256-tiivisteellä seuraavista versionoiduista tiedoista:
-
-- lähdeaineiston yhteistiiviste;
-- rakennuskonfiguraation, tasomäppäyksen ja suodatinkoodiston tiivisteet;
-- PMTiles-, D1-tuonti- ja suodatinkoodistoartefaktien tiivisteet.
-
-Sama sisältö tuottaa saman tunnisteen. Lähdeaineiston, tietomallin, koodiston tai keskeisen artefaktin muutos tuottaa uuden tunnisteen. Julkaisutunniste ei perustu pelkkään päivämäärään, eikä saman tunnisteen alle saa kirjoittaa eri sisältöä.
-
-Paikallinen komento on:
-
-```bash
-infra/museovirasto-map-data-server/scripts/25-create-release-descriptor.sh
-```
-
-## Versionoidut nimet
-
-Julkaisudeskriptori määrittää seuraavat pysyvät nimet:
-
-| Kohde | Nimi tai avain |
-| --- | --- |
-| PMTiles R2:ssa | `datasets/<releaseId>/map.pmtiles` |
-| suodatinkoodisto R2:ssa | `datasets/<releaseId>/filter-vocabulary.json` |
-| julkaisumetadata R2:ssa | `datasets/<releaseId>/release.json` |
-| selaimen PMTiles-reitti | `/pmtiles/<releaseId>.pmtiles` |
-| metatietoreitti | `/api/releases/<releaseId>` |
-| D1-aineistoversio | `releaseId` jokaisessa saman julkaisun `feature_details`-rivissä |
-
-R2-avaimet ovat muuttumattomia ja voidaan palauttaa otsakkeella `Cache-Control: public, max-age=31536000, immutable`. Lyhytikäinen `/api/meta` palauttaa aktiivisen julkaisun tunnisteen ja versionoidut URL:t.
-
-## D1:n tuotantosopimus
-
-Vaiheen 3 skeemassa `feature_details` saa `release_id`-sarakkeen ja pääavaimen `(release_id, source_layer, feature_id)`. Täsmällinen karttaklikkaus lähettää `releaseId`-arvon yhdessä `sourceLayer + featureId` -viitteiden kanssa. Näin jo ladattua tai selaimen välimuistissa olevaa vanhaa PMTiles-versiota voidaan käyttää oikein myös uuden julkaisun aktivoinnin jälkeen.
-
-Pysyvät URL:t ja sanahaku eivät tarvitse asiakkaalta versiota. Ne käyttävät D1:n aktiivista `releaseId`-arvoa ja palauttavat aina uusimman aineiston osumat avaimella `logicalLayerId + registryId`.
-
-D1:ssä tarvitaan vähintään:
+Ihmisen luettava versio johdetaan lähde-ZIPin GeoPackage-tiedostojen julkaisupäivästä ja normalisoidaan ilmoitettuun julkaisuaikaan:
 
 ```text
-dataset_releases(release_id, state, manifest_json, created_at, activated_at)
-dataset_current(singleton_id = 1, release_id)
-feature_details(release_id, source_layer, feature_id, ...)
+YYYYMMDDT000000Z
 ```
 
-`dataset_current` on aktiivisen version ainoa totuuden lähde. Erillistä R2:n `current`-osoitinta ei käytetä, koska R2:n ja D1:n kahta osoitinta ei voisi vaihtaa aidosti samassa transaktiossa.
+Esimerkki: `20260822T000000Z`. Versio helpottaa lokien, varmuuskopioiden ja vikojen selvittämistä. SHA-256-tiivisteitä ei käytetä versionumerona, vaan rakennettujen tiedostojen eheystarkistuksina.
 
-## Atominen aktivointi
+## Aktiiviset kohteet
 
-Julkaisujärjestys on:
+| Kohde | Sijainti tai avain |
+|---|---|
+| PMTiles R2:ssa | `current.pmtiles` |
+| selaimen PMTiles-reitti | `/pmtiles/current.pmtiles` |
+| valinnainen metadata R2:ssa | `current.json` |
+| valinnainen metatietoreitti | `/api/meta` |
+| D1-aineisto | `feature_details` |
 
-1. Rakenna ja validoi paikalliset artefaktit.
-2. Lataa PMTiles, suodatinkoodisto ja julkaisumetadata uuden `releaseId`-avaimen alle R2:een.
-3. Varmista objektien koot, tiivisteet, metatiedot ja Range-pyyntö.
-4. Tuo D1-rivit samalla `releaseId`-arvolla koskematta aktiiviseen versioon.
-5. Aja D1:n taso- ja rivimäärätarkistukset, tunnistevertailu sekä API-smoke-testit eksplisiittisellä versiolla.
-6. Lisää julkaisu `ready`-tilaan.
-7. Vaihda yhdessä D1-transaktiossa `dataset_current.release_id` ja julkaisun tila `active`-arvoon.
-8. Tarkista `/api/meta`, versionoitu PMTiles Range -pyyntö, karttaklikkauksen massahaku, pysyvä rekisterihaku ja sanahaku.
+Karttaklikkauksen massahaku käyttää `sourceLayer + featureId` -pareja. Pysyvät URL:t käyttävät `logicalLayerId + registryId` -pareja ja palauttavat kaikki uusimmasta aineistosta löytyvät geometriat. Pyyntöihin ei lisätä versiota.
 
-Jos vaiheet 1–6 epäonnistuvat, nykyinen osoitin jää muuttumatta. Vaiheen 7 jälkeen palautus tehdään vaihtamalla D1-transaktiossa `dataset_current` takaisin edelliseen valmiiseen julkaisuun. Versionoituja R2-objekteja tai D1-rivejä ei poisteta osana aktivointia tai palautusta.
+## Rakennus ja käyttöönotto
 
-## Paikalliset tuotokset
+1. Lataa lähdeaineisto ja varmista, että GeoPackage-tiedostojen julkaisupäivä on yhtenäinen.
+2. Rakenna PMTiles, D1-tuonti, suodatinkoodisto, raportit ja manifesti sivussa.
+3. Johda aikaleimaversio ja tallenna kaikkien artefaktien SHA-256-tiivisteet julkaisudeskriptoriin.
+4. Aja skeema-, rivimäärä-, geometria-, koodisto- ja PMTiles–D1-identiteettitarkistukset.
+5. Säilytä tarvittaessa palautuspaketti avaimilla `releases/<version>/map.pmtiles`, `releases/<version>/release.json` ja vastaavilla aikaleimallisilla nimillä.
+6. Aseta palvelu huoltotilaan. Huoltotila saa palauttaa kartta- ja data-API-kutsuille selkeän `503`-vastauksen.
+7. Korvaa D1:n `feature_details` yhden transaktion sisällä ja R2:n `current.pmtiles` sekä `current.json` uusilla artefakteilla.
+8. Savutestaa PMTiles Range -pyyntö, karttaklikkauksen massahaku, rekisteritunnushaku ja sanahaku.
+9. Poista huoltotila.
 
-`release-descriptor.json` on koneellinen, muuttumattoman julkaisun kuvaus. Se sisältää tunnisteen, yhteensopivuusversiot, rivimäärät, artefaktien nimet, koot, tiivisteet, R2-avaimet ja API-reitit.
+R2:n ja D1:n vaihtoa ei yritetä tehdä hajautettuna atomisena operaationa. Huoltotila estää tarkoituksella käyttäjiä näkemästä lyhyttä sekatilaa. Jos savutesti epäonnistuu, palauta edellisen aikaleimaversion PMTiles ja D1-varmuuskopio ennen huoltotilan poistamista.
 
-`current-candidate.json` on ainoastaan paikallinen aktivointiehdokas. Rakennusputki ei nimeä sitä aktiiviseksi eikä muuta mitään Cloudflare-ympäristöä. Vaiheen 3 julkaisu käyttää ehdokkaan `releaseId`-arvoa ja tekee varsinaisen aktivoinnin D1-transaktiossa.
+## Välimuisti
+
+`current.pmtiles` voi vaihtua kerran päivässä, joten sitä ei merkitä `immutable`-sisällöksi. Worker palauttaa sille lyhyen välimuistiajan. PMTiles-lukija tekee Range-pyynnöt suoraan ilman ensin tehtävää `/api/meta`-pyyntöä. Aikaleimalliset palautusobjektit ovat muuttumattomia, jos niitä myöhemmin tarjotaan erillisestä ylläpito- tai vianmääritysreitistä.
+
+## Paikallinen PoC
+
+`scripts/25-create-release-descriptor.sh` tuottaa `release-descriptor.json`- ja `current-metadata.json`-tiedostot. Paikallinen R2-siemennys kirjoittaa `current.pmtiles`- ja `current.json`-objektit. D1-siemennys tyhjentää ja täyttää yhden `feature_details`-taulun transaktion sisällä. PoC ei muuta ulkoista Cloudflare-ympäristöä.

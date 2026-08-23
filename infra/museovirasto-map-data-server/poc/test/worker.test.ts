@@ -1,7 +1,7 @@
 import { env, exports } from "cloudflare:workers"
 import { beforeEach, describe, expect, it } from "vitest"
 
-const KEY = "museovirasto-poc.pmtiles"
+const KEY = "current.pmtiles"
 const BODY = new TextEncoder().encode("0123456789abcdefghijklmnopqrstuvwxyz")
 const decoder = new TextDecoder()
 
@@ -12,7 +12,7 @@ declare module "cloudflare:workers" {
 async function request(range?: string, method = "GET"): Promise<Response> {
   const headers = range ? { Range: range } : undefined
   return exports.default.fetch(
-    new Request("https://example.test/pmtiles/museovirasto-poc.pmtiles", { method, headers }),
+    new Request("https://example.test/pmtiles/current.pmtiles", { method, headers }),
   )
 }
 
@@ -20,7 +20,8 @@ beforeEach(async () => {
   await env.MAP_DATA.put(KEY, BODY, {
     httpMetadata: { contentType: "application/vnd.pmtiles" },
   })
-  await env.MAP_FEATURES.prepare("CREATE TABLE IF NOT EXISTS feature_details (source_layer TEXT NOT NULL, feature_id INTEGER NOT NULL, logical_layer_id TEXT NOT NULL, registry_id TEXT, name TEXT, search_name TEXT NOT NULL DEFAULT '', municipality TEXT, properties_json TEXT NOT NULL DEFAULT '{}', PRIMARY KEY (source_layer, feature_id)) WITHOUT ROWID").run()
+  await env.MAP_DATA.put("current.json", JSON.stringify({ version: "20260822T000000Z", pmtilesUrl: "/pmtiles/current.pmtiles" }))
+  await env.MAP_FEATURES.prepare("CREATE TABLE IF NOT EXISTS feature_details (source_layer TEXT NOT NULL, feature_id INTEGER NOT NULL, logical_layer_id TEXT NOT NULL, registry_id TEXT, name TEXT, municipality TEXT, properties_json TEXT NOT NULL DEFAULT '{}', search_name TEXT NOT NULL DEFAULT '', PRIMARY KEY (source_layer, feature_id)) WITHOUT ROWID").run()
   await env.MAP_FEATURES.prepare("DELETE FROM feature_details").run()
 })
 
@@ -101,6 +102,14 @@ describe("PMTiles byte range Worker", () => {
     const layers = (await response.json()) as unknown[]
     expect(response.status).toBe(200)
     expect(layers).toHaveLength(26)
+  })
+
+  it("returns optional current metadata", async () => {
+    const current = await exports.default.fetch(new Request("https://example.test/api/meta"))
+    const currentBody = await current.json() as { version: string; pmtilesUrl: string }
+    expect(current.status).toBe(200)
+    expect(current.headers.get("Cache-Control")).toBe("public, max-age=60")
+    expect(currentBody).toEqual({ version: "20260822T000000Z", pmtilesUrl: "/pmtiles/current.pmtiles" })
   })
 
   it("returns deduplicated feature details in request order with one batch", async () => {
