@@ -146,7 +146,9 @@ Korjattu aggregointi hyväksyttiin koko Suomen manuaalisessa testissä. 162 131 
 
 Kaikki viisi aluetasoja sisältävää lähdetasoa käyttävät nyt zoomikohtaista geometriaesitystä samassa `source-layer`-tasossa: keskipiste zoomeilla 0–9 ja varsinainen polygoni zoomeilla 10–14. Keskipisteet osallistuvat dynaamiseen aggregointiin, mutta tasomäppäys ja HTTP-pyyntöjen määrä eivät muutu. Validointi vahvistaa kaikkien aluekohteiden keskipisteet zoomilla 0. Arkisto pieneni samalla 54 762 752 tavusta 54 075 777 tavuun.
 
-**Seuraava tehtävä:** varmista vielä uudella diagnostiikalla, että 1 467 pronssikautisen hautaröykkiön valtakunnallinen näkymä käyttää yksittäistä esitystä. Mittaa lisäksi kaupunki-/maakunta- ja lähitaso sekä tarkista yksittäisten ja aggregoitujen kohteiden tunnistaminen. Tämän jälkeen määritä vakaa tuotannon feature-ID ja toteuta sitä käyttävän ominaisuustieto-endpointin PoC.
+Zoomirajan 9 → 10 manuaalinen tarkistus on tehty: aluetasot vaihtuvat keskipisteistä polygoneiksi ilman näkyvää aukkoa tai päällekkäistä esitystä.
+
+**Seuraava tehtävä:** määritä vakaa tuotannon feature-ID ja toteuta sitä käyttävän ominaisuustietojen massahaun PoC. Karttaklikkaus kerää kaikki näkyvien tasojen päällekkäiset MVT-osumat ja lähettää enintään 100 deduplikoitua `{sourceLayer, featureId}`-paria yhdellä `POST /api/features/batch` -pyynnöllä. Worker hakee tiedot D1:stä yhdellä parametrisoidulla kyselyllä ja palauttaa tulokset pyyntöjärjestyksessä. Aggregaattimerkkiä ei käsitellä yksittäisenä kohteena, vaan sen valinta zoomaa lähemmäs. Massahaun jälkeen varmista vielä 1 467 pronssikautisen hautaröykkiön yksittäinen esitys sekä kaupunki-/maakunta- ja lähitason mittaukset.
 
 ### Vaihe 2: Toistettava rakennusputki
 
@@ -177,6 +179,7 @@ Kaikki viisi aluetasoja sisältävää lähdetasoa käyttävät nyt zoomikohtais
 - Lisää uusi vektoritiililähde feature flagin taakse nykyisen WMS-ratkaisun rinnalle.
 - Siirrä kaikkien loogisten tasojen näkyvyys- ja tyylisäännöt yhden OpenLayers-vektoritiililähteen tyylifunktioon. Tasovalinta muuttaa näkyvien `source-layer`- ja `laji_key`-yhdistelmien joukkoa eikä luo uutta lähdettä.
 - Rajaa karttaklikkauksen osumat käyttäjän valitsemiin näkyviin tasoihin.
+- Kerää kaikki klikkaustoleranssin päällekkäiset kohteet ja hae niiden ominaisuustiedot yhdellä massapyynnöllä; älä tee featurekohtaista N+1-kyselysarjaa.
 - Toteuta klusterien esitys, zoomaus klusteria valittaessa ja yksittäisten ominaisuuksien klikkaustunnistus.
 - Korvaa WFS-nimihaku uudella hakuendpointilla ja sovita tulos nykyiseen käyttöliittymään.
 - Huolehdi peruutettavista pyynnöistä, lataus- ja virhetiloista sekä saavutettavasta näppäimistökäytöstä.

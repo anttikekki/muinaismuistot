@@ -18,6 +18,44 @@ Nykyinen sopimus ei ole eksplisiittinen rajapintaskeema. Se muodostuu `Museovira
 
 `GetFeatureInfo`- ja WFS-vastauksen `Feature.id` on toiminnallisesti pakollinen. Tyyppivahdit päättelevät loogisen tason tunnisteen alusta, esimerkiksi `muinaisjaannos_piste.`, `rky_alue.` tai `rajapinta_loytopaikka_piste.`. Uusi toteutus ei saa perustaa sisäistä identiteettiä tähän GeoServer-kohtaiseen merkkijonoon, mutta sovitinkerroksen pitää tuottaa käyttöliittymälle yksiselitteinen `logicalLayerId` ja vakaa yksittäisen geometriarivin tunniste.
 
+Karttaklikkaus ei valitse vain päällimmäistä kohdetta. Nykyinen käyttöliittymä avaa sivupaneeliin listan kaikista klikkaustoleranssin sisällä olevista, näkyviin tasoihin kuuluvista päällekkäisistä kohteista. Uusi ominaisuustietorajapinta on siksi massahaku, ei yhtä featurea palveleva endpoint. Selain kerää ensin MVT-osumien `sourceLayer`- ja `featureId`-parit, deduplikoi ne ja tekee yhden pyynnön.
+
+PoC:n tavoitesopimus on:
+
+```http
+POST /api/features/batch
+Content-Type: application/json
+```
+
+```json
+{
+  "features": [
+    { "sourceLayer": "archaeological_points", "featureId": "123" },
+    { "sourceLayer": "archaeological_areas", "featureId": "456" }
+  ]
+}
+```
+
+Vastaus säilyttää ensimmäisen esiintymän mukaisen pyyntöjärjestyksen ja palauttaa käyttöliittymälle kaikki löytyneet kohteet yhdellä kertaa:
+
+```json
+{
+  "features": [
+    {
+      "sourceLayer": "archaeological_points",
+      "featureId": "123",
+      "logicalLayerId": "rajapinta_suojellut:muinaisjaannos_piste",
+      "properties": {}
+    }
+  ],
+  "missing": []
+}
+```
+
+Pyyntö rajataan enintään 100 yksilölliseen kohteeseen nykyisen `GetFeatureInfo`-rajan mukaisesti. Worker validoi sallitut lähdetasot, tunnisteen muodon, JSON-rakenteen ja rungon koon. D1-haku tehdään yhtenä parametrisoituna kyselynä, ei erillisenä kyselynä jokaista osumaa kohti. MVT:stä saatu geometria pidetään selaimessa ja yhdistetään massahaun näyttötietoihin sovitinkerroksessa; samaa geometriaa ei tarvitse palauttaa D1:stä vain kohdepaneelia varten.
+
+Aggregaattimerkki ei ole rekisterikohde eikä sitä lähetetä massahakuun. Sen valinta zoomaa tai rajaa karttaa lähemmäs, kunnes yksittäiset kohteet voidaan tunnistaa.
+
 ## Nykyisen haun kenttäsopimus
 
 Tekstihaku käyttää kirjainkoosta riippumatonta `ILIKE '%teksti%'` -ehtoa seuraaviin lähdekenttiin:

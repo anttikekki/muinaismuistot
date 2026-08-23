@@ -121,7 +121,7 @@ Kompakti arkisto pienensi leveän 138 301 298 tavun arkiston ensin 54 762 752 ta
 
 Koko Suomen aloitusnäkymässä PMTiles Range -pyyntöjen määrä säilyi kuudessa ja siirretty määrä pieneni 4 535 650 tavusta 835 056 tavuun eli noin 81,6 prosenttia. Kenttien tiivistämisen jälkeen pahimman suodattamattoman näkymän pullonkaula on yli 200 000 vektorifeaturen selainrenderöinti, ei PMTiles-siirto.
 
-Seuraava tietomalliin liittyvä työ on vakaan, aineistoversion ja lähdetason huomioivan feature-ID:n määrittely sekä sitä käyttävän ominaisuustieto-endpointin kokeilu. Kohteen nimiä tai muita näyttökenttiä ei palauteta MVT:hen ilman mitattua tarvetta.
+Seuraava tietomalliin liittyvä työ on vakaan, aineistoversion ja lähdetason huomioivan feature-ID:n määrittely sekä sitä käyttävän ominaisuustietojen massahaun kokeilu. Yksi karttaklikkaus voi osua useaan päällekkäiseen featureen, joten selain lähettää yhdellä pyynnöllä enintään 100 `{sourceLayer, featureId}`-paria. Kohteen nimiä tai muita näyttökenttiä ei palauteta MVT:hen ilman mitattua tarvetta.
 
 ## Hyväksymissäännöt
 
