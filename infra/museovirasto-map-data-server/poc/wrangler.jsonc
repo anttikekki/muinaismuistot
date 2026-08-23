@@ -20,6 +20,6 @@
   "assets": {
     "binding": "ASSETS",
     "directory": "./dist",
-    "run_worker_first": ["/pmtiles/*", "/api/*"]
+    "run_worker_first": ["/pmtiles/*", "/api/*", "/health"]
   }
 }

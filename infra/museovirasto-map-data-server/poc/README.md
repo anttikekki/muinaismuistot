@@ -43,6 +43,8 @@ npm run dev
 
 Avaa <http://localhost:8787>. Selain aloittaa kartan latauksen suoraan vakio-osoitteesta `/pmtiles/current.pmtiles`; valinnainen `/api/meta` ei kuulu kartan kriittiseen latauspolkuun. `npm run seed` tarvitsee ajaa uudelleen julkaisuartefaktien uudelleenrakentamisen jälkeen. Paikallinen R2- ja D1-data säilyvät gitistä ohitetussa `poc/.wrangler/state`-hakemistossa.
 
+Kun paikallinen Worker on käynnissä, aja toisessa terminaalissa `npm run smoke`. Testi tarkistaa `/health`-reitin, PMTiles Range -vastauksen sekä ominaisuus-, rekisteri- ja sanahaun oikealla siemennetyllä aineistolla. `/health` palauttaa `503`, jos `current.pmtiles`, kelvollinen `current.json` tai vähintään yksi D1-rivi puuttuu.
+
 ## Tarkistukset
 
 ```bash

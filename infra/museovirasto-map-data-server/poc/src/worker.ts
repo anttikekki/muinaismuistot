@@ -129,6 +129,35 @@ async function serveCurrentMetadata(request: Request, env: Env): Promise<Respons
   return new Response(metadata.body, { headers })
 }
 
+type HealthD1Row = { source_layer: string; feature_id: number }
+
+async function serveHealth(request: Request, env: Env): Promise<Response> {
+  if (request.method !== "GET") return methodNotAllowed("GET, OPTIONS")
+
+  const [archive, metadata, feature] = await Promise.all([
+    env.MAP_DATA.head(ARCHIVE_KEY),
+    env.MAP_DATA.get("current.json"),
+    env.MAP_FEATURES.prepare("SELECT source_layer, feature_id FROM feature_details LIMIT 1").first<HealthD1Row>(),
+  ])
+  let version: string | null = null
+  if (metadata) {
+    try {
+      const parsed = JSON.parse(await metadata.text()) as { version?: unknown }
+      if (typeof parsed.version === "string" && /^\d{8}T\d{6}Z$/.test(parsed.version)) version = parsed.version
+    } catch {}
+  }
+
+  const checks = {
+    pmtiles: { ok: Boolean(archive), bytes: archive?.size ?? null },
+    metadata: { ok: version !== null },
+    d1: { ok: feature !== null },
+  }
+  const ok = Object.values(checks).every((check) => check.ok)
+  const headers = corsHeaders()
+  headers.set("Cache-Control", "no-store")
+  return Response.json({ ok, version, checks }, { status: ok ? 200 : 503, headers })
+}
+
 async function serveFeatureBatch(request: Request, env: Env): Promise<Response> {
   if (request.method !== "POST") return methodNotAllowed("POST, OPTIONS")
   const contentLength = Number(request.headers.get("Content-Length") ?? 0)
@@ -301,6 +330,7 @@ export default {
       return serveArchive(request, env)
     }
     if (url.pathname === "/api/meta") return serveCurrentMetadata(request, env)
+    if (url.pathname === "/health") return serveHealth(request, env)
     if (url.pathname === "/api/features/batch") return serveFeatureBatch(request, env)
     if (url.pathname === "/api/features/by-register") return serveRegistryBatch(request, env)
     if (url.pathname === "/api/search") return serveSearch(request, env, url)

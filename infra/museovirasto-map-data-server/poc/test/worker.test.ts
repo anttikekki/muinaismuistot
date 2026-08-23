@@ -112,6 +112,30 @@ describe("PMTiles byte range Worker", () => {
     expect(currentBody).toEqual({ version: "20260822T000000Z", pmtilesUrl: "/pmtiles/current.pmtiles" })
   })
 
+  it("reports healthy only when PMTiles, metadata and D1 data are available", async () => {
+    await env.MAP_FEATURES.prepare(`
+      INSERT INTO feature_details (source_layer, feature_id, logical_layer_id)
+      VALUES ('rky_points', 1, 'rajapinta_suojellut:rky_piste')
+    `).run()
+    const healthy = await exports.default.fetch(new Request("https://example.test/health"))
+    expect(healthy.status).toBe(200)
+    expect(healthy.headers.get("Cache-Control")).toBe("no-store")
+    expect(await healthy.json()).toEqual({
+      ok: true,
+      version: "20260822T000000Z",
+      checks: {
+        pmtiles: { ok: true, bytes: BODY.length },
+        metadata: { ok: true },
+        d1: { ok: true },
+      },
+    })
+
+    await env.MAP_DATA.delete(KEY)
+    const unhealthy = await exports.default.fetch(new Request("https://example.test/health"))
+    expect(unhealthy.status).toBe(503)
+    expect((await unhealthy.json() as { ok: boolean }).ok).toBe(false)
+  })
+
   it("returns deduplicated feature details in request order with one batch", async () => {
     await env.MAP_FEATURES.prepare(`
       INSERT INTO feature_details

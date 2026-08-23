@@ -193,7 +193,8 @@ Worker tarjoaa valinnaisen, lyhyesti välimuistitetun `/api/meta`-reitin diagnos
 - [x] Toteuta paikallisesti vakio-osoitteen PMTiles Range -tarjoilu, CORS ja lyhyt välimuisti.
 - [x] Toteuta yhtä aktiivista D1-aineistoa käyttävät ominaisuus-, rekisteri- ja sanahaut. Kaikki käyttäjän arvot sidotaan parametrisoituihin kyselyihin.
 - [x] Pidä valinnainen `/api/meta` lyhyesti välimuistissa, mutta älä vaadi sitä ennen kartan latausta.
-- Toteuta health-endpoint, julkaisu-smoke-testit sekä aktivoinnin ja palautuksen integraatiotestit.
+- [x] Toteuta health-endpoint ja julkaisu-smoke-testit. `/health` tarkistaa aktiivisen PMTiles-objektin, aikaleimallisen metatiedon ja D1-aineiston sekä palauttaa virhetilassa `503`; toistettava smoke-testi kattaa lisäksi Range-, massa-, rekisteri- ja sanahaun.
+- Toteuta huoltotila sekä epäonnistuneen aktivoinnin ja palautuksen integraatiotestit.
 - Lisää lokitus, virhemittarit, kustannusseuranta ja hälytys puuttuvasta tai vanhentuneesta aineistosta.
 - Varmista, ettei R2:n kirjoitusavaimia tai muita ylläpitosalaisuuksia toimiteta selaimelle.
 
