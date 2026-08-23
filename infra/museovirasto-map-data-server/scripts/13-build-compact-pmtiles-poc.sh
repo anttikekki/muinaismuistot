@@ -36,6 +36,21 @@ while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries
     echo "Feature count mismatch for $layer_id: expected=$expected_output_count output=$output_count" >&2; exit 1;
   }
   TIPPECANOE_INPUTS+=("--named-layer=$layer_id:$output_file")
+
+  if [[ "$layer_id" == *_areas ]]; then
+    centroid_file="$INTERMEDIATE_DIR/$layer_id-centroids.geojsonseq"
+    centroid_sql="${sql/, geom FROM/, ST_Centroid(geom) AS geom FROM}"
+    [[ "$centroid_sql" != "$sql" ]] || { echo "Could not derive centroid SQL for $layer_id" >&2; exit 1; }
+    echo "Exporting low-zoom centroids for $layer_id"
+    ogr2ogr -f GeoJSONSeq /vsistdout/ "$source_file" -dialect SQLite -sql "$centroid_sql" \
+      -t_srs EPSG:4326 -nln "$layer_id" |
+      node "$TRANSFORMER" transform "$VOCABULARY" "$layer_id" centroid > "$centroid_file"
+    centroid_count="$(wc -l < "$centroid_file" | tr -d ' ')"
+    [[ "$expected_output_count" -eq "$centroid_count" ]] || {
+      echo "Centroid count mismatch for $layer_id: expected=$expected_output_count output=$centroid_count" >&2; exit 1;
+    }
+    TIPPECANOE_INPUTS+=("--named-layer=$layer_id:$centroid_file")
+  fi
 done < <(jq -r '.layers[] | [.id, .geoPackageFile, .geoPackageLayer, (.excludedNullGeometries // 0), (.sql | @base64)] | @tsv' "$POC_CONFIG")
 
 tippecanoe --output="$OUTPUT_FILE" --force --name="Museovirasto compact map data PoC" \

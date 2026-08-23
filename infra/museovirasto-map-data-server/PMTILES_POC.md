@@ -152,3 +152,14 @@ Korjatun version manuaalinen koko Suomen testi hyväksyttiin sekä visuaalisesti
 | p95-syöte → renderöinti | 4 ms |
 
 P95-ruutuväli osoittaa, ettei jokainen liikkeen jakso ole täysin tasainen, mutta syöteviive, loppunäkymän valmistuminen ja käyttäjän kokema nopeus ovat tällä testikoneella PoC:lle riittävät. Kuvallinen tarkistus osoitti valtakunnallisen jakauman säilyvän luettavana. Aggregaattisymboli ei kuitenkaan vielä kerro solun eri tasojen koostumusta; väri näyttää vain yleisimmän loogisen tason. Mahdollinen koostumuksen näyttö kuuluu myöhempään käyttöliittymähiomiseen, ei arkkitehtuurin hyväksymiskriteeriin.
+
+## Aluetasojen zoomikohtainen esitys
+
+Kaikki viisi aluetasoja sisältävää fyysistä lähdetasoa julkaistaan nyt samassa PMTiles-arkistossa kahtena toisiaan täydentävänä geometriaesityksenä:
+
+- zoomit 0–9: `ST_Centroid`-keskipiste;
+- zoomit 10–14: varsinainen Tippecanoen zoomin mukaan yksinkertaistama polygonigeometria.
+
+Muutos koskee tasoja `archaeological_areas`, `protected_building_areas`, `rky_areas`, `vark_areas` ja `world_heritage_areas`. Molemmat esitykset käyttävät samaa MVT-`source-layer`-nimeä, joten arkistojen, HTTP-pyyntöjen tai loogisten tasovalintojen määrä ei kasva. Selain tunnistaa matalan zoomin pistegeometrian geometriatyypistä ja ottaa sen mukaan samaan dynaamiseen aggregointiin kuin varsinaiset pistetasot.
+
+Rakennus validoi jokaiselle aluetasolle yhtä monta keskipistettä kuin lähteessä on kelvollisia geometrioita. Arkistovalidointi vahvistaa zoomilla 0 kaikkien viiden aluetason täydet tietuemäärät ja ainoaksi geometriatyypiksi `Point`. Uusi arkisto on 54 075 777 tavua, kun pelkkiä polygoneja sisältänyt kompakti versio oli 54 762 752 tavua. Muutos siis pienensi koko arkistoa noin 687 kt samalla, kun matalilla zoomeilla säilyvät nyt kaikki aluekohteet ennustettavasti keskipisteinä.

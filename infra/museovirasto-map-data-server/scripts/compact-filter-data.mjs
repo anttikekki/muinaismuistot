@@ -54,7 +54,7 @@ function mask(raw, values, kind) {
   return result
 }
 
-async function transform([vocabularyPath, layerId]) {
+async function transform([vocabularyPath, layerId, representation = "default"]) {
   const vocabulary = JSON.parse(await readFile(vocabularyPath, "utf8"))
   const subtypeIndexes = new Map(vocabulary.subtypes.map((value, index) => [value, index + 1]))
   const input = createInterface({ input: process.stdin, crlfDelay: Infinity })
@@ -76,11 +76,14 @@ async function transform([vocabularyPath, layerId]) {
       properties.laji_key = source.laji_key
     }
     feature.properties = properties
+    if (layerId.endsWith("_areas")) {
+      feature.tippecanoe = representation === "centroid" ? { maxzoom: 9 } : { minzoom: 10 }
+    }
     process.stdout.write(`${JSON.stringify(feature)}\n`)
   }
 }
 
 const [command, ...args] = process.argv.slice(2)
 if (command === "vocabulary" && args.length === 3) await generateVocabulary(args)
-else if (command === "transform" && args.length === 2) await transform(args)
-else throw new Error("Usage: compact-filter-data.mjs vocabulary <gpkg> <layer> <output> | transform <vocabulary> <layer-id>")
+else if (command === "transform" && (args.length === 2 || args.length === 3)) await transform(args)
+else throw new Error("Usage: compact-filter-data.mjs vocabulary <gpkg> <layer> <output> | transform <vocabulary> <layer-id> [default|centroid]")

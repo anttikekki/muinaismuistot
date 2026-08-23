@@ -36,6 +36,7 @@ const enabled = new Set<string>()
 const unfilteredLogicalIdBySource = new Map<string, string>()
 const filteredLogicalIdsBySource = new Map<string, { field: string; idsByValue: Map<string, string> }>()
 const styleByLogicalId = new Map<string, Style>()
+const pointStyleByLogicalId = new Map<string, Style>()
 const selectedArchaeologicalTypes = new Set<string>(archaeologicalTypes)
 const selectedArchaeologicalDatings = new Set<string>(archaeologicalDatings)
 const startedAt = performance.now()
@@ -213,9 +214,9 @@ function styleFeature(feature: FeatureLike): Style | undefined {
   const logicalId = activeLogicalId(feature)
   if (!logicalId) return undefined
   const sourceLayer = String(feature.get("layer") ?? "")
-  if (aggregationMode && sourceLayer.endsWith("_points")) return undefined
+  if (aggregationMode && isPointFeature(feature)) return undefined
   visibleStyleCallCount += 1
-  return styleByLogicalId.get(logicalId)
+  return isPointFeature(feature) ? pointStyleByLogicalId.get(logicalId) : styleByLogicalId.get(logicalId)
 }
 
 function activeLogicalId(feature: FeatureLike): string | undefined {
@@ -243,11 +244,13 @@ function configureStyleLookups(layers: LogicalLayer[]): void {
   unfilteredLogicalIdBySource.clear()
   filteredLogicalIdsBySource.clear()
   styleByLogicalId.clear()
+  pointStyleByLogicalId.clear()
   enabled.clear()
 
   for (const layer of layers) {
     enabled.add(layer.id)
     styleByLogicalId.set(layer.id, createStyle(layer))
+    pointStyleByLogicalId.set(layer.id, new Style({ image: pointSymbol(layer.id, colorFor(layer.id)) }))
 
     if (!layer.filter) {
       unfilteredLogicalIdBySource.set(layer.sourceLayer, layer.id)
@@ -363,8 +366,7 @@ function updatePresentation(): void {
 
   const activePoints: Array<{ feature: FeatureLike; logicalId: string }> = []
   for (const feature of unique.values()) {
-    const sourceLayer = String(feature.get("layer") ?? "")
-    if (!sourceLayer.endsWith("_points")) continue
+    if (!isPointFeature(feature)) continue
     const logicalId = activeLogicalId(feature)
     if (logicalId) activePoints.push({ feature, logicalId })
   }
@@ -402,6 +404,10 @@ function updatePresentation(): void {
   setText("aggregate-count", aggregationMode ? formatCount(aggregateSource.getFeatures().length) : "0")
   if (modeChanged) vectorLayer.changed()
   markInitialDataReady(signature)
+}
+
+function isPointFeature(feature: FeatureLike): boolean {
+  return feature.getGeometry()?.getType() === "Point"
 }
 
 function markInitialDataReady(signature: string): void {

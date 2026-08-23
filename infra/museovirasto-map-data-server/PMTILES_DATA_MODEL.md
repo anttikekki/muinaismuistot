@@ -20,7 +20,7 @@ Arkistossa on 12 MVT `source-layer` -tasoa. `laji_key` ja `subtype_codes` ovat M
 
 | Osa | Nykyinen toteutus | Käyttö | Tavoite |
 | --- | --- | --- | --- |
-| Geometria | MVT-geometria, zoomin mukaan yksinkertaistettu | piirtäminen ja osumatunnistus | säilytä |
+| Geometria | Piste- ja viivatasot säilyttävät geometriatyyppinsä; aluetasot ovat keskipisteitä zoomeilla 0–9 ja yksinkertaistettuja polygoneja zoomeilla 10–14 | piirtäminen, aggregointi ja osumatunnistus | säilytä zoomikohtainen esityssopimus |
 | MVT-feature-ID | GeoPackagen `fid` kopioidaan välivaiheen `source_fid`-kenttään ja annetaan Tippecanoelle `--use-attribute-for-id=source_fid` | OpenLayers-featureen tunnistaminen | korvaa tuotantoputkessa version ja lähdetason huomioivalla dokumentoidulla tunnisteella |
 | `source_fid`-ominaisuus | ei esiinny MVT-ominaisuutena | vain ID:n muodostus rakennuksessa | älä lisää ominaisuuskentäksi |
 | `source-layer` | MVT-tason nimi, esimerkiksi `archaeological_points` | fyysinen tasovalinta ja tyylin valinta | säilytä rakenteena, ei erillisenä feature-kenttänä |
@@ -33,20 +33,22 @@ Nykyinen `source_fid` ei ole riittävän vakaa tuotantotunniste aineistoversioid
 
 | MVT source-layer | Geometria | Tietueita | Toteutuneet ominaisuuskentät |
 | --- | --- | ---: | --- |
-| `archaeological_areas` | Polygon | 86 702 | `laji_key` |
+| `archaeological_areas` | Point z0–9, Polygon z10–14 | 86 702 | `laji_key` |
 | `archaeological_points` | Point | 112 441 | `laji_key`, `type_mask`, `subtype_codes`, `dating_mask` |
 | `archaeological_subsites_points` | Point | 63 216 | ei ominaisuuskenttiä |
-| `protected_building_areas` | Polygon | 138 | ei ominaisuuskenttiä |
+| `protected_building_areas` | Point z0–9, Polygon z10–14 | 138 | ei ominaisuuskenttiä |
 | `protected_building_points` | Point | 2 290 | ei ominaisuuskenttiä |
-| `rky_areas` | Polygon | 1 851 | ei ominaisuuskenttiä |
+| `rky_areas` | Point z0–9, Polygon z10–14 | 1 851 | ei ominaisuuskenttiä |
 | `rky_lines` | LineString | 186 | ei ominaisuuskenttiä |
 | `rky_points` | Point | 64 | ei ominaisuuskenttiä |
-| `vark_areas` | Polygon | 1 010 | ei ominaisuuskenttiä |
+| `vark_areas` | Point z0–9, Polygon z10–14 | 1 010 | ei ominaisuuskenttiä |
 | `vark_points` | Point | 1 010 | ei ominaisuuskenttiä |
-| `world_heritage_areas` | Polygon | 50 | ei ominaisuuskenttiä |
+| `world_heritage_areas` | Point z0–9, Polygon z10–14 | 50 | ei ominaisuuskenttiä |
 | `world_heritage_points` | Point | 6 | ei ominaisuuskenttiä |
 
 Validointiskripti tarkistaa tämän kenttäjoukon täsmällisesti. Ylimääräinen kenttä kompaktissa arkistossa keskeyttää validoinnin. Skeema on nykyisen PoC:n toteutunut minimimalli, mutta ei vielä hyväksytty tuotantoskeema, koska vakaa feature-ID ja ominaisuustieto-endpoint puuttuvat.
+
+Aluetasojen keskipiste ja polygoniversio käyttävät samaa `source-layer`-nimeä ja samaa MVT-feature-ID:tä eri zoom-alueilla. Näin looginen tasomäppäys, tasovalinnat ja PMTiles-lähteiden määrä eivät muutu. Keskipiste osallistuu matalilla zoomeilla samaan aktiivisen tulosjoukon aggregointiin kuin varsinaiset pistetasot. Zoomilta 10 alkaen keskipistettä ei enää julkaista ja selain saa varsinaisen polygonin.
 
 ## Historiallinen leveä vertailuskeema
 
@@ -115,7 +117,7 @@ Tämä on nykyinen minimimalli. Mahdollinen `name` on ainoa perusteltu lisäkent
 
 ## Mitattu vaikutus
 
-Kompakti arkisto pienensi muuten identtisen ja kaikki geometriat säilyttävän arkiston 138 301 298 tavusta 54 762 752 tavuun eli noin 60,4 prosenttia. Pronssikautisten hautaröykkiöiden tulosjoukko pysyi täsmälleen 1 467 kohteessa.
+Kompakti arkisto pienensi leveän 138 301 298 tavun arkiston ensin 54 762 752 tavuun. Aluetasojen zoomikohtaisen piste-/polygoni-esityksen jälkeen arkiston koko on 54 075 777 tavua. Kaikki viiden aluetason tietueet ovat keskipisteinä zoomilla 0; polygonit alkavat zoomilta 10. Pronssikautisten hautaröykkiöiden tulosjoukko pysyi täsmälleen 1 467 kohteessa.
 
 Koko Suomen aloitusnäkymässä PMTiles Range -pyyntöjen määrä säilyi kuudessa ja siirretty määrä pieneni 4 535 650 tavusta 835 056 tavuun eli noin 81,6 prosenttia. Kenttien tiivistämisen jälkeen pahimman suodattamattoman näkymän pullonkaula on yli 200 000 vektorifeaturen selainrenderöinti, ei PMTiles-siirto.
 
@@ -128,4 +130,5 @@ Seuraava tietomalliin liittyvä työ on vakaan, aineistoversion ja lähdetason h
 - Karttatyylin tai aktiivisen suodatuksen tarvitsemaa kenttää ei saa poistaa.
 - Suodatettu koko Suomen näkymä näyttää kaikki ehdot täyttävät yksittäiset pisteet; kenttäkarsinta ei saa muuttaa osumajoukkoa.
 - Dynaaminen aggregointi käyttää samoja normalisoituja suodatuskenttiä ja kohdistuu vasta aktiivisen suodatuksen tulokseen. Kaikki yksittäiset pisteet säilyvät arkistossa aggregointitilasta riippumatta.
+- Jokaisen aluetason kaikki geometriset kohteet julkaistaan keskipisteinä zoomeilla 0–9 ja polygoneina zoomeilla 10–14. Zoomialueet eivät saa olla päällekkäisiä eikä niiden väliin saa jäädä aukkoa.
 - Kohdepaneelin tiedot eivät saa kadota, vaikka ne siirretään pois MVT:stä.

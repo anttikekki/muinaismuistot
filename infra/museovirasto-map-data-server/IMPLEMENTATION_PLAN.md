@@ -144,6 +144,8 @@ Harhaanjohtava ensimmäisen renderöinnin mittari on korvattu näkymän tiililat
 
 Korjattu aggregointi hyväksyttiin koko Suomen manuaalisessa testissä. 162 131 ladatusta featuresta 133 070 oli aktiivisia pisteitä, joista muodostui 48 aggregaattimerkkiä. Zoomilla 5,22 loppunäkymä valmistui 1 ms:ssa, renderöintikierroksia syntyi 64,8/s, p95-ruutuväli oli 56 ms ja p95-syöteviive 4 ms. Kartta koettiin selvästi nopeaksi ja aggregaattiesitys visuaalisesti selkeäksi. Tulos poistaa täyden suodattamattoman aineiston selainrenderöinnin keskeisen PoC-riskin tällä testikoneella.
 
+Kaikki viisi aluetasoja sisältävää lähdetasoa käyttävät nyt zoomikohtaista geometriaesitystä samassa `source-layer`-tasossa: keskipiste zoomeilla 0–9 ja varsinainen polygoni zoomeilla 10–14. Keskipisteet osallistuvat dynaamiseen aggregointiin, mutta tasomäppäys ja HTTP-pyyntöjen määrä eivät muutu. Validointi vahvistaa kaikkien aluekohteiden keskipisteet zoomilla 0. Arkisto pieneni samalla 54 762 752 tavusta 54 075 777 tavuun.
+
 **Seuraava tehtävä:** varmista vielä uudella diagnostiikalla, että 1 467 pronssikautisen hautaröykkiön valtakunnallinen näkymä käyttää yksittäistä esitystä. Mittaa lisäksi kaupunki-/maakunta- ja lähitaso sekä tarkista yksittäisten ja aggregoitujen kohteiden tunnistaminen. Tämän jälkeen määritä vakaa tuotannon feature-ID ja toteuta sitä käyttävän ominaisuustieto-endpointin PoC.
 
 ### Vaihe 2: Toistettava rakennusputki

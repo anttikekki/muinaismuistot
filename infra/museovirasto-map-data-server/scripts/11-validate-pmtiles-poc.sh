@@ -51,6 +51,20 @@ if [[ "$(basename "$ARCHIVE")" == *compact* ]]; then
     diff <(echo "$expected_fields") <(echo "$actual_fields") || true
     exit 1
   }
+
+  z0_area_summary="$(
+    tippecanoe-decode "$ARCHIVE" 0 0 0 |
+      jq -S -c '[.features[] | select(.properties.layer | endswith("_areas")) | {key:.properties.layer, value:{count:(.features|length), geometryTypes:([.features[].geometry.type]|unique)}}] | from_entries'
+  )"
+  while IFS=$'\t' read -r layer_id metadata_count; do
+    expected_count="$((metadata_count / 2))"
+    actual_count="$(jq -r --arg layer "$layer_id" '.[$layer].count // 0' <<<"$z0_area_summary")"
+    geometry_types="$(jq -c --arg layer "$layer_id" '.[$layer].geometryTypes // []' <<<"$z0_area_summary")"
+    [[ "$actual_count" == "$expected_count" && "$geometry_types" == '["Point"]' ]] || {
+      echo "Low-zoom centroid mismatch for $layer_id: expected=$expected_count actual=$actual_count geometryTypes=$geometry_types" >&2
+      exit 1
+    }
+  done < <(jq -r '.tilestats.layers[] | select(.layer | endswith("_areas")) | [.layer, .count] | @tsv' <<<"$metadata")
 fi
 
 unknown_laji_count="$(
@@ -91,6 +105,7 @@ echo "Source layers: $layer_count"
 echo "All point features retained at zoom 0: yes"
 if [[ "$(basename "$ARCHIVE")" == *compact* ]]; then
   echo "Compact field schema: valid"
+  echo "All area layers represented by centroids at zoom 0: yes"
 fi
 echo "Layers: $(jq -r '[.vector_layers[].id] | sort | join(", ")' <<<"$metadata")"
 echo "PMTiles CLI: $("$PMTILES" version)"
