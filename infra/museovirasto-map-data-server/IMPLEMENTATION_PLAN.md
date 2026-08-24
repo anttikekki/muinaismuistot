@@ -172,7 +172,7 @@ Käyttöönotto pidetään sivuston kokoon nähden yksinkertaisena. Selain aloit
 
 Worker tarjoaa valinnaisen, lyhyesti välimuistitetun `/api/museovirasto/meta`-reitin diagnostiikkaa varten. Se ei ole edellytys PMTiles-pyynnöille tai ominaisuustietojen hauille. Aikaleimalliset `releases/<version>/...`-avaimet voidaan säilyttää palautuspaketteina, mutta selain ei käytä niitä normaalisti.
 
-**Seuraava tehtävä:** lisää paikallinen `/health`-reitti, julkaisun smoke-testit ja epäonnistuneen aktivoinnin/palautuksen testit ennen oikeiden Cloudflare-kehitys- ja tuotantoympäristöjen perustamista.
+**Seuraava tehtävä:** deployaa yhteinen Worker preview-ympäristöön, tarkista automaattisesti provisioidut R2- ja D1-resurssit ja julkaise niihin oikea tuotantoaineisto toistettavalla etäjulkaisuskriptillä. Hyväksy preview vasta julkisen API:n smoke-testin jälkeen.
 
 ### Vaihe 2: Toistettava rakennusputki
 
@@ -195,6 +195,7 @@ Worker tarjoaa valinnaisen, lyhyesti välimuistitetun `/api/museovirasto/meta`-r
 - [x] Pidä valinnainen `/api/museovirasto/meta` lyhyesti välimuistissa, mutta älä vaadi sitä ennen kartan latausta.
 - [x] Toteuta health-endpoint ja julkaisu-smoke-testit. `/health` tarkistaa aktiivisen PMTiles-objektin, aikaleimallisen metatiedon ja D1-aineiston sekä palauttaa virhetilassa `503`; toistettava smoke-testi kattaa lisäksi Range-, massa-, rekisteri- ja sanahaun.
 - [x] Toteuta epäonnistuneen päivityksen ja palautuksen integraatiotestit. Backup/restore-skriptit kattavat PMTilesin, metadatan ja D1-rivit; nopea integraatiotesti käyttää täysin eristettyä pientä Wrangler-tilaa eikä kopioi varsinaista 268 964 rivin PoC-aineistoa. Erillinen huoltotila arvioitiin ja jätettiin tarkoituksella pois liian monimutkaisena.
+- [x] Lisää eksplisiittisen preview-/production-valinnan vaativa etäjulkaisuskripti. Se käyttää ympäristön provisioituja bindingeja, ajaa migraatiot, korvaa aktiivisen D1-aineiston, lataa PMTilesin ja metadatan R2:een sekä smoke-testaa julkisen API:n. Production-julkaisu vaatii erillisen vahvistusargumentin.
 - Lisää lokitus, virhemittarit, kustannusseuranta ja hälytys puuttuvasta tai vanhentuneesta aineistosta.
 - Varmista, ettei R2:n kirjoitusavaimia tai muita ylläpitosalaisuuksia toimiteta selaimelle.
 

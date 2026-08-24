@@ -69,3 +69,11 @@ Paikallisen R2- ja D1-simulaation siementäminen jätetään tarkoituksella eril
 infra/museovirasto-map-data-server/scripts/12-seed-local-r2-poc.sh
 infra/museovirasto-map-data-server/scripts/15-seed-local-d1-poc.sh
 ```
+
+Kun Worker on deployattu ja Cloudflare-resurssit on provisioitu valittuun ympäristöön, samat aktiiviset artefaktit julkaistaan etäympäristöön näin:
+
+```bash
+infra/museovirasto-map-data-server/scripts/30-publish-cloudflare-release.sh preview
+```
+
+Skripti validoi ympäristön ja artefaktit, ajaa D1-migraatiot, korvaa D1-aineiston, lataa `current.pmtiles`- ja `current.json`-objektit sekä ajaa lopuksi palvelun smoke-testin. Production vaatii lisäksi eksplisiittisen `--confirm-production`-argumentin.
