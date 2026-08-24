@@ -15,7 +15,7 @@ for command_name in jq ogr2ogr node wc; do
   command -v "$command_name" >/dev/null 2>&1 || { echo "Required command not found: $command_name" >&2; exit 1; }
 done
 mkdir -p "$BUILD_DIR"
-printf "BEGIN TRANSACTION;\nDELETE FROM feature_details;\n" > "$OUTPUT_FILE"
+printf "DELETE FROM feature_details;\n" > "$OUTPUT_FILE"
 
 total_count=0
 source_total_count=0
@@ -45,7 +45,6 @@ while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries
   sed -n '1,$p' "$layer_sql" >> "$OUTPUT_FILE"
 done < <(jq -r '.layers[] | [.id, .geoPackageFile, .geoPackageLayer, (.excludedNullGeometries // 0), 0, (.sql | @base64)] | @tsv' "$POC_CONFIG")
 
-printf 'COMMIT;\n' >> "$OUTPUT_FILE"
 jq -n --argjson sourceRows "$source_total_count" --argjson d1Rows "$total_count" --argjson layers "$layers" \
   '{schemaVersion:1,status:"ok",sourceRows:$sourceRows,d1Rows:$d1Rows,layers:$layers}' > "$REPORT_FILE"
 echo "Built D1 feature details import: $OUTPUT_FILE"

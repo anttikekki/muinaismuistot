@@ -8,7 +8,7 @@ PMTILES_PATH="$API_PREFIX/pmtiles"
 WORK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/museovirasto-smoke.XXXXXX")"
 trap 'rm -rf "$WORK_DIR"' EXIT
 
-for command_name in curl jq rg; do
+for command_name in curl jq grep; do
   command -v "$command_name" >/dev/null 2>&1 || { echo "Required command not found: $command_name" >&2; exit 1; }
 done
 
@@ -32,7 +32,7 @@ jq -e '.ok == true and (.version | test("^[0-9]{8}T[0-9]{6}Z$")) and .checks.pmt
 range_status="$(curl --silent --show-error --output "$WORK_DIR/header.bin" --dump-header "$WORK_DIR/header.txt" \
   --write-out '%{http_code}' --header 'Range: bytes=0-126' "$BASE_URL$PMTILES_PATH")"
 [[ "$range_status" == "206" ]] || { echo "PMTiles Range request failed with HTTP $range_status" >&2; exit 1; }
-rg -qi '^content-range: bytes 0-126/' "$WORK_DIR/header.txt" || { echo "PMTiles response lacks the expected Content-Range" >&2; exit 1; }
+grep -Eqi '^content-range: bytes 0-126/' "$WORK_DIR/header.txt" || { echo "PMTiles response lacks the expected Content-Range" >&2; exit 1; }
 [[ "$(LC_ALL=C head -c 7 "$WORK_DIR/header.bin")" == "PMTiles" ]] || { echo "PMTiles header magic is invalid" >&2; exit 1; }
 
 request_json feature POST "$API_PREFIX/features/batch" \

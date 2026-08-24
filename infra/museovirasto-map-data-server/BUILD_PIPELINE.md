@@ -76,4 +76,4 @@ Kun Worker on deployattu ja Cloudflare-resurssit on provisioitu valittuun ympär
 infra/museovirasto-map-data-server/scripts/30-publish-cloudflare-release.sh preview
 ```
 
-Skripti validoi ympäristön ja artefaktit, ajaa D1-migraatiot, korvaa D1-aineiston, lataa `current.pmtiles`- ja `current.json`-objektit sekä ajaa lopuksi palvelun smoke-testin. Production vaatii lisäksi eksplisiittisen `--confirm-production`-argumentin.
+Skripti validoi ympäristön ja artefaktit, ajaa D1-migraatiot, korvaa D1-aineiston, lataa `current.pmtiles`- ja `current.json`-objektit sekä ajaa lopuksi palvelun smoke-testin. D1-tuontiartefakti ei sisällä eksplisiittisiä `BEGIN TRANSACTION`- tai `COMMIT`-lauseita, koska Wranglerin etätuonti hallitsee tuonnin ja virheestä palautumisen itse. Production vaatii lisäksi eksplisiittisen `--confirm-production`-argumentin.
