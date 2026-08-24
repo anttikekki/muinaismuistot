@@ -2,7 +2,7 @@
 
 Tämä hakemisto on muinaismuistot.info-sovelluksesta täysin irrallinen tekninen koe. Se sisältää:
 
-- Cloudflare Workerin, joka validoi vakio-osoitteeseen `/pmtiles/current.pmtiles` tulevan HTTP byte range -pyynnön ja lukee vain pyydetyn välin R2-bindingista;
+- Cloudflare Workerin, joka validoi vakio-osoitteeseen `/api/museovirasto/pmtiles` tulevan HTTP byte range -pyynnön ja lukee vain pyydetyn välin R2-bindingista;
 - Wranglerin paikallisesti simuloiman R2-bucketin;
 - Cloudflaren Workers-runtimessa ajettavat Vitest-testit;
 - yksinkertaisen OpenLayers-sivun, joka käyttää yhtä PMTiles-lähdettä ja muodostaa `layer-mapping.json`-tiedoston perusteella 26 loogista tasovalintaa.
@@ -41,9 +41,9 @@ Käynnistä Worker ja staattinen OpenLayers-sivu:
 npm run dev
 ```
 
-Avaa <http://localhost:8787>. Selain aloittaa kartan latauksen suoraan vakio-osoitteesta `/pmtiles/current.pmtiles`; valinnainen `/api/meta` ei kuulu kartan kriittiseen latauspolkuun. `npm run seed` tarvitsee ajaa uudelleen julkaisuartefaktien uudelleenrakentamisen jälkeen. Paikallinen R2- ja D1-data säilyvät gitistä ohitetussa `poc/.wrangler/state`-hakemistossa.
+Avaa <http://localhost:8787>. Selain aloittaa kartan latauksen suoraan vakio-osoitteesta `/api/museovirasto/pmtiles`; valinnainen `/api/museovirasto/meta` ei kuulu kartan kriittiseen latauspolkuun. `npm run seed` tarvitsee ajaa uudelleen julkaisuartefaktien uudelleenrakentamisen jälkeen. Paikallinen R2- ja D1-data säilyvät gitistä ohitetussa `poc/.wrangler/state`-hakemistossa.
 
-Kun paikallinen Worker on käynnissä, aja toisessa terminaalissa `npm run smoke`. Testi tarkistaa `/health`-reitin, PMTiles Range -vastauksen sekä ominaisuus-, rekisteri- ja sanahaun oikealla siemennetyllä aineistolla. `/health` palauttaa `503`, jos `current.pmtiles`, kelvollinen `current.json` tai vähintään yksi D1-rivi puuttuu.
+Kun paikallinen Worker on käynnissä, aja toisessa terminaalissa `npm run smoke`. Testi tarkistaa `/api/museovirasto/health`-reitin, PMTiles Range -vastauksen sekä ominaisuus-, rekisteri- ja sanahaun oikealla siemennetyllä aineistolla. Health-reitti palauttaa `503`, jos `current.pmtiles`, kelvollinen `current.json` tai vähintään yksi D1-rivi puuttuu.
 
 `npm run test:rollback` testaa R2-metadatan ja D1-rivien varmuuskopioinnin sekä palautuksen pienessä, eristetyssä väliaikaisessa Wrangler-ympäristössä; testi ei muuta varsinaista PoC-aineistoa. Käyttöönotossa ei ole erillistä huoltotilaa: etukäteen validoidut D1- ja PMTiles-aineistot vaihdetaan yöllä peräkkäin, minkä jälkeen smoke-testi joko hyväksyy julkaisun tai käynnistää palautuksen.
 
@@ -65,11 +65,11 @@ infra/museovirasto-map-data-server/scripts/14-build-feature-details-sql.sh
 infra/museovirasto-map-data-server/scripts/15-seed-local-d1-poc.sh
 ```
 
-Karttaklikkaus kerää enintään 100 näkyvien tasojen päällekkäistä MVT-featurea, deduplikoi `sourceLayer + featureId` -parit ja hakee näyttötiedot yhdellä `POST /api/features/batch` -pyynnöllä. Haku kohdistuu aina yhteen aktiiviseen D1-aineistoon. Aggregaattimerkin klikkaus zoomaa kaksi tasoa lähemmäs.
+Karttaklikkaus kerää enintään 100 näkyvien tasojen päällekkäistä MVT-featurea, deduplikoi `sourceLayer + featureId` -parit ja hakee näyttötiedot yhdellä `POST /api/museovirasto/features/batch` -pyynnöllä. Haku kohdistuu aina yhteen aktiiviseen D1-aineistoon. Aggregaattimerkin klikkaus zoomaa kaksi tasoa lähemmäs.
 
-MVT:n `featureId` on GeoPackagen `fid`, jota käytetään vain saman aineistojulkaisun sisällä. Pysyviä URL-linkkejä varten Worker tarjoaa `POST /api/features/by-register` -massahaun. Sen viitteet ovat `{logicalLayerId, registryId}`-pareja, ja vastaus sisältää kaikki uusimmasta D1-aineistosta löytyvät rivit. Lähderivejä ei deduplikoida.
+MVT:n `featureId` on GeoPackagen `fid`, jota käytetään vain saman aineistojulkaisun sisällä. Pysyviä URL-linkkejä varten Worker tarjoaa `POST /api/museovirasto/features/by-register` -massahaun. Sen viitteet ovat `{logicalLayerId, registryId}`-pareja, ja vastaus sisältää kaikki uusimmasta D1-aineistosta löytyvät rivit. Lähderivejä ei deduplikoida.
 
-Yksinkertainen sanahaku on `GET /api/search?q=...`. Hakuehdon pitää olla 3–100 merkkiä. Haku toimii nimien kirjainkoosta riippumattomalla osajonolla ja rekisteritunnuksen osalla, palauttaa enintään 50 rekisterikohdetta ja ilmoittaa `truncated`-lipulla tulosrajan ylittymisestä. Vastauksella on 60 sekunnin julkinen välimuistiotsake.
+Yksinkertainen sanahaku on `GET /api/museovirasto/search?q=...`. Hakuehdon pitää olla 3–100 merkkiä. Haku toimii nimien kirjainkoosta riippumattomalla osajonolla ja rekisteritunnuksen osalla, palauttaa enintään 50 rekisterikohdetta ja ilmoittaa `truncated`-lipulla tulosrajan ylittymisestä. Vastauksella on 60 sekunnin julkinen välimuistiotsake.
 
 Vitest-alustus kirjoittaa jokaiseen testiin pienen deterministisen R2-objektin. Testit kattavat täsmällisen, avoimen ja suffix-tavuvälin, loppupään rajauksen, virheelliset ja moniosaiset ranget, puuttuvan rangen, `HEAD`-, `OPTIONS`- ja virheelliset metodit, puuttuvan objektin sekä 26 loogisen tason API-vastauksen.
 

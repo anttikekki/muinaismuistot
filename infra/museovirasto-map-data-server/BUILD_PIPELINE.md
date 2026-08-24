@@ -57,7 +57,7 @@ D1-rivimäärä luetaan manifestiin `feature-details-report.json`-raportista. Ra
 
 `pmtiles-d1-identity-report.json` varmistaa, että PMTiles-rakennussyötteen kaikki 268 964 `source-layer + fid` -avainta vastaavat D1-tuontia ja ettei zoomin 0 PMTilesissä ole D1:stä puuttuvaa tunnistetta. Zoomin 0 arkistossa on 268 905 tunnistetta: 59 RKY-viivaa yksinkertaistuu pois matalimmalta zoomilta mutta säilyy D1:ssä ja tarkemmilla zoomeilla. Pisteiden ja aluekeskipisteiden täydellisyys tarkistetaan erikseen PMTiles-validoinnissa.
 
-UTC-aikaleimaversio, aktiiviset vakioavaimet, palautusavaimet ja huoltoikkunan käyttöönottoprosessi on määritelty tiedostossa [RELEASE_CONTRACT.md](RELEASE_CONTRACT.md). Rakennus tuottaa `release-descriptor.json`- ja valinnaisen `/api/meta`-reitin `current-metadata.json`-tiedostot; ulkoista ympäristöä ei muuteta vaiheessa 2.
+UTC-aikaleimaversio, aktiiviset vakioavaimet, palautusavaimet ja yöllinen käyttöönottoprosessi on määritelty tiedostossa [RELEASE_CONTRACT.md](RELEASE_CONTRACT.md). Rakennus tuottaa `release-descriptor.json`- ja valinnaisen `/api/museovirasto/meta`-reitin `current-metadata.json`-tiedostot; ulkoista ympäristöä ei muuteta vaiheessa 2.
 
 `source-data-baseline.json` on versionhallittu vertailutaso, ei päivittäisen rivimäärän lukko. Tyhjä tai puuttuva taso estää rakennuksen. Jokainen rivimäärämuutos kirjataan raporttiin ja yli 30 prosentin muutos merkitään varoitukseksi. Uudet laji-, tyyppi-, ajoitus- ja alatyyppiarvot merkitään varoituksiksi; lähtötasossa sallittu mutta kyseisen päivän aineistosta puuttuva arvo raportoidaan ilman varoitusta. Päivän lähderivien ja päivän tuotosten tarkka täsmäytys säilyy erillisenä julkaisun estävänä tarkistuksena.
 

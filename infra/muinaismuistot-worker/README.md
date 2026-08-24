@@ -12,14 +12,27 @@ www.muinaismuistot.info ─┘
 
 Webpack rakentaa sivuston repositorion juuren `dist/`-hakemistoon. Wrangler julkaisee samalla deploylla sekä Workerin että `dist/`-hakemiston muuttuneet tiedostot Workers Static Assetsiksi. Erillistä origin-palvelinta, GitHub Pagesia tai R2-bucketia ei käytetä.
 
-Worker suoritetaan ennen Static Assets -reititystä. Tämä mahdollistaa redirectit sekä myöhemmin lisättävät API-reitit ilman muutoksia staattisten tiedostojen julkaisutapaan.
+Cloudflare yrittää palvella pyynnön ensin Static Assets -aineistosta. Worker suoritetaan vain, jos polkua vastaavaa assettia ei löydy.
 
 ## Workerin logiikka
 
 Workerin entrypoint on `src/index.ts`. Se käsittelee pyynnöt seuraavasti:
 
-1. `www.muinaismuistot.info` ohjataan 308-vastauksella osoitteeseen `muinaismuistot.info`. Polku ja query string säilyvät muuttumattomina.
-2. Kaikki muut pyynnöt välitetään `env.ASSETS.fetch(request)`-kutsulla Cloudflaren Static Assets -bindingille.
+1. Cloudflare Static Assets palvelee löytyvät sivustotiedostot ennen Worker-koodia.
+2. `/api/museovirasto/*` välitetään Museoviraston PMTiles-, ominaisuus- ja hakumoduulille.
+3. Muut Workerille asti päätyvät pyynnöt palauttavat `404`-vastauksen. `www`-kanonisointi hoidetaan DNS-/domain-määrityksillä.
+
+Museovirasto-moduulin julkiset reitit ovat:
+
+- `/api/museovirasto/pmtiles`
+- `/api/museovirasto/features/batch`
+- `/api/museovirasto/features/by-register`
+- `/api/museovirasto/search`
+- `/api/museovirasto/layers`
+- `/api/museovirasto/meta`
+- `/api/museovirasto/health`
+
+Worker käyttää bindingeja `MAP_DATA` (R2) ja `MAP_FEATURES` (D1). Bindingit on määritelty erikseen paikalliselle, preview- ja production-ympäristölle ilman fyysisiä resurssitunnisteita. Wrangler provisioi puuttuvat ympäristökohtaiset resurssit ensimmäisen deployn yhteydessä ja kirjoittaa syntyneet tunnisteet takaisin konfiguraatioon. Preview-deploy tehdään ja sen data siemennetään ennen production-deployta.
 
 Cloudflare huolehtii staattisten resurssien:
 
@@ -34,9 +47,10 @@ Wrangler-konfiguraation keskeiset Static Assets -asetukset ovat:
 
 - `directory: "../../dist"`: Webpack-buildin sijainti Worker-hakemistosta katsottuna.
 - `binding: "ASSETS"`: Workerissa käytettävä Static Assets -binding.
-- `run_worker_first: true`: kaikki pyynnöt kulkevat ensin Workerin kautta.
+- Static Assets ajetaan oletusarvoisesti ennen Workeria, koska `run_worker_first`-asetusta ei ole määritetty.
 - `html_handling: "auto-trailing-slash"`: hakemistojen `index.html` toimii kauttaviivalla ja ilman sitä.
-- `not_found_handling: "none"`: puuttuva resurssi palauttaa 404-vastauksen ilman SPA-fallbackia.
+
+`not_found_handling`-asetusta ei määritetä, joten käytössä on sen oletusarvo `none`. Jos pyyntö ei vastaa staattista assettia, Cloudflare suorittaa Workerin. Worker käsittelee tunnetut API-reitit ja palauttaa muille pyynnöille `404`-vastauksen.
 
 Mukautettuja cache-sääntöjä ei ole määritelty. Resurssit käyttävät Cloudflaren Static Assets -oletuskäyttäytymistä.
 
@@ -71,10 +85,30 @@ infra/muinaismuistot-worker/
 ├── tsconfig.json
 ├── vitest.config.ts
 ├── src/
-│   └── index.ts
+│   ├── index.ts
+│   └── endpoint/museovirasto/
+│       ├── index.ts
+│       ├── pmtiles.ts
+│       ├── features-batch.ts
+│       ├── features-by-register.ts
+│       ├── search.ts
+│       ├── layers.ts
+│       ├── metadata.ts
+│       ├── health.ts
+│       ├── feature-details.ts
+│       └── responses.ts
 ├── test/
 │   ├── env.d.ts
 │   ├── index.test.ts
+│   ├── endpoint/museovirasto/
+│   │   ├── pmtiles.test.ts
+│   │   ├── features-batch.test.ts
+│   │   ├── features-by-register.test.ts
+│   │   ├── search.test.ts
+│   │   ├── layers.test.ts
+│   │   ├── metadata.test.ts
+│   │   └── health.test.ts
+│   ├── support/museovirasto.ts
 │   └── tsconfig.json
 └── README.md
 ```
@@ -100,7 +134,7 @@ npx --prefix infra/muinaismuistot-worker wrangler login
 
 Testit käyttävät Vitestiä ja Cloudflaren virallista `@cloudflare/vitest-plugin`-integraatiota. Testit suoritetaan Workersin `workerd`-runtimessa oikeaa paikallista Static Assets -bindingia vasten.
 
-Testikomento tekee ensin Webpack-tuotantobuildin ja testaa sen jälkeen muun muassa pääsivun, hakemistojen index-sivut, `www`-redirectin, MIME-tyypit, ETagin, HEAD-pyynnön ja 404-vastauksen.
+Testikomento tekee ensin Webpack-tuotantobuildin ja testaa sen jälkeen muun muassa pääsivun, hakemistojen index-sivut, MIME-tyypit, ETagin, HEAD-pyynnön ja 404-vastauksen. Lisäksi testit varmistavat asset-first-reitityksen, `/api/museovirasto/*`-reitityksen, PMTiles Range -vastauksen, metatiedon, health-tarkistuksen, D1-massahaun ja tuntemattomien API-reittien `404`-vastauksen.
 
 Generoi Cloudflare-tyypit uudelleen aina, kun `wrangler.jsonc`-bindingit muuttuvat:
 

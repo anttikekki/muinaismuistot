@@ -4,7 +4,7 @@
 
 Pienen sivuston päivittäinen käyttöönotto tehdään tarkoituksella yksinkertaisesti. Tuotannossa on yksi aktiivinen PMTiles-arkisto ja yksi aktiivinen D1-aineisto. Uusi Museoviraston aineisto julkaistaan klo 00:00 UTC, joten vaihto ajastetaan Suomen yön hiljaiseen huoltoikkunaan.
 
-Selain ei hae metatietoja ennen karttaa. Karttaliikenteen vakio-osoite on aina `/pmtiles/current.pmtiles`, ja ominaisuustietojen API käyttää aina aktiivista D1-aineistoa.
+Selain ei hae metatietoja ennen karttaa. Karttaliikenteen vakio-osoite on aina `/api/museovirasto/pmtiles`, ja ominaisuustietojen API käyttää aina aktiivista D1-aineistoa.
 
 ## Versio
 
@@ -21,9 +21,9 @@ Esimerkki: `20260822T000000Z`. Versio helpottaa lokien, varmuuskopioiden ja viko
 | Kohde | Sijainti tai avain |
 |---|---|
 | PMTiles R2:ssa | `current.pmtiles` |
-| selaimen PMTiles-reitti | `/pmtiles/current.pmtiles` |
+| selaimen PMTiles-reitti | `/api/museovirasto/pmtiles` |
 | valinnainen metadata R2:ssa | `current.json` |
-| valinnainen metatietoreitti | `/api/meta` |
+| valinnainen metatietoreitti | `/api/museovirasto/meta` |
 | D1-aineisto | `feature_details` |
 
 Karttaklikkauksen massahaku käyttää `sourceLayer + featureId` -pareja. Pysyvät URL:t käyttävät `logicalLayerId + registryId` -pareja ja palauttavat kaikki uusimmasta aineistosta löytyvät geometriat. Pyyntöihin ei lisätä versiota.
@@ -42,7 +42,7 @@ R2:n ja D1:n vaihtoa ei yritetä tehdä hajautettuna atomisena operaationa eikä
 
 ## Välimuisti
 
-`current.pmtiles` voi vaihtua kerran päivässä, joten sitä ei merkitä `immutable`-sisällöksi. Worker palauttaa sille lyhyen välimuistiajan. PMTiles-lukija tekee Range-pyynnöt suoraan ilman ensin tehtävää `/api/meta`-pyyntöä. Aikaleimalliset palautusobjektit ovat muuttumattomia, jos niitä myöhemmin tarjotaan erillisestä ylläpito- tai vianmääritysreitistä.
+`current.pmtiles` voi vaihtua kerran päivässä, joten sitä ei merkitä `immutable`-sisällöksi. Worker palauttaa sille lyhyen välimuistiajan. PMTiles-lukija tekee Range-pyynnöt suoraan ilman ensin tehtävää `/api/museovirasto/meta`-pyyntöä. Aikaleimalliset palautusobjektit ovat muuttumattomia, jos niitä myöhemmin tarjotaan erillisestä ylläpito- tai vianmääritysreitistä.
 
 ## Paikallinen PoC
 

@@ -166,11 +166,11 @@ Muunnostestit kattavat numeerisen lajikoodin, moniarvoiset tyyppi- ja ajoitusmas
 
 Julkaisu- ja käyttöönottosopimus on lukittu tiedostossa [RELEASE_CONTRACT.md](RELEASE_CONTRACT.md). Rakennus johtaa lähdeaineiston julkaisupäivästä UTC-aikaleimaversion ja tallentaa SHA-256-tiivisteet eheystarkistuksia varten. `release-descriptor.json` määrittää aktiiviset vakio-osoitteet, valinnaiset aikaleimalliset palautusavaimet, skeemaversiot, tiivisteet ja API-reitit. Vaihe 2 ei muuta ulkoista ympäristöä.
 
-Käyttöönotto pidetään sivuston kokoon nähden yksinkertaisena. Selain aloittaa latauksen suoraan vakio-osoitteesta `/pmtiles/current.pmtiles`, eikä `/api/meta` kuulu kriittiseen latauspolkuun. D1:ssä on vain yksi aktiivinen `feature_details`-aineisto. Karttaklikkauksen avain on `sourceLayer + featureId`; pysyvät linkit käyttävät `logicalLayerId + registryId` -avainta ja palauttavat aina uusimman aineiston.
+Käyttöönotto pidetään sivuston kokoon nähden yksinkertaisena. Selain aloittaa latauksen suoraan vakio-osoitteesta `/api/museovirasto/pmtiles`, eikä `/api/museovirasto/meta` kuulu kriittiseen latauspolkuun. D1:ssä on vain yksi aktiivinen `feature_details`-aineisto. Karttaklikkauksen avain on `sourceLayer + featureId`; pysyvät linkit käyttävät `logicalLayerId + registryId` -avainta ja palauttavat aina uusimman aineiston.
 
 **Vaihe 2 on valmis.** Vaihe 3:n paikallinen käyttöönotto tehdään yöllä: uusi aineisto rakennetaan ja validoidaan sivussa, aktiivinen D1-sisältö ja R2:n `current.pmtiles` korvataan peräkkäin ja julkaisu hyväksytään smoke-testillä. Erillistä huoltotilaa ei käytetä, koska sen dynaaminen hallinta lisäisi tähän palveluun tarpeetonta tilaa tai Worker-deployita. Päivittäinen versio on lähdeaineiston julkaisuaika muodossa `YYYYMMDDT000000Z`; SHA-256-tiivisteet säilyvät vain eheystarkistuksina.
 
-Worker tarjoaa valinnaisen, lyhyesti välimuistitetun `/api/meta`-reitin diagnostiikkaa varten. Se ei ole edellytys PMTiles-pyynnöille tai ominaisuustietojen hauille. Aikaleimalliset `releases/<version>/...`-avaimet voidaan säilyttää palautuspaketteina, mutta selain ei käytä niitä normaalisti.
+Worker tarjoaa valinnaisen, lyhyesti välimuistitetun `/api/museovirasto/meta`-reitin diagnostiikkaa varten. Se ei ole edellytys PMTiles-pyynnöille tai ominaisuustietojen hauille. Aikaleimalliset `releases/<version>/...`-avaimet voidaan säilyttää palautuspaketteina, mutta selain ei käytä niitä normaalisti.
 
 **Seuraava tehtävä:** lisää paikallinen `/health`-reitti, julkaisun smoke-testit ja epäonnistuneen aktivoinnin/palautuksen testit ennen oikeiden Cloudflare-kehitys- ja tuotantoympäristöjen perustamista.
 
@@ -189,10 +189,10 @@ Worker tarjoaa valinnaisen, lyhyesti välimuistitetun `/api/meta`-reitin diagnos
 
 ### Vaihe 3: Cloudflare-palvelu
 
-- Perusta erilliset kehitys- ja tuotantoympäristöt, R2-bucketit, D1-tietokannat ja Worker-määritykset infrastruktuurikoodina.
+- [x] Liitä palvelu sivuston yhteiseen `infra/muinaismuistot-worker`-Workeriin `/api/museovirasto/*`-prefixin alle. Cloudflare palvelee Static Assets -osumat ennen Workeria; Worker reitittää API:n `URLPattern`-luokalla ja palauttaa muille pyynnöille `404`. `www`-kanonisointi jää DNS-/domain-määrityksille. Olemassa oleville preview- ja production-ympäristöille on määritetty erilliset automaattisesti provisioitavat R2- ja D1-bindingit; fyysiset resurssit syntyvät vasta kyseisen ympäristön deployssa.
 - [x] Toteuta paikallisesti vakio-osoitteen PMTiles Range -tarjoilu, CORS ja lyhyt välimuisti.
 - [x] Toteuta yhtä aktiivista D1-aineistoa käyttävät ominaisuus-, rekisteri- ja sanahaut. Kaikki käyttäjän arvot sidotaan parametrisoituihin kyselyihin.
-- [x] Pidä valinnainen `/api/meta` lyhyesti välimuistissa, mutta älä vaadi sitä ennen kartan latausta.
+- [x] Pidä valinnainen `/api/museovirasto/meta` lyhyesti välimuistissa, mutta älä vaadi sitä ennen kartan latausta.
 - [x] Toteuta health-endpoint ja julkaisu-smoke-testit. `/health` tarkistaa aktiivisen PMTiles-objektin, aikaleimallisen metatiedon ja D1-aineiston sekä palauttaa virhetilassa `503`; toistettava smoke-testi kattaa lisäksi Range-, massa-, rekisteri- ja sanahaun.
 - [x] Toteuta epäonnistuneen päivityksen ja palautuksen integraatiotestit. Backup/restore-skriptit kattavat PMTilesin, metadatan ja D1-rivit; nopea integraatiotesti käyttää täysin eristettyä pientä Wrangler-tilaa eikä kopioi varsinaista 268 964 rivin PoC-aineistoa. Erillinen huoltotila arvioitiin ja jätettiin tarkoituksella pois liian monimutkaisena.
 - Lisää lokitus, virhemittarit, kustannusseuranta ja hälytys puuttuvasta tai vanhentuneesta aineistosta.

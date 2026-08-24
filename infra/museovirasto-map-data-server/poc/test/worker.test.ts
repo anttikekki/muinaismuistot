@@ -12,7 +12,7 @@ declare module "cloudflare:workers" {
 async function request(range?: string, method = "GET"): Promise<Response> {
   const headers = range ? { Range: range } : undefined
   return exports.default.fetch(
-    new Request("https://example.test/pmtiles/current.pmtiles", { method, headers }),
+    new Request("https://example.test/api/museovirasto/pmtiles", { method, headers }),
   )
 }
 
@@ -20,7 +20,7 @@ beforeEach(async () => {
   await env.MAP_DATA.put(KEY, BODY, {
     httpMetadata: { contentType: "application/vnd.pmtiles" },
   })
-  await env.MAP_DATA.put("current.json", JSON.stringify({ version: "20260822T000000Z", pmtilesUrl: "/pmtiles/current.pmtiles" }))
+  await env.MAP_DATA.put("current.json", JSON.stringify({ version: "20260822T000000Z", pmtilesUrl: "/api/museovirasto/pmtiles" }))
   await env.MAP_FEATURES.prepare("CREATE TABLE IF NOT EXISTS feature_details (source_layer TEXT NOT NULL, feature_id INTEGER NOT NULL, logical_layer_id TEXT NOT NULL, registry_id TEXT, name TEXT, municipality TEXT, properties_json TEXT NOT NULL DEFAULT '{}', search_name TEXT NOT NULL DEFAULT '', PRIMARY KEY (source_layer, feature_id)) WITHOUT ROWID").run()
   await env.MAP_FEATURES.prepare("DELETE FROM feature_details").run()
 })
@@ -98,18 +98,18 @@ describe("PMTiles byte range Worker", () => {
   })
 
   it("returns the 26 logical layer definitions", async () => {
-    const response = await exports.default.fetch(new Request("https://example.test/api/layers"))
+    const response = await exports.default.fetch(new Request("https://example.test/api/museovirasto/layers"))
     const layers = (await response.json()) as unknown[]
     expect(response.status).toBe(200)
     expect(layers).toHaveLength(26)
   })
 
   it("returns optional current metadata", async () => {
-    const current = await exports.default.fetch(new Request("https://example.test/api/meta"))
+    const current = await exports.default.fetch(new Request("https://example.test/api/museovirasto/meta"))
     const currentBody = await current.json() as { version: string; pmtilesUrl: string }
     expect(current.status).toBe(200)
     expect(current.headers.get("Cache-Control")).toBe("public, max-age=60")
-    expect(currentBody).toEqual({ version: "20260822T000000Z", pmtilesUrl: "/pmtiles/current.pmtiles" })
+    expect(currentBody).toEqual({ version: "20260822T000000Z", pmtilesUrl: "/api/museovirasto/pmtiles" })
   })
 
   it("reports healthy only when PMTiles, metadata and D1 data are available", async () => {
@@ -117,7 +117,7 @@ describe("PMTiles byte range Worker", () => {
       INSERT INTO feature_details (source_layer, feature_id, logical_layer_id)
       VALUES ('rky_points', 1, 'rajapinta_suojellut:rky_piste')
     `).run()
-    const healthy = await exports.default.fetch(new Request("https://example.test/health"))
+    const healthy = await exports.default.fetch(new Request("https://example.test/api/museovirasto/health"))
     expect(healthy.status).toBe(200)
     expect(healthy.headers.get("Cache-Control")).toBe("no-store")
     expect(await healthy.json()).toEqual({
@@ -131,7 +131,7 @@ describe("PMTiles byte range Worker", () => {
     })
 
     await env.MAP_DATA.delete(KEY)
-    const unhealthy = await exports.default.fetch(new Request("https://example.test/health"))
+    const unhealthy = await exports.default.fetch(new Request("https://example.test/api/museovirasto/health"))
     expect(unhealthy.status).toBe(503)
     expect((await unhealthy.json() as { ok: boolean }).ok).toBe(false)
   })
@@ -143,7 +143,7 @@ describe("PMTiles byte range Worker", () => {
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `).bind("archaeological_points", 123, "rajapinta_suojellut:muinaisjaannos_piste", "100", "Testikohde", "Turku", '{"kind":"kiinteä muinaisjäännös"}').run()
 
-    const response = await exports.default.fetch(new Request("https://example.test/api/features/batch", {
+    const response = await exports.default.fetch(new Request("https://example.test/api/museovirasto/features/batch", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ features: [
@@ -160,13 +160,13 @@ describe("PMTiles byte range Worker", () => {
   })
 
   it("validates feature batch requests", async () => {
-    const invalidLayer = await exports.default.fetch(new Request("https://example.test/api/features/batch", {
+    const invalidLayer = await exports.default.fetch(new Request("https://example.test/api/museovirasto/features/batch", {
       method: "POST",
       body: JSON.stringify({ features: [{ sourceLayer: "invalid", featureId: "1" }] }),
     }))
     expect(invalidLayer.status).toBe(400)
 
-    const tooMany = await exports.default.fetch(new Request("https://example.test/api/features/batch", {
+    const tooMany = await exports.default.fetch(new Request("https://example.test/api/museovirasto/features/batch", {
       method: "POST",
       body: JSON.stringify({ features: Array.from({ length: 101 }, (_, index) => ({ sourceLayer: "rky_points", featureId: String(index + 1) })) }),
     }))
@@ -185,7 +185,7 @@ describe("PMTiles byte range Worker", () => {
       insert.bind("archaeological_areas", 12, "rajapinta_suojellut:muinaisjaannos_alue", "200", "Muu kohde", "Turku", "{}"),
     ])
 
-    const response = await exports.default.fetch(new Request("https://example.test/api/features/by-register", {
+    const response = await exports.default.fetch(new Request("https://example.test/api/museovirasto/features/by-register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ features: [
@@ -202,7 +202,7 @@ describe("PMTiles byte range Worker", () => {
   })
 
   it("validates registry batch requests", async () => {
-    const response = await exports.default.fetch(new Request("https://example.test/api/features/by-register", {
+    const response = await exports.default.fetch(new Request("https://example.test/api/museovirasto/features/by-register", {
       method: "POST",
       body: JSON.stringify({ features: [{ logicalLayerId: "invalid", registryId: "100" }] }),
     }))
@@ -221,7 +221,7 @@ describe("PMTiles byte range Worker", () => {
       insert.bind("rky_points", 22, "rajapinta_suojellut:rky_piste", "200", "Vanha kirkko", "vanha kirkko", "Helsinki"),
     ])
 
-    const response = await exports.default.fetch(new Request("https://example.test/api/search?q=PYHÄN"))
+    const response = await exports.default.fetch(new Request("https://example.test/api/museovirasto/search?q=PYHÄN"))
     const body = await response.json() as { results: Array<{ registryId: string; geometryCount: number }>; truncated: boolean }
     expect(response.status).toBe(200)
     expect(response.headers.get("Cache-Control")).toBe("public, max-age=60")
@@ -236,18 +236,18 @@ describe("PMTiles byte range Worker", () => {
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `).bind("rky_points", 30, "rajapinta_suojellut:rky_piste", "ABC_123%", "Kohde", "kohde", "Turku").run()
 
-    const registry = await exports.default.fetch(new Request("https://example.test/api/search?q=123"))
+    const registry = await exports.default.fetch(new Request("https://example.test/api/museovirasto/search?q=123"))
     expect((await registry.json() as { results: unknown[] }).results).toHaveLength(1)
-    const wildcard = await exports.default.fetch(new Request("https://example.test/api/search?q=C_1"))
+    const wildcard = await exports.default.fetch(new Request("https://example.test/api/museovirasto/search?q=C_1"))
     expect((await wildcard.json() as { results: unknown[] }).results).toHaveLength(1)
   })
 
   it("rejects search terms shorter than three characters and unsupported methods", async () => {
     for (const query of ["", "a", "ää", "  ab  "]) {
-      const response = await exports.default.fetch(new Request(`https://example.test/api/search?q=${encodeURIComponent(query)}`))
+      const response = await exports.default.fetch(new Request(`https://example.test/api/museovirasto/search?q=${encodeURIComponent(query)}`))
       expect(response.status).toBe(400)
     }
-    const post = await exports.default.fetch(new Request("https://example.test/api/search?q=turku", { method: "POST" }))
+    const post = await exports.default.fetch(new Request("https://example.test/api/museovirasto/search?q=turku", { method: "POST" }))
     expect(post.status).toBe(405)
   })
 })

@@ -34,7 +34,7 @@ jq -n \
       filterVocabulary:($vocabulary + {backupR2Key:("releases/"+$version+"/filter-vocabulary.json"),contentType:"application/json"}),
       metadata:{activeR2Key:"current.json",backupR2Key:("releases/"+$version+"/release.json"),contentType:"application/json"}
     },
-    endpoints:{pmtiles:"/pmtiles/current.pmtiles",metadata:"/api/meta",featureBatch:"/api/features/batch",registryBatch:"/api/features/by-register",search:"/api/search"}}' > "$OUTPUT"
+    endpoints:{pmtiles:"/api/museovirasto/pmtiles",metadata:"/api/museovirasto/meta",health:"/api/museovirasto/health",featureBatch:"/api/museovirasto/features/batch",registryBatch:"/api/museovirasto/features/by-register",search:"/api/museovirasto/search"}}' > "$OUTPUT"
 
 jq '{schemaVersion,version,publishedAt,createdAt,sourceDigest,compatibility,counts,endpoints,integrity:{pmtilesSha256:.artifacts.pmtiles.sha256,d1ImportSha256:.artifacts.d1Import.sha256}}' \
   "$OUTPUT" > "$CURRENT_METADATA"
