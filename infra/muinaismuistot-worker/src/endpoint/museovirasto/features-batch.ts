@@ -4,6 +4,7 @@ import { corsHeaders, errorResponse, methodNotAllowed, preflightResponse } from 
 
 type FeatureReference = { sourceLayer: string; featureId: string }
 const sourceLayers = new Set(layerMapping.physicalLayers.map((layer) => layer.mvtSourceLayer))
+const D1_BATCH_SIZE = 30
 
 export async function handleFeatureBatch(request: Request, env: Env): Promise<Response> {
   if (request.method === "OPTIONS") return preflightResponse()
@@ -32,23 +33,30 @@ export async function handleFeatureBatch(request: Request, env: Env): Promise<Re
     }
   }
 
-  const values = references.map(() => "(?, ?, ?)").join(", ")
-  const bindings = references.flatMap((reference, index) => [index, reference.sourceLayer, Number(reference.featureId)])
-  const result = await env.MAP_FEATURES.prepare(`
-    WITH requested(request_order, source_layer, feature_id) AS (VALUES ${values})
-    SELECT requested.request_order, details.*
-    FROM requested
-    LEFT JOIN feature_details AS details
-      ON details.source_layer = requested.source_layer AND details.feature_id = requested.feature_id
-    ORDER BY requested.request_order
-  `).bind(...bindings).all<FeatureDetailRow>()
+  const statements = []
+  for (let offset = 0; offset < references.length; offset += D1_BATCH_SIZE) {
+    const batch = references.slice(offset, offset + D1_BATCH_SIZE)
+    const values = batch.map(() => "(?, ?, ?)").join(", ")
+    const bindings = batch.flatMap((reference, index) => [offset + index, reference.sourceLayer, Number(reference.featureId)])
+    statements.push(env.MAP_FEATURES.prepare(`
+      WITH requested(request_order, source_layer, feature_id) AS (VALUES ${values})
+      SELECT requested.request_order, details.*
+      FROM requested
+      LEFT JOIN feature_details AS details
+        ON details.source_layer = requested.source_layer AND details.feature_id = requested.feature_id
+      ORDER BY requested.request_order
+    `).bind(...bindings))
+  }
+  const results = await env.MAP_FEATURES.batch<FeatureDetailRow>(statements)
 
   const features = []
   const missing = []
-  for (const row of result.results) {
-    const reference = references[row.request_order]
-    if (!row.source_layer) missing.push(reference)
-    else features.push(featureResponse(row))
+  for (const result of results) {
+    for (const row of result.results) {
+      const reference = references[row.request_order]
+      if (!row.source_layer) missing.push(reference)
+      else features.push(featureResponse(row))
+    }
   }
   return Response.json({ features, missing }, { headers: corsHeaders() })
 }

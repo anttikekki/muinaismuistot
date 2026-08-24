@@ -5,6 +5,7 @@ import { corsHeaders, errorResponse, methodNotAllowed, preflightResponse } from 
 type RegistryReference = { logicalLayerId: string; registryId: string }
 type RegistryDetailRow = FeatureDetailRow & { requested_logical_layer_id: string; requested_registry_id: string }
 const logicalLayerIds = new Set(layerMapping.logicalLayers.map((layer) => layer.id))
+const D1_BATCH_SIZE = 30
 
 export async function handleFeaturesByRegister(request: Request, env: Env): Promise<Response> {
   if (request.method === "OPTIONS") return preflightResponse()
@@ -33,26 +34,33 @@ export async function handleFeaturesByRegister(request: Request, env: Env): Prom
     }
   }
 
-  const values = references.map(() => "(?, ?, ?)").join(", ")
-  const bindings = references.flatMap((reference, index) => [index, reference.logicalLayerId, reference.registryId])
-  const result = await env.MAP_FEATURES.prepare(`
-    WITH requested(request_order, logical_layer_id, registry_id) AS (VALUES ${values})
-    SELECT requested.request_order,
-      requested.logical_layer_id AS requested_logical_layer_id,
-      requested.registry_id AS requested_registry_id,
-      details.*
-    FROM requested
-    LEFT JOIN feature_details AS details
-      ON details.logical_layer_id = requested.logical_layer_id AND details.registry_id = requested.registry_id
-    ORDER BY requested.request_order, details.source_layer, details.feature_id
-  `).bind(...bindings).all<RegistryDetailRow>()
+  const statements = []
+  for (let offset = 0; offset < references.length; offset += D1_BATCH_SIZE) {
+    const batch = references.slice(offset, offset + D1_BATCH_SIZE)
+    const values = batch.map(() => "(?, ?, ?)").join(", ")
+    const bindings = batch.flatMap((reference, index) => [offset + index, reference.logicalLayerId, reference.registryId])
+    statements.push(env.MAP_FEATURES.prepare(`
+      WITH requested(request_order, logical_layer_id, registry_id) AS (VALUES ${values})
+      SELECT requested.request_order,
+        requested.logical_layer_id AS requested_logical_layer_id,
+        requested.registry_id AS requested_registry_id,
+        details.*
+      FROM requested
+      LEFT JOIN feature_details AS details
+        ON details.logical_layer_id = requested.logical_layer_id AND details.registry_id = requested.registry_id
+      ORDER BY requested.request_order, details.source_layer, details.feature_id
+    `).bind(...bindings))
+  }
+  const results = await env.MAP_FEATURES.batch<RegistryDetailRow>(statements)
 
   const features = []
   const foundOrders = new Set<number>()
-  for (const row of result.results) {
-    if (!row.source_layer) continue
-    foundOrders.add(row.request_order)
-    features.push(featureResponse(row))
+  for (const result of results) {
+    for (const row of result.results) {
+      if (!row.source_layer) continue
+      foundOrders.add(row.request_order)
+      features.push(featureResponse(row))
+    }
   }
   const missing = references.filter((_, index) => !foundOrders.has(index))
   return Response.json({ features, missing }, { headers: corsHeaders() })
