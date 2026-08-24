@@ -38,6 +38,7 @@ grep -Eqi '^content-range: bytes 0-126/' "$WORK_DIR/header.txt" || { echo "PMTil
 request_json feature POST "$API_PREFIX/features/batch" \
   '{"features":[{"sourceLayer":"vark_areas","featureId":"1"}]}'
 jq -e '.features | length == 1' "$WORK_DIR/feature.json" >/dev/null
+jq -e '.features[0].geometry.type != null' "$WORK_DIR/feature.json" >/dev/null
 
 request_json registry POST "$API_PREFIX/features/by-register" \
   '{"features":[{"logicalLayerId":"rajapinta_suojellut:vark_alueet","registryId":"100416"}]}'

@@ -20,7 +20,11 @@ import VectorSource from "ol/source/Vector"
 import proj4 from "proj4"
 import { Store } from "redux"
 import { isModelFeature } from "../common/3dModels.types"
-import { LayerGroup, MaannousuInfoLayerIndex } from "../common/layers.types"
+import {
+  LayerGroup,
+  MaannousuInfoLayerIndex,
+  MuseovirastoLayer
+} from "../common/layers.types"
 import { isMaisemanMuistiFeature } from "../common/maisemanMuisti.types"
 import { MapFeature, isGeoJSONFeature } from "../common/mapFeature.types"
 import { isMuinaisjaannosPisteFeature } from "../common/museovirasto.types"
@@ -39,7 +43,12 @@ import MaannousuInfoTileLayerGroup from "./layer/MaannousuInfoTileLayerGroup"
 import MaisemanMuistiLayer from "./layer/MaisemanMuistiLayer"
 import ModelsLayer from "./layer/ModelsLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
+import MuseovirastoVectorTileLayer from "./layer/MuseovirastoVectorTileLayer"
 import ViabundusLayer from "./layer/ViabundusLayer"
+import {
+  museovirastoApiBase,
+  museovirastoVectorTilesEnabled
+} from "./museovirastoVectorTilesFeatureFlag"
 
 const FINNISH_EPSG_3067 = "EPSG:3067"
 const INITIAL_MAP_CENTER = [385249.63630000036, 6672695.7579] // Helsinki
@@ -64,6 +73,7 @@ export default class MuinaismuistotMap {
   private readonly maannousuInfoTileLayerGroup: MaannousuInfoTileLayerGroup
   private readonly maannousuInfoGlacialTileLayerGroup: MaannousuInfoGlacialTileLayerGroup
   private readonly museovirastoTileLayer: MuseovirastoTileLayer
+  private readonly museovirastoVectorTileLayer?: MuseovirastoVectorTileLayer
   private readonly ahvenanmaaTileLayer: AhvenanmaaTileLayer
   private readonly positionAndSelectedLocation: CurrentPositionAndSelectedLocationMarkerLayer
   private readonly modelsLayer: ModelsLayer
@@ -133,6 +143,14 @@ export default class MuinaismuistotMap {
       settings,
       this.updateTileLoadingStatus
     )
+    if (museovirastoVectorTilesEnabled) {
+      this.museovirastoVectorTileLayer = new MuseovirastoVectorTileLayer(
+        this.map,
+        settings,
+        this.updateTileLoadingStatus,
+        museovirastoApiBase
+      )
+    }
     this.helsinkiLayer = new HelsinkiTileLayer(
       settings,
       this.updateTileLoadingStatus
@@ -150,7 +168,10 @@ export default class MuinaismuistotMap {
     this.map.addLayer(this.gtkLayer.getLayer())
     this.map.addLayer(this.maanmittauslaitosVanhatKartatTileLayer.getLayer())
     this.map.addLayer(this.ahvenanmaaTileLayer.getLayer())
-    this.map.addLayer(this.museovirastoTileLayer.getLayer())
+    this.map.addLayer(
+      this.museovirastoVectorTileLayer?.getLayer() ??
+        this.museovirastoTileLayer.getLayer()
+    )
     this.map.addLayer(this.helsinkiLayer.getLayer())
     this.map.addLayer(this.viabundusLayer.getLayer())
     this.map.addLayer(this.maisemanMuistiLayer.getLayer())
@@ -160,9 +181,12 @@ export default class MuinaismuistotMap {
     // Adds Maannousu.info layers to correct index
     this.moveMaannousuLayers(settings.maannousuInfo.placement)
 
-    this.map.on("singleclick", (e) =>
+    this.map.on("singleclick", (e) => {
+      if (this.museovirastoVectorTileLayer?.handleClick(e.pixel)) {
+        return
+      }
       this.indentifyFeaturesOnCoordinate(e.coordinate, Date.now())
-    )
+    })
 
     this.geolocation = new Geolocation({
       projection: this.view.getProjection(),
@@ -293,9 +317,15 @@ export default class MuinaismuistotMap {
           this.museovirastoTileLayer.selectedMuinaisjaannosTypesChanged(
             settings
           )
+          this.museovirastoVectorTileLayer?.selectedMuinaisjaannosTypesChanged(
+            settings
+          )
           break
         case ActionTypeEnum.SELECT_VISIBLE_MUINAISJÄÄNNÖS_DATING:
           this.museovirastoTileLayer.selectedMuinaisjaannosDatingsChanged(
+            settings
+          )
+          this.museovirastoVectorTileLayer?.selectedMuinaisjaannosDatingsChanged(
             settings
           )
           break
@@ -390,11 +420,9 @@ export default class MuinaismuistotMap {
     coordinate: Coordinate,
     requestTimestamp: number
   ) => {
-    this.showLoadingAnimationInUI(true)
     const mapSize = this.map.getSize()
-    if (!mapSize) {
-      return
-    }
+    if (!mapSize) return
+    this.showLoadingAnimationInUI(true)
     const pixel = this.map.getPixelFromCoordinate(coordinate)
 
     const settings = this.store.getState()
@@ -406,12 +434,29 @@ export default class MuinaismuistotMap {
       settings
     )
 
-    const museovirastoQuery = this.museovirastoTileLayer.identifyFeaturesAt(
-      coordinate,
-      this.view.getResolution(),
-      this.view.getProjection(),
-      settings
-    )
+    const linkedFeature = settings.linkedFeature
+    const linkedMuseovirastoFeature =
+      linkedFeature?.layer &&
+      linkedFeature.id &&
+      linkedFeature.coordinates[0] === coordinate[0] &&
+      linkedFeature.coordinates[1] === coordinate[1] &&
+      Object.values(MuseovirastoLayer).includes(
+        linkedFeature.layer as MuseovirastoLayer
+      )
+        ? { logicalLayerId: linkedFeature.layer, registryId: linkedFeature.id }
+        : undefined
+    const museovirastoQuery = this.museovirastoVectorTileLayer
+      ? linkedMuseovirastoFeature
+        ? this.museovirastoVectorTileLayer.findFeaturesByRegister(
+            [linkedMuseovirastoFeature]
+          )
+        : this.museovirastoVectorTileLayer.identifyFeaturesAt(pixel)
+      : this.museovirastoTileLayer.identifyFeaturesAt(
+          coordinate,
+          this.view.getResolution(),
+          this.view.getProjection(),
+          settings
+        )
 
     const maalinnoitusQuery = this.helsinkiLayer.identifyFeaturesAt(
       coordinate,
@@ -444,8 +489,6 @@ export default class MuinaismuistotMap {
 
     Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery]).then(
       ([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {
-        this.showLoadingAnimationInUI(false)
-
         const features: MapFeature[] = [
           ...ahvenanmaaResult.results,
           ...museovirastoResult.features,
@@ -477,6 +520,7 @@ export default class MuinaismuistotMap {
             models: modelsResult
           }
         })
+        this.showLoadingAnimationInUI(false)
       }
     )
   }
@@ -518,6 +562,7 @@ export default class MuinaismuistotMap {
         break
       case LayerGroup.Museovirasto:
         this.museovirastoTileLayer.selectedFeatureLayersChanged(settings)
+        this.museovirastoVectorTileLayer?.selectedFeatureLayersChanged(settings)
         break
       case LayerGroup.Ahvenanmaa:
         this.ahvenanmaaTileLayer.selectedFeatureLayersChanged(settings)
@@ -537,10 +582,12 @@ export default class MuinaismuistotMap {
       searchText,
       settings
     )
-    const museovirastoQuery = this.museovirastoTileLayer.findFeatures(
-      searchText,
-      settings
-    )
+    const museovirastoQuery = this.museovirastoVectorTileLayer
+      ? this.museovirastoVectorTileLayer.findFeatures(
+          searchText,
+          settings
+        )
+      : this.museovirastoTileLayer.findFeatures(searchText, settings)
 
     const [ahvenanmaaResult, museovirastoResult] = await Promise.all([
       ahvenanmaaQuery,
@@ -578,6 +625,7 @@ export default class MuinaismuistotMap {
         break
       case LayerGroup.Museovirasto:
         this.museovirastoTileLayer.opacityChanged(settings)
+        this.museovirastoVectorTileLayer?.opacityChanged(settings)
         break
       case LayerGroup.Ahvenanmaa:
         this.ahvenanmaaTileLayer.opacityChanged(settings)
@@ -613,6 +661,7 @@ export default class MuinaismuistotMap {
         break
       case LayerGroup.Museovirasto:
         this.museovirastoTileLayer.updateLayerVisibility(settings)
+        this.museovirastoVectorTileLayer?.updateLayerVisibility(settings)
         break
       case LayerGroup.Ahvenanmaa:
         this.ahvenanmaaTileLayer.updateLayerVisibility(settings)

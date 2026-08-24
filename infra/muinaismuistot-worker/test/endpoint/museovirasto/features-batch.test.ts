@@ -8,8 +8,8 @@ describe("Museovirasto feature batch endpoint", () => {
   it("returns requested feature details", async () => {
     await env.MAP_FEATURES.prepare(`
       INSERT INTO feature_details
-        (source_layer, feature_id, logical_layer_id, registry_id, name, search_name)
-      VALUES ('rky_points', 7, 'rajapinta_suojellut:rky_piste', '100', 'Vanha kirkko', 'vanha kirkko')
+        (source_layer, feature_id, logical_layer_id, registry_id, name, search_name, geometry_json)
+      VALUES ('rky_points', 7, 'rajapinta_suojellut:rky_piste', '100', 'Vanha kirkko', 'vanha kirkko', '{"type":"Point","coordinates":[385000,6670000]}')
     `).run()
 
     const response = await museovirastoRequest("/features/batch", {
@@ -19,6 +19,8 @@ describe("Museovirasto feature batch endpoint", () => {
     })
 
     expect(response.status).toBe(200)
-    expect((await response.json() as { features: unknown[] }).features).toHaveLength(1)
+    const result = await response.json() as { features: Array<{ geometry: unknown }> }
+    expect(result.features).toHaveLength(1)
+    expect(result.features[0].geometry).toEqual({ type: "Point", coordinates: [385000, 6670000] })
   })
 })

@@ -16,7 +16,6 @@ cd "$POC_DIR"
   --file "$BACKUP_DIR/current.json" --local >/dev/null
 ./node_modules/.bin/wrangler "${wrangler_global[@]}" d1 export museovirasto-map-features-poc --local \
   --table feature_details --no-schema --output "$BACKUP_DIR/feature-details-data.sql" >/dev/null
-
 [[ -s "$BACKUP_DIR/current.pmtiles" && -s "$BACKUP_DIR/current.json" && -s "$BACKUP_DIR/feature-details-data.sql" ]] || {
   echo "Local backup is incomplete: $BACKUP_DIR" >&2; exit 1;
 }

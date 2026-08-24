@@ -249,6 +249,8 @@ Ennen MVT-feature-ID:tä koko Suomen aloitusnäkymä käytti kuusi Range-pyyntö
 
 Ominaisuustietojen massahaku on toteutettu PoC:ssa. Karttaklikkaus lähettää enintään 100 `{sourceLayer, featureId}`-paria, joissa `featureId` on nykyisen GeoPackagen `fid`. Pysyvät linkit käyttävät erillistä `logicalLayerId + registryId` -massahakua, joka palauttaa kaikki nykyisen aineiston osumat. Kohteen nimiä tai muita näyttökenttiä ei palauteta MVT:hen ilman mitattua tarvetta.
 
+D1:n `feature_details` sisältää hakukentät, paneelin ominaisuudet ja jokaisen featuren alkuperäisen, yksinkertaistamattoman EPSG:3067-GeoJSON-geometrian `geometry_json`-kentässä. Ominaisuustietojen massahaut palauttavat geometrian aina muiden tietojen mukana. Selain sovittaa vastauksen nykyisen WMS/WFS-integraation käyttämään GeoJSON-feature-rakenteeseen, joten sama geometria toimii kartan hakutuloksissa, suorissa feature-linkeissä ja GeoJSON-exportissa. Export ei käytä PMTilesin zoomikohtaisesti yksinkertaistettua, leikattua tai sentroidiksi muutettua geometriaa.
+
 ## Hyväksymissäännöt
 
 - PMTiles-metadatan kenttäjoukon pitää vastata versionhallittua kompaktia skeemaa; ylimääräinen kenttä estää julkaisun.

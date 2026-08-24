@@ -25,7 +25,7 @@ while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries
   raw_file="$BUILD_DIR/$layer_id.geojsonseq"
   layer_sql="$BUILD_DIR/$layer_id.sql"
   sql="$(printf '%s' "$sql_base64" | base64 --decode)"
-  sql="${sql/SELECT /SELECT fid AS gpkg_fid, }"
+  sql="${sql/SELECT /SELECT fid AS gpkg_fid, AsGeoJSON(geom) AS exact_geometry_json, }"
   rm -f "$raw_file" "$layer_sql"
   ogr2ogr -f GeoJSONSeq "$raw_file" "$source_file" -dialect SQLite -sql "$sql" -t_srs EPSG:4326 -nln "$layer_id" -overwrite
   node "$TRANSFORMER" details "$MAPPING_FILE" "$layer_id" < "$raw_file" > "$layer_sql"
@@ -46,7 +46,7 @@ while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries
 done < <(jq -r '.layers[] | [.id, .geoPackageFile, .geoPackageLayer, (.excludedNullGeometries // 0), 0, (.sql | @base64)] | @tsv' "$POC_CONFIG")
 
 jq -n --argjson sourceRows "$source_total_count" --argjson d1Rows "$total_count" --argjson layers "$layers" \
-  '{schemaVersion:1,status:"ok",sourceRows:$sourceRows,d1Rows:$d1Rows,layers:$layers}' > "$REPORT_FILE"
+  '{schemaVersion:2,status:"ok",sourceRows:$sourceRows,d1Rows:$d1Rows,geometryCrs:"EPSG:3067",layers:$layers}' > "$REPORT_FILE"
 echo "Built D1 feature details import: $OUTPUT_FILE"
 echo "Feature rows: $total_count"
 echo "SQL bytes: $(stat -f '%z' "$OUTPUT_FILE")"

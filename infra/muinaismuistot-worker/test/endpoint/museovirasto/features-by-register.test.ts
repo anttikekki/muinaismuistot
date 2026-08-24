@@ -8,12 +8,12 @@ describe("Museovirasto features by register endpoint", () => {
   it("returns all geometries matching a registry ID", async () => {
     const insert = env.MAP_FEATURES.prepare(`
       INSERT INTO feature_details
-        (source_layer, feature_id, logical_layer_id, registry_id, name)
-      VALUES (?, ?, ?, ?, ?)
+        (source_layer, feature_id, logical_layer_id, registry_id, name, geometry_json)
+      VALUES (?, ?, ?, ?, ?, ?)
     `)
     await env.MAP_FEATURES.batch([
-      insert.bind("archaeological_areas", 1, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Alue 1"),
-      insert.bind("archaeological_areas", 2, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Alue 2")
+      insert.bind("archaeological_areas", 1, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Alue 1", '{"type":"Polygon","coordinates":[]}'),
+      insert.bind("archaeological_areas", 2, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Alue 2", '{"type":"Polygon","coordinates":[]}')
     ])
 
     const response = await museovirastoRequest("/features/by-register", {

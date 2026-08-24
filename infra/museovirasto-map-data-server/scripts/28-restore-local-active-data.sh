@@ -15,9 +15,8 @@ done
 jq -e '.version | test("^[0-9]{8}T[0-9]{6}Z$")' "$BACKUP_DIR/current.json" >/dev/null
 
 {
-  printf 'BEGIN TRANSACTION;\nDELETE FROM feature_details;\n'
-  sed '/^PRAGMA defer_foreign_keys=/d' "$BACKUP_DIR/feature-details-data.sql"
-  printf 'COMMIT;\n'
+  printf 'DELETE FROM feature_details;\n'
+  sed -E '/^(PRAGMA defer_foreign_keys|BEGIN TRANSACTION|COMMIT);/d' "$BACKUP_DIR/feature-details-data.sql"
 } > "$RESTORE_SQL"
 
 cd "$POC_DIR"

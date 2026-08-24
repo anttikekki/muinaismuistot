@@ -7,6 +7,7 @@ export type FeatureDetailRow = {
   name: string | null
   municipality: string | null
   properties_json: string | null
+  geometry_json: string | null
 }
 
 export function featureResponse(row: FeatureDetailRow) {
@@ -14,6 +15,7 @@ export function featureResponse(row: FeatureDetailRow) {
     sourceLayer: row.source_layer,
     featureId: String(row.feature_id),
     logicalLayerId: row.logical_layer_id,
+    geometry: JSON.parse(row.geometry_json ?? "null"),
     properties: {
       ...JSON.parse(row.properties_json ?? "{}"),
       registryId: row.registry_id,

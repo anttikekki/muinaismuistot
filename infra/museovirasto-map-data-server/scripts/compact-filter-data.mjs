@@ -129,20 +129,27 @@ async function details([mappingPath, layerId]) {
   let values = []
   const flush = () => {
     if (!values.length) return
-    process.stdout.write(`INSERT INTO feature_details (source_layer, feature_id, logical_layer_id, registry_id, name, search_name, municipality, properties_json) VALUES\n${values.join(",\n")};\n`)
+    process.stdout.write(`INSERT INTO feature_details (source_layer, feature_id, logical_layer_id, registry_id, name, search_name, municipality, properties_json, geometry_json) VALUES\n${values.join(",\n")};\n`)
     values = []
   }
   const input = createInterface({ input: process.stdin, crlfDelay: Infinity })
   for await (const line of input) {
     if (!line.trim()) continue
-    const source = JSON.parse(line).properties ?? {}
+    const feature = JSON.parse(line)
+    const source = feature.properties ?? {}
+    const exactGeometry = typeof source.exact_geometry_json === "string"
+      ? JSON.parse(source.exact_geometry_json)
+      : source.exact_geometry_json
+    if (!exactGeometry) throw new Error(`Missing geometry in ${layerId}:${source.gpkg_fid}`)
     const id = featureId(layerId, source.gpkg_fid)
     const logical = logicalLayers.find((layer) => !layer.filter || String(source[layer.filter.field] ?? "") === layer.filter.equals)
     if (!logical) throw new Error(`No logical layer for ${layerId}: ${JSON.stringify(source)}`)
     const extra = Object.fromEntries(Object.entries(source).filter(([key]) =>
-      !["gpkg_fid", "source_fid", "registry_id", "name", "municipality"].includes(key),
+      !["gpkg_fid", "source_fid", "registry_id", "name", "municipality", "exact_geometry_json"].includes(key),
     ))
-    values.push(`(${sqlString(layerId)}, ${id}, ${sqlString(logical.id)}, ${sqlString(source.registry_id)}, ${sqlString(source.name)}, ${sqlString(normalizeSearchText(source.name))}, ${sqlString(source.municipality)}, ${sqlString(JSON.stringify(extra))})`)
+    const value = `(${sqlString(layerId)}, ${id}, ${sqlString(logical.id)}, ${sqlString(source.registry_id)}, ${sqlString(source.name)}, ${sqlString(normalizeSearchText(source.name))}, ${sqlString(source.municipality)}, ${sqlString(JSON.stringify(extra))}, ${sqlString(JSON.stringify(exactGeometry))})`
+    if (values.length > 0 && Buffer.byteLength(values.join(",\n")) + Buffer.byteLength(value) > 60_000) flush()
+    values.push(value)
     if (values.length === 50) flush()
   }
   flush()

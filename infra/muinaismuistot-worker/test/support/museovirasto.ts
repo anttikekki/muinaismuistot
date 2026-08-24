@@ -21,6 +21,7 @@ export async function resetMuseovirastoData(): Promise<void> {
       municipality TEXT,
       properties_json TEXT NOT NULL DEFAULT '{}',
       search_name TEXT NOT NULL DEFAULT '',
+      geometry_json TEXT,
       PRIMARY KEY (source_layer, feature_id)
     ) WITHOUT ROWID
   `).run()
