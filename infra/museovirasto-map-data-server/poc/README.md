@@ -58,6 +58,14 @@ npm run measure:browser # PoC-palvelimen ollessa käynnissä toisessa terminaali
 
 Selainmittaus avaa kylmällä Chrome-profiililla koko Suomen, suodatetun koko Suomen, kaupunki- ja lähitason vakionäkymät. Tulokset tulostuvat JSON-muodossa. Mittausmenetelmä ja hyväksytty vertailuajo on dokumentoitu tiedostossa `../POC_BROWSER_PERFORMANCE.md`.
 
+Oikeaa Cloudflare-preview-palvelua voidaan mitata paikallisella PoC-käyttöliittymällä käynnistämällä PoC normaalisti ja antamalla mittaukselle API:n origin:
+
+```bash
+POC_API_BASE=https://muinaismuistot-preview.antti-kekki.workers.dev npm run measure:browser
+```
+
+Saman voi tarkistaa käsin lisäämällä PoC-sivun URL:iin parametrin `apiBase=https://muinaismuistot-preview.antti-kekki.workers.dev`. Vain Museovirasto-API:n pyynnöt ohjataan valittuun originiin; PoC:n HTML ja JavaScript palvellaan edelleen paikallisesti.
+
 Ominaisuustietojen paikallinen D1 rakennetaan ja alustetaan projektin juuresta:
 
 ```bash

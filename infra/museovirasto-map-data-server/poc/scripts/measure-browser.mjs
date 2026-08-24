@@ -5,6 +5,7 @@ import { spawn } from "node:child_process"
 const chrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 const views = ["finland", "bronze", "city", "near"]
 const runId = `${Date.now()}-${process.pid}`
+const apiBase = process.env.POC_API_BASE
 
 async function waitForTarget(port) {
   for (let attempt = 0; attempt < 100; attempt += 1) {
@@ -20,10 +21,12 @@ async function waitForTarget(port) {
 
 async function measure(view, index) {
   const port = 9322 + index
+  const parameters = new URLSearchParams({ benchmark: view })
+  if (apiBase) parameters.set("apiBase", apiBase)
   const process = spawn(chrome, [
     "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check",
     `--remote-debugging-port=${port}`, `--user-data-dir=/tmp/museovirasto-benchmark-${runId}-${view}`,
-    `http://localhost:8787/?benchmark=${view}`,
+    `http://localhost:8787/?${parameters}`,
   ], { stdio: "ignore" })
   try {
     const socket = new WebSocket(await waitForTarget(port))

@@ -196,6 +196,7 @@ Worker tarjoaa valinnaisen, lyhyesti välimuistitetun `/api/museovirasto/meta`-r
 - [x] Toteuta health-endpoint ja julkaisu-smoke-testit. `/health` tarkistaa aktiivisen PMTiles-objektin, aikaleimallisen metatiedon ja D1-aineiston sekä palauttaa virhetilassa `503`; toistettava smoke-testi kattaa lisäksi Range-, massa-, rekisteri- ja sanahaun.
 - [x] Toteuta epäonnistuneen päivityksen ja palautuksen integraatiotestit. Backup/restore-skriptit kattavat PMTilesin, metadatan ja D1-rivit; nopea integraatiotesti käyttää täysin eristettyä pientä Wrangler-tilaa eikä kopioi varsinaista 268 964 rivin PoC-aineistoa. Erillinen huoltotila arvioitiin ja jätettiin tarkoituksella pois liian monimutkaisena.
 - [x] Lisää eksplisiittisen preview-/production-valinnan vaativa etäjulkaisuskripti. Se käyttää ympäristön provisioituja bindingeja, ajaa migraatiot, korvaa aktiivisen D1-aineiston, lataa PMTilesin ja metadatan R2:een sekä smoke-testaa julkisen API:n. Production-julkaisu vaatii erillisen vahvistusargumentin.
+- [x] Julkaise oikea tuotantoaineisto Cloudflare-preview-ympäristöön ja varmista julkinen palvelu smoke- sekä OpenLayers-selainkokeella. Kylmän preview-ajon neljä näkymää valmistuivat 2,3–2,9 sekunnissa; Range-pyyntöjen määrät, tavut ja featuremäärät täsmäsivät paikalliseen vertailuun.
 - Lisää lokitus, virhemittarit, kustannusseuranta ja hälytys puuttuvasta tai vanhentuneesta aineistosta.
 - Varmista, ettei R2:n kirjoitusavaimia tai muita ylläpitosalaisuuksia toimiteta selaimelle.
 

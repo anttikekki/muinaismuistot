@@ -42,8 +42,12 @@ type FeatureBatchResult = {
   missing: Array<{ sourceLayer: string; featureId: string }>
 }
 
-const archiveUrl = new URL("/api/museovirasto/pmtiles", location.origin).href
-const benchmarkName = new URLSearchParams(location.search).get("benchmark")
+const queryParameters = new URLSearchParams(location.search)
+const configuredApiBase = queryParameters.get("apiBase")?.replace(/\/$/, "")
+const apiBase = configuredApiBase || location.origin
+const apiUrl = (path: string): string => new URL(`/api/museovirasto${path}`, `${apiBase}/`).href
+const archiveUrl = apiUrl("/pmtiles")
+const benchmarkName = queryParameters.get("benchmark")
 const benchmarkViews: Record<string, { center: [number, number]; zoom: number }> = {
   finland: { center: [25.2, 64.5], zoom: 5 },
   bronze: { center: [25.2, 64.5], zoom: 5 },
@@ -209,7 +213,7 @@ async function handleMapClick(pixel: number[]): Promise<void> {
   }
 
   setText("feature-info", `Ladataan ${references.size} kohteen tiedot…`)
-  const response = await nativeFetch("/api/museovirasto/features/batch", {
+  const response = await nativeFetch(apiUrl("/features/batch"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ features: [...references.values()] }),
@@ -257,7 +261,7 @@ function renderFeatureInfo(result: FeatureBatchResult): void {
 void loadControls()
 
 async function loadControls(): Promise<void> {
-  const response = await nativeFetch("/api/museovirasto/layers")
+  const response = await nativeFetch(apiUrl("/layers"))
   if (!response.ok) throw new Error(`Layer mapping failed: ${response.status}`)
   logicalLayers = (await response.json()) as LogicalLayer[]
   configureStyleLookups(logicalLayers)
