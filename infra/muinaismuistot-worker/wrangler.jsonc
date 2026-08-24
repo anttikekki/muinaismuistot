@@ -1,67 +1,69 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "muinaismuistot",
-  "main": "src/index.ts",
-  "compatibility_date": "2026-08-23",
-  "assets": {
-    "directory": "../../dist",
-    "binding": "ASSETS",
-    "html_handling": "auto-trailing-slash"
-  },
-  "r2_buckets": [
-    {
-      "binding": "MAP_DATA"
-    }
-  ],
-  "d1_databases": [
-    {
-      "binding": "MAP_FEATURES",
-      "migrations_dir": "../museovirasto-map-data-server/poc/migrations"
-    }
-  ],
-  "env": {
-    "production": {
-      "name": "muinaismuistot",
-      "workers_dev": false,
-      "preview_urls": false,
-      "routes": [
-        {
-          "pattern": "muinaismuistot.info",
-          "custom_domain": true
-        },
-        {
-          "pattern": "www.muinaismuistot.info",
-          "custom_domain": true
-        }
-      ],
-      "r2_buckets": [
-        {
-          "binding": "MAP_DATA"
-        }
-      ],
-      "d1_databases": [
-        {
-          "binding": "MAP_FEATURES",
-          "migrations_dir": "../museovirasto-map-data-server/poc/migrations"
-        }
-      ]
-    },
-    "preview": {
-      "name": "muinaismuistot-preview",
-      "workers_dev": true,
-      "preview_urls": true,
-      "routes": [],
-      "r2_buckets": [
-        {
-          "binding": "MAP_DATA"
-        }
-      ],
-      "d1_databases": [
-        {
-          "binding": "MAP_FEATURES",
-          "migrations_dir": "../museovirasto-map-data-server/poc/migrations"
-        }
-      ]
-    }
-  }
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "muinaismuistot",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-08-23",
+	"assets": {
+		"directory": "../../dist",
+		"binding": "ASSETS",
+		"html_handling": "auto-trailing-slash"
+	},
+	"r2_buckets": [
+		{
+			"binding": "MAP_DATA"
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "MAP_FEATURES",
+			"migrations_dir": "../museovirasto-map-data-server/poc/migrations"
+		}
+	],
+	"env": {
+		"production": {
+			"name": "muinaismuistot",
+			"workers_dev": false,
+			"preview_urls": false,
+			"routes": [
+				{
+					"pattern": "muinaismuistot.info",
+					"custom_domain": true
+				},
+				{
+					"pattern": "www.muinaismuistot.info",
+					"custom_domain": true
+				}
+			],
+			"r2_buckets": [
+				{
+					"binding": "MAP_DATA"
+				}
+			],
+			"d1_databases": [
+				{
+					"binding": "MAP_FEATURES",
+					"migrations_dir": "../museovirasto-map-data-server/poc/migrations"
+				}
+			]
+		},
+		"preview": {
+			"name": "muinaismuistot-preview",
+			"workers_dev": true,
+			"preview_urls": true,
+			"routes": [],
+			"r2_buckets": [
+				{
+					"binding": "MAP_DATA",
+					"bucket_name": "muinaismuistot-preview-map-data"
+				}
+			],
+			"d1_databases": [
+				{
+					"binding": "MAP_FEATURES",
+					"migrations_dir": "../museovirasto-map-data-server/poc/migrations",
+					"database_id": "db55764f-36c1-41dc-8d3e-cb7fc4861942"
+				}
+			]
+		}
+	}
 }
