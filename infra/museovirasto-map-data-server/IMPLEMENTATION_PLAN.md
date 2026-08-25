@@ -37,27 +37,29 @@ Käyttäjä voi edelleen valita kaikki nykyiset loogiset tasot dynaamisesti, mut
 
 Yhden arkiston haittana hyväksytään, että ladattu tiili voi sisältää myös piilotettujen tasojen ominaisuuksia. Rakennusvaiheen tiilikokobudjetti, geometriayleistys ja pienten zoom-tasojen aggregointi ovat siksi pakollisia. Pyyntömäärää ja siirrettyä datamäärää mitataan koko OpenLayers-kokonaisuudesta, johon kuuluvat myös erillinen taustakartta ja muiden lähteiden karttatasot.
 
-Sanahaku toteutetaan tarkoituksella yksinkertaisesti ilman Museoviraston WFS-riippuvuutta. Päivitysajo poimii GeoPackage-tiedostoista D1-tauluun vain kohteen sisäisen ja lähteen tunnisteen, alkuperäisen ja normalisoidun nimen, fyysisen lähdetason, loogisen tason/lajin sekä kohteen keskipisteen tai rajauslaatikon. Saman loogisen kohteen piste- ja alue-esitykset yhdistetään hakemistossa rekisterin pysyvällä tunnisteella, jotta haku ei palauta tarpeettomia kaksoiskappaleita. Worker tekee parametrisoidun osajonohaun normalisoidusta nimestä, esimerkiksi `LIKE '%hakusana%'`, rajaa tulosmäärän ja välimuistittaa vastauksen. Satojentuhansien lähderivien lineaarinen haku saa olla hieman hidas, koska toimintoa käytetään harvoin. FTS-, trigrammi- tai erillinen hakupalvelu lisätään vasta, jos mitattu käytettävyys sitä edellyttää.
+Sanahaku toteutetaan tarkoituksella yksinkertaisesti ilman Museoviraston WFS-riippuvuutta. D1:n `feature_details` sisältää tunnisteet, nimet, paneelissa tarvittavat lähdekentät ja yksinkertaistamattoman EPSG:3067-GeoJSON-geometrian; sama aineisto palvelee karttaklikkausta, pysyviä linkkejä, hakutuloksia ja exportia. Erillinen hakutaulu tukee parametrisoitua osajonohakua normalisoidusta nimestä ja rekisteritunnuksesta. Haku rajaa tulosmäärän ja välimuistittaa vastauksen. Kiinteiden muinaisjäännösten alueet jätetään vanhan WMS/WFS-haun tavoin pois vain sanahausta, mutta niitä ei poisteta D1-aineistosta. FTS-, trigrammi- tai erillinen hakupalvelu lisätään vasta, jos mitattu käytettävyys sitä edellyttää.
 
 ### 2.2 Zoom-tasot ja mobiilisuorituskyky
 
 Kaikkia geometrioita ei lähetetä täydellä tarkkuudella pienillä zoom-tasoilla.
 
-- Koko Suomen tasolla alueet ja viivat yleistetään voimakkaasti ja pistemäiset kohteet klusteroidaan tai aggregoidaan tiilikohtaisiksi lukumääriksi.
-- Keskitason zoomeilla klusterointia vähennetään ja geometriat tarkentuvat.
+- Koko Suomen tasolla aluekohteet esitetään arkistossa keskipisteinä ja aktiiviset pistemäiset kohteet aggregoidaan tarvittaessa selaimessa 64 pikselin ruudukkoon.
+- Keskitason zoomeilla selain lopettaa aggregoinnin aktiivisen tulosjoukon alittaessa hystereesirajan.
 - Lähizoomeilla näytetään yksittäiset kohteet ja tunnistamiseen tarvittavat ominaisuudet.
 - Tiiliin sisällytetään vain renderöintiin ja klikkaukseen tarvittavat attribuutit. Laajemmat tiedot haetaan tarvittaessa kohdetunnuksella.
 - Tiilikoolle asetetaan enimmäistavoite. Sen ylittävät tiilet tunnistetaan rakennusvaiheessa ja korjataan yleistys-, klusterointi- tai attribuuttisäännöillä.
 
-Tarkat zoom-rajat päätetään prototyypin mittausten perusteella. Lähtökohtana käytetään Suomen kattavaa Web Mercator -tiilitystä (`EPSG:3857`), jota OpenLayers tukee suoraan.
+Alueet vaihtuvat keskipisteistä polygoneiksi zoomirajalla 9 → 10. PMTiles käyttää Web Mercator -tiilitystä (`EPSG:3857`), ja OpenLayers muuntaa sen muun kartan EPSG:3067-näkymään.
 
 ### 2.3 Ulkoiset rajapinnat
 
 Ensimmäinen versio tarjoaa vähintään seuraavat osoitteet:
 
-- `GET /tiles/current.pmtiles` – nykyisen kartta-aineiston versio tai Worker-ohjattu pääsy siihen;
-- `GET /api/search?q=...&limit=...` – D1-hakutaulua käyttävä nimihaku, joka palauttaa tunnisteen, nimen, kohdetyypin, karttatason ja kohteen sijaintiin sopivan karttarajauksen;
-- `GET /api/features/:id` – kohteen käyttöliittymässä tarvittavat täydentävät ominaisuustiedot, jos niitä ei sisällytetä tiileen;
+- `GET /api/museovirasto/pmtiles` – Worker-ohjattu byte range -pääsy aktiiviseen PMTiles-arkistoon;
+- `GET /api/museovirasto/search?q=...&layers=...` – D1-hakutaulua käyttävä nimi- ja rekisteritunnushaku;
+- `POST /api/museovirasto/features/batch` – saman aineistojulkaisun `sourceLayer + featureId` -massahaku karttaklikkaukselle;
+- `POST /api/museovirasto/features/by-register` – uusimman aineiston `logicalLayerId + registryId` -massahaku hakutuloksille ja pysyville linkeille;
+- `GET /api/museovirasto/meta` ja `GET /api/museovirasto/health` – valinnaiset diagnostiikka- ja terveystiedot;
 - `GET /api/meta` – aineiston lähde-, muodostus- ja julkaisuaika sekä version tunniste;
 - `GET /health` – palvelun ja aktiivisen aineistoversion kevyt terveystarkistus.
 
@@ -124,13 +126,13 @@ Nykyisen WMS-ratkaisun kevyt suorituskyvyn lähtötaso on tiedostossa [CURRENT_M
 - [x] Tarkista paikallisella, muinaismuistot.info-sovelluksesta irrallisella OpenLayers-sivulla geometriayleistys, pistetiheys, alustavat tyylit sekä ominaisuuksien tunnistaminen kolmella edustavalla zoom-tasolla. Koko Suomen tarkka ja aggregoitu esitys, suodatettu 1 467 kohteen näkymä, zoomiraja 9→10 sekä päällekkäisten kohteiden ominaisuushaku on hyväksytty manuaalisesti. Uudelleen rakennettu arkisto läpäisee rakenteellisen validoinnin: 12 lähdetasoa, kaikki pistetietueet zoomilla 0 ja kaikkien aluelähdetasojen keskipisteet zoomilla 0.
 - [x] Tallenna arkisto Wranglerin paikallisesti simuloimaan R2-bucketiin. Toteuta ja testaa Worker, joka validoi selaimen yhden byte range -pyynnön, lukee vain sovitun välin R2-bindingista ja palauttaa standardinmukaisen `206 Partial Content` -vastauksen. PoC ei oleta 206-vastausten välimuistittuvan; oikea staging-R2 siirretään Cloudflare-vaiheeseen.
 - [x] Toteuta 26 loogisen tasovalinnan näyttäminen ja piilottaminen yhden OpenLayers `PMTilesVectorSource` -olion `source-layer`- ja `laji_key`-tyylisuodattimilla. Valinnat eivät luo uusia PMTiles-lähteitä tai muuta tiili-URL:ia.
-- [x] Mittaa paikallisen irrallisen PoC:n kylmä lataus koko Suomen, suodatetun koko Suomen, kaupunki- ja lähitason näkymissä. Toistettava Chrome-ajuri mittaa PMTiles-pyynnöt ja -tavut, datan valmistumisajan, featuremäärät, esitystavan ja JS-heapin. Koko tuotantosivun mobiilimittaus taustakarttoineen ja muiden lähteiden tasoineen siirtyy vaiheeseen 4, koska niitä ei tarkoituksella ole irrallisessa PoC:ssa.
+- [x] Mittaa paikallisen irrallisen PoC:n kylmä lataus koko Suomen, suodatetun koko Suomen, kaupunki- ja lähitason näkymissä. Toistettava Chrome-ajuri mittaa PMTiles-pyynnöt ja -tavut, datan valmistumisajan, featuremäärät, esitystavan ja JS-heapin. Koko tuotantosivun toiminta hyväksyttiin myöhemmin preview-ympäristössä oikealla aineistolla ja muilla samanaikaisilla karttatasoilla.
 - [x] Tuo D1:een suppea hakutaulu ja toteuta Workeriin yksinkertainen osajonohaku. `GET /api/search` vaatii 3–100 merkkiä, hakee normalisoidusta nimestä ja rekisteritunnuksesta, ryhmittelee `logicalLayerId + registryId` -avaimella, rajaa vastauksen 50 tulokseen ja palauttaa 60 sekunnin välimuistiotsakkeen. Testit kattavat ääkköset, kirjainkoon, osittaiset haut, LIKE-jokerien käsittelyn, tulosrajan ja liian lyhyet haut.
 - [x] Vahvista yhden PMTiles-arkiston suorituskykybudjetit ja kirjaa D1:n lineaarisen haun mitattu vasteaika vertailutiedoksi. Budjetit, avoimet tuotantoportit ja mitattu arkkitehtuuripäätös ovat tiedostossa [POC_PERFORMANCE_BUDGETS.md](POC_PERFORMANCE_BUDGETS.md).
 
 **Tuotos:** selaimessa toimiva kokeilu ja mitattu arkkitehtuuripäätös.
 
-**Vaihe 1 on valmis.** PoC hyväksyy yhden PMTiles-arkiston, selainpuolisen suodatuksen ja dynaamisen aggregoinnin, zoomikohtaiset aluegeometriat, Worker–R2 Range -palvelun sekä D1:n massa- ja sanahaut jatkokehityksen pohjaksi. MVT-feature-ID:n noin 111 prosentin vaikutus koko Suomen siirtoon jäi tietoiseksi vaiheessa 2 mitattavaksi tuotantoskeeman optimointikysymykseksi. Mobiili-, tuotantoverkko- ja muiden samanaikaisten karttatasojen budjetit hyväksytään vasta vaiheen 4 integraatiossa.
+**Vaihe 1 on valmis.** PoC hyväksyy yhden PMTiles-arkiston, selainpuolisen suodatuksen ja dynaamisen aggregoinnin, zoomikohtaiset aluegeometriat, Worker–R2 Range -palvelun sekä D1:n massa- ja sanahaut jatkokehityksen pohjaksi. MVT-feature-ID:n vaikutus mitattiin ja ID säilytettiin tiilirajat ylittävän deduplikoinnin vuoksi. Koko sivuston integraatio hyväksyttiin myöhemmin vaiheessa 4 ilman erillistä mobiilisuorituskykyporttia.
 
 PMTiles-arkiston toteutunut leveä PoC-skeema ja kenttäkohtainen minimointipäätös on dokumentoitu tiedostossa [PMTILES_DATA_MODEL.md](PMTILES_DATA_MODEL.md). Kompakti rinnakkaisarkisto on toteutettu: arkeologisilla pisteillä ovat `laji_key`, 19 tyypin ja 12 ajoituksen bittimaskit sekä 211 alatyypin lyhyt koodijoukko, arkeologisilla alueilla `laji_key` ja muilla tasoilla vain MVT-feature-ID. Arkisto pieneni 138 301 298 tavusta 54 762 752 tavuun ilman geometrian tai kohteiden karsimista. Selain-PoC käyttää jo kompakteja kenttiä, ja 1 467 pronssikautisen hautaröykkiön vertailuosumat säilyivät täsmälleen samoina.
 
@@ -172,7 +174,7 @@ Käyttöönotto pidetään sivuston kokoon nähden yksinkertaisena. Selain aloit
 
 Worker tarjoaa valinnaisen, lyhyesti välimuistitetun `/api/museovirasto/meta`-reitin diagnostiikkaa varten. Se ei ole edellytys PMTiles-pyynnöille tai ominaisuustietojen hauille. Aikaleimalliset `releases/<version>/...`-avaimet voidaan säilyttää palautuspaketteina, mutta selain ei käytä niitä normaalisti.
 
-**Seuraava tehtävä:** deployaa yhteinen Worker preview-ympäristöön, tarkista automaattisesti provisioidut R2- ja D1-resurssit ja julkaise niihin oikea tuotantoaineisto toistettavalla etäjulkaisuskriptillä. Hyväksy preview vasta julkisen API:n smoke-testin jälkeen.
+Preview-ympäristön yhteinen Worker, ympäristökohtaiset R2- ja D1-resurssit sekä oikea tuotantoaineisto on otettu käyttöön toistettavalla etäjulkaisuskriptillä. Julkinen API, Range-pyynnöt, D1-haut ja OpenLayers-integraatio on hyväksytty smoke- ja selainregressiotesteillä. Seuraava tehtävä on tuotantojulkaisu feature flagin taakse.
 
 ### Vaihe 2: Toistettava rakennusputki
 
@@ -204,12 +206,12 @@ Worker tarjoaa valinnaisen, lyhyesti välimuistitetun `/api/museovirasto/meta`-r
 
 ### Vaihe 4: OpenLayers-integraatio
 
-- [x] Lisää uusi vektoritiililähde feature flagin taakse nykyisen WMS-ratkaisun rinnalle. URL-parametri `museovirastoVectorTiles=1` vaihtaa vain kartan visuaalisen Museovirasto-tason PMTiles-lähteeseen; WMS säilyy oletuksena ja toistaiseksi myös haku- ja tunnistuspolkuna. Valinnainen `museovirastoApiBase` mahdollistaa paikallisen sovelluksen testaamisen preview-API:a vasten. Preview-PMTilesin pisteiden, viivojen ja polygonien kohdistuminen nykyiseen EPSG:3067-karttaan on hyväksytty selainkuvalla.
-- [x] Siirrä kaikkien loogisten tasojen näkyvyys- ja tyylisäännöt yhden OpenLayers-vektoritiililähteen tyylifunktioon. Yksi PMTiles-lähde palvelee vektoritiili- ja aggregaattitasosta muodostuvaa `LayerGroup`-ryhmää. Tasovalinta muuttaa vakioaikaisella hakutaululla näkyvien `source-layer`- ja numeeristen `laji_key`-yhdistelmien joukkoa eikä luo uutta lähdettä. PoC:ssa hyväksytyt värit, pistekuviot, viivat ja polygonit on siirretty sovellukseen. Aktiiviset pisteet esitetään yksittäin tai 64 pikselin selainruudukkoaggregaatteina 20 000/30 000 kohteen hystereesillä; aggregaattia klikkaamalla zoomataan kaksi tasoa lähemmäs. Koko Suomen oletusnäkymä varmennettiin preview-aineistolla aggregoiduksi (63 427 aktiivista pistettä), ja vain maailmanperintöpisteisiin rajattu näkymä palautui yksittäiseen esitykseen. Tason näkyvyys ja läpinäkyvyys kohdistuvat koko ryhmään, ja saman PMTiles-lähteen tiilitapahtumat käyttävät nykyistä latausanimaation laskuria.
+- [x] Lisää uusi vektoritiililähde feature flagin taakse nykyisen WMS-ratkaisun rinnalle. URL-parametri `museovirastoVectorTiles=1` vaihtaa kartan, sanahaun, karttaklikkauksen, pysyvien linkkien ja GeoJSON-exportin PMTiles/D1-polulle. Ilman parametria koko vanha WMS/WFS-polku säilyy ennallaan. Valinnainen `museovirastoApiBase` mahdollistaa paikallisen sovelluksen testaamisen preview-API:a vasten. Preview-PMTilesin pisteiden, viivojen ja polygonien kohdistuminen nykyiseen EPSG:3067-karttaan on hyväksytty selaimessa.
+- [x] Siirrä kaikkien loogisten tasojen näkyvyys- ja tyylisäännöt yhden OpenLayers-vektoritiililähteen tyylifunktioon. Yksi PMTiles-lähde palvelee vektoritiili- ja aggregaattitasosta muodostuvaa `LayerGroup`-ryhmää. Tasovalinta muuttaa vakioaikaisella hakutaululla näkyvien `source-layer`- ja numeeristen `laji_key`-yhdistelmien joukkoa eikä luo uutta lähdettä. Aktiiviset pisteet esitetään yksittäin tai 64 pikselin selainruudukkoaggregaatteina 20 000/30 000 kohteen hystereesillä; aggregaattia klikkaamalla zoomataan kaksi tasoa lähemmäs. Polygonien täyttö käyttää nykyisestä WMS SLD:stä johdettua 16 pikselin `shape://times`-ristikkäisviivoitusta, läpinäkyvää taustaa ja tasokohtaista väriä; havaintokohdealue säilyy WMS:n mukaisena tasaisen harmaana poikkeuksena. Tyyli on hyväksytty visuaalisesti WMS:ää vastaavaksi. Koko Suomen oletusnäkymä varmennettiin preview-aineistolla aggregoiduksi (63 427 aktiivista pistettä), ja vain maailmanperintöpisteisiin rajattu näkymä palautui yksittäiseen esitykseen. Tason näkyvyys ja läpinäkyvyys kohdistuvat koko ryhmään, ja saman PMTiles-lähteen tiilitapahtumat käyttävät nykyistä latausanimaation laskuria.
 - [x] Rajaa karttaklikkauksen osumat käyttäjän valitsemiin näkyviin tasoihin. Vektoripolku käyttää 15 pikselin toleranssia ja samaa taso-, tyyppi- ja ajoitussuodatusta kuin piirto; aggregaattitaso käsitellään erikseen ennen yksittäisiä kohteita.
 - [x] Kerää kaikki klikkaustoleranssin päällekkäiset kohteet ja hae niiden ominaisuustiedot yhdellä massapyynnöllä; älä tee featurekohtaista N+1-kyselysarjaa. Selain deduplikoi enintään 100 viitettä `source-layer + MVT feature ID` -avaimella, kutsuu kerran `/api/museovirasto/features/batch`-endpointia ja sovittaa kompaktin D1-vastauksen nykyisten featurepaneelien odottamaan GeoJSON-rakenteeseen. Muut samanaikaiset karttatasot yhdistetään edelleen samaan kohdelistaan.
 - [x] Toteuta klusterien esitys, zoomaus klusteria valittaessa ja yksittäisten ominaisuuksien klikkaustunnistus. Aggregaattiklikkaus zoomaa kaksi tasoa; yksittäinen klikkaus avaa nykyisen `FeatureList`-sivupaneelin D1-massahaun tiedoilla. WMS-tunnistus säilyy feature flagin ulkopuolisena palautuspolkuna. Pyyntöjen peruutus- ja erillinen virhetilalogiikka jätettiin tästä muutoksesta tarkoituksella pois, jotta WMS- ja PMTiles-polkujen välinen diffi pysyy pienenä.
-- [x] Korvaa WFS-nimihaku uudella hakuendpointilla ja sovita tulos nykyiseen käyttöliittymään. Feature flagin takainen haku vaatii vähintään kolme merkkiä, välittää valitut loogiset tasot `/search`-endpointille ja hakee enintään 50 rekisteriosuman tarkat paneelitiedot yhdellä `/features/by-register`-HTTP-pyynnöllä. Sama rekisterihaku avaa pysyvän linkin kaikki nykyiset geometriarivit. D1-massahaku palauttaa jokaisen featuren täydellisen EPSG:3067-geometrian muiden tietojen mukana; WFS säilyy feature flagin ulkopuolisena palautuspolkuna. Worker jakaa enintään 100 viitteen massa- ja rekisterihaut 30 viitteen D1-osakyselyihin ja yhdistää tulokset, jotta jokainen SQL-lause pysyy D1:n parametrirajan alapuolella lisäämättä selaimen HTTP-pyyntöjä.
+- [x] Korvaa WFS-nimihaku uudella hakuendpointilla ja sovita tulos nykyiseen käyttöliittymään. Feature flagin takainen haku vaatii vähintään kolme merkkiä, välittää valitut loogiset tasot `/search`-endpointille ja hakee enintään 50 rekisteriosuman tarkat paneelitiedot yhdellä `/features/by-register`-HTTP-pyynnöllä. Vanhan WMS/WFS-haun tavoin kiinteiden muinaisjäännösten aluetasoa ei lähetetä sanahakuun, koska lähes jokaista aluetta vastaa samanniminen pääpiste; alue säilyy silti karttaklikkauksessa ja suorassa rekisterihaussa. Sama rekisterihaku avaa pysyvän linkin kaikki nykyiset geometriarivit. D1-massahaku palauttaa jokaisen featuren täydellisen EPSG:3067-geometrian muiden tietojen mukana; WFS säilyy feature flagin ulkopuolisena palautuspolkuna. Worker jakaa enintään 100 viitteen massa- ja rekisterihaut 30 viitteen D1-osakyselyihin ja yhdistää tulokset, jotta jokainen SQL-lause pysyy D1:n parametrirajan alapuolella lisäämättä selaimen HTTP-pyyntöjä.
 - [x] Säilytä alkuperäinen geometria GeoJSON-exporttia varten. Rakennusputki tallentaa jokaisen featuren yksinkertaistamattoman EPSG:3067-GeoJSON-geometrian suoraan `feature_details.geometry_json`-kenttään. Ominaisuustietojen massahaut palauttavat geometrian muiden tietojen mukana, joten hakutulos, linkkihaku ja export käyttävät samaa WFS-yhteensopivaksi sovitettua feature-rakennetta ilman erillistä geometriapyyntöä.
 - Huolehdi myöhemmässä erillisessä muutoksessa lataus- ja virhetiloista, mahdollisesta pyyntöjen peruutuksesta sekä saavutettavasta näppäimistökäytöstä.
 - Lisää analytiikkamittarit latausajalle, virheille ja siirretylle datamäärälle ilman henkilötietojen keräämistä.
@@ -218,14 +220,19 @@ Vanha WMS/WFS-palautuspolku regressiotestattiin preview-sivustolla ilman feature
 
 Selainregressiot ovat pysyviä Playwright-testejä `e2e/`-kansiossa. Julkaisun estävä `pmtiles`-projekti kattaa PMTiles Range -latauksen, sanahaun ja D1-massahaun, GeoJSON-exportin, pysyvän linkin sekä karttaklikkauksen ja ajetaan automaattisesti Cloudflare-julkaisuskriptin API-smoke-testin jälkeen. Ulkoisesta Museoviraston GeoServeristä riippuva `wms`-projekti kattaa vastaavat WMS/WFS-palautuspolut, mutta ajetaan erillisenä seurantatestinä eikä sen häiriö estä oman palvelun julkaisua. Epäonnistumisista säilytetään Playwright-trace, kuvakaappaus ja video.
 
+Preview-ympäristön toiminta ja visuaalinen suorituskyky on hyväksytty manuaalisesti oikealla tuotantoaineistolla MacBook Pro -selaimessa. Ero vanhaan WMS-ratkaisuun on selvä, eikä erillistä mobiilisuorituskykytestiä pidetä tuotantokokeilun edellytyksenä. Suorituskykymittaus lisätään myöhemmin vain, jos todellisessa käytössä havaitaan ongelmia.
+
+**Vaihe 4 on valmis.** PMTiles/D1-polku toimii preview-ympäristössä feature flagin takana, ja WMS/WFS säilyy muuttamattomana palautuspolkuna.
+
 **Tuotos:** end-to-end-toiminnallisuus stagingissa ja hallittu mahdollisuus palata WMS-lähteeseen.
 
 ### Vaihe 5: Tuotantoonvienti
 
-- Aja aineiston ja käyttöliittymän regressiotestit sekä mobiilisuorituskykytestit.
-- Julkaise ensin pienelle osuudelle liikenteestä tai sisäiseen beta-käyttöön.
-- Vertaa virheprosenttia, vasteaikoja, datamäärää ja kustannuksia lähtötasoon.
-- Kasvata liikenneosuutta vaiheittain ja pidä WMS-palautuspolku käytettävissä vähintään yhden onnistuneen päivityssyklin ajan.
+- [x] Aja nykyiset rakennusputken, Workerin ja käyttöliittymän regressio- sekä smoke-testit tuotantojulkaisuvalmiille artefakteille. Preflight rakensi version `20260822T000000Z`, validoi 12 PMTiles-lähdetasoa, 268 964 D1-riviä ja kokobudjetit, ajoi seitsemän muunnostestiä, 18 Worker-testiä, TypeScript-tarkistukset, production-deployn kuivaharjoittelun, julkisen preview-smoke-testin sekä PMTiles- ja WMS-Playwright-regressiot. WMS-seurantatesti vaati yhden uusinta-ajon ulkoisen GeoServerin hitauden vuoksi ja läpäisi sen.
+- [ ] Provisioi production-ympäristön R2- ja D1-resurssit ja julkaise sama hyväksytty aineistoversio niihin production-vahvistuksen vaativalla skriptillä.
+- [ ] Julkaise Worker ja käyttöliittymä tuotantoon siten, että WMS/WFS säilyy oletuksena ja PMTiles/D1 voidaan ottaa käyttöön URL-feature flagilla.
+- [ ] Tee tuotannon sisäinen hyväksyntä feature flagilla: kartta, tasovalinnat, suodattimet, sanahaku, karttaklikkaus, pysyvä linkki ja GeoJSON-export.
+- [ ] Vaihda hyväksytyn kokeilun jälkeen PMTiles/D1 oletukseksi ja säilytä WMS/WFS yksinkertaisena palautuspolkuna vähintään yhden onnistuneen päivittäisen päivityssyklin ajan.
 - Dokumentoi operointi, manuaalinen uudelleenajo, version palautus ja avainten kierrätys.
 
 **Tuotos:** tuotantopalvelu ja testattu palautusmenettely.
@@ -239,17 +246,17 @@ Lopulliset numeroarvot vahvistetaan proof of conceptin jälkeen. Alustavat hyvä
 - Tuntematon uusi `laji`-arvo säilyy PMTiles-aineistossa tunnistettavalla varatyylillä ja aiheuttaa hälytyksen; se ei katoa kartalta hiljaisesti.
 - Automaattinen päivitys julkaisee uuden muuttuneen aineiston 6 tunnin kuluessa Museoviraston päivitysajasta.
 - Epäonnistunut tai puutteellinen aineisto ei korvaa aktiivista versiota.
-- Kartan ensimmäinen käyttökelpoinen näkymä latautuu tavallisella 4G-yhteydellä mediaaniltaan alle 2 sekunnissa tuetulla keskitason mobiililaitteella; p95-tavoite on alle 4 sekuntia.
+- Preview-kartan käytettävyys ja selvä suorituskykyparannus WMS-ratkaisuun nähden hyväksytään manuaalisella kokeella oikealla tuotantoaineistolla. Erillistä mobiilisuorituskykyporttia ei vaadita ennen tuotantokokeilua.
 - Yhden 256 pikselin vektoritiilen pakattu koko on normaalisti alle 100 kt eikä ylitä 300 kt ilman erikseen hyväksyttyä poikkeusta.
 - Kaikkien 26 loogisen tason näyttäminen tai niiden näkyvyyden vaihtaminen käyttää yhtä Museovirasto-vektoritiililähdettä; yksittäistä tiiltä ei pyydetä uudelleen eri lähdetasojen tai `laji`-suodattimien vuoksi.
 - Koko karttanäkymän HTTP-pyyntömäärälle asetetaan proof of conceptissa budjetti, jossa huomioidaan PMTiles-arkiston lisäksi taustakartta ja muiden lähteiden karttatasot.
 - Välimuistissa oleva haku vastaa p95 alle 500 millisekunnissa. Välimuistista puuttuvan D1-haun tavoite määritetään prototyypin mittauksen perusteella, ja haulla on aina sovittu tulosraja.
 - Karttaklikkaus löytää kaikki näkyvät, klikkaustoleranssin sisällä olevat päällekkäiset kohteet ja näyttää oikean kohdetunnuksen.
 - Hakutulosten ja klikattujen kohteiden otos vastaa lähteen GeoPackage-tiedostoja geometrian, nimen, tyypin ja tunnisteen osalta.
-- Palvelu kestää kuormitustestin ilman alkuperäiseen WMS-palveluun tehtäviä käyttäjäkohtaisia kutsuja.
+- PMTiles/D1-polku ei tee alkuperäiseen Museoviraston WMS/WFS-palveluun käyttäjäkohtaisia kutsuja.
 - Kuukausikustannuksesta laaditaan mitattuun pyyntö- ja tallennusmäärään perustuva arvio ennen tuotantoonvientiä ja sille asetetaan Cloudflare-hälytysraja.
 
-Testikokonaisuuteen kuuluvat rakennusputken yksikkötestit, tunnettuun pieneen usean GeoPackage-tiedoston ZIP-fixtureen perustuvat integraatiotestit, rajapintasopimustestit, kartan visuaaliset regressiotestit, Playwright-end-to-end-testit sekä mobiiliprofiililla ajettavat suorituskykytestit.
+Testikokonaisuuteen kuuluvat rakennusputken yksikkötestit, tunnettuun pieneen usean GeoPackage-tiedoston ZIP-fixtureen perustuvat integraatiotestit, rajapintasopimustestit, manuaalinen visuaalinen hyväksyntä sekä pysyvät PMTiles- ja WMS-Playwright-end-to-end-testit.
 
 ## 6. Tietoturva, käyttöehdot ja operointi
 
@@ -278,17 +285,15 @@ Testikokonaisuuteen kuuluvat rakennusputken yksikkötestit, tunnettuun pieneen u
 | Päivittäinen ajo ylittää CI:n ajan tai resurssit | Aineisto vanhenee | Välimuistita työkalut, ohita muuttumaton lähde ja mittaa ajo; siirrä tarvittaessa erilliseen ajopalveluun |
 | Kartan tyylit poikkeavat nykyisestä | Käyttäjä ei tunnista kohdetyyppejä | Versionhallittu tyylimäppäys ja visuaaliset regressiotestit |
 
-## 8. Ennen toteutusta päätettävät asiat
+## 8. Operoinnissa vielä päätettävät asiat
 
-Seuraavat päätökset tehdään vaiheiden 0–1 tulosten perusteella:
+Teknisen toteutuksen kannalta välttämättömät päätökset on tehty. Ennen PMTiles-polun vaihtamista tuotannon oletukseksi täsmennetään vielä:
 
-1. Mitkä lähdekentät näytetään karttaklikkauksessa ja hakutuloksessa?
-2. Mitkä kohteet klusteroidaan, ja millä zoom-tasolla yksittäiset kohteet tulevat näkyviin?
-3. Mikä on tuettujen mobiililaitteiden ja selainten vähimmäistaso?
-4. Mikä on hyväksyttävä Cloudflare-kuukausibudjetti ja liikenne-ennuste?
-5. Riittääkö CI-pohjainen päivittäinen muunnos, vai edellyttääkö ylläpito kokonaan Cloudflaren sisällä ajettavaa putkea?
-6. Kuinka monta vanhaa aineistoversiota säilytetään ja kuinka pitkä palautusaikatavoite asetetaan?
+1. Mikä on hyväksyttävä Cloudflare-kuukausibudjetti ja liikenne-ennuste?
+2. Missä ajastusympäristössä päivittäinen rakennus- ja julkaisuajo suoritetaan?
+3. Kuinka monta vanhaa aineistoversiota säilytetään ja kuinka pitkä palautusaikatavoite asetetaan?
+4. Millä käytännöllä PMTiles/D1 vaihdetaan oletukseksi ja WMS/WFS-palautuspolku aktivoidaan tarvittaessa?
 
 ## 9. Suositeltu ensimmäinen työpaketti
 
-Ensimmäinen työpaketti eli vaiheet 0 ja 1 on valmis ilman tuotantoliikenteen muutoksia. Todellinen aineistoskeema on dokumentoitu, yksi PMTiles-versio toimii OpenLayersissa paikallisen R2-simulaation kautta, D1:n ominaisuus- ja nimihaku toimivat ja kolme zoomitasoa on mitattu kylmällä työpöytä-Chromella. Tuotantoarkkitehtuurin lähtöpäätös ja paikalliset regressiobudjetit on lukittu; mobiili- ja koko tuotantosivun budjetit lukitaan vaiheessa 4.
+Vaiheet 0–4 ovat valmiit ilman tuotannon oletuspolun muutosta. Todellinen aineistoskeema, rakennusputki ja julkaisutapa on dokumentoitu; yksi PMTiles-arkisto, D1:n ominaisuus- ja sanahaut sekä OpenLayers-integraatio toimivat yhteisen Workerin preview-ympäristössä. Preview on hyväksytty automaattisilla smoke- ja selainregressiotesteillä sekä manuaalisella visuaalisella ja suorituskykyarviolla. Seuraava työpaketti on vaiheen 5 hallittu tuotantojulkaisu feature flagin taakse.
