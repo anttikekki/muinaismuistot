@@ -53,3 +53,15 @@ test("PMTiles/D1 map, search, export, permanent link and identify", async ({ pag
   await identifyResponse
   await expect(page.locator(".accordion-item").first()).toBeVisible()
 })
+
+test("point geometry precedes the matching area without hiding either", async ({ page }) => {
+  await page.goto(`${vectorQuery}#center=402431%2C6748200&zoom=12`)
+  await openSearch(page, "1000097130")
+
+  expect(await page.locator(".accordion-item").count()).toBe(2)
+  const link = new URL(await permanentLink(page))
+  const parameters = new URLSearchParams(link.hash.slice(1))
+  expect(parameters.get("linkedFeatureLayer")).toBe(
+    "rajapinta_suojellut:muinaisjaannos_piste"
+  )
+})

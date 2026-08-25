@@ -19,6 +19,7 @@ import type { ShowLoadingAnimationFn } from "./MuseovirastoTileLayer"
 import {
   FeatureBatchResult,
   FeatureReference,
+  pointGeometryFirst,
   toMuseovirastoFeature
 } from "./museovirastoFeatureDetails"
 import {
@@ -323,7 +324,7 @@ export default class MuseovirastoVectorTileLayer {
       throw new Error(`Museovirasto feature batch failed: ${response.status}`)
     }
     const result = (await response.json()) as FeatureBatchResult
-    const features = result.features.flatMap((item): MuseovirastoFeature[] => {
+    const features = pointGeometryFirst(result.features).flatMap((item): MuseovirastoFeature[] => {
       const match = references.get(`${item.sourceLayer}:${item.featureId}`)
       if (!match) return []
       return [toMuseovirastoFeature(item)]
@@ -384,7 +385,9 @@ export default class MuseovirastoVectorTileLayer {
     const result = (await response.json()) as FeatureBatchResult
     return {
       type: "FeatureCollection",
-      features: result.features.map((item) => toMuseovirastoFeature(item))
+      features: pointGeometryFirst(result.features).map((item) =>
+        toMuseovirastoFeature(item)
+      )
     }
   }
 

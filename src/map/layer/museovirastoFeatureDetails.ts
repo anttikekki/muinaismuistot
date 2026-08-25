@@ -21,6 +21,30 @@ export interface FeatureBatchResult {
   missing: FeatureReference[]
 }
 
+export function pointGeometryFirst(items: FeatureBatchItem[]): FeatureBatchItem[] {
+  const firstGroupIndex = new Map<string, number>()
+  const indexed = items.map((item, index) => {
+    const logicalLayer = item.logicalLayerId.replace(/_(piste|pisteet|viiva|alue|alueet)$/, "")
+    const group = `${logicalLayer}:${item.properties.registryId ?? item.featureId}`
+    if (!firstGroupIndex.has(group)) firstGroupIndex.set(group, index)
+    return { item, index, group }
+  })
+  return indexed
+    .sort((left, right) =>
+      (firstGroupIndex.get(left.group) ?? left.index) -
+        (firstGroupIndex.get(right.group) ?? right.index) ||
+      geometryOrder(left.item.geometry) - geometryOrder(right.item.geometry) ||
+      left.index - right.index
+    )
+    .map(({ item }) => item)
+}
+
+function geometryOrder(geometry: Geometry): number {
+  if (geometry.type === "Point" || geometry.type === "MultiPoint") return 0
+  if (geometry.type === "LineString" || geometry.type === "MultiLineString") return 1
+  return 2
+}
+
 const archaeologicalKinds: Record<string, string> = {
   kiintea_muinaisjaannos: "kiinteä muinaisjäännös",
   muu_kulttuuriperintokohde: "muu kulttuuriperintökohde",
