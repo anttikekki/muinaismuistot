@@ -6,7 +6,8 @@
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
     "TARGET_ENV": "preview",
-    "BASE_URL": "https://muinaismuistot-preview.antti-kekki.workers.dev"
+    "BASE_URL": "https://muinaismuistot-preview.antti-kekki.workers.dev",
+    "MAX_SOURCE_AGE_HOURS": "36"
   },
   "containers": [
     {
@@ -50,8 +51,10 @@
       "observability": { "enabled": true, "head_sampling_rate": 1 },
       "vars": {
         "TARGET_ENV": "preview",
-        "BASE_URL": "https://muinaismuistot-preview.antti-kekki.workers.dev"
+        "BASE_URL": "https://muinaismuistot-preview.antti-kekki.workers.dev",
+        "MAX_SOURCE_AGE_HOURS": "36"
       },
+      "send_email": [{ "name": "ALERT_EMAIL" }],
       "containers": [
         {
           "class_name": "MapDataUpdateContainer",
@@ -83,8 +86,11 @@
       "observability": { "enabled": true, "head_sampling_rate": 1 },
       "vars": {
         "TARGET_ENV": "production",
-        "BASE_URL": "https://muinaismuistot.info"
+        "BASE_URL": "https://muinaismuistot.info",
+        "MAX_SOURCE_AGE_HOURS": "36"
       },
+      "send_email": [{ "name": "ALERT_EMAIL" }],
+      "triggers": { "crons": ["0 6 * * *"] },
       "containers": [
         {
           "class_name": "MapDataUpdateContainer",

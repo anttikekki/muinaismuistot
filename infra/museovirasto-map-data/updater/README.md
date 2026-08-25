@@ -67,17 +67,32 @@ Previewssa ei ole ajastusta. Production Workflow käynnistyy kerran päivässä
 klo 01.30 UTC (`30 1 * * *`), eli Museoviraston klo 00.00 UTC julkaisun jälkeen.
 Sekä preview että production rajoittavat kontin EU-alueelle.
 
-Updater tarvitsee kummassakin ympäristössä kolme secretiä:
+Updater tarvitsee kummassakin ympäristössä viisi secretiä:
 
 ```bash
 npx wrangler secret put CLOUDFLARE_API_TOKEN --env preview
 npx wrangler secret put CLOUDFLARE_ACCOUNT_ID --env preview
 npx wrangler secret put UPDATER_TOKEN --env preview
+npx wrangler secret put ALERT_EMAIL_FROM --env preview
+npx wrangler secret put ALERT_EMAIL_TO --env preview
 ```
 
 Samat asetetaan `--env production` -valinnalla ennen tuotantodeployta.
 Cloudflare-tokenin pitää pystyä päivittämään sovelluksen R2- ja D1-resurssit.
 `UPDATER_TOKEN` suojaa manuaalisen käynnistyksen ja tilakyselyn.
+
+Sähköpostihälytykset edellyttävät, että Cloudflare Email Serviceen on onboardattu
+lähettäjän domain ja vastaanottaja on varmennettu. `ALERT_EMAIL_FROM` on tämän
+domainin lähettäjäosoite ja `ALERT_EMAIL_TO` varmennettu vastaanottaja. Samat
+asetukset tehdään production-ympäristöön.
+
+Workflow lähettää hälytyksen, jos päivitys epäonnistuu kaikkien yritysten
+jälkeen. Production-Worker tarkistaa lisäksi päivittäin klo 06.00 UTC
+`/api/museovirasto/meta`-vastauksen. Se hälyttää, jos Museoviraston Azure Blobin
+`Last-Modified`-aika tai ZIP-entryistä johdettu `publishedAt` on yli 36 tuntia
+vanha tai metadataa ei voida lukea. Näin myös vanhan sisällön uudelleenlataus,
+kokonaan käynnistymättä jäänyt päivitys ja Museoviraston pysähtynyt lähdeputki
+havaitaan.
 
 Preview-konfiguraatio tarkistetaan ja julkaistaan näin:
 

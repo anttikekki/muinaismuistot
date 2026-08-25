@@ -10,6 +10,10 @@ function env(overrides: Record<string, unknown> = {}) {
     UPDATE_CONTAINER: {},
     CLOUDFLARE_API_TOKEN: "api-token",
     CLOUDFLARE_ACCOUNT_ID: "account-id",
+    ALERT_EMAIL: { send: vi.fn() },
+    ALERT_EMAIL_FROM: "alerts@example.test",
+    ALERT_EMAIL_TO: "owner@example.test",
+    MAX_SOURCE_AGE_HOURS: "36",
     ...overrides,
   } as never
 }
@@ -37,5 +41,20 @@ describe("updater HTTP API", () => {
     expect(response.status).toBe(202)
     expect(create).toHaveBeenCalledWith({ params: { targetEnvironment: "preview" } })
     await expect(response.json()).resolves.toMatchObject({ id: "run-1" })
+  })
+
+  it("sends an authenticated test alert", async () => {
+    const send = vi.fn().mockResolvedValue(undefined)
+    const request = new Request("https://updater.test/alerts/test", {
+      method: "POST",
+      headers: { authorization: "Bearer secret" },
+    })
+    const response = await handleRequest(request, env({ ALERT_EMAIL: { send } }), vi.fn())
+    expect(response.status).toBe(200)
+    expect(send).toHaveBeenCalledWith(expect.objectContaining({
+      from: "alerts@example.test",
+      to: "owner@example.test",
+      subject: "[muinaismuistot.info] Hälytysten testiviesti",
+    }))
   })
 })

@@ -1,6 +1,7 @@
 import { Container, getContainer } from "@cloudflare/containers"
 import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloudflare:workers"
 import { handleRequest } from "./request"
+import { checkSourceFreshness, sendAlert } from "./alerts"
 
 export type TargetEnvironment = "preview" | "production"
 
@@ -25,6 +26,10 @@ export interface UpdaterEnv {
   CLOUDFLARE_API_TOKEN: string
   CLOUDFLARE_ACCOUNT_ID: string
   UPDATER_TOKEN: string
+  ALERT_EMAIL: SendEmail
+  ALERT_EMAIL_FROM: string
+  ALERT_EMAIL_TO: string
+  MAX_SOURCE_AGE_HOURS: string
 }
 
 export class MapDataUpdateContainer extends Container<UpdaterEnv> {
@@ -98,21 +103,38 @@ export class MapDataUpdateWorkflow extends WorkflowEntrypoint<UpdaterEnv, Update
     const targetEnvironment = event.payload.targetEnvironment ?? this.env.TARGET_ENV
     if (targetEnvironment !== this.env.TARGET_ENV) throw new Error("Workflow cannot publish to another environment")
 
-    return step.do(
-      "build, publish and verify Museovirasto map data",
-      { retries: { limit: 1, delay: "5 minutes" }, timeout: "1 hour" },
-      async () => getContainer(this.env.UPDATE_CONTAINER, "daily-update").runUpdate({
-        targetEnvironment,
-        baseUrl: this.env.BASE_URL,
-        apiToken: this.env.CLOUDFLARE_API_TOKEN,
-        accountId: this.env.CLOUDFLARE_ACCOUNT_ID,
-      }),
-    )
+    try {
+      return await step.do(
+        "build, publish and verify Museovirasto map data",
+        { retries: { limit: 1, delay: "5 minutes" }, timeout: "1 hour" },
+        async () => getContainer(this.env.UPDATE_CONTAINER, "daily-update").runUpdate({
+          targetEnvironment,
+          baseUrl: this.env.BASE_URL,
+          apiToken: this.env.CLOUDFLARE_API_TOKEN,
+          accountId: this.env.CLOUDFLARE_ACCOUNT_ID,
+        }),
+      )
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
+      try {
+        await sendAlert(
+          this.env,
+          `[muinaismuistot.info] Museoviraston päivitys epäonnistui`,
+          `Ympäristö: ${targetEnvironment}\nWorkflow: ${event.workflowName}\nInstanssi: ${event.instanceId}\nVirhe: ${message}`,
+        )
+      } catch (alertError) {
+        console.error("Failed to send update failure alert", alertError)
+      }
+      throw error
+    }
   }
 }
 
 export default {
   async fetch(request: Request, env: UpdaterEnv): Promise<Response> {
     return handleRequest(request, env, () => getContainer(env.UPDATE_CONTAINER, "daily-update").getLastRun())
+  },
+  async scheduled(_controller: ScheduledController, env: UpdaterEnv): Promise<void> {
+    await checkSourceFreshness(env)
   },
 } satisfies ExportedHandler<UpdaterEnv>

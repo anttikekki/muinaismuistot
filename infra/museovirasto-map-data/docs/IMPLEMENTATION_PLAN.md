@@ -104,6 +104,13 @@ Päivitysajon vaiheet:
 12. Vaihda kartan ja hakutaulun aktiivisen version osoittimet samassa julkaisuvaiheessa vasta, kun kaikki artefaktit ja smoke-testit ovat onnistuneet.
 13. Säilytä vähintään edellinen onnistunut versio nopeaa palautusta varten ja poista vanhemmat R2-artefaktit ja D1-rivit määritellyn säilytysajan mukaan.
 
+Päivitys-Workflow lähettää Cloudflare Email Servicen kautta sähköpostin vasta,
+kun kaikki automaattiset yritykset ovat epäonnistuneet. Erillinen production-
+Cron tarkistaa klo 06.00 UTC julkaistun metadatan lähdeaikaleimat ja hälyttää,
+jos Museoviraston Blobin `Last-Modified` tai ZIP-entryistä johdettu `publishedAt`
+on yli 36 tuntia vanha tai metadataendpoint ei vastaa. HTTP `ETag` ja `Last-Modified` tallennetaan
+release-metadataan yhdessä sisältötiivisteen kanssa.
+
 Jos lähde ei ole muuttunut, ajo päättyy ilman uudelleenrakennusta. Epäonnistunut ajo ei muuta aktiivista versiota, mutta lähettää hälytyksen.
 
 ## 4. Toteutusvaiheet

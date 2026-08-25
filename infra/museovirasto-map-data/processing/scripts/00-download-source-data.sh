@@ -6,6 +6,7 @@ PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 DATA_DIR="$PROJECT_DIR/data"
 ZIP_URL="https://mverkkodatashare.blob.core.windows.net/share/tutkija.zip"
 ZIP_FILE="$DATA_DIR/tutkija.zip"
+ZIP_HEADERS="$DATA_DIR/tutkija-http-headers.txt"
 EXTRACT_DIR="$DATA_DIR/tutkija"
 DESCRIPTION_URL="https://museovirasto-craft-assets-production.s3.eu-north-1.amazonaws.com/Tietotuotemaarittely_kulttuuriymparisto_kaikki.pdf"
 DESCRIPTION_FILE="$DATA_DIR/Tietotuotemaarittely_kulttuuriymparisto_kaikki.pdf"
@@ -21,8 +22,9 @@ mkdir -p "$DATA_DIR"
 
 if [[ ! -f "$ZIP_FILE" ]]; then
   echo "Downloading $ZIP_URL"
-  curl --fail --location --retry 3 --output "$ZIP_FILE.part" "$ZIP_URL"
+  curl --fail --location --retry 3 --dump-header "$ZIP_HEADERS.part" --output "$ZIP_FILE.part" "$ZIP_URL"
   mv "$ZIP_FILE.part" "$ZIP_FILE"
+  mv "$ZIP_HEADERS.part" "$ZIP_HEADERS"
 else
   echo "$ZIP_FILE already exists; skipping download."
 fi
