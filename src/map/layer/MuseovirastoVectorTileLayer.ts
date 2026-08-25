@@ -1,4 +1,5 @@
 import Feature, { FeatureLike } from "ol/Feature"
+import { Geometry } from "geojson"
 import MVT from "ol/format/MVT"
 import Point from "ol/geom/Point"
 import { intersects } from "ol/extent"
@@ -8,7 +9,12 @@ import VectorTileLayer from "ol/layer/VectorTile"
 import OlMap from "ol/Map"
 import { Pixel } from "ol/pixel"
 import VectorSource from "ol/source/Vector"
+import CircleStyle from "ol/style/Circle"
+import Fill from "ol/style/Fill"
+import RegularShape from "ol/style/RegularShape"
+import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
+import Text from "ol/style/Text"
 import { PMTilesVectorSource } from "ol-pmtiles"
 import { Settings } from "../../store/storeTypes"
 import {
@@ -17,17 +23,6 @@ import {
 } from "../../common/museovirasto.types"
 import { MuseovirastoLayer } from "../../common/layers.types"
 import type { ShowLoadingAnimationFn } from "./MuseovirastoTileLayer"
-import {
-  FeatureBatchResult,
-  FeatureReference,
-  pointGeometryFirst,
-  toMuseovirastoFeature
-} from "./museovirastoFeatureDetails"
-import {
-  createMuseovirastoAggregateStyle,
-  createMuseovirastoPointStyle,
-  createMuseovirastoStyle
-} from "./museovirastoVectorStyles"
 import layerMapping from "../../../infra/museovirasto-map-data/contract/layer-mapping.json"
 import vocabulary from "../../../infra/museovirasto-map-data/contract/filter-vocabulary.json"
 
@@ -35,6 +30,26 @@ interface LogicalLayer {
   id: string
   sourceLayer: string
   filter?: { field: string; equals: string }
+}
+
+interface FeatureReference {
+  sourceLayer: string
+  featureId: string
+}
+
+interface FeatureBatchItem extends FeatureReference {
+  logicalLayerId: string
+  geometry: Geometry
+  properties: Record<string, unknown> & {
+    registryId: string | null
+    name: string | null
+    municipality: string | null
+  }
+}
+
+interface FeatureBatchResult {
+  features: FeatureBatchItem[]
+  missing: FeatureReference[]
 }
 
 interface ActivePoint {
@@ -325,7 +340,7 @@ export default class MuseovirastoVectorTileLayer {
       throw new Error(`Museovirasto feature batch failed: ${response.status}`)
     }
     const result = (await response.json()) as FeatureBatchResult
-    const features = pointGeometryFirst(result.features).flatMap((item): MuseovirastoFeature[] => {
+    const features = result.features.flatMap((item): MuseovirastoFeature[] => {
       const match = references.get(`${item.sourceLayer}:${item.featureId}`)
       if (!match) return []
       return [toMuseovirastoFeature(item)]
@@ -391,7 +406,7 @@ export default class MuseovirastoVectorTileLayer {
     const result = (await response.json()) as FeatureBatchResult
     return {
       type: "FeatureCollection",
-      features: pointGeometryFirst(result.features).map((item) =>
+      features: result.features.map((item) =>
         toMuseovirastoFeature(item)
       )
     }
@@ -403,4 +418,187 @@ export default class MuseovirastoVectorTileLayer {
   public opacityChanged = (settings: Settings): void => this.updateSettings(settings)
   public updateLayerVisibility = (settings: Settings): void => this.updateSettings(settings)
   public getLayer = (): LayerGroup => this.layerGroup
+}
+
+function createMuseovirastoStyle(id: string, source: string): Style {
+  const color = museovirastoColor(id)
+  if (source.endsWith("_points")) return createMuseovirastoPointStyle(id)
+  if (source.endsWith("_areas")) {
+    if (id.includes("havaintokohde")) {
+      return new Style({ fill: new Fill({ color: "#aaaaaa" }) })
+    }
+    return new Style({
+      fill: new Fill({ color: createWmsAreaPattern(color) }),
+      stroke: new Stroke({ color, width: 1, lineJoin: "bevel" })
+    })
+  }
+  return new Style({ stroke: new Stroke({ color, width: 2.5 }) })
+}
+
+function createMuseovirastoPointStyle(id: string): Style {
+  const stroke = new Stroke({ color: "#161616", width: 1 })
+  const fill = new Fill({ color: museovirastoColor(id) })
+  if (id.includes("alakohde")) {
+    return new Style({ image: new RegularShape({ points: 5, radius: 7, radius2: 3, fill, stroke }) })
+  }
+  if (id.includes("maailmanperinto")) {
+    return new Style({ image: new RegularShape({ points: 5, radius: 7, fill, stroke }) })
+  }
+  if (id.includes("havaintokohde")) {
+    return new Style({ image: new RegularShape({ points: 4, radius: 6, angle: Math.PI / 4, fill, stroke }) })
+  }
+  return new Style({ image: new CircleStyle({ radius: 5, fill, stroke }) })
+}
+
+function createMuseovirastoAggregateStyle(feature: FeatureLike): Style {
+  const id = String(feature.get("logicalLayerId") ?? "")
+  const count = Number(feature.get("count") ?? 1)
+  const radius = Math.min(18, 5 + Math.log2(Math.max(1, count)) * 1.4)
+  return new Style({
+    image: new CircleStyle({
+      radius,
+      fill: new Fill({ color: withAlpha(museovirastoColor(id), 0.82) }),
+      stroke: new Stroke({ color: "#161616", width: 1.5 })
+    }),
+    text: new Text({
+      text: count > 1 ? new Intl.NumberFormat("fi-FI", { notation: "compact", maximumFractionDigits: 1 }).format(count) : "",
+      fill: new Fill({ color: "#fff" }),
+      stroke: new Stroke({ color: "#161616", width: 2 }),
+      font: "bold 10px sans-serif"
+    })
+  })
+}
+
+function museovirastoColor(id: string): string {
+  if (id.includes("muu_kulttuuriperinto")) return "#b67f4a"
+  if (id.includes("mahdollinen")) return "#cc00ff"
+  if (id.includes("loytopaikka")) return "#ff7f01"
+  if (id.includes("luonnonmuodostuma")) return "#01c6ff"
+  if (id.includes("poistettu")) return "#908e8e"
+  if (id.includes("muu_kohde")) return "#b5b5b5"
+  if (id.includes("rky")) return "#0070ff"
+  if (id.includes("suojellut_rakennukset")) return "#38a800"
+  if (id.includes("maailmanperinto")) return "#ffab00"
+  if (id.includes("vark")) return "#8400a8"
+  return "#ff0000"
+}
+
+function withAlpha(hex: string, alpha: number): string {
+  const red = Number.parseInt(hex.slice(1, 3), 16)
+  const green = Number.parseInt(hex.slice(3, 5), 16)
+  const blue = Number.parseInt(hex.slice(5, 7), 16)
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`
+}
+
+function createWmsAreaPattern(color: string): CanvasPattern {
+  const size = 16
+  const canvas = document.createElement("canvas")
+  canvas.width = size
+  canvas.height = size
+  const context = canvas.getContext("2d")
+  if (!context) throw new Error("Canvas 2D context is required for Museovirasto area styles")
+  context.strokeStyle = color
+  context.lineWidth = 1
+  context.beginPath()
+  context.moveTo(0, 0)
+  context.lineTo(size, size)
+  context.moveTo(size, 0)
+  context.lineTo(0, size)
+  context.stroke()
+  const pattern = context.createPattern(canvas, "repeat")
+  if (!pattern) throw new Error("Canvas pattern is required for Museovirasto area styles")
+  return pattern
+}
+
+const archaeologicalKinds: Record<string, string> = {
+  kiintea_muinaisjaannos: "kiinteä muinaisjäännös",
+  muu_kulttuuriperintokohde: "muu kulttuuriperintökohde",
+  loytopaikka: "löytöpaikka",
+  havaintokohde: "havaintokohde",
+  luonnonmuodostuma: "luonnonmuodostuma",
+  mahdollinen_muinaisjaannos: "mahdollinen muinaisjäännös",
+  muu_kohde: "muu kohde",
+  poistettu_kiintea_muinaisjaannos: "poistettu kiinteä muinaisjäännös (ei rauhoitettu)"
+}
+
+function toMuseovirastoFeature(
+  item: FeatureBatchItem,
+  geometry: Geometry = item.geometry
+): MuseovirastoFeature {
+  const shortLayerId = item.logicalLayerId.split(":").slice(-1)[0] ?? "unknown"
+  const properties = propertiesForLayer(item)
+  return {
+    type: "Feature",
+    id: `${shortLayerId}.${item.featureId}`,
+    geometry,
+    properties,
+    models: [],
+    maisemanMuisti: []
+  } as unknown as MuseovirastoFeature
+}
+
+function propertiesForLayer(item: FeatureBatchItem): Record<string, unknown> {
+  const source = item.properties
+  const objectId = Number(item.featureId)
+  const registryId = source.registryId ?? ""
+  const name = source.name ?? ""
+  const municipality = source.municipality ?? ""
+  const common = { OBJECTID: objectId }
+
+  if (item.sourceLayer.startsWith("archaeological_")) {
+    const kind = String(source.laji_key ?? "")
+    return {
+      ...common,
+      mjtunnus: Number(registryId),
+      kohdenimi: name,
+      kunta: municipality,
+      Laji: archaeologicalKinds[kind] ?? kind,
+      tyyppi: source.types_raw ?? "",
+      alatyyppi: source.subtypes_raw ?? "",
+      ajoitus: source.datings_raw ?? "",
+      alakohdetunnus: Number(source.subsite_id ?? 0)
+    }
+  }
+
+  if (item.sourceLayer.startsWith("vark_")) {
+    return {
+      ...common,
+      VARK_ID: Number(registryId),
+      VARK_nimi: name,
+      Kunta: municipality,
+      Tyyppi: source.types_raw ?? "",
+      Alatyyppi: source.subtypes_raw ?? "",
+      Ajoitus: source.datings_raw ?? "",
+      Linkki: `https://www.kyppi.fi/palveluikkuna/VARKL/asp/v_kohde_det.aspx?KOHDE_ID=${registryId}`
+    }
+  }
+
+  if (item.sourceLayer.startsWith("rky_")) {
+    return {
+      ...common,
+      ID: registryId,
+      kohdenimi: name,
+      nimi: source.part_name ?? "",
+      url: `https://www.rky.fi/read/asp/r_kohde_det.aspx?KOHDE_ID=${registryId}`
+    }
+  }
+
+  if (item.sourceLayer.startsWith("protected_building_")) {
+    return {
+      ...common,
+      KOHDEID: Number(registryId),
+      rakennusID: Number(source.building_id ?? 0),
+      kohdenimi: name,
+      rakennusnimi: source.building_name ?? "",
+      kunta: municipality,
+      suojeluryhmä: source.protection_groups_raw ?? "",
+      suojelun_tila: source.protection_status ?? ""
+    }
+  }
+
+  const worldHeritageUrl =
+    "https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa"
+  return item.sourceLayer === "world_heritage_points"
+    ? { ...common, nimi: name, url: worldHeritageUrl }
+    : { ...common, Nimi: name, URL: worldHeritageUrl, Alue: source.area_type ?? null }
 }
