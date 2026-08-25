@@ -10,8 +10,12 @@ if (listing.status !== 0) throw new Error(`Could not inspect source ZIP: ${listi
 
 const dates = new Set()
 for (const line of listing.stdout.split("\n")) {
-  const match = line.match(/\s(\d{2})-(\d{2})-(\d{4})\s+\d{2}:\d{2}\s+.*\.gpkg\s*$/i)
-  if (match) dates.add(`${match[3]}-${match[1]}-${match[2]}`)
+  const entry = line.match(/\s(\d{2,4})-(\d{2})-(\d{2,4})\s+\d{2}:\d{2}\s+.*\.gpkg\s*$/i)
+  if (!entry) continue
+
+  // Info-ZIP prints dates as MM-DD-YYYY on macOS and YYYY-MM-DD on Linux.
+  const [, first, middle, last] = entry
+  dates.add(first.length === 4 ? `${first}-${middle}-${last}` : `${last}-${first}-${middle}`)
 }
 if (dates.size !== 1) throw new Error(`Expected one GeoPackage publication date in ZIP, got: ${[...dates].join(", ") || "none"}`)
 

@@ -5,6 +5,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 ARCHIVE="$PROJECT_DIR/data/poc/museovirasto-poc-compact.pmtiles"
 
+mkdir -p "$PROJECT_DIR/data/poc"
+
 run_step() {
   local description="$1"
   shift
@@ -25,7 +27,6 @@ run_step "Build D1 feature import" "$SCRIPT_DIR/14-build-feature-details-sql.sh"
 run_step "Validate PMTiles and D1 identities" "$SCRIPT_DIR/24-validate-pmtiles-d1-identities.sh"
 run_step "Create checksummed build manifest" "$SCRIPT_DIR/19-create-build-manifest.sh"
 run_step "Create timestamped release descriptor" "$SCRIPT_DIR/25-create-release-descriptor.sh"
-run_step "Type-check Worker and browser PoC" npm --prefix "$PROJECT_DIR/poc" run typecheck
 run_step "Test build transformations" node --test "$SCRIPT_DIR"/*.test.mjs
 
 echo

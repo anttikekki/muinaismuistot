@@ -12,7 +12,7 @@ MANIFEST_TMP="$MANIFEST.tmp"
 sha256() { shasum -a 256 "$1" | awk '{print $1}'; }
 file_entry() {
   local path="$1" label="$2"
-  jq -cn --arg path "$label" --arg sha256 "$(sha256 "$path")" --argjson bytes "$(stat -f '%z' "$path")" '{path:$path,sha256:$sha256,bytes:$bytes}'
+  jq -cn --arg path "$label" --arg sha256 "$(sha256 "$path")" --argjson bytes "$(wc -c < "$path" | tr -d ' ')" '{path:$path,sha256:$sha256,bytes:$bytes}'
 }
 
 sources='[]'

@@ -1,12 +1,121 @@
-# Updater
+# Ajastettu karttadatan päivitys
 
-Tähän moduuliin toteutetaan päivittäisen päivityksen Cloudflare-orkestrointi:
+Updater on pää-Workerista erillinen Cloudflare Worker, Workflow ja lyhytikäinen
+Container. Workflow käynnistää korkeintaan yhden `standard-3`-instanssin
+(2 vCPU, 8 GiB muistia ja 16 GB levyä), lataa päivän lähdeaineiston, rakentaa
+PMTiles- ja D1-artefaktit, julkaisee ne valittuun ympäristöön ja ajaa API:n
+smoke-testin. Kontti sammutetaan ajon jälkeen ja viimeinen tila säilytetään sen
+Durable Object -tallennuksessa.
 
-- ajastettu Workflow ja manuaalinen käynnistys
-- lyhytikäisen rakennuskontin määritys
-- `processing`- ja `deploy`-moduulien suoritus
-- onnistumisen, virheen ja aktiivisen version tilan seuranta
+## Arkkitehtuurit
 
-Kontin rakennuskontekstina käytetään `infra/museovirasto-map-data`-hakemistoa,
-jotta image voi kopioida `contract`-, `processing`- ja `deploy`-moduulit ilman
-pää-Workeria tai PoC-sovellusta. Tätä moduulia ei vielä ajeta tuotannossa.
+Cloudflare Containers suorittaa `linux/amd64`-imageja. Dockerfile on silti
+monialustainen:
+
+- Cloudflarelle rakennetaan `linux/amd64`.
+- Apple Silicon -Macilla rakennetaan ja ajetaan natiivisti `linux/arm64`.
+- OSGeo GDAL- ja Protomaps PMTiles -perusimaget julkaisevat molemmat variantit.
+- Node- ja jq-binäärit valitaan `TARGETARCH`-arvolla ja Tippecanoe käännetään
+  kohdearkkitehtuurille.
+
+Wranglerille on asetettu eksplisiittisesti `TARGETARCH=amd64`. Paikallinen
+build-skripti johtaa arvon `PLATFORM`-muuttujasta, joten se toimii myös vanhalla
+Docker-builderilla ilman BuildKitin automaattisia arkkitehtuurimuuttujia.
+
+## Paikallinen ARM64-testi
+
+Imagen rakentaminen M1/M2/M3/M4-Macilla:
+
+```bash
+cd infra/museovirasto-map-data/updater
+npm ci
+PLATFORM=linux/arm64 IMAGE_TAG=museovirasto-map-data-updater:arm64 npm run build:image
+```
+
+Palvelin käynnistetään näin:
+
+```bash
+IMAGE_TAG=museovirasto-map-data-updater:arm64 npm run run:local
+```
+
+Toisessa terminaalissa:
+
+```bash
+curl http://localhost:8080/health
+curl --request POST http://localhost:8080/run
+```
+
+Paikallinen ajo käyttää aina `build`-tilaa eikä kirjoita Cloudflareen. Valmiit
+PMTiles-, D1-, manifesti- ja metadata-artefaktit kopioidaan gitistä ohitettuun
+`data/updater-local/`-hakemistoon. Kontin sisäinen työlevy on kertakäyttöinen;
+olemassa olevaa paikallista `data/`-hakemistoa ei mountata eikä tyhjennetä.
+
+AMD64-image voidaan rakentaa Macilla emulaatiolla:
+
+```bash
+PLATFORM=linux/amd64 IMAGE_TAG=museovirasto-map-data-updater:amd64 npm run build:image
+```
+
+Ristiinrakennus edellyttää Docker Buildxiä tai muuta builderia, joka todella
+vaihtaa build-alustan. Dockerfile keskeyttää buildin heti, jos `TARGETARCH` ja
+base imagen todellinen arkkitehtuuri eivät vastaa toisiaan. ARM64-paikallisajo
+ei tarvitse emulaatiota.
+
+## Cloudflare-ympäristöt
+
+Previewssa ei ole ajastusta. Production Workflow käynnistyy kerran päivässä
+klo 01.30 UTC (`30 1 * * *`), eli Museoviraston klo 00.00 UTC julkaisun jälkeen.
+Sekä preview että production rajoittavat kontin EU-alueelle.
+
+Updater tarvitsee kummassakin ympäristössä kolme secretiä:
+
+```bash
+npx wrangler secret put CLOUDFLARE_API_TOKEN --env preview
+npx wrangler secret put CLOUDFLARE_ACCOUNT_ID --env preview
+npx wrangler secret put UPDATER_TOKEN --env preview
+```
+
+Samat asetetaan `--env production` -valinnalla ennen tuotantodeployta.
+Cloudflare-tokenin pitää pystyä päivittämään sovelluksen R2- ja D1-resurssit.
+`UPDATER_TOKEN` suojaa manuaalisen käynnistyksen ja tilakyselyn.
+
+Preview-konfiguraatio tarkistetaan ja julkaistaan näin:
+
+```bash
+npm run typecheck
+npm test
+npm run deploy:preview:dry-run -- --containers-rollout=none
+npm run deploy:preview
+```
+
+Manuaalinen ajo ja tilakysely:
+
+```bash
+curl --request POST \
+  --header "Authorization: Bearer $UPDATER_TOKEN" \
+  https://museovirasto-map-data-updater-preview.<workers-subdomain>.workers.dev/runs
+
+curl --header "Authorization: Bearer $UPDATER_TOKEN" \
+  https://museovirasto-map-data-updater-preview.<workers-subdomain>.workers.dev/status
+```
+
+`POST /runs` luo Workflow-instanssin ja palauttaa heti sen tunnisteen. Workflow
+odottaa kontin koko ajon valmistumista, yrittää epäonnistuneen vaiheen kerran
+uudelleen ja tallentaa lopputilaksi `succeeded` tai `failed`. Production-deploy
+tehdään vasta onnistuneen preview-ajon jälkeen.
+
+## Turvarajat
+
+- Preview-Workflow voi julkaista vain preview-resursseihin ja production vain
+  tuotantoon; pyynnöllä ei voi vaihtaa kohdeympäristöä.
+- Päivityksen API-token välitetään vain Workflown sisäisesti käynnistettävälle
+  kontille, ei HTTP-pyynnössä.
+- Kontteja voi olla samanaikaisesti vain yksi.
+- Automaattiajo ei aja Playwright-selainregressiota kontissa. Julkaisuskripti
+  ajaa edelleen API-smoke-testin; pysyvät Playwright-testit kuuluvat Worker-
+  ja käyttöliittymädeployn regressiotarkistuksiin.
+- Pää-Workerista kopioidaan imageen vain R2- ja D1-resurssit määrittelevä
+  `wrangler.jsonc`. Julkaisu käyttää updaterin omaa lukittua Wrangler-asennusta,
+  eikä kontti asenna pää-Workerin npm-riippuvuuksia tai sisällä sen lähdekoodia.
+- PoC:n npm-riippuvuuksia tai selain-/Worker-tyyppitarkistuksia ei asenneta eikä
+  ajeta päivittäisessä kontissa. Ne kuuluvat sovelluksen omaan CI-testaukseen.

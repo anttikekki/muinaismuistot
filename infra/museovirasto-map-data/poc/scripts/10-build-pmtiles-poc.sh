@@ -74,6 +74,6 @@ tippecanoe \
 [[ -s "$OUTPUT_FILE" ]] || { echo "PMTiles output is empty" >&2; exit 1; }
 
 echo "Built PMTiles PoC: $OUTPUT_FILE"
-echo "Archive bytes: $(stat -f '%z' "$OUTPUT_FILE")"
+echo "Archive bytes: $(wc -c < "$OUTPUT_FILE" | tr -d ' ')"
 echo "GDAL: $(ogr2ogr --version)"
 echo "Tippecanoe: $(tippecanoe --version 2>&1)"

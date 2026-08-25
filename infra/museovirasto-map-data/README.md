@@ -12,7 +12,7 @@ HTTP-palvelu on erillisessä hakemistossa
 | [`contract/`](contract/README.md) | Workerin, selaimen ja rakennusputken yhteinen taso-, koodisto- ja D1-sopimus. |
 | [`processing/`](processing/README.md) | Lähdeaineiston lataus, validointi ja itsenäisten julkaisuartefaktien rakentaminen. |
 | [`deploy/`](deploy/README.md) | Valmiiden artefaktien julkaisu, smoke-testit ja palautusoperaatiot. |
-| [`updater/`](updater/README.md) | Tuleva ajastettu Cloudflare Workflow- ja Container-orkestrointi. |
+| [`updater/`](updater/README.md) | Ajastettu Cloudflare Workflow- ja Container-orkestrointi sekä paikallinen ARM64-ajo. |
 | [`poc/`](poc/README.md) | Tuotannosta irrallinen OpenLayers-, PMTiles-, R2- ja D1-koeympäristö. |
 | [`docs/`](docs/README.md) | Tietomalli-, inventaario-, suorituskyky- ja toteutussuunnitelmadokumentit. |
 | `data/` | Gitistä ohitettu yhteinen työ- ja artefaktihakemisto. |

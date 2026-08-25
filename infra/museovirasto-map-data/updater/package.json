@@ -1,0 +1,29 @@
+{
+  "name": "museovirasto-map-data-updater",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:image": "bash scripts/build-image.sh",
+    "run:local": "bash scripts/run-local.sh",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "types": "wrangler types",
+    "deploy:preview:dry-run": "wrangler deploy --env preview --dry-run",
+    "deploy:preview": "wrangler deploy --env preview",
+    "deploy:production:dry-run": "wrangler deploy --env production --dry-run",
+    "deploy:production": "wrangler deploy --env production"
+  },
+  "dependencies": {
+    "@cloudflare/containers": "^0.0.24"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "1.0.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.11",
+    "wrangler": "4.125.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

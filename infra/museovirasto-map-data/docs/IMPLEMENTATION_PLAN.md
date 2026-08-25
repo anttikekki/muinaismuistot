@@ -191,7 +191,7 @@ Preview-ympäristön yhteinen Worker, ympäristökohtaiset R2- ja D1-resurssit s
 
 ### Vaihe 2: Toistettava rakennusputki
 
-- [x] Tee lukituilla työkaluversionumeroilla ajettava rakennusskripti ilman konttia. `processing/config/build-tool-versions.json` lukitsee GDAL-, Tippecanoe-, Node-, npm-, jq-, PMTiles- ja Wrangler-versiot; npm-paketit ovat täsmällisinä `package-lock.json`-tiedostossa. `processing/scripts/17-build-release-artifacts.sh` validoi työkalut, mäppäyksen ja lähdekentät, rakentaa ja validoi PMTilesin, rakentaa D1-tuonnin sekä ajaa TypeScript-tarkistuksen yhdellä komennolla. Ohje on tiedostossa [BUILD_PIPELINE.md](BUILD_PIPELINE.md).
+- [x] Tee lukituilla työkaluversionumeroilla ajettava rakennusskripti ilman konttia. `processing/config/build-tool-versions.json` lukitsee GDAL-, Tippecanoe-, Node-, jq- ja PMTiles-versiot. `processing/scripts/17-build-release-artifacts.sh` validoi työkalut, mäppäyksen ja lähdekentät, rakentaa ja validoi PMTilesin sekä rakentaa D1-tuonnin yhdellä komennolla. PoC:n ja Workerin TypeScript-tarkistukset kuuluvat niiden omaan CI-testaukseen. Ohje on tiedostossa [BUILD_PIPELINE.md](BUILD_PIPELINE.md).
 - [x] Toteuta taso- ja kenttämäppäys konfiguraationa, ei hajautettuina oletuksina koodissa. `processing/config/layers.json` määrittää jokaiselle fyysiselle tasolle lähdeprojektion, muunnosprofiilin ja matalan zoomin keskipiste-esityksen sekä suodatusten arvosanalähteen. Rakennuskoodi ei enää päättele näitä tasonimestä. Validointi varmistaa konfiguraation täydellisyyden ja yhdenmukaisuuden `layer-mapping.json`-tiedoston kanssa.
 - [x] Lisää aineiston validointi, eksplisiittinen geometriapolitiikka, tiivisteet, manifesti ja koneellisesti luettava rakennusraportti. Virheellinen geometria estää rakennuksen eikä sitä korjata hiljaisesti; tasokohtainen sallittu NULL-määrä validoidaan. Manifesti sisältää 12 lähdetiedoston ja artefaktien SHA-256-tiivisteet, yhteisen lähdetiivisteen, konfiguraatiotiivisteet, työkaluversiot, koot ja keskeiset tietuemäärät. Nykyisessä aineistossa ei ole virheellisiä geometrioita ja vain yksi ennalta dokumentoitu geometriaton rivi.
 - [x] Vertaa kenttiä, tietuemääriä ja arvojoukkoja versionhallittuun lähtötasoon. Pakolliset kentät validoidaan kenttäsopimuksella ja puuttuva tai tyhjä taso estää julkaisun. Päivittäistä rivimäärää ei lukita: muutos kirjataan ja yli 30 prosenttia aiheuttaa varoituksen. Uusi laji-, tyyppi-, ajoitus- tai alatyyppiarvo aiheuttaa varoituksen mutta ei automaattista hylkäystä. `source-baseline-report.json` liitetään tiivisteineen rakennusmanifestiin.
@@ -303,10 +303,21 @@ Testikokonaisuuteen kuuluvat rakennusputken yksikkötestit, tunnettuun pieneen u
 Teknisen toteutuksen kannalta välttämättömät päätökset on tehty. Ennen PMTiles-polun vaihtamista tuotannon oletukseksi täsmennetään vielä:
 
 1. Mikä on hyväksyttävä Cloudflare-kuukausibudjetti ja liikenne-ennuste?
-2. Minkä kokoinen Cloudflare Container päivittäiselle rakennusajolle tarvitaan?
+2. Riittääkö ensimmäiseen toteutukseen valittu `standard-3`-kontti myös aineiston kasvaessa?
 3. Kuinka monta vanhaa aineistoversiota säilytetään ja kuinka pitkä palautusaikatavoite asetetaan?
 4. Millä käytännöllä PMTiles/D1 vaihdetaan oletukseksi ja WMS/WFS-palautuspolku aktivoidaan tarvittaessa?
 
-## 9. Suositeltu ensimmäinen työpaketti
+## 9. Seuraava työpaketti
 
-Vaiheet 0–5 ovat valmiit ilman tuotannon oletuspolun muutosta. Todellinen aineistoskeema, rakennusputki ja julkaisutapa on dokumentoitu; yksi PMTiles-arkisto, D1:n ominaisuus- ja sanahaut sekä OpenLayers-integraatio toimivat yhteisen Workerin preview- ja tuotantoympäristöissä feature flagin takana. Seuraava työpaketti on `updater`-moduulin Cloudflare Workflow- ja Container-toteutus, päivittäisen ajon seuranta sekä palautuspolun viimeistely. WMS säilyy tuotannon oletuksena siihen asti.
+Vaiheet 0–5 sekä `updater`-moduulin ensimmäinen toteutus ovat valmiit ilman
+tuotannon oletuspolun muutosta. Updaterissa on erillinen Worker, päivittäin klo
+01.30 UTC käynnistyvä production-Workflow, yhden `standard-3`-kontin raja,
+Bearer-suojattu manuaalikäynnistys ja tilakysely sekä monialustainen Dockerfile.
+Cloudflare rakentaa `linux/amd64`-imagen ja Apple Siliconilla sama putki toimii
+natiivina `linux/arm64`-imagena.
+
+Seuraava työpaketti on asettaa preview-secrets, deployata updater previewhin ja
+ajaa yksi kokonainen etäpäivitys. Sen jälkeen tarkistetaan Workflown ja kontin
+lokit, D1/R2-julkaisu sekä epäonnistuneen ajon palautuminen. Production-ajastus
+otetaan käyttöön vasta tämän kokeen jälkeen. WMS säilyy tuotannon oletuksena,
+kunnes automaattinen tuotantopäivitys on todettu luotettavaksi.

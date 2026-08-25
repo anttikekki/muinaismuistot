@@ -9,7 +9,7 @@ PMTILES="$PROJECT_DIR/data/tools/pmtiles"
 REPORT="$PROJECT_DIR/data/poc/tiling-budget-report.json"
 
 header="$("$PMTILES" show --header-json "$ARCHIVE")"
-archive_bytes="$(stat -f '%z' "$ARCHIVE")"
+archive_bytes="$(wc -c < "$ARCHIVE" | tr -d ' ')"
 zoom_zero_bytes="$("$PMTILES" tile "$ARCHIVE" 0 0 0 | wc -c | tr -d ' ')"
 minimum_zoom="$(jq -r '.minzoom' <<<"$header")"
 maximum_zoom="$(jq -r '.maxzoom' <<<"$header")"

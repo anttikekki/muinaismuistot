@@ -8,8 +8,8 @@ FID_ARCHIVE="$PROJECT_DIR/data/poc/museovirasto-poc-compact.pmtiles"
 REGISTRY_ARCHIVE="$PROJECT_DIR/data/poc/museovirasto-poc-registry.pmtiles"
 PMTILES="$PROJECT_DIR/data/tools/pmtiles"
 
-fid_bytes="$(stat -f '%z' "$FID_ARCHIVE")"
-registry_bytes="$(stat -f '%z' "$REGISTRY_ARCHIVE")"
+fid_bytes="$(wc -c < "$FID_ARCHIVE" | tr -d ' ')"
+registry_bytes="$(wc -c < "$REGISTRY_ARCHIVE" | tr -d ' ')"
 fid_z0="$("$PMTILES" tile "$FID_ARCHIVE" 0 0 0 | wc -c | tr -d ' ')"
 registry_z0="$("$PMTILES" tile "$REGISTRY_ARCHIVE" 0 0 0 | wc -c | tr -d ' ')"
 

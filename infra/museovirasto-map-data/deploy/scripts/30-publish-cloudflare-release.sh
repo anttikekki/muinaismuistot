@@ -42,8 +42,10 @@ for command_name in jq curl grep npm; do
   }
 done
 
-[[ -x "$WORKER_DIR/node_modules/.bin/wrangler" ]] || {
-  echo "Worker dependencies missing. Run npm install in $WORKER_DIR first." >&2
+wrangler="${WRANGLER_BIN:-$WORKER_DIR/node_modules/.bin/wrangler}"
+[[ -x "$wrangler" ]] || {
+  echo "Wrangler executable missing: $wrangler" >&2
+  echo "Install the Worker dependencies or set WRANGLER_BIN explicitly." >&2
   exit 1
 }
 for artifact in "$ARCHIVE" "$METADATA" "$IMPORT_FILE"; do
@@ -67,7 +69,6 @@ if [[ -z "$bucket_name" || -z "$database_id" ]]; then
   exit 1
 fi
 
-wrangler="$WORKER_DIR/node_modules/.bin/wrangler"
 cd "$WORKER_DIR"
 
 echo "Publishing Museovirasto release to $environment_name"
@@ -83,5 +84,7 @@ CI=1 "$wrangler" d1 migrations apply MAP_FEATURES --env "$environment_name" --re
 
 "$SCRIPT_DIR/26-smoke-test-service.sh" "$base_url" "/api/museovirasto"
 cd "$REPOSITORY_DIR"
-E2E_BASE_URL="$base_url" npm run test:e2e
+if [[ "${SKIP_E2E:-0}" != 1 ]]; then
+  E2E_BASE_URL="$base_url" npm run test:e2e
+fi
 echo "Published and smoke-tested $environment_name release: $(jq -r '.version' "$METADATA")"

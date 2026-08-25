@@ -1,0 +1,114 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "museovirasto-map-data-updater",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-25",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "TARGET_ENV": "preview",
+    "BASE_URL": "https://muinaismuistot-preview.antti-kekki.workers.dev"
+  },
+  "containers": [
+    {
+      "class_name": "MapDataUpdateContainer",
+      "image": "./Dockerfile",
+      "image_build_context": "../../",
+      "image_vars": { "TARGETARCH": "amd64" },
+      "max_instances": 1,
+      "instance_type": "standard-3",
+      "constraints": {
+        "jurisdiction": "eu",
+        "regions": ["EEUR", "WEUR"]
+      }
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "UPDATE_CONTAINER",
+        "class_name": "MapDataUpdateContainer"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["MapDataUpdateContainer"]
+    }
+  ],
+  "workflows": [
+    {
+      "name": "museovirasto-map-data-preview-update",
+      "binding": "UPDATE_WORKFLOW",
+      "class_name": "MapDataUpdateWorkflow"
+    }
+  ],
+  "env": {
+    "preview": {
+      "name": "museovirasto-map-data-updater-preview",
+      "workers_dev": true,
+      "observability": { "enabled": true, "head_sampling_rate": 1 },
+      "vars": {
+        "TARGET_ENV": "preview",
+        "BASE_URL": "https://muinaismuistot-preview.antti-kekki.workers.dev"
+      },
+      "containers": [
+        {
+          "class_name": "MapDataUpdateContainer",
+          "image": "./Dockerfile",
+          "image_build_context": "../../",
+          "image_vars": { "TARGETARCH": "amd64" },
+          "max_instances": 1,
+          "instance_type": "standard-3",
+          "constraints": { "jurisdiction": "eu", "regions": ["EEUR", "WEUR"] }
+        }
+      ],
+      "durable_objects": {
+        "bindings": [
+          { "name": "UPDATE_CONTAINER", "class_name": "MapDataUpdateContainer" }
+        ]
+      },
+      "workflows": [
+        {
+          "name": "museovirasto-map-data-preview-update",
+          "binding": "UPDATE_WORKFLOW",
+          "class_name": "MapDataUpdateWorkflow"
+        }
+      ]
+    },
+    "production": {
+      "name": "museovirasto-map-data-updater",
+      "workers_dev": false,
+      "preview_urls": false,
+      "observability": { "enabled": true, "head_sampling_rate": 1 },
+      "vars": {
+        "TARGET_ENV": "production",
+        "BASE_URL": "https://muinaismuistot.info"
+      },
+      "containers": [
+        {
+          "class_name": "MapDataUpdateContainer",
+          "image": "./Dockerfile",
+          "image_build_context": "../../",
+          "image_vars": { "TARGETARCH": "amd64" },
+          "max_instances": 1,
+          "instance_type": "standard-3",
+          "constraints": { "jurisdiction": "eu", "regions": ["EEUR", "WEUR"] }
+        }
+      ],
+      "durable_objects": {
+        "bindings": [
+          { "name": "UPDATE_CONTAINER", "class_name": "MapDataUpdateContainer" }
+        ]
+      },
+      "workflows": [
+        {
+          "name": "museovirasto-map-data-production-update",
+          "binding": "UPDATE_WORKFLOW",
+          "class_name": "MapDataUpdateWorkflow",
+          "schedules": ["30 1 * * *"]
+        }
+      ]
+    }
+  }
+}

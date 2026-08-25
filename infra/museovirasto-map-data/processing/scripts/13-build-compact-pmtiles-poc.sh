@@ -73,6 +73,6 @@ tippecanoe "${TIPPECANOE_OPTIONS[@]}" "${TIPPECANOE_INPUTS[@]}"
 
 echo "Built compact PMTiles PoC: $OUTPUT_FILE"
 if [[ -f "$BUILD_DIR/museovirasto-poc.pmtiles" ]]; then
-  echo "Baseline bytes: $(stat -f '%z' "$BUILD_DIR/museovirasto-poc.pmtiles")"
+  echo "Baseline bytes: $(wc -c < "$BUILD_DIR/museovirasto-poc.pmtiles" | tr -d ' ')"
 fi
-echo "Compact bytes:  $(stat -f '%z' "$OUTPUT_FILE")"
+echo "Compact bytes:  $(wc -c < "$OUTPUT_FILE" | tr -d ' ')"

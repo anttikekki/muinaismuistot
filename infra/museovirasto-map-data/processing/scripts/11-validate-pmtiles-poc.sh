@@ -99,7 +99,7 @@ done < <(
 
 echo "PMTiles PoC is structurally valid."
 echo "Archive: $ARCHIVE"
-echo "Archive bytes: $(stat -f '%z' "$ARCHIVE")"
+echo "Archive bytes: $(wc -c < "$ARCHIVE" | tr -d ' ')"
 echo "Source layers: $layer_count"
 echo "All point features retained at zoom 0: yes"
 if [[ "$(basename "$ARCHIVE")" == *compact* ]]; then
