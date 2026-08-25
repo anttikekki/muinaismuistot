@@ -1,7 +1,7 @@
 # Museoviraston karttadata
 
 Tämä hakemisto kokoaa karttadatan sopimukset, prosessoinnin, julkaisun,
-päivittäisen päivityksen orkestroinnin, PoC:n ja dokumentaation. Varsinainen
+päivittäisen päivityksen orkestroinnin ja dokumentaation. Varsinainen
 HTTP-palvelu on erillisessä hakemistossa
 [`../muinaismuistot-worker`](../muinaismuistot-worker/README.md).
 
@@ -13,14 +13,13 @@ HTTP-palvelu on erillisessä hakemistossa
 | [`processing/`](processing/README.md) | Lähdeaineiston lataus, validointi ja itsenäisten julkaisuartefaktien rakentaminen. |
 | [`deploy/`](deploy/README.md) | Valmiiden artefaktien julkaisu, smoke-testit ja palautusoperaatiot. |
 | [`updater/`](updater/README.md) | Ajastettu Cloudflare Workflow- ja Container-orkestrointi sekä paikallinen ARM64-ajo. |
-| [`poc/`](poc/README.md) | Tuotannosta irrallinen OpenLayers-, PMTiles-, R2- ja D1-koeympäristö. |
 | [`docs/`](docs/README.md) | Tietomalli-, inventaario-, suorituskyky- ja toteutussuunnitelmadokumentit. |
 | `data/` | Gitistä ohitettu yhteinen työ- ja artefaktihakemisto. |
 
 Riippuvuussuunta on yksisuuntainen: selain, Worker, prosessointi ja julkaisu
 saavat käyttää `contract`-moduulia; `updater` orkestroi `processing`- ja
-`deploy`-moduuleja. Prosessointi ei tunne Cloudflaren resursseja, julkaisu ei
-rakenna aineistoa eikä PoC ole tuotannon ajonaikainen riippuvuus.
+`deploy`-moduuleja. Prosessointi ei tunne Cloudflaren resursseja eikä julkaisu
+rakenna aineistoa. Jatkokehitys ja integraatiotestaus tehdään preview-ympäristössä.
 
 Rakennusputki kuvataan tiedostossa
 [`docs/BUILD_PIPELINE.md`](docs/BUILD_PIPELINE.md) ja kokonaisuuden eteneminen

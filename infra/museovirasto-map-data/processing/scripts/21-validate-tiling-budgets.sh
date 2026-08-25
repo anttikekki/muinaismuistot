@@ -4,9 +4,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 CONFIG="$PROJECT_DIR/processing/config/layers.json"
-ARCHIVE="$PROJECT_DIR/data/poc/museovirasto-poc-compact.pmtiles"
+ARCHIVE="$PROJECT_DIR/data/build/museovirasto.pmtiles"
 PMTILES="$PROJECT_DIR/data/tools/pmtiles"
-REPORT="$PROJECT_DIR/data/poc/tiling-budget-report.json"
+REPORT="$PROJECT_DIR/data/build/tiling-budget-report.json"
 
 header="$("$PMTILES" show --header-json "$ARCHIVE")"
 archive_bytes="$(wc -c < "$ARCHIVE" | tr -d ' ')"

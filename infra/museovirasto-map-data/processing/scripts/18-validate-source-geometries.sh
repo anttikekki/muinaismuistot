@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 DATA_DIR="$PROJECT_DIR/data/tutkija"
 CONFIG="$PROJECT_DIR/processing/config/layers.json"
-REPORT="$PROJECT_DIR/data/poc/source-geometry-report.json"
+REPORT="$PROJECT_DIR/data/build/source-geometry-report.json"
 REPORT_TMP="$REPORT.tmp"
 
 for command_name in jq ogrinfo; do

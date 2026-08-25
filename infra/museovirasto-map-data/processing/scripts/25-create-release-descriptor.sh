@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
-BUILD_DIR="$PROJECT_DIR/data/poc"
+BUILD_DIR="$PROJECT_DIR/data/build"
 BUILD_MANIFEST="$BUILD_DIR/build-manifest.json"
 OUTPUT="$BUILD_DIR/release-descriptor.json"
 CURRENT_METADATA="$BUILD_DIR/current-metadata.json"
@@ -17,7 +17,7 @@ done
 release_version="$(node "$SCRIPT_DIR/release-version.mjs")"
 version="$(jq -r '.version' <<<"$release_version")"
 published_at="$(jq -r '.publishedAt' <<<"$release_version")"
-pmtiles="$(jq -c '.artifacts[] | select(.path == "museovirasto-poc-compact.pmtiles")' "$BUILD_MANIFEST")"
+pmtiles="$(jq -c '.artifacts[] | select(.path == "museovirasto.pmtiles")' "$BUILD_MANIFEST")"
 d1="$(jq -c '.artifacts[] | select(.path == "feature-details.sql")' "$BUILD_MANIFEST")"
 vocabulary="$(jq -c '.artifacts[] | select(.path == "filter-vocabulary.json")' "$BUILD_MANIFEST")"
 source_last_modified=""
@@ -51,7 +51,7 @@ jq '{schemaVersion,version,publishedAt,sourceLastModified,sourceEtag,createdAt,s
   "$OUTPUT" > "$CURRENT_METADATA"
 
 [[ "$(jq -r '.version' "$OUTPUT")" == "$version" ]] || { echo "Release descriptor validation failed" >&2; exit 1; }
-[[ "$(jq -r '.artifacts.pmtiles.sha256' "$OUTPUT")" == "$(shasum -a 256 "$BUILD_DIR/museovirasto-poc-compact.pmtiles" | awk '{print $1}')" ]] || {
+[[ "$(jq -r '.artifacts.pmtiles.sha256' "$OUTPUT")" == "$(shasum -a 256 "$BUILD_DIR/museovirasto.pmtiles" | awk '{print $1}')" ]] || {
   echo "Release PMTiles digest differs from the built artifact" >&2; exit 1;
 }
 [[ "$(jq -r '.artifacts.d1Import.sha256' "$OUTPUT")" == "$(shasum -a 256 "$BUILD_DIR/feature-details.sql" | awk '{print $1}')" ]] || {

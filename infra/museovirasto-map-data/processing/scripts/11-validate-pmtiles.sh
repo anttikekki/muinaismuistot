@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
-ARCHIVE="${1:-$PROJECT_DIR/data/poc/museovirasto-poc.pmtiles}"
+ARCHIVE="${1:-$PROJECT_DIR/data/build/museovirasto.pmtiles}"
 PMTILES="${PMTILES:-$PROJECT_DIR/data/tools/pmtiles}"
 MAPPING_FILE="$PROJECT_DIR/contract/layer-mapping.json"
 
@@ -39,7 +39,7 @@ layer_count="$(jq -r '.tilestats.layerCount' <<<"$metadata")"
   exit 1
 }
 
-if [[ "$(basename "$ARCHIVE")" == *compact* ]]; then
+if [[ "$(basename "$ARCHIVE")" == "museovirasto.pmtiles" ]]; then
   actual_fields="$(jq -S -c '[.vector_layers[] | {key: .id, value: .fields}] | from_entries' <<<"$metadata")"
   expected_fields="$(jq -n -S -c --argjson layers "$expected_layers" '
     reduce $layers[] as $layer ({}; .[$layer] = {})
@@ -97,12 +97,12 @@ done < <(
   ' "$MAPPING_FILE"
 )
 
-echo "PMTiles PoC is structurally valid."
+echo "PMTiles archive is structurally valid."
 echo "Archive: $ARCHIVE"
 echo "Archive bytes: $(wc -c < "$ARCHIVE" | tr -d ' ')"
 echo "Source layers: $layer_count"
 echo "All point features retained at zoom 0: yes"
-if [[ "$(basename "$ARCHIVE")" == *compact* ]]; then
+if [[ "$(basename "$ARCHIVE")" == "museovirasto.pmtiles" ]]; then
   echo "Compact field schema: valid"
   echo "All area layers represented by centroids at zoom 0: yes"
 fi

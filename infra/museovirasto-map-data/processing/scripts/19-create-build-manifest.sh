@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 DATA_DIR="$PROJECT_DIR/data/tutkija"
-BUILD_DIR="$PROJECT_DIR/data/poc"
+BUILD_DIR="$PROJECT_DIR/data/build"
 CONFIG="$PROJECT_DIR/processing/config/layers.json"
 MANIFEST="$BUILD_DIR/build-manifest.json"
 MANIFEST_TMP="$MANIFEST.tmp"
@@ -21,7 +21,7 @@ while IFS= read -r file_name; do
 done < <(jq -r '[.layers[].geoPackageFile] | unique | sort[]' "$CONFIG")
 
 artifacts="$(jq -cn \
-  --argjson pmtiles "$(file_entry "$BUILD_DIR/museovirasto-poc-compact.pmtiles" "museovirasto-poc-compact.pmtiles")" \
+  --argjson pmtiles "$(file_entry "$BUILD_DIR/museovirasto.pmtiles" "museovirasto.pmtiles")" \
   --argjson vocabulary "$(file_entry "$PROJECT_DIR/contract/filter-vocabulary.json" "filter-vocabulary.json")" \
   --argjson d1 "$(file_entry "$BUILD_DIR/feature-details.sql" "feature-details.sql")" \
   --argjson d1Report "$(file_entry "$BUILD_DIR/feature-details-report.json" "feature-details-report.json")" \

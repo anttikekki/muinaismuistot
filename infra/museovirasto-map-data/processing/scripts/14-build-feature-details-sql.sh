@@ -4,10 +4,10 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 DATA_DIR="$PROJECT_DIR/data/tutkija"
-BUILD_DIR="$PROJECT_DIR/data/poc/feature-details"
-OUTPUT_FILE="$PROJECT_DIR/data/poc/feature-details.sql"
-REPORT_FILE="$PROJECT_DIR/data/poc/feature-details-report.json"
-POC_CONFIG="$PROJECT_DIR/processing/config/layers.json"
+BUILD_DIR="$PROJECT_DIR/data/build/feature-details"
+OUTPUT_FILE="$PROJECT_DIR/data/build/feature-details.sql"
+REPORT_FILE="$PROJECT_DIR/data/build/feature-details-report.json"
+CONFIG="$PROJECT_DIR/processing/config/layers.json"
 MAPPING_FILE="$PROJECT_DIR/contract/layer-mapping.json"
 TRANSFORMER="$SCRIPT_DIR/compact-filter-data.mjs"
 
@@ -43,7 +43,7 @@ while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries
     '{id:$id,sourceRows:$sourceRows,excludedNullGeometries:$excludedNullGeometries,d1Rows:$d1Rows}')"
   layers="$(jq -c --argjson layer "$layer_report" '. + [$layer]' <<<"$layers")"
   sed -n '1,$p' "$layer_sql" >> "$OUTPUT_FILE"
-done < <(jq -r '.layers[] | [.id, .geoPackageFile, .geoPackageLayer, (.excludedNullGeometries // 0), 0, (.sql | @base64)] | @tsv' "$POC_CONFIG")
+done < <(jq -r '.layers[] | [.id, .geoPackageFile, .geoPackageLayer, (.excludedNullGeometries // 0), 0, (.sql | @base64)] | @tsv' "$CONFIG")
 
 jq -n --argjson sourceRows "$source_total_count" --argjson d1Rows "$total_count" --argjson layers "$layers" \
   '{schemaVersion:2,status:"ok",sourceRows:$sourceRows,d1Rows:$d1Rows,geometryCrs:"EPSG:3067",layers:$layers}' > "$REPORT_FILE"

@@ -3,12 +3,12 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
-ARCHIVE="${1:-$PROJECT_DIR/data/poc/museovirasto-poc-compact.pmtiles}"
-D1_LAYER_DIR="${2:-$PROJECT_DIR/data/poc/feature-details}"
-D1_REPORT="${3:-$PROJECT_DIR/data/poc/feature-details-report.json}"
-PMTILES_INPUT_DIR="$PROJECT_DIR/data/poc/compact-intermediate"
+ARCHIVE="${1:-$PROJECT_DIR/data/build/museovirasto.pmtiles}"
+D1_LAYER_DIR="${2:-$PROJECT_DIR/data/build/feature-details}"
+D1_REPORT="${3:-$PROJECT_DIR/data/build/feature-details-report.json}"
+PMTILES_INPUT_DIR="$PROJECT_DIR/data/build/compact-intermediate"
 CONFIG="$PROJECT_DIR/processing/config/layers.json"
-OUTPUT="$PROJECT_DIR/data/poc/pmtiles-d1-identity-report.json"
+OUTPUT="$PROJECT_DIR/data/build/pmtiles-d1-identity-report.json"
 
 for command_name in diff jq rg sort tippecanoe-decode; do
   command -v "$command_name" >/dev/null 2>&1 || { echo "Required command not found: $command_name" >&2; exit 1; }

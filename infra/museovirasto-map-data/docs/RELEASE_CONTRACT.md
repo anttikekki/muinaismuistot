@@ -44,6 +44,6 @@ R2:n ja D1:n vaihtoa ei yritetä tehdä hajautettuna atomisena operaationa eikä
 
 `current.pmtiles` voi vaihtua kerran päivässä, joten sitä ei merkitä `immutable`-sisällöksi. Worker palauttaa sille lyhyen välimuistiajan. PMTiles-lukija tekee Range-pyynnöt suoraan ilman ensin tehtävää `/api/museovirasto/meta`-pyyntöä. Aikaleimalliset palautusobjektit ovat muuttumattomia, jos niitä myöhemmin tarjotaan erillisestä ylläpito- tai vianmääritysreitistä.
 
-## Paikallinen PoC
+## Preview-validointi
 
-`processing/scripts/25-create-release-descriptor.sh` tuottaa `release-descriptor.json`- ja `current-metadata.json`-tiedostot. Paikallinen R2-siemennys kirjoittaa `current.pmtiles`- ja `current.json`-objektit. D1-siemennys tyhjentää ja täyttää yhden `feature_details`-taulun transaktion sisällä. PoC ei muuta ulkoista Cloudflare-ympäristöä.
+`processing/scripts/25-create-release-descriptor.sh` tuottaa `release-descriptor.json`- ja `current-metadata.json`-tiedostot. Valmiit artefaktit julkaistaan ensin preview-ympäristöön, jossa R2-, D1-, API- ja selainintegraatio validoidaan ennen production-julkaisua.

@@ -7,7 +7,7 @@ TOOLS_DIR="$PROJECT_DIR/data/tools"
 VERSION="1.31.2"
 
 [[ "$(uname -s)" == "Darwin" && "$(uname -m)" == "arm64" ]] || {
-  echo "This PoC downloader currently supports macOS arm64 only." >&2
+  echo "This downloader currently supports macOS arm64 only." >&2
   exit 1
 }
 

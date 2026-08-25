@@ -33,10 +33,10 @@ fi
 
 if [[ -n "${OUTPUT_DIR:-}" ]]; then
   mkdir -p "$OUTPUT_DIR"
-  cp "$project_dir/data/poc/museovirasto-poc-compact.pmtiles" \
-    "$project_dir/data/poc/feature-details.sql" \
-    "$project_dir/data/poc/build-manifest.json" \
-    "$project_dir/data/poc/release-descriptor.json" \
-    "$project_dir/data/poc/current-metadata.json" \
+  cp "$project_dir/data/build/museovirasto.pmtiles" \
+    "$project_dir/data/build/feature-details.sql" \
+    "$project_dir/data/build/build-manifest.json" \
+    "$project_dir/data/build/release-descriptor.json" \
+    "$project_dir/data/build/current-metadata.json" \
     "$OUTPUT_DIR/"
 fi

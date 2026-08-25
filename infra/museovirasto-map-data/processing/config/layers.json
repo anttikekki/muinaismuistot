@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "description": "Phase 1 PoC projection from the 12 GeoPackage layers to normalized MVT attributes.",
+  "description": "Production projection from the 12 GeoPackage layers to normalized MVT attributes.",
   "filterVocabularySource": {
     "geoPackageFile": "arkeologiset_kohteet_piste_t.gpkg",
     "geoPackageLayer": "arkeologiset_kohteet_piste_t"

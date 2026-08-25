@@ -55,7 +55,7 @@ createServer(async (request, response) => {
     const result = await runUpdate(environment, mode)
     let version
     try {
-      const metadata = JSON.parse(await readFile("/workspace/infra/museovirasto-map-data/data/poc/current-metadata.json", "utf8"))
+      const metadata = JSON.parse(await readFile("/workspace/infra/museovirasto-map-data/data/build/current-metadata.json", "utf8"))
       version = metadata.version
     } catch {}
     const body = { ok: result.code === 0, startedAt, finishedAt: new Date().toISOString(), version, ...result }

@@ -22,6 +22,24 @@ Wranglerille on asetettu eksplisiittisesti `TARGETARCH=amd64`. Paikallinen
 build-skripti johtaa arvon `PLATFORM`-muuttujasta, joten se toimii myös vanhalla
 Docker-builderilla ilman BuildKitin automaattisia arkkitehtuurimuuttujia.
 
+## Riippuvuudet ja asennus
+
+Updater käyttää ajonaikaisesti `processing`- ja `deploy`-moduuleja sekä niiden
+yhteistä `contract`-skeemaa. Docker-image kopioi moduulit sisäänsä, joten
+isäntäkoneelle ei tarvitse asentaa GDALia tai Tippecanoeta updaterin paikallista
+konttitestiä varten. Isäntäkone tarvitsee Node.js:n, npm:n, Dockerin ja
+monialustaisiin buildeihin Docker Buildxin.
+
+```bash
+cd infra/museovirasto-map-data/updater
+npm ci
+npm run typecheck
+npm test
+```
+
+Cloudflare-julkaisu käyttää moduulin lukittua Wrangler-versiota. Paikallinen
+image tarvitsee lisäksi käynnissä olevan Docker-enginen.
+
 ## Paikallinen ARM64-testi
 
 Imagen rakentaminen M1/M2/M3/M4-Macilla:
@@ -136,5 +154,3 @@ tehdään vasta onnistuneen preview-ajon jälkeen.
 - Pää-Workerista kopioidaan imageen vain R2- ja D1-resurssit määrittelevä
   `wrangler.jsonc`. Julkaisu käyttää updaterin omaa lukittua Wrangler-asennusta,
   eikä kontti asenna pää-Workerin npm-riippuvuuksia tai sisällä sen lähdekoodia.
-- PoC:n npm-riippuvuuksia tai selain-/Worker-tyyppitarkistuksia ei asenneta eikä
-  ajeta päivittäisessä kontissa. Ne kuuluvat sovelluksen omaan CI-testaukseen.

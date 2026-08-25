@@ -2,12 +2,8 @@
 
 Vaiheen 2 rakennusajo tehdään paikallisesti ilman konttia. Lukitut työkalut ovat tiedostossa `processing/config/build-tool-versions.json`; `processing/scripts/16-verify-build-tools.sh` keskeyttää ajon, jos yksikin versio poikkeaa.
 
-Node-riippuvuudet asennetaan lukitusta `poc/package-lock.json`-tiedostosta:
-
-```bash
-cd infra/museovirasto-map-data/poc
-npm ci
-```
+Processingin Node-skriptit käyttävät vain Node.js:n vakiokirjastoa, joten
+moduulilla ei ole erillistä npm-asennusta.
 
 PMTiles CLI asennetaan version lukitsevalla latausskriptillä:
 
@@ -35,11 +31,11 @@ Yhteisajo:
 8. vertaa kaikki PMTiles-rakennussyötteen `source-layer + fid` -avaimet D1-tuontiin ja varmistaa, että jokaiselle zoomin 0 PMTiles-featurelle löytyy D1-rivi;
 9. muodostaa lähde- ja artefaktitiivisteet sisältävän rakennusmanifestin ilman kovakoodattuja aineistorivimääriä;
 10. muodostaa sisältötiivisteeseen perustuvan muuttumattoman julkaisutunnisteen ja julkaisudeskriptorin;
-11. ajaa Worker- ja selainkoodin TypeScript-tarkistuksen sekä rakennusmuunnosten testit.
+11. ajaa rakennusmuunnosten testit.
 
-Tuotokset kirjoitetaan gitistä ohitettuun `data/poc`-hakemistoon:
+Tuotokset kirjoitetaan gitistä ohitettuun `data/build`-hakemistoon:
 
-- `museovirasto-poc-compact.pmtiles`
+- `museovirasto.pmtiles`
 - `contract/filter-vocabulary.json` (versionhallittu ja selainrakennukseen sisältyvä koodisto)
 - `feature-details.sql`
 - `feature-details-report.json`
@@ -63,12 +59,8 @@ UTC-aikaleimaversio, aktiiviset vakioavaimet, palautusavaimet ja yöllinen käyt
 
 Zoomit, keskipiste-/polygoniraja, Tippecanoen harvennus- ja kokorajoitusten käyttö sekä kokobudjetit ovat `processing/config/layers.json`-tiedoston `tiling`- ja `budgets`-osissa. Rakennus estyy, jos arkisto ylittää 75 000 000 tavua, zoomin 0 pakkaamaton MVT-tiili ylittää 1 500 000 tavua tai arkiston zoomialue poikkeaa asetuksesta 0–14. Koko Suomen selainbudjetti, enintään 8 Range-pyyntöä ja 2 000 000 vastaustavua, validoidaan erillisessä Chrome-mittauksessa eikä staattisesta arkistosta.
 
-Paikallisen R2- ja D1-simulaation siementäminen jätetään tarkoituksella erillisiksi komennoiksi, koska se muuttaa Wranglerin paikallista ajonaikaista tilaa:
-
-```bash
-infra/museovirasto-map-data/poc/scripts/12-seed-local-r2-poc.sh
-infra/museovirasto-map-data/poc/scripts/15-seed-local-d1-poc.sh
-```
+Paikallista R2/D1-PoC-ympäristöä ei enää ylläpidetä. Integraatiotestaus tehdään
+preview-ympäristössä ennen production-julkaisua.
 
 Kun Worker on deployattu ja Cloudflare-resurssit on provisioitu valittuun ympäristöön, samat aktiiviset artefaktit julkaistaan etäympäristöön näin:
 

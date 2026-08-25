@@ -2,7 +2,7 @@
 
 ## Tarkoitus ja rajaus
 
-Tämä dokumentti kuvaa 23.8.2026 rakennetun kompaktin PMTiles-PoC-arkiston toteutuneen MVT-skeeman kenttäkohtaisesti. Se erottaa nykyisen kompaktin skeeman sitä edeltäneestä leveästä vertailuskeemasta sekä kirjaa vielä avoimet tuotantotietomallin päätökset. Tiilissä pidetään vain kartan piirtämiseen, dynaamisiin tasovalintoihin ja arkeologisten pisteiden suodatukseen tarvittava tieto.
+Tämä dokumentti kuvaa tuotannon kompaktin PMTiles-arkiston toteutuneen MVT-skeeman kenttäkohtaisesti. Se erottaa nykyisen kompaktin skeeman sitä edeltäneestä leveästä vertailuskeemasta. Tiilissä pidetään vain kartan piirtämiseen, dynaamisiin tasovalintoihin ja arkeologisten pisteiden suodatukseen tarvittava tieto.
 
 Kohdepaneelin näyttötiedot, sanahaku ja laajat raakakentät eivät lähtökohtaisesti kuulu MVT-tiiliin. Ne on tarkoitus palauttaa suppeasta hakuaineistosta tai valitun kohteen ominaisuustieto-endpointista. Rajaus perustuu tiedostossa [`FIELD_CONTRACT.md`](FIELD_CONTRACT.md) kuvattuun käyttöliittymän kenttäsopimukseen.
 
@@ -11,7 +11,7 @@ Toteutunut skeema on tarkistettu komennolla:
 ```bash
 infra/museovirasto-map-data/data/tools/pmtiles show \
   --metadata \
-  infra/museovirasto-map-data/data/poc/museovirasto-poc-compact.pmtiles
+  infra/museovirasto-map-data/data/build/museovirasto.pmtiles
 ```
 
 Arkistossa on 12 MVT `source-layer` -tasoa. `laji_key`, `type_mask` ja `dating_mask` ovat MVT-metadatan mukaan numeroita; `subtype_codes` on merkkijono. Geometria ja MVT-feature-ID eivät näy `vector_layers.fields`-luettelossa.
@@ -125,7 +125,7 @@ PMTiles-hakemisto ja MVT:n tiilikohtaiset yhteiset taulut vähentävät toistoa,
 
 ## Esimerkkifeaturet fyysisittäin tasoittain
 
-Seuraavat arvot on poimittu 23.8.2026 rakennetun `museovirasto-poc-compact.pmtiles`-arkiston dekoodatusta zoomin 0 tiilestä komennolla `poc/scripts/23-extract-pmtiles-feature-examples.sh`. Skripti kirjoittaa kaikki 12 otosta tiedostoon `data/poc/pmtiles-feature-examples.json` ja varmistaa tasomäärän. Arvot eivät ole pääteltyjä esimerkkiarvoja. `sourceLayer` lisätään esitykseen dekoodatun MVT-layerin nimestä; `id`, geometrialaji ja `properties` ovat valitun todellisen MVT-featuren tietoja. Koordinaatit jätetään dokumentista pois.
+Seuraavat arvot poimittiin 23.8.2026 rakennetun arkiston dekoodatusta zoomin 0 tiilestä. Kertaluonteinen poimintaskripti poistettiin PoC-moduulin mukana, mutta tulokset säilytetään todellisen aineiston esimerkkeinä. `sourceLayer` lisättiin esitykseen dekoodatun MVT-layerin nimestä; `id`, geometrialaji ja `properties` ovat valitun todellisen MVT-featuren tietoja. Koordinaatit jätetään dokumentista pois.
 
 ### Arkeologiset pääkohteet
 

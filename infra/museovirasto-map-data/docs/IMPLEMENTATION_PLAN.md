@@ -31,8 +31,8 @@ Ratkaisun osat ovat:
 
 Repositoriossa vastuut on erotettu moduuleihin: `contract` sisältää jaetut
 taso-, koodisto- ja D1-sopimukset, `processing` rakentaa artefaktit, `deploy`
-julkaisee valmiin releasen, `updater` orkestroi ajastetun Cloudflare-ajon ja
-`poc` säilyy tuotannosta irrallisena koeympäristönä. Pää-Worker on erikseen
+julkaisee valmiin releasen ja `updater` orkestroi ajastetun Cloudflare-ajon.
+Paikallinen PoC poistettiin tuotantointegraation valmistuttua. Pää-Worker on erikseen
 hakemistossa `infra/muinaismuistot-worker` ja sisältää vain ajonaikaisen
 HTTP-palvelun.
 
@@ -323,8 +323,8 @@ Bearer-suojattu manuaalikäynnistys ja tilakysely sekä monialustainen Dockerfil
 Cloudflare rakentaa `linux/amd64`-imagen ja Apple Siliconilla sama putki toimii
 natiivina `linux/arm64`-imagena.
 
-Seuraava työpaketti on asettaa preview-secrets, deployata updater previewhin ja
-ajaa yksi kokonainen etäpäivitys. Sen jälkeen tarkistetaan Workflown ja kontin
-lokit, D1/R2-julkaisu sekä epäonnistuneen ajon palautuminen. Production-ajastus
-otetaan käyttöön vasta tämän kokeen jälkeen. WMS säilyy tuotannon oletuksena,
-kunnes automaattinen tuotantopäivitys on todettu luotettavaksi.
+Preview-päivitys on hyväksytty ja production-ajastus on julkaistu. Seuraava
+työpaketti on tarkistaa ensimmäisen ajastetun production-ajon Workflow- ja
+konttilokit, D1/R2-julkaisu, API-smoke-testit ja lähdeaineiston tuoreustarkistus.
+WMS säilyy tuotannon oletuksena, kunnes automaattinen tuotantopäivitys on todettu
+luotettavaksi.

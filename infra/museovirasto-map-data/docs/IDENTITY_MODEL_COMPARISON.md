@@ -8,10 +8,10 @@ Tuotantomallin lähtökohdaksi jää MVT-feature-ID:nä tallennettava GeoPackage
 
 ## Toistettava arkistovertailu
 
-Vertailu rakennetaan komennolla:
+Vertailu rakennettiin kertaluonteisella PoC-skriptillä, joka on sittemmin poistettu:
 
 ```bash
-infra/museovirasto-map-data/poc/scripts/22-build-registry-id-comparison.sh
+# Historiallinen PoC-komento poistettu
 ```
 
 Molemmat arkistot rakennettiin samasta tuotantoaineistosta ja samoilla Tippecanoe-asetuksilla. Ainoa tietomalliero oli tunniste: fid-mallissa numeerinen arvo asetettiin MVT-feature-ID:ksi, registry-mallissa ID jätettiin pois ja rekisteritunnus tallennettiin MVT-ominaisuudeksi. Taulukon luvut ovat ennen `laji_key`-kentän myöhempää numerokoodausta tehtyä tunnistevertailua; molemmat vertailuarkistot käyttivät silloin samaa merkkijonoista lajikenttää, joten muutos ei vääristä niiden keskinäistä tulosta.

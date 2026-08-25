@@ -1,12 +1,12 @@
 # Paikallisen PMTiles-PoC:n selainmittaus
 
-Mittaus ajetaan irralliselle OpenLayers-PoC:lle komennolla:
+> Historiallinen mittaus. Paikallinen PoC-ajuri on poistettu; uudet mittaukset
+> ja regressiot ajetaan varsinaisessa sovelluksessa preview-ympäristössä.
+
+Mittaus ajettiin irrallisella OpenLayers-PoC:lla. Sen komennot eivät ole enää käytössä:
 
 ```bash
-cd infra/museovirasto-map-data/poc
-npm run dev
-# toisessa terminaalissa
-npm run measure:browser
+# Historiallinen PoC-komento poistettu
 ```
 
 Ajuri käynnistää jokaiselle näkymälle uuden välimuistittoman headless Chrome -profiilin ja odottaa OpenLayersin omaa `benchmarkReady`-signaalia. Testikone oli Apple MacBook Pro M1 Max. Arkisto oli 63 451 059 tavun numeerista `laji_key`-koodia käyttävä `fid`-versio paikallisessa Wrangler R2 -simulaatiossa.

@@ -3,9 +3,9 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
-ARCHIVE="$PROJECT_DIR/data/poc/museovirasto-poc-compact.pmtiles"
+ARCHIVE="$PROJECT_DIR/data/build/museovirasto.pmtiles"
 
-mkdir -p "$PROJECT_DIR/data/poc"
+mkdir -p "$PROJECT_DIR/data/build"
 
 run_step() {
   local description="$1"
@@ -20,8 +20,8 @@ run_step "Validate layer mapping" "$SCRIPT_DIR/05-validate-layer-mapping.sh"
 run_step "Validate source field contract" "$SCRIPT_DIR/07-validate-field-contract.sh"
 run_step "Validate source geometries" "$SCRIPT_DIR/18-validate-source-geometries.sh"
 run_step "Compare source with versioned baseline" "$SCRIPT_DIR/20-compare-source-baseline.sh"
-run_step "Build compact PMTiles" "$SCRIPT_DIR/13-build-compact-pmtiles-poc.sh"
-run_step "Validate compact PMTiles" "$SCRIPT_DIR/11-validate-pmtiles-poc.sh" "$ARCHIVE"
+run_step "Build compact PMTiles" "$SCRIPT_DIR/13-build-pmtiles.sh"
+run_step "Validate compact PMTiles" "$SCRIPT_DIR/11-validate-pmtiles.sh" "$ARCHIVE"
 run_step "Validate zoom and tile budgets" "$SCRIPT_DIR/21-validate-tiling-budgets.sh"
 run_step "Build D1 feature import" "$SCRIPT_DIR/14-build-feature-details-sql.sh"
 run_step "Validate PMTiles and D1 identities" "$SCRIPT_DIR/24-validate-pmtiles-d1-identities.sh"
@@ -32,4 +32,4 @@ run_step "Test build transformations" node --test "$SCRIPT_DIR"/*.test.mjs
 echo
 echo "Release artifacts built and validated."
 echo "PMTiles: $ARCHIVE"
-echo "D1 SQL:   $PROJECT_DIR/data/poc/feature-details.sql"
+echo "D1 SQL:   $PROJECT_DIR/data/build/feature-details.sql"

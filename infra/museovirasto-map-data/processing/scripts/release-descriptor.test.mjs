@@ -6,9 +6,9 @@ import test from "node:test"
 
 const project = resolve(import.meta.dirname, "../..")
 const script = resolve(project, "processing/scripts/25-create-release-descriptor.sh")
-const descriptorPath = resolve(project, "data/poc/release-descriptor.json")
-const metadataPath = resolve(project, "data/poc/current-metadata.json")
-const buildManifestPath = resolve(project, "data/poc/build-manifest.json")
+const descriptorPath = resolve(project, "data/build/release-descriptor.json")
+const metadataPath = resolve(project, "data/build/current-metadata.json")
+const buildManifestPath = resolve(project, "data/build/build-manifest.json")
 
 function buildDescriptor() {
   const result = spawnSync(script, [], { cwd: project, encoding: "utf8" })

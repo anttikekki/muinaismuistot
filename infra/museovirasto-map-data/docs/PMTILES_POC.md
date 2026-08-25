@@ -1,5 +1,8 @@
 # PMTiles proof of concept
 
+> Historiallinen dokumentti. Paikallinen PoC-moduuli ja sen artefaktit on
+> poistettu; jatkokehitys ja testaus tehdään preview-ympäristössä.
+
 Arkiston nykyinen ja tavoiteltu kenttäkohtainen tietomalli on dokumentoitu tiedostossa [`PMTILES_DATA_MODEL.md`](PMTILES_DATA_MODEL.md).
 
 ## Ensimmäinen rakennettu arkisto
@@ -18,7 +21,7 @@ Ensimmäisen, myöhemmin liian harvaksi todetun ajon tulos:
 - yksilöllisiä tiilisisältöjä: 127 163
 - aineiston rajaus: 19.612325, 59.601162 – 31.579558, 70.075755
 
-Arkisto on paikallinen, Gitistä pois rajattu PoC-artefakti: `data/poc/museovirasto-poc.pmtiles`.
+Arkisto oli paikallinen, Gitistä pois rajattu koe-artefakti. Nykyinen tuotantorakennus kirjoittaa arkiston polkuun `data/build/museovirasto.pmtiles`.
 
 Harvennusasetusten poistamisen jälkeen rakennettu suorituskykyarkisto on 138 301 298 tavua (noin 131,9 MiB). Se sisältää 129 014 osoitettua tiiltä ja 127 187 yksilöllistä tiilisisältöä. Zoomin 0 yksittäisen, koko maailman kattavan tiilen pakkaamaton MVT-vastaus on 3 163 953 tavua.
 
@@ -43,8 +46,8 @@ PoC käyttää paikallisia Homebrew-asennuksia, ei konttia. Ensimmäinen ajo teh
 brew install gdal tippecanoe jq
 infra/museovirasto-map-data/processing/scripts/09-download-pmtiles-cli.sh
 infra/museovirasto-map-data/processing/scripts/10-build-pmtiles-poc.sh
-infra/museovirasto-map-data/processing/scripts/11-validate-pmtiles-poc.sh
-infra/museovirasto-map-data/processing/scripts/13-build-compact-pmtiles-poc.sh
+infra/museovirasto-map-data/processing/scripts/11-validate-pmtiles.sh
+infra/museovirasto-map-data/processing/scripts/13-build-pmtiles.sh
 ```
 
 Kenttäprojektiot ja lähdetasot ovat tiedostossa `processing/config/layers.json`. Rakennusskripti tarkistaa niiden vastaavan `layer-mapping.json`-tiedostoa ja vertaa jokaisen välivaiheen tietuemäärää lähdeaineistoon.
@@ -62,7 +65,7 @@ Seuraava vaihe 1:n tehtävä on avata arkisto OpenLayersissa paikallisesti, tote
 
 ## Paikallinen Worker- ja OpenLayers-koe
 
-Arkistolle on toteutettu muinaismuistot.info-sovelluksesta irrallinen paikallinen PoC hakemistoon [`poc/`](poc/README.md). Wrangler ajaa Workerin paikallisesti ja säilyttää koko PMTiles-arkiston simuloidussa R2-bucketissa. Worker ei palauta koko arkistoa, vaan vaatii yhden kelvollisen byte range -pyynnön, tarkistaa sen objektin kokoa vasten ja lukee R2-bindingista vain sovitun välin.
+Arkistolle toteutettiin muinaismuistot.info-sovelluksesta irrallinen paikallinen PoC. Koeympäristö poistettiin tuotantointegraation valmistuttua.
 
 Cloudflaren Workers Vitest -integraation 15 testiä varmistavat Range-, virhe-, CORS- ja metadata-vastaukset paikallista R2-bindingia vasten. OpenLayers-sivu käyttää yhtä `PMTilesVectorSource`-oliota ja hakee 26 loogisen tason määrittelyn suoraan versionhallituista `layer-mapping.json`-tiedoista Workerin API:n kautta. Checkboxit muuttavat saman vektoritiililayerin tyylisuodatusta, eivät tietolähdettä.
 
@@ -106,7 +109,7 @@ Rinnakkainen kompakti arkisto säilyttää samat 12 lähdetasoa, kaikki featuret
 
 Arkisto pieneni 138 301 298 tavusta 54 762 752 tavuun eli noin 60,4 prosenttia ilman kohteiden harvennusta. Rakennus ja validointi vahvistivat kaikki 12 lähdetasoa sekä kaikkien pistetasojen täydet määrät zoomilla 0. Pronssikautisten hautaröykkiöiden tarkistus tuotti kompaktista arkistosta samat 1 467 osumaa kuin lähde-GeoPackage ja leveä arkisto.
 
-Kompakti arkisto rakennetaan komennolla `processing/scripts/13-build-compact-pmtiles-poc.sh`. Versionoitu `contract/filter-vocabulary.json` sisältää lajin numerokoodit, tyyppi- ja ajoitusmaskien bittijärjestyksen sekä alatyyppikoodit. Rakennus keskeytyy, jos lähdearvoa ei voida esittää koodistolla. Sanaston tiiviste tallennetaan rakennusmanifestiin, ja selain käyttää samaa tiedostoa. `npm run seed` käyttää kompaktia arkistoa oletuksena.
+Kompakti arkisto rakennetaan nykyisin komennolla `processing/scripts/13-build-pmtiles.sh`. Versionoitu `contract/filter-vocabulary.json` sisältää lajin numerokoodit, tyyppi- ja ajoitusmaskien bittijärjestyksen sekä alatyyppikoodit. Rakennus keskeytyy, jos lähdearvoa ei voida esittää koodistolla. Sanaston tiiviste tallennetaan rakennusmanifestiin, ja selain käyttää samaa tiedostoa.
 
 Kompaktin arkiston ensimmäinen koko Suomen selainmittaus tuotti seuraavat luvut:
 

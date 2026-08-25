@@ -7,8 +7,8 @@ DATA_DIR="$PROJECT_DIR/data/tutkija"
 CONFIG="$PROJECT_DIR/processing/config/layers.json"
 BASELINE="$PROJECT_DIR/processing/config/source-data-baseline.json"
 VOCABULARY_BASELINE="$PROJECT_DIR/contract/filter-vocabulary.json"
-CURRENT_VOCABULARY="$PROJECT_DIR/data/poc/current-filter-vocabulary.json"
-REPORT="$PROJECT_DIR/data/poc/source-baseline-report.json"
+CURRENT_VOCABULARY="$PROJECT_DIR/data/build/current-filter-vocabulary.json"
+REPORT="$PROJECT_DIR/data/build/source-baseline-report.json"
 
 warning_percent="$(jq -r '.countWarningPercent' "$BASELINE")"
 layers='[]'
