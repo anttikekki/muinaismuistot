@@ -15,6 +15,7 @@ import {
   MuseovirastoFeature,
   MuseovirastoFeatureInfoResult
 } from "../../common/museovirasto.types"
+import { MuseovirastoLayer } from "../../common/layers.types"
 import type { ShowLoadingAnimationFn } from "./MuseovirastoTileLayer"
 import {
   FeatureBatchResult,
@@ -342,17 +343,22 @@ export default class MuseovirastoVectorTileLayer {
     settings: Settings,
     signal?: AbortSignal
   ): Promise<MuseovirastoFeatureInfoResult> => {
-    if (
-      !settings.museovirasto.enabled ||
-      settings.museovirasto.selectedLayers.length === 0
-    ) {
+    if (!settings.museovirasto.enabled) {
+      return { type: "FeatureCollection", features: [] }
+    }
+    // Muinaisjäännösalueella on sama nimi kuin sitä edustavalla pääpisteellä.
+    // Nykyinen WMS-haku jättää alueet pois, jotta sanahaku ei näytä duplikaatteja.
+    const searchableLayers = settings.museovirasto.selectedLayers.filter(
+      (layer) => layer !== MuseovirastoLayer.Muinaisjaannokset_alue
+    )
+    if (searchableLayers.length === 0) {
       return { type: "FeatureCollection", features: [] }
     }
     const url = new URL(this.searchUrl)
     url.searchParams.set("q", searchText.trim())
     url.searchParams.set(
       "layers",
-      settings.museovirasto.selectedLayers.join(",")
+      searchableLayers.join(",")
     )
     const response = await fetch(url, { signal })
     if (!response.ok) {
