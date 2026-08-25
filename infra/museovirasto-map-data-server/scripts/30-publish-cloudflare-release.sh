@@ -35,7 +35,7 @@ if [[ "$environment_name" == "production" && "$confirmation" != "--confirm-produ
   exit 2
 fi
 
-for command_name in jq curl grep; do
+for command_name in jq curl grep npm; do
   command -v "$command_name" >/dev/null 2>&1 || {
     echo "Required command not found: $command_name" >&2
     exit 1
@@ -82,4 +82,6 @@ CI=1 "$wrangler" d1 migrations apply MAP_FEATURES --env "$environment_name" --re
   --env "$environment_name" --remote --file "$METADATA" --content-type application/json
 
 "$SCRIPT_DIR/26-smoke-test-service.sh" "$base_url" "/api/museovirasto"
+cd "$REPOSITORY_DIR"
+E2E_BASE_URL="$base_url" npm run test:e2e
 echo "Published and smoke-tested $environment_name release: $(jq -r '.version' "$METADATA")"

@@ -216,6 +216,8 @@ Worker tarjoaa valinnaisen, lyhyesti välimuistitetun `/api/museovirasto/meta`-r
 
 Vanha WMS/WFS-palautuspolku regressiotestattiin preview-sivustolla ilman feature flagia. Kartta latautui 12 WMS-kuvapyynnöllä eikä tehnyt yhtään `/api/museovirasto/*`-kutsua. Haku "Turun linna" palautti kahdeksan kohdetta, GeoJSON-export sisälsi geometrian, pysyvä linkki avasi kohdetiedot ja erillinen karttaklikkaus avasi kolme kohdetta. Testissä havaittiin 17 WFS-hakupyyntöä ja kolme WMS `GetFeatureInfo` -pyyntöä, mikä vahvistaa vanhan integraatiopolun säilyneen käytössä feature flagin ulkopuolella.
 
+Selainregressiot ovat pysyviä Playwright-testejä `e2e/`-kansiossa. Julkaisun estävä `pmtiles`-projekti kattaa PMTiles Range -latauksen, sanahaun ja D1-massahaun, GeoJSON-exportin, pysyvän linkin sekä karttaklikkauksen ja ajetaan automaattisesti Cloudflare-julkaisuskriptin API-smoke-testin jälkeen. Ulkoisesta Museoviraston GeoServeristä riippuva `wms`-projekti kattaa vastaavat WMS/WFS-palautuspolut, mutta ajetaan erillisenä seurantatestinä eikä sen häiriö estä oman palvelun julkaisua. Epäonnistumisista säilytetään Playwright-trace, kuvakaappaus ja video.
+
 **Tuotos:** end-to-end-toiminnallisuus stagingissa ja hallittu mahdollisuus palata WMS-lähteeseen.
 
 ### Vaihe 5: Tuotantoonvienti
