@@ -9,9 +9,17 @@ import Text from "ol/style/Text"
 export function createMuseovirastoStyle(id: string, source: string): Style {
   const color = museovirastoColor(id)
   if (source.endsWith("_points")) return createMuseovirastoPointStyle(id)
+  if (source.endsWith("_areas")) {
+    if (id.includes("havaintokohde")) {
+      return new Style({ fill: new Fill({ color: "#aaaaaa" }) })
+    }
+    return new Style({
+      fill: new Fill({ color: createWmsAreaPattern(color) }),
+      stroke: new Stroke({ color, width: 1, lineJoin: "bevel" })
+    })
+  }
   return new Style({
-    fill: new Fill({ color: withAlpha(color, 0.16) }),
-    stroke: new Stroke({ color, width: source.endsWith("_lines") ? 2.5 : 1.5 })
+    stroke: new Stroke({ color, width: 2.5 })
   })
 }
 
@@ -68,4 +76,24 @@ function withAlpha(hex: string, alpha: number): string {
   const green = Number.parseInt(hex.slice(3, 5), 16)
   const blue = Number.parseInt(hex.slice(5, 7), 16)
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`
+}
+
+function createWmsAreaPattern(color: string): CanvasPattern {
+  const size = 16
+  const canvas = document.createElement("canvas")
+  canvas.width = size
+  canvas.height = size
+  const context = canvas.getContext("2d")
+  if (!context) throw new Error("Canvas 2D context is required for Museovirasto area styles")
+  context.strokeStyle = color
+  context.lineWidth = 1
+  context.beginPath()
+  context.moveTo(0, 0)
+  context.lineTo(size, size)
+  context.moveTo(size, 0)
+  context.lineTo(0, size)
+  context.stroke()
+  const pattern = context.createPattern(canvas, "repeat")
+  if (!pattern) throw new Error("Canvas pattern is required for Museovirasto area styles")
+  return pattern
 }
