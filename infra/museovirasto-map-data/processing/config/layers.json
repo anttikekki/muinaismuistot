@@ -1,15 +1,6 @@
 {
   "schemaVersion": 1,
   "description": "Production projection from the 12 GeoPackage layers to normalized MVT attributes.",
-  "filterVocabularySource": {
-    "geoPackageFile": "arkeologiset_kohteet_piste_t.gpkg",
-    "geoPackageLayer": "arkeologiset_kohteet_piste_t"
-  },
-  "geometryPolicy": {
-    "invalidGeometry": "fail",
-    "repair": "none",
-    "outputDimension": 2
-  },
   "tiling": {
     "minimumZoom": 0,
     "maximumZoom": 14,
@@ -22,9 +13,7 @@
   },
   "budgets": {
     "maximumArchiveBytes": 75000000,
-    "maximumZoomZeroTileBytes": 1500000,
-    "maximumFinlandRangeRequests": 8,
-    "maximumFinlandRangeBytes": 2000000
+    "maximumZoomZeroTileBytes": 1500000
   },
   "layers": [
     {

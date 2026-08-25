@@ -90,8 +90,6 @@ mapped_layers="$(jq -S -c '[.physicalLayers[] | {id, geoPackageFile, geoPackageL
 [[ "$build_layers" == "$mapped_layers" ]] || { echo "Error: build configuration differs from layer mapping." >&2; exit 1; }
 
 jq -e '
-  (.filterVocabularySource.geoPackageFile | type == "string" and length > 0) and
-  (.filterVocabularySource.geoPackageLayer | type == "string" and length > 0) and
   ([.layers[] |
     (.transformProfile == "none" or .transformProfile == "logical-filter" or .transformProfile == "archaeological-filters") and
     ((.lowZoomCentroid // false) | type == "boolean") and

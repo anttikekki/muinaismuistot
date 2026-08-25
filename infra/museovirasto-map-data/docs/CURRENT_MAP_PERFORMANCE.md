@@ -6,21 +6,9 @@ Vaiheen 0 tarkoitus on todentaa nykyisen Museovirasto-WMS:n ongelma riittävän 
 
 Mittaus kohdistuu suoraan Museoviraston GeoServeriin eikä sivuston WMS-välimuistiproxyyn. Yksi näyte on 256 × 256 pikselin läpinäkyvä PNG, jossa ovat mukana `layer-mapping.json`-tiedoston kaikki 26 loogista tasoa. Pyyntö vastaa käyttäjän raskasta kaikki tasot valittuna -tilannetta.
 
-## Toistaminen
-
-Mittaus ajetaan komennolla:
-
-```bash
-infra/museovirasto-map-data/processing/scripts/08-measure-current-wms.sh
-```
-
-Skripti tekee oletuksena kolme pyyntöä kullakin mittakaavalla. Pyyntökohtainen oletusaikakatkaisu on 30 sekuntia, mutta tämän raportin mittauksessa käytettiin 45 sekuntia:
-
-```bash
-MAX_TIME_SECONDS=45 infra/museovirasto-map-data/processing/scripts/08-measure-current-wms.sh
-```
-
-Raakatulos ja vastauskuvat tallentuvat gitistä ohitettuun `data/performance/`-hakemistoon. CSV sisältää mittausajan, skenaarion, `curl`-poistumiskoodin, HTTP-statuksen, ensimmäisen tavun ajan, kokonaisajan ja ladatun tavumäärän. Myös aikakatkaisut kirjataan tulokseen.
+Mittaus oli kertaluonteinen lähtötason kartoitus. Ulkoista WMS-palvelua mittaava
+skripti poistettiin tuotantoputken valmistuttua, eikä näitä lukuja käytetä
+yöajon regressiorajoina.
 
 ## Mittaustulos 22.8.2026
 

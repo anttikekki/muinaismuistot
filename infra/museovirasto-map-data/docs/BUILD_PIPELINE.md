@@ -1,6 +1,8 @@
 # Toistettava rakennusajo
 
-Vaiheen 2 rakennusajo tehdään paikallisesti ilman konttia. Lukitut työkalut ovat tiedostossa `processing/config/build-tool-versions.json`; `processing/scripts/16-verify-build-tools.sh` keskeyttää ajon, jos yksikin versio poikkeaa.
+Sama rakennusajo toimii paikallisesti ja updater-kontissa. Kontin työkalut on
+lukittu Docker-imagessa; paikallisen ympäristön versiot voi tarkistaa erikseen
+komennolla `processing/scripts/16-verify-build-tools.sh`.
 
 Processingin Node-skriptit käyttävät vain Node.js:n vakiokirjastoa, joten
 moduulilla ei ole erillistä npm-asennusta.
@@ -19,19 +21,25 @@ Koko rakennus ja validointi ajetaan yhdellä komennolla:
 infra/museovirasto-map-data/processing/scripts/17-build-release-artifacts.sh
 ```
 
-Yhteisajo:
+## Yöajon validointilinja
 
-1. tarkistaa työkalujen täsmälliset versiot;
-2. validoi 12 fyysisen ja 26 loogisen tason mäppäyksen;
-3. validoi GeoPackage-lähdekenttien sopimuksen;
-4. validoi NULL- ja virheelliset geometriat eksplisiittisen geometriapolitiikan mukaan;
-5. rakentaa kompaktin PMTiles-arkiston;
-6. validoi arkiston rakenteen, kentät ja zoomin 0 kohdemäärät;
-7. rakentaa D1-tuontitiedoston ja laskee sen kokonais- sekä tasokohtaiset rivimäärät päivän aineistosta;
-8. vertaa kaikki PMTiles-rakennussyötteen `source-layer + fid` -avaimet D1-tuontiin ja varmistaa, että jokaiselle zoomin 0 PMTiles-featurelle löytyy D1-rivi;
-9. muodostaa lähde- ja artefaktitiivisteet sisältävän rakennusmanifestin ilman kovakoodattuja aineistorivimääriä;
-10. muodostaa sisältötiivisteeseen perustuvan muuttumattoman julkaisutunnisteen ja julkaisudeskriptorin;
-11. ajaa rakennusmuunnosten testit.
+Yöajo tarkistaa vain päivittäin ladattavan aineiston ja siitä syntyvien
+artefaktien turvallisuuden:
+
+1. odotetut 12 GeoPackage-tasoa löytyvät, eivät ole tyhjiä, käyttävät odotettua
+   geometriatyyppiä ja EPSG:3067-koordinaatistoa eikä niissä ole virheellisiä
+   geometrioita;
+2. PMTiles rakentuu nykyisellä versionoidulla mappingilla ja koodistolla;
+3. PMTiles on eheä, sisältää odotetut lähdetasot ja minimikentät sekä säilyttää
+   pisteet ja matalan zoomin aluekeskipisteet;
+4. arkiston zoomialue ja kokobudjetit eivät ylity;
+5. D1-tuonti rakentuu kaikista hyväksytyistä geometriallisista riveistä;
+6. PMTiles-rakennussyötteen ja D1:n `source-layer + fid` -avaimet täsmäävät;
+7. manifesti, tarkistussummat, lähdeaikaleimat ja julkaisutiedot muodostuvat.
+
+Tavallista päivittäistä rivimäärää ei verrata snapshotiin eikä lukita. Mappingin,
+UI-enumien, työkalujen tai muunnoskoodin staattisia tarkistuksia ei toisteta
+yöajossa; ne ajetaan vain kyseisiä tiedostoja muutettaessa.
 
 Tuotokset kirjoitetaan gitistä ohitettuun `data/build`-hakemistoon:
 
@@ -40,14 +48,15 @@ Tuotokset kirjoitetaan gitistä ohitettuun `data/build`-hakemistoon:
 - `feature-details.sql`
 - `feature-details-report.json`
 - `pmtiles-d1-identity-report.json`
-- `source-geometry-report.json`
-- `source-baseline-report.json`
 - `tiling-budget-report.json`
 - `build-manifest.json`
 - `release-descriptor.json`
 - `current-metadata.json`
 
-Geometriapolitiikan `invalidGeometry: fail` ja `repair: none` estävät virheellisen geometrian hiljaisen korjauksen tai pudotuksen. Sallittu NULL-määrä määritellään tasokohtaisesti. Manifesti sisältää lähde- ja konfiguraatiotiivisteet, lukitut työkaluversiot, artefaktien koot ja SHA-256-tiivisteet sekä keskeiset tietuemäärät. Myös PMTilesin `laji_key`-, tyyppi-, ajoitus- ja alatyyppikoodit avaava `filter-vocabulary.json` on manifestissa omana artefaktinaan ja konfiguraatiotiivisteenään, joten arkisto ja sitä tulkitseva sanasto voidaan julkaista yhtenä versiona.
+Virheellistä geometriaa ei korjata tai pudoteta hiljaisesti. Tasokohtainen
+ennalta tunnettu geometriaton poikkeus validoidaan erikseen. Manifesti sisältää
+lähde- ja konfiguraatiotiivisteet, työkaluversiot, artefaktien koot ja
+SHA-256-tiivisteet sekä keskeiset tietuemäärät.
 
 D1-rivimäärä luetaan manifestiin `feature-details-report.json`-raportista. Raportti sisältää jokaiselle 12 tasolle lähderivit, hyväksytyt geometriattomat poikkeukset ja tuotetut D1-rivit. Nykyisessä aineistossa lähderivejä on 268 965 ja D1-rivejä 268 964, koska yksi ennalta hyväksytty arkeologinen aluerivi on geometriaton.
 
@@ -55,9 +64,19 @@ D1-rivimäärä luetaan manifestiin `feature-details-report.json`-raportista. Ra
 
 UTC-aikaleimaversio, aktiiviset vakioavaimet, palautusavaimet ja yöllinen käyttöönottoprosessi on määritelty tiedostossa [RELEASE_CONTRACT.md](RELEASE_CONTRACT.md). Rakennus tuottaa `release-descriptor.json`- ja valinnaisen `/api/museovirasto/meta`-reitin `current-metadata.json`-tiedostot; ulkoista ympäristöä ei muuteta vaiheessa 2.
 
-`processing/config/source-data-baseline.json` on versionhallittu vertailutaso, ei päivittäisen rivimäärän lukko. Tyhjä tai puuttuva taso estää rakennuksen. Jokainen rivimäärämuutos kirjataan raporttiin ja yli 30 prosentin muutos merkitään varoitukseksi. Uudet laji-, tyyppi-, ajoitus- ja alatyyppiarvot merkitään varoituksiksi; lähtötasossa sallittu mutta kyseisen päivän aineistosta puuttuva arvo raportoidaan ilman varoitusta. Päivän lähderivien ja päivän tuotosten tarkka täsmäytys säilyy erillisenä julkaisun estävänä tarkistuksena.
+Tuntematon suodatuksessa tarvittava laji-, tyyppi-, ajoitus- tai alatyyppiarvo
+estää rakennuksen vasta muunnosvaiheessa, koska nykyinen selainkoodisto ei voisi
+tulkita sitä oikein. Näyttötietojen tavalliset uudet arvot eivät estä ajoa.
 
-Zoomit, keskipiste-/polygoniraja, Tippecanoen harvennus- ja kokorajoitusten käyttö sekä kokobudjetit ovat `processing/config/layers.json`-tiedoston `tiling`- ja `budgets`-osissa. Rakennus estyy, jos arkisto ylittää 75 000 000 tavua, zoomin 0 pakkaamaton MVT-tiili ylittää 1 500 000 tavua tai arkiston zoomialue poikkeaa asetuksesta 0–14. Koko Suomen selainbudjetti, enintään 8 Range-pyyntöä ja 2 000 000 vastaustavua, validoidaan erillisessä Chrome-mittauksessa eikä staattisesta arkistosta.
+Koodimuutosten kehitystarkistukset ajetaan tarvittaessa erikseen:
+
+```bash
+infra/museovirasto-map-data/processing/scripts/05-validate-layer-mapping.sh
+infra/museovirasto-map-data/processing/scripts/16-verify-build-tools.sh
+node --test infra/museovirasto-map-data/processing/scripts/*.test.mjs
+```
+
+Zoomit, keskipiste-/polygoniraja, Tippecanoen harvennus- ja kokorajoitusten käyttö sekä kokobudjetit ovat `processing/config/layers.json`-tiedoston `tiling`- ja `budgets`-osissa. Rakennus estyy, jos arkisto ylittää 75 000 000 tavua, zoomin 0 pakkaamaton MVT-tiili ylittää 1 500 000 tavua tai arkiston zoomialue poikkeaa asetuksesta 0–14.
 
 Paikallista R2/D1-PoC-ympäristöä ei enää ylläpidetä. Integraatiotestaus tehdään
 preview-ympäristössä ennen production-julkaisua.

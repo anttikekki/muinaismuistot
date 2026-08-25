@@ -4,13 +4,9 @@
 
 Tämä dokumentti määrittää, mitä nykyisestä karttailmeestä ja tuotanto-ZIP:n QML-tyyleistä hyödynnetään tulevassa PMTiles/MVT-toteutuksessa. Vertailu perustuu seitsemään QML-tiedostoon, Museoviraston WMS-palvelusta 22.8.2026 `GetStyles`-pyynnöllä ladattuihin 26 loogisen tason oletustyyleihin sekä sivuston `LayerIcon`- ja `ModelsLayer`-toteutuksiin.
 
-WMS-tyylien tarkistus voidaan toistaa komennolla:
-
-```bash
-infra/museovirasto-map-data/processing/scripts/06-inventory-styles.sh
-```
-
-Ladattu SLD tallentuu gitistä ohitettuun `data/wms-styles/`-hakemistoon. Skripti lukee tasot tiedostosta `layer-mapping.json`, tekee yhden WMS-pyynnön ja varmistaa vastauksen sisältävän kaikki 26 tyyliä.
+WMS-tyylit inventoitiin kertaluonteisesti toteutuksen suunnittelua varten.
+Ulkoisesta WMS-palvelusta riippuva inventointiskripti ei kuulu tuotannon
+yöajoon, ja se poistettiin havaintojen dokumentoinnin jälkeen.
 
 ## Nykytilan oikea tulkinta
 

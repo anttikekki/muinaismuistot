@@ -10,7 +10,7 @@ Koko julkaisu rakennetaan repositorion juuresta komennolla:
 infra/museovirasto-map-data/processing/scripts/17-build-release-artifacts.sh
 ```
 
-Lukitut työkaluversiot, lähdetasojen muunnokset ja regressiovertailut ovat
+Lukitut työkaluversiot ja lähdetasojen muunnokset ovat
 `config/`-hakemistossa. Syöte ja tulokset ovat gitistä ohitetussa
 `../data/`-hakemistossa ja julkaisuvalmiit tulokset `../data/build/`-
 hakemistossa. Tarkemmat ohjeet ovat
@@ -21,13 +21,13 @@ hakemistossa. Tarkemmat ohjeet ovat
 Moduuli käyttää `../contract`-sopimuksia, mutta ei riipu `deploy`- tai
 `updater`-moduuleista. Tarvittavat työkalut ja niiden lukitut versiot ovat
 `config/build-tool-versions.json`-tiedostossa: Bash, GDAL, Tippecanoe, Node.js,
-jq ja PMTiles CLI. Inventaario- ja PDF-skriptit tarvitsevat lisäksi `curl`-,
-`unzip`-, `sqlite3`- ja Popplerin `pdftotext`-komennot.
+jq ja PMTiles CLI. Lähdeaineiston lataus tarvitsee lisäksi `curl`- ja
+`unzip`-komennot; mappingin kehitystarkistus käyttää `sqlite3`:a.
 
 macOS-asennus:
 
 ```bash
-brew install gdal tippecanoe jq sqlite poppler
+brew install gdal tippecanoe jq sqlite
 infra/museovirasto-map-data/processing/scripts/09-download-pmtiles-cli.sh
 ```
 

@@ -30,7 +30,7 @@ while IFS=$'\t' read -r layer_id file_name source_layer transform_profile low_zo
   if [[ "$low_zoom_centroid" == true ]]; then representation="polygon"; representation_zoom="$polygon_min_zoom"; else representation="default"; representation_zoom=""; fi
   ogr2ogr -f GeoJSONSeq /vsistdout/ "$source_file" -dialect SQLite -sql "$sql" \
     -t_srs EPSG:4326 -nln "$layer_id" |
-    node "$TRANSFORMER" transform "$VOCABULARY" "$layer_id" "$transform_profile" "$representation" "$representation_zoom" fid > "$output_file"
+    node "$TRANSFORMER" transform "$VOCABULARY" "$layer_id" "$transform_profile" "$representation" "$representation_zoom" > "$output_file"
 
   source_count="$(ogrinfo -ro -so -json "$source_file" "$source_layer" | jq '.layers[0].featureCount')"
   output_count="$(wc -l < "$output_file" | tr -d ' ')"
@@ -47,7 +47,7 @@ while IFS=$'\t' read -r layer_id file_name source_layer transform_profile low_zo
     echo "Exporting low-zoom centroids for $layer_id"
     ogr2ogr -f GeoJSONSeq /vsistdout/ "$source_file" -dialect SQLite -sql "$centroid_sql" \
       -t_srs EPSG:4326 -nln "$layer_id" |
-      node "$TRANSFORMER" transform "$VOCABULARY" "$layer_id" "$transform_profile" centroid "$centroid_max_zoom" fid > "$centroid_file"
+      node "$TRANSFORMER" transform "$VOCABULARY" "$layer_id" "$transform_profile" centroid "$centroid_max_zoom" > "$centroid_file"
     centroid_count="$(wc -l < "$centroid_file" | tr -d ' ')"
     [[ "$expected_output_count" -eq "$centroid_count" ]] || {
       echo "Centroid count mismatch for $layer_id: expected=$expected_output_count output=$centroid_count" >&2; exit 1;

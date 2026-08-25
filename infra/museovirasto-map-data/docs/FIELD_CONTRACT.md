@@ -187,10 +187,7 @@ Näitä poikkeamia ei korjata vanhaan WMS/WFS-polkuun tässä vaiheessa. Ne toim
 
 ## Koneellinen validointi
 
-Nykyisen tuotantoaineiston sopimuksen kannalta pakolliset lähdekentät tarkistetaan komennolla:
-
-```bash
-infra/museovirasto-map-data/processing/scripts/07-validate-field-contract.sh
-```
-
-Validointi estää jatkotyön hiljaisella skeemapoikkeamalla, jos tunniste-, nimi-, loogisen tason, nykyisten kohdepaneelien tai suodatuksen tarvitsema kenttä katoaa.
+Pakolliset lähdekentät sisältyvät tasojen versionhallittuihin SQL-kyselyihin.
+GDAL-muunnos pysäyttää yöajon, jos kyselyn tarvitsema kenttä katoaa tai muuttaa
+yhteensopimattomasti muotoaan. Erillistä samaa kenttälistaa toistavaa
+validointiskriptiä ei ylläpidetä.

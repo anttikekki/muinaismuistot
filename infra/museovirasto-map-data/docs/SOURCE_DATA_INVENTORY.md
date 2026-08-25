@@ -1,10 +1,8 @@
 # Museoviraston lähdeaineiston GeoPackage-inventaario
 
-Tämä tiedosto on generoitu komennolla:
-
-```bash
-infra/museovirasto-map-data/processing/scripts/01-inventory-geopackages.sh
-```
+Tämä on alkuvaiheen lähdeaineistosta tallennettu inventaario. Kertaluonteinen
+generointiskripti poistettiin, kun havainnot oli siirretty tuotannon
+rakennussopimukseen. Yöajo tarkistaa nykyisen aineiston rakenteen suoraan.
 
 Lähde: `tutkija.zip`
 

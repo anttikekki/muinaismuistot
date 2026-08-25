@@ -34,38 +34,37 @@ actual_layers="$(jq -S -c '[.vector_layers[].id] | sort' <<<"$metadata")"
 }
 
 layer_count="$(jq -r '.tilestats.layerCount' <<<"$metadata")"
-[[ "$layer_count" == "12" ]] || {
-  echo "Expected 12 layers in tilestats, found $layer_count" >&2
+expected_layer_count="$(jq '.physicalLayers | length' "$MAPPING_FILE")"
+[[ "$layer_count" == "$expected_layer_count" ]] || {
+  echo "Expected $expected_layer_count layers in tilestats, found $layer_count" >&2
   exit 1
 }
 
-if [[ "$(basename "$ARCHIVE")" == "museovirasto.pmtiles" ]]; then
-  actual_fields="$(jq -S -c '[.vector_layers[] | {key: .id, value: .fields}] | from_entries' <<<"$metadata")"
-  expected_fields="$(jq -n -S -c --argjson layers "$expected_layers" '
-    reduce $layers[] as $layer ({}; .[$layer] = {})
-    | .archaeological_areas = {laji_key: "Number"}
-    | .archaeological_points = {dating_mask: "Number", laji_key: "Number", subtype_codes: "String", type_mask: "Number"}
-  ')"
-  [[ "$actual_fields" == "$expected_fields" ]] || {
-    echo "Compact archive field schema does not match the documented minimum" >&2
-    diff <(echo "$expected_fields") <(echo "$actual_fields") || true
+actual_fields="$(jq -S -c '[.vector_layers[] | {key: .id, value: .fields}] | from_entries' <<<"$metadata")"
+expected_fields="$(jq -n -S -c --argjson layers "$expected_layers" '
+  reduce $layers[] as $layer ({}; .[$layer] = {})
+  | .archaeological_areas = {laji_key: "Number"}
+  | .archaeological_points = {dating_mask: "Number", laji_key: "Number", subtype_codes: "String", type_mask: "Number"}
+')"
+[[ "$actual_fields" == "$expected_fields" ]] || {
+  echo "Compact archive field schema does not match the documented minimum" >&2
+  diff <(echo "$expected_fields") <(echo "$actual_fields") || true
+  exit 1
+}
+
+z0_area_summary="$(
+  tippecanoe-decode "$ARCHIVE" 0 0 0 |
+    jq -S -c '[.features[] | select(.properties.layer | endswith("_areas")) | {key:.properties.layer, value:{count:(.features|length), geometryTypes:([.features[].geometry.type]|unique)}}] | from_entries'
+)"
+while IFS=$'\t' read -r layer_id metadata_count; do
+  expected_count="$((metadata_count / 2))"
+  actual_count="$(jq -r --arg layer "$layer_id" '.[$layer].count // 0' <<<"$z0_area_summary")"
+  geometry_types="$(jq -c --arg layer "$layer_id" '.[$layer].geometryTypes // []' <<<"$z0_area_summary")"
+  [[ "$actual_count" == "$expected_count" && "$geometry_types" == '["Point"]' ]] || {
+    echo "Low-zoom centroid mismatch for $layer_id: expected=$expected_count actual=$actual_count geometryTypes=$geometry_types" >&2
     exit 1
   }
-
-  z0_area_summary="$(
-    tippecanoe-decode "$ARCHIVE" 0 0 0 |
-      jq -S -c '[.features[] | select(.properties.layer | endswith("_areas")) | {key:.properties.layer, value:{count:(.features|length), geometryTypes:([.features[].geometry.type]|unique)}}] | from_entries'
-  )"
-  while IFS=$'\t' read -r layer_id metadata_count; do
-    expected_count="$((metadata_count / 2))"
-    actual_count="$(jq -r --arg layer "$layer_id" '.[$layer].count // 0' <<<"$z0_area_summary")"
-    geometry_types="$(jq -c --arg layer "$layer_id" '.[$layer].geometryTypes // []' <<<"$z0_area_summary")"
-    [[ "$actual_count" == "$expected_count" && "$geometry_types" == '["Point"]' ]] || {
-      echo "Low-zoom centroid mismatch for $layer_id: expected=$expected_count actual=$actual_count geometryTypes=$geometry_types" >&2
-      exit 1
-    }
-  done < <(jq -r '.tilestats.layers[] | select(.layer | endswith("_areas")) | [.layer, .count] | @tsv' <<<"$metadata")
-fi
+done < <(jq -r '.tilestats.layers[] | select(.layer | endswith("_areas")) | [.layer, .count] | @tsv' <<<"$metadata")
 
 kind_count="$(jq '.kinds | length' "$PROJECT_DIR/contract/filter-vocabulary.json")"
 invalid_laji_count="$(
@@ -102,9 +101,7 @@ echo "Archive: $ARCHIVE"
 echo "Archive bytes: $(wc -c < "$ARCHIVE" | tr -d ' ')"
 echo "Source layers: $layer_count"
 echo "All point features retained at zoom 0: yes"
-if [[ "$(basename "$ARCHIVE")" == "museovirasto.pmtiles" ]]; then
-  echo "Compact field schema: valid"
-  echo "All area layers represented by centroids at zoom 0: yes"
-fi
+echo "Compact field schema: valid"
+echo "All area layers represented by centroids at zoom 0: yes"
 echo "Layers: $(jq -r '[.vector_layers[].id] | sort | join(", ")' <<<"$metadata")"
 echo "PMTiles CLI: $("$PMTILES" version)"

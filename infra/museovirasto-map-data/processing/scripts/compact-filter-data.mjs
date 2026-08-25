@@ -1,62 +1,12 @@
 #!/usr/bin/env node
 
-import { spawnSync } from "node:child_process"
 import { createInterface } from "node:readline"
-import { readFile, writeFile } from "node:fs/promises"
-
-const types = [
-  "ei määritelty", "alusten hylyt", "asuinpaikat", "hautapaikat", "kirkkorakenteet",
-  "kivirakenteet", "kulkuväylät", "kultti- ja tarinapaikat", "luonnonmuodostumat",
-  "löytöpaikat", "maarakenteet", "muinaisjäännösryhmät", "puolustusvarustukset",
-  "puurakenteet", "raaka-aineen hankintapaikat", "tapahtumapaikat", "teollisuuskohteet",
-  "taide, muistomerkit", "työ- ja valmistuspaikat",
-]
-const datings = [
-  "moniperiodinen", "esihistoriallinen", "kivikautinen", "varhaismetallikautinen",
-  "pronssikautinen", "rautakautinen", "rautakautinen ja/tai keskiaikainen",
-  "keskiaikainen", "historiallinen", "moderni", "ajoittamaton", "ei määritelty",
-]
-const kindAliases = new Map([
-  ["kiinteä muinaisjäännös", "kiintea_muinaisjaannos"],
-  ["muu kulttuuriperintökohde", "muu_kulttuuriperintokohde"],
-  ["löytöpaikka", "loytopaikka"],
-  ["havaintokohde", "havaintokohde"],
-  ["luonnonmuodostuma", "luonnonmuodostuma"],
-  ["mahdollinen muinaisjäännös", "mahdollinen_muinaisjaannos"],
-  ["muu kohde", "muu_kohde"],
-  ["poistettu kiinteä muinaisjäännös (ei rauhoitettu)", "poistettu_kiintea_muinaisjaannos"],
-])
+import { readFile } from "node:fs/promises"
 
 function atomicValues(raw, kind) {
   if (!raw) return []
   const protectedRaw = kind === "type" ? raw.replaceAll("taide, muistomerkit", "taide\u001fmuistomerkit") : raw
   return protectedRaw.split(",").map((value) => value.replaceAll("\u001f", ", ").trim()).filter(Boolean)
-}
-
-function distinctRawValues(gpkg, layer, field) {
-  const sql = `SELECT DISTINCT ${field} FROM ${layer}`
-  const result = spawnSync("ogrinfo", ["-ro", "-json", "-features", "-dialect", "SQLite", "-sql", sql, gpkg], {
-    encoding: "utf8",
-    maxBuffer: 64 * 1024 * 1024,
-  })
-  if (result.status !== 0) throw new Error(result.stderr || `ogrinfo failed for ${field}`)
-  const document = JSON.parse(result.stdout)
-  return document.layers[0].features.map((feature) => feature.properties[field]).filter((value) => typeof value === "string")
-}
-
-async function generateVocabulary([gpkg, layer, output]) {
-  const kindSet = new Set()
-  const subtypeSet = new Set()
-  for (const raw of distinctRawValues(gpkg, layer, "Laji")) {
-    const kind = kindAliases.get(raw.trim().toLocaleLowerCase("fi"))
-    if (!kind) throw new Error(`Unknown archaeological kind: ${raw}`)
-    kindSet.add(kind)
-  }
-  for (const raw of distinctRawValues(gpkg, layer, "alatyyppi")) {
-    for (const value of atomicValues(raw, "subtype")) subtypeSet.add(value)
-  }
-  const vocabulary = { schemaVersion: 2, kinds: [...kindSet].sort((a, b) => a.localeCompare(b, "fi")), types, datings, subtypes: [...subtypeSet].sort((a, b) => a.localeCompare(b, "fi")) }
-  await writeFile(output, `${JSON.stringify(vocabulary, null, 2)}\n`)
 }
 
 function mask(raw, values, kind) {
@@ -76,7 +26,7 @@ function featureId(layerId, sourceFid) {
   return featureId
 }
 
-async function transform([vocabularyPath, layerId, profile, representation = "default", representationZoom, identityMode = "fid"]) {
+async function transform([vocabularyPath, layerId, profile, representation = "default", representationZoom]) {
   const vocabulary = JSON.parse(await readFile(vocabularyPath, "utf8"))
   const kindIndexes = new Map(vocabulary.kinds.map((value, index) => [value, index + 1]))
   const subtypeIndexes = new Map(vocabulary.subtypes.map((value, index) => [value, index + 1]))
@@ -85,10 +35,7 @@ async function transform([vocabularyPath, layerId, profile, representation = "de
     if (!line.trim()) continue
     const feature = JSON.parse(line)
     const source = feature.properties ?? {}
-    const properties = identityMode === "fid"
-      ? { source_fid: featureId(layerId, source.gpkg_fid) }
-      : { registry_id: String(source.registry_id) }
-    if (identityMode !== "fid" && identityMode !== "registry") throw new Error(`Unknown identity mode: ${identityMode}`)
+    const properties = { source_fid: featureId(layerId, source.gpkg_fid) }
     if (profile === "archaeological-filters") {
       properties.laji_key = kindIndexes.get(source.laji_key)
       if (!properties.laji_key) throw new Error(`Unknown laji_key in ${layerId}: ${source.laji_key}`)
@@ -156,7 +103,6 @@ async function details([mappingPath, layerId]) {
 }
 
 const [command, ...args] = process.argv.slice(2)
-if (command === "vocabulary" && args.length === 3) await generateVocabulary(args)
-else if (command === "transform" && args.length >= 3 && args.length <= 6) await transform(args)
+if (command === "transform" && args.length >= 3 && args.length <= 5) await transform(args)
 else if (command === "details" && args.length === 2) await details(args)
-else throw new Error("Usage: compact-filter-data.mjs vocabulary <gpkg> <layer> <output> | transform <vocabulary> <layer-id> <profile> [default|centroid|polygon] | details <layer-mapping> <layer-id>")
+else throw new Error("Usage: compact-filter-data.mjs transform <vocabulary> <layer-id> <profile> [default|centroid|polygon] [zoom] | details <layer-mapping> <layer-id>")

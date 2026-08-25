@@ -20,7 +20,7 @@ printf "DELETE FROM feature_details;\n" > "$OUTPUT_FILE"
 total_count=0
 source_total_count=0
 layers='[]'
-while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries excluded_duplicate_features sql_base64; do
+while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries sql_base64; do
   source_file="$DATA_DIR/$file_name"
   raw_file="$BUILD_DIR/$layer_id.geojsonseq"
   layer_sql="$BUILD_DIR/$layer_id.sql"
@@ -31,7 +31,7 @@ while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries
   node "$TRANSFORMER" details "$MAPPING_FILE" "$layer_id" < "$raw_file" > "$layer_sql"
 
   source_count="$(ogrinfo -ro -so -json "$source_file" "$source_layer" | jq '.layers[0].featureCount')"
-  expected_count="$((source_count - excluded_null_geometries - excluded_duplicate_features))"
+  expected_count="$((source_count - excluded_null_geometries))"
   actual_count="$(rg -o '^\(' "$layer_sql" | wc -l | tr -d ' ')"
   [[ "$actual_count" -eq "$expected_count" ]] || {
     echo "Feature detail count mismatch for $layer_id: expected=$expected_count actual=$actual_count" >&2; exit 1;
@@ -43,7 +43,7 @@ while IFS=$'\t' read -r layer_id file_name source_layer excluded_null_geometries
     '{id:$id,sourceRows:$sourceRows,excludedNullGeometries:$excludedNullGeometries,d1Rows:$d1Rows}')"
   layers="$(jq -c --argjson layer "$layer_report" '. + [$layer]' <<<"$layers")"
   sed -n '1,$p' "$layer_sql" >> "$OUTPUT_FILE"
-done < <(jq -r '.layers[] | [.id, .geoPackageFile, .geoPackageLayer, (.excludedNullGeometries // 0), 0, (.sql | @base64)] | @tsv' "$CONFIG")
+done < <(jq -r '.layers[] | [.id, .geoPackageFile, .geoPackageLayer, (.excludedNullGeometries // 0), (.sql | @base64)] | @tsv' "$CONFIG")
 
 jq -n --argjson sourceRows "$source_total_count" --argjson d1Rows "$total_count" --argjson layers "$layers" \
   '{schemaVersion:2,status:"ok",sourceRows:$sourceRows,d1Rows:$d1Rows,geometryCrs:"EPSG:3067",layers:$layers}' > "$REPORT_FILE"
