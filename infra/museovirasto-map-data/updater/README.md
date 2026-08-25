@@ -1,8 +1,8 @@
 # Ajastettu karttadatan päivitys
 
 Updater on pää-Workerista erillinen Cloudflare Worker, Workflow ja lyhytikäinen
-Container. Workflow käynnistää korkeintaan yhden `standard-3`-instanssin
-(2 vCPU, 8 GiB muistia ja 16 GB levyä), lataa päivän lähdeaineiston, rakentaa
+Container. Workflow käynnistää korkeintaan yhden `standard-1`-instanssin
+(0,5 vCPU, 4 GiB muistia ja 8 GB levyä), lataa päivän lähdeaineiston, rakentaa
 PMTiles- ja D1-artefaktit, julkaisee ne valittuun ympäristöön ja ajaa API:n
 smoke-testin. Kontti sammutetaan ajon jälkeen ja viimeinen tila säilytetään sen
 Durable Object -tallennuksessa.
@@ -111,6 +111,10 @@ tehdään vasta onnistuneen preview-ajon jälkeen.
 - Päivityksen API-token välitetään vain Workflown sisäisesti käynnistettävälle
   kontille, ei HTTP-pyynnössä.
 - Kontteja voi olla samanaikaisesti vain yksi.
+- Instanssikoko perustuu ensimmäisen onnistuneen preview-ajon mitattuun 795 Mt:n
+  muistihuippuun, 2,34 Gt:n levynkäyttöön ja 21,09 prosentin CPU-käyttöön
+  alkuperäisessä `standard-3`-instanssissa. `standard-1` jättää erityisesti
+  muistille ja levylle selkeän kasvumarginaalin.
 - Automaattiajo ei aja Playwright-selainregressiota kontissa. Julkaisuskripti
   ajaa edelleen API-smoke-testin; pysyvät Playwright-testit kuuluvat Worker-
   ja käyttöliittymädeployn regressiotarkistuksiin.

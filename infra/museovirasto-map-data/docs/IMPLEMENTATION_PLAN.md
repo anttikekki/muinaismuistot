@@ -303,7 +303,7 @@ Testikokonaisuuteen kuuluvat rakennusputken yksikkötestit, tunnettuun pieneen u
 Teknisen toteutuksen kannalta välttämättömät päätökset on tehty. Ennen PMTiles-polun vaihtamista tuotannon oletukseksi täsmennetään vielä:
 
 1. Mikä on hyväksyttävä Cloudflare-kuukausibudjetti ja liikenne-ennuste?
-2. Riittääkö ensimmäiseen toteutukseen valittu `standard-3`-kontti myös aineiston kasvaessa?
+2. Riittääkö preview-mittauksen perusteella valittu `standard-1`-kontti myös aineiston kasvaessa?
 3. Kuinka monta vanhaa aineistoversiota säilytetään ja kuinka pitkä palautusaikatavoite asetetaan?
 4. Millä käytännöllä PMTiles/D1 vaihdetaan oletukseksi ja WMS/WFS-palautuspolku aktivoidaan tarvittaessa?
 
@@ -311,7 +311,7 @@ Teknisen toteutuksen kannalta välttämättömät päätökset on tehty. Ennen P
 
 Vaiheet 0–5 sekä `updater`-moduulin ensimmäinen toteutus ovat valmiit ilman
 tuotannon oletuspolun muutosta. Updaterissa on erillinen Worker, päivittäin klo
-01.30 UTC käynnistyvä production-Workflow, yhden `standard-3`-kontin raja,
+01.30 UTC käynnistyvä production-Workflow, yhden `standard-1`-kontin raja,
 Bearer-suojattu manuaalikäynnistys ja tilakysely sekä monialustainen Dockerfile.
 Cloudflare rakentaa `linux/amd64`-imagen ja Apple Siliconilla sama putki toimii
 natiivina `linux/arm64`-imagena.

@@ -15,7 +15,7 @@
       "image_build_context": "../../",
       "image_vars": { "TARGETARCH": "amd64" },
       "max_instances": 1,
-      "instance_type": "standard-3",
+      "instance_type": "standard-1",
       "constraints": {
         "jurisdiction": "eu",
         "regions": ["EEUR", "WEUR"]
@@ -59,7 +59,7 @@
           "image_build_context": "../../",
           "image_vars": { "TARGETARCH": "amd64" },
           "max_instances": 1,
-          "instance_type": "standard-3",
+          "instance_type": "standard-1",
           "constraints": { "jurisdiction": "eu", "regions": ["EEUR", "WEUR"] }
         }
       ],
@@ -92,7 +92,7 @@
           "image_build_context": "../../",
           "image_vars": { "TARGETARCH": "amd64" },
           "max_instances": 1,
-          "instance_type": "standard-3",
+          "instance_type": "standard-1",
           "constraints": { "jurisdiction": "eu", "regions": ["EEUR", "WEUR"] }
         }
       ],
