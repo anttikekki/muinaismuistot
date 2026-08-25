@@ -36,13 +36,15 @@
 			],
 			"r2_buckets": [
 				{
-					"binding": "MAP_DATA"
+					"binding": "MAP_DATA",
+					"bucket_name": "muinaismuistot-map-data"
 				}
 			],
 			"d1_databases": [
 				{
 					"binding": "MAP_FEATURES",
-					"migrations_dir": "../museovirasto-map-data-server/poc/migrations"
+					"migrations_dir": "../museovirasto-map-data-server/poc/migrations",
+					"database_id": "b9025c80-63e4-428f-aede-d1c81a1209fc"
 				}
 			]
 		},

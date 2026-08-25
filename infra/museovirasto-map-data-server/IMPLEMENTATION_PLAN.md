@@ -229,8 +229,8 @@ Preview-ympäristön toiminta ja visuaalinen suorituskyky on hyväksytty manuaal
 ### Vaihe 5: Tuotantoonvienti
 
 - [x] Aja nykyiset rakennusputken, Workerin ja käyttöliittymän regressio- sekä smoke-testit tuotantojulkaisuvalmiille artefakteille. Preflight rakensi version `20260822T000000Z`, validoi 12 PMTiles-lähdetasoa, 268 964 D1-riviä ja kokobudjetit, ajoi seitsemän muunnostestiä, 18 Worker-testiä, TypeScript-tarkistukset, production-deployn kuivaharjoittelun, julkisen preview-smoke-testin sekä PMTiles- ja WMS-Playwright-regressiot. WMS-seurantatesti vaati yhden uusinta-ajon ulkoisen GeoServerin hitauden vuoksi ja läpäisi sen.
-- [ ] Provisioi production-ympäristön R2- ja D1-resurssit ja julkaise sama hyväksytty aineistoversio niihin production-vahvistuksen vaativalla skriptillä.
-- [ ] Julkaise Worker ja käyttöliittymä tuotantoon siten, että WMS/WFS säilyy oletuksena ja PMTiles/D1 voidaan ottaa käyttöön URL-feature flagilla.
+- [x] Provisioi production-ympäristön R2- ja D1-resurssit ja julkaise sama hyväksytty aineistoversio niihin production-vahvistuksen vaativalla skriptillä. Productionissa ovat D1 `muinaismuistot-map-features` ja R2 `muinaismuistot-map-data`; versio `20260822T000000Z` julkaistiin 268 964 feature-rivillä ja hyväksyttiin julkisella smoke-testillä sekä kahdella PMTiles-Playwright-testillä.
+- [x] Julkaise Worker ja käyttöliittymä tuotantoon siten, että WMS/WFS säilyy oletuksena ja PMTiles/D1 voidaan ottaa käyttöön URL-feature flagilla. Production Worker -versio `9c1c7289-2af5-44b5-a7b3-0403debfa6f2` palvelee domaineja `muinaismuistot.info` ja `www.muinaismuistot.info`.
 - [ ] Tee tuotannon sisäinen hyväksyntä feature flagilla: kartta, tasovalinnat, suodattimet, sanahaku, karttaklikkaus, pysyvä linkki ja GeoJSON-export.
 - [ ] Vaihda hyväksytyn kokeilun jälkeen PMTiles/D1 oletukseksi ja säilytä WMS/WFS yksinkertaisena palautuspolkuna vähintään yhden onnistuneen päivittäisen päivityssyklin ajan.
 - Dokumentoi operointi, manuaalinen uudelleenajo, version palautus ja avainten kierrätys.
