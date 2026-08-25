@@ -1,4 +1,4 @@
-import layerMapping from "../../../../museovirasto-map-data-server/layer-mapping.json"
+import layerMapping from "../../../../museovirasto-map-data/contract/layer-mapping.json"
 import { featureResponse, type FeatureDetailRow } from "./feature-details"
 import { corsHeaders, errorResponse, methodNotAllowed, preflightResponse } from "./responses"
 

@@ -9,7 +9,7 @@ npm run test:e2e
 E2E_BASE_URL=https://example.test npm run test:e2e
 ```
 
-`scripts/30-publish-cloudflare-release.sh` runs this suite after its API smoke test. A failed browser test therefore fails the preview or production publication command.
+`infra/museovirasto-map-data/deploy/scripts/30-publish-cloudflare-release.sh` runs this suite after its API smoke test. A failed browser test therefore fails the preview or production publication command.
 
 The legacy WMS/WFS fallback depends on the external Finnish Heritage Agency GeoServer and is intentionally a separate monitoring test. Its failure must not block publication of the independently hosted PMTiles service:
 

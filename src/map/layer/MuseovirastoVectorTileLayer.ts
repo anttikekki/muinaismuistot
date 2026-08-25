@@ -28,8 +28,8 @@ import {
   createMuseovirastoPointStyle,
   createMuseovirastoStyle
 } from "./museovirastoVectorStyles"
-import layerMapping from "../../../infra/museovirasto-map-data-server/layer-mapping.json"
-import vocabulary from "../../../infra/museovirasto-map-data-server/poc/web/filter-vocabulary.json"
+import layerMapping from "../../../infra/museovirasto-map-data/contract/layer-mapping.json"
+import vocabulary from "../../../infra/museovirasto-map-data/contract/filter-vocabulary.json"
 
 interface LogicalLayer {
   id: string

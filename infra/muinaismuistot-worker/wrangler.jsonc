@@ -16,7 +16,7 @@
 	"d1_databases": [
 		{
 			"binding": "MAP_FEATURES",
-			"migrations_dir": "../museovirasto-map-data-server/poc/migrations"
+			"migrations_dir": "../museovirasto-map-data/contract/migrations"
 		}
 	],
 	"env": {
@@ -43,7 +43,7 @@
 			"d1_databases": [
 				{
 					"binding": "MAP_FEATURES",
-					"migrations_dir": "../museovirasto-map-data-server/poc/migrations",
+					"migrations_dir": "../museovirasto-map-data/contract/migrations",
 					"database_id": "b9025c80-63e4-428f-aede-d1c81a1209fc"
 				}
 			]
@@ -62,7 +62,7 @@
 			"d1_databases": [
 				{
 					"binding": "MAP_FEATURES",
-					"migrations_dir": "../museovirasto-map-data-server/poc/migrations",
+					"migrations_dir": "../museovirasto-map-data/contract/migrations",
 					"database_id": "db55764f-36c1-41dc-8d3e-cb7fc4861942"
 				}
 			]

@@ -1,4 +1,4 @@
-import layerMapping from "../../../../museovirasto-map-data-server/layer-mapping.json"
+import layerMapping from "../../../../museovirasto-map-data/contract/layer-mapping.json"
 import { corsHeaders, methodNotAllowed, preflightResponse } from "./responses"
 
 export function handleLayers(request: Request): Response {
