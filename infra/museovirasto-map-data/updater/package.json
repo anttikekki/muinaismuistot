@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build:image": "bash scripts/build-image.sh",
+    "process:local": "bash scripts/process-local.sh",
     "run:local": "bash scripts/run-local.sh",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",

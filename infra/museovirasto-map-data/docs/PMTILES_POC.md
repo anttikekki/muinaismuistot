@@ -42,13 +42,9 @@ Zoomin 0 tiilestä dekoodatut pistemäärät vastaavat nyt arkiston koko pistem�
 
 PoC käyttää paikallisia Homebrew-asennuksia, ei konttia. Ensimmäinen ajo tehtiin versioilla GDAL 3.13.3 ja Tippecanoe 2.79.0. PMTiles-tarkistustyökalu lukitaan latausskriptissä versioon 1.31.2 ja sen SHA-256-tiiviste tarkistetaan.
 
-```bash
-brew install gdal tippecanoe jq
-infra/museovirasto-map-data/processing/scripts/09-download-pmtiles-cli.sh
-infra/museovirasto-map-data/processing/scripts/10-build-pmtiles-poc.sh
-infra/museovirasto-map-data/processing/scripts/11-validate-pmtiles.sh
-infra/museovirasto-map-data/processing/scripts/13-build-pmtiles.sh
-```
+Nämä olivat kertaluonteisen PoC:n paikallisia ajovaiheita. Nykyinen
+tuotantorakennus ajetaan aina updaterin Docker-imagessa komennolla
+`npm run process:local`; vanhat PoC- ja host-asennusskriptit on poistettu.
 
 Kenttäprojektiot ja lähdetasot ovat tiedostossa `processing/config/layers.json`. Rakennusskripti tarkistaa niiden vastaavan `layer-mapping.json`-tiedostoa ja vertaa jokaisen välivaiheen tietuemäärää lähdeaineistoon.
 

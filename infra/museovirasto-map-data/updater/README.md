@@ -68,6 +68,16 @@ PMTiles-, D1-, manifesti- ja metadata-artefaktit kopioidaan gitistä ohitettuun
 `data/updater-local/`-hakemistoon. Kontin sisäinen työlevy on kertakäyttöinen;
 olemassa olevaa paikallista `data/`-hakemistoa ei mountata eikä tyhjennetä.
 
+Koko imagen rakennuksen ja prosessoinnin voi ajaa ilman erillistä palvelinta
+yhdellä komennolla:
+
+```bash
+npm run process:local
+```
+
+Tämä on processing-moduulin ainoa tuettu paikallinen ajotapa. Oletusalusta on
+Apple Siliconille `linux/arm64`; sen voi vaihtaa `PLATFORM`-ympäristömuuttujalla.
+
 AMD64-image voidaan rakentaa Macilla emulaatiolla:
 
 ```bash

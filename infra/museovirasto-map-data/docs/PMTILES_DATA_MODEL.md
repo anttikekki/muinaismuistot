@@ -6,13 +6,8 @@ Tämä dokumentti kuvaa tuotannon kompaktin PMTiles-arkiston toteutuneen MVT-ske
 
 Kohdepaneelin näyttötiedot, sanahaku ja laajat raakakentät eivät lähtökohtaisesti kuulu MVT-tiiliin. Ne on tarkoitus palauttaa suppeasta hakuaineistosta tai valitun kohteen ominaisuustieto-endpointista. Rajaus perustuu tiedostossa [`FIELD_CONTRACT.md`](FIELD_CONTRACT.md) kuvattuun käyttöliittymän kenttäsopimukseen.
 
-Toteutunut skeema on tarkistettu komennolla:
-
-```bash
-infra/museovirasto-map-data/data/tools/pmtiles show \
-  --metadata \
-  infra/museovirasto-map-data/data/build/museovirasto.pmtiles
-```
+Toteutunut skeema tarkistetaan jokaisessa kontissa ajettavassa rakennuksessa
+`processing/scripts/11-validate-pmtiles.sh`-skriptillä.
 
 Arkistossa on 12 MVT `source-layer` -tasoa. `laji_key`, `type_mask` ja `dating_mask` ovat MVT-metadatan mukaan numeroita; `subtype_codes` on merkkijono. Geometria ja MVT-feature-ID eivät näy `vector_layers.fields`-luettelossa.
 

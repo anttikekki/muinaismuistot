@@ -15,8 +15,6 @@ project_dir=/workspace/infra/museovirasto-map-data
 }
 
 rm -rf "$project_dir/data"
-mkdir -p "$project_dir/data/tools"
-cp /usr/local/bin/pmtiles "$project_dir/data/tools/pmtiles"
 
 "$project_dir/processing/scripts/00-download-source-data.sh"
 "$project_dir/processing/scripts/17-build-release-artifacts.sh"

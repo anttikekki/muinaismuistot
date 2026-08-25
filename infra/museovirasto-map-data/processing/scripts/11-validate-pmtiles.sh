@@ -4,26 +4,20 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 ARCHIVE="${1:-$PROJECT_DIR/data/build/museovirasto.pmtiles}"
-PMTILES="${PMTILES:-$PROJECT_DIR/data/tools/pmtiles}"
 MAPPING_FILE="$PROJECT_DIR/contract/layer-mapping.json"
 
-for command_name in jq stat tippecanoe-decode; do
+for command_name in jq pmtiles tippecanoe-decode; do
   command -v "$command_name" >/dev/null 2>&1 || {
     echo "Required command not found: $command_name" >&2
     exit 1
   }
 done
 
-[[ -x "$PMTILES" ]] || {
-  echo "PMTiles CLI not found: $PMTILES" >&2
-  echo "Run scripts/09-download-pmtiles-cli.sh first." >&2
-  exit 1
-}
 [[ -s "$ARCHIVE" ]] || { echo "PMTiles archive not found or empty: $ARCHIVE" >&2; exit 1; }
 
-"$PMTILES" verify "$ARCHIVE"
+pmtiles verify "$ARCHIVE"
 
-metadata="$("$PMTILES" show --metadata "$ARCHIVE")"
+metadata="$(pmtiles show --metadata "$ARCHIVE")"
 expected_layers="$(jq -S -c '[.physicalLayers[].mvtSourceLayer] | sort' "$MAPPING_FILE")"
 actual_layers="$(jq -S -c '[.vector_layers[].id] | sort' <<<"$metadata")"
 
@@ -104,4 +98,4 @@ echo "All point features retained at zoom 0: yes"
 echo "Compact field schema: valid"
 echo "All area layers represented by centroids at zoom 0: yes"
 echo "Layers: $(jq -r '[.vector_layers[].id] | sort | join(", ")' <<<"$metadata")"
-echo "PMTiles CLI: $("$PMTILES" version)"
+echo "PMTiles CLI: $(pmtiles version)"

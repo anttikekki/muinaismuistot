@@ -4,37 +4,26 @@ Tämä moduuli lataa ja validoi Museoviraston lähdeaineiston sekä rakentaa
 PMTiles-, D1-, sanasto-, manifesti- ja julkaisutunnisteartefaktit. Se ei kutsu
 Cloudflaren tuotantoresursseja.
 
-Koko julkaisu rakennetaan repositorion juuresta komennolla:
+Processingia ei ajeta suoraan isäntäkoneessa. Paikallinen ajo käyttää samaa
+Docker-imagea kuin Cloudflaren ajastettu päivitys:
 
 ```bash
-infra/museovirasto-map-data/processing/scripts/17-build-release-artifacts.sh
+cd infra/museovirasto-map-data/updater
+npm run process:local
 ```
 
-Lukitut työkaluversiot ja lähdetasojen muunnokset ovat
-`config/`-hakemistossa. Syöte ja tulokset ovat gitistä ohitetussa
-`../data/`-hakemistossa ja julkaisuvalmiit tulokset `../data/build/`-
-hakemistossa. Tarkemmat ohjeet ovat
+Komento rakentaa koneen arkkitehtuurille valitun imagen, lataa aineiston
+kertakäyttöiseen konttiin ja kopioi julkaisuvalmiit tulokset gitistä ohitettuun
+`../data/updater-local/`-hakemistoon. Tarkemmat ohjeet ovat
 [`../docs/BUILD_PIPELINE.md`](../docs/BUILD_PIPELINE.md).
 
 ## Riippuvuudet ja asennus
 
-Moduuli käyttää `../contract`-sopimuksia, mutta ei riipu `deploy`- tai
-`updater`-moduuleista. Tarvittavat työkalut ja niiden lukitut versiot ovat
-`config/build-tool-versions.json`-tiedostossa: Bash, GDAL, Tippecanoe, Node.js,
-jq ja PMTiles CLI. Lähdeaineiston lataus tarvitsee lisäksi `curl`- ja
-`unzip`-komennot; mappingin kehitystarkistus käyttää `sqlite3`:a.
+Moduulin skriptit käyttävät `../contract`-sopimuksia. Suoritusympäristö ja
+GDAL-, Tippecanoe-, Node.js- sekä PMTiles-versiot lukitaan updaterin
+Dockerfilessä. Isäntäkoneelle tarvitaan vain Docker sekä updater-moduulin npm-
+komentojen ajamiseen Node.js ja npm. Processingilla ei ole omia npm-
+riippuvuuksia.
 
-macOS-asennus:
-
-```bash
-brew install gdal tippecanoe jq sqlite
-infra/museovirasto-map-data/processing/scripts/09-download-pmtiles-cli.sh
-```
-
-Node.js asennetaan versionhallintatyökalulla tiedoston
-`config/build-tool-versions.json` täsmälliseen versioon. Processingilla ei ole
-npm-riippuvuuksia. Asennus tarkistetaan ennen rakennusta:
-
-```bash
-infra/museovirasto-map-data/processing/scripts/16-verify-build-tools.sh
-```
+Skriptit säilyvät pieninä erillisinä rakennusvaiheina, mutta niiden suora ajo
+isäntäkoneessa ei ole tuettu käyttötapa.

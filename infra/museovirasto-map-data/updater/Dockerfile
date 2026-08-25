@@ -20,8 +20,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     WRANGLER_LOG_PATH=/tmp/wrangler.log
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-      bash build-essential ca-certificates curl git jq libsqlite3-dev \
-      pkg-config poppler-utils ripgrep sqlite3 unzip xz-utils zlib1g-dev && \
+      bash ca-certificates curl jq ripgrep sqlite3 unzip && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=pmtiles-builder /go-pmtiles /usr/local/bin/pmtiles
@@ -32,8 +31,7 @@ WORKDIR /workspace
 COPY museovirasto-map-data /workspace/infra/museovirasto-map-data
 COPY muinaismuistot-worker/wrangler.jsonc /workspace/infra/muinaismuistot-worker/wrangler.jsonc
 
-RUN mkdir -p /tmp/updater-home /workspace/infra/museovirasto-map-data/data/tools && \
-    cp /usr/local/bin/pmtiles /workspace/infra/museovirasto-map-data/data/tools/pmtiles && \
+RUN mkdir -p /tmp/updater-home && \
     npm ci --prefix /workspace/infra/museovirasto-map-data/updater && \
     rm -rf /root/.npm /tmp/updater-home/.npm
 

@@ -9,7 +9,7 @@ OUTPUT="$BUILD_DIR/release-descriptor.json"
 CURRENT_METADATA="$BUILD_DIR/current-metadata.json"
 SOURCE_HEADERS="$PROJECT_DIR/data/tutkija-http-headers.txt"
 
-for command_name in jq shasum unzip; do
+for command_name in jq sha256sum unzip; do
   command -v "$command_name" >/dev/null 2>&1 || { echo "Required command not found: $command_name" >&2; exit 1; }
 done
 [[ -s "$BUILD_MANIFEST" ]] || { echo "Build manifest not found: $BUILD_MANIFEST" >&2; exit 1; }
@@ -51,10 +51,10 @@ jq '{schemaVersion,version,publishedAt,sourceLastModified,sourceEtag,createdAt,s
   "$OUTPUT" > "$CURRENT_METADATA"
 
 [[ "$(jq -r '.version' "$OUTPUT")" == "$version" ]] || { echo "Release descriptor validation failed" >&2; exit 1; }
-[[ "$(jq -r '.artifacts.pmtiles.sha256' "$OUTPUT")" == "$(shasum -a 256 "$BUILD_DIR/museovirasto.pmtiles" | awk '{print $1}')" ]] || {
+[[ "$(jq -r '.artifacts.pmtiles.sha256' "$OUTPUT")" == "$(sha256sum "$BUILD_DIR/museovirasto.pmtiles" | awk '{print $1}')" ]] || {
   echo "Release PMTiles digest differs from the built artifact" >&2; exit 1;
 }
-[[ "$(jq -r '.artifacts.d1Import.sha256' "$OUTPUT")" == "$(shasum -a 256 "$BUILD_DIR/feature-details.sql" | awk '{print $1}')" ]] || {
+[[ "$(jq -r '.artifacts.d1Import.sha256' "$OUTPUT")" == "$(sha256sum "$BUILD_DIR/feature-details.sql" | awk '{print $1}')" ]] || {
   echo "Release D1 digest differs from the built artifact" >&2; exit 1;
 }
 

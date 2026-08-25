@@ -1,25 +1,24 @@
 # Toistettava rakennusajo
 
-Sama rakennusajo toimii paikallisesti ja updater-kontissa. Kontin työkalut on
-lukittu Docker-imagessa; paikallisen ympäristön versiot voi tarkistaa erikseen
-komennolla `processing/scripts/16-verify-build-tools.sh`.
+Rakennusajo suoritetaan aina updaterin Docker-imagessa sekä paikallisesti että
+Cloudflaressa. Näin GDAL-, Tippecanoe-, Node.js- ja PMTiles-versiot sekä Linux-
+ympäristö ovat samat molemmissa ajoissa ja lukittu updaterin Dockerfileen.
 
 Processingin Node-skriptit käyttävät vain Node.js:n vakiokirjastoa, joten
 moduulilla ei ole erillistä npm-asennusta.
 
-PMTiles CLI asennetaan version lukitsevalla latausskriptillä:
+Paikallinen koko aineiston ajo tehdään näin:
 
 ```bash
-infra/museovirasto-map-data/processing/scripts/09-download-pmtiles-cli.sh
+cd infra/museovirasto-map-data/updater
+npm run process:local
 ```
 
-GDAL, Tippecanoe ja jq asennetaan Homebrewlla. Rakennus ei päivitä niitä automaattisesti, vaan vaatii `processing/config/build-tool-versions.json`-tiedostossa ilmoitetut versiot. Node-versio on 22.23.1.
-
-Koko rakennus ja validointi ajetaan yhdellä komennolla:
-
-```bash
-infra/museovirasto-map-data/processing/scripts/17-build-release-artifacts.sh
-```
+Komento rakentaa paikallisen arkkitehtuurin imagen, lataa tuoreen lähdeaineiston
+kontissa, ajaa koko rakennusketjun ja kopioi artefaktit hakemistoon
+`infra/museovirasto-map-data/data/updater-local/`. Isäntäkoneelle ei asenneta
+paikkatietotyökaluja. Kontin sisäinen pääkomento on
+`processing/scripts/17-build-release-artifacts.sh`.
 
 ## Yöajon validointilinja
 
@@ -38,7 +37,7 @@ artefaktien turvallisuuden:
 7. manifesti, tarkistussummat, lähdeaikaleimat ja julkaisutiedot muodostuvat.
 
 Tavallista päivittäistä rivimäärää ei verrata snapshotiin eikä lukita. Mappingin,
-UI-enumien, työkalujen tai muunnoskoodin staattisia tarkistuksia ei toisteta
+UI-enumien tai muunnoskoodin staattisia tarkistuksia ei toisteta
 yöajossa; ne ajetaan vain kyseisiä tiedostoja muutettaessa.
 
 Tuotokset kirjoitetaan gitistä ohitettuun `data/build`-hakemistoon:
@@ -55,7 +54,7 @@ Tuotokset kirjoitetaan gitistä ohitettuun `data/build`-hakemistoon:
 
 Virheellistä geometriaa ei korjata tai pudoteta hiljaisesti. Tasokohtainen
 ennalta tunnettu geometriaton poikkeus validoidaan erikseen. Manifesti sisältää
-lähde- ja konfiguraatiotiivisteet, työkaluversiot, artefaktien koot ja
+lähde- ja konfiguraatiotiivisteet, artefaktien koot ja
 SHA-256-tiivisteet sekä keskeiset tietuemäärät.
 
 D1-rivimäärä luetaan manifestiin `feature-details-report.json`-raportista. Raportti sisältää jokaiselle 12 tasolle lähderivit, hyväksytyt geometriattomat poikkeukset ja tuotetut D1-rivit. Nykyisessä aineistossa lähderivejä on 268 965 ja D1-rivejä 268 964, koska yksi ennalta hyväksytty arkeologinen aluerivi on geometriaton.
@@ -68,12 +67,12 @@ Tuntematon suodatuksessa tarvittava laji-, tyyppi-, ajoitus- tai alatyyppiarvo
 estää rakennuksen vasta muunnosvaiheessa, koska nykyinen selainkoodisto ei voisi
 tulkita sitä oikein. Näyttötietojen tavalliset uudet arvot eivät estä ajoa.
 
-Koodimuutosten kehitystarkistukset ajetaan tarvittaessa erikseen:
+Koodimuutosten kehitystarkistukset voidaan ajaa imagen sisällä tarvittaessa.
+Varsinainen paikallinen hyväksyntäajo on:
 
 ```bash
-infra/museovirasto-map-data/processing/scripts/05-validate-layer-mapping.sh
-infra/museovirasto-map-data/processing/scripts/16-verify-build-tools.sh
-node --test infra/museovirasto-map-data/processing/scripts/*.test.mjs
+cd infra/museovirasto-map-data/updater
+npm run process:local
 ```
 
 Zoomit, keskipiste-/polygoniraja, Tippecanoen harvennus- ja kokorajoitusten käyttö sekä kokobudjetit ovat `processing/config/layers.json`-tiedoston `tiling`- ja `budgets`-osissa. Rakennus estyy, jos arkisto ylittää 75 000 000 tavua, zoomin 0 pakkaamaton MVT-tiili ylittää 1 500 000 tavua tai arkiston zoomialue poikkeaa asetuksesta 0–14.

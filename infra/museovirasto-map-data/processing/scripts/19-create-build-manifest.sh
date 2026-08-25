@@ -9,7 +9,11 @@ CONFIG="$PROJECT_DIR/processing/config/layers.json"
 MANIFEST="$BUILD_DIR/build-manifest.json"
 MANIFEST_TMP="$MANIFEST.tmp"
 
-sha256() { shasum -a 256 "$1" | awk '{print $1}'; }
+for command_name in jq sha256sum; do
+  command -v "$command_name" >/dev/null 2>&1 || { echo "Required command not found: $command_name" >&2; exit 1; }
+done
+
+sha256() { sha256sum "$1" | awk '{print $1}'; }
 file_entry() {
   local path="$1" label="$2"
   jq -cn --arg path "$label" --arg sha256 "$(sha256 "$path")" --argjson bytes "$(wc -c < "$path" | tr -d ' ')" '{path:$path,sha256:$sha256,bytes:$bytes}'
@@ -35,13 +39,12 @@ logical_layers="$(jq '.logicalLayers | length' "$PROJECT_DIR/contract/layer-mapp
 
 jq -n \
   --arg createdAt "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
-  --arg sourceDigest "$(printf '%s' "$sources" | shasum -a 256 | awk '{print $1}')" \
+  --arg sourceDigest "$(printf '%s' "$sources" | sha256sum | awk '{print $1}')" \
   --arg buildConfigSha256 "$(sha256 "$CONFIG")" \
   --arg layerMappingSha256 "$(sha256 "$PROJECT_DIR/contract/layer-mapping.json")" \
   --arg filterVocabularySha256 "$(sha256 "$PROJECT_DIR/contract/filter-vocabulary.json")" \
-  --argjson tools "$(cat "$PROJECT_DIR/processing/config/build-tool-versions.json")" \
   --argjson sources "$sources" --argjson artifacts "$artifacts" --argjson d1Rows "$d1_rows" \
   --argjson physicalLayers "$physical_layers" --argjson logicalLayers "$logical_layers" \
-  '{schemaVersion:1,createdAt:$createdAt,sourceDigest:$sourceDigest,configuration:{buildConfigSha256:$buildConfigSha256,layerMappingSha256:$layerMappingSha256,filterVocabularySha256:$filterVocabularySha256},tools:$tools,sources:$sources,artifacts:$artifacts,counts:{physicalLayers:$physicalLayers,logicalLayers:$logicalLayers,d1Rows:$d1Rows}}' > "$MANIFEST_TMP"
+  '{schemaVersion:1,createdAt:$createdAt,sourceDigest:$sourceDigest,configuration:{buildConfigSha256:$buildConfigSha256,layerMappingSha256:$layerMappingSha256,filterVocabularySha256:$filterVocabularySha256},sources:$sources,artifacts:$artifacts,counts:{physicalLayers:$physicalLayers,logicalLayers:$logicalLayers,d1Rows:$d1Rows}}' > "$MANIFEST_TMP"
 mv "$MANIFEST_TMP" "$MANIFEST"
 echo "Build manifest created: $MANIFEST"
