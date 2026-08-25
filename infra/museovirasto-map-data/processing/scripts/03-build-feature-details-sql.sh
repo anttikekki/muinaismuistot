@@ -9,7 +9,7 @@ OUTPUT_FILE="$PROJECT_DIR/data/build/feature-details.sql"
 REPORT_FILE="$PROJECT_DIR/data/build/feature-details-report.json"
 CONFIG="$PROJECT_DIR/processing/config/layers.json"
 MAPPING_FILE="$PROJECT_DIR/contract/layer-mapping.json"
-TRANSFORMER="$SCRIPT_DIR/compact-filter-data.mjs"
+TRANSFORMER="$SCRIPT_DIR/lib/compact-filter-data.mjs"
 
 for command_name in jq ogr2ogr node wc; do
   command -v "$command_name" >/dev/null 2>&1 || { echo "Required command not found: $command_name" >&2; exit 1; }

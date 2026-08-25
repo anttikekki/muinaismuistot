@@ -5,8 +5,8 @@ import { join, resolve } from "node:path"
 import { spawnSync } from "node:child_process"
 import test from "node:test"
 
-const project = resolve(import.meta.dirname, "../..")
-const transformer = join(project, "processing/scripts/compact-filter-data.mjs")
+const project = resolve(import.meta.dirname, "../../..")
+const transformer = join(project, "processing/scripts/lib/compact-filter-data.mjs")
 const vocabulary = join(project, "contract/filter-vocabulary.json")
 const mapping = join(project, "contract/layer-mapping.json")
 

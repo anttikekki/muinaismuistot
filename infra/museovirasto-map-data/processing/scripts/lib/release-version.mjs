@@ -3,7 +3,7 @@
 import { spawnSync } from "node:child_process"
 import { resolve } from "node:path"
 
-const project = resolve(import.meta.dirname, "../..")
+const project = resolve(import.meta.dirname, "../../..")
 const archive = resolve(project, "data/tutkija.zip")
 const listing = spawnSync("unzip", ["-l", archive], { encoding: "utf8" })
 if (listing.status !== 0) throw new Error(`Could not inspect source ZIP: ${listing.stderr.trim()}`)

@@ -105,7 +105,7 @@ Rinnakkainen kompakti arkisto säilyttää samat 12 lähdetasoa, kaikki featuret
 
 Arkisto pieneni 138 301 298 tavusta 54 762 752 tavuun eli noin 60,4 prosenttia ilman kohteiden harvennusta. Rakennus ja validointi vahvistivat kaikki 12 lähdetasoa sekä kaikkien pistetasojen täydet määrät zoomilla 0. Pronssikautisten hautaröykkiöiden tarkistus tuotti kompaktista arkistosta samat 1 467 osumaa kuin lähde-GeoPackage ja leveä arkisto.
 
-Kompakti arkisto rakennetaan nykyisin komennolla `processing/scripts/13-build-pmtiles.sh`. Versionoitu `contract/filter-vocabulary.json` sisältää lajin numerokoodit, tyyppi- ja ajoitusmaskien bittijärjestyksen sekä alatyyppikoodit. Rakennus keskeytyy, jos lähdearvoa ei voida esittää koodistolla. Sanaston tiiviste tallennetaan rakennusmanifestiin, ja selain käyttää samaa tiedostoa.
+Kompakti arkisto rakennetaan nykyisin tuotantoputken vaiheessa `processing/scripts/02-build-pmtiles.sh`. Versionoitu `contract/filter-vocabulary.json` sisältää lajin numerokoodit, tyyppi- ja ajoitusmaskien bittijärjestyksen sekä alatyyppikoodit. Rakennus keskeytyy, jos lähdearvoa ei voida esittää koodistolla. Sanaston tiiviste tallennetaan rakennusmanifestiin, ja selain käyttää samaa tiedostoa.
 
 Kompaktin arkiston ensimmäinen koko Suomen selainmittaus tuotti seuraavat luvut:
 
@@ -169,6 +169,6 @@ PoC käyttää saman aineistojulkaisun MVT:n ja D1:n yhteisenä avaimena yhdiste
 
 Kaikki 268 964 geometriallisen lähderivin `fid`-tunnisteita ja numeerista `laji_key`-koodia käyttävä arkisto on 63 451 059 tavua. Aikaisemmat vakaasta geometriarivi-identiteetistä tehdyt kokeet on hylätty tarpeettomina. Koko Suomen mitattu Range-siirto on kuudella pyynnöllä 1 765 305 tavua.
 
-Skripti `processing/scripts/14-build-feature-details-sql.sh` muodostaa 268 964 rivin D1-tuontiaineiston samoilla `fid`-tunnisteilla kuin PMTiles-rakennus. Worker tarjoaa karttaklikkaukselle `POST /api/features/batch` -täsmähaun ja pysyville linkeille `POST /api/features/by-register` -massahaun. Jälkimmäinen hyväksyy enintään 100 `{logicalLayerId, registryId}`-viitettä ja palauttaa jokaiselle kaikki uusimman aineiston geometriarivit. D1-indeksi on yhdistelmällä `(logical_layer_id, registry_id)`.
+Skripti `processing/scripts/03-build-feature-details-sql.sh` muodostaa 268 964 rivin D1-tuontiaineiston samoilla `fid`-tunnisteilla kuin PMTiles-rakennus. Worker tarjoaa karttaklikkaukselle `POST /api/features/batch` -täsmähaun ja pysyville linkeille `POST /api/features/by-register` -massahaun. Jälkimmäinen hyväksyy enintään 100 `{logicalLayerId, registryId}`-viitettä ja palauttaa jokaiselle kaikki uusimman aineiston geometriarivit. D1-indeksi on yhdistelmällä `(logical_layer_id, registry_id)`.
 
 Paikallinen end-to-end-koe palautti featurelle `archaeological_points:134403` oikean nimen, rekisteritunnuksen, kunnan ja luokittelukentät sekä raportoi samassa vastauksessa puuttuvan `rky_points`-viitteen. Worker vastasi 108 ms:ssa.

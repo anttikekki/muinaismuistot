@@ -27,3 +27,18 @@ riippuvuuksia.
 
 Skriptit säilyvät pieninä erillisinä rakennusvaiheina, mutta niiden suora ajo
 isäntäkoneessa ei ole tuettu käyttötapa.
+
+## Skriptirakenne
+
+`scripts/run.sh` ajaa juurihakemiston kaikki numeroidut vaiheet järjestyksessä:
+
+1. `01-download-source-data.sh`
+2. `02-build-pmtiles.sh`
+3. `03-build-feature-details-sql.sh`
+4. `04-create-build-manifest.sh`
+5. `05-create-release-descriptor.sh`
+
+`scripts/validation/` sisältää vaiheiden välissä ajettavat lähde-, PMTiles-,
+kokobudjetti- ja identiteettitarkistukset. `scripts/lib/` sisältää Node.js-
+apukoodin ja `scripts/test/` sen testit. Näin juurihakemiston numeroidut skriptit
+muodostavat suoraan tuotantoartefaktien rakennusjärjestyksen.

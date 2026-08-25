@@ -9,7 +9,7 @@ INTERMEDIATE_DIR="$BUILD_DIR/compact-intermediate"
 OUTPUT_FILE="$BUILD_DIR/museovirasto.pmtiles"
 CONFIG="$PROJECT_DIR/processing/config/layers.json"
 VOCABULARY="$PROJECT_DIR/contract/filter-vocabulary.json"
-TRANSFORMER="$SCRIPT_DIR/compact-filter-data.mjs"
+TRANSFORMER="$SCRIPT_DIR/lib/compact-filter-data.mjs"
 
 for command_name in jq ogr2ogr ogrinfo tippecanoe node; do
   command -v "$command_name" >/dev/null 2>&1 || { echo "Required command not found: $command_name" >&2; exit 1; }

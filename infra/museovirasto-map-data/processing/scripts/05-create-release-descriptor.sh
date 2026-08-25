@@ -14,7 +14,7 @@ for command_name in jq sha256sum unzip; do
 done
 [[ -s "$BUILD_MANIFEST" ]] || { echo "Build manifest not found: $BUILD_MANIFEST" >&2; exit 1; }
 
-release_version="$(node "$SCRIPT_DIR/release-version.mjs")"
+release_version="$(node "$SCRIPT_DIR/lib/release-version.mjs")"
 version="$(jq -r '.version' <<<"$release_version")"
 published_at="$(jq -r '.publishedAt' <<<"$release_version")"
 pmtiles="$(jq -c '.artifacts[] | select(.path == "museovirasto.pmtiles")' "$BUILD_MANIFEST")"

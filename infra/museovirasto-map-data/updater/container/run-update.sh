@@ -16,8 +16,7 @@ project_dir=/workspace/infra/museovirasto-map-data
 
 rm -rf "$project_dir/data"
 
-"$project_dir/processing/scripts/00-download-source-data.sh"
-"$project_dir/processing/scripts/17-build-release-artifacts.sh"
+"$project_dir/processing/scripts/run.sh"
 
 if [[ "$update_mode" == publish ]]; then
   export SKIP_E2E=1

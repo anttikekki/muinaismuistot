@@ -130,7 +130,7 @@ Jos lähde ei ole muuttunut, ajo päättyy ilman uudelleenrakennusta. Epäonnist
 
 Lähdeaineiston GeoPackage-inventaario, arvojoukkoanalyysi, PDF-tietomallin vertailu ja tunnisteanalyysi tehtiin kertaluonteisesti ja niiden tulokset säilytetään tiedostossa [SOURCE_DATA_INVENTORY.md](SOURCE_DATA_INVENTORY.md). Inventoitu versio sisältää 12 fyysistä kohdetasoa ja 268 965 lähderiviä. Tutkimusskriptit ja ladattu PDF poistettiin, kun tuotantoputken sopimus oli muodostettu.
 
-Tasomäppäys on tiedostossa [layer-mapping.json](layer-mapping.json). Sen staattinen kehitystarkistus voidaan ajaa komennolla `infra/museovirasto-map-data/processing/scripts/05-validate-layer-mapping.sh`; se ei kuulu yöajoon.
+Tasomäppäys on tiedostossa [layer-mapping.json](layer-mapping.json). Sen staattinen kehitystarkistus on `processing/scripts/validation/validate-layer-mapping.sh`; se ei kuulu yöajoon.
 
 Tyylivertailu ja MVT/OpenLayers-tyylisopimus ovat tiedostossa [STYLE_COMPARISON.md](STYLE_COMPARISON.md). Nykyinen kartta todettiin WMS:n palvelimella renderöimäksi rasteriksi: sivustolla ei ole ennestään Museoviraston varsinaisen aineiston OpenLayers-vektorityyliä. UI:n SVG-kuvakkeet ja 3D-mallien `ModelsLayer` ovat erillisiä visuaalisia jäljitelmiä. Migraation vertailutasoksi valittiin nykyinen WMS/UI-ilme, ja QML:stä hyödynnetään `Laji`-kategorisointi sekä geometriatyyppien ja mittasuhteiden referenssi. Kertaluonteinen WMS-tyylien inventointiskripti on poistettu.
 

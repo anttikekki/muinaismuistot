@@ -18,7 +18,7 @@ Komento rakentaa paikallisen arkkitehtuurin imagen, lataa tuoreen lähdeaineisto
 kontissa, ajaa koko rakennusketjun ja kopioi artefaktit hakemistoon
 `infra/museovirasto-map-data/data/updater-local/`. Isäntäkoneelle ei asenneta
 paikkatietotyökaluja. Kontin sisäinen pääkomento on
-`processing/scripts/17-build-release-artifacts.sh`.
+`processing/scripts/run.sh`.
 
 ## Yöajon validointilinja
 

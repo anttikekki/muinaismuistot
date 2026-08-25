@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 DATA_DIR="$PROJECT_DIR/data/tutkija"
 CONFIG="$PROJECT_DIR/processing/config/layers.json"
 MAPPING="$PROJECT_DIR/contract/layer-mapping.json"

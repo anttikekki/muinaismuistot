@@ -46,4 +46,4 @@ R2:n ja D1:n vaihtoa ei yritetä tehdä hajautettuna atomisena operaationa eikä
 
 ## Preview-validointi
 
-`processing/scripts/25-create-release-descriptor.sh` tuottaa `release-descriptor.json`- ja `current-metadata.json`-tiedostot. Valmiit artefaktit julkaistaan ensin preview-ympäristöön, jossa R2-, D1-, API- ja selainintegraatio validoidaan ennen production-julkaisua.
+`processing/scripts/05-create-release-descriptor.sh` tuottaa `release-descriptor.json`- ja `current-metadata.json`-tiedostot. Valmiit artefaktit julkaistaan ensin preview-ympäristöön, jossa R2-, D1-, API- ja selainintegraatio validoidaan ennen production-julkaisua.

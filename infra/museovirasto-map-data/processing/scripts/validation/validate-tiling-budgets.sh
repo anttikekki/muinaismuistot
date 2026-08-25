@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 CONFIG="$PROJECT_DIR/processing/config/layers.json"
 ARCHIVE="$PROJECT_DIR/data/build/museovirasto.pmtiles"
 REPORT="$PROJECT_DIR/data/build/tiling-budget-report.json"
