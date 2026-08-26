@@ -63,7 +63,7 @@ Seuraava vaihe 1:n tehtävä on avata arkisto OpenLayersissa paikallisesti, tote
 
 Arkistolle toteutettiin muinaismuistot.info-sovelluksesta irrallinen paikallinen PoC. Koeympäristö poistettiin tuotantointegraation valmistuttua.
 
-Cloudflaren Workers Vitest -integraation 15 testiä varmistavat Range-, virhe-, CORS- ja metadata-vastaukset paikallista R2-bindingia vasten. OpenLayers-sivu käyttää yhtä `PMTilesVectorSource`-oliota ja hakee 26 loogisen tason määrittelyn suoraan versionhallituista `layer-mapping.json`-tiedoista Workerin API:n kautta. Checkboxit muuttavat saman vektoritiililayerin tyylisuodatusta, eivät tietolähdettä.
+Cloudflaren Workers Vitest -integraatiotestit varmistavat Range-, virhe-, CORS- ja metadata-vastaukset paikallista R2-bindingia vasten. OpenLayers-sivu käyttää yhtä `PMTilesVectorSource`-oliota ja versionhallittua `layer-mapping.json`-tiedostoa 26 loogisen tason määrittelyyn. Checkboxit muuttavat saman vektoritiililayerin tyylisuodatusta, eivät tietolähdettä.
 
 Ensimmäisellä arkistolla tehty end-to-end-tarkistus palautti pyynnölle `bytes=0-16383` täsmälleen 16 384 tavua ja vastauksen `206 Partial Content`. Palautuneet tavut vastasivat paikallisen arkiston alkua, ja PMTiles CLI pystyi lukemaan Workerin URL:n kautta arkiston version 3 metadatan sekä kaikki 0–14 zoom-tasot. Worker on arkiston koosta riippumaton, ja korjattu 138 301 298 tavun suorituskykyarkisto on ladattu samaan paikalliseen R2-avaimeen.
 

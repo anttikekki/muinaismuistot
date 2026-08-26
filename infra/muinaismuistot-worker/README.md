@@ -28,7 +28,6 @@ Museovirasto-moduulin julkiset reitit ovat:
 - `/api/museovirasto/features/batch`
 - `/api/museovirasto/features/by-register`
 - `/api/museovirasto/search`
-- `/api/museovirasto/layers`
 - `/api/museovirasto/meta`
 - `/api/museovirasto/health`
 
