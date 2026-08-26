@@ -4,11 +4,18 @@
 
 Processing ei ole palvelu eikä oma npm-paketti. Tuettu suoritus tapahtuu updaterin Docker-imagessa, jossa paikkatietotyökalujen versiot on lukittu.
 
+Fyysisten lähdetasojen tiedosto- ja tasonimet määritellään vain
+`contract/layer-mapping.json`-tiedostossa. Build-konfiguraatio viittaa niihin
+ID:llä. `scripts/lib/layer-build-plan.mjs` yhdistää asetukset ja muodostaa
+OGR:n SQL-kyselyt deklaratiivisista kentistä; SQL-lauseita ei ylläpidetä
+JSONissa. `laji_key`-normalisointi muodostetaan
+`contract/filter-vocabulary.json`-sanaston `kindSourceValues`-mäppäyksestä.
+
 ## Syötteet ja riippuvuudet
 
 - Museoviraston `tutkija.zip` ja sen 12 GeoPackage-tasoa
 - [`../contract`](../contract/README.md): tasomäppäys ja suodatussanasto
-- `config/layers.json`: SQL-projektiot, muunnosprofiilit, zoomit ja kokobudjetit
+- `config/layers.json`: deklaratiiviset kenttäprojektiot, muunnosprofiilit, zoomit ja kokobudjetit
 - updaterin Dockerfile: GDAL, Tippecanoe, PMTiles, Node.js, jq ja SQLite
 
 Isäntäkone tarvitsee tuettuun ajoon Dockerin sekä Node.js:n ja npm:n. Skriptien suora ajo isäntäkoneen työkaluversioilla ei ole tuettu tuotantoartefaktien rakennustapa.
@@ -17,16 +24,16 @@ Isäntäkone tarvitsee tuettuun ajoon Dockerin sekä Node.js:n ja npm:n. Skripti
 
 `scripts/run.sh` suorittaa:
 
-1. `01-download-source-data.sh`: ZIP ja HTTP-otsakkeet.
+1. `download-source-data.sh`: ZIP ja HTTP-otsakkeet.
 2. `validation/validate-source-data.mjs`: tasot, geometriat, EPSG:3067, sallitut tyhjät geometriat ja validiteetti.
-3. `02-build-pmtiles.sh`: kenttäprojektiot, suodatuskoodit, EPSG:4326-muunnos ja zoomien 0–14 PMTiles.
+3. `build-pmtiles.sh`: kenttäprojektiot, suodatuskoodit, EPSG:4326-muunnos ja zoomien 0–14 PMTiles.
 4. `validation/validate-pmtiles.mjs` sekä budjettitarkistus: PMTiles-skeema,
    attribuutit, zoom-esitykset sekä arkisto- ja tiilibudjetit.
-5. `03-build-feature-details-sql.sh`: D1:n täydellinen `feature_details`-tuonti ominaisuuksineen ja geometrioineen.
+5. `build-feature-details-sql.sh`: D1:n täydellinen `feature_details`-tuonti ominaisuuksineen ja EPSG:4326-geometrioineen.
 6. `validation/validate-pmtiles-d1-identities.mjs`: PMTiles- ja D1-identiteettien
    sekä rivimäärien ristiinvalidointi eksplisiittisistä TSV-artefakteista.
-7. `04-create-build-manifest.sh`: lähde-, asetus- ja artefaktitiivisteet.
-8. `05-create-release-descriptor.sh`: ZIPin päiväykseen perustuva versio ja metadata.
+7. `create-build-manifest.sh`: lähde-, asetus- ja artefaktitiivisteet.
+8. `create-release-descriptor.sh`: ZIPin päiväykseen perustuva versio ja metadata.
 
 Aluetasot esitetään zoomeilla 0–9 keskipisteinä ja zoomeilla 10–14 polygoneina saman MVT-lähdetason alla. Rakennus ei käytä feature- tai tiilikokorajoihin perustuvaa hiljaista karsimista; erilliset budjettitarkistukset pysäyttävät liian suuren tuloksen.
 
@@ -42,7 +49,13 @@ Työhakemisto on `../data/build/`:
 | `release-descriptor.json` | Version, eheyden ja julkaisukohteiden kuvaus. |
 | `build-manifest.json` | Lähde-, konfiguraatio- ja artefaktitiivisteet. |
 
-Lisäksi syntyy validointiraportteja ja väliaikaisia GeoJSONSeq-tiedostoja. `data/` on gitistä ohitettu.
+Lisäksi syntyy validointiraportteja ja väliaikaisia GeoJSONSeq-tiedostoja. `data/` on gitistä ohitettu. Paikallinen Container-ajo kopioi julkaisuartefaktien lisäksi neljä validointiraporttia `data/updater-local/`-hakemistoon.
+
+Lähde ladataan ja puretaan oletuksena aina puhtaasti. Jos ajat latausskriptin käsin ja haluat tarkoituksella käyttää jo ladattua ZIPiä ja purettua hakemistoa, anna `--reuse-source`:
+
+```bash
+infra/museovirasto-map-data/processing/scripts/download-source-data.sh --reuse-source
+```
 
 ## Komennot
 

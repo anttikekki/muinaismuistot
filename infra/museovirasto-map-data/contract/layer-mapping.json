@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "description": "GeoPackage source layers, PMTiles/MVT source layers and current logical Museovirasto UI layers.",
   "physicalLayers": [
     {
@@ -37,20 +37,12 @@
       "geometryType": "POLYGON",
       "logicalIdFields": ["mjtunnus"],
       "featureIdentity": { "rowIdField": "fid" },
+      "excludedNullGeometries": 1,
       "derivedFields": {
         "laji_key": {
           "sourceField": "Laji",
           "normalization": "trim-lowercase-and-map",
-          "values": {
-            "kiinteä muinaisjäännös": "kiintea_muinaisjaannos",
-            "muu kulttuuriperintökohde": "muu_kulttuuriperintokohde",
-            "löytöpaikka": "loytopaikka",
-            "havaintokohde": "havaintokohde",
-            "luonnonmuodostuma": "luonnonmuodostuma",
-            "mahdollinen muinaisjäännös": "mahdollinen_muinaisjaannos",
-            "muu kohde": "muu_kohde",
-            "poistettu kiinteä muinaisjäännös (ei rauhoitettu)": "poistettu_kiintea_muinaisjaannos"
-          }
+          "vocabulary": "kinds"
         }
       }
     },
@@ -66,16 +58,7 @@
         "laji_key": {
           "sourceField": "Laji",
           "normalization": "trim-lowercase-and-map",
-          "values": {
-            "kiinteä muinaisjäännös": "kiintea_muinaisjaannos",
-            "muu kulttuuriperintökohde": "muu_kulttuuriperintokohde",
-            "löytöpaikka": "loytopaikka",
-            "havaintokohde": "havaintokohde",
-            "luonnonmuodostuma": "luonnonmuodostuma",
-            "mahdollinen muinaisjäännös": "mahdollinen_muinaisjaannos",
-            "muu kohde": "muu_kohde",
-            "poistettu kiinteä muinaisjäännös (ei rauhoitettu)": "poistettu_kiintea_muinaisjaannos"
-          }
+          "vocabulary": "kinds"
         }
       }
     },

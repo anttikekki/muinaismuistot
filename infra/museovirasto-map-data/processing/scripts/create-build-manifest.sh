@@ -22,7 +22,7 @@ file_entry() {
 sources='[]'
 while IFS= read -r file_name; do
   sources="$(jq -c --argjson entry "$(file_entry "$DATA_DIR/$file_name" "$file_name")" '. + [$entry]' <<<"$sources")"
-done < <(jq -r '[.layers[].geoPackageFile] | unique | sort[]' "$CONFIG")
+done < <(jq -r '[.physicalLayers[].geoPackageFile] | unique | sort[]' "$PROJECT_DIR/contract/layer-mapping.json")
 
 artifacts="$(jq -cn \
   --argjson pmtiles "$(file_entry "$BUILD_DIR/museovirasto.pmtiles" "museovirasto.pmtiles")" \

@@ -10,6 +10,16 @@
     "muu_kulttuuriperintokohde",
     "poistettu_kiintea_muinaisjaannos"
   ],
+  "kindSourceValues": {
+    "havaintokohde": "havaintokohde",
+    "kiinteä muinaisjäännös": "kiintea_muinaisjaannos",
+    "löytöpaikka": "loytopaikka",
+    "luonnonmuodostuma": "luonnonmuodostuma",
+    "mahdollinen muinaisjäännös": "mahdollinen_muinaisjaannos",
+    "muu kohde": "muu_kohde",
+    "muu kulttuuriperintökohde": "muu_kulttuuriperintokohde",
+    "poistettu kiinteä muinaisjäännös (ei rauhoitettu)": "poistettu_kiintea_muinaisjaannos"
+  },
   "types": [
     "ei määritelty",
     "alusten hylyt",

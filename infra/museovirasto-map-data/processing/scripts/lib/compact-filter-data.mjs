@@ -84,9 +84,7 @@ async function details([mappingPath, layerId]) {
     if (!line.trim()) continue
     const feature = JSON.parse(line)
     const source = feature.properties ?? {}
-    const exactGeometry = typeof source.exact_geometry_json === "string"
-      ? JSON.parse(source.exact_geometry_json)
-      : source.exact_geometry_json
+    const exactGeometry = feature.geometry
     if (!exactGeometry) throw new Error(`Missing geometry in ${layerId}:${source.gpkg_fid}`)
     const id = featureId(layerId, source.gpkg_fid)
     const logical = logicalLayers.find((layer) => !layer.filter || String(source[layer.filter.field] ?? "") === layer.filter.equals)

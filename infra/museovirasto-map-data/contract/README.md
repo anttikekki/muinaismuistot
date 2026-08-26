@@ -11,7 +11,7 @@ Määrittää 12 fyysisen GeoPackage-/MVT-lähdetason ja 26 käyttöliittymän l
 - GeoPackage-tiedosto ja sen sisäinen taso
 - odotettu geometriaperhe ja MVT:n `source-layer`
 - rekisteri- ja rivitunnisteiden lähdekentät
-- johdettavat kentät ja niiden sallitut lähdearvot
+- johdettavat kentät ja niiden käyttämä versionhallittu sanasto
 - loogisten tasojen lähdetaso ja mahdollinen suodatin
 
 Arkeologisten pisteiden ja alueiden kahdeksan lajia muodostetaan kahdesta fyysisestä tasosta. Selain importtaa tiedoston suoraan tyylejä ja tasovalintoja varten.
@@ -27,6 +27,9 @@ Määrittää arkeologisten kohteiden kompaktit MVT-suodatuskoodit:
 - `subtype_codes`: järjestetty alatyyppikoodien merkkijono
 
 Sanasto on skeemaversioitu. Tuntematon lähdearvo pysäyttää prosessoinnin, jotta uusi luokitus ei päädy tuotantoon väärällä tyylillä tai suodatuksella.
+`kindSourceValues` on arkeologisen `Laji`-kentän lähdearvon ja normalisoidun
+`laji_key`-arvon ainoa määrittely. Prosessointi generoi siitä SQL-muunnoksen ja
+validointi vertaa GeoPackageissa havaittuja arvoja siihen.
 
 ### `migrations/`
 
@@ -71,7 +74,7 @@ Kirjoita generoituun SQL-tiedostoon mahdollisuuksien mukaan taaksepäin
 yhteensopiva muutos, esimerkiksi nullable-sarake tai sarake turvallisella
 oletusarvolla. Päivitä samassa muutoksessa:
 
-- `processing/scripts/03-build-feature-details-sql.sh` tai sen käyttämä
+- `processing/scripts/build-feature-details-sql.sh` tai sen käyttämä
   transformer, jos tuonti kirjoittaa uutta saraketta
 - pää-Workerin kyselyt, vastaustyypit ja testien D1-fixture
 - migraatioiden jälkeen tässä READMEssä kuvattu ajantasainen skeema
@@ -111,7 +114,7 @@ Turvallinen koko järjestelmän julkaisujärjestys on kuvattu
 ## Skeemaversiot ja yhteensopivuus
 
 `current-metadata.json` julkaisee kolme yhteensopivuusnumeroa, jotka
-`processing/scripts/05-create-release-descriptor.sh` kirjoittaa:
+`processing/scripts/create-release-descriptor.sh` kirjoittaa:
 
 | Versio | Kasvata, kun |
 | --- | --- |

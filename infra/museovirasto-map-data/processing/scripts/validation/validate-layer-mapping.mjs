@@ -2,9 +2,9 @@
 
 import { readFile, stat } from "node:fs/promises"
 import { resolve } from "node:path"
-import { quoteSqlIdentifier, runCommand, runJson } from "./lib/commands.mjs"
+import { quoteSqlIdentifier, runJson } from "./lib/commands.mjs"
 import { assertValid, formatValues, runValidation } from "./lib/diagnostics.mjs"
-import { buildConfigPath, mappingPath, repositoryDirectory, sourceDirectory } from "./lib/project-paths.mjs"
+import { buildConfigPath, mappingPath, repositoryDirectory, sourceDirectory, vocabularyPath } from "./lib/project-paths.mjs"
 import { duplicateValues, normalizeGeometryType, validateGeometryFamily } from "./lib/rules.mjs"
 
 async function fileExists(path) {
@@ -16,9 +16,13 @@ function sameJson(left, right) {
 }
 
 export async function validateLayerMapping(dataDirectory = sourceDirectory, selectedMappingPath = mappingPath) {
-  const [mapping, config] = await Promise.all([
+  const [mapping, config, vocabulary] = await Promise.all([
     readFile(selectedMappingPath, "utf8").then(JSON.parse), readFile(buildConfigPath, "utf8").then(JSON.parse),
+    readFile(vocabularyPath, "utf8").then(JSON.parse),
   ])
+  const buildById = new Map(config.layers.map((layer) => [layer.id, layer]))
+  assertValid(sameJson([...new Set(Object.values(vocabulary.kindSourceValues))].sort(), [...vocabulary.kinds].sort()),
+    "kindSourceValues outputs differ from the kinds vocabulary")
   assertValid(mapping.physicalLayers?.length === 12, `expected 12 physical layers, got ${mapping.physicalLayers?.length ?? 0}`)
   assertValid(mapping.logicalLayers?.length === 26, `expected 26 logical layers, got ${mapping.logicalLayers?.length ?? 0}`)
   for (const [label, values] of [
@@ -31,6 +35,8 @@ export async function validateLayerMapping(dataDirectory = sourceDirectory, sele
   }
 
   for (const layer of mapping.physicalLayers) {
+    const buildLayer = buildById.get(layer.id)
+    assertValid(buildLayer, `missing build configuration for ${layer.id}`)
     const sourceFile = resolve(dataDirectory, layer.geoPackageFile)
     assertValid(await fileExists(sourceFile), `missing GeoPackage for ${layer.id}: ${sourceFile}`)
     const geometryRows = runJson("sqlite3", ["-json", sourceFile,
@@ -49,7 +55,8 @@ export async function validateLayerMapping(dataDirectory = sourceDirectory, sele
     try { validateGeometryFamily(layer.geometryType, declaredGeometry, observed) } catch (error) { throw new Error(`geometry mismatch for ${layer.id}: ${error.message}`) }
 
     const requiredFields = [...layer.logicalIdFields, ...(layer.parentIdFields ?? []), layer.featureIdentity.rowIdField,
-      ...Object.values(layer.derivedFields ?? {}).map(({ sourceField }) => sourceField)]
+      ...Object.values(layer.derivedFields ?? {}).map(({ sourceField }) => sourceField),
+      ...buildLayer.fields.map(({ source }) => source)]
     const columns = runJson("sqlite3", ["-json", sourceFile, `SELECT name FROM pragma_table_info('${layer.geoPackageLayer.replaceAll("'", "''")}');`])
     const columnNames = new Set(columns.map(({ name }) => name.toLowerCase()))
     for (const field of requiredFields) assertValid(columnNames.has(field.toLowerCase()), `field ${field} missing from ${layer.geoPackageFile}/${layer.geoPackageLayer}`)
@@ -60,7 +67,8 @@ export async function validateLayerMapping(dataDirectory = sourceDirectory, sele
       const rows = runJson("sqlite3", ["-json", sourceFile,
         `SELECT DISTINCT lower(trim(${field})) AS value FROM ${table} WHERE nullif(trim(${field}), '') IS NOT NULL ORDER BY value;`])
       const actual = rows.map(({ value }) => value)
-      const expected = Object.keys(derived.values).sort()
+      assertValid(derived.vocabulary === "kinds", `unsupported vocabulary for ${layer.id}/${derivedName}: ${derived.vocabulary ?? "missing"}`)
+      const expected = Object.keys(vocabulary.kindSourceValues).sort()
       assertValid(sameJson(actual, expected), `observed values for ${layer.id}/${derivedName} differ: expected=${formatValues(expected)} actual=${formatValues(actual)}`)
     }
   }
@@ -70,8 +78,9 @@ export async function validateLayerMapping(dataDirectory = sourceDirectory, sele
     const physical = physicalBySource.get(logical.sourceLayer)
     assertValid(physical, `logical layer ${logical.id} references unknown source ${logical.sourceLayer}`)
     if (logical.filter) {
-      const values = physical.derivedFields?.[logical.filter.field]?.values ?? {}
-      assertValid(Object.values(values).filter((value) => value === logical.filter.equals).length === 1,
+      const derived = physical.derivedFields?.[logical.filter.field]
+      const values = derived?.vocabulary === "kinds" ? Object.values(vocabulary.kindSourceValues) : []
+      assertValid(values.filter((value) => value === logical.filter.equals).length === 1,
         `filter ${logical.filter.field}=${logical.filter.equals} for ${logical.id} is not defined exactly once`)
     }
   }
@@ -85,12 +94,19 @@ export async function validateLayerMapping(dataDirectory = sourceDirectory, sele
     assertValid(sameJson(uiIds, mappingIds), `logical layer IDs differ from MuseovirastoLayer enum: mapping=${formatValues(mappingIds)} ui=${formatValues(uiIds)}`)
   }
 
-  const compact = (layers) => layers.map(({ id, geoPackageFile, geoPackageLayer }) => ({ id, geoPackageFile, geoPackageLayer })).sort((a, b) => a.id.localeCompare(b.id))
-  assertValid(sameJson(compact(config.layers), compact(mapping.physicalLayers)), "build configuration differs from layer mapping")
+  const buildIds = config.layers.map(({ id }) => id).sort()
+  const physicalIds = mapping.physicalLayers.map(({ id }) => id).sort()
+  assertValid(sameJson(buildIds, physicalIds), `build layer IDs differ from physical mapping: build=${formatValues(buildIds)} mapping=${formatValues(physicalIds)}`)
   const profiles = new Set(["none", "logical-filter", "archaeological-filters"])
+  const transforms = new Set([undefined, "none", "text", "trim", "kind"])
   for (const layer of config.layers) {
     assertValid(profiles.has(layer.transformProfile) && typeof (layer.lowZoomCentroid ?? false) === "boolean" &&
-      typeof layer.sql === "string" && layer.sql.includes("registry_id") && layer.sql.includes("geom"), `incomplete build configuration for ${layer.id}`)
+      Array.isArray(layer.fields) && layer.fields.length > 0, `incomplete build configuration for ${layer.id}`)
+    const targets = layer.fields.map(({ target }) => target)
+    assertValid(duplicateValues(targets).length === 0 && targets.includes("registry_id") && targets.includes("name"),
+      `invalid projection targets for ${layer.id}: ${formatValues(targets)}`)
+    for (const field of layer.fields) assertValid(typeof field.source === "string" && typeof field.target === "string" && transforms.has(field.transform),
+      `invalid projected field in ${layer.id}: ${JSON.stringify(field)}`)
   }
   assertValid(Number.isFinite(config.tiling.minimumZoom) && Number.isFinite(config.tiling.maximumZoom) &&
     config.tiling.lowZoomCentroidMaximumZoom + 1 === config.tiling.polygonMinimumZoom &&

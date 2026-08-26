@@ -35,5 +35,9 @@ if [[ -n "${OUTPUT_DIR:-}" ]]; then
     "$project_dir/data/build/build-manifest.json" \
     "$project_dir/data/build/release-descriptor.json" \
     "$project_dir/data/build/current-metadata.json" \
+    "$project_dir/data/build/source-validation-report.json" \
+    "$project_dir/data/build/feature-details-report.json" \
+    "$project_dir/data/build/pmtiles-d1-identity-report.json" \
+    "$project_dir/data/build/tiling-budget-report.json" \
     "$OUTPUT_DIR/"
 fi

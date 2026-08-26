@@ -27,7 +27,6 @@ function feature(fid, registryId, overrides = {}) {
       types_raw: "asuinpaikat, hautapaikat",
       subtypes_raw: "hautaröykkiöt, kuppikalliot",
       datings_raw: "kivikautinen, pronssikautinen",
-      exact_geometry_json: geometry,
       ...overrides,
     },
     geometry,

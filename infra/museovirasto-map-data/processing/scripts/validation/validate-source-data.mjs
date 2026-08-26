@@ -4,7 +4,7 @@ import { mkdir, readFile, stat, writeFile } from "node:fs/promises"
 import { resolve } from "node:path"
 import { quoteSqlIdentifier, runJson } from "./lib/commands.mjs"
 import { assertValid, runValidation } from "./lib/diagnostics.mjs"
-import { buildConfigPath, buildDirectory, mappingPath, sourceDirectory } from "./lib/project-paths.mjs"
+import { buildDirectory, mappingPath, sourceDirectory } from "./lib/project-paths.mjs"
 import { normalizeGeometryType, validateGeometryFamily } from "./lib/rules.mjs"
 
 async function exists(path) {
@@ -30,16 +30,11 @@ function observedGeometryTypes(sourceFile, sourceLayer, geometryColumn) {
 
 export async function validateSourceData(dataDirectory = sourceDirectory) {
   const mapping = JSON.parse(await readFile(mappingPath, "utf8"))
-  const config = JSON.parse(await readFile(buildConfigPath, "utf8"))
-  const configById = new Map(config.layers.map((layer) => [layer.id, layer]))
   const reports = []
 
   for (const layer of mapping.physicalLayers) {
     const sourceFile = resolve(dataDirectory, layer.geoPackageFile)
     assertValid(await exists(sourceFile), `missing source GeoPackage for ${layer.id}: ${sourceFile}`)
-    const buildLayer = configById.get(layer.id)
-    assertValid(buildLayer, `missing build configuration for ${layer.id}`)
-
     const metadata = layerFromOgr(runJson("ogrinfo", ["-ro", "-so", "-json", sourceFile, layer.geoPackageLayer]), layer.id)
     const geometryField = metadata.geometryFields?.[0]
     const total = Number(metadata.featureCount ?? 0)
@@ -66,7 +61,7 @@ export async function validateSourceData(dataDirectory = sourceDirectory) {
     const counts = countsDocument.layers?.[0]?.features?.[0]?.properties ?? {}
     const nullCount = Number(counts.null_count ?? 0)
     const invalidCount = Number(counts.invalid_count ?? 0)
-    const allowedNull = Number(buildLayer.excludedNullGeometries ?? 0)
+    const allowedNull = Number(layer.excludedNullGeometries ?? 0)
     assertValid(nullCount === allowedNull, `unexpected null geometries in ${layer.id}: expected=${allowedNull} actual=${nullCount}`)
     assertValid(invalidCount === 0, `invalid geometries in ${layer.id}: ${invalidCount}`)
     reports.push({ id: layer.id, rows: total, declaredGeometry, observedGeometryTypes: observed, nullGeometries: nullCount, invalidGeometries: invalidCount, crs: "EPSG:3067" })
