@@ -11,10 +11,10 @@
     "test:validation": "node --test ../processing/scripts/validation/test/*.test.mjs",
     "typecheck": "tsc --noEmit",
     "types": "wrangler types",
-    "deploy:preview:dry-run": "wrangler deploy --env preview --dry-run",
-    "deploy:preview": "wrangler deploy --env preview",
-    "deploy:production:dry-run": "wrangler deploy --env production --dry-run",
-    "deploy:production": "wrangler deploy --env production"
+    "deploy:preview:dry-run": "wrangler deploy --env preview --dry-run --containers-rollout=none",
+    "deploy:preview": "wrangler deploy --env preview --containers-rollout=immediate",
+    "deploy:production:dry-run": "wrangler deploy --env production --dry-run --containers-rollout=none",
+    "deploy:production": "wrangler deploy --env production --containers-rollout=immediate"
   },
   "dependencies": {
     "@cloudflare/containers": "^0.0.24"

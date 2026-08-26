@@ -80,16 +80,43 @@ Workflow hälyttää kaikkien yritysten epäonnistuttua. Tuoreustarkistus lähet
 Preview-updater:
 
 ```bash
-npm run deploy:preview:dry-run -- --containers-rollout=none
+npm run deploy:preview:dry-run
 npm run deploy:preview
 ```
 
 Production-updater:
 
 ```bash
-npm run deploy:production:dry-run -- --containers-rollout=none
+npm run deploy:production:dry-run
 npm run deploy:production
 ```
+
+Dry-run-komennot käyttävät `--containers-rollout=none`-asetusta: ne tarkistavat
+Workerin ja Containerin määritykset rakentamatta tai vaihtamatta imagea.
+Varsinaiset deploy-komennot käyttävät aina
+`--containers-rollout=immediate`-asetusta, jotta olemassa oleva
+`daily-update`-instanssi ei voi seuraavassa Workflow-ajossa käynnistyä vanhasta
+imagesta.
+
+Immediate rollout voi keskeyttää käynnissä olevan Container-ajon. Älä deployaa
+updateria samaan ympäristöön karttadatapäivityksen aikana. Turvallinen järjestys
+on:
+
+1. Tarkista `workflows instances list`- tai `describe`-komennolla, ettei
+   ympäristössä ole käynnissä olevaa päivitystä.
+2. Aja ympäristön `deploy:*:dry-run`.
+3. Aja ympäristön varsinainen `deploy:*` ja odota komennon valmistumista.
+4. Listaa Container-sovellukset ja sen jälkeen päivitetyn sovelluksen instanssit:
+
+   ```bash
+   npx wrangler containers list --env preview
+   npx wrangler containers instances <application-id> --env preview
+   ```
+
+   `daily-update`-instanssin luontiajan pitää olla deployn jälkeinen. Production-
+   tarkistuksessa vaihda ympäristöksi `production`.
+5. Käynnistä uusi Workflow vasta tämän jälkeen ja tarkista sen ensimmäisestä
+   yrityksestä, että lokissa näkyvät nykyisen prosessointiputken vaiheet.
 
 Manuaalinen preview-ajo ja viimeisen Container-ajon tila:
 
@@ -142,7 +169,7 @@ vanhan rakenteen poisto.
 3. Tarkista updaterin preview-deploy ja julkaise uusi Container-image:
 
    ```bash
-   npm run deploy:preview:dry-run -- --containers-rollout=none
+   npm run deploy:preview:dry-run
    npm run deploy:preview
    ```
 
@@ -228,6 +255,13 @@ Varmista virhe nykyisestä lähde-ZIPistä, muuta sopimusta vain jos lähdemuuto
 ymmärretty ja turvallinen, aja `npm test`, `npm run typecheck` ja
 `npm run process:local`, deployaa korjattu updater-image ja luo uusi Workflow-
 instanssi. Uusi instanssi on restartia selkeämpi, kun koodi tai image muuttui.
+
+Jos uuden Workflown lokissa näkyy jo poistettuja vaiheita, tiedostoja tai vanhan
+koodin virheilmoituksia, ajo käyttää vanhaa Container-instanssia. Älä odota sen
+automaattista retryä: lopeta tai anna nykyisen instanssin päättyä, deployaa
+updater uudelleen `--containers-rollout=immediate`-asetuksella, varmista
+`containers instances` -komennolla `daily-update`-instanssin vaihtuminen ja
+käynnistä uusi Workflow-instanssi.
 
 ### Container ei käynnisty tai Workflow jää käyntiin
 
