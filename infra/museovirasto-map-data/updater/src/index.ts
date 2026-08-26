@@ -93,7 +93,7 @@ export class MapDataUpdateContainer extends Container<UpdaterEnv> {
       await this.ctx.storage.put("lastRun", state)
       throw error
     } finally {
-      await this.stop()
+      await this.destroy()
     }
   }
 }
