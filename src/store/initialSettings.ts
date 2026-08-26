@@ -13,7 +13,7 @@ import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi
 } from "../common/museovirasto.types"
-import { Settings } from "./storeTypes"
+import { MuseovirastoDataSource, Settings } from "./storeTypes"
 
 const getInitialLang = (): Language => {
   const lang = navigator.language?.substring(0, 2)
@@ -67,6 +67,7 @@ export const initialSettings: Settings = {
     enabled: false
   },
   museovirasto: {
+    dataSource: MuseovirastoDataSource.WMS,
     selectedLayers: [
       MuseovirastoLayer.Muinaisjaannokset_piste,
       MuseovirastoLayer.Muinaisjaannokset_alue,
@@ -88,7 +89,8 @@ export const initialSettings: Settings = {
     selectedMuinaisjaannosDatings: Object.values(MuinaisjaannosAjoitus),
     url: {
       wms: "https://geoserver.museovirasto.fi/geoserver/ows",
-      wfs: "https://geoserver.museovirasto.fi/geoserver/ows"
+      wfs: "https://geoserver.museovirasto.fi/geoserver/ows",
+      worker: window.location.origin
     },
     opacity: 0.7,
     enabled: true

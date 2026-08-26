@@ -48,9 +48,11 @@ import {
 import { updateMaisemanMuistiLayerEnabled } from "../store/reducers/maisemanMuistiLayer"
 import { updateModelLayerEnabled } from "../store/reducers/modelLayer"
 import {
+  updateMuseovirastoDataSource,
   updateMuseovirastoLayerEnabled,
   updateMuseovirastoLayerOpacity,
   updateMuseovirastoSelectedLayers,
+  updateMuseovirastoWorkerUrl,
   updateSelectMuinaisjaannosDatings,
   updateSelectMuinaisjaannosTypes
 } from "../store/reducers/museovirastoLayer"
@@ -60,7 +62,7 @@ import {
   updateViabundusYear
 } from "../store/reducers/viabundusLayer"
 import { updateLanguage } from "../store/rootReducer"
-import { Settings } from "../store/storeTypes"
+import { MuseovirastoDataSource, Settings } from "../store/storeTypes"
 import { EMPTY_SELECTION, URLSettings } from "./types"
 
 const isEnumValue = <ENUM extends Record<string, unknown>>(
@@ -118,6 +120,8 @@ export const getSettingsFromURL = (): Settings => {
     museovirastoLayer,
     museovirastoOpacity,
     museovirastoEnabled,
+    museovirastoVectorTiles,
+    museovirastoApiBase,
     muinaisjaannosTypes,
     muinaisjaannosDatings,
     ahvenanmaaLayer,
@@ -132,6 +136,25 @@ export const getSettingsFromURL = (): Settings => {
     modelsEnabled,
     maisemanMuistiEnabled
   } = parseURLParams() as URLSettings
+
+  // Museovirasto data source and Worker URL
+  if (museovirastoVectorTiles === true || museovirastoVectorTiles === 1) {
+    newSettings = updateMuseovirastoDataSource(
+      newSettings,
+      MuseovirastoDataSource.PMTiles
+    )
+  } else if (
+    museovirastoVectorTiles === false ||
+    museovirastoVectorTiles === 0
+  ) {
+    newSettings = updateMuseovirastoDataSource(
+      newSettings,
+      MuseovirastoDataSource.WMS
+    )
+  }
+  if (typeof museovirastoApiBase === "string" && museovirastoApiBase) {
+    newSettings = updateMuseovirastoWorkerUrl(newSettings, museovirastoApiBase)
+  }
 
   // Linked feature
   if (x !== undefined && y !== undefined) {

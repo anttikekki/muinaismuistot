@@ -26,6 +26,11 @@ export enum PageId {
   Details = "detailsPage"
 }
 
+export enum MuseovirastoDataSource {
+  WMS = "WMS",
+  PMTiles = "PMTiles"
+}
+
 export interface IdentifiedMapFeatures {
   requestTimestamp: number
   features: MapFeature[]
@@ -85,12 +90,14 @@ export interface Settings {
     enabled: boolean
   }
   museovirasto: {
+    dataSource: MuseovirastoDataSource
     selectedLayers: MuseovirastoLayer[]
     selectedMuinaisjaannosTypes: MuinaisjaannosTyyppi[]
     selectedMuinaisjaannosDatings: MuinaisjaannosAjoitus[]
     url: {
       wms: string
       wfs: string
+      worker: string
     }
     opacity: number
     enabled: boolean

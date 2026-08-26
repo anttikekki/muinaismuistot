@@ -2,7 +2,7 @@ import {
   parseURLParams,
   stringifyURLParamsToHash
 } from "../common/util/URLHashHelper"
-import { Settings } from "../store/storeTypes"
+import { MuseovirastoDataSource, Settings } from "../store/storeTypes"
 import { EMPTY_SELECTION, URLSettings } from "./types"
 
 interface URLSettingsState {
@@ -245,6 +245,22 @@ export const updateSettingsToURL = (
     initialSettings.museovirasto.enabled,
     currentSettings.museovirasto.enabled,
     "museovirastoEnabled"
+  )
+
+  // Museovirasto data source
+  state = updateParam(
+    state,
+    initialSettings.museovirasto.dataSource === MuseovirastoDataSource.PMTiles,
+    currentSettings.museovirasto.dataSource === MuseovirastoDataSource.PMTiles,
+    "museovirastoVectorTiles"
+  )
+
+  // Museovirasto Worker URL
+  state = updateParam(
+    state,
+    initialSettings.museovirasto.url.worker,
+    currentSettings.museovirasto.url.worker,
+    "museovirastoApiBase"
   )
 
   // Museovirasto muinaisjaannos types

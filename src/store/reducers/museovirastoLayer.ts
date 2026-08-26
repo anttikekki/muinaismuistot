@@ -3,7 +3,32 @@ import {
   MuinaisjaannosAjoitus,
   MuinaisjaannosTyyppi
 } from "../../common/museovirasto.types"
-import { Settings } from "../storeTypes"
+import { MuseovirastoDataSource, Settings } from "../storeTypes"
+
+export const updateMuseovirastoDataSource = (
+  settings: Settings,
+  dataSource: MuseovirastoDataSource
+): Settings => ({
+  ...settings,
+  museovirasto: {
+    ...settings.museovirasto,
+    dataSource
+  }
+})
+
+export const updateMuseovirastoWorkerUrl = (
+  settings: Settings,
+  worker: string
+): Settings => ({
+  ...settings,
+  museovirasto: {
+    ...settings.museovirasto,
+    url: {
+      ...settings.museovirasto.url,
+      worker
+    }
+  }
+})
 
 export const updateMuseovirastoSelectedLayers = (
   settings: Settings,

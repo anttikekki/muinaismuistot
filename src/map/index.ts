@@ -31,7 +31,7 @@ import { isMuinaisjaannosPisteFeature } from "../common/museovirasto.types"
 import { isViabundusFeature } from "../common/viabundus.types"
 import { StoreListener } from "../store"
 import { ActionTypeEnum, ActionTypes } from "../store/actionTypes"
-import { Settings } from "../store/storeTypes"
+import { MuseovirastoDataSource, Settings } from "../store/storeTypes"
 import AhvenanmaaTileLayer from "./layer/AhvenanmaaTileLayer"
 import CurrentPositionAndSelectedLocationMarkerLayer from "./layer/CurrentPositionAndSelectedLocationMarkerLayer"
 import GtkTileLayer from "./layer/GtkTileLayer"
@@ -45,10 +45,6 @@ import ModelsLayer from "./layer/ModelsLayer"
 import MuseovirastoTileLayer from "./layer/MuseovirastoTileLayer"
 import MuseovirastoVectorTileLayer from "./layer/MuseovirastoVectorTileLayer"
 import ViabundusLayer from "./layer/ViabundusLayer"
-import {
-  museovirastoApiBase,
-  museovirastoVectorTilesEnabled
-} from "./museovirastoVectorTilesFeatureFlag"
 
 const FINNISH_EPSG_3067 = "EPSG:3067"
 const INITIAL_MAP_CENTER = [385249.63630000036, 6672695.7579] // Helsinki
@@ -143,12 +139,12 @@ export default class MuinaismuistotMap {
       settings,
       this.updateTileLoadingStatus
     )
-    if (museovirastoVectorTilesEnabled) {
+    if (settings.museovirasto.dataSource === MuseovirastoDataSource.PMTiles) {
       this.museovirastoVectorTileLayer = new MuseovirastoVectorTileLayer(
         this.map,
         settings,
         this.updateTileLoadingStatus,
-        museovirastoApiBase
+        settings.museovirasto.url.worker
       )
     }
     this.helsinkiLayer = new HelsinkiTileLayer(

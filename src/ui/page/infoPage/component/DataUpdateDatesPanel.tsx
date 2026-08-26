@@ -1,32 +1,34 @@
 import React, { useEffect, useState } from "react"
 import { Accordion } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
-import {
-  museovirastoApiBase,
-  museovirastoVectorTilesEnabled
-} from "../../../../map/museovirastoVectorTilesFeatureFlag"
+import { useSelector } from "react-redux"
+import { MuseovirastoDataSource, Settings } from "../../../../store/storeTypes"
 
-type MuseovirastoMetadata = {
+interface MuseovirastoMetadata {
   publishedAt?: string
 }
 
 export const DataUpdateDatesPanel: React.FC = () => {
   const { i18n, t } = useTranslation()
+  const { dataSource, url } = useSelector(
+    (settings: Settings) => settings.museovirasto
+  )
   const [museovirastoPublishedAt, setMuseovirastoPublishedAt] = useState<
     Date | null | undefined
   >(undefined)
 
   useEffect(() => {
-    if (!museovirastoVectorTilesEnabled) return
+    if (dataSource !== MuseovirastoDataSource.PMTiles) return
 
     const controller = new AbortController()
 
-    fetch(new URL("/api/museovirasto/meta", museovirastoApiBase), {
+    fetch(new URL("/api/museovirasto/meta", url.worker), {
       headers: { accept: "application/json" },
       signal: controller.signal
     })
       .then(async (response) => {
-        if (!response.ok) throw new Error(`Metadata request failed: ${response.status}`)
+        if (!response.ok)
+          throw new Error(`Metadata request failed: ${response.status}`)
         const metadata = (await response.json()) as MuseovirastoMetadata
         const publishedAt = metadata.publishedAt
           ? new Date(metadata.publishedAt)
@@ -43,20 +45,20 @@ export const DataUpdateDatesPanel: React.FC = () => {
       })
 
     return () => controller.abort()
-  }, [])
+  }, [dataSource, url.worker])
 
   const museovirastoUpdateText =
-    !museovirastoVectorTilesEnabled
+    dataSource !== MuseovirastoDataSource.PMTiles
       ? t("info.dataUpdates.museovirastoRealtime")
       : museovirastoPublishedAt === undefined
-      ? t("info.dataUpdates.museovirastoLoading")
-      : museovirastoPublishedAt === null
-        ? t("info.dataUpdates.museovirastoUnavailable")
-        : t("info.dataUpdates.museovirasto", {
-            date: new Intl.DateTimeFormat(i18n.resolvedLanguage).format(
-              museovirastoPublishedAt
-            )
-          })
+        ? t("info.dataUpdates.museovirastoLoading")
+        : museovirastoPublishedAt === null
+          ? t("info.dataUpdates.museovirastoUnavailable")
+          : t("info.dataUpdates.museovirasto", {
+              date: new Intl.DateTimeFormat(i18n.resolvedLanguage).format(
+                museovirastoPublishedAt
+              )
+            })
 
   return (
     <Accordion.Item eventKey="info.dataUpdates.title">
