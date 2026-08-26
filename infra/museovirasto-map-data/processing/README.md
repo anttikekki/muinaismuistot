@@ -1,44 +1,84 @@
-# Processing
+# Karttadatan prosessointi
 
-Tämä moduuli lataa ja validoi Museoviraston lähdeaineiston sekä rakentaa
-PMTiles-, D1-, sanasto-, manifesti- ja julkaisutunnisteartefaktit. Se ei kutsu
-Cloudflaren tuotantoresursseja.
+`processing` lataa ja validoi Museoviraston lähdeaineiston sekä rakentaa julkaisuun tarvittavat ympäristöriippumattomat artefaktit. Se on erillään julkaisusta, jotta sama rakennus voidaan ajaa paikallisesti, previewssa ja productionissa ilman Cloudflare-oikeuksia.
 
-Processingia ei ajeta suoraan isäntäkoneessa. Paikallinen ajo käyttää samaa
-Docker-imagea kuin Cloudflaren ajastettu päivitys:
+Processing ei ole palvelu eikä oma npm-paketti. Tuettu suoritus tapahtuu updaterin Docker-imagessa, jossa paikkatietotyökalujen versiot on lukittu.
+
+## Syötteet ja riippuvuudet
+
+- Museoviraston `tutkija.zip` ja sen 12 GeoPackage-tasoa
+- [`../contract`](../contract/README.md): tasomäppäys ja suodatussanasto
+- `config/layers.json`: SQL-projektiot, muunnosprofiilit, zoomit ja kokobudjetit
+- updaterin Dockerfile: GDAL, Tippecanoe, PMTiles, Node.js, jq ja SQLite
+
+Isäntäkone tarvitsee tuettuun ajoon Dockerin sekä Node.js:n ja npm:n. Skriptien suora ajo isäntäkoneen työkaluversioilla ei ole tuettu tuotantoartefaktien rakennustapa.
+
+## Rakennusprosessi
+
+`scripts/run.sh` suorittaa:
+
+1. `01-download-source-data.sh`: ZIP ja HTTP-otsakkeet.
+2. `validation/validate-source-data.sh`: tasot, geometriat, EPSG:3067, sallitut tyhjät geometriat ja validiteetti.
+3. `02-build-pmtiles.sh`: kenttäprojektiot, suodatuskoodit, EPSG:4326-muunnos ja zoomien 0–14 PMTiles.
+4. PMTiles-skeeman, attribuuttien sekä arkisto- ja tiilibudjettien validointi.
+5. `03-build-feature-details-sql.sh`: D1:n täydellinen `feature_details`-tuonti ominaisuuksineen ja geometrioineen.
+6. PMTiles- ja D1-identiteettien sekä rivimäärien ristiinvalidointi.
+7. `04-create-build-manifest.sh`: lähde-, asetus- ja artefaktitiivisteet.
+8. `05-create-release-descriptor.sh`: ZIPin päiväykseen perustuva versio ja metadata.
+
+Aluetasot esitetään zoomeilla 0–9 keskipisteinä ja zoomeilla 10–14 polygoneina saman MVT-lähdetason alla. Rakennus ei käytä feature- tai tiilikokorajoihin perustuvaa hiljaista karsimista; erilliset budjettitarkistukset pysäyttävät liian suuren tuloksen.
+
+## Tulokset
+
+Työhakemisto on `../data/build/`:
+
+| Tiedosto | Käyttö |
+| --- | --- |
+| `museovirasto.pmtiles` | Selaimen vektoritiiliarkisto R2:een. |
+| `feature-details.sql` | D1:n nykyisen sisällön korvaava tuonti. |
+| `current-metadata.json` | Julkisen metadata-endpointin aktiivinen metadata. |
+| `release-descriptor.json` | Version, eheyden ja julkaisukohteiden kuvaus. |
+| `build-manifest.json` | Lähde-, konfiguraatio- ja artefaktitiivisteet. |
+
+Lisäksi syntyy validointiraportteja ja väliaikaisia GeoJSONSeq-tiedostoja. `data/` on gitistä ohitettu.
+
+## Komennot
+
+Koko rakennus ilman Cloudflare-kirjoituksia:
 
 ```bash
 cd infra/museovirasto-map-data/updater
+npm ci
 npm run process:local
 ```
 
-Komento rakentaa koneen arkkitehtuurille valitun imagen, lataa aineiston
-kertakäyttöiseen konttiin ja kopioi julkaisuvalmiit tulokset gitistä ohitettuun
-`../data/updater-local/`-hakemistoon. Tarkemmat ohjeet ovat
-[`../docs/BUILD_PIPELINE.md`](../docs/BUILD_PIPELINE.md).
+Tulokset kopioidaan `infra/museovirasto-map-data/data/updater-local/`-hakemistoon. Alustan ja imagen voi valita:
 
-## Riippuvuudet ja asennus
+```bash
+PLATFORM=linux/arm64 IMAGE_TAG=museovirasto-map-data-updater:arm64 npm run process:local
+PLATFORM=linux/amd64 IMAGE_TAG=museovirasto-map-data-updater:amd64 npm run process:local
+```
 
-Moduulin skriptit käyttävät `../contract`-sopimuksia. Suoritusympäristö ja
-GDAL-, Tippecanoe-, Node.js- sekä PMTiles-versiot lukitaan updaterin
-Dockerfilessä. Isäntäkoneelle tarvitaan vain Docker sekä updater-moduulin npm-
-komentojen ajamiseen Node.js ja npm. Processingilla ei ole omia npm-
-riippuvuuksia.
+Node-apukoodin testin voi ajaa ympäristössä, jossa lukitut työkalut ovat saatavilla:
 
-Skriptit säilyvät pieninä erillisinä rakennusvaiheina, mutta niiden suora ajo
-isäntäkoneessa ei ole tuettu käyttötapa.
+```bash
+node --test infra/museovirasto-map-data/processing/scripts/test/compact-filter-data.test.mjs
+```
 
-## Skriptirakenne
+## Kapasiteettirajat ja työtilan siivous
 
-`scripts/run.sh` ajaa juurihakemiston kaikki numeroidut vaiheet järjestyksessä:
+`config/layers.json` määrittää kaksi tarkoituksellista julkaisubudjettia:
 
-1. `01-download-source-data.sh`
-2. `02-build-pmtiles.sh`
-3. `03-build-feature-details-sql.sh`
-4. `04-create-build-manifest.sh`
-5. `05-create-release-descriptor.sh`
+- koko PMTiles-arkisto enintään 75 000 000 tavua
+- zoom 0 -tiili enintään 1 500 000 tavua
 
-`scripts/validation/` sisältää vaiheiden välissä ajettavat lähde-, PMTiles-,
-kokobudjetti- ja identiteettitarkistukset. `scripts/lib/` sisältää Node.js-
-apukoodin ja `scripts/test/` sen testit. Näin juurihakemiston numeroidut skriptit
-muodostavat suoraan tuotantoartefaktien rakennusjärjestyksen.
+`validation/validate-tiling-budgets.sh` pysäyttää rakennuksen rajan ylittyessä.
+Älä nosta rajoja vain saadaksesi ajon läpi: tarkista ensin lähteen kasvu,
+zoom-tason sisältö ja mobiilissa ladattava tietomäärä. Budjetin muutos kuuluu
+versionhallittuun `config/layers.json`-tiedostoon ja vaatii uuden paikallisen
+rakennuksen sekä selainmittauksen.
+
+`../data/` sisältää vain uudelleen muodostettavaa työdataa. Sen voi poistaa, kun
+mikään paikallinen prosessointi tai Container ei ole käynnissä ja tarvittavat
+julkaisu- tai rollback-artefaktit on kopioitu muualle. Erityisesti
+`data/updater-local/` ei ole varmuuskopio eikä retention-järjestelmä.

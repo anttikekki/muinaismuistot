@@ -33,6 +33,14 @@ Museovirasto-moduulin julkiset reitit ovat:
 
 Worker käyttää bindingeja `MAP_DATA` (R2) ja `MAP_FEATURES` (D1). Bindingit on määritelty erikseen paikalliselle, preview- ja production-ympäristölle ilman fyysisiä resurssitunnisteita. Wrangler provisioi puuttuvat ympäristökohtaiset resurssit ensimmäisen deployn yhteydessä ja kirjoittaa syntyneet tunnisteet takaisin konfiguraatioon. Preview-deploy tehdään ja sen data siemennetään ennen production-deployta.
 
+D1:n `feature_details`-skeema ja migraatiot sijaitsevat
+[`../museovirasto-map-data/contract`](../museovirasto-map-data/contract/README.md#d1-skeema)-hakemistossa.
+Pää-Workerin `npm run deploy:*` ei aja näitä migraatioita. Normaalissa
+aineistojulkaisussa migraatiot ajaa karttadata-updater ennen uuden D1-tuonnin
+suorittamista. Jos Worker-muutos käyttää uutta saraketta, noudata koko
+preview→production-järjestystä
+[`updater/README.md`](../museovirasto-map-data/updater/README.md#d1-skeemamuutoksen-julkaisu)-ohjeesta; pelkkä Worker-deploy ei riitä.
+
 Ensimmäisen deployn jälkeen julkaisuartefaktit voidaan ladata ja etärajapinta smoke-testata yhdellä komennolla:
 
 ```bash
@@ -81,6 +89,60 @@ Wrangler-konfiguraatiossa on kaksi nimettyä ympäristöä.
 - Ei tuotannon routeja tai Custom Domaineja.
 - Julkaisu tehdään valinnalla `--env preview`.
 
+## Uuden ympäristön käyttöönotto
+
+Tämä ohje koskee tyhjää Cloudflare-tiliä tai uutta preview-/production-
+ympäristöä. Normaali koodideploy ei tarvitse provisiointivaiheita uudelleen.
+
+1. Asenna juuren, pää-Workerin ja updaterin riippuvuudet:
+
+   ```bash
+   npm ci
+   npm ci --prefix infra/muinaismuistot-worker
+   npm ci --prefix infra/museovirasto-map-data/updater
+   ```
+
+2. Deployaa pää-Worker ensin previewhin. Wrangler provisioi puuttuvan
+   `MAP_DATA`-R2-bucketin ja `MAP_FEATURES`-D1-kannan:
+
+   ```bash
+   npm run worker:deploy:preview:dry-run
+   npm run worker:deploy:preview
+   ```
+
+3. Tarkista, että previewn `bucket_name` ja `database_id` ovat
+   `wrangler.jsonc`-tiedostossa. Karttadatan julkaisuskripti ei toimi ilman
+   näitä tunnisteita.
+4. Deployaa updater previewhin ja aseta sen READMEssä luetellut secretit sekä
+   Email Service -binding:
+
+   ```bash
+   cd infra/museovirasto-map-data/updater
+   npm run deploy:preview:dry-run -- --containers-rollout=none
+   npm run deploy:preview
+   ```
+
+5. Käynnistä ensimmäinen aineistoajo. Se ajaa D1-migraatiot, täyttää D1:n,
+   lataa R2-objektit ja smoke-testaa pää-Workerin:
+
+   ```bash
+   npx wrangler workflows trigger museovirasto-map-data-preview-update \
+     '{"targetEnvironment":"preview"}' --env preview
+   npx wrangler workflows instances describe \
+     museovirasto-map-data-preview-update latest --env preview
+   ```
+
+6. Tarkista previewn `/api/museovirasto/health` ja
+   `/api/museovirasto/meta` ennen productionin perustamista.
+7. Toista pää-Workerin deploy, tunnisteiden tarkistus, updaterin deploy,
+   production-secretit ja ensimmäinen Workflow-ajo `production`-ympäristölle.
+   Productionissa käytä Workflow-nimeä
+   `museovirasto-map-data-production-update`.
+
+Ensimmäisen pää-Worker-deployn ja ensimmäisen aineistoajon välissä
+Museovirasto-API voi palauttaa `503`, koska bindingit ovat olemassa mutta R2 ja
+D1 eivät vielä sisällä aktiivista aineistoa. Tämä on odotettu bootstrap-tila.
+
 ## Projektin rakenne
 
 ```text
@@ -99,7 +161,6 @@ infra/muinaismuistot-worker/
 │       ├── features-batch.ts
 │       ├── features-by-register.ts
 │       ├── search.ts
-│       ├── layers.ts
 │       ├── metadata.ts
 │       ├── health.ts
 │       ├── feature-details.ts
@@ -112,7 +173,6 @@ infra/muinaismuistot-worker/
 │   │   ├── features-batch.test.ts
 │   │   ├── features-by-register.test.ts
 │   │   ├── search.test.ts
-│   │   ├── layers.test.ts
 │   │   ├── metadata.test.ts
 │   │   └── health.test.ts
 │   ├── support/museovirasto.ts
