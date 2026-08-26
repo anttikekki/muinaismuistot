@@ -36,7 +36,8 @@ describe("source freshness alerts", () => {
 
     await checkSourceFreshness(testEnv, new Date("2026-08-25T06:00:00Z"))
     expect(testEnv.ALERT_EMAIL.send).toHaveBeenCalledWith(expect.objectContaining({
-      subject: expect.stringContaining("vanhentunut"),
+      subject: expect.stringContaining("Julkaistu Museoviraston aineisto on vanhentunut"),
+      text: expect.stringMatching(/Julkaistun aineiston ikä: 125\.9 tuntia[\s\S]*hälytys koskee ympäristössä julkaistua versiota/),
     }))
   })
 

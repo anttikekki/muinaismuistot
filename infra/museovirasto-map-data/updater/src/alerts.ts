@@ -45,15 +45,16 @@ export async function checkSourceFreshness(env: UpdaterEnv, now = new Date()): P
 
   await sendAlert(
     env,
-    `[muinaismuistot.info] Museoviraston aineisto on vanhentunut`,
+    `[muinaismuistot.info] Julkaistu Museoviraston aineisto on vanhentunut`,
     [
       `Ympäristö: ${env.TARGET_ENV}`,
       `Aineistoversio: ${metadata.version ?? "tuntematon"}`,
-      `Lähteen aikaleima: ${sourceTimestamp}`,
+      `Julkaistun aineiston vanhin lähdeaikaleima: ${sourceTimestamp}`,
       `Blob Last-Modified: ${metadata.sourceLastModified ?? "ei saatavilla"}`,
       `ZIP-aineistopäivä: ${metadata.publishedAt ?? "ei saatavilla"}`,
-      `Ikä: ${ageHours.toFixed(1)} tuntia`,
+      `Julkaistun aineiston ikä: ${ageHours.toFixed(1)} tuntia`,
       `Sallittu enimmäisikä: ${maximumAgeHours} tuntia`,
+      `Huomio: hälytys koskee ympäristössä julkaistua versiota, ei Museoviraston lähdepalvelun nykytilaa.`,
       `Metadata: ${env.BASE_URL}/api/museovirasto/meta`,
     ].join("\n"),
   )
