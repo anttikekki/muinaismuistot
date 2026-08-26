@@ -1,13 +1,14 @@
 import React, { useMemo } from "react"
 import { Form } from "react-bootstrap"
 import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
 import { Language } from "../../../../common/layers.types"
 import {
   VarkAlueFeature,
   VarkPisteFeature
 } from "../../../../common/museovirasto.types"
 import {
-  getVARKRegisterUrl,
+  getMuinaisjaannosRegisterUrl,
   isMuinaisjaannosTyyppi,
   isVarkAjoitus,
   splitMuinaisjaannosAjoitus,
@@ -18,6 +19,10 @@ import {
   getArkeologisenKulttuuriperinnonOpasLinkForSubType,
   getArkeologisenKulttuuriperinnonOpasLinkForType
 } from "../../../../common/util/wikiLinkHelper"
+import {
+  MuseovirastoDataSource,
+  Settings
+} from "../../../../store/storeTypes"
 import { Link } from "../../Link"
 import { EmbeddedModels } from "../component/EmbeddedModels"
 import {
@@ -37,6 +42,10 @@ interface Props extends FeatureCollapsePanelCommonExternalProps {
 
 export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
   const { t, i18n } = useTranslation()
+  const museovirastoDataSource = useSelector(
+    (settings: Settings) => settings.museovirasto.dataSource
+  )
+  const usesPmtiles = museovirastoDataSource === MuseovirastoDataSource.PMTiles
   const {
     VARK_ID,
     VARK_nimi,
@@ -44,8 +53,8 @@ export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
     Maakunta,
     Mj_kohde,
     Mj_kohde2,
-    Mj_tunnus,
-    Mj_tunnus2
+    MJ_kohde3,
+    relatedArchaeologicalSites
   } = feature.properties
 
   const tyypit = useMemo(() => splitMuinaisjaannosTyyppi(feature), [feature])
@@ -58,20 +67,19 @@ export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
     [feature]
   )
   const muinaisjäännökset = useMemo(() => {
-    const mjTunnukset = [Mj_tunnus, Mj_tunnus2]
-      .filter((x) => !!x)
-      .join(", ")
-      .split(", ")
-      .filter((x) => !!x)
-    const mjNimet = [Mj_kohde, Mj_kohde2]
-      .filter((x) => !!x)
-      .join(", ")
-      .split(", ")
-      .filter((x) => !!x)
-    return mjTunnukset
-      .map((mjTunnus, i) => [mjNimet[i], mjTunnus])
-      .filter((pair) => !!pair[0] && !!pair[1])
-  }, [feature])
+    if (usesPmtiles) {
+      return (relatedArchaeologicalSites ?? []).map(({ name, registryId }) => [
+        name ?? registryId,
+        registryId
+      ])
+    }
+    return [Mj_kohde, Mj_kohde2, MJ_kohde3]
+      .filter((name): name is string => !!name)
+      .flatMap((names) => names.split(","))
+      .map((name) => name.trim())
+      .filter(Boolean)
+      .map((name) => [name, ""])
+  }, [feature, usesPmtiles])
 
   return (
     <MapFeatureCollapsePanel feature={feature} {...commonProps}>
@@ -130,12 +138,19 @@ export const VarkPanel: React.FC<Props> = ({ feature, ...commonProps }) => {
         <Field label={t(`data.featureType.Kiinteä muinaisjäännös`)}>
           <List
             data={muinaisjäännökset}
-            contentFn={([nimi, mjtunnus]) => (
-              <Link
-                text={nimi}
-                url={getVARKRegisterUrl(mjtunnus, i18n.language as Language)}
-              />
-            )}
+            contentFn={([nimi, mjtunnus]) =>
+              usesPmtiles ? (
+                <Link
+                  text={nimi}
+                  url={getMuinaisjaannosRegisterUrl(
+                    mjtunnus,
+                    i18n.language as Language
+                  )}
+                />
+              ) : (
+                nimi
+              )
+            }
           />
         </Field>
         <Field label={t(`details.field.varkId`)} value={String(VARK_ID)} />

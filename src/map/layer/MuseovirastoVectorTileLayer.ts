@@ -45,6 +45,10 @@ interface FeatureBatchItem extends FeatureReference {
     name: string | null
     municipality: string | null
   }
+  relatedArchaeologicalSites?: {
+    registryId: string
+    name: string | null
+  }[]
 }
 
 interface FeatureBatchResult {
@@ -697,6 +701,7 @@ function propertiesForLayer(item: FeatureBatchItem): Record<string, unknown> {
       Tyyppi: source.types_raw ?? "",
       Alatyyppi: source.subtypes_raw ?? "",
       Ajoitus: source.datings_raw ?? "",
+      relatedArchaeologicalSites: item.relatedArchaeologicalSites ?? [],
       Linkki: `https://www.kyppi.fi/palveluikkuna/VARKL/asp/v_kohde_det.aspx?KOHDE_ID=${registryId}`
     }
   }

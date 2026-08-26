@@ -3,8 +3,48 @@ import { featureResponse, type FeatureDetailRow } from "./feature-details"
 import { corsHeaders, errorResponse, methodNotAllowed, preflightResponse } from "./responses"
 
 type FeatureReference = { sourceLayer: string; featureId: string }
+type RelatedArchaeologicalSite = { registryId: string; name: string | null }
 const sourceLayers = new Set(layerMapping.physicalLayers.map((layer) => layer.mvtSourceLayer))
+const archaeologicalPointLogicalLayerIds = layerMapping.logicalLayers
+  .filter((layer) => layer.sourceLayer === "archaeological_points")
+  .map((layer) => layer.id)
 const D1_BATCH_SIZE = 30
+const RELATED_D1_BATCH_SIZE = 50
+
+function relatedRegistryIds(properties: Record<string, unknown>): string[] {
+  const raw = properties.related_registry_ids_raw
+  if (typeof raw !== "string") return []
+  return [...new Set(raw.split(",").map((value) => value.trim()).filter(Boolean))]
+}
+
+async function relatedArchaeologicalSites(
+  registryIds: string[],
+  env: Env,
+): Promise<Map<string, string | null>> {
+  const statements = []
+  for (let offset = 0; offset < registryIds.length; offset += RELATED_D1_BATCH_SIZE) {
+    const batch = registryIds.slice(offset, offset + RELATED_D1_BATCH_SIZE)
+    const registryPlaceholders = batch.map(() => "?").join(", ")
+    const layerPlaceholders = archaeologicalPointLogicalLayerIds.map(() => "?").join(", ")
+    statements.push(env.MAP_FEATURES.prepare(`
+      SELECT registry_id, name
+      FROM feature_details
+      WHERE logical_layer_id IN (${layerPlaceholders})
+        AND registry_id IN (${registryPlaceholders})
+      ORDER BY registry_id, feature_id
+    `).bind(...archaeologicalPointLogicalLayerIds, ...batch))
+  }
+
+  const names = new Map<string, string | null>()
+  if (statements.length === 0) return names
+  const results = await env.MAP_FEATURES.batch<{ registry_id: string; name: string | null }>(statements)
+  for (const result of results) {
+    for (const row of result.results) {
+      if (!names.has(row.registry_id)) names.set(row.registry_id, row.name)
+    }
+  }
+  return names
+}
 
 export async function handleFeatureBatch(request: Request, env: Env): Promise<Response> {
   if (request.method === "OPTIONS") return preflightResponse()
@@ -49,7 +89,9 @@ export async function handleFeatureBatch(request: Request, env: Env): Promise<Re
   }
   const results = await env.MAP_FEATURES.batch<FeatureDetailRow>(statements)
 
-  const features = []
+  const features: Array<ReturnType<typeof featureResponse> & {
+    relatedArchaeologicalSites?: RelatedArchaeologicalSite[]
+  }> = []
   const missing = []
   for (const result of results) {
     for (const row of result.results) {
@@ -57,6 +99,23 @@ export async function handleFeatureBatch(request: Request, env: Env): Promise<Re
       if (!row.source_layer) missing.push(reference)
       else features.push(featureResponse(row))
     }
+  }
+
+  const idsByFeature = new Map<(typeof features)[number], string[]>()
+  const allRelatedIds = new Set<string>()
+  for (const feature of features) {
+    if (!feature.sourceLayer?.startsWith("vark_")) continue
+    const ids = relatedRegistryIds(feature.properties)
+    delete feature.properties.related_registry_ids_raw
+    idsByFeature.set(feature, ids)
+    ids.forEach((id) => allRelatedIds.add(id))
+  }
+  const relatedNames = await relatedArchaeologicalSites([...allRelatedIds], env)
+  for (const [feature, ids] of idsByFeature) {
+    feature.relatedArchaeologicalSites = ids.map((registryId) => ({
+      registryId,
+      name: relatedNames.get(registryId) ?? null,
+    }))
   }
   return Response.json({ features, missing }, { headers: corsHeaders() })
 }

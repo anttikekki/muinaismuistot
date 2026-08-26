@@ -10,6 +10,11 @@ ID:llä. `scripts/lib/layer-build-plan.mjs` yhdistää asetukset ja muodostaa
 OGR:n SQL-kyselyt deklaratiivisista kentistä; SQL-lauseita ei ylläpidetä
 JSONissa. `laji_key`-normalisointi muodostetaan
 `contract/filter-vocabulary.json`-sanaston `kindSourceValues`-mäppäyksestä.
+VARK-tasojen `Ajoitus` ja `Ajoitus2` yhdistetään `datings_raw`-kentäksi sekä
+`Mj_tunnus` ja `Mj_tunnus2` D1:n sisäiseksi
+`related_registry_ids_raw`-kentäksi. Jälkimmäistä käytetään VARK-kohteen
+viitattujen muinaisjäännöskohteiden rikastamiseen Workerissa; sitä ei viedä
+PMTiles-attribuutiksi eikä sellaisenaan julkiseen API-vastaukseen.
 
 ## Syötteet ja riippuvuudet
 

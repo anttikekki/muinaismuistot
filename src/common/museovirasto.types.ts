@@ -258,7 +258,20 @@ export interface MaailmanperintoAlueFeature
   id: `maailmanperinto_alue.${number}`
 }
 
-interface VarkAlueFeatureProperties {
+export interface RelatedArchaeologicalSite {
+  registryId: string
+  name: string | null
+}
+
+interface PmtilesVarkFeatureProperties {
+  /**
+   * Workerin D1-datasta rikastama PMTiles-toteutuksen tieto.
+   * Kenttää ei ole Museoviraston WMS-rajapinnasta tulevissa featureissa.
+   */
+  relatedArchaeologicalSites?: RelatedArchaeologicalSite[]
+}
+
+interface VarkAlueFeatureProperties extends PmtilesVarkFeatureProperties {
   VARK_ID: number // 100952
   VARK_nimi: string // "Bembölen myllynpaikka"
   Mj_kohde: string //"Bembölen myllynpaikka"
@@ -288,7 +301,7 @@ export interface VarkAlueFeature
   id: `vark_alueet.${number}`
 }
 
-interface VarkPisteFeatureProperties {
+interface VarkPisteFeatureProperties extends PmtilesVarkFeatureProperties {
   VARK_ID: number // 100952
   VARK_nimi: string // "Bembölen myllynpaikka"
   Mj_kohde: string //"Bembölen myllynpaikka"

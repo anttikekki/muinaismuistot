@@ -11,12 +11,28 @@ function sqlString(value) {
 }
 
 function fieldExpression(field, vocabulary) {
-  const source = quoteIdentifier(field.source)
+  const sources = field.sources ?? [field.source]
+  if (sources.some((source) => typeof source !== "string")) {
+    throw new Error(`invalid sources for ${field.target}`)
+  }
+  const source = quoteIdentifier(sources[0])
   let expression
   switch (field.transform ?? "none") {
     case "none": expression = source; break
     case "text": expression = `CAST(${source} AS TEXT)`; break
     case "trim": expression = `trim(${source})`; break
+    case "join": {
+      if (sources.length < 2) throw new Error(`join requires multiple sources for ${field.target}`)
+      const values = sources.map((value) => `NULLIF(trim(CAST(${quoteIdentifier(value)} AS TEXT)), '')`)
+      expression = values.map((value, index) => {
+        const previousValueExists = values.slice(0, index).map((previous) => `${previous} IS NOT NULL`).join(" OR ")
+        const separator = index === 0
+          ? ""
+          : `CASE WHEN (${previousValueExists}) AND ${value} IS NOT NULL THEN ', ' ELSE '' END || `
+        return `${separator}COALESCE(${value}, '')`
+      }).join(" || ")
+      break
+    }
     case "kind": {
       const values = Object.entries(vocabulary.kindSourceValues ?? {})
       if (values.length === 0) throw new Error("filter vocabulary has no kindSourceValues")

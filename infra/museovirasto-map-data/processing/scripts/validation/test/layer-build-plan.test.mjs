@@ -27,6 +27,19 @@ test("generates ordinary and centroid SQL from declarative fields", () => {
   assert.match(buildLayerSql(physical, build, vocabulary, { centroid: true }), /ST_Centroid\("geom"\) AS "geom"/)
 })
 
+test("joins multiple optional source fields without empty separators", () => {
+  const layer = {
+    ...build,
+    fields: [
+      { sources: ["dating", "dating2"], target: "datings_raw", transform: "join" },
+    ],
+  }
+  const sql = buildLayerSql(physical, layer, vocabulary)
+  assert.match(sql, /NULLIF\(trim\(CAST\("dating" AS TEXT\)\), ''\)/)
+  assert.match(sql, /NULLIF\(trim\(CAST\("dating2" AS TEXT\)\), ''\)/)
+  assert.match(sql, /THEN ', ' ELSE '' END/)
+})
+
 test("requires exactly the same physical and build layer IDs", () => {
   assert.throws(() => createBuildPlan({ physicalLayers: [physical] }, { layers: [] }, vocabulary),
     /build layer IDs differ/)

@@ -795,7 +795,7 @@ export const splitMuinaisjaannosTyyppi = (
       .replace("taide, muistomerkit", "taide-muistomerkit")
       .split(", ")
       .map((t) => (t === "taide-muistomerkit" ? "taide, muistomerkit" : t))
-  )
+  ).filter((tyyppi) => tyyppi.length > 0)
 }
 
 export const splitMuinaisjaannosAlatyyppi = (
@@ -816,7 +816,7 @@ export const splitMuinaisjaannosAlatyyppi = (
       .replace("rajamerkit, puu", "rajamerkit-puu")
       .split(", ")
       .map((t) => (t === "rajamerkit-puu" ? "rajamerkit, puu" : t))
-  )
+  ).filter((alatyyppi) => alatyyppi.length > 0)
   // Poistetaan "ei määritelty", jos on joku muukin alatyyppi
   return alatyyppiSplitted.length > 1
     ? alatyyppiSplitted.filter((tyyppi) => tyyppi !== "ei määritelty")
@@ -838,7 +838,7 @@ export const splitMuinaisjaannosAjoitus = (
 
   const ajoitusSplitted = ajoitus.flatMap((ajoitus) =>
     trim(ajoitus).split(", ")
-  )
+  ).filter((ajoitus) => ajoitus.length > 0)
 
   // Poistetaan "ei määritelty", jos on joku muukin ajoitus
   return ajoitusSplitted.length > 1

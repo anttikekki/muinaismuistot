@@ -21,7 +21,8 @@
         { "source": "Kunta", "target": "municipality", "transform": "trim" },
         { "source": "Tyyppi", "target": "types_raw" },
         { "source": "Alatyyppi", "target": "subtypes_raw" },
-        { "source": "Ajoitus", "target": "datings_raw", "transform": "trim" }
+        { "sources": ["Ajoitus", "Ajoitus2"], "target": "datings_raw", "transform": "join" },
+        { "sources": ["Mj_tunnus", "Mj_tunnus2"], "target": "related_registry_ids_raw", "transform": "join" }
       ]
     },
     {
@@ -32,7 +33,8 @@
         { "source": "Kunta", "target": "municipality", "transform": "trim" },
         { "source": "Tyyppi", "target": "types_raw" },
         { "source": "Alatyyppi", "target": "subtypes_raw" },
-        { "source": "Ajoitus", "target": "datings_raw", "transform": "trim" }
+        { "sources": ["Ajoitus", "Ajoitus2"], "target": "datings_raw", "transform": "join" },
+        { "sources": ["Mj_tunnus", "Mj_tunnus2"], "target": "related_registry_ids_raw", "transform": "join" }
       ]
     },
     {
