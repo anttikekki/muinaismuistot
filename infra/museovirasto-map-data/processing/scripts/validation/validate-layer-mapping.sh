@@ -8,7 +8,7 @@ MAPPING_FILE="${2:-$PROJECT_DIR/contract/layer-mapping.json}"
 BUILD_CONFIG="$PROJECT_DIR/processing/config/layers.json"
 UI_LAYER_TYPES_FILE="$PROJECT_DIR/../../src/common/layers.types.ts"
 
-for command_name in jq sqlite3; do
+for command_name in jq ogrinfo sqlite3; do
   if ! command -v "$command_name" >/dev/null 2>&1; then
     echo "Error: '$command_name' is required." >&2
     exit 1
@@ -38,9 +38,23 @@ while IFS=$'\t' read -r id gpkg_file gpkg_layer geometry_type; do
   source_file="$SOURCE_DIR/$gpkg_file"
   [[ -f "$source_file" ]] || { echo "Error: missing GeoPackage for $id: $source_file" >&2; exit 1; }
 
+  geometry_column="$(sqlite3 "$source_file" "SELECT column_name FROM gpkg_geometry_columns WHERE table_name = '$gpkg_layer';")"
   actual_geometry="$(sqlite3 "$source_file" "SELECT geometry_type_name FROM gpkg_geometry_columns WHERE table_name = '$gpkg_layer';")"
   [[ -n "$actual_geometry" ]] || { echo "Error: layer '$gpkg_layer' not found in $gpkg_file." >&2; exit 1; }
-  [[ "$actual_geometry" == "$geometry_type" ]] || { echo "Error: geometry mismatch for $id: expected $geometry_type, got $actual_geometry." >&2; exit 1; }
+  if [[ "$actual_geometry" != "$geometry_type" ]]; then
+    if [[ "$geometry_type" == "POLYGON" && ("$actual_geometry" == "GEOMETRY" || "$actual_geometry" == "MULTIPOLYGON") ]]; then
+      geometry_report="$(ogrinfo -json -features -q -dialect SQLite "$source_file" -sql \
+        "SELECT GeometryType(\"$geometry_column\") AS geometry_type, COUNT(*) AS feature_count FROM \"$gpkg_layer\" WHERE \"$geometry_column\" IS NOT NULL GROUP BY GeometryType(\"$geometry_column\")")"
+      unexpected_geometries="$(jq -r '[.layers[0].features[].properties | select(.geometry_type != "POLYGON" and .geometry_type != "MULTIPOLYGON") | "\(.geometry_type)=\(.feature_count)"] | join(", ")' <<<"$geometry_report")"
+      [[ -z "$unexpected_geometries" ]] || {
+        echo "Error: geometry mismatch for $id: expected polygonal features, got $unexpected_geometries." >&2
+        exit 1
+      }
+    else
+      echo "Error: geometry mismatch for $id: expected $geometry_type, got $actual_geometry." >&2
+      exit 1
+    fi
+  fi
 
   while IFS= read -r required_field; do
     [[ -z "$required_field" ]] && continue

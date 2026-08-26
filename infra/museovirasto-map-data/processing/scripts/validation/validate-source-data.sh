@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-DATA_DIR="$PROJECT_DIR/data/tutkija"
+DATA_DIR="${1:-$PROJECT_DIR/data/tutkija}"
 CONFIG="$PROJECT_DIR/processing/config/layers.json"
 MAPPING="$PROJECT_DIR/contract/layer-mapping.json"
 
@@ -20,9 +20,20 @@ while IFS=$'\t' read -r layer_id file_name source_layer expected_geometry allowe
   actual_geometry="$(jq -r '.layers[0].geometryFields[0].type // empty | ascii_upcase | gsub(" "; "")' <<<"$metadata")"
   authority="$(jq -r '.layers[0].geometryFields[0].coordinateSystem.projjson.id | select(.authority == "EPSG") | .code // empty' <<<"$metadata")"
   [[ "$total" -gt 0 ]] || { echo "Source layer is empty: $layer_id" >&2; exit 1; }
-  [[ "$actual_geometry" == "$expected_geometry" ]] || {
-    echo "Geometry type changed in $layer_id: expected=$expected_geometry actual=$actual_geometry" >&2; exit 1;
-  }
+  if [[ "$actual_geometry" != "$expected_geometry" ]]; then
+    if [[ "$expected_geometry" == "POLYGON" && ("$actual_geometry" == "GEOMETRY" || "$actual_geometry" == "MULTIPOLYGON") ]]; then
+      geometry_counts="$(ogrinfo -ro -json -features -dialect SQLite -sql \
+        "SELECT GeometryType(geom) AS geometry_type, COUNT(*) AS feature_count FROM \"$source_layer\" WHERE geom IS NOT NULL GROUP BY GeometryType(geom)" "$source_file")"
+      unexpected_geometries="$(jq -r '[.layers[0].features[].properties | select(.geometry_type != "POLYGON" and .geometry_type != "MULTIPOLYGON") | "\(.geometry_type)=\(.feature_count)"] | join(", ")' <<<"$geometry_counts")"
+      [[ -z "$unexpected_geometries" ]] || {
+        echo "Unexpected geometry types in $layer_id: expected polygonal features, got $unexpected_geometries" >&2
+        exit 1
+      }
+    else
+      echo "Geometry type changed in $layer_id: expected=$expected_geometry actual=$actual_geometry" >&2
+      exit 1
+    fi
+  fi
   [[ "$authority" == "3067" ]] || {
     echo "Coordinate system changed in $layer_id: expected EPSG:3067" >&2; exit 1;
   }
