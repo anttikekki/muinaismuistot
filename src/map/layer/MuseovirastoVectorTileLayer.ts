@@ -69,9 +69,15 @@ const aggregationDisableThreshold = 20_000
 const aggregateGridSize = 64
 const logicalLayers = layerMapping.logicalLayers as LogicalLayer[]
 const archaeologicalFilterSources = new Set(["archaeological_points"])
-const kindCodes = new Map(vocabulary.kinds.map((value, index) => [value, index + 1]))
-const typeBits = new Map(vocabulary.types.map((value, index) => [value, 2 ** index]))
-const datingBits = new Map(vocabulary.datings.map((value, index) => [value, 2 ** index]))
+const kindCodes = new Map(
+  vocabulary.kinds.map((value, index) => [value, index + 1])
+)
+const typeBits = new Map(
+  vocabulary.types.map((value, index) => [value, 2 ** index])
+)
+const datingBits = new Map(
+  vocabulary.datings.map((value, index) => [value, 2 ** index])
+)
 const logicalLayerLookup = new Map<string, LogicalLayer>()
 logicalLayers.forEach((logicalLayer) => {
   const kindCode = logicalLayer.filter
@@ -102,7 +108,11 @@ export default class MuseovirastoVectorTileLayer {
   private selectedTypeMask = 0
   private selectedDatingMask = 0
   private aggregationMode = true
-  private presentationUpdateScheduled = false
+  private pendingSettings?: Settings
+  private settingsUpdateFrame?: number
+  private settingsUpdateTimer?: number
+  private presentationUpdateFrame?: number
+  private presentationUpdateTimer?: number
   private tileRevision = 0
   private settingsRevision = 0
   private presentationInputSignature = ""
@@ -124,8 +134,14 @@ export default class MuseovirastoVectorTileLayer {
     ).href
     this.searchUrl = new URL("/api/museovirasto/search", apiBase).href
     logicalLayers.forEach((logicalLayer) => {
-      this.styles.set(logicalLayer.id, createMuseovirastoStyle(logicalLayer.id, logicalLayer.sourceLayer))
-      this.pointStyles.set(logicalLayer.id, createMuseovirastoPointStyle(logicalLayer.id))
+      this.styles.set(
+        logicalLayer.id,
+        createMuseovirastoStyle(logicalLayer.id, logicalLayer.sourceLayer)
+      )
+      this.pointStyles.set(
+        logicalLayer.id,
+        createMuseovirastoPointStyle(logicalLayer.id)
+      )
     })
     const source = new PMTilesVectorSource({
       url: new URL("/api/museovirasto/pmtiles", apiBase).href,
@@ -137,9 +153,18 @@ export default class MuseovirastoVectorTileLayer {
       updateTileLoadingStatus(false)
       this.tileRevision += 1
     })
-    this.vectorLayer = new VectorTileLayer({ source, declutter: false, style: this.styleFeature })
-    this.aggregateLayer = new VectorLayer({ source: this.aggregateSource, style: this.styleAggregate })
-    this.layerGroup = new LayerGroup({ layers: [this.vectorLayer, this.aggregateLayer] })
+    this.vectorLayer = new VectorTileLayer({
+      source,
+      declutter: false,
+      style: this.styleFeature
+    })
+    this.aggregateLayer = new VectorLayer({
+      source: this.aggregateSource,
+      style: this.styleAggregate
+    })
+    this.layerGroup = new LayerGroup({
+      layers: [this.vectorLayer, this.aggregateLayer]
+    })
     this.updateSettings(settings)
     this.map.on("moveend", this.schedulePresentationUpdate)
     this.map.on("rendercomplete", this.schedulePresentationUpdate)
@@ -148,8 +173,14 @@ export default class MuseovirastoVectorTileLayer {
   private styleFeature = (feature: FeatureLike): Style | undefined => {
     this.rememberFeature(feature)
     const logicalLayerId = this.activeLogicalLayerId(feature)
-    if (!logicalLayerId || (this.aggregationMode && this.isPointFeature(feature))) return undefined
-    return this.isPointFeature(feature) ? this.pointStyles.get(logicalLayerId) : this.styles.get(logicalLayerId)
+    if (
+      !logicalLayerId ||
+      (this.aggregationMode && this.isPointFeature(feature))
+    )
+      return undefined
+    return this.isPointFeature(feature)
+      ? this.pointStyles.get(logicalLayerId)
+      : this.styles.get(logicalLayerId)
   }
 
   private activeLogicalLayerId = (feature: FeatureLike): string | undefined => {
@@ -158,20 +189,34 @@ export default class MuseovirastoVectorTileLayer {
     const logicalLayer =
       logicalLayerLookup.get(`${sourceLayer}:${kindCode}`) ??
       logicalLayerLookup.get(sourceLayer)
-    if (!logicalLayer || !this.enabledLogicalLayers.has(logicalLayer.id)) return undefined
+    if (!logicalLayer || !this.enabledLogicalLayers.has(logicalLayer.id))
+      return undefined
     if (archaeologicalFilterSources.has(sourceLayer)) {
-      if ((Number(feature.get("type_mask") ?? 0) & this.selectedTypeMask) === 0) return undefined
-      if ((Number(feature.get("dating_mask") ?? 0) & this.selectedDatingMask) === 0) return undefined
+      if ((Number(feature.get("type_mask") ?? 0) & this.selectedTypeMask) === 0)
+        return undefined
+      if (
+        (Number(feature.get("dating_mask") ?? 0) & this.selectedDatingMask) ===
+        0
+      )
+        return undefined
     }
     return logicalLayer.id
   }
 
   private schedulePresentationUpdate = (): void => {
-    if (this.presentationUpdateScheduled) return
-    this.presentationUpdateScheduled = true
-    requestAnimationFrame(() => {
-      this.presentationUpdateScheduled = false
-      this.updatePresentation()
+    if (this.presentationUpdateFrame !== undefined) {
+      cancelAnimationFrame(this.presentationUpdateFrame)
+    }
+    if (this.presentationUpdateTimer !== undefined) {
+      window.clearTimeout(this.presentationUpdateTimer)
+    }
+    this.presentationUpdateFrame = requestAnimationFrame(() => {
+      this.presentationUpdateFrame = undefined
+      // Let the browser paint the settings control before clustering starts.
+      this.presentationUpdateTimer = window.setTimeout(() => {
+        this.presentationUpdateTimer = undefined
+        this.updatePresentation()
+      }, 25)
     })
   }
 
@@ -197,6 +242,8 @@ export default class MuseovirastoVectorTileLayer {
       const geometry = feature.getGeometry()
       if (geometry && intersects(extent, geometry.getExtent())) {
         unique.set(key, feature)
+      } else {
+        this.knownFeatures.delete(key)
       }
     })
     const activePoints: ActivePoint[] = []
@@ -229,7 +276,10 @@ export default class MuseovirastoVectorTileLayer {
       const geometry = feature.getGeometry()
       if (!geometry) continue
       const extent = geometry.getExtent()
-      const coordinate = [(extent[0] + extent[2]) / 2, (extent[1] + extent[3]) / 2]
+      const coordinate = [
+        (extent[0] + extent[2]) / 2,
+        (extent[1] + extent[3]) / 2
+      ]
       const pixel = this.map.getPixelFromCoordinate(coordinate)
       const key = `${Math.floor(pixel[0] / aggregateGridSize)}:${Math.floor(pixel[1] / aggregateGridSize)}`
       const group = groups.get(key)
@@ -237,13 +287,23 @@ export default class MuseovirastoVectorTileLayer {
         group.count += 1
         group.x += coordinate[0]
         group.y += coordinate[1]
-        group.logicalCounts.set(logicalLayerId, (group.logicalCounts.get(logicalLayerId) ?? 0) + 1)
+        group.logicalCounts.set(
+          logicalLayerId,
+          (group.logicalCounts.get(logicalLayerId) ?? 0) + 1
+        )
       } else {
-        groups.set(key, { count: 1, x: coordinate[0], y: coordinate[1], logicalCounts: new Map([[logicalLayerId, 1]]) })
+        groups.set(key, {
+          count: 1,
+          x: coordinate[0],
+          y: coordinate[1],
+          logicalCounts: new Map([[logicalLayerId, 1]])
+        })
       }
     }
     const aggregates = [...groups.entries()].map(([id, group]) => {
-      const logicalLayerId = [...group.logicalCounts].reduce((dominant, current) => current[1] > dominant[1] ? current : dominant)[0]
+      const logicalLayerId = [...group.logicalCounts].reduce(
+        (dominant, current) => (current[1] > dominant[1] ? current : dominant)
+      )[0]
       const feature = new Feature({
         geometry: new Point([group.x / group.count, group.y / group.count]),
         count: group.count,
@@ -266,29 +326,68 @@ export default class MuseovirastoVectorTileLayer {
     return style
   }
 
-  private isPointFeature = (feature: FeatureLike): boolean => feature.getGeometry()?.getType() === "Point"
+  private isPointFeature = (feature: FeatureLike): boolean =>
+    feature.getGeometry()?.getType() === "Point"
 
   private rememberFeature = (feature: FeatureLike): void => {
     const sourceLayer = String(feature.get("layer") ?? "")
     const geometry = feature.getGeometry()
     const fallback = geometry?.getExtent().join(",") ?? "unknown"
-    this.knownFeatures.set(`${sourceLayer}:${feature.getId() ?? fallback}`, feature)
+    this.knownFeatures.set(
+      `${sourceLayer}:${feature.getId() ?? fallback}`,
+      feature
+    )
   }
 
   private updateSettings = (settings: Settings): void => {
     this.settingsRevision += 1
     this.enabledLogicalLayers.clear()
-    settings.museovirasto.selectedLayers.forEach((layer) => this.enabledLogicalLayers.add(layer))
-    this.selectedTypeMask = settings.museovirasto.selectedMuinaisjaannosTypes.reduce((mask, value) => mask | (typeBits.get(value) ?? 0), 0)
-    this.selectedDatingMask = settings.museovirasto.selectedMuinaisjaannosDatings.reduce((mask, value) => mask | (datingBits.get(value) ?? 0), 0)
-    this.layerGroup?.setVisible(settings.museovirasto.enabled && this.enabledLogicalLayers.size > 0)
+    settings.museovirasto.selectedLayers.forEach((layer) =>
+      this.enabledLogicalLayers.add(layer)
+    )
+    this.selectedTypeMask =
+      settings.museovirasto.selectedMuinaisjaannosTypes.reduce(
+        (mask, value) => mask | (typeBits.get(value) ?? 0),
+        0
+      )
+    this.selectedDatingMask =
+      settings.museovirasto.selectedMuinaisjaannosDatings.reduce(
+        (mask, value) => mask | (datingBits.get(value) ?? 0),
+        0
+      )
+    this.layerGroup?.setVisible(
+      settings.museovirasto.enabled && this.enabledLogicalLayers.size > 0
+    )
     this.layerGroup?.setOpacity(settings.museovirasto.opacity)
     this.vectorLayer?.changed()
     this.schedulePresentationUpdate()
   }
 
+  private scheduleSettingsUpdate = (settings: Settings): void => {
+    this.pendingSettings = settings
+    if (this.settingsUpdateFrame !== undefined) {
+      cancelAnimationFrame(this.settingsUpdateFrame)
+    }
+    if (this.settingsUpdateTimer !== undefined) {
+      window.clearTimeout(this.settingsUpdateTimer)
+    }
+    this.settingsUpdateFrame = requestAnimationFrame(() => {
+      this.settingsUpdateFrame = undefined
+      this.settingsUpdateTimer = window.setTimeout(() => {
+        this.settingsUpdateTimer = undefined
+        const pendingSettings = this.pendingSettings
+        this.pendingSettings = undefined
+        if (pendingSettings) this.updateSettings(pendingSettings)
+      }, 25)
+    })
+  }
+
   public handleClick = (pixel: Pixel): boolean => {
-    const aggregate = this.map.forEachFeatureAtPixel(pixel, (feature, layer) => layer === this.aggregateLayer ? feature : undefined, { hitTolerance: 5 })
+    const aggregate = this.map.forEachFeatureAtPixel(
+      pixel,
+      (feature, layer) => (layer === this.aggregateLayer ? feature : undefined),
+      { hitTolerance: 5 }
+    )
     if (!aggregate) return false
     const geometry = aggregate.getGeometry()
     if (!geometry) return true
@@ -371,10 +470,7 @@ export default class MuseovirastoVectorTileLayer {
     }
     const url = new URL(this.searchUrl)
     url.searchParams.set("q", searchText.trim())
-    url.searchParams.set(
-      "layers",
-      searchableLayers.join(",")
-    )
+    url.searchParams.set("layers", searchableLayers.join(","))
     const response = await fetch(url, { signal })
     if (!response.ok) {
       throw new Error(`Museovirasto search failed: ${response.status}`)
@@ -406,17 +502,20 @@ export default class MuseovirastoVectorTileLayer {
     const result = (await response.json()) as FeatureBatchResult
     return {
       type: "FeatureCollection",
-      features: result.features.map((item) =>
-        toMuseovirastoFeature(item)
-      )
+      features: result.features.map((item) => toMuseovirastoFeature(item))
     }
   }
 
-  public selectedFeatureLayersChanged = (settings: Settings): void => this.updateSettings(settings)
-  public selectedMuinaisjaannosTypesChanged = (settings: Settings): void => this.updateSettings(settings)
-  public selectedMuinaisjaannosDatingsChanged = (settings: Settings): void => this.updateSettings(settings)
-  public opacityChanged = (settings: Settings): void => this.updateSettings(settings)
-  public updateLayerVisibility = (settings: Settings): void => this.updateSettings(settings)
+  public selectedFeatureLayersChanged = (settings: Settings): void =>
+    this.scheduleSettingsUpdate(settings)
+  public selectedMuinaisjaannosTypesChanged = (settings: Settings): void =>
+    this.scheduleSettingsUpdate(settings)
+  public selectedMuinaisjaannosDatingsChanged = (settings: Settings): void =>
+    this.scheduleSettingsUpdate(settings)
+  public opacityChanged = (settings: Settings): void =>
+    this.updateSettings(settings)
+  public updateLayerVisibility = (settings: Settings): void =>
+    this.updateSettings(settings)
   public getLayer = (): LayerGroup => this.layerGroup
 }
 
@@ -439,13 +538,31 @@ function createMuseovirastoPointStyle(id: string): Style {
   const stroke = new Stroke({ color: "#161616", width: 1 })
   const fill = new Fill({ color: museovirastoColor(id) })
   if (id.includes("alakohde")) {
-    return new Style({ image: new RegularShape({ points: 5, radius: 7, radius2: 3, fill, stroke }) })
+    return new Style({
+      image: new RegularShape({
+        points: 5,
+        radius: 7,
+        radius2: 3,
+        fill,
+        stroke
+      })
+    })
   }
   if (id.includes("maailmanperinto")) {
-    return new Style({ image: new RegularShape({ points: 5, radius: 7, fill, stroke }) })
+    return new Style({
+      image: new RegularShape({ points: 5, radius: 7, fill, stroke })
+    })
   }
   if (id.includes("havaintokohde")) {
-    return new Style({ image: new RegularShape({ points: 4, radius: 6, angle: Math.PI / 4, fill, stroke }) })
+    return new Style({
+      image: new RegularShape({
+        points: 4,
+        radius: 6,
+        angle: Math.PI / 4,
+        fill,
+        stroke
+      })
+    })
   }
   return new Style({ image: new CircleStyle({ radius: 5, fill, stroke }) })
 }
@@ -461,7 +578,13 @@ function createMuseovirastoAggregateStyle(feature: FeatureLike): Style {
       stroke: new Stroke({ color: "#161616", width: 1.5 })
     }),
     text: new Text({
-      text: count > 1 ? new Intl.NumberFormat("fi-FI", { notation: "compact", maximumFractionDigits: 1 }).format(count) : "",
+      text:
+        count > 1
+          ? new Intl.NumberFormat("fi-FI", {
+              notation: "compact",
+              maximumFractionDigits: 1
+            }).format(count)
+          : "",
       fill: new Fill({ color: "#fff" }),
       stroke: new Stroke({ color: "#161616", width: 2 }),
       font: "bold 10px sans-serif"
@@ -496,7 +619,10 @@ function createWmsAreaPattern(color: string): CanvasPattern {
   canvas.width = size
   canvas.height = size
   const context = canvas.getContext("2d")
-  if (!context) throw new Error("Canvas 2D context is required for Museovirasto area styles")
+  if (!context)
+    throw new Error(
+      "Canvas 2D context is required for Museovirasto area styles"
+    )
   context.strokeStyle = color
   context.lineWidth = 1
   context.beginPath()
@@ -506,7 +632,8 @@ function createWmsAreaPattern(color: string): CanvasPattern {
   context.lineTo(0, size)
   context.stroke()
   const pattern = context.createPattern(canvas, "repeat")
-  if (!pattern) throw new Error("Canvas pattern is required for Museovirasto area styles")
+  if (!pattern)
+    throw new Error("Canvas pattern is required for Museovirasto area styles")
   return pattern
 }
 
@@ -518,7 +645,8 @@ const archaeologicalKinds: Record<string, string> = {
   luonnonmuodostuma: "luonnonmuodostuma",
   mahdollinen_muinaisjaannos: "mahdollinen muinaisjäännös",
   muu_kohde: "muu kohde",
-  poistettu_kiintea_muinaisjaannos: "poistettu kiinteä muinaisjäännös (ei rauhoitettu)"
+  poistettu_kiintea_muinaisjaannos:
+    "poistettu kiinteä muinaisjäännös (ei rauhoitettu)"
 }
 
 function toMuseovirastoFeature(
@@ -600,5 +728,10 @@ function propertiesForLayer(item: FeatureBatchItem): Record<string, unknown> {
     "https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa"
   return item.sourceLayer === "world_heritage_points"
     ? { ...common, nimi: name, url: worldHeritageUrl }
-    : { ...common, Nimi: name, URL: worldHeritageUrl, Alue: source.area_type ?? null }
+    : {
+        ...common,
+        Nimi: name,
+        URL: worldHeritageUrl,
+        Alue: source.area_type ?? null
+      }
 }
