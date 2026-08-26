@@ -23,7 +23,7 @@ Wrangler tarvitsee kirjautuneen Cloudflare-käyttäjän tai soveltuvan API-token
 
 ## Julkaisujärjestys
 
-`scripts/30-publish-cloudflare-release.sh`:
+`scripts/publish-cloudflare-release.sh`:
 
 1. validoi ympäristön, production-vahvistuksen ja artefaktit
 2. lukee R2- ja D1-resurssit pää-Workerin Wrangler-konfiguraatiosta
@@ -44,20 +44,20 @@ jos muutos lisää tai muuttaa D1-sarakkeita.
 Preview:
 
 ```bash
-infra/museovirasto-map-data/deploy/scripts/30-publish-cloudflare-release.sh preview
+infra/museovirasto-map-data/deploy/scripts/publish-cloudflare-release.sh preview
 ```
 
 Vaihtoehtoinen base URL voidaan antaa toisena argumenttina:
 
 ```bash
-infra/museovirasto-map-data/deploy/scripts/30-publish-cloudflare-release.sh preview \
+infra/museovirasto-map-data/deploy/scripts/publish-cloudflare-release.sh preview \
   https://muinaismuistot-preview.antti-kekki.workers.dev
 ```
 
 Production:
 
 ```bash
-infra/museovirasto-map-data/deploy/scripts/30-publish-cloudflare-release.sh \
+infra/museovirasto-map-data/deploy/scripts/publish-cloudflare-release.sh \
   production --confirm-production
 ```
 
@@ -66,7 +66,7 @@ Updater asettaa `SKIP_E2E=1`, koska Container ajaa API-smoke-testin mutta ei sel
 Pelkkä smoke-testi:
 
 ```bash
-infra/museovirasto-map-data/deploy/scripts/26-smoke-test-service.sh \
+infra/museovirasto-map-data/deploy/scripts/smoke-test-service.sh \
   http://127.0.0.1:8787 /api/museovirasto
 ```
 

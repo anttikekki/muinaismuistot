@@ -82,7 +82,7 @@ CI=1 "$wrangler" d1 migrations apply MAP_FEATURES --env "$environment_name" --re
 "$wrangler" r2 object put "$bucket_name/current.json" \
   --env "$environment_name" --remote --file "$METADATA" --content-type application/json
 
-"$SCRIPT_DIR/26-smoke-test-service.sh" "$base_url" "/api/museovirasto"
+"$SCRIPT_DIR/smoke-test-service.sh" "$base_url" "/api/museovirasto"
 cd "$REPOSITORY_DIR"
 if [[ "${SKIP_E2E:-0}" != 1 ]]; then
   E2E_BASE_URL="$base_url" npm run test:e2e

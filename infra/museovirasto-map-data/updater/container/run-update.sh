@@ -22,9 +22,9 @@ if [[ "$update_mode" == publish ]]; then
   export SKIP_E2E=1
   export WRANGLER_BIN="$project_dir/updater/node_modules/.bin/wrangler"
   if [[ "$environment_name" == production ]]; then
-    "$project_dir/deploy/scripts/30-publish-cloudflare-release.sh" production --confirm-production
+    "$project_dir/deploy/scripts/publish-cloudflare-release.sh" production --confirm-production
   else
-    "$project_dir/deploy/scripts/30-publish-cloudflare-release.sh" preview
+    "$project_dir/deploy/scripts/publish-cloudflare-release.sh" preview
   fi
 fi
 

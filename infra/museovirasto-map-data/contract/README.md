@@ -98,7 +98,7 @@ npx wrangler d1 migrations list MAP_FEATURES --env production --remote
 npx wrangler d1 migrations apply MAP_FEATURES --env production --remote
 ```
 
-`deploy/scripts/30-publish-cloudflare-release.sh` ajaa saman `migrations apply`
+`deploy/scripts/publish-cloudflare-release.sh` ajaa saman `migrations apply`
 -komennon automaattisesti ennen D1-tuontia. Migraatiota ei siis tarvitse ajaa
 erikseen normaalissa updater-julkaisussa. Manuaalinen ajo on hyödyllinen
 skeemamuutoksen tarkistamiseen tai silloin, kun julkaisu jaetaan hallitusti

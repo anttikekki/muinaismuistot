@@ -44,7 +44,7 @@ preview→production-järjestystä
 Ensimmäisen deployn jälkeen julkaisuartefaktit voidaan ladata ja etärajapinta smoke-testata yhdellä komennolla:
 
 ```bash
-infra/museovirasto-map-data/deploy/scripts/30-publish-cloudflare-release.sh preview
+infra/museovirasto-map-data/deploy/scripts/publish-cloudflare-release.sh preview
 ```
 
 Skripti hyväksyy vain ympäristöt `preview` ja `production`, käyttää kyseisen ympäristön bindingeja ja vaatii production-ajossa erillisen `--confirm-production`-argumentin. Se ei provisioi resursseja eikä deployaa Worker-koodia. R2:n `bucket_name`- ja D1:n `database_id`-arvojen täytyy löytyä `wrangler.jsonc`-tiedoston valitusta ympäristöstä ennen ajoa.

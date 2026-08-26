@@ -85,13 +85,13 @@ npm run typecheck
 Preview-julkaisu valmiista `data/build`-artefakteista:
 
 ```bash
-infra/museovirasto-map-data/deploy/scripts/30-publish-cloudflare-release.sh preview
+infra/museovirasto-map-data/deploy/scripts/publish-cloudflare-release.sh preview
 ```
 
 Production-julkaisu vaatii eksplisiittisen vahvistuksen:
 
 ```bash
-infra/museovirasto-map-data/deploy/scripts/30-publish-cloudflare-release.sh production --confirm-production
+infra/museovirasto-map-data/deploy/scripts/publish-cloudflare-release.sh production --confirm-production
 ```
 
 Katso tarkemmat riippuvuudet ja komennot kunkin alihakemiston READMEstä.
