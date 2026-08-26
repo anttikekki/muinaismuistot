@@ -6,9 +6,6 @@ scripts/viabundus/source-data
 scripts/röykkiöiden-koot/source-data
 scripts/röykkiöiden-koot/intermediate
 scripts/röykkiöiden-koot/results
-infra/museovirasto-map-data-server/data
-infra/museovirasto-map-data-server/poc/.wrangler/
-infra/museovirasto-map-data-server/poc/dist/
-infra/museovirasto-map-data-server/poc/node_modules/
+infra/museovirasto-map-data/data/**
 infra/muinaismuistot-worker/.wrangler/
 infra/muinaismuistot-worker/node_modules/
