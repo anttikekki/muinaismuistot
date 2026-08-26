@@ -145,7 +145,7 @@ npm run process:local
 Staattisen mäppäyksen voi tarkistaa erikseen, jos `jq`, `sqlite3`, GDALin `ogrinfo` ja ladattu lähdeaineisto ovat saatavilla:
 
 ```bash
-infra/museovirasto-map-data/processing/scripts/validation/validate-layer-mapping.sh
+node infra/museovirasto-map-data/processing/scripts/validation/validate-layer-mapping.mjs
 ```
 
 Kun sopimusta muutetaan, päivitä samassa muutoksessa sitä käyttävä selain- tai prosessointikoodi. Lisää D1-muutokselle uusi migraatio olemassa olevan migraation muokkaamisen sijasta.

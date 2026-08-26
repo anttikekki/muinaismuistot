@@ -18,11 +18,13 @@ Isäntäkone tarvitsee tuettuun ajoon Dockerin sekä Node.js:n ja npm:n. Skripti
 `scripts/run.sh` suorittaa:
 
 1. `01-download-source-data.sh`: ZIP ja HTTP-otsakkeet.
-2. `validation/validate-source-data.sh`: tasot, geometriat, EPSG:3067, sallitut tyhjät geometriat ja validiteetti.
+2. `validation/validate-source-data.mjs`: tasot, geometriat, EPSG:3067, sallitut tyhjät geometriat ja validiteetti.
 3. `02-build-pmtiles.sh`: kenttäprojektiot, suodatuskoodit, EPSG:4326-muunnos ja zoomien 0–14 PMTiles.
-4. PMTiles-skeeman, attribuuttien sekä arkisto- ja tiilibudjettien validointi.
+4. `validation/validate-pmtiles.mjs` sekä budjettitarkistus: PMTiles-skeema,
+   attribuutit, zoom-esitykset sekä arkisto- ja tiilibudjetit.
 5. `03-build-feature-details-sql.sh`: D1:n täydellinen `feature_details`-tuonti ominaisuuksineen ja geometrioineen.
-6. PMTiles- ja D1-identiteettien sekä rivimäärien ristiinvalidointi.
+6. `validation/validate-pmtiles-d1-identities.mjs`: PMTiles- ja D1-identiteettien
+   sekä rivimäärien ristiinvalidointi eksplisiittisistä TSV-artefakteista.
 7. `04-create-build-manifest.sh`: lähde-, asetus- ja artefaktitiivisteet.
 8. `05-create-release-descriptor.sh`: ZIPin päiväykseen perustuva versio ja metadata.
 
@@ -59,7 +61,15 @@ PLATFORM=linux/arm64 IMAGE_TAG=museovirasto-map-data-updater:arm64 npm run proce
 PLATFORM=linux/amd64 IMAGE_TAG=museovirasto-map-data-updater:amd64 npm run process:local
 ```
 
-Node-apukoodin testin voi ajaa ympäristössä, jossa lukitut työkalut ovat saatavilla:
+Validointien pienet Node-fixturetestit ajetaan updaterin testien mukana, tai
+erikseen ilman paikkatietotyökaluja:
+
+```bash
+cd infra/museovirasto-map-data/updater
+npm run test:validation
+```
+
+Prosessoinnin muunnostestin voi ajaa ympäristössä, jossa lukitut työkalut ovat saatavilla:
 
 ```bash
 node --test infra/museovirasto-map-data/processing/scripts/test/compact-filter-data.test.mjs

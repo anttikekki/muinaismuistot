@@ -7,6 +7,8 @@ DATA_DIR="$PROJECT_DIR/data/tutkija"
 BUILD_DIR="$PROJECT_DIR/data/build"
 INTERMEDIATE_DIR="$BUILD_DIR/compact-intermediate"
 OUTPUT_FILE="$BUILD_DIR/museovirasto.pmtiles"
+IDENTITY_FILE="$BUILD_DIR/pmtiles-input-identities.tsv"
+IDENTITY_FILE_PART="$IDENTITY_FILE.part"
 CONFIG="$PROJECT_DIR/processing/config/layers.json"
 VOCABULARY="$PROJECT_DIR/contract/filter-vocabulary.json"
 TRANSFORMER="$SCRIPT_DIR/lib/compact-filter-data.mjs"
@@ -17,6 +19,7 @@ done
 
 mkdir -p "$INTERMEDIATE_DIR"
 [[ -s "$VOCABULARY" ]] || { echo "Version-controlled filter vocabulary missing: $VOCABULARY" >&2; exit 1; }
+: > "$IDENTITY_FILE_PART"
 
 TIPPECANOE_INPUTS=()
 polygon_min_zoom="$(jq -r '.tiling.polygonMinimumZoom' "$CONFIG")"
@@ -38,6 +41,7 @@ while IFS=$'\t' read -r layer_id file_name source_layer transform_profile low_zo
   [[ "$expected_output_count" -eq "$output_count" ]] || {
     echo "Feature count mismatch for $layer_id: expected=$expected_output_count output=$output_count" >&2; exit 1;
   }
+  jq -r --arg layer "$layer_id" '[$layer, (.properties.source_fid | tostring)] | @tsv' "$output_file" >> "$IDENTITY_FILE_PART"
   TIPPECANOE_INPUTS+=("--named-layer=$layer_id:$output_file")
 
   if [[ "$low_zoom_centroid" == true ]]; then
@@ -56,6 +60,9 @@ while IFS=$'\t' read -r layer_id file_name source_layer transform_profile low_zo
   fi
 done < <(jq -r '.layers[] | [.id, .geoPackageFile, .geoPackageLayer, .transformProfile, (.lowZoomCentroid // false), (.excludedNullGeometries // 0), (.sql | @base64)] | @tsv' "$CONFIG")
 
+LC_ALL=C sort -u "$IDENTITY_FILE_PART" > "$IDENTITY_FILE"
+rm -f "$IDENTITY_FILE_PART"
+
 minimum_zoom="$(jq -r '.tiling.minimumZoom' "$CONFIG")"
 maximum_zoom="$(jq -r '.tiling.maximumZoom' "$CONFIG")"
 drop_rate="$(jq -r '.tiling.dropRate' "$CONFIG")"
@@ -68,3 +75,4 @@ tippecanoe "${TIPPECANOE_OPTIONS[@]}" "${TIPPECANOE_INPUTS[@]}"
 
 echo "Built PMTiles archive: $OUTPUT_FILE"
 echo "Archive bytes: $(wc -c < "$OUTPUT_FILE" | tr -d ' ')"
+echo "PMTiles input identities: $IDENTITY_FILE"
