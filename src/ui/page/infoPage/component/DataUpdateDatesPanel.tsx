@@ -1,9 +1,62 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Accordion } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
+import {
+  museovirastoApiBase,
+  museovirastoVectorTilesEnabled
+} from "../../../../map/museovirastoVectorTilesFeatureFlag"
+
+type MuseovirastoMetadata = {
+  publishedAt?: string
+}
 
 export const DataUpdateDatesPanel: React.FC = () => {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const [museovirastoPublishedAt, setMuseovirastoPublishedAt] = useState<
+    Date | null | undefined
+  >(undefined)
+
+  useEffect(() => {
+    if (!museovirastoVectorTilesEnabled) return
+
+    const controller = new AbortController()
+
+    fetch(new URL("/api/museovirasto/meta", museovirastoApiBase), {
+      headers: { accept: "application/json" },
+      signal: controller.signal
+    })
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`Metadata request failed: ${response.status}`)
+        const metadata = (await response.json()) as MuseovirastoMetadata
+        const publishedAt = metadata.publishedAt
+          ? new Date(metadata.publishedAt)
+          : null
+        setMuseovirastoPublishedAt(
+          publishedAt && !Number.isNaN(publishedAt.getTime())
+            ? publishedAt
+            : null
+        )
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return
+        setMuseovirastoPublishedAt(null)
+      })
+
+    return () => controller.abort()
+  }, [])
+
+  const museovirastoUpdateText =
+    !museovirastoVectorTilesEnabled
+      ? t("info.dataUpdates.museovirastoRealtime")
+      : museovirastoPublishedAt === undefined
+      ? t("info.dataUpdates.museovirastoLoading")
+      : museovirastoPublishedAt === null
+        ? t("info.dataUpdates.museovirastoUnavailable")
+        : t("info.dataUpdates.museovirasto", {
+            date: new Intl.DateTimeFormat(i18n.resolvedLanguage).format(
+              museovirastoPublishedAt
+            )
+          })
 
   return (
     <Accordion.Item eventKey="info.dataUpdates.title">
@@ -19,7 +72,7 @@ export const DataUpdateDatesPanel: React.FC = () => {
           </li>
           <li>
             <b>{t(`common.organization.Museovirasto`)}:</b>{" "}
-            {t(`info.dataUpdates.museovirasto`)}
+            {museovirastoUpdateText}
           </li>
           <li>
             <b>{t(`common.organization.Ahvenanmaan paikallishallinto`)}:</b>{" "}
