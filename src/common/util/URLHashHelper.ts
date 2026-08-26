@@ -2,13 +2,16 @@ import { Position } from "geojson"
 import queryString from "query-string"
 import { LinkedFeature } from "../../store/storeTypes"
 
-export const parseURLParams = () => {
-  return queryString.parse(window.location.hash, {
-    parseNumbers: true,
-    parseBooleans: true,
-    arrayFormat: "comma"
-  })
-}
+const parseOptions = {
+  parseNumbers: true,
+  parseBooleans: true,
+  arrayFormat: "comma"
+} as const
+
+export const parseURLParams = () => ({
+  ...queryString.parse(window.location.search, parseOptions),
+  ...queryString.parse(window.location.hash, parseOptions)
+})
 
 export const stringifyURLParamsToHash = (
   params: queryString.StringifiableRecord

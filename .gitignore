@@ -1,6 +1,10 @@
 node_modules/
 .DS_Store
 dist/
+playwright-report/
+test-results/
+.tsbuild/
+*.tsbuildinfo
 scripts/viabundus/results
 scripts/viabundus/source-data
 scripts/röykkiöiden-koot/source-data

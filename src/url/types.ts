@@ -24,6 +24,8 @@ export interface URLSettings {
   museovirastoLayer?: string | string[]
   museovirastoOpacity?: number
   museovirastoEnabled?: boolean
+  museovirastoVectorTiles?: boolean | number
+  museovirastoApiBase?: string
   muinaisjaannosTypes?: string | string[]
   muinaisjaannosDatings?: string | string[]
   ahvenanmaaLayer?: string | string[]

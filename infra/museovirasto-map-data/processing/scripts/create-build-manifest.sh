@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+DATA_DIR="$PROJECT_DIR/data/tutkija"
+BUILD_DIR="$PROJECT_DIR/data/build"
+CONFIG="$PROJECT_DIR/processing/config/layers.json"
+MANIFEST="$BUILD_DIR/build-manifest.json"
+MANIFEST_TMP="$MANIFEST.tmp"
+
+for command_name in jq sha256sum; do
+  command -v "$command_name" >/dev/null 2>&1 || { echo "Required command not found: $command_name" >&2; exit 1; }
+done
+
+sha256() { sha256sum "$1" | awk '{print $1}'; }
+file_entry() {
+  local path="$1" label="$2"
+  jq -cn --arg path "$label" --arg sha256 "$(sha256 "$path")" --argjson bytes "$(wc -c < "$path" | tr -d ' ')" '{path:$path,sha256:$sha256,bytes:$bytes}'
+}
+
+sources='[]'
+while IFS= read -r file_name; do
+  sources="$(jq -c --argjson entry "$(file_entry "$DATA_DIR/$file_name" "$file_name")" '. + [$entry]' <<<"$sources")"
+done < <(jq -r '[.physicalLayers[].geoPackageFile] | unique | sort[]' "$PROJECT_DIR/contract/layer-mapping.json")
+
+artifacts="$(jq -cn \
+  --argjson pmtiles "$(file_entry "$BUILD_DIR/museovirasto.pmtiles" "museovirasto.pmtiles")" \
+  --argjson vocabulary "$(file_entry "$PROJECT_DIR/contract/filter-vocabulary.json" "filter-vocabulary.json")" \
+  --argjson d1 "$(file_entry "$BUILD_DIR/feature-details.sql" "feature-details.sql")" \
+  --argjson d1Report "$(file_entry "$BUILD_DIR/feature-details-report.json" "feature-details-report.json")" \
+  --argjson identityReport "$(file_entry "$BUILD_DIR/pmtiles-d1-identity-report.json" "pmtiles-d1-identity-report.json")" \
+  --argjson tiling "$(file_entry "$BUILD_DIR/tiling-budget-report.json" "tiling-budget-report.json")" \
+  '[$pmtiles,$vocabulary,$d1,$d1Report,$identityReport,$tiling]')"
+
+d1_rows="$(jq -r '.d1Rows' "$BUILD_DIR/feature-details-report.json")"
+physical_layers="$(jq '.physicalLayers | length' "$PROJECT_DIR/contract/layer-mapping.json")"
+logical_layers="$(jq '.logicalLayers | length' "$PROJECT_DIR/contract/layer-mapping.json")"
+
+jq -n \
+  --arg createdAt "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+  --arg sourceDigest "$(printf '%s' "$sources" | sha256sum | awk '{print $1}')" \
+  --arg buildConfigSha256 "$(sha256 "$CONFIG")" \
+  --arg layerMappingSha256 "$(sha256 "$PROJECT_DIR/contract/layer-mapping.json")" \
+  --arg filterVocabularySha256 "$(sha256 "$PROJECT_DIR/contract/filter-vocabulary.json")" \
+  --argjson sources "$sources" --argjson artifacts "$artifacts" --argjson d1Rows "$d1_rows" \
+  --argjson physicalLayers "$physical_layers" --argjson logicalLayers "$logical_layers" \
+  '{schemaVersion:1,createdAt:$createdAt,sourceDigest:$sourceDigest,configuration:{buildConfigSha256:$buildConfigSha256,layerMappingSha256:$layerMappingSha256,filterVocabularySha256:$filterVocabularySha256},sources:$sources,artifacts:$artifacts,counts:{physicalLayers:$physicalLayers,logicalLayers:$logicalLayers,d1Rows:$d1Rows}}' > "$MANIFEST_TMP"
+mv "$MANIFEST_TMP" "$MANIFEST"
+echo "Build manifest created: $MANIFEST"

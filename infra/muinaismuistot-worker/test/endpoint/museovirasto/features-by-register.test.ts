@@ -1,0 +1,58 @@
+import { env } from "cloudflare:workers"
+import { beforeEach, describe, expect, it } from "vitest"
+import { museovirastoRequest, resetMuseovirastoData } from "../../support/museovirasto"
+
+beforeEach(resetMuseovirastoData)
+
+describe("Museovirasto features by register endpoint", () => {
+  it("returns all geometries matching a registry ID", async () => {
+    const insert = env.MAP_FEATURES.prepare(`
+      INSERT INTO feature_details
+        (source_layer, feature_id, logical_layer_id, registry_id, name, geometry_json)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `)
+    await env.MAP_FEATURES.batch([
+      insert.bind("archaeological_areas", 1, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Alue 1", '{"type":"Polygon","coordinates":[]}'),
+      insert.bind("archaeological_areas", 2, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Alue 2", '{"type":"Polygon","coordinates":[]}')
+    ])
+
+    const response = await museovirastoRequest("/features/by-register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ features: [{
+        logicalLayerId: "rajapinta_suojellut:muinaisjaannos_alue",
+        registryId: "100"
+      }] })
+    })
+
+    expect(response.status).toBe(200)
+    expect((await response.json() as { features: unknown[] }).features).toHaveLength(2)
+  })
+
+  it("splits more than 33 references into D1 batches", async () => {
+    const insert = env.MAP_FEATURES.prepare(`
+      INSERT INTO feature_details
+        (source_layer, feature_id, logical_layer_id, registry_id, geometry_json)
+      VALUES ('rky_points', ?, 'rajapinta_suojellut:rky_piste', ?, '{"type":"Point","coordinates":[385000,6670000]}')
+    `)
+    await env.MAP_FEATURES.batch(
+      Array.from({ length: 40 }, (_, index) => insert.bind(index + 1, String(index + 1)))
+    )
+
+    const response = await museovirastoRequest("/features/by-register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        features: Array.from({ length: 40 }, (_, index) => ({
+          logicalLayerId: "rajapinta_suojellut:rky_piste",
+          registryId: String(index + 1)
+        }))
+      })
+    })
+
+    expect(response.status).toBe(200)
+    const result = await response.json() as { features: unknown[]; missing: unknown[] }
+    expect(result.features).toHaveLength(40)
+    expect(result.missing).toEqual([])
+  })
+})

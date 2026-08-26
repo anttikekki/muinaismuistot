@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 2,
+  "description": "GeoPackage source layers, PMTiles/MVT source layers and current logical Museovirasto UI layers.",
+  "physicalLayers": [
+    {
+      "id": "vark_areas",
+      "geoPackageFile": "VARK_aluerajaukset.gpkg",
+      "geoPackageLayer": "VARK_aluerajaukset",
+      "mvtSourceLayer": "vark_areas",
+      "geometryType": "GEOMETRY",
+      "logicalIdFields": ["VARK_ID"],
+      "featureIdentity": { "rowIdField": "fid" }
+    },
+    {
+      "id": "vark_points",
+      "geoPackageFile": "VARK_keskipisteet.gpkg",
+      "geoPackageLayer": "VARK_keskipisteet",
+      "mvtSourceLayer": "vark_points",
+      "geometryType": "POINT",
+      "logicalIdFields": ["VARK_ID"],
+      "featureIdentity": { "rowIdField": "fid" }
+    },
+    {
+      "id": "archaeological_subsites_points",
+      "geoPackageFile": "arkeologiset_kohteet_alakohteet_piste.gpkg",
+      "geoPackageLayer": "arkeologiset_kohteet_alakohteet_piste",
+      "mvtSourceLayer": "archaeological_subsites_points",
+      "geometryType": "POINT",
+      "logicalIdFields": ["mjtunnus", "alakohdetunnus"],
+      "featureIdentity": { "rowIdField": "fid" }
+    },
+    {
+      "id": "archaeological_areas",
+      "geoPackageFile": "arkeologiset_kohteet_alue_t.gpkg",
+      "geoPackageLayer": "arkeologiset_kohteet_alue_t",
+      "mvtSourceLayer": "archaeological_areas",
+      "geometryType": "POLYGON",
+      "logicalIdFields": ["mjtunnus"],
+      "featureIdentity": { "rowIdField": "fid" },
+      "excludedNullGeometries": 1,
+      "derivedFields": {
+        "laji_key": {
+          "sourceField": "Laji",
+          "normalization": "trim-lowercase-and-map",
+          "vocabulary": "kinds"
+        }
+      }
+    },
+    {
+      "id": "archaeological_points",
+      "geoPackageFile": "arkeologiset_kohteet_piste_t.gpkg",
+      "geoPackageLayer": "arkeologiset_kohteet_piste_t",
+      "mvtSourceLayer": "archaeological_points",
+      "geometryType": "POINT",
+      "logicalIdFields": ["mjtunnus"],
+      "featureIdentity": { "rowIdField": "fid" },
+      "derivedFields": {
+        "laji_key": {
+          "sourceField": "Laji",
+          "normalization": "trim-lowercase-and-map",
+          "vocabulary": "kinds"
+        }
+      }
+    },
+    {
+      "id": "world_heritage_areas",
+      "geoPackageFile": "maailmanperintokohde_alue.gpkg",
+      "geoPackageLayer": "maailmanperintokohde_alue",
+      "mvtSourceLayer": "world_heritage_areas",
+      "geometryType": "POLYGON",
+      "logicalIdFields": ["ID"],
+      "featureIdentity": { "rowIdField": "fid" }
+    },
+    {
+      "id": "world_heritage_points",
+      "geoPackageFile": "maailmanperintokohde_piste.gpkg",
+      "geoPackageLayer": "maailmanperintokohde_piste",
+      "mvtSourceLayer": "world_heritage_points",
+      "geometryType": "POINT",
+      "logicalIdFields": ["ID"],
+      "featureIdentity": { "rowIdField": "fid" }
+    },
+    {
+      "id": "rky_areas",
+      "geoPackageFile": "rky_alue.gpkg",
+      "geoPackageLayer": "rky_alue",
+      "mvtSourceLayer": "rky_areas",
+      "geometryType": "GEOMETRY",
+      "logicalIdFields": ["ID"],
+      "featureIdentity": { "rowIdField": "fid" }
+    },
+    {
+      "id": "rky_points",
+      "geoPackageFile": "rky_piste.gpkg",
+      "geoPackageLayer": "rky_piste",
+      "mvtSourceLayer": "rky_points",
+      "geometryType": "POINT",
+      "logicalIdFields": ["ID"],
+      "featureIdentity": { "rowIdField": "fid" }
+    },
+    {
+      "id": "rky_lines",
+      "geoPackageFile": "rky_viiva.gpkg",
+      "geoPackageLayer": "rky_viiva",
+      "mvtSourceLayer": "rky_lines",
+      "geometryType": "MULTILINESTRING",
+      "logicalIdFields": ["ID"],
+      "featureIdentity": { "rowIdField": "fid" }
+    },
+    {
+      "id": "protected_building_areas",
+      "geoPackageFile": "suojellut_rakennukset_alue.gpkg",
+      "geoPackageLayer": "suojellut_rakennukset_alue",
+      "mvtSourceLayer": "protected_building_areas",
+      "geometryType": "GEOMETRY",
+      "logicalIdFields": ["KOHDEID"],
+      "featureIdentity": { "rowIdField": "fid" }
+    },
+    {
+      "id": "protected_building_points",
+      "geoPackageFile": "suojellut_rakennukset_piste.gpkg",
+      "geoPackageLayer": "suojellut_rakennukset_piste",
+      "mvtSourceLayer": "protected_building_points",
+      "geometryType": "POINT",
+      "logicalIdFields": ["rakennusID"],
+      "parentIdFields": ["KOHDEID"],
+      "featureIdentity": { "rowIdField": "fid" }
+    }
+  ],
+  "logicalLayers": [
+    { "id": "rajapinta_suojellut:muinaisjaannos_piste", "sourceLayer": "archaeological_points", "filter": { "field": "laji_key", "equals": "kiintea_muinaisjaannos" } },
+    { "id": "rajapinta_suojellut:muinaisjaannos_alue", "sourceLayer": "archaeological_areas", "filter": { "field": "laji_key", "equals": "kiintea_muinaisjaannos" } },
+    { "id": "rajapinta_suojellut:suojellut_rakennukset_piste", "sourceLayer": "protected_building_points" },
+    { "id": "rajapinta_suojellut:suojellut_rakennukset_alue", "sourceLayer": "protected_building_areas" },
+    { "id": "rajapinta_suojellut:rky_alue", "sourceLayer": "rky_areas" },
+    { "id": "rajapinta_suojellut:rky_piste", "sourceLayer": "rky_points" },
+    { "id": "rajapinta_suojellut:rky_viiva", "sourceLayer": "rky_lines" },
+    { "id": "rajapinta_suojellut:maailmanperinto_piste", "sourceLayer": "world_heritage_points" },
+    { "id": "rajapinta_suojellut:maailmanperinto_alue", "sourceLayer": "world_heritage_areas" },
+    { "id": "rajapinta_suojellut:muu_kulttuuriperintokohde_alue", "sourceLayer": "archaeological_areas", "filter": { "field": "laji_key", "equals": "muu_kulttuuriperintokohde" } },
+    { "id": "rajapinta_suojellut:muu_kulttuuriperintokohde_piste", "sourceLayer": "archaeological_points", "filter": { "field": "laji_key", "equals": "muu_kulttuuriperintokohde" } },
+    { "id": "rajapinta_suojellut:vark_alueet", "sourceLayer": "vark_areas" },
+    { "id": "rajapinta_suojellut:vark_pisteet", "sourceLayer": "vark_points" },
+    { "id": "rajapinta:rajapinta_loytopaikka_piste", "sourceLayer": "archaeological_points", "filter": { "field": "laji_key", "equals": "loytopaikka" } },
+    { "id": "rajapinta:rajapinta_loytopaikka_alue", "sourceLayer": "archaeological_areas", "filter": { "field": "laji_key", "equals": "loytopaikka" } },
+    { "id": "rajapinta:alakohde_piste", "sourceLayer": "archaeological_subsites_points" },
+    { "id": "rajapinta:rajapinta_havaintokohde_piste", "sourceLayer": "archaeological_points", "filter": { "field": "laji_key", "equals": "havaintokohde" } },
+    { "id": "rajapinta:rajapinta_havaintokohde_alue", "sourceLayer": "archaeological_areas", "filter": { "field": "laji_key", "equals": "havaintokohde" } },
+    { "id": "rajapinta:rajapinta_luonnonmuodostuma_piste", "sourceLayer": "archaeological_points", "filter": { "field": "laji_key", "equals": "luonnonmuodostuma" } },
+    { "id": "rajapinta:rajapinta_luonnonmuodostuma_alue", "sourceLayer": "archaeological_areas", "filter": { "field": "laji_key", "equals": "luonnonmuodostuma" } },
+    { "id": "rajapinta:rajapinta_mahdollinen_muinaisjaannos_piste", "sourceLayer": "archaeological_points", "filter": { "field": "laji_key", "equals": "mahdollinen_muinaisjaannos" } },
+    { "id": "rajapinta:rajapinta_mahdollinen_muinaisjaannos_alue", "sourceLayer": "archaeological_areas", "filter": { "field": "laji_key", "equals": "mahdollinen_muinaisjaannos" } },
+    { "id": "rajapinta:rajapinta_muu_kohde_piste", "sourceLayer": "archaeological_points", "filter": { "field": "laji_key", "equals": "muu_kohde" } },
+    { "id": "rajapinta:rajapinta_muu_kohde_alue", "sourceLayer": "archaeological_areas", "filter": { "field": "laji_key", "equals": "muu_kohde" } },
+    { "id": "rajapinta:rajapinta_poistettu_kiintea_muinaisjaannos_piste", "sourceLayer": "archaeological_points", "filter": { "field": "laji_key", "equals": "poistettu_kiintea_muinaisjaannos" } },
+    { "id": "rajapinta:rajapinta_poistettu_kiintea_muinaisjaannos_alue", "sourceLayer": "archaeological_areas", "filter": { "field": "laji_key", "equals": "poistettu_kiintea_muinaisjaannos" } }
+  ]
+}

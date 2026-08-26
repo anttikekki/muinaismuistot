@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 2,
+  "description": "Build-only projections and tiling settings. Source files and layers are defined in contract/layer-mapping.json.",
+  "tiling": {
+    "minimumZoom": 0,
+    "maximumZoom": 14,
+    "lowZoomCentroidMaximumZoom": 9,
+    "polygonMinimumZoom": 10,
+    "dropRate": 1,
+    "featureLimit": false,
+    "tileSizeLimit": false,
+    "tinyPolygonReduction": false
+  },
+  "budgets": { "maximumArchiveBytes": 75000000, "maximumZoomZeroTileBytes": 1500000 },
+  "layers": [
+    {
+      "id": "vark_areas", "transformProfile": "none", "lowZoomCentroid": true,
+      "fields": [
+        { "source": "VARK_ID", "target": "registry_id", "transform": "text" },
+        { "source": "VARK_nimi", "target": "name", "transform": "trim" },
+        { "source": "Kunta", "target": "municipality", "transform": "trim" },
+        { "source": "Tyyppi", "target": "types_raw" },
+        { "source": "Alatyyppi", "target": "subtypes_raw" },
+        { "source": "Ajoitus", "target": "datings_raw", "transform": "trim" }
+      ]
+    },
+    {
+      "id": "vark_points", "transformProfile": "none",
+      "fields": [
+        { "source": "VARK_ID", "target": "registry_id", "transform": "text" },
+        { "source": "VARK_nimi", "target": "name", "transform": "trim" },
+        { "source": "Kunta", "target": "municipality", "transform": "trim" },
+        { "source": "Tyyppi", "target": "types_raw" },
+        { "source": "Alatyyppi", "target": "subtypes_raw" },
+        { "source": "Ajoitus", "target": "datings_raw", "transform": "trim" }
+      ]
+    },
+    {
+      "id": "archaeological_subsites_points", "transformProfile": "none",
+      "fields": [
+        { "source": "mjtunnus", "target": "registry_id", "transform": "text" },
+        { "source": "alakohdetunnus", "target": "subsite_id", "transform": "text" },
+        { "source": "kohdenimi", "target": "name", "transform": "trim" },
+        { "source": "alakohdenimi", "target": "subsite_name", "transform": "trim" },
+        { "source": "kunta", "target": "municipality", "transform": "trim" },
+        { "source": "laji", "target": "laji_key", "transform": "kind" },
+        { "source": "tyyppi", "target": "types_raw" },
+        { "source": "alatyyppi", "target": "subtypes_raw" },
+        { "source": "ajoitus", "target": "datings_raw" }
+      ]
+    },
+    {
+      "id": "archaeological_areas", "transformProfile": "logical-filter", "lowZoomCentroid": true,
+      "fields": [
+        { "source": "mjtunnus", "target": "registry_id", "transform": "text" },
+        { "source": "kohdenimi", "target": "name", "transform": "trim" },
+        { "source": "kunta", "target": "municipality", "transform": "trim" },
+        { "source": "Laji", "target": "laji_key", "transform": "kind" },
+        { "source": "tyyppi", "target": "types_raw" },
+        { "source": "alatyyppi", "target": "subtypes_raw" },
+        { "source": "ajoitus", "target": "datings_raw" }
+      ]
+    },
+    {
+      "id": "archaeological_points", "transformProfile": "archaeological-filters",
+      "fields": [
+        { "source": "mjtunnus", "target": "registry_id", "transform": "text" },
+        { "source": "kohdenimi", "target": "name", "transform": "trim" },
+        { "source": "kunta", "target": "municipality", "transform": "trim" },
+        { "source": "Laji", "target": "laji_key", "transform": "kind" },
+        { "source": "tyyppi", "target": "types_raw" },
+        { "source": "alatyyppi", "target": "subtypes_raw" },
+        { "source": "ajoitus", "target": "datings_raw" }
+      ]
+    },
+    {
+      "id": "world_heritage_areas", "transformProfile": "none", "lowZoomCentroid": true,
+      "fields": [
+        { "source": "ID", "target": "registry_id", "transform": "text" },
+        { "source": "Nimi", "target": "name", "transform": "trim" },
+        { "source": "aluetyyppi", "target": "area_type", "transform": "trim" }
+      ]
+    },
+    {
+      "id": "world_heritage_points", "transformProfile": "none",
+      "fields": [
+        { "source": "ID", "target": "registry_id", "transform": "text" },
+        { "source": "nimi", "target": "name", "transform": "trim" }
+      ]
+    },
+    {
+      "id": "rky_areas", "transformProfile": "none", "lowZoomCentroid": true,
+      "fields": [
+        { "source": "ID", "target": "registry_id", "transform": "text" },
+        { "source": "kohdenimi", "target": "name", "transform": "trim" },
+        { "source": "nimi", "target": "part_name", "transform": "trim" }
+      ]
+    },
+    {
+      "id": "rky_points", "transformProfile": "none",
+      "fields": [
+        { "source": "ID", "target": "registry_id", "transform": "text" },
+        { "source": "kohdenimi", "target": "name", "transform": "trim" }
+      ]
+    },
+    {
+      "id": "rky_lines", "transformProfile": "none",
+      "fields": [
+        { "source": "ID", "target": "registry_id", "transform": "text" },
+        { "source": "kohdenimi", "target": "name", "transform": "trim" }
+      ]
+    },
+    {
+      "id": "protected_building_areas", "transformProfile": "none", "lowZoomCentroid": true,
+      "fields": [
+        { "source": "KOHDEID", "target": "registry_id", "transform": "text" },
+        { "source": "kohdenimi", "target": "name", "transform": "trim" },
+        { "source": "Kunta", "target": "municipality", "transform": "trim" },
+        { "source": "suojeluryhmä", "target": "protection_groups_raw" },
+        { "source": "suojelun_tila", "target": "protection_status", "transform": "trim" }
+      ]
+    },
+    {
+      "id": "protected_building_points", "transformProfile": "none",
+      "fields": [
+        { "source": "KOHDEID", "target": "registry_id", "transform": "text" },
+        { "source": "rakennusID", "target": "building_id", "transform": "text" },
+        { "source": "kohdenimi", "target": "name", "transform": "trim" },
+        { "source": "rakennusnimi", "target": "building_name", "transform": "trim" },
+        { "source": "Kunta", "target": "municipality", "transform": "trim" },
+        { "source": "suojeluryhmä", "target": "protection_groups_raw" },
+        { "source": "suojelun_tila", "target": "protection_status", "transform": "trim" }
+      ]
+    }
+  ]
+}

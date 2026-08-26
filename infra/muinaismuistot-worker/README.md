@@ -12,14 +12,42 @@ www.muinaismuistot.info ─┘
 
 Webpack rakentaa sivuston repositorion juuren `dist/`-hakemistoon. Wrangler julkaisee samalla deploylla sekä Workerin että `dist/`-hakemiston muuttuneet tiedostot Workers Static Assetsiksi. Erillistä origin-palvelinta, GitHub Pagesia tai R2-bucketia ei käytetä.
 
-Worker suoritetaan ennen Static Assets -reititystä. Tämä mahdollistaa redirectit sekä myöhemmin lisättävät API-reitit ilman muutoksia staattisten tiedostojen julkaisutapaan.
+Cloudflare yrittää palvella pyynnön ensin Static Assets -aineistosta. Worker suoritetaan vain, jos polkua vastaavaa assettia ei löydy.
 
 ## Workerin logiikka
 
 Workerin entrypoint on `src/index.ts`. Se käsittelee pyynnöt seuraavasti:
 
-1. `www.muinaismuistot.info` ohjataan 308-vastauksella osoitteeseen `muinaismuistot.info`. Polku ja query string säilyvät muuttumattomina.
-2. Kaikki muut pyynnöt välitetään `env.ASSETS.fetch(request)`-kutsulla Cloudflaren Static Assets -bindingille.
+1. Cloudflare Static Assets palvelee löytyvät sivustotiedostot ennen Worker-koodia.
+2. `/api/museovirasto/*` välitetään Museoviraston PMTiles-, ominaisuus- ja hakumoduulille.
+3. Muut Workerille asti päätyvät pyynnöt palauttavat `404`-vastauksen. `www`-kanonisointi hoidetaan DNS-/domain-määrityksillä.
+
+Museovirasto-moduulin julkiset reitit ovat:
+
+- `/api/museovirasto/pmtiles`
+- `/api/museovirasto/features/batch`
+- `/api/museovirasto/features/by-register`
+- `/api/museovirasto/search`
+- `/api/museovirasto/meta`
+- `/api/museovirasto/health`
+
+Worker käyttää bindingeja `MAP_DATA` (R2) ja `MAP_FEATURES` (D1). Bindingit on määritelty erikseen paikalliselle, preview- ja production-ympäristölle ilman fyysisiä resurssitunnisteita. Wrangler provisioi puuttuvat ympäristökohtaiset resurssit ensimmäisen deployn yhteydessä ja kirjoittaa syntyneet tunnisteet takaisin konfiguraatioon. Preview-deploy tehdään ja sen data siemennetään ennen production-deployta.
+
+D1:n `feature_details`-skeema ja migraatiot sijaitsevat
+[`../museovirasto-map-data/contract`](../museovirasto-map-data/contract/README.md#d1-skeema)-hakemistossa.
+Pää-Workerin `npm run deploy:*` ei aja näitä migraatioita. Normaalissa
+aineistojulkaisussa migraatiot ajaa karttadata-updater ennen uuden D1-tuonnin
+suorittamista. Jos Worker-muutos käyttää uutta saraketta, noudata koko
+preview→production-järjestystä
+[`updater/README.md`](../museovirasto-map-data/updater/README.md#d1-skeemamuutoksen-julkaisu)-ohjeesta; pelkkä Worker-deploy ei riitä.
+
+Ensimmäisen deployn jälkeen julkaisuartefaktit voidaan ladata ja etärajapinta smoke-testata yhdellä komennolla:
+
+```bash
+infra/museovirasto-map-data/deploy/scripts/publish-cloudflare-release.sh preview
+```
+
+Skripti hyväksyy vain ympäristöt `preview` ja `production`, käyttää kyseisen ympäristön bindingeja ja vaatii production-ajossa erillisen `--confirm-production`-argumentin. Se ei provisioi resursseja eikä deployaa Worker-koodia. R2:n `bucket_name`- ja D1:n `database_id`-arvojen täytyy löytyä `wrangler.jsonc`-tiedoston valitusta ympäristöstä ennen ajoa.
 
 Cloudflare huolehtii staattisten resurssien:
 
@@ -34,9 +62,10 @@ Wrangler-konfiguraation keskeiset Static Assets -asetukset ovat:
 
 - `directory: "../../dist"`: Webpack-buildin sijainti Worker-hakemistosta katsottuna.
 - `binding: "ASSETS"`: Workerissa käytettävä Static Assets -binding.
-- `run_worker_first: true`: kaikki pyynnöt kulkevat ensin Workerin kautta.
+- Static Assets ajetaan oletusarvoisesti ennen Workeria, koska `run_worker_first`-asetusta ei ole määritetty.
 - `html_handling: "auto-trailing-slash"`: hakemistojen `index.html` toimii kauttaviivalla ja ilman sitä.
-- `not_found_handling: "none"`: puuttuva resurssi palauttaa 404-vastauksen ilman SPA-fallbackia.
+
+`not_found_handling`-asetusta ei määritetä, joten käytössä on sen oletusarvo `none`. Jos pyyntö ei vastaa staattista assettia, Cloudflare suorittaa Workerin. Worker käsittelee tunnetut API-reitit ja palauttaa muille pyynnöille `404`-vastauksen.
 
 Mukautettuja cache-sääntöjä ei ole määritelty. Resurssit käyttävät Cloudflaren Static Assets -oletuskäyttäytymistä.
 
@@ -60,6 +89,60 @@ Wrangler-konfiguraatiossa on kaksi nimettyä ympäristöä.
 - Ei tuotannon routeja tai Custom Domaineja.
 - Julkaisu tehdään valinnalla `--env preview`.
 
+## Uuden ympäristön käyttöönotto
+
+Tämä ohje koskee tyhjää Cloudflare-tiliä tai uutta preview-/production-
+ympäristöä. Normaali koodideploy ei tarvitse provisiointivaiheita uudelleen.
+
+1. Asenna juuren, pää-Workerin ja updaterin riippuvuudet:
+
+   ```bash
+   npm ci
+   npm ci --prefix infra/muinaismuistot-worker
+   npm ci --prefix infra/museovirasto-map-data/updater
+   ```
+
+2. Deployaa pää-Worker ensin previewhin. Wrangler provisioi puuttuvan
+   `MAP_DATA`-R2-bucketin ja `MAP_FEATURES`-D1-kannan:
+
+   ```bash
+   npm run worker:deploy:preview:dry-run
+   npm run worker:deploy:preview
+   ```
+
+3. Tarkista, että previewn `bucket_name` ja `database_id` ovat
+   `wrangler.jsonc`-tiedostossa. Karttadatan julkaisuskripti ei toimi ilman
+   näitä tunnisteita.
+4. Deployaa updater previewhin ja aseta sen READMEssä luetellut secretit sekä
+   Email Service -binding:
+
+   ```bash
+   cd infra/museovirasto-map-data/updater
+   npm run deploy:preview:dry-run -- --containers-rollout=none
+   npm run deploy:preview
+   ```
+
+5. Käynnistä ensimmäinen aineistoajo. Se ajaa D1-migraatiot, täyttää D1:n,
+   lataa R2-objektit ja smoke-testaa pää-Workerin:
+
+   ```bash
+   npx wrangler workflows trigger museovirasto-map-data-preview-update \
+     '{"targetEnvironment":"preview"}' --env preview
+   npx wrangler workflows instances describe \
+     museovirasto-map-data-preview-update latest --env preview
+   ```
+
+6. Tarkista previewn `/api/museovirasto/health` ja
+   `/api/museovirasto/meta` ennen productionin perustamista.
+7. Toista pää-Workerin deploy, tunnisteiden tarkistus, updaterin deploy,
+   production-secretit ja ensimmäinen Workflow-ajo `production`-ympäristölle.
+   Productionissa käytä Workflow-nimeä
+   `museovirasto-map-data-production-update`.
+
+Ensimmäisen pää-Worker-deployn ja ensimmäisen aineistoajon välissä
+Museovirasto-API voi palauttaa `503`, koska bindingit ovat olemassa mutta R2 ja
+D1 eivät vielä sisällä aktiivista aineistoa. Tämä on odotettu bootstrap-tila.
+
 ## Projektin rakenne
 
 ```text
@@ -71,10 +154,28 @@ infra/muinaismuistot-worker/
 ├── tsconfig.json
 ├── vitest.config.ts
 ├── src/
-│   └── index.ts
+│   ├── index.ts
+│   └── endpoint/museovirasto/
+│       ├── index.ts
+│       ├── pmtiles.ts
+│       ├── features-batch.ts
+│       ├── features-by-register.ts
+│       ├── search.ts
+│       ├── metadata.ts
+│       ├── health.ts
+│       ├── feature-details.ts
+│       └── responses.ts
 ├── test/
 │   ├── env.d.ts
 │   ├── index.test.ts
+│   ├── endpoint/museovirasto/
+│   │   ├── pmtiles.test.ts
+│   │   ├── features-batch.test.ts
+│   │   ├── features-by-register.test.ts
+│   │   ├── search.test.ts
+│   │   ├── metadata.test.ts
+│   │   └── health.test.ts
+│   ├── support/museovirasto.ts
 │   └── tsconfig.json
 └── README.md
 ```
@@ -100,7 +201,7 @@ npx --prefix infra/muinaismuistot-worker wrangler login
 
 Testit käyttävät Vitestiä ja Cloudflaren virallista `@cloudflare/vitest-plugin`-integraatiota. Testit suoritetaan Workersin `workerd`-runtimessa oikeaa paikallista Static Assets -bindingia vasten.
 
-Testikomento tekee ensin Webpack-tuotantobuildin ja testaa sen jälkeen muun muassa pääsivun, hakemistojen index-sivut, `www`-redirectin, MIME-tyypit, ETagin, HEAD-pyynnön ja 404-vastauksen.
+Testikomento tekee ensin Webpack-tuotantobuildin ja testaa sen jälkeen muun muassa pääsivun, hakemistojen index-sivut, MIME-tyypit, ETagin, HEAD-pyynnön ja 404-vastauksen. Lisäksi testit varmistavat asset-first-reitityksen, `/api/museovirasto/*`-reitityksen, PMTiles Range -vastauksen, metatiedon, health-tarkistuksen, D1-massahaun ja tuntemattomien API-reittien `404`-vastauksen.
 
 Generoi Cloudflare-tyypit uudelleen aina, kun `wrangler.jsonc`-bindingit muuttuvat:
 

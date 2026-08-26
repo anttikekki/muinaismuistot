@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2024",
+    "lib": ["DOM", "ES2024"],
+    "types": ["node", "@playwright/test"],
+    "strict": true,
+    "outDir": ".tsbuild/playwright",
+    "tsBuildInfoFile": ".tsbuild/playwright.tsbuildinfo"
+  },
+  "include": ["playwright.config.ts", "e2e/**/*.ts"]
+}

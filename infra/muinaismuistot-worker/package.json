@@ -16,11 +16,15 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-plugin": "^1.0.0",
+    "@types/range-parser": "^1.2.7",
     "typescript": "6.0.3",
     "vitest": "^4.1.11",
     "wrangler": "^4.125.0"
   },
   "engines": {
     "node": ">=22"
+  },
+  "dependencies": {
+    "range-parser": "^1.3.0"
   }
 }
