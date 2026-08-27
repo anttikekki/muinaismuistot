@@ -178,9 +178,6 @@ export default class MuinaismuistotMap {
     this.moveMaannousuLayers(settings.maannousuInfo.placement)
 
     this.map.on("singleclick", (e) => {
-      if (this.museovirastoVectorTileLayer?.handleClick(e.pixel)) {
-        return
-      }
       this.indentifyFeaturesOnCoordinate(e.coordinate, Date.now())
     })
 

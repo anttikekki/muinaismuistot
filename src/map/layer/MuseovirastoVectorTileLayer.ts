@@ -1,20 +1,15 @@
-import Feature, { FeatureLike } from "ol/Feature"
+import { FeatureLike } from "ol/Feature"
 import { Geometry } from "geojson"
 import MVT from "ol/format/MVT"
-import Point from "ol/geom/Point"
-import { intersects } from "ol/extent"
 import LayerGroup from "ol/layer/Group"
-import VectorLayer from "ol/layer/Vector"
 import VectorTileLayer from "ol/layer/VectorTile"
 import OlMap from "ol/Map"
 import { Pixel } from "ol/pixel"
-import VectorSource from "ol/source/Vector"
 import CircleStyle from "ol/style/Circle"
 import Fill from "ol/style/Fill"
 import RegularShape from "ol/style/RegularShape"
 import Stroke from "ol/style/Stroke"
 import Style from "ol/style/Style"
-import Text from "ol/style/Text"
 import { PMTilesVectorSource } from "ol-pmtiles"
 import { Settings } from "../../store/storeTypes"
 import {
@@ -56,21 +51,8 @@ interface FeatureBatchResult {
   missing: FeatureReference[]
 }
 
-interface ActivePoint {
-  feature: FeatureLike
-  logicalLayerId: string
-}
-
-interface AggregateGroup {
-  count: number
-  x: number
-  y: number
-  logicalCounts: Map<string, number>
-}
-
-const aggregationEnableThreshold = 30_000
-const aggregationDisableThreshold = 20_000
-const aggregateGridSize = 64
+const pointRenderingThreshold = 20_000
+const pointSamplingDivisors = [32, 32, 16, 8, 4, 2]
 const logicalLayers = layerMapping.logicalLayers as LogicalLayer[]
 const archaeologicalFilterSources = new Set(["archaeological_points"])
 const kindCodes = new Map(
@@ -101,25 +83,21 @@ export default class MuseovirastoVectorTileLayer {
   private readonly featuresByRegisterUrl: string
   private readonly searchUrl: string
   private readonly vectorLayer: VectorTileLayer
-  private readonly aggregateSource = new VectorSource<Feature<Point>>()
-  private readonly aggregateLayer: VectorLayer<VectorSource<Feature<Point>>>
   private readonly layerGroup: LayerGroup
   private readonly enabledLogicalLayers = new Set<string>()
   private readonly styles = new Map<string, Style>()
   private readonly pointStyles = new Map<string, Style>()
-  private readonly aggregateStyles = new Map<string, Style>()
-  private readonly knownFeatures = new Map<string, FeatureLike>()
   private selectedTypeMask = 0
   private selectedDatingMask = 0
-  private aggregationMode = true
+  private activePointCount = 0
+  private samplingEnabled = false
+  private countingRender = false
   private pendingSettings?: Settings
   private settingsUpdateFrame?: number
   private settingsUpdateTimer?: number
-  private presentationUpdateFrame?: number
-  private presentationUpdateTimer?: number
-  private tileRevision = 0
-  private settingsRevision = 0
-  private presentationInputSignature = ""
+  private measurementFrame?: number
+  private measurementTimer?: number
+  private pendingTileLoads = 0
 
   public constructor(
     map: OlMap,
@@ -152,35 +130,41 @@ export default class MuseovirastoVectorTileLayer {
       format: new MVT(),
       attributions: ["Museovirasto"]
     })
-    source.on("tileloadstart", () => updateTileLoadingStatus(true))
+    source.on("tileloadstart", () => {
+      this.pendingTileLoads += 1
+      updateTileLoadingStatus(true)
+    })
     source.on(["tileloadend", "tileloaderror"], () => {
+      this.pendingTileLoads = Math.max(0, this.pendingTileLoads - 1)
       updateTileLoadingStatus(false)
-      this.tileRevision += 1
+      if (this.pendingTileLoads === 0) this.schedulePointMeasurement()
     })
     this.vectorLayer = new VectorTileLayer({
       source,
       declutter: false,
       style: this.styleFeature
     })
-    this.aggregateLayer = new VectorLayer({
-      source: this.aggregateSource,
-      style: this.styleAggregate
+    this.vectorLayer.on("postrender", () => {
+      if (!this.countingRender) return
+      this.countingRender = false
+      const samplingEnabled = this.activePointCount > pointRenderingThreshold
+      const samplingChanged = samplingEnabled !== this.samplingEnabled
+      this.samplingEnabled = samplingEnabled
+      const target = this.map.getTargetElement()
+      target.dataset.museovirastoActivePoints = String(this.activePointCount)
+      target.dataset.museovirastoPointsSampled = String(samplingEnabled)
+      if (samplingChanged) this.vectorLayer.changed()
     })
     this.layerGroup = new LayerGroup({
-      layers: [this.vectorLayer, this.aggregateLayer]
+      layers: [this.vectorLayer]
     })
     this.updateSettings(settings)
-    this.map.on("moveend", this.schedulePresentationUpdate)
-    this.map.on("rendercomplete", this.schedulePresentationUpdate)
   }
 
   private styleFeature = (feature: FeatureLike): Style | undefined => {
-    this.rememberFeature(feature)
     const logicalLayerId = this.activeLogicalLayerId(feature)
-    if (
-      !logicalLayerId ||
-      (this.aggregationMode && this.isPointFeature(feature))
-    )
+    if (!logicalLayerId) return undefined
+    if (this.isPointFeature(feature) && !this.shouldRenderPoint(feature))
       return undefined
     return this.isPointFeature(feature)
       ? this.pointStyles.get(logicalLayerId)
@@ -207,144 +191,41 @@ export default class MuseovirastoVectorTileLayer {
     return logicalLayer.id
   }
 
-  private schedulePresentationUpdate = (): void => {
-    if (this.presentationUpdateFrame !== undefined) {
-      cancelAnimationFrame(this.presentationUpdateFrame)
-    }
-    if (this.presentationUpdateTimer !== undefined) {
-      window.clearTimeout(this.presentationUpdateTimer)
-    }
-    this.presentationUpdateFrame = requestAnimationFrame(() => {
-      this.presentationUpdateFrame = undefined
-      // Let the browser paint the settings control before clustering starts.
-      this.presentationUpdateTimer = window.setTimeout(() => {
-        this.presentationUpdateTimer = undefined
-        this.updatePresentation()
-      }, 25)
-    })
-  }
-
-  private updatePresentation = (): void => {
-    const size = this.map.getSize()
-    if (!size) return
-    const view = this.map.getView()
-    const center = view.getCenter()
-    const inputSignature = [
-      this.tileRevision,
-      this.settingsRevision,
-      view.getResolution(),
-      center?.[0],
-      center?.[1],
-      size[0],
-      size[1]
-    ].join(":")
-    if (inputSignature === this.presentationInputSignature) return
-    this.presentationInputSignature = inputSignature
-    const unique = new Map<string, FeatureLike>()
-    const extent = view.calculateExtent(size)
-    this.knownFeatures.forEach((feature, key) => {
-      const geometry = feature.getGeometry()
-      if (geometry && intersects(extent, geometry.getExtent())) {
-        unique.set(key, feature)
-      } else {
-        this.knownFeatures.delete(key)
-      }
-    })
-    const activePoints: ActivePoint[] = []
-    for (const feature of unique.values()) {
-      if (!this.isPointFeature(feature)) continue
-      const logicalLayerId = this.activeLogicalLayerId(feature)
-      if (logicalLayerId) activePoints.push({ feature, logicalLayerId })
-    }
-    const nextMode = this.aggregationMode
-      ? activePoints.length >= aggregationDisableThreshold
-      : activePoints.length > aggregationEnableThreshold
-    const modeChanged = nextMode !== this.aggregationMode
-    this.aggregationMode = nextMode
-    const target = this.map.getTargetElement()
-    target.dataset.museovirastoPresentationMode = nextMode
-      ? "aggregated"
-      : "individual"
-    target.dataset.museovirastoActivePoints = String(activePoints.length)
-    if (nextMode) this.rebuildAggregates(activePoints)
-    else this.aggregateSource.clear(true)
-    if (modeChanged) {
-      if (!nextMode) this.presentationInputSignature = ""
-      this.vectorLayer.changed()
-    }
-  }
-
-  private rebuildAggregates = (activePoints: ActivePoint[]): void => {
-    const groups = new Map<string, AggregateGroup>()
-    for (const { feature, logicalLayerId } of activePoints) {
-      const geometry = feature.getGeometry()
-      if (!geometry) continue
-      const extent = geometry.getExtent()
-      const coordinate = [
-        (extent[0] + extent[2]) / 2,
-        (extent[1] + extent[3]) / 2
-      ]
-      const pixel = this.map.getPixelFromCoordinate(coordinate)
-      const key = `${Math.floor(pixel[0] / aggregateGridSize)}:${Math.floor(pixel[1] / aggregateGridSize)}`
-      const group = groups.get(key)
-      if (group) {
-        group.count += 1
-        group.x += coordinate[0]
-        group.y += coordinate[1]
-        group.logicalCounts.set(
-          logicalLayerId,
-          (group.logicalCounts.get(logicalLayerId) ?? 0) + 1
-        )
-      } else {
-        groups.set(key, {
-          count: 1,
-          x: coordinate[0],
-          y: coordinate[1],
-          logicalCounts: new Map([[logicalLayerId, 1]])
-        })
-      }
-    }
-    const aggregates = [...groups.entries()].map(([id, group]) => {
-      const logicalLayerId = [...group.logicalCounts].reduce(
-        (dominant, current) => (current[1] > dominant[1] ? current : dominant)
-      )[0]
-      const feature = new Feature({
-        geometry: new Point([group.x / group.count, group.y / group.count]),
-        count: group.count,
-        logicalLayerId
-      })
-      feature.setId(id)
-      return feature
-    })
-    this.aggregateSource.clear(true)
-    this.aggregateSource.addFeatures(aggregates)
-  }
-
-  private styleAggregate = (feature: FeatureLike): Style => {
-    const key = `${feature.get("logicalLayerId")}:${feature.get("count")}`
-    let style = this.aggregateStyles.get(key)
-    if (!style) {
-      style = createMuseovirastoAggregateStyle(feature)
-      this.aggregateStyles.set(key, style)
-    }
-    return style
-  }
-
   private isPointFeature = (feature: FeatureLike): boolean =>
     feature.getGeometry()?.getType() === "Point"
 
-  private rememberFeature = (feature: FeatureLike): void => {
-    const sourceLayer = String(feature.get("layer") ?? "")
-    const geometry = feature.getGeometry()
-    const fallback = geometry?.getExtent().join(",") ?? "unknown"
-    this.knownFeatures.set(
-      `${sourceLayer}:${feature.getId() ?? fallback}`,
-      feature
+  private shouldRenderPoint = (feature: FeatureLike): boolean => {
+    if (this.countingRender) this.activePointCount += 1
+    if (
+      !this.samplingEnabled &&
+      (!this.countingRender || this.activePointCount <= pointRenderingThreshold)
     )
+      return true
+    const zoom = Math.max(0, Math.floor(this.map.getView().getZoom() ?? 0))
+    const divisor = pointSamplingDivisors[zoom] ?? 2
+    const featureId = Number(feature.getId())
+    return !Number.isSafeInteger(featureId) || featureId % divisor === 0
+  }
+
+  private schedulePointMeasurement = (): void => {
+    if (this.measurementFrame !== undefined) {
+      cancelAnimationFrame(this.measurementFrame)
+    }
+    if (this.measurementTimer !== undefined) {
+      window.clearTimeout(this.measurementTimer)
+    }
+    this.measurementFrame = requestAnimationFrame(() => {
+      this.measurementFrame = undefined
+      this.measurementTimer = window.setTimeout(() => {
+        this.measurementTimer = undefined
+        this.activePointCount = 0
+        this.countingRender = true
+        this.vectorLayer.changed()
+      }, 100)
+    })
   }
 
   private updateSettings = (settings: Settings): void => {
-    this.settingsRevision += 1
     this.enabledLogicalLayers.clear()
     settings.museovirasto.selectedLayers.forEach((layer) =>
       this.enabledLogicalLayers.add(layer)
@@ -363,8 +244,9 @@ export default class MuseovirastoVectorTileLayer {
       settings.museovirasto.enabled && this.enabledLogicalLayers.size > 0
     )
     this.layerGroup?.setOpacity(settings.museovirasto.opacity)
+    this.activePointCount = 0
+    this.countingRender = true
     this.vectorLayer?.changed()
-    this.schedulePresentationUpdate()
   }
 
   private scheduleSettingsUpdate = (settings: Settings): void => {
@@ -384,24 +266,6 @@ export default class MuseovirastoVectorTileLayer {
         if (pendingSettings) this.updateSettings(pendingSettings)
       }, 25)
     })
-  }
-
-  public handleClick = (pixel: Pixel): boolean => {
-    const aggregate = this.map.forEachFeatureAtPixel(
-      pixel,
-      (feature, layer) => (layer === this.aggregateLayer ? feature : undefined),
-      { hitTolerance: 5 }
-    )
-    if (!aggregate) return false
-    const geometry = aggregate.getGeometry()
-    if (!geometry) return true
-    const extent = geometry.getExtent()
-    this.map.getView().animate({
-      center: [(extent[0] + extent[2]) / 2, (extent[1] + extent[3]) / 2],
-      zoom: Math.min((this.map.getView().getZoom() ?? 0) + 2, 14),
-      duration: 250
-    })
-    return true
   }
 
   public identifyFeaturesAt = async (
@@ -571,31 +435,6 @@ function createMuseovirastoPointStyle(id: string): Style {
   return new Style({ image: new CircleStyle({ radius: 5, fill, stroke }) })
 }
 
-function createMuseovirastoAggregateStyle(feature: FeatureLike): Style {
-  const id = String(feature.get("logicalLayerId") ?? "")
-  const count = Number(feature.get("count") ?? 1)
-  const radius = Math.min(18, 5 + Math.log2(Math.max(1, count)) * 1.4)
-  return new Style({
-    image: new CircleStyle({
-      radius,
-      fill: new Fill({ color: withAlpha(museovirastoColor(id), 0.82) }),
-      stroke: new Stroke({ color: "#161616", width: 1.5 })
-    }),
-    text: new Text({
-      text:
-        count > 1
-          ? new Intl.NumberFormat("fi-FI", {
-              notation: "compact",
-              maximumFractionDigits: 1
-            }).format(count)
-          : "",
-      fill: new Fill({ color: "#fff" }),
-      stroke: new Stroke({ color: "#161616", width: 2 }),
-      font: "bold 10px sans-serif"
-    })
-  })
-}
-
 function museovirastoColor(id: string): string {
   if (id.includes("muu_kulttuuriperinto")) return "#b67f4a"
   if (id.includes("mahdollinen")) return "#cc00ff"
@@ -608,13 +447,6 @@ function museovirastoColor(id: string): string {
   if (id.includes("maailmanperinto")) return "#ffab00"
   if (id.includes("vark")) return "#8400a8"
   return "#ff0000"
-}
-
-function withAlpha(hex: string, alpha: number): string {
-  const red = Number.parseInt(hex.slice(1, 3), 16)
-  const green = Number.parseInt(hex.slice(3, 5), 16)
-  const blue = Number.parseInt(hex.slice(5, 7), 16)
-  return `rgba(${red}, ${green}, ${blue}, ${alpha})`
 }
 
 function createWmsAreaPattern(color: string): CanvasPattern {
