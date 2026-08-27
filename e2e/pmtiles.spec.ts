@@ -7,7 +7,7 @@ import {
   permanentLink
 } from "./map-test-helpers"
 
-const vectorQuery = "?museovirastoVectorTiles=1"
+const vectorQuery = ""
 
 test("PMTiles/D1 map, search, export, permanent link and identify", async ({ page }) => {
   const pmtilesResponse = page.waitForResponse((response) =>
@@ -42,7 +42,7 @@ test("PMTiles/D1 map, search, export, permanent link and identify", async ({ pag
   const clickTiles = page.waitForResponse((response) =>
     response.url().includes("/api/museovirasto/pmtiles") && response.status() === 206
   )
-  await page.goto(`${vectorQuery}&mapClickTest=1#center=181688.6237%2C6712269.1593&zoom=14`)
+  await page.goto(`?mapClickTest=1#center=181688.6237%2C6712269.1593&zoom=14`)
   await clickTiles
   await expect(page.locator(".ol-viewport")).toBeVisible()
   await page.waitForTimeout(3_000)

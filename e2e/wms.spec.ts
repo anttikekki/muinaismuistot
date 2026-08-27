@@ -17,7 +17,7 @@ test("legacy WMS/WFS fallback remains functional", async ({ page }) => {
     response.url().toLowerCase().includes("request=getmap") &&
     response.ok()
   )
-  await page.goto("/#center=235000%2C6710000&zoom=10")
+  await page.goto("/?museovirastoVectorTiles=0#center=235000%2C6710000&zoom=10")
   await wmsResponse
   await expect(page.locator(".ol-viewport")).toBeVisible()
 
@@ -33,7 +33,7 @@ test("legacy WMS/WFS fallback remains functional", async ({ page }) => {
   await openLinkedFeatureDetails(page)
   await linkedIdentify
 
-  await page.goto("/?wmsClickTest=1#center=238571%2C6710001&zoom=14")
+  await page.goto("/?museovirastoVectorTiles=0&wmsClickTest=1#center=238571%2C6710001&zoom=14")
   await expect(page.locator(".ol-viewport")).toBeVisible()
   const clickIdentify = page.waitForResponse((response) =>
     response.url().toLowerCase().includes("request=getfeatureinfo")

@@ -67,7 +67,7 @@ export const initialSettings: Settings = {
     enabled: false
   },
   museovirasto: {
-    dataSource: MuseovirastoDataSource.WMS,
+    dataSource: MuseovirastoDataSource.PMTiles,
     selectedLayers: [
       MuseovirastoLayer.Muinaisjaannokset_piste,
       MuseovirastoLayer.Muinaisjaannokset_alue,
