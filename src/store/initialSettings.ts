@@ -92,7 +92,7 @@ export const initialSettings: Settings = {
       wfs: "https://geoserver.museovirasto.fi/geoserver/ows",
       worker: window.location.origin
     },
-    opacity: 0.7,
+    opacity: 1.0,
     enabled: true
   },
   ahvenanmaa: {
