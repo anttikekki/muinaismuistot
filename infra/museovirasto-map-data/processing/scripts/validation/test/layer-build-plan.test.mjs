@@ -58,7 +58,7 @@ test("D1 transformer uses the reprojected feature geometry", () => {
     properties: { gpkg_fid: 1, registry_id: "1", name: "Test", exact_geometry_json: { type: "Point", coordinates: [385000, 6670000] } },
     geometry: { type: "Point", coordinates: [24.94, 60.17] },
   })
-  const result = spawnSync("node", [transformer, "details", mapping, "vark_points"], { input: `${input}\n`, encoding: "utf8" })
+  const result = spawnSync("node", [transformer, "details", mapping, "vark_pisteet"], { input: `${input}\n`, encoding: "utf8" })
   assert.equal(result.status, 0, result.stderr)
   assert.match(result.stdout, /"coordinates":\[24\.94,60\.17\]/)
   assert.doesNotMatch(result.stdout, /385000/)

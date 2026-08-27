@@ -6,7 +6,7 @@ type FeatureReference = { sourceLayer: string; featureId: string }
 type RelatedArchaeologicalSite = { registryId: string; name: string | null }
 const sourceLayers = new Set(layerMapping.physicalLayers.map((layer) => layer.mvtSourceLayer))
 const archaeologicalPointLogicalLayerIds = layerMapping.logicalLayers
-  .filter((layer) => layer.sourceLayer === "archaeological_points")
+  .filter((layer) => layer.sourceLayer === "muinaisjaannokset_piste")
   .map((layer) => layer.id)
 const D1_BATCH_SIZE = 30
 const RELATED_D1_BATCH_SIZE = 50

@@ -35,7 +35,7 @@ Museovirasto-moduulin julkiset reitit ovat:
 `relatedArchaeologicalSites`-listan. Kukin alkio sisältää viitatun
 muinaisjäännöskohteen `registryId`-tunnuksen ja D1:stä haetun `name`-nimen.
 Selain saa VARK-kohteen ja sen viitatut kohteet samalla HTTP-pyynnöllä; Worker
-hakee nimet eräajona `archaeological_points`-riveistä. Jos viitattua riviä ei
+hakee nimet eräajona `muinaisjaannokset_piste`-riveistä. Jos viitattua riviä ei
 löydy, tunnus säilyy listassa ja `name` on `null`.
 
 Worker käyttää bindingeja `MAP_DATA` (R2) ja `MAP_FEATURES` (D1). Bindingit on määritelty erikseen paikalliselle, preview- ja production-ympäristölle ilman fyysisiä resurssitunnisteita. Wrangler provisioi puuttuvat ympäristökohtaiset resurssit ensimmäisen deployn yhteydessä ja kirjoittaa syntyneet tunnisteet takaisin konfiguraatioon. Preview-deploy tehdään ja sen data siemennetään ennen production-deployta.

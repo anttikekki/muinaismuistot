@@ -12,8 +12,8 @@ describe("Museovirasto features by register endpoint", () => {
       VALUES (?, ?, ?, ?, ?, ?)
     `)
     await env.MAP_FEATURES.batch([
-      insert.bind("archaeological_areas", 1, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Alue 1", '{"type":"Polygon","coordinates":[]}'),
-      insert.bind("archaeological_areas", 2, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Alue 2", '{"type":"Polygon","coordinates":[]}')
+      insert.bind("muinaisjaannokset_alue", 1, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Alue 1", '{"type":"Polygon","coordinates":[]}'),
+      insert.bind("muinaisjaannokset_alue", 2, "rajapinta_suojellut:muinaisjaannos_alue", "100", "Alue 2", '{"type":"Polygon","coordinates":[]}')
     ])
 
     const response = await museovirastoRequest("/features/by-register", {
@@ -33,7 +33,7 @@ describe("Museovirasto features by register endpoint", () => {
     const insert = env.MAP_FEATURES.prepare(`
       INSERT INTO feature_details
         (source_layer, feature_id, logical_layer_id, registry_id, geometry_json)
-      VALUES ('rky_points', ?, 'rajapinta_suojellut:rky_piste', ?, '{"type":"Point","coordinates":[385000,6670000]}')
+      VALUES ('rky_piste', ?, 'rajapinta_suojellut:rky_piste', ?, '{"type":"Point","coordinates":[385000,6670000]}')
     `)
     await env.MAP_FEATURES.batch(
       Array.from({ length: 40 }, (_, index) => insert.bind(index + 1, String(index + 1)))

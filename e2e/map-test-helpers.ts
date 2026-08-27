@@ -9,6 +9,7 @@ export async function openSearch(page: Page, text: string): Promise<void> {
 
 export async function exportedFeature(page: Page): Promise<{
   geometry?: { type?: string; coordinates?: unknown }
+  properties?: Record<string, unknown>
 }> {
   const link = page.locator("a[download]").first()
   await expect(link).toHaveAttribute("href", /^blob:/)

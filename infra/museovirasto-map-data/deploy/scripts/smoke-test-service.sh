@@ -36,7 +36,7 @@ grep -Eqi '^content-range: bytes 0-126/' "$WORK_DIR/header.txt" || { echo "PMTil
 [[ "$(LC_ALL=C head -c 7 "$WORK_DIR/header.bin")" == "PMTiles" ]] || { echo "PMTiles header magic is invalid" >&2; exit 1; }
 
 request_json feature POST "$API_PREFIX/features/batch" \
-  '{"features":[{"sourceLayer":"vark_areas","featureId":"1"}]}'
+  '{"features":[{"sourceLayer":"vark_alueet","featureId":"1"}]}'
 jq -e '.features | length == 1' "$WORK_DIR/feature.json" >/dev/null
 jq -e '.features[0].geometry.type != null' "$WORK_DIR/feature.json" >/dev/null
 

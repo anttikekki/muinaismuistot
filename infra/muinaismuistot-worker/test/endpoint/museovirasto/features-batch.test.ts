@@ -9,13 +9,13 @@ describe("Museovirasto feature batch endpoint", () => {
     await env.MAP_FEATURES.prepare(`
       INSERT INTO feature_details
         (source_layer, feature_id, logical_layer_id, registry_id, name, search_name, geometry_json)
-      VALUES ('rky_points', 7, 'rajapinta_suojellut:rky_piste', '100', 'Vanha kirkko', 'vanha kirkko', '{"type":"Point","coordinates":[385000,6670000]}')
+      VALUES ('rky_piste', 7, 'rajapinta_suojellut:rky_piste', '100', 'Vanha kirkko', 'vanha kirkko', '{"type":"Point","coordinates":[385000,6670000]}')
     `).run()
 
     const response = await museovirastoRequest("/features/batch", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ features: [{ sourceLayer: "rky_points", featureId: "7" }] })
+      body: JSON.stringify({ features: [{ sourceLayer: "rky_piste", featureId: "7" }] })
     })
 
     expect(response.status).toBe(200)
@@ -30,7 +30,7 @@ describe("Museovirasto feature batch endpoint", () => {
         INSERT INTO feature_details
           (source_layer, feature_id, logical_layer_id, registry_id, name, properties_json, geometry_json)
         VALUES (
-          'vark_points', 49, 'rajapinta_suojellut:vark_pisteet', '100310',
+          'vark_pisteet', 49, 'rajapinta_suojellut:vark_pisteet', '100310',
           'Kivikon linnoitteiden VARK-alue',
           '{"related_registry_ids_raw":"1000011231, 1000007733, 9999999999"}',
           '{"type":"Point","coordinates":[25.07,60.24]}'
@@ -40,15 +40,15 @@ describe("Museovirasto feature batch endpoint", () => {
         INSERT INTO feature_details
           (source_layer, feature_id, logical_layer_id, registry_id, name, geometry_json)
         VALUES
-          ('archaeological_points', 1, 'rajapinta_suojellut:muinaisjaannos_piste', '1000007733', 'Tukikohta IV:10', '{"type":"Point","coordinates":[25.1,60.2]}'),
-          ('archaeological_points', 2, 'rajapinta_suojellut:muu_kulttuuriperintokohde_piste', '1000011231', 'Tukikohta IV:11', '{"type":"Point","coordinates":[25.2,60.3]}')
+          ('muinaisjaannokset_piste', 1, 'rajapinta_suojellut:muinaisjaannos_piste', '1000007733', 'Tukikohta IV:10', '{"type":"Point","coordinates":[25.1,60.2]}'),
+          ('muinaisjaannokset_piste', 2, 'rajapinta_suojellut:muu_kulttuuriperintokohde_piste', '1000011231', 'Tukikohta IV:11', '{"type":"Point","coordinates":[25.2,60.3]}')
       `),
     ])
 
     const response = await museovirastoRequest("/features/batch", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ features: [{ sourceLayer: "vark_points", featureId: "49" }] })
+      body: JSON.stringify({ features: [{ sourceLayer: "vark_pisteet", featureId: "49" }] })
     })
 
     expect(response.status).toBe(200)
@@ -70,7 +70,7 @@ describe("Museovirasto feature batch endpoint", () => {
     const insert = env.MAP_FEATURES.prepare(`
       INSERT INTO feature_details
         (source_layer, feature_id, logical_layer_id, registry_id, geometry_json)
-      VALUES ('rky_points', ?, 'rajapinta_suojellut:rky_piste', ?, '{"type":"Point","coordinates":[385000,6670000]}')
+      VALUES ('rky_piste', ?, 'rajapinta_suojellut:rky_piste', ?, '{"type":"Point","coordinates":[385000,6670000]}')
     `)
     await env.MAP_FEATURES.batch(
       Array.from({ length: 40 }, (_, index) => insert.bind(index + 1, String(index + 1)))
@@ -81,7 +81,7 @@ describe("Museovirasto feature batch endpoint", () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         features: Array.from({ length: 40 }, (_, index) => ({
-          sourceLayer: "rky_points",
+          sourceLayer: "rky_piste",
           featureId: String(index + 1)
         }))
       })

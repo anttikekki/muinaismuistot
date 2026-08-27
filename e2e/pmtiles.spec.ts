@@ -59,6 +59,12 @@ test("search omits the area matching an archaeological point", async ({ page }) 
   await openSearch(page, "1000097130")
 
   expect(await page.locator(".accordion-item").count()).toBe(1)
+  expect((await exportedFeature(page)).properties).toEqual(expect.objectContaining({
+    mjtunnus: 1000097130,
+    tyyppi: expect.any(String),
+    alatyyppi: expect.any(String),
+    ajoitus: expect.any(String)
+  }))
   const link = new URL(await permanentLink(page))
   const parameters = new URLSearchParams(link.hash.slice(1))
   expect(parameters.get("linkedFeatureLayer")).toBe(

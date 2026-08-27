@@ -27,8 +27,8 @@ export async function validatePmtiles(archive = resolve(buildDirectory, "museovi
     `PMTiles tilestats layer count differs: expected=${expectedLayers.length} actual=${metadata.tilestats?.layerCount ?? "missing"}`)
 
   const expectedFields = Object.fromEntries(expectedLayers.map((layer) => [layer, {}]))
-  expectedFields.archaeological_areas = { laji_key: "Number" }
-  expectedFields.archaeological_points = { dating_mask: "Number", laji_key: "Number", subtype_codes: "String", type_mask: "Number" }
+  expectedFields.muinaisjaannokset_alue = { laji_key: "Number" }
+  expectedFields.muinaisjaannokset_piste = { dating_mask: "Number", laji_key: "Number", subtype_codes: "String", type_mask: "Number" }
   const actualFields = Object.fromEntries((metadata.vector_layers ?? []).map(({ id, fields }) => [id, fields]))
   assertValid(JSON.stringify(stable(actualFields)) === JSON.stringify(stable(expectedFields)),
     `PMTiles compact field schema differs: expected=${JSON.stringify(stable(expectedFields))} actual=${JSON.stringify(stable(actualFields))}`)
@@ -44,7 +44,7 @@ export async function validatePmtiles(archive = resolve(buildDirectory, "museovi
       `low-zoom centroid mismatch for ${stats.layer}: expected=${expectedCount} actual=${features.length} geometryTypes=${JSON.stringify(geometryTypes)}`)
   }
 
-  const archaeologicalStats = (metadata.tilestats?.layers ?? []).filter(({ layer }) => ["archaeological_areas", "archaeological_points"].includes(layer))
+  const archaeologicalStats = (metadata.tilestats?.layers ?? []).filter(({ layer }) => ["muinaisjaannokset_alue", "muinaisjaannokset_piste"].includes(layer))
   const invalidKinds = archaeologicalStats.flatMap(({ attributes = [] }) => attributes
     .filter(({ attribute }) => attribute === "laji_key")
     .flatMap(({ values = [] }) => values)

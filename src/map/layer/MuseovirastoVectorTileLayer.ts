@@ -54,7 +54,7 @@ interface FeatureBatchResult {
 const pointRenderingThreshold = 20_000
 const pointSamplingDivisors = [32, 32, 16, 8, 4, 2]
 const logicalLayers = layerMapping.logicalLayers as LogicalLayer[]
-const archaeologicalFilterSources = new Set(["archaeological_points"])
+const archaeologicalFilterSources = new Set(["muinaisjaannokset_piste"])
 const kindCodes = new Map(
   vocabulary.kinds.map((value, index) => [value, index + 1])
 )
@@ -537,7 +537,7 @@ function propertiesForLayer(item: FeatureBatchItem): Record<string, unknown> {
   const municipality = source.municipality ?? ""
   const common = { OBJECTID: objectId }
 
-  if (item.sourceLayer.startsWith("archaeological_")) {
+  if (item.sourceLayer.startsWith("muinaisjaannokset_") || item.sourceLayer === "alakohde_piste") {
     const kind = String(source.laji_key ?? "")
     return {
       ...common,
@@ -576,7 +576,7 @@ function propertiesForLayer(item: FeatureBatchItem): Record<string, unknown> {
     }
   }
 
-  if (item.sourceLayer.startsWith("protected_building_")) {
+  if (item.sourceLayer.startsWith("suojellut_rakennukset_")) {
     return {
       ...common,
       KOHDEID: Number(registryId),
@@ -591,7 +591,7 @@ function propertiesForLayer(item: FeatureBatchItem): Record<string, unknown> {
 
   const worldHeritageUrl =
     "https://www.museovirasto.fi/fi/tietoa-meista/kansainvalinen-toiminta/maailmanperintokohteet-suomessa"
-  return item.sourceLayer === "world_heritage_points"
+  return item.sourceLayer === "maailmanperinto_piste"
     ? { ...common, nimi: name, url: worldHeritageUrl }
     : {
         ...common,

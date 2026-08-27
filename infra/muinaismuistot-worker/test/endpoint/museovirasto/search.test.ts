@@ -9,7 +9,7 @@ describe("Museovirasto search endpoint", () => {
     await env.MAP_FEATURES.prepare(`
       INSERT INTO feature_details
         (source_layer, feature_id, logical_layer_id, registry_id, name, search_name, geometry_json)
-      VALUES ('rky_points', 7, 'rajapinta_suojellut:rky_piste', '100', 'Vanha kirkko', 'vanha kirkko', '{"type":"Point","coordinates":[385000,6670000]}')
+      VALUES ('rky_piste', 7, 'rajapinta_suojellut:rky_piste', '100', 'Vanha kirkko', 'vanha kirkko', '{"type":"Point","coordinates":[385000,6670000]}')
     `).run()
 
     const response = await museovirastoRequest("/search?q=kirkko")
@@ -23,12 +23,12 @@ describe("Museovirasto search endpoint", () => {
       env.MAP_FEATURES.prepare(`
         INSERT INTO feature_details
           (source_layer, feature_id, logical_layer_id, registry_id, name, search_name)
-        VALUES ('rky_points', 7, 'rajapinta_suojellut:rky_piste', '100', 'Vanha kirkko', 'vanha kirkko')
+        VALUES ('rky_piste', 7, 'rajapinta_suojellut:rky_piste', '100', 'Vanha kirkko', 'vanha kirkko')
       `),
       env.MAP_FEATURES.prepare(`
         INSERT INTO feature_details
           (source_layer, feature_id, logical_layer_id, registry_id, name, search_name)
-        VALUES ('world_heritage_points', 8, 'rajapinta_suojellut:maailmanperinto_piste', '200', 'Toinen kirkko', 'toinen kirkko')
+        VALUES ('maailmanperinto_piste', 8, 'rajapinta_suojellut:maailmanperinto_piste', '200', 'Toinen kirkko', 'toinen kirkko')
       `)
     ])
     const layer = encodeURIComponent("rajapinta_suojellut:rky_piste")
