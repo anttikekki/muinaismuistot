@@ -64,18 +64,31 @@ const typeBits = new Map(
 const datingBits = new Map(
   vocabulary.datings.map((value, index) => [value, 2 ** index])
 )
-const logicalLayerLookup = new Map<string, LogicalLayer>()
+const logicalLayerBySource = new Map<string, LogicalLayer>()
+const logicalLayerBySourceAndKind = new Map<
+  string,
+  Map<number, LogicalLayer>
+>()
 logicalLayers.forEach((logicalLayer) => {
   const kindCode = logicalLayer.filter
     ? kindCodes.get(logicalLayer.filter.equals)
     : undefined
-  logicalLayerLookup.set(
-    kindCode === undefined
-      ? logicalLayer.sourceLayer
-      : `${logicalLayer.sourceLayer}:${kindCode}`,
-    logicalLayer
-  )
+  if (kindCode === undefined) {
+    logicalLayerBySource.set(logicalLayer.sourceLayer, logicalLayer)
+    return
+  }
+  let layersByKind = logicalLayerBySourceAndKind.get(logicalLayer.sourceLayer)
+  if (!layersByKind) {
+    layersByKind = new Map<number, LogicalLayer>()
+    logicalLayerBySourceAndKind.set(logicalLayer.sourceLayer, layersByKind)
+  }
+  layersByKind.set(kindCode, logicalLayer)
 })
+
+function pointSamplingDivisor(zoom: number | undefined): number {
+  const integerZoom = Math.max(0, Math.floor(zoom ?? 0))
+  return pointSamplingDivisors[integerZoom] ?? 1
+}
 
 export default class MuseovirastoVectorTileLayer {
   private readonly map: OlMap
@@ -92,6 +105,7 @@ export default class MuseovirastoVectorTileLayer {
   private activePointCount = 0
   private samplingEnabled = false
   private countingRender = false
+  private samplingDivisor: number
   private pendingSettings?: Settings
   private settingsUpdateFrame?: number
   private settingsUpdateTimer?: number
@@ -106,6 +120,7 @@ export default class MuseovirastoVectorTileLayer {
     apiBase = window.location.origin
   ) {
     this.map = map
+    this.samplingDivisor = pointSamplingDivisor(map.getView().getZoom())
     this.featureBatchUrl = new URL(
       "/api/museovirasto/features/batch",
       apiBase
@@ -145,18 +160,15 @@ export default class MuseovirastoVectorTileLayer {
       style: this.styleFeature
     })
     this.vectorLayer.on("postrender", () => {
-      if (!this.countingRender) return
-      this.countingRender = false
-      const samplingEnabled = this.activePointCount > pointRenderingThreshold
-      const samplingChanged = samplingEnabled !== this.samplingEnabled
-      this.samplingEnabled = samplingEnabled
-      const target = this.map.getTargetElement()
-      target.dataset.museovirastoActivePoints = String(this.activePointCount)
-      target.dataset.museovirastoPointsSampled = String(samplingEnabled)
-      if (samplingChanged) this.vectorLayer.changed()
+      this.finishPointMeasurement()
     })
     this.layerGroup = new LayerGroup({
       layers: [this.vectorLayer]
+    })
+    this.map.getView().on("change:resolution", () => {
+      this.samplingDivisor = pointSamplingDivisor(
+        this.map.getView().getZoom()
+      )
     })
     this.updateSettings(settings)
   }
@@ -164,9 +176,9 @@ export default class MuseovirastoVectorTileLayer {
   private styleFeature = (feature: FeatureLike): Style | undefined => {
     const logicalLayerId = this.activeLogicalLayerId(feature)
     if (!logicalLayerId) return undefined
-    if (this.isPointFeature(feature) && !this.shouldRenderPoint(feature))
-      return undefined
-    return this.isPointFeature(feature)
+    const isPoint = feature.getGeometry()?.getType() === "Point"
+    if (isPoint && !this.shouldRenderPoint(feature)) return undefined
+    return isPoint
       ? this.pointStyles.get(logicalLayerId)
       : this.styles.get(logicalLayerId)
   }
@@ -175,8 +187,8 @@ export default class MuseovirastoVectorTileLayer {
     const sourceLayer = String(feature.get("layer") ?? "")
     const kindCode = Number(feature.get("laji_key"))
     const logicalLayer =
-      logicalLayerLookup.get(`${sourceLayer}:${kindCode}`) ??
-      logicalLayerLookup.get(sourceLayer)
+      logicalLayerBySourceAndKind.get(sourceLayer)?.get(kindCode) ??
+      logicalLayerBySource.get(sourceLayer)
     if (!logicalLayer || !this.enabledLogicalLayers.has(logicalLayer.id))
       return undefined
     if (archaeologicalFilterSources.has(sourceLayer)) {
@@ -191,9 +203,6 @@ export default class MuseovirastoVectorTileLayer {
     return logicalLayer.id
   }
 
-  private isPointFeature = (feature: FeatureLike): boolean =>
-    feature.getGeometry()?.getType() === "Point"
-
   private shouldRenderPoint = (feature: FeatureLike): boolean => {
     if (this.countingRender) this.activePointCount += 1
     if (
@@ -201,10 +210,32 @@ export default class MuseovirastoVectorTileLayer {
       (!this.countingRender || this.activePointCount <= pointRenderingThreshold)
     )
       return true
-    const zoom = Math.max(0, Math.floor(this.map.getView().getZoom() ?? 0))
-    const divisor = pointSamplingDivisors[zoom] ?? 2
+    if (this.samplingDivisor === 1) return true
     const featureId = Number(feature.getId())
-    return !Number.isSafeInteger(featureId) || featureId % divisor === 0
+    return (
+      !Number.isSafeInteger(featureId) ||
+      featureId % this.samplingDivisor === 0
+    )
+  }
+
+  private beginPointMeasurement = (): void => {
+    this.activePointCount = 0
+    this.countingRender = true
+    this.vectorLayer.changed()
+  }
+
+  private finishPointMeasurement = (): void => {
+    if (!this.countingRender) return
+    this.countingRender = false
+    const samplingEnabled =
+      this.samplingDivisor > 1 &&
+      this.activePointCount > pointRenderingThreshold
+    const samplingChanged = samplingEnabled !== this.samplingEnabled
+    this.samplingEnabled = samplingEnabled
+    const target = this.map.getTargetElement()
+    target.dataset.museovirastoActivePoints = String(this.activePointCount)
+    target.dataset.museovirastoPointsSampled = String(samplingEnabled)
+    if (samplingChanged) this.vectorLayer.changed()
   }
 
   private schedulePointMeasurement = (): void => {
@@ -218,9 +249,7 @@ export default class MuseovirastoVectorTileLayer {
       this.measurementFrame = undefined
       this.measurementTimer = window.setTimeout(() => {
         this.measurementTimer = undefined
-        this.activePointCount = 0
-        this.countingRender = true
-        this.vectorLayer.changed()
+        this.beginPointMeasurement()
       }, 100)
     })
   }
@@ -244,9 +273,7 @@ export default class MuseovirastoVectorTileLayer {
       settings.museovirasto.enabled && this.enabledLogicalLayers.size > 0
     )
     this.layerGroup?.setOpacity(settings.museovirasto.opacity)
-    this.activePointCount = 0
-    this.countingRender = true
-    this.vectorLayer?.changed()
+    this.beginPointMeasurement()
   }
 
   private scheduleSettingsUpdate = (settings: Settings): void => {
@@ -380,8 +407,9 @@ export default class MuseovirastoVectorTileLayer {
     this.scheduleSettingsUpdate(settings)
   public selectedMuinaisjaannosDatingsChanged = (settings: Settings): void =>
     this.scheduleSettingsUpdate(settings)
-  public opacityChanged = (settings: Settings): void =>
-    this.updateSettings(settings)
+  public opacityChanged = (settings: Settings): void => {
+    this.layerGroup.setOpacity(settings.museovirasto.opacity)
+  }
   public updateLayerVisibility = (settings: Settings): void =>
     this.updateSettings(settings)
   public getLayer = (): LayerGroup => this.layerGroup
@@ -395,7 +423,7 @@ function createMuseovirastoStyle(id: string, source: string): Style {
       return new Style({ fill: new Fill({ color: "#aaaaaa" }) })
     }
     return new Style({
-      fill: new Fill({ color: createWmsAreaPattern(color) }),
+      fill: new Fill({ color: createMuseovirastoAreaPattern(color) }),
       stroke: new Stroke({ color, width: 1, lineJoin: "bevel" })
     })
   }
@@ -449,7 +477,7 @@ function museovirastoColor(id: string): string {
   return "#ff0000"
 }
 
-function createWmsAreaPattern(color: string): CanvasPattern {
+function createMuseovirastoAreaPattern(color: string): CanvasPattern {
   const size = 16
   const canvas = document.createElement("canvas")
   canvas.width = size
