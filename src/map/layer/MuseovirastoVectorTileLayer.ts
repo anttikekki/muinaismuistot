@@ -417,8 +417,8 @@ export default class MuseovirastoVectorTileLayer {
 
 function createMuseovirastoStyle(id: string, source: string): Style {
   const color = museovirastoColor(id)
-  if (source.endsWith("_points")) return createMuseovirastoPointStyle(id)
-  if (source.endsWith("_areas")) {
+  if (/_piste(?:et)?$/.test(source)) return createMuseovirastoPointStyle(id)
+  if (/_alue(?:et)?$/.test(source)) {
     if (id.includes("havaintokohde")) {
       return new Style({ fill: new Fill({ color: "#aaaaaa" }) })
     }
