@@ -51,7 +51,7 @@ tiedostoista `0001_feature_details.sql`, `0002_feature_search.sql` ja
 | `municipality` | `TEXT` | Kunta, jos lähdetaso sisältää sen. |
 | `properties_json` | `TEXT NOT NULL DEFAULT '{}'` | Paneelissa ja APIssa palautettavat normalisoidut ominaisuudet. |
 | `search_name` | `TEXT NOT NULL DEFAULT ''` | Nimi hakua varten normalisoidussa muodossa. |
-| `geometry_json` | `TEXT` | Tarkka EPSG:4326 GeoJSON-geometria. |
+| `geometry_json` | `TEXT` | Tarkka EPSG:3067 GeoJSON-geometria. |
 
 Pääavain on `(source_layer, feature_id)`, ja taulu on `WITHOUT ROWID`.
 Indeksi `feature_details_registry` kattaa sarakkeet

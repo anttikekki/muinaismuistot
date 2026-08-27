@@ -24,8 +24,8 @@ export async function validateIdentities({
     `PMTiles and D1 build input identities differ; missing from D1=${missingFromD1Inputs.slice(0, 20).join(", ") || "none"}; missing from PMTiles=${missingFromPmtilesInputs.slice(0, 20).join(", ") || "none"}`)
 
   const d1BuildReport = JSON.parse(d1ReportText)
-  assertValid(d1BuildReport.geometryCrs === "EPSG:4326",
-    `D1 geometry CRS differs from the API contract: expected=EPSG:4326 report=${d1BuildReport.geometryCrs ?? "missing"}`)
+  assertValid(d1BuildReport.geometryCrs === "EPSG:3067",
+    `D1 geometry CRS differs from the API contract: expected=EPSG:3067 report=${d1BuildReport.geometryCrs ?? "missing"}`)
   assertValid(d1Identities.size === Number(d1BuildReport.d1Rows),
     `D1 identity count differs from build report: identities=${d1Identities.size} report=${d1BuildReport.d1Rows}`)
 

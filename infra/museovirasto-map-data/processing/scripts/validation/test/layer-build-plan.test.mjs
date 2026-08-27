@@ -23,8 +23,8 @@ const vocabulary = {
 
 test("generates ordinary and centroid SQL from declarative fields", () => {
   assert.equal(buildLayerSql(physical, build, vocabulary),
-    `SELECT "fid" AS "gpkg_fid", "fid" AS "source_fid", CAST("register" AS TEXT) AS "registry_id", trim("name") AS "name", CASE trim(lower("kind")) WHEN 'löytöpaikka' THEN 'loytopaikka' WHEN 'muu kohde' THEN 'muu_kohde' ELSE 'unknown' END AS "laji_key", "geom" FROM "source areas" WHERE "geom" IS NOT NULL`)
-  assert.match(buildLayerSql(physical, build, vocabulary, { centroid: true }), /ST_Centroid\("geom"\) AS "geom"/)
+    `SELECT "fid" AS "gpkg_fid", "fid" AS "source_fid", CAST("register" AS TEXT) AS "registry_id", trim("name") AS "name", CASE trim(lower("kind")) WHEN 'löytöpaikka' THEN 'loytopaikka' WHEN 'muu kohde' THEN 'muu_kohde' ELSE 'unknown' END AS "laji_key", AsGeoJSON("geom") AS "exact_geometry_json", "geom" AS "geom" FROM "source areas" WHERE "geom" IS NOT NULL`)
+  assert.match(buildLayerSql(physical, build, vocabulary, { centroid: true }), /AsGeoJSON\(ST_Centroid\("geom"\)\) AS "exact_geometry_json", ST_Centroid\("geom"\) AS "geom"/)
 })
 
 test("joins multiple optional source fields without empty separators", () => {
@@ -50,16 +50,16 @@ test("requires kind source mappings to produce exactly the versioned kinds", () 
     { kinds: ["loytopaikka"], kindSourceValues: vocabulary.kindSourceValues }), /outputs differ/)
 })
 
-test("D1 transformer uses the reprojected feature geometry", () => {
+test("D1 transformer preserves the EPSG:3067 feature geometry", () => {
   const transformer = resolve(import.meta.dirname, "../../lib/compact-filter-data.mjs")
   const mapping = resolve(import.meta.dirname, "../../../../contract/layer-mapping.json")
   const input = JSON.stringify({
     type: "Feature",
     properties: { gpkg_fid: 1, registry_id: "1", name: "Test", exact_geometry_json: { type: "Point", coordinates: [385000, 6670000] } },
-    geometry: { type: "Point", coordinates: [24.94, 60.17] },
+    geometry: { type: "Point", coordinates: [385000, 6670000] },
   })
   const result = spawnSync("node", [transformer, "details", mapping, "vark_pisteet"], { input: `${input}\n`, encoding: "utf8" })
   assert.equal(result.status, 0, result.stderr)
-  assert.match(result.stdout, /"coordinates":\[24\.94,60\.17\]/)
-  assert.doesNotMatch(result.stdout, /385000/)
+  assert.match(result.stdout, /"coordinates":\[385000,6670000\]/)
+  assert.doesNotMatch(result.stdout, /24\.94/)
 })

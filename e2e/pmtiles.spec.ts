@@ -67,6 +67,10 @@ test("search omits the area matching an archaeological point", async ({ page }) 
   }))
   const link = new URL(await permanentLink(page))
   const parameters = new URLSearchParams(link.hash.slice(1))
+  expect(Number(parameters.get("x"))).toBeGreaterThan(50_000)
+  expect(Number(parameters.get("x"))).toBeLessThan(800_000)
+  expect(Number(parameters.get("y"))).toBeGreaterThan(6_500_000)
+  expect(Number(parameters.get("y"))).toBeLessThan(7_800_000)
   expect(parameters.get("linkedFeatureLayer")).toBe(
     "rajapinta_suojellut:muinaisjaannos_piste"
   )

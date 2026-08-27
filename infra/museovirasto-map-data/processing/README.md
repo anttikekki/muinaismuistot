@@ -34,7 +34,7 @@ Isäntäkone tarvitsee tuettuun ajoon Dockerin sekä Node.js:n ja npm:n. Skripti
 3. `build-pmtiles.sh`: kenttäprojektiot, suodatuskoodit, EPSG:4326-muunnos ja zoomien 0–14 PMTiles.
 4. `validation/validate-pmtiles.mjs` sekä budjettitarkistus: PMTiles-skeema,
    attribuutit, zoom-esitykset sekä arkisto- ja tiilibudjetit.
-5. `build-feature-details-sql.sh`: D1:n täydellinen `feature_details`-tuonti ominaisuuksineen ja EPSG:4326-geometrioineen.
+5. `build-feature-details-sql.sh`: D1:n täydellinen `feature_details`-tuonti ominaisuuksineen ja lähdeaineiston EPSG:3067-geometrioineen.
 6. `validation/validate-pmtiles-d1-identities.mjs`: PMTiles- ja D1-identiteettien
    sekä rivimäärien ristiinvalidointi eksplisiittisistä TSV-artefakteista.
 7. `create-build-manifest.sh`: lähde-, asetus- ja artefaktitiivisteet.

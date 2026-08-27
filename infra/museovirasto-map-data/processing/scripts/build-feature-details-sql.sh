@@ -54,7 +54,7 @@ LC_ALL=C sort -u "$IDENTITY_FILE_PART" > "$IDENTITY_FILE"
 rm -f "$IDENTITY_FILE_PART"
 
 jq -n --argjson sourceRows "$source_total_count" --argjson d1Rows "$total_count" --argjson layers "$layers" \
-  '{schemaVersion:2,status:"ok",sourceRows:$sourceRows,d1Rows:$d1Rows,geometryCrs:"EPSG:4326",layers:$layers}' > "$REPORT_FILE"
+  '{schemaVersion:2,status:"ok",sourceRows:$sourceRows,d1Rows:$d1Rows,geometryCrs:"EPSG:3067",layers:$layers}' > "$REPORT_FILE"
 echo "Built D1 feature details import: $OUTPUT_FILE"
 echo "Feature rows: $total_count"
 echo "SQL bytes: $(wc -c < "$OUTPUT_FILE" | tr -d ' ')"

@@ -46,11 +46,13 @@ function fieldExpression(field, vocabulary) {
 }
 
 export function buildLayerSql(physicalLayer, buildLayer, vocabulary, { centroid = false } = {}) {
+  const geometry = centroid ? `ST_Centroid("geom")` : `"geom"`
   const fields = [
     `${quoteIdentifier(physicalLayer.featureIdentity.rowIdField)} AS "gpkg_fid"`,
     `${quoteIdentifier(physicalLayer.featureIdentity.rowIdField)} AS "source_fid"`,
     ...buildLayer.fields.map((field) => fieldExpression(field, vocabulary)),
-    centroid ? `ST_Centroid("geom") AS "geom"` : `"geom"`,
+    `AsGeoJSON(${geometry}) AS "exact_geometry_json"`,
+    `${geometry} AS "geom"`,
   ]
   const where = Number(physicalLayer.excludedNullGeometries ?? 0) > 0 ? ` WHERE "geom" IS NOT NULL` : ""
   return `SELECT ${fields.join(", ")} FROM ${quoteIdentifier(physicalLayer.geoPackageLayer)}${where}`
