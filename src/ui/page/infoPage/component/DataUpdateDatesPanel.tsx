@@ -47,18 +47,24 @@ export const DataUpdateDatesPanel: React.FC = () => {
     return () => controller.abort()
   }, [dataSource, url.worker])
 
-  const museovirastoUpdateText =
-    dataSource !== MuseovirastoDataSource.PMTiles
-      ? t("info.dataUpdates.museovirastoRealtime")
-      : museovirastoPublishedAt === undefined
-        ? t("info.dataUpdates.museovirastoLoading")
-        : museovirastoPublishedAt === null
-          ? t("info.dataUpdates.museovirastoUnavailable")
-          : t("info.dataUpdates.museovirasto", {
-              date: new Intl.DateTimeFormat(i18n.resolvedLanguage).format(
-                museovirastoPublishedAt
-              )
-            })
+  const museovirastoUpdateText = (() => {
+    if (dataSource !== MuseovirastoDataSource.PMTiles) {
+      return t("info.dataUpdates.museovirastoRealtime")
+    }
+    if (museovirastoPublishedAt === undefined) {
+      return t("info.dataUpdates.museovirastoLoading")
+    }
+    if (museovirastoPublishedAt === null) {
+      return t("info.dataUpdates.museovirastoUnavailable")
+    }
+
+    const date = new Intl.DateTimeFormat(i18n.resolvedLanguage, {
+      dateStyle: "short",
+      timeStyle: "short"
+    }).format(museovirastoPublishedAt)
+
+    return t("info.dataUpdates.museovirasto", { date })
+  })()
 
   return (
     <Accordion.Item eventKey="info.dataUpdates.title">
