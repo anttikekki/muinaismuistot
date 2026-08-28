@@ -1,119 +1,160 @@
 # Muinaismuistot.info
 
-A web page to show ancient monuments of Finland in mobile friendly map. Enter the site: [muinaismuistot.info](https://muinaismuistot.info/).
+[Muinaismuistot.info](https://muinaismuistot.info/) on mobiiliystävällinen karttapalvelu, jossa voi tutkia Suomen arkeologista ja rakennettua kulttuuriperintöä. Palvelu yhdistää Museoviraston, Ahvenanmaan maakuntahallinnon ja muiden avointen paikkatietolähteiden aineistoja samaan OpenLayers-karttaan.
 
-![muinaismuistot.info screenshot](./docs/muinaismuistot-screenshot.png "muinaismuistot.info screenshot")
+![Muinaismuistot.info-palvelun karttanäkymä](./docs/muinaismuistot-screenshot.png "Muinaismuistot.info-palvelun karttanäkymä")
 
-## Main features
+## Ominaisuudet
 
-- Displays [Finnish Heritage Agency](https://www.museovirasto.fi/en) and [Government of Åland](https://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret) ancient monuments open data on map from the [National Land Survey of Finland](https://www.maanmittauslaitos.fi/en)
-- Scales from mobile device to desktop screen
-- Get more info from sites by clicking it
-- Select background map type (background map, topografic map, aerial image)
-- Displays your current location on map if you allow it
-- Search sites by search term
-- Filter sites on map by type and dating
-- Share selected site map coordinates and filter settings by copying the URL
-- UI text translations to finnish and swedish
-- Displays linked ancient monuments 3D models from [Sketchfab](https://sketchfab.com)
+- Museoviraston kulttuuriympäristörekisterien ja Ahvenanmaan muinaisjäännösten näyttäminen kartalla
+- kohteiden tunnistaminen kartalta, tietojen tarkastelu, haku ja GeoJSON-vienti
+- muinaisjäännösten suodatus tyypin ja ajoituksen mukaan
+- jaettavat kohde-, kartta- ja suodatuslinkit
+- valittavat tausta-, maasto-, ilmakuva- ja historialliset karttatasot
+- käyttäjän nykyisen sijainnin näyttäminen luvan perusteella
+- Museoviraston aineiston PMTiles-pohjainen vektorikartta sekä WMS/WFS-varatoteutus
+- Maannousu.info-, GTK-, Helsinki- ja Viabundus-karttatasot
+- kohteisiin linkitetyt 3D-mallit ja Maiseman muisti -kirjan kohteet
+- suomen-, ruotsin- ja englanninkielinen käyttöliittymä
+- mobiili- ja työpöytänäytöille mukautuva käyttöliittymä
 
-## Data
+## Arkkitehtuuri
 
-- [National Land Survey of Finland](https://www.maanmittauslaitos.fi/en)
-  - Background map, topografic map and aerial image [open map data](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/topographic-data-and-how-acquire-it) and [old maps](https://www.maanmittauslaitos.fi/ajankohtaista/yli-30-000-vanhaa-karttaa-jopa-150-vuoden-takaa-nyt-paikkatietona)
-  - Free to use [WMTS Map tile API](https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/WMTSCapabilities.xml) for ackground map, topografic map and aerial image
-  - Free to use [WMS Map tile API](https://paituli.csc.fi/webservices.html) for old maps
-  - Map data licence is [Creative Commons CC By 4.0](https://creativecommons.org/licenses/by/4.0/)
-- [Finnish Heritage Agency](https://www.museovirasto.fi/en)
-  - Ancient monuments and architectural heritage [open map data](https://www.museovirasto.fi/en/services-and-guidelines/data-systems/kulttuuriympaeristoen-tietojaerjestelmae/kulttuuriympaeristoen-paikkatietoaineistot)
-  - Free to use [WMS Map tile API](https://geoserver.museovirasto.fi/geoserver/rajapinta_suojellut/wms)
-  - Map data licence is [Creative Commons CC By 4.0](https://creativecommons.org/licenses/by/4.0/)
-- [Government of Åland](https://www.regeringen.ax/kulturarv/arkeologi-fornlamningar/fornlamningsregistret)
-  - Ancient monuments [open map data](https://www.kartor.ax/datasets/aland::fornminnen/about)
-  - Free to use [ArcGIS WMS Map tile REST API](https://kartor.regeringen.ax/arcgis/rest/services/Kulturarv/Fornminnen/MapServer)
-  - Map data licence is [Creative Commons CC By 4.0](https://creativecommons.org/licenses/by/4.0/)
-- [Geological Survey of Finland](https://www.gtk.fi/en/front-page/)
-  - [Ancient shorelines](https://tupa.gtk.fi/paikkatieto/meta/ancient_shorelines.html)
-  - [ArcGIS WMS Map tile REST API](https://gtkdata.gtk.fi/arcgis/rest/services/Rajapinnat/GTK_Maapera_WMS/MapServer/7)
-  - Restricted [base licence](https://www.gtk.fi/peruslisenssi/), permission to use the API on this site acquired at 15.1.2021.
-- [Helsinki Urban Environment Division](https://www.hel.fi/kaupunkiymparisto/en)
-  - Fortifications on land during First World War in Helsinki [open map data](<(https://hri.fi/data/en_GB/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset)>)
-  - Free to use [WMS Map tile API](https://kartta.hel.fi/ws/geoserver/avoindata/wms)
-  - Map data licence is [Creative Commons CC By 4.0](https://creativecommons.org/licenses/by/4.0/)
-- [Own 3D models database](https://muinaismuistot.info/3d/)
-  - Links [Sketchfab](https://sketchfab.com) 3D models to ancient monuments location and register info to map
-  - Free to use [GeoJSON file](https://muinaismuistot.info/3d/3d.json)
-  - Every 3D model has separate licence
-- [Own "Maiseman muisti" book ancient monuments database](https://muinaismuistot.info/maisemanmuisti/)
-  - "Maiseman muisti" book (Finnish Heritage Agency, 2001) ancient monuments locations
-  - Free to use [GeoJSON file](https://muinaismuistot.info/maisemanmuisti/maisemanmuisti.json)
-  - Permission asked from Finnish Heritage Agency to list the ancient monuments included in the book
+React- ja OpenLayers-sovellus rakennetaan Webpackilla staattisiksi tiedostoiksi. Cloudflare Worker palvelee ne Workers Static Assetsista ja tarjoaa samalla selaimen käyttämän `/api/museovirasto/*`-rajapinnan.
 
-## Version history
+Museoviraston aineistoa ei normaalissa käytössä haeta suoraan WMS/WFS-palvelusta. Päivittäinen aineistoputki muuntaa ladattavan GeoPackage-aineiston karttarenderöintiä varten PMTiles-arkistoksi ja kohdetietoja, hakua sekä karttaklikkausta varten D1-tietokannaksi. PMTiles ja julkaisumetadata sijaitsevat Cloudflare R2:ssa. Muut kartta-aineistot selain hakee niiden tarjoajien WMTS-, WMS-, ArcGIS REST-, GeoTIFF- tai GeoJSON-rajapinnoista.
 
-See [GitHub releases](https://github.com/anttikekki/muinaismuistot/releases)
+```text
+Museoviraston tutkija.zip
+          |
+          v
+Cloudflare Workflow + Container
+  validointi ja prosessointi
+          |
+          +----> PMTiles ja metadata ----> Cloudflare R2
+          |
+          +----> kohdetiedot ja haku ----> Cloudflare D1
+                                             |
+Selain ----> Cloudflare Worker + Static Assets
+                  |
+                  +----> /api/museovirasto/pmtiles
+                  +----> /api/museovirasto/search
+                  +----> /api/museovirasto/features/*
+                  +----> /api/museovirasto/meta ja /health
+                  |
+                  +----> R2 ja D1
 
-## Licence
+Selain ----> muut ulkoiset WMTS/WMS/ArcGIS/GeoTIFF-palvelut
+```
 
-[MIT License](https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE)
+Museoviraston WMS/WFS-toteutus on säilytetty erillisenä varatoteutuksena ja ulkoisen palvelun monitorointia varten.
 
-## Technologies
+Tarkempi dokumentaatio:
 
-- UI
-  - [TypeScript](https://www.typescriptlang.org/)
-  - [OpenLayers](https://openlayers.org/)
-  - [React](https://reactjs.org/)
-  - [Redux](https://redux.js.org/)
-  - [Redux Toolkit](https://redux-toolkit.js.org/)
-  - [Bootstrap](https://getbootstrap.com/docs/)
-  - [React Bootstrap](https://react-bootstrap.netlify.app/)
-  - [React i18next](https://react.i18next.com/)
-- Build
-  - [Node.js](https://nodejs.org/en/)
-  - [Webpack](https://webpack.js.org/)
-- Infrastucture
-  - [GitHub pages](https://pages.github.com/)
-  - [Cloudflare](https://www.cloudflare.com)
+- [Museoviraston karttadatan prosessointi, julkaisu ja operointi](./infra/museovirasto-map-data/README.md)
+- [Cloudflare Worker, Static Assets ja Museovirasto-API](./infra/muinaismuistot-worker/README.md)
+- [Selainpohjaiset end-to-end-testit](./e2e/README.md)
 
-## Infrastructure
+## Museoviraston aineistoputki
 
-The whole UI is just static `html` and `js` files from Webpack build that are hosted in [Cloudflare](https://www.cloudflare.com).
+Production-updater suoritetaan päivittäin:
 
-There is no hosted backend server. Browser calls directly data providers map servers to fetch map tile images and data.
+1. Updater käynnistää Cloudflare Containerin, joka lataa Museoviraston `tutkija.zip`-aineiston.
+2. Lähteen rakenne, geometriat, koordinaatisto ja tunnetut arvojoukot validoidaan.
+3. Karttarenderöintiä varten rakennetaan kompakti PMTiles-arkisto.
+4. Hakua, identify-toimintoa, kohdetietoja ja pysyviä linkkejä varten rakennetaan D1-tuonti.
+5. PMTiles- ja D1-aineistojen feature-identiteetit ristiinvalidoidaan.
+6. D1-migraatiot ja tuonti suoritetaan, minkä jälkeen PMTiles ja metadata julkaistaan R2:een.
+7. Julkaistu API ja keskeiset selainpolut smoke-testataan.
 
-![muinaismuistot.info infrastructure](./docs/muinaismuistot.info.infra.png "muinaismuistot.info infrastructure")
+Workflow hälyttää epäonnistuneesta ajosta. Erillinen tuoreustarkistus valvoo, ettei tuotannossa oleva aineisto vanhene.
 
-## Development environment
+## Projektin rakenne
 
-### Requirements
+```text
+src/                              React/OpenLayers-sovellus
+e2e/                              Playwright-selaintestit
+infra/
+├── muinaismuistot-worker/        Static Assets ja julkinen API
+└── museovirasto-map-data/
+    ├── contract/                 Yhteiset skeemat ja tasomääritykset
+    ├── processing/               Validointi ja artefaktien rakentaminen
+    ├── deploy/                   R2- ja D1-julkaisu
+    └── updater/                  Päivittäinen Workflow ja Container
+scripts/                          Paikallisen kehityksen apuskriptit
+docs/                             Kuvat ja muu dokumentaatio
+```
 
-- [Node.js](https://nodejs.org/en/) v20 or later installed. Exact required version is defined in [`package.json`](./package.json) `engines` field.
-- Only MacOS is tested, Linux should also work. `package.json` scripts use `PARAM=value` type parameters that require different syntax on Windows.
+## Aineistot ja lisenssit
 
-### Environment setup
+| Toimittaja | Aineisto | Käyttötapa | Lisenssi |
+| --- | --- | --- | --- |
+| [Museovirasto](https://www.museovirasto.fi/fi/palvelut-ja-ohjeet/tietojarjestelmat/kulttuuriympariston-tietojarjestelmat/kulttuuriympaeristoen-paikkatietoaineistot) | Kulttuuriympäristörekisterit | Päivittäinen GeoPackage-tuonti, PMTiles ja D1; WMS/WFS-varatoteutus | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi) |
+| [Maanmittauslaitos](https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/kartta-ja-paikkatietojen-rajapintapalvelut-17) | Tausta-, maasto- ja ilmakuvat | WMTS | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi) |
+| [Maanmittauslaitos / CSC Paituli](https://paituli.csc.fi/webservices.html) | Vanhat kartat | WMS | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi) |
+| [Ahvenanmaan maakuntahallinto](https://www.kartor.ax/datasets) | Muinaisjäännökset | ArcGIS REST | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi) |
+| [Geologian tutkimuskeskus](https://www.gtk.fi/palvelut/aineistot-ja-verkkopalvelut/rajapintapalvelut/maapera-karttatasot-wms-rajapinnassa/) | Muinaisrannat ja maaperä | ArcGIS REST | [GTK:n peruslisenssi](https://www.gtk.fi/peruslisenssi/) ja [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi); muinaisrantojen käyttölupa saatu 15.1.2021 |
+| [Maannousu.info](https://maannousu.info/integration) | Maannousua kuvaavat kartat | GeoTIFF API | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi) |
+| [Helsingin kaupunki](https://hri.fi/data/fi/dataset/helsingin-ensimmaisen-maailmansodan-aikaiset-maalinnoitukset) | Ensimmäisen maailmansodan maalinnoitukset | WMS | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fi) |
+| [Viabundus](https://www.landesgeschichte.uni-goettingen.de/handelsstrassen/info.php?lang=fin) | Keskiaikainen tieverkko ja asutus | Repositorioon tuotu GeoJSON | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.fi) |
+| [Oma 3D-mallitietokanta](https://muinaismuistot.info/3d/) | Kohteisiin linkitetyt Sketchfab-mallit | [GeoJSON](https://muinaismuistot.info/3d/3d.json) | Mallikohtainen lisenssi |
+| [Maiseman muisti](https://muinaismuistot.info/maisemanmuisti/) | Museoviraston vuonna 2001 julkaiseman kirjan kohteet | [GeoJSON](https://muinaismuistot.info/maisemanmuisti/maisemanmuisti.json) | Museovirastolta on pyydetty lupa kohdeluettelon julkaisemiseen |
 
-1. Install Node.js
-2. Clone this repository
-3. Run `npm install`
+## Teknologiat
 
-### Commands
+- käyttöliittymä: TypeScript, React, Redux Toolkit, OpenLayers, Bootstrap ja i18next
+- rakentaminen: Node.js ja Webpack
+- selain- ja regressiotestit: Playwright
+- infrastruktuuri: Cloudflare Workers, Static Assets, Workflows, Containers, R2 ja D1
+- paikkatietojen prosessointi: Docker-pohjainen aineistoputki
 
-### `npm run dev`
+## Kehitysympäristö
 
-Runs UI locally with [webpack dev server](https://webpack.js.org/configuration/dev-server/). Opens system default browser to [https://localhost:8091](https://localhost:8091). The UI refreshes automatically after code changes.
+### Vaatimukset
 
-### `npm run prod`
+- Node.js 22 tai uudempi; tarkka vaatimus on [`package.json`](./package.json)-tiedoston `engines`-kentässä.
+- macOS on ensisijaisesti testattu kehitysympäristö. Linuxin pitäisi toimia. Osa `package.json`-komennoista käyttää Unix-tyylistä `NAME=value`-ympäristömuuttujasyntaksia.
+- Paikallinen karttadatan prosessointi vaatii lisäksi Dockerin; tarkemmat vaatimukset ovat [updaterin README-tiedostossa](./infra/museovirasto-map-data/updater/README.md).
 
-Same as `npm run dev` but uses production build with code minication.
+Asenna riippuvuudet:
 
-### `npm run build:dev`
+```bash
+git clone https://github.com/anttikekki/muinaismuistot.git
+cd muinaismuistot
+npm install
+```
 
-Builds development version of the UI with webpack to `./dist` folder without code minification and with Redux dev tools support.
+### Tavallisimmat komennot
 
-### `npm run build:prod`
+| Komento | Tarkoitus |
+| --- | --- |
+| `npm run dev` | Käynnistää käyttöliittymän paikallisesti osoitteessa `https://localhost:8091` |
+| `npm run dev:preview-api` | Käynnistää paikallisen käyttöliittymän Cloudflare-preview-APIa vasten |
+| `npm run dev:prod-api` | Käynnistää paikallisen käyttöliittymän production-APIa vasten |
+| `npm run build:dev` | Rakentaa development-version `dist/`-hakemistoon |
+| `npm run build:prod` | Rakentaa minifioidun production-version `dist/`-hakemistoon |
+| `npm run build:preview` | Rakentaa production-optimoidun preview-version hakukone-estoin |
+| `npm run lint` | Suorittaa ESLint-tarkistuksen |
+| `npm run test:e2e` | Suorittaa julkaisemisen estävät PMTiles/D1-E2E-testit |
+| `npm run test:e2e:wms` | Suorittaa ulkoisesta GeoServeristä riippuvan WMS/WFS-monitorointitestin |
+| `npm run test:e2e:all` | Suorittaa molemmat Playwright-testiprojektit |
+| `npm run typecheck:e2e` | Tyyppitarkistaa Playwright-konfiguraation ja testit |
+| `npm run worker:dev` | Käynnistää Cloudflare Workerin paikallisesti |
+| `npm run worker:test` | Suorittaa Workerin testit |
+| `npm run worker:typecheck` | Tyyppitarkistaa Workerin |
+| `npm run profile-size` | Avaa Webpack Bundle Analyzerin |
 
-Builds production version of the UI with webpack to `./dist` folder with code minification and without Redux dev tools support.
+PMTiles/D1-E2E-testit käyttävät oletuksena julkaistua preview-ympäristöä. Kohteen voi vaihtaa `E2E_BASE_URL`-ympäristömuuttujalla. Tarkemmat ohjeet ovat [E2E-testien dokumentaatiossa](./e2e/README.md).
 
-### `npm run profile-size`
+## Ympäristöt ja julkaiseminen
 
-Runs [webpack bundle analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) and opens it's UI to system default browser. Handy tool to analyze what libraries are included in the final build result.
+| Ympäristö | Osoite |
+| --- | --- |
+| Production | [muinaismuistot.info](https://muinaismuistot.info) |
+| Preview | [muinaismuistot-preview.antti-kekki.workers.dev](https://muinaismuistot-preview.antti-kekki.workers.dev) |
+
+Preview- ja production-ympäristöillä on omat Worker-, R2- ja D1-resurssinsa. Worker-koodin ja staattisen sivuston julkaiseminen on eri operaatio kuin Museoviraston kartta-aineiston julkaiseminen. Uuden ympäristön käyttöönotto sekä turvallinen preview–production-julkaisujärjestys on kuvattu [Workerin README-tiedostossa](./infra/muinaismuistot-worker/README.md) ja [updaterin README-tiedostossa](./infra/museovirasto-map-data/updater/README.md).
+
+## Lisenssi
+
+Projektin lähdekoodi on julkaistu [MIT-lisenssillä](./LICENSE). Kartta- ja sisältöaineistoilla on omat yllä mainitut lisenssinsä.
