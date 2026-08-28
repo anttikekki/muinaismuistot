@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title">
+  <title id="title">Finna</title>
+  <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m7 12 17-8 17 8v24l-17 8-17-8Z"/>
+    <path d="m7 12 17 8 17-8M24 20v24M15 16v12l9 4 9-4V16"/>
+    <circle cx="15" cy="29" r="2.2" fill="currentColor" stroke="none"/>
+    <circle cx="33" cy="29" r="2.2" fill="currentColor" stroke="none"/>
+  </g>
+</svg>

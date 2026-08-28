@@ -30,12 +30,20 @@ const FinnaImagesLink: React.FC<FinnaImagesLinkProps> = ({
   return (
     <Row>
       <Col>
-        <Alert variant="light">
-          <Trans
-            i18nKey="details.field.finnaText"
-            values={{ resultCount, finnaUIUrl }}
-            components={{ a: <Alert.Link /> }}
+        <Alert variant="light" className="external-service-alert">
+          <img
+            className="external-service-logo"
+            src="images/brands/finna.svg"
+            alt=""
+            aria-hidden="true"
           />
+          <div>
+            <Trans
+              i18nKey="details.field.finnaText"
+              values={{ resultCount, finnaUIUrl }}
+              components={{ a: <Alert.Link /> }}
+            />
+          </div>
         </Alert>
       </Col>
     </Row>

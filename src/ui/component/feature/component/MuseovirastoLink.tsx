@@ -20,12 +20,20 @@ export const MuseovirastoLinkDirect: React.FC<MuseovirastoLinkDirectProps> = ({
   return (
     <Row className="mt-2">
       <Col>
-        <Alert variant="light">
-          <Trans
-            i18nKey="details.finnishHeritageAgencyMoreInfoLink"
-            values={{ url, registerName }}
-            components={{ a: <Alert.Link /> }}
+        <Alert variant="light" className="external-service-alert">
+          <img
+            className="external-service-logo"
+            src="images/brands/museovirasto.svg"
+            alt=""
+            aria-hidden="true"
           />
+          <div>
+            <Trans
+              i18nKey="details.finnishHeritageAgencyMoreInfoLink"
+              values={{ url, registerName }}
+              components={{ a: <Alert.Link /> }}
+            />
+          </div>
         </Alert>
       </Col>
     </Row>

@@ -136,6 +136,23 @@ body,
   margin-right: 5px;
 }
 
+.external-service-alert {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.external-service-logo {
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  object-fit: contain;
+}
+
+.external-service-alert > div {
+  min-width: 0;
+}
+
 /* Asetetaan Bootstrap warning-buttonin väri linkitetyille kohteille */
 #linked-feature-popover .popover-header,
 .current-linked-feature-accordian-header button,
