@@ -48,13 +48,18 @@ export default class ViabundusLayer {
 
   private updateLayerSource = async (settings: Settings) => {
     this.updateGeoJsonLoadingStatus(true)
-    const geojsonObject = await this.fetchGeoJson(settings)
+    try {
+      const geojsonObject = await this.fetchGeoJson(settings)
 
-    this.source = new VectorSource({
-      features: new GeoJSON().readFeatures(geojsonObject)
-    })
-    this.layer.setSource(this.source)
-    this.updateGeoJsonLoadingStatus(false)
+      this.source = new VectorSource({
+        features: new GeoJSON().readFeatures(geojsonObject)
+      })
+      this.layer.setSource(this.source)
+    } catch (error: unknown) {
+      console.error("Viabundus data loading failed", error)
+    } finally {
+      this.updateGeoJsonLoadingStatus(false)
+    }
   }
 
   private fetchGeoJson = async (

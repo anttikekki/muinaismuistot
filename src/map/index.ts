@@ -480,8 +480,8 @@ export default class MuinaismuistotMap {
         )
       : []
 
-    Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery]).then(
-      ([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {
+    Promise.all([ahvenanmaaQuery, museovirastoQuery, maalinnoitusQuery])
+      .then(([ahvenanmaaResult, museovirastoResult, maalinnoitusFeatures]) => {
         const features: MapFeature[] = [
           ...ahvenanmaaResult.results,
           ...museovirastoResult.features,
@@ -513,9 +513,13 @@ export default class MuinaismuistotMap {
             models: modelsResult
           }
         })
+      })
+      .catch((error: unknown) => {
+        console.error("Feature identification failed", error)
+      })
+      .finally(() => {
         this.showLoadingAnimationInUI(false)
-      }
-    )
+      })
   }
 
   private zoom = (zoomChange: number) => {
@@ -571,34 +575,37 @@ export default class MuinaismuistotMap {
     settings: Settings
   ): Promise<MapFeature[]> => {
     this.showLoadingAnimationInUI(true)
-    const ahvenanmaaQuery = this.ahvenanmaaTileLayer.findFeatures(
-      searchText,
-      settings
-    )
-    const museovirastoQuery = this.museovirastoVectorTileLayer
-      ? this.museovirastoVectorTileLayer.findFeatures(
-          searchText,
-          settings
-        )
-      : this.museovirastoTileLayer.findFeatures(searchText, settings)
-
-    const [ahvenanmaaResult, museovirastoResult] = await Promise.all([
-      ahvenanmaaQuery,
-      museovirastoQuery
-    ])
-    this.showLoadingAnimationInUI(false)
-
-    const features: MapFeature[] = [
-      ...ahvenanmaaResult.results,
-      ...museovirastoResult.features,
-      ...this.viabundusLayer.findFeatures(searchText, settings)
-    ]
-      .map((f) => this.modelsLayer.addModelsToFeature(f))
-      .map((f) =>
-        this.maisemanMuistiLayer.addMaisemanMuistiFeaturesToFeature(f)
+    try {
+      const ahvenanmaaQuery = this.ahvenanmaaTileLayer.findFeatures(
+        searchText,
+        settings
       )
+      const museovirastoQuery = this.museovirastoVectorTileLayer
+        ? this.museovirastoVectorTileLayer.findFeatures(
+            searchText,
+            settings
+          )
+        : this.museovirastoTileLayer.findFeatures(searchText, settings)
 
-    return features
+      const [ahvenanmaaResult, museovirastoResult] = await Promise.all([
+        ahvenanmaaQuery,
+        museovirastoQuery
+      ])
+
+      const features: MapFeature[] = [
+        ...ahvenanmaaResult.results,
+        ...museovirastoResult.features,
+        ...this.viabundusLayer.findFeatures(searchText, settings)
+      ]
+        .map((f) => this.modelsLayer.addModelsToFeature(f))
+        .map((f) =>
+          this.maisemanMuistiLayer.addMaisemanMuistiFeaturesToFeature(f)
+        )
+
+      return features
+    } finally {
+      this.showLoadingAnimationInUI(false)
+    }
   }
 
   private layerOpacityChanged = (
