@@ -5,6 +5,7 @@
   "scripts": {
     "lint": "npx eslint .",
     "build:prod": "NODE_ENV=production webpack --mode=production --progress",
+    "build:preview": "NO_INDEX=true NODE_ENV=production webpack --mode=production --progress",
     "build:dev": "webpack --mode=development --progress --devtool source-map",
     "worker:dev": "npm --prefix infra/muinaismuistot-worker run dev",
     "worker:test": "npm --prefix infra/muinaismuistot-worker test",

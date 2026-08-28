@@ -11,8 +11,8 @@
     "typecheck": "tsc --noEmit && tsc --noEmit -p test/tsconfig.json",
     "deploy:dry-run": "wrangler deploy --env production --dry-run",
     "deploy": "npm test && npm run typecheck && wrangler deploy --env production",
-    "deploy:preview:dry-run": "wrangler deploy --env preview --dry-run",
-    "deploy:preview": "npm test && npm run typecheck && wrangler deploy --env preview"
+    "deploy:preview:dry-run": "npm --prefix ../.. run build:preview && wrangler deploy --env preview --dry-run",
+    "deploy:preview": "npm test && npm run typecheck && npm --prefix ../.. run build:preview && wrangler deploy --env preview"
   },
   "devDependencies": {
     "@cloudflare/vitest-plugin": "^1.0.0",

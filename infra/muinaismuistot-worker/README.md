@@ -233,3 +233,5 @@ Komennot voidaan ajaa joko Worker-hakemistossa tai alla mainitulla juuritason va
 | `npm run deploy:preview` | `npm run worker:deploy:preview` | Rakentaa ja testaa sivuston sekä julkaisee Workerin ja assetit preview-ympäristöön. |
 
 Production- ja preview-deployt suorittavat ennen Wrangler-julkaisua tuotantobuildin, Vitestit ja TypeScript-tarkistuksen. Julkaisu keskeytyy, jos jokin tarkistuksista epäonnistuu.
+
+Preview-deploy rakentaa lopuksi erillisen `build:preview`-version. Sen HTML-sivuilla on `noindex`, `nofollow` ja `noarchive` -robots-metatiedot, ja build sisältää kaiken indeksoinnin estävän `robots.txt`-tiedoston. Static Assetsin `_headers`-sääntö lisää lisäksi preview-hostin vastauksiin vastaavan `X-Robots-Tag`-otsakkeen. Production-buildiin ei lisätä robots-metatietoa tai estävää `robots.txt`-tiedostoa, ja `_headers`-sääntö on rajattu preview-hostnameen.

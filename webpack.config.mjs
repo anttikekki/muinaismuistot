@@ -11,6 +11,7 @@ import "webpack"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 
 const SHOW_BUNDLE_ANALYZER = process.env.SHOW_BUNDLE_ANALYZER !== undefined
+const NO_INDEX = process.env.NO_INDEX === "true"
 
 export default {
   entry: {
@@ -80,16 +81,19 @@ export default {
     new HtmlWebpackPlugin({
       template: "src/index.ejs",
       filename: "index.html",
+      noIndex: NO_INDEX,
       excludeChunks: ["models", "maisemanmuisti"]
     }),
     new HtmlWebpackPlugin({
       template: "src/3d/index.ejs",
       filename: "3d/index.html",
+      noIndex: NO_INDEX,
       excludeChunks: ["app", "maisemanmuisti"]
     }),
     new HtmlWebpackPlugin({
       template: "src/maisemanmuisti/index.ejs",
       filename: "maisemanmuisti/index.html",
+      noIndex: NO_INDEX,
       excludeChunks: ["app", "models"]
     }),
     new CopyWebpackPlugin({
@@ -116,7 +120,11 @@ export default {
           transform: function (content) {
             return JSON.stringify(JSON.parse(content.toString()))
           }
-        }
+        },
+        { from: "src/_headers", to: "_headers", toType: "file" },
+        ...(NO_INDEX
+          ? [{ from: "src/robots.preview.txt", to: "robots.txt" }]
+          : [])
       ]
     }),
     ...(SHOW_BUNDLE_ANALYZER ? [new BundleAnalyzerPlugin()] : [])

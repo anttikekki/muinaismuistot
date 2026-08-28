@@ -61,6 +61,22 @@ describe("muinaismuistot Worker", () => {
   it("returns 404 for an unknown API route", async () => {
     const missing = await worker.fetch(new Request("https://muinaismuistot.info/api/museovirasto/not-found"), env)
     expect(missing.status).toBe(404)
+    expect(missing.headers.get("x-robots-tag")).toBeNull()
     expect(await missing.text()).toBe("Not found")
+  })
+
+  it("prevents indexing Worker responses on the preview hostname", async () => {
+    const response = await worker.fetch(
+      new Request(
+        "https://muinaismuistot-preview.antti-kekki.workers.dev/api/museovirasto/not-found"
+      ),
+      env
+    )
+
+    expect(response.status).toBe(404)
+    expect(response.headers.get("x-robots-tag")).toBe(
+      "noindex, nofollow, noarchive"
+    )
+    expect(await response.text()).toBe("Not found")
   })
 })
