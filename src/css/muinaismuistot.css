@@ -73,6 +73,33 @@ body,
   right: 10px;
 }
 
+#map-attribution {
+  z-index: 15;
+  position: absolute;
+  right: 52px;
+  bottom: 10px;
+}
+
+#map-attribution .dropdown-toggle {
+  --bs-btn-bg: rgba(255, 255, 255, 0.9);
+  --bs-btn-border-color: rgba(0, 0, 0, 0.25);
+  --bs-btn-hover-bg: white;
+  font-size: 0.75rem;
+}
+
+#map-attribution .dropdown-menu {
+  width: min(24rem, calc(100vw - 20px));
+  max-height: min(70vh, 32rem);
+  overflow-y: auto;
+  font-size: 0.8rem;
+}
+
+.map-attribution-sources {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0 1rem;
+}
+
 #maannnousu-info-year-buttons {
   bottom: 10px;
   left: 50%;

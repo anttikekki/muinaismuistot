@@ -45,6 +45,22 @@
     "showFeatureDetails": "Show details",
     "remove": "Remove link"
   },
+  "mapAttribution": {
+    "button": "Data sources",
+    "title": "Data sources visible on the map",
+    "showAll": "All data sources and licences",
+    "sources": {
+      "mml": "© National Land Survey of Finland (<a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a>)",
+      "museovirasto": "© Finnish Heritage Agency (<a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a>)",
+      "ahvenanmaa": "© Government of Åland (<a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a>)",
+      "gtk": "© Geological Survey of Finland",
+      "helsinki": "© City of Helsinki (<a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a>)",
+      "maannousuInfo": "Maannousu.info (<a href='https://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a>)",
+      "viabundus": "© Viabundus project (<a href='https://creativecommons.org/licenses/by-sa/4.0/'>CC BY-SA 4.0</a>)",
+      "models": "Cultural heritage 3D models (model-specific licences)",
+      "maisemanMuisti": "Sites from the book Memory of the Landscape"
+    }
+  },
   "info": {
     "title": "About this site",
     "dataUpdates": {

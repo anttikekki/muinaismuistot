@@ -45,6 +45,22 @@
     "showFeatureDetails": "Visa information",
     "remove": "Ta bort länkning"
   },
+  "mapAttribution": {
+    "button": "Datakällor",
+    "title": "Datakällor som visas på kartan",
+    "showAll": "Alla datakällor och licenser",
+    "sources": {
+      "mml": "© Lantmäteriverket (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)",
+      "museovirasto": "© Museiverket (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)",
+      "ahvenanmaa": "© Ålands landskapsregering (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)",
+      "gtk": "© Geologiska forskningscentralen",
+      "helsinki": "© Helsingfors stad (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)",
+      "maannousuInfo": "Maannousu.info (<a href='https://creativecommons.org/licenses/by/4.0/deed.sv'>CC BY 4.0</a>)",
+      "viabundus": "© Viabundus-projektet (<a href='https://creativecommons.org/licenses/by-sa/4.0/deed.sv'>CC BY-SA 4.0</a>)",
+      "models": "3D-modeller av kulturarv (modellspecifika licenser)",
+      "maisemanMuisti": "Objekt från boken Maiseman muisti"
+    }
+  },
   "info": {
     "title": "Information om webbsidan",
     "dataUpdates": {

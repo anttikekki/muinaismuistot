@@ -45,6 +45,22 @@
     "showFeatureDetails": "Näytä tiedot",
     "remove": "Poista linkitys"
   },
+  "mapAttribution": {
+    "button": "Aineistolähteet",
+    "title": "Kartalla näkyvät aineistolähteet",
+    "showAll": "Kaikki aineistot ja lisenssit",
+    "sources": {
+      "mml": "© Maanmittauslaitos (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)",
+      "museovirasto": "© Museovirasto (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)",
+      "ahvenanmaa": "© Ålands landskapsregering (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)",
+      "gtk": "© Geologian tutkimuskeskus",
+      "helsinki": "© Helsingin kaupunki (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)",
+      "maannousuInfo": "Maannousu.info (<a href='https://creativecommons.org/licenses/by/4.0/deed.fi'>CC BY 4.0</a>)",
+      "viabundus": "© Viabundus-projekti (<a href='https://creativecommons.org/licenses/by-sa/4.0/deed.fi'>CC BY-SA 4.0</a>)",
+      "models": "Kulttuuriperinnön 3D-mallit (mallikohtaiset lisenssit)",
+      "maisemanMuisti": "Maiseman muisti -kirjan kohteet"
+    }
+  },
   "info": {
     "title": "Lisätietoja sivustosta",
     "dataUpdates": {
