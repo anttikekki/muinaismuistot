@@ -10,12 +10,17 @@ Skriptit ovat bash- tai Node.js-skriptejä, jotka suoritetaan omalla koneella.
 
 ## Toteutus ja käyttö
 
-Dataputken neljä ensimmäistä vaihetta on toteutettu. `1_fetch-site-index.mjs`
+Dataputken vaiheet 1–6 muodostavat nykyisen Kuvaus-osioon perustuvan kokeilun. `1_fetch-site-index.mjs`
 hakee hautaröykkiökohteiden luettelon Museoviraston WFS-palvelusta ja
 `2_download-pages.mjs` lataa valittujen kohteiden Kyppi-sivut paikallisiksi
 HTML-tiedostoiksi. `3_extract-page-content.mjs` jäsentää sivuilta vain Kuvaus-
 osion leipätekstin JSONL-muotoon. `4_extract-mound-dimensions.mjs` poimii tästä
 kuvauksesta röykkiöiden mitat OpenAI-kielimallilla rakenteiseen muotoon.
+
+PDF-lähteisiin perustuva vaihtoehtoinen kokeilu alkaa vaiheista 7–8. Vaihe 7
+poimii kohdesivujen osiosta "Linkit Museoviraston muihin aineistoihin"
+aineistotietueet. Vaihe 8 lataa tietuesivut, löytää niiden PDF-liitteet, lataa
+kunkin PDF:n vain kerran ja poimii tekstin `pdftotext`-ohjelmalla.
 
 Vaatimuksena on Node.js 22 tai uudempi. Asenna hakemiston npm-paketti ja aja
 testit:
@@ -318,5 +323,187 @@ Esimerkkivastaus:
 ```
 
 ### Aineiston analysointi
+
+### PDF-aineistojen pieni koeajo
+
+Muodosta jo ladatuista Kyppi-kohdesivuista deduplikoitu aineistoindeksi:
+
+```bash
+npm run step:7 -- --site 531010025
+# tai: npm run step:7 -- --limit 3
+```
+
+Tulos `intermediate/7_document-index.json` erottaa kohteet ja aineistotietueet.
+Sama kuntainventointi esiintyy vain kerran, vaikka se olisi linkitetty usealle
+kohteelle.
+
+Lataa PDF:t ja pura niiden teksti (vaatii Popplerin `pdftotext`-ohjelman):
+
+```bash
+npm run step:8 -- --site 531010025
+# tai: npm run step:8 -- --limit 3
+```
+
+PDF:t tallennetaan hakemistoon `source-data/documents`, tekstit hakemistoon
+`intermediate/document-texts` ja kohde–tietue–dokumentti-suhteet tiedostoon
+`intermediate/8_document-download-manifest.json`. Kanonisesta liite-URL:stä
+johdettu `documentId` estää saman PDF:n toistuvan lataamisen. Ehjä välimuisti
+ohitetaan uusinta-ajossa; `--force` pakottaa latauksen. Koko aineisto vaatii
+nimenomaisen `--all`-valinnan.
+
+Poimi lopuksi raporteista kohdekohtaiset sivut ja niiden lähikonteksti:
+
+```bash
+npm run step:9 -- --site 531010025
+# tai: npm run step:9 -- --limit 3
+```
+
+Tulos kirjoitetaan tiedostoon `intermediate/9_document-passages.jsonl`.
+Katkelmassa säilyvät dokumenttitunnus, lähdeosoite, PDF:n sivunumero,
+osumaperuste ja tekstin laatuhavainnot. Raportit, joista kohteen nimeä tai
+tunnusta ei löydy, merkitään erikseen `unmatchedDocuments`-taulukkoon; niitä ei
+ohiteta hiljaisesti. Yhteenveto kirjoitetaan tiedostoon
+`intermediate/9_document-passages-report.json`.
+
+Vaihe 9 kirjoittaa lisäksi kattavuusraportin tiedostoon
+`intermediate/9_document-coverage.json`. Jokainen kohde luokitellaan yhteen
+toimintaluokkaan: `ready_for_llm`, `no_pdf_documents`, `site_not_found`,
+`year_missing` tai `ocr_required`. Raportti sisältää luokkien lukumäärät sekä
+kohdetunnuskohtaiset listat perusteluineen. OCR-luokitus huomioi vain uusimman
+tutkimusvuoden aineistot, joten vanhan historiallisen raportin heikko laatu ei
+estä LLM-ajoa.
+
+Jos kohteesta löytyy usean vuoden tutkimuksia, vaihe 9 merkitsee uusimman
+tunnetun tutkimusvuoden kenttään `latestSourceYear`. Vaihe 10 lähettää mallille
+vain tämän vuoden `isLatestSource=true`-aineistot. Vanhemmat raportit säilyvät
+vaiheen 9 historiatietona, mutta niitä ei käytetä nykyisiä röykkiöitä, niiden
+lukumäärää tai mittoja täydentävänä lähteenä. Vaihe 11 merkitsee vanhemman
+aineiston käytön virheeksi, jos uudempi vuosiluvultaan tunnettu aineisto on
+saatavilla.
+
+Poimi rajatuista raporttikatkelmista röykkiöiden mitat kielimallilla:
+
+```bash
+export OPENAI_API_KEY="oma-api-avain"
+npm run step:10 -- --site 531010025
+```
+
+Kattavuusraportin kaikki `ready_for_llm`-kohteet voi käsitellä turvallisesti
+valinnalla:
+
+```bash
+npm run step:10 -- --ready
+```
+
+`--ready` jättää muut kattavuusluokat pois ennen API-kutsuja. Mallille lähetetään
+vain uusimman tutkimusvuoden sivut, jotka vaihe 9 on merkinnyt käyttökelpoisiksi;
+muut osuma-, sisällysluettelo- ja kontekstisivut eivät kasvata mallisyötettä.
+
+Vaihe 10 käyttää omaa raporttipromptia, tiukkaa JSON-skeemaa ja erillistä
+välimuistia hakemistossa `intermediate/report-llm-responses`. Jokainen
+sanatarkka lähdekatkelma sidotaan `sourceReferences`-taulukossa dokumenttiin ja
+PDF-sivuun. Tulos validoidaan paikallisesti: viitteen dokumentin ja sivun pitää
+olla syötteessä ja katkelman löytyä kyseisen sivun tekstistä. Vertailu sallii
+PDF-taitosta ja OCR:stä syntyneiden välilyöntien normalisoinnin myös sanojen
+sisällä, mutta ei kirjainten tai numeroiden muuttamista.
+Tulokset kirjoitetaan tiedostoon
+`intermediate/10_report-mound-dimensions.jsonl` ja ajon yhteenveto tiedostoon
+`intermediate/10_report-extraction-report.json`. Komento vaatii aina rajauksen
+`--site`, `--limit` tai `--all`; `--force` ohittaa välimuistin.
+
+API:lta saatu ja JSONiksi jäsennetty vastaus tallennetaan aina ensin
+`*.candidate.json`-tiedostoon ja validoidaan vasta sen jälkeen. Jos paikallinen
+validointi epäonnistuu, seuraava ajo käyttää samaa candidate-vastausta eikä tee
+uutta maksullista API-kutsua. Candidate voidaan validoida uudelleen korjatulla
+koodilla; vain `--force` ohittaa myös tämän tallennetun vastauksen.
+
+Validoi raporttipohjaiset tulokset ja käynnistä tarkistusnäkymä:
+
+```bash
+npm run step:11
+npm run review:reports
+```
+
+Avaa jälkimmäisen komennon jälkeen `http://127.0.0.1:4173`. Vaihe 11 tarkistaa
+rakenteen ja lähdeviitteet, nostaa esiin mallin ilmoittamat ristiriidat sekä
+havaitsee lähdekatkelmassa mainitut mutta tuloksesta puuttuvat korkeudet,
+halkaisijat ja AxB-mitat. Näkymä näyttää mitat, raportin, PDF-sivun ja
+lähdekatkelman rinnakkain. Kohteen PDF-aineistotaulukko näyttää kaikki löydetyt
+PDF:t, päätellyt tutkimusvuodet, Kyppi-linkit sekä perustelun dokumentin
+valinnalle tai pois jättämiselle. Kuittaukset tallennetaan tiedostoon
+`intermediate/11_report-review-acknowledgements.json`.
+Näkymä sisältää kaikki käsitellyt kohteet, myös ilman käsintarkistusta
+automaattisesti hyväksytyt. Jokaiselle röykkiölle näytetään päättelyketjun
+lopputila ja tieto siitä, päätyykö se lopulliseen aineistoon. Tilan mukaan
+suodattamalla näkymää voi käyttää sekä työjonona että koko aineiston
+auditointiin.
+Auditoinnin tueksi kohteella näytetään myös aiemmin Kyppi.fi-kohdesivulta
+poimittu kuvausteksti ja linkki kohdesivulle. Teksti merkitään vertailuaineistoksi:
+PDF-raportit säilyvät mittojen varsinaisina lähteinä. Sama kuvaus ja lähdetieto
+säilytetään step 12:n JSONL- ja GeoJSON-tuloksissa `kyppiDescription`-kentässä.
+Tarkistusnäkymän "PDF:istä poimittu kohteen koko tekstikonteksti" näyttää lisäksi
+kaikki vaiheessa 9 kohteelle poimitut PDF-sivut kokonaisina. Näkymä erottaa
+LLM:lle annetut sivut ympäröivistä, vain manuaalista tarkistusta tukevista sivuista.
+PDF-kohdejakso ankkuroidaan aina muinaisjäännöstunnukseen. Pelkkä kohdenimen
+esiintyminen esimerkiksi sisällysluettelossa tai toisen samannimisen kohteen
+nimessä ei enää tuota osumaa. Tunnistuksessa hyväksytään myös Museoviraston
+raporteissa käytetty välilyönnein ryhmitelty ja etunollilla täydennetty tunnusmuoto.
+Suoraan avattava `intermediate/11_report-review.html` on vain staattinen
+esikatselu: ilman `review:reports`-palvelinta sen kuittauksia ei voida tallentaa.
+Ratkaisemattoman ristiriidan sisältävän yksittäisen röykkiön voi merkitä näkymässä
+pysyvästi ohitetuksi. Saman kohteen muut röykkiöt säilyvät mukana. Sivun
+"Näytettävät tilat" -valinnoilla voi näyttää erikseen tarkistusta odottavat,
+kuitatut ja pysyvästi ohitetut tiedot. Yhteenveto näyttää myös näiden lukumäärät.
+Päätös tallennetaan kuittausten rinnalle `moundDecisions`-rakenteeseen syyllä
+`unresolved_conflict`, jotta myöhempi julkaisuputki voi jättää vain kyseisen
+röykkiön pois. Vanha kohdekohtainen `siteDecisions`-tieto muunnetaan
+automaattisesti röykkiökohtaiseksi, kun tarkistusnäkymä avataan palvelimelta.
+
+Koosta tarkistetut raporttitulokset lopulliseksi koeaineistoksi:
+
+```bash
+npm run step:12
+```
+
+Vaihe ottaa mukaan automaattisesti hyväksytyt röykkiöt ja sellaiset
+tarkistettavat röykkiöt, joiden kaikki niitä koskevat havainnot on kuitattu.
+Kohdetason havainto koskee kohteen jokaista röykkiötä. Keskeneräiset ja
+pysyvästi ohitetut röykkiöt jätetään pois. Tulokset kirjoitetaan tiedostoihin
+`results/12_report-mounds.jsonl` ja `results/12_report-mounds.geojson`.
+Koosteraportti `results/12_report-build-report.json` kertoo mukaan otettujen,
+tarkistusta odottavien ja pysyvästi ohitettujen röykkiöiden määrät.
+
+Kokoa vaiheiden 7–12 tunnusluvut yhdelle koeajoraportille:
+
+```bash
+npm run report:pilot
+```
+
+HTML-raportti kirjoitetaan tiedostoon `results/13_pipeline-report.html` ja sama
+yhteenveto koneluettavana tiedostoon `results/13_pipeline-report.json`.
+Raportti näyttää aineiston kattavuuden, PDF-lataukset, LLM-kutsut ja
+välimuistiosumat, validoinnin sekä julkaistut ja pois jätetyt röykkiöt. Se myös
+varoittaa puuttuvista vaiheista ja vaiheiden lukumäärien ristiriidoista.
+
+## Raporttiaineiston batch-ajo
+
+Aja koko raporttiputki yhdellä komennolla:
+
+```bash
+npm run batch -- --limit 50
+# tai yksittäiset kohteet
+npm run batch -- --site 4010001 --site 4010002
+# vain PDF-kattavuus ilman LLM-kutsuja
+npm run batch -- --limit 50 --no-llm
+# koko saatavilla oleva aineisto
+npm run batch -- --all
+```
+
+Komento ajaa vaiheet 7–13 järjestyksessä ja pysähtyy ensimmäiseen virheeseen.
+Aiemmat kohteet yhdistetään uuteen rajaukseen, joten yksittäisen batchin ajo ei
+poista niitä jatkovaiheiden aineistosta. PDF:t, candidate-vastaukset ja hyväksytyt
+LLM-vastaukset käytetään uudelleen. Ennen maksullista vaihetta komento näyttää
+API-kutsujen teoreettisen enimmäismäärän; todellinen määrä voi olla pienempi
+välimuistien vuoksi. Keskeytyneen ajon voi jatkaa samalla komennolla.
 
 Haetut kuvaustekstit pitää prosessoida OpenAI-kielimallin avulla, joka osaa poimia vapaamuotoisesta suomenkielisestä tekstistä röykkiöiden koot rakenteelliseen muotoon JSON-tiedostoon. OpenAI API:a pitää kutsua skriptissä siten, että sille annetaan kerrallaan yksi tai useampi kohteen kuvausteksti. Tämä toteutetaan dataputken vaiheessa 4.

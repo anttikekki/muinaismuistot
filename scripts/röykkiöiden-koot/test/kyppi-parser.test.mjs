@@ -21,14 +21,20 @@ test("parseKyppiPage jäsentää Keskimäen Kuvaus-osion leipätekstin", () => {
     expectedMjtunnus: "531010025"
   })
 
-  assert.equal(site.schemaVersion, 3)
+  assert.equal(site.schemaVersion, 4)
   assert.equal(site.mjtunnus, "531010025")
   assert.match(site.description, /^Röykkiöt sijaitsevat Kokemäenjoesta/)
   assert.match(site.description, /Korkeus on 0,5 m\./)
   assert.equal(site.parsing.needsReview, false)
+  assert.deepEqual(site.materialLinks.map((link) => link.recordId), [
+    "113.9650",
+    "129.135743",
+    "129.126003"
+  ])
   assert.deepEqual(site.parsing.warnings, [])
   assert.deepEqual(Object.keys(site).sort(), [
     "description",
+    "materialLinks",
     "mjtunnus",
     "parsing",
     "schemaVersion"

@@ -9,8 +9,14 @@ import { readJsonIfExists, writeJsonAtomic } from "./lib/files.mjs"
 
 const DEFAULT_HOST = "127.0.0.1"
 const DEFAULT_PORT = 4173
+const DEFAULT_PATHS = {
+  ...DATA_PATHS,
+  reviewHtmlFile: DATA_PATHS.reportReviewHtmlFile,
+  reviewFile: DATA_PATHS.reportReviewFile,
+  reviewAcknowledgementsFile: DATA_PATHS.reportReviewAcknowledgementsFile
+}
 
-export function createReviewServer({ paths = DATA_PATHS, now = () => new Date() } = {}) {
+export function createReviewServer({ paths = DEFAULT_PATHS, now = () => new Date() } = {}) {
   return http.createServer(async (request, response) => {
     try {
       const url = new URL(request.url, `http://${request.headers.host || DEFAULT_HOST}`)
@@ -18,7 +24,7 @@ export function createReviewServer({ paths = DATA_PATHS, now = () => new Date() 
         return send(response, 200, await fs.readFile(paths.reviewHtmlFile), "text/html; charset=utf-8")
       }
       if (request.method === "GET" && url.pathname === "/api/acknowledgements") {
-        return sendJson(response, 200, await readAcknowledgements(paths.reviewAcknowledgementsFile))
+        return sendJson(response, 200, await readReviewState(paths))
       }
 
       const match = /^\/api\/acknowledgements\/([a-f0-9]{64})$/.exec(url.pathname)
@@ -33,10 +39,23 @@ export function createReviewServer({ paths = DATA_PATHS, now = () => new Date() 
         return sendJson(response, 200, document)
       }
 
+      const moundDecisionMatch = /^\/api\/mound-decisions\/(\d+)\/(\d+)$/.exec(url.pathname)
+      if (moundDecisionMatch && ["POST", "DELETE"].includes(request.method)) {
+        const document = await updateMoundDecision({
+          paths,
+          mjtunnus: moundDecisionMatch[1],
+          sourceOrder: Number(moundDecisionMatch[2]),
+          remove: request.method === "DELETE",
+          now
+        })
+        if (!document) return sendJson(response, 404, { error: "Röykkiötä ei löydy nykyisestä tarkistusraportista" })
+        return sendJson(response, 200, document)
+      }
+
       sendJson(response, 404, { error: "Reittiä ei löydy" })
     } catch (error) {
       if (error.code === "ENOENT") {
-        return sendJson(response, 404, { error: "Aja ensin npm run step:5" })
+        return sendJson(response, 404, { error: "Aja ensin npm run step:11" })
       }
       console.error(error)
       sendJson(response, 500, { error: "Palvelimen sisäinen virhe" })
@@ -44,12 +63,12 @@ export function createReviewServer({ paths = DATA_PATHS, now = () => new Date() 
   })
 }
 
-export async function updateAcknowledgement({ paths = DATA_PATHS, observationId, remove = false, now = () => new Date() }) {
+export async function updateAcknowledgement({ paths = DEFAULT_PATHS, observationId, remove = false, now = () => new Date() }) {
   const observations = await readCurrentObservations(paths.reviewFile)
   const observation = observations.get(observationId)
   if (!observation) return null
 
-  const document = await readAcknowledgements(paths.reviewAcknowledgementsFile)
+  const document = await readReviewState(paths)
   if (remove) {
     delete document.acknowledgements[observationId]
   } else {
@@ -64,12 +83,58 @@ export async function updateAcknowledgement({ paths = DATA_PATHS, observationId,
   return document
 }
 
+export async function updateMoundDecision({ paths = DEFAULT_PATHS, mjtunnus, sourceOrder, remove = false, now = () => new Date() }) {
+  const report = JSON.parse(await fs.readFile(paths.reviewFile, "utf8"))
+  const site = report.sites.find((item) => item.mjtunnus === mjtunnus)
+  if (!site?.mounds?.some((mound) => mound.sourceOrder === sourceOrder)) return null
+  const document = await readReviewState(paths)
+  document.moundDecisions ??= {}
+  const key = `${mjtunnus}:${sourceOrder}`
+  if (remove) delete document.moundDecisions[key]
+  else document.moundDecisions[key] = {
+    status: "permanently_skipped",
+    reason: "unresolved_conflict",
+    mjtunnus,
+    sourceOrder,
+    skippedAt: now().toISOString()
+  }
+  document.updatedAt = now().toISOString()
+  await writeJsonAtomic(paths.reviewAcknowledgementsFile, document)
+  return document
+}
+
 async function readAcknowledgements(file) {
   return (await readJsonIfExists(file)) ?? {
     formatVersion: 1,
     updatedAt: null,
-    acknowledgements: {}
+    acknowledgements: {},
+    moundDecisions: {}
   }
+}
+
+export async function readReviewState(paths = DEFAULT_PATHS) {
+  const document = await readAcknowledgements(paths.reviewAcknowledgementsFile)
+  document.moundDecisions ??= {}
+  const legacyDecisions = document.siteDecisions ?? {}
+  if (Object.keys(legacyDecisions).length === 0) return document
+  const report = JSON.parse(await fs.readFile(paths.reviewFile, "utf8"))
+  for (const [mjtunnus, decision] of Object.entries(legacyDecisions)) {
+    if (decision.status !== "permanently_skipped") continue
+    const site = report.sites.find((item) => item.mjtunnus === mjtunnus)
+    const issueOrders = [...new Set((site?.issues ?? []).map((issue) => issue.mound).filter(Number.isInteger))]
+    const orders = issueOrders.length > 0
+      ? issueOrders
+      : (site?.mounds ?? []).map((mound) => mound.sourceOrder).filter(Number.isInteger)
+    for (const sourceOrder of orders) {
+      document.moundDecisions[`${mjtunnus}:${sourceOrder}`] ??= {
+        status: "permanently_skipped", reason: decision.reason ?? "unresolved_conflict",
+        mjtunnus, sourceOrder, skippedAt: decision.skippedAt ?? new Date().toISOString()
+      }
+    }
+  }
+  delete document.siteDecisions
+  await writeJsonAtomic(paths.reviewAcknowledgementsFile, document)
+  return document
 }
 
 async function readCurrentObservations(file) {

@@ -30,6 +30,12 @@ export const KYPPI_CONFIG = Object.freeze({
     "muinaismuistot.info-data-script/1.0 (+https://www.muinaismuistot.info)"
 })
 
+export const DOCUMENT_CONFIG = Object.freeze({
+  ...KYPPI_CONFIG,
+  // Maakunta- ja läänikohtaiset inventoinnit voivat olla hyvin suuria.
+  maxPdfBytes: 500 * 1024 * 1024
+})
+
 export const OPENAI_CONFIG = Object.freeze({
   model: "gpt-5.6-luna",
   reasoningEffort: "medium",
@@ -66,6 +72,67 @@ export const DATA_PATHS = Object.freeze({
     "intermediate",
     "3_parse-report.json"
   ),
+  documentIndexFile: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "7_document-index.json"
+  ),
+  documentRecordPagesDirectory: path.join(
+    SCRIPT_DIRECTORY,
+    "source-data",
+    "document-record-pages"
+  ),
+  documentsDirectory: path.join(SCRIPT_DIRECTORY, "source-data", "documents"),
+  documentTextsDirectory: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "document-texts"
+  ),
+  documentDownloadManifestFile: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "8_document-download-manifest.json"
+  ),
+  documentPassagesFile: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "9_document-passages.jsonl"
+  ),
+  documentPassagesReportFile: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "9_document-passages-report.json"
+  ),
+  documentCoverageReportFile: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "9_document-coverage.json"
+  ),
+  reportLlmResponsesDirectory: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "report-llm-responses"
+  ),
+  reportMoundDimensionsFile: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "10_report-mound-dimensions.jsonl"
+  ),
+  reportExtractionReportFile: path.join(
+    SCRIPT_DIRECTORY,
+    "intermediate",
+    "10_report-extraction-report.json"
+  ),
+  validatedReportResultsFile: path.join(SCRIPT_DIRECTORY, "intermediate", "11_validated-report-results.jsonl"),
+  reportReviewFile: path.join(SCRIPT_DIRECTORY, "intermediate", "11_report-review.json"),
+  reportReviewHtmlFile: path.join(SCRIPT_DIRECTORY, "intermediate", "11_report-review.html"),
+  reportReviewAcknowledgementsFile: path.join(SCRIPT_DIRECTORY, "intermediate", "11_report-review-acknowledgements.json"),
+  reportValidationReportFile: path.join(SCRIPT_DIRECTORY, "intermediate", "11_report-validation-report.json"),
+  finalReportMoundsFile: path.join(SCRIPT_DIRECTORY, "results", "12_report-mounds.jsonl"),
+  finalReportMoundsGeoJsonFile: path.join(SCRIPT_DIRECTORY, "results", "12_report-mounds.geojson"),
+  finalReportBuildReportFile: path.join(SCRIPT_DIRECTORY, "results", "12_report-build-report.json"),
+  pipelineReportFile: path.join(SCRIPT_DIRECTORY, "results", "13_pipeline-report.json"),
+  pipelineReportHtmlFile: path.join(SCRIPT_DIRECTORY, "results", "13_pipeline-report.html"),
   llmResponsesDirectory: path.join(
     SCRIPT_DIRECTORY,
     "intermediate",
