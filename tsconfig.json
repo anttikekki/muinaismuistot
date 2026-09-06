@@ -6,6 +6,7 @@
     "moduleResolution": "bundler",
     "target": "ES2024",
     "lib": ["DOM", "ES2024"],
+    "types": ["node"],
     "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true,
     "noUncheckedSideEffectImports": false,

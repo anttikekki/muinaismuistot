@@ -135,6 +135,8 @@ npm install
 | `npm run build:prod` | Rakentaa minifioidun production-version `dist/`-hakemistoon |
 | `npm run build:preview` | Rakentaa production-optimoidun preview-version hakukone-estoin |
 | `npm run lint` | Suorittaa ESLint-tarkistuksen |
+| `npm run typecheck` | Tyyppitarkistaa `src/`-sovelluksen |
+| `npm run check` | Suorittaa ESLintin sekä sovelluksen ja E2E-testien tyyppitarkistukset |
 | `npm run test:e2e` | Suorittaa julkaisemisen estävät PMTiles/D1-E2E-testit |
 | `npm run test:e2e:wms` | Suorittaa ulkoisesta GeoServeristä riippuvan WMS/WFS-monitorointitestin |
 | `npm run test:e2e:all` | Suorittaa molemmat Playwright-testiprojektit |

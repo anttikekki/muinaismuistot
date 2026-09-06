@@ -4,6 +4,8 @@
   "description": "Tutki kartalla Museoviraston ylläpitämien kulttuuriperintörekistereiden paikkatietoa.",
   "scripts": {
     "lint": "npx eslint .",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "check": "npm run lint && npm run typecheck && npm run typecheck:e2e",
     "build:prod": "NODE_ENV=production webpack --mode=production --progress",
     "build:preview": "NO_INDEX=true NODE_ENV=production webpack --mode=production --progress",
     "build:dev": "webpack --mode=development --progress --devtool source-map",
@@ -56,6 +58,7 @@
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@playwright/test": "^1.62.1",
+    "@types/arcgis-rest-api": "10.4.8",
     "@types/geojson": "7946.0.16",
     "@types/node": "^26.3.0",
     "@types/react": "19.2.18",

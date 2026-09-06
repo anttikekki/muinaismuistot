@@ -28,7 +28,7 @@ import {
 } from "../../../../common/viabundus.types"
 import { getFeatureLayer } from "../../../../common/util/featureParser"
 
-type IconParams = {
+interface IconParams {
   uniqueId: string
   type: "square" | "circle" | "star" | "line" | "pentagon"
   fillColor?: string
@@ -192,7 +192,7 @@ const Icon: React.FC<IconParams> = ({
   )
 }
 
-type LayerIconParams = {
+interface LayerIconParams {
   layer: FeatureLayer
   uniqueId?: string
   has3dModels?: boolean
@@ -544,7 +544,7 @@ export const LayerIcon: React.FC<LayerIconParams> = ({
   return null
 }
 
-type FeatureIconParams = {
+interface FeatureIconParams {
   feature: MapFeature
   uniqueFeatureId: string
 }
@@ -817,7 +817,7 @@ export const ViabundusFeatureIcon: React.FC<ViabundusFeatureIconParams> = (
   }
 }
 
-type ModelFeatureIcon = {
+interface ModelFeatureIcon {
   layer: FeatureLayer
   uniqueId?: string
 }
