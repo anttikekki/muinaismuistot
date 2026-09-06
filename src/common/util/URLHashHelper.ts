@@ -3,9 +3,13 @@ import queryString from "query-string"
 import { LinkedFeature } from "../../store/storeTypes"
 
 const parseOptions = {
-  parseNumbers: true,
-  parseBooleans: true,
-  arrayFormat: "comma"
+  arrayFormat: "comma",
+  // Conversion belongs to the URL schema. Text can contain numbers or commas.
+  types: {
+    linkedFeatureId: "string",
+    linkedFeatureName: "string",
+    museovirastoApiBase: "string"
+  }
 } as const
 
 export const parseURLParams = () => ({

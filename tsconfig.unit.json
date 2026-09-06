@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "."
+  },
+  "include": [
+    "playwright.unit.config.ts",
+    "tests/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "references": []
+}

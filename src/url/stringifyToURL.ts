@@ -1,3 +1,4 @@
+import type { StringifiableRecord } from "query-string"
 import {
   parseURLParams,
   stringifyURLParamsToHash
@@ -6,8 +7,8 @@ import { MuseovirastoDataSource, Settings } from "../store/storeTypes"
 import { EMPTY_SELECTION, URLSettings } from "./types"
 
 interface URLSettingsState {
-  next: URLSettings
-  old: URLSettings
+  next: StringifiableRecord
+  old: StringifiableRecord
 }
 
 const updateParams = (
@@ -38,13 +39,20 @@ const updateParams = (
   }
 }
 
-const updateParam = <T>(
+const updateParam = <T extends StringifiableRecord[string]>(
   state: URLSettingsState,
   initialValue: T,
   currentValue: T,
   key: keyof URLSettings
 ): URLSettingsState => {
-  if (initialValue === currentValue) {
+  const valuesAreEqual =
+    initialValue === currentValue ||
+    (Array.isArray(initialValue) &&
+      Array.isArray(currentValue) &&
+      initialValue.length === currentValue.length &&
+      initialValue.every((value, index) => value === currentValue[index]))
+
+  if (valuesAreEqual) {
     return {
       ...state,
       old: {
@@ -68,7 +76,7 @@ export const updateSettingsToURL = (
 ): void => {
   let state: URLSettingsState = {
     next: {},
-    old: parseURLParams() as URLSettings
+    old: parseURLParams()
   }
 
   // Linked feature
@@ -184,7 +192,7 @@ export const updateSettingsToURL = (
   )
 
   // GTK layer
-  state = updateParam(
+  state = updateParams(
     state,
     initialSettings.gtk.selectedLayers,
     currentSettings.gtk.selectedLayers,

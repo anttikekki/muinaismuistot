@@ -1,19 +1,3 @@
-import {
-  AhvenanmaaLayer,
-  GtkLayer,
-  HelsinkiLayer,
-  Language,
-  MMLPohjakarttaLayer,
-  MMLVanhatKartatLayer,
-  MaannousuInfoLayer,
-  MaannousuInfoLayerIndex,
-  MuseovirastoLayer,
-  isFeatureLayer
-} from "../common/layers.types"
-import {
-  MuinaisjaannosAjoitus,
-  MuinaisjaannosTyyppi
-} from "../common/museovirasto.types"
 import { parseURLParams } from "../common/util/URLHashHelper"
 import { initialSettings } from "../store/initialSettings"
 import {
@@ -63,36 +47,7 @@ import {
 } from "../store/reducers/viabundusLayer"
 import { updateLanguage } from "../store/rootReducer"
 import { MuseovirastoDataSource, Settings } from "../store/storeTypes"
-import { EMPTY_SELECTION, URLSettings } from "./types"
-
-const isEnumValue = <ENUM extends Record<string, unknown>>(
-  enumObj: ENUM,
-  value: unknown
-): value is ENUM[keyof ENUM] => Object.values(enumObj).some((v) => v === value)
-
-const isEnumArray = <ENUM extends Record<string, unknown>>(
-  enumObj: ENUM,
-  valueArray: unknown[]
-): valueArray is ENUM[keyof ENUM][] =>
-  valueArray.every((v) => isEnumValue(enumObj, v))
-
-const validateAndUpdateUrlParamToSettings = <
-  ENUM extends Record<string, unknown>
->(
-  settings: Settings,
-  enumObj: ENUM,
-  value: string | string[],
-  updateSettings: (settings: Settings, values: ENUM[keyof ENUM][]) => Settings
-): Settings => {
-  if (value === EMPTY_SELECTION) {
-    return updateSettings(settings, [])
-  } else if (isEnumValue(enumObj, value)) {
-    return updateSettings(settings, [value])
-  } else if (Array.isArray(value) && isEnumArray(enumObj, value)) {
-    return updateSettings(settings, value)
-  }
-  return settings
-}
+import { parseURLSettings } from "./schema"
 
 export const getSettingsFromURL = (): Settings => {
   let newSettings = initialSettings
@@ -135,24 +90,21 @@ export const getSettingsFromURL = (): Settings => {
     viabundusEnabled,
     modelsEnabled,
     maisemanMuistiEnabled
-  } = parseURLParams() as URLSettings
+  } = parseURLSettings(parseURLParams())
 
   // Museovirasto data source and Worker URL
-  if (museovirastoVectorTiles === true || museovirastoVectorTiles === 1) {
+  if (museovirastoVectorTiles === true) {
     newSettings = updateMuseovirastoDataSource(
       newSettings,
       MuseovirastoDataSource.PMTiles
     )
-  } else if (
-    museovirastoVectorTiles === false ||
-    museovirastoVectorTiles === 0
-  ) {
+  } else if (museovirastoVectorTiles === false) {
     newSettings = updateMuseovirastoDataSource(
       newSettings,
       MuseovirastoDataSource.WMS
     )
   }
-  if (typeof museovirastoApiBase === "string" && museovirastoApiBase) {
+  if (museovirastoApiBase !== undefined) {
     newSettings = updateMuseovirastoWorkerUrl(newSettings, museovirastoApiBase)
   }
 
@@ -160,11 +112,8 @@ export const getSettingsFromURL = (): Settings => {
   if (x !== undefined && y !== undefined) {
     newSettings = updateLinkedFeature(newSettings, {
       coordinates: [x, y],
-      layer:
-        linkedFeatureLayer && isFeatureLayer(linkedFeatureLayer)
-          ? linkedFeatureLayer
-          : undefined,
-      id: linkedFeatureId ? String(linkedFeatureId) : undefined,
+      layer: linkedFeatureLayer,
+      id: linkedFeatureId,
       name: linkedFeatureName
     })
   }
@@ -178,7 +127,7 @@ export const getSettingsFromURL = (): Settings => {
   }
 
   // Map center
-  if (center !== undefined && Array.isArray(center) && center.length === 2) {
+  if (center !== undefined) {
     newSettings = {
       ...newSettings,
       mapCenterCoordinates: [center[0], center[1]]
@@ -186,12 +135,12 @@ export const getSettingsFromURL = (): Settings => {
   }
 
   // Language
-  if (lang !== undefined && isEnumValue(Language, lang)) {
+  if (lang !== undefined) {
     newSettings = updateLanguage(newSettings, lang)
   }
 
   // MML basemap layer
-  if (mmlLayer && isEnumValue(MMLPohjakarttaLayer, mmlLayer)) {
+  if (mmlLayer !== undefined) {
     newSettings = updateMmlPohjakarttaSelectedLayer(newSettings, mmlLayer)
   }
 
@@ -202,11 +151,9 @@ export const getSettingsFromURL = (): Settings => {
 
   // MML vanhat kartat layers
   if (mmlVanhatKartatLayer) {
-    newSettings = validateAndUpdateUrlParamToSettings(
+    newSettings = updateMmlVanhatKartatSelectedLayer(
       newSettings,
-      MMLVanhatKartatLayer,
-      mmlVanhatKartatLayer,
-      updateMmlVanhatKartatSelectedLayer
+      mmlVanhatKartatLayer
     )
   }
 
@@ -238,16 +185,11 @@ export const getSettingsFromURL = (): Settings => {
 
   // GTK layers
   if (gtktLayer) {
-    newSettings = validateAndUpdateUrlParamToSettings(
-      newSettings,
-      GtkLayer,
-      gtktLayer,
-      updateGtkSelectedLayers
-    )
+    newSettings = updateGtkSelectedLayers(newSettings, gtktLayer)
   }
 
   // Maannousu.info layer
-  if (maannousuLayer && isEnumValue(MaannousuInfoLayer, maannousuLayer)) {
+  if (maannousuLayer !== undefined) {
     newSettings = updateMaannousuInfoSelectedLayer(newSettings, maannousuLayer)
   }
 
@@ -262,17 +204,15 @@ export const getSettingsFromURL = (): Settings => {
   }
 
   // Maannousu.info index
-  if (maannousuIndex && isEnumValue(MaannousuInfoLayerIndex, maannousuIndex)) {
+  if (maannousuIndex !== undefined) {
     newSettings = updateMaannousuInfoPlacement(newSettings, maannousuIndex)
   }
 
   // Museovirasto layers
   if (museovirastoLayer) {
-    newSettings = validateAndUpdateUrlParamToSettings(
+    newSettings = updateMuseovirastoSelectedLayers(
       newSettings,
-      MuseovirastoLayer,
-      museovirastoLayer,
-      updateMuseovirastoSelectedLayers
+      museovirastoLayer
     )
   }
 
@@ -294,32 +234,23 @@ export const getSettingsFromURL = (): Settings => {
 
   // Museovirasto muinaisjaannos types
   if (muinaisjaannosTypes) {
-    newSettings = validateAndUpdateUrlParamToSettings(
+    newSettings = updateSelectMuinaisjaannosTypes(
       newSettings,
-      MuinaisjaannosTyyppi,
-      muinaisjaannosTypes,
-      updateSelectMuinaisjaannosTypes
+      muinaisjaannosTypes
     )
   }
 
   // Museovirasto muinaisjaannos datings
   if (muinaisjaannosDatings) {
-    newSettings = validateAndUpdateUrlParamToSettings(
+    newSettings = updateSelectMuinaisjaannosDatings(
       newSettings,
-      MuinaisjaannosAjoitus,
-      muinaisjaannosDatings,
-      updateSelectMuinaisjaannosDatings
+      muinaisjaannosDatings
     )
   }
 
   // Ahvenanmaa layers
   if (ahvenanmaaLayer) {
-    newSettings = validateAndUpdateUrlParamToSettings(
-      newSettings,
-      AhvenanmaaLayer,
-      ahvenanmaaLayer,
-      updateAhvenanmaaSelectedLayers
-    )
+    newSettings = updateAhvenanmaaSelectedLayers(newSettings, ahvenanmaaLayer)
   }
 
   // Ahvenanmaa opacity
@@ -334,12 +265,7 @@ export const getSettingsFromURL = (): Settings => {
 
   // Helsinki layers
   if (helsinkiLayer) {
-    newSettings = validateAndUpdateUrlParamToSettings(
-      newSettings,
-      HelsinkiLayer,
-      helsinkiLayer,
-      updateHelsinkiSelectedLayers
-    )
+    newSettings = updateHelsinkiSelectedLayers(newSettings, helsinkiLayer)
   }
 
   // Helsinki opacity

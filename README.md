@@ -136,7 +136,9 @@ npm install
 | `npm run build:preview` | Rakentaa production-optimoidun preview-version hakukone-estoin |
 | `npm run lint` | Suorittaa ESLint-tarkistuksen |
 | `npm run typecheck` | Tyyppitarkistaa `src/`-sovelluksen |
-| `npm run check` | Suorittaa ESLintin sekä sovelluksen ja E2E-testien tyyppitarkistukset |
+| `npm run check` | Suorittaa ESLintin, sovelluksen ja testien tyyppitarkistukset sekä yksikkötestit |
+| `npm test` | Suorittaa URL-asetusten yksikkötestit ilman selainta tai verkkopalveluita |
+| `npm run typecheck:unit` | Tyyppitarkistaa yksikkötestit ja niiden konfiguraation |
 | `npm run test:e2e` | Suorittaa julkaisemisen estävät PMTiles/D1-E2E-testit |
 | `npm run test:e2e:wms` | Suorittaa ulkoisesta GeoServeristä riippuvan WMS/WFS-monitorointitestin |
 | `npm run test:e2e:all` | Suorittaa molemmat Playwright-testiprojektit |
@@ -147,6 +149,8 @@ npm install
 | `npm run profile-size` | Avaa Webpack Bundle Analyzerin |
 
 PMTiles/D1-E2E-testit käyttävät oletuksena julkaistua preview-ympäristöä. Kohteen voi vaihtaa `E2E_BASE_URL`-ympäristömuuttujalla. Tarkemmat ohjeet ovat [E2E-testien dokumentaatiossa](./e2e/README.md).
+
+URL-asetukset validoidaan [Zod Mini -skeemalla](./src/url/schema.ts), josta myös `URLSettings`-tyyppi johdetaan. Selainkoodi käyttää `zod/mini`-tuontia, jotta Webpack voi poistaa käyttämättömät osat kirjastosta. Virheellinen parametri palautuu kyseisen asetuksen oletusarvoon; muut kelvolliset asetukset säilyvät. Hash-parametrit ohittavat query-parametrit. [URL-testit](./tests/url.spec.ts) suoritetaan nykyisellä Playwright-testiajurilla ilman selainta.
 
 ## Ympäristöt ja julkaiseminen
 
