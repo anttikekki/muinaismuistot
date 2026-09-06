@@ -1,18 +1,10 @@
 import React, { Suspense, use, useMemo } from "react"
 import { Trans } from "react-i18next"
 import { Alert, Col, Row } from "react-bootstrap"
-
-interface FinnaResult { resultCount: number }
-
-const fetchFinnaImageCount = async (mjtunnus: number): Promise<FinnaResult> => {
-  const response = await fetch(
-    `https://api.finna.fi/api/v1/search?field[]=resultCount&filter[]=geographic_id_str_mv:"(mjr)${mjtunnus}"&filter[]=online_boolean:"1"&filter[]=format:"0/Image/"`
-  )
-  return response.json() as Promise<FinnaResult>
-}
+import { fetchFinnaImageCount } from "../../../../common/util/finnaImageCount"
 
 interface FinnaImagesLinkProps {
-  finnaFetchPromise: Promise<FinnaResult>
+  finnaFetchPromise: Promise<number | null>
   mjtunnus: number
 }
 
@@ -20,10 +12,10 @@ const FinnaImagesLink: React.FC<FinnaImagesLinkProps> = ({
   finnaFetchPromise,
   mjtunnus
 }) => {
-  const { resultCount } = use(finnaFetchPromise)
+  const resultCount = use(finnaFetchPromise)
   const finnaUIUrl = `https://finna.fi/Search/Results?lookfor=geographic_id_str_mv:"(mjr)${mjtunnus}"&filter[]=online_boolean:"1"&filter[]=format:"0/Image/"`
 
-  if (resultCount === 0) {
+  if (resultCount === null || resultCount === 0) {
     return null
   }
 
