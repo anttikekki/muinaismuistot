@@ -2,6 +2,7 @@
 
 import { createInterface } from "node:readline"
 import { readFile } from "node:fs/promises"
+import { varkLinkedMjRegistryId } from "./vark-link.mjs"
 
 function atomicValues(raw, kind) {
   if (!raw) return []
@@ -70,6 +71,19 @@ function normalizeSearchText(value) {
   return String(value ?? "").normalize("NFC").toLocaleLowerCase("fi").trim()
 }
 
+function detailExtraProperties(layerId, source) {
+  const extra = Object.fromEntries(Object.entries(source).filter(([key]) =>
+    !["gpkg_fid", "source_fid", "registry_id", "name", "municipality", "exact_geometry_json"].includes(key),
+  ))
+  if (layerId.startsWith("vark_")) {
+    const linkedMjRegistryId = varkLinkedMjRegistryId(extra.vark_link_url)
+    if (!linkedMjRegistryId) throw new Error(`Invalid VARK link in ${layerId}: ${extra.vark_link_url}`)
+    delete extra.vark_link_url
+    extra.linked_mj_registry_id = linkedMjRegistryId
+  }
+  return extra
+}
+
 async function details([mappingPath, layerId]) {
   const mapping = JSON.parse(await readFile(mappingPath, "utf8"))
   const logicalLayers = mapping.logicalLayers.filter((layer) => layer.sourceLayer === layerId)
@@ -91,9 +105,7 @@ async function details([mappingPath, layerId]) {
     const id = featureId(layerId, source.gpkg_fid)
     const logical = logicalLayers.find((layer) => !layer.filter || String(source[layer.filter.field] ?? "") === layer.filter.equals)
     if (!logical) throw new Error(`No logical layer for ${layerId}: ${JSON.stringify(source)}`)
-    const extra = Object.fromEntries(Object.entries(source).filter(([key]) =>
-      !["gpkg_fid", "source_fid", "registry_id", "name", "municipality", "exact_geometry_json"].includes(key),
-    ))
+    const extra = detailExtraProperties(layerId, source)
     const value = `(${sqlString(layerId)}, ${id}, ${sqlString(logical.id)}, ${sqlString(source.registry_id)}, ${sqlString(source.name)}, ${sqlString(normalizeSearchText(source.name))}, ${sqlString(source.municipality)}, ${sqlString(JSON.stringify(extra))}, ${sqlString(JSON.stringify(exactGeometry))})`
     if (values.length > 0 && Buffer.byteLength(values.join(",\n")) + Buffer.byteLength(value) > 60_000) flush()
     values.push(value)

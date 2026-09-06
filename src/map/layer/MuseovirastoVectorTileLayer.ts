@@ -553,6 +553,9 @@ function propertiesForLayer(item: FeatureBatchItem): Record<string, unknown> {
   }
 
   if (item.sourceLayer.startsWith("vark_")) {
+    const linkedMjRegistryId = String(
+      source.linked_mj_registry_id ?? registryId
+    )
     return {
       ...common,
       VARK_ID: Number(registryId),
@@ -562,7 +565,7 @@ function propertiesForLayer(item: FeatureBatchItem): Record<string, unknown> {
       Alatyyppi: source.subtypes_raw ?? "",
       Ajoitus: source.datings_raw ?? "",
       relatedArchaeologicalSites: item.relatedArchaeologicalSites ?? [],
-      Linkki: `https://www.kyppi.fi/palveluikkuna/VARKL/asp/v_kohde_det.aspx?KOHDE_ID=${registryId}`
+      Linkki: `https://www.kyppi.fi/palveluikkuna/VARKL/asp/v_kohde_det.aspx?KOHDE_ID=${linkedMjRegistryId}`
     }
   }
 

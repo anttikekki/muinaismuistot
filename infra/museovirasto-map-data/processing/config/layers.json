@@ -18,6 +18,7 @@
       "fields": [
         { "source": "VARK_ID", "target": "registry_id", "transform": "text" },
         { "source": "VARK_nimi", "target": "name", "transform": "trim" },
+        { "source": "Linkki", "target": "vark_link_url", "transform": "trim" },
         { "source": "Kunta", "target": "municipality", "transform": "trim" },
         { "source": "Tyyppi", "target": "types_raw" },
         { "source": "Alatyyppi", "target": "subtypes_raw" },
@@ -30,6 +31,7 @@
       "fields": [
         { "source": "VARK_ID", "target": "registry_id", "transform": "text" },
         { "source": "VARK_nimi", "target": "name", "transform": "trim" },
+        { "source": "Linkki", "target": "vark_link_url", "transform": "trim" },
         { "source": "Kunta", "target": "municipality", "transform": "trim" },
         { "source": "Tyyppi", "target": "types_raw" },
         { "source": "Alatyyppi", "target": "subtypes_raw" },

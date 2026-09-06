@@ -3,6 +3,9 @@
 	"name": "muinaismuistot",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-08-23",
+	"observability": {
+		"enabled": true
+	},
 	"assets": {
 		"directory": "../../dist",
 		"binding": "ASSETS",
