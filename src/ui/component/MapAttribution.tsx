@@ -1,42 +1,46 @@
 import React, { useCallback } from "react"
 import { Dropdown } from "react-bootstrap"
 import { Trans, useTranslation } from "react-i18next"
-import { useDispatch, useSelector } from "react-redux"
+import { shallowEqual, useDispatch, useSelector } from "react-redux"
 import { ActionTypeEnum } from "../../store/actionTypes"
 import { AppDispatch, PageId, Settings } from "../../store/storeTypes"
 
 export const MapAttribution: React.FC = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
-  const settings = useSelector((state: Settings) => state)
 
   const showLicences = useCallback(() => {
     dispatch({ type: ActionTypeEnum.SHOW_PAGE, pageId: PageId.Info })
   }, [dispatch])
 
-  const sources = [
-    settings.maanmittauslaitos.basemap.enabled ||
-    settings.maanmittauslaitos.vanhatKartat.enabled
-      ? "mml"
-      : undefined,
-    settings.museovirasto.enabled &&
-    settings.museovirasto.selectedLayers.length > 0
-      ? "museovirasto"
-      : undefined,
-    settings.ahvenanmaa.enabled && settings.ahvenanmaa.selectedLayers.length > 0
-      ? "ahvenanmaa"
-      : undefined,
-    settings.gtk.enabled && settings.gtk.selectedLayers.length > 0
-      ? "gtk"
-      : undefined,
-    settings.helsinki.enabled && settings.helsinki.selectedLayers.length > 0
-      ? "helsinki"
-      : undefined,
-    settings.maannousuInfo.enabled ? "maannousuInfo" : undefined,
-    settings.viabundus.enabled ? "viabundus" : undefined,
-    settings.models.enabled ? "models" : undefined,
-    settings.maisemanMuisti.enabled ? "maisemanMuisti" : undefined
-  ].filter((source): source is string => source !== undefined)
+  const sources = useSelector(
+    (settings: Settings) =>
+      [
+        settings.maanmittauslaitos.basemap.enabled ||
+        settings.maanmittauslaitos.vanhatKartat.enabled
+          ? "mml"
+          : undefined,
+        settings.museovirasto.enabled &&
+        settings.museovirasto.selectedLayers.length > 0
+          ? "museovirasto"
+          : undefined,
+        settings.ahvenanmaa.enabled &&
+        settings.ahvenanmaa.selectedLayers.length > 0
+          ? "ahvenanmaa"
+          : undefined,
+        settings.gtk.enabled && settings.gtk.selectedLayers.length > 0
+          ? "gtk"
+          : undefined,
+        settings.helsinki.enabled && settings.helsinki.selectedLayers.length > 0
+          ? "helsinki"
+          : undefined,
+        settings.maannousuInfo.enabled ? "maannousuInfo" : undefined,
+        settings.viabundus.enabled ? "viabundus" : undefined,
+        settings.models.enabled ? "models" : undefined,
+        settings.maisemanMuisti.enabled ? "maisemanMuisti" : undefined
+      ].filter((source): source is string => source !== undefined),
+    shallowEqual
+  )
 
   return (
     <Dropdown id="map-attribution" drop="up" align="end">
