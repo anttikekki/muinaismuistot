@@ -114,7 +114,25 @@ body,
   width: 100%;
 }
 
+#service-outage-notice {
+  position: absolute;
+  top: 10px;
+  left: 60px;
+  right: 60px;
+  max-width: 560px;
+  max-height: calc(100dvh - 80px);
+  overflow-y: auto;
+  margin-inline: auto;
+  z-index: 20;
+}
+
 @media (width < 576px) {
+  #service-outage-notice {
+    right: 10px;
+    top: 50px;
+    font-size: 0.875rem;
+  }
+
   .offcanvas {
     --bs-offcanvas-width: 100%;
   }

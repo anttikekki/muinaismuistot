@@ -1,4 +1,10 @@
 {
+  "serviceOutage": {
+    "url": "https://www.maanmittauslaitos.fi/palvelutiedotteet/maanmittauslaitoksen-asiointi-ja-rajapintapalvelut-tilapaisesti-pois-kaytosta",
+    "title": "Maanmittauslaitoksen karttapalveluissa on käyttökatko",
+    "description": "Taustakartat eivät välttämättä näy Maanmittauslaitoksen palvelukatkon vuoksi. Katko alkoi 22.10.2026 noin klo 16 ja jatkuu viikonlopun yli.",
+    "link": "Seuraa tilannetta Maanmittauslaitoksen tiedotteesta"
+  },
   "common": {
     "Ennen ajanlaskun alkua": "eaa.",
     "Jälkeen ajanlaskun alun": "jaa.",

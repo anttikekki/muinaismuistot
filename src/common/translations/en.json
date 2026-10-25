@@ -1,4 +1,10 @@
 {
+  "serviceOutage": {
+    "url": "https://www.maanmittauslaitos.fi/en/service-messages/national-land-surveys-e-services-and-interface-services-will-be-taken-offline",
+    "title": "National Land Survey map services are unavailable",
+    "description": "Background maps may not appear due to a service outage at the National Land Survey of Finland. The outage began on 22 October 2026 at approximately 16:00 Finnish time and continues through the weekend.",
+    "link": "Follow updates from the National Land Survey of Finland"
+  },
   "common": {
     "Ennen ajanlaskun alkua": "BCE",
     "Jälkeen ajanlaskun alun": "CE",

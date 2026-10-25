@@ -1,4 +1,10 @@
 {
+  "serviceOutage": {
+    "url": "https://www.maanmittauslaitos.fi/sv/servicemeddelanden/lantmateriverkets-arendehanterings-och-granssnittstjanster-tillfalligt-ur-bruk",
+    "title": "Driftavbrott i Lantmäteriverkets karttjänster",
+    "description": "Bakgrundskartorna visas eventuellt inte på grund av ett driftavbrott hos Lantmäteriverket. Avbrottet började den 22.10.2026 cirka kl. 16 och fortsätter över helgen.",
+    "link": "Följ läget i Lantmäteriverkets meddelande"
+  },
   "common": {
     "Ennen ajanlaskun alkua": "f.v.t.",
     "Jälkeen ajanlaskun alun": "e.v.t.",
