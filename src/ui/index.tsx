@@ -15,7 +15,6 @@ import { ActionTypes } from "../store/actionTypes"
 import { Settings } from "../store/storeTypes"
 import { LoadingAnimation } from "./component/LoadingAnimation"
 import { MapAttribution } from "./component/MapAttribution"
-import { ServiceOutageNotice } from "./component/ServiceOutageNotice"
 import { CenterToCurrentPositionButton } from "./component/mapButton/CenterToCurrentPositionButton"
 import { FullscreenButton } from "./component/mapButton/FullscreenButton"
 import { LinkedFeatureButton } from "./component/mapButton/LinkedFeatureButton"
@@ -78,7 +77,6 @@ export const createUI = (store: Store<Settings, ActionTypes>) => {
       <MaannnousuInfoYearConrols />
       <WebGLErrorMessage />
       <MapAttribution />
-      <ServiceOutageNotice />
 
       <FeatureDetailsPage />
       <SearchPage />
