@@ -12,14 +12,16 @@
     "deploy:dry-run": "wrangler deploy --env production --dry-run",
     "deploy": "npm test && npm run typecheck && wrangler deploy --env production",
     "deploy:preview:dry-run": "npm --prefix ../.. run build:preview && wrangler deploy --env preview --dry-run",
-    "deploy:preview": "npm test && npm run typecheck && npm --prefix ../.. run build:preview && wrangler deploy --env preview"
+    "deploy:preview": "npm test && npm run typecheck && npm --prefix ../.. run build:preview && wrangler deploy --env preview",
+    "check-updates": "npx npm-check-updates"
   },
   "devDependencies": {
-    "@cloudflare/vitest-plugin": "^1.0.0",
-    "@types/range-parser": "^1.2.7",
+    "@cloudflare/vitest-plugin": "1.4.11",
+    "@types/range-parser": "1.2.7",
+    "npm-check-updates": "23.1.1",
     "typescript": "6.0.3",
-    "vitest": "^4.1.11",
-    "wrangler": "^4.125.0"
+    "vitest": "4.1.12",
+    "wrangler": "4.156.0"
   },
   "engines": {
     "node": ">=22"
