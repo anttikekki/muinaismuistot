@@ -1,4 +1,5 @@
 import WMTSCapabilities from "ol/format/WMTSCapabilities"
+import type { WMTSObject } from "ol/format/WMTSCapabilities"
 import TileLayer from "ol/layer/Tile"
 import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS"
 import { MMLPohjakarttaLayer } from "../../common/layers.types"
@@ -12,8 +13,8 @@ export default class MMLPohjakarttaTileLayer {
   private readonly layer: TileLayer<WMTSSource>
   private readonly updateTileLoadingStatus: ShowLoadingAnimationFn
   private source?: WMTSSource
-  private mmlWmtsCapabilities: unknown
-  private paituliWmtsCapabilities: unknown
+  private mmlWmtsCapabilities?: WMTSObject
+  private paituliWmtsCapabilities?: WMTSObject
 
   public constructor(
     settings: Settings,
@@ -37,7 +38,7 @@ export default class MMLPohjakarttaTileLayer {
         if (!this.mmlWmtsCapabilities) {
           this.mmlWmtsCapabilities = new WMTSCapabilities().read(
             mmlWMTSCapabilitiesResult
-          )
+          ) as WMTSObject
         }
         return this.mmlWmtsCapabilities
       }
@@ -45,7 +46,7 @@ export default class MMLPohjakarttaTileLayer {
         if (!this.paituliWmtsCapabilities) {
           this.paituliWmtsCapabilities = new WMTSCapabilities().read(
             paituliWMTSCapabilitiesResult
-          )
+          ) as WMTSObject
         }
         return this.paituliWmtsCapabilities
       }

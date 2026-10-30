@@ -232,9 +232,6 @@ export default class MuseovirastoVectorTileLayer {
       this.activePointCount > pointRenderingThreshold
     const samplingChanged = samplingEnabled !== this.samplingEnabled
     this.samplingEnabled = samplingEnabled
-    const target = this.map.getTargetElement()
-    target.dataset.museovirastoActivePoints = String(this.activePointCount)
-    target.dataset.museovirastoPointsSampled = String(samplingEnabled)
     if (samplingChanged) this.vectorLayer.changed()
   }
 
