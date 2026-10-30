@@ -1,4 +1,4 @@
-import { Container, getContainer } from "@cloudflare/containers"
+import { Container } from "@cloudflare/containers"
 import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloudflare:workers"
 import { handleRequest } from "./request"
 import { checkSourceFreshness, sendAlert } from "./alerts"
@@ -107,7 +107,7 @@ export class MapDataUpdateWorkflow extends WorkflowEntrypoint<UpdaterEnv, Update
       return await step.do(
         "build, publish and verify Museovirasto map data",
         { retries: { limit: 1, delay: "5 minutes" }, timeout: "1 hour" },
-        async () => getContainer(this.env.UPDATE_CONTAINER, "daily-update").runUpdate({
+        async () => this.env.UPDATE_CONTAINER.getByName("daily-update").runUpdate({
           targetEnvironment,
           baseUrl: this.env.BASE_URL,
           apiToken: this.env.CLOUDFLARE_API_TOKEN,
@@ -132,7 +132,7 @@ export class MapDataUpdateWorkflow extends WorkflowEntrypoint<UpdaterEnv, Update
 
 export default {
   async fetch(request: Request, env: UpdaterEnv): Promise<Response> {
-    return handleRequest(request, env, () => getContainer(env.UPDATE_CONTAINER, "daily-update").getLastRun())
+    return handleRequest(request, env, () => env.UPDATE_CONTAINER.getByName("daily-update").getLastRun())
   },
   async scheduled(_controller: ScheduledController, env: UpdaterEnv): Promise<void> {
     await checkSourceFreshness(env)

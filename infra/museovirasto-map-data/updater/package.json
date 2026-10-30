@@ -17,13 +17,13 @@
     "deploy:production": "wrangler deploy --env production --containers-rollout=immediate"
   },
   "dependencies": {
-    "@cloudflare/containers": "^0.0.24"
+    "@cloudflare/containers": "0.3.7"
   },
   "devDependencies": {
-    "@cloudflare/vitest-plugin": "1.0.0",
+    "@cloudflare/vitest-plugin": "1.4.11",
     "typescript": "6.0.3",
-    "vitest": "4.1.11",
-    "wrangler": "4.125.0"
+    "vitest": "4.1.12",
+    "wrangler": "4.156.0"
   },
   "engines": {
     "node": ">=22"
