@@ -11,6 +11,106 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [227994, 6793547]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Junnila W",
+          "id": 51010033,
+          "type": "rajapinta_suojellut:muinaisjaannos_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.51010033",
+          "municipality": "Eurajoki"
+        },
+        "model": {
+          "name": "Cairn Kahala, Eurajoki Finland",
+          "url": "https://sketchfab.com/models/90389dca037a4c3293f2da37b47fbbb3"
+        },
+        "author": "Tia Hyvärinen",
+        "authorUrl": "https://sketchfab.com/Tia.H",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2026-10-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [228068, 6793182]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kahala",
+          "id": 51010031,
+          "type": "rajapinta_suojellut:muinaisjaannos_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.51010031",
+          "municipality": "Eurajoki"
+        },
+        "model": {
+          "name": "Cairn Kahala, Eurajoki Finland",
+          "url": "https://sketchfab.com/models/12da5c5c85694c07885685f56a7a030b"
+        },
+        "author": "Tia Hyvärinen",
+        "authorUrl": "https://sketchfab.com/Tia.H",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2026-10-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [240975, 6820677]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kotasaarensuo",
+          "id": 1000031723,
+          "type": "rajapinta_suojellut:muinaisjaannos_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000031723",
+          "municipality": "Ulvila"
+        },
+        "model": {
+          "name": "Lieden kaivausalue, pohja",
+          "url": "https://sketchfab.com/models/be73373828b04c9a9e3ba8dbc97c9c1b"
+        },
+        "author": "Tia Hyvärinen",
+        "authorUrl": "https://sketchfab.com/Tia.H",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2026-10-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [240975, 6820677]
+      },
+      "properties": {
+        "registryItem": {
+          "name": "Kotasaarensuo",
+          "id": 1000031723,
+          "type": "rajapinta_suojellut:muinaisjaannos_piste",
+          "url": "https://www.kyppi.fi/to.aspx?id=112.1000031723",
+          "municipality": "Ulvila"
+        },
+        "model": {
+          "name": "Lieden kaivausalue ennen täyttöä",
+          "url": "https://sketchfab.com/models/fade79dbf2ca461dbf1dc521d8f4ef0d"
+        },
+        "author": "Tia Hyvärinen",
+        "authorUrl": "https://sketchfab.com/Tia.H",
+        "licence": "CC BY 4.0",
+        "licenceUrl": "https://creativecommons.org/licenses/by/4.0/deed.fi",
+        "createdDate": "2026-10-30"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [240975, 6820677]
       },
       "properties": {
