@@ -1,5 +1,5 @@
 import assert from "node:assert/strict"
-import { mkdtempSync, writeFileSync } from "node:fs"
+import { mkdtempSync, readFileSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { join, resolve } from "node:path"
 import { spawnSync } from "node:child_process"
@@ -44,6 +44,17 @@ test("codes kind and multi-value classifications using the versioned vocabulary"
     dating_mask: 20,
     subtype_codes: "c.20",
   })
+})
+
+test("codes paaluvarustukset without changing existing subtype codes", () => {
+  const result = run("node", [transformer, "transform", vocabulary, "muinaisjaannokset_piste", "archaeological-filters"], `${feature(41, "register", {
+    subtypes_raw: "hautaröykkiöt, paaluvarustukset, kuppikalliot",
+  })}\n`)
+  assert.equal(result.status, 0, result.stderr)
+  const { subtypes } = JSON.parse(readFileSync(vocabulary, "utf8"))
+  const codes = JSON.parse(result.stdout).properties.subtype_codes.split(".")
+  assert.deepEqual(codes, ["c", subtypes.length.toString(36), "20"])
+  assert.equal(subtypes[parseInt(codes[1], 36) - 1], "paaluvarustukset")
 })
 
 for (const [label, overrides, error] of [
