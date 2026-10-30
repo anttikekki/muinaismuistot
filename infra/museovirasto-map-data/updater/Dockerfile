@@ -1,9 +1,6 @@
-ARG NODE_VERSION=22.23.1
-
 FROM protomaps/go-pmtiles:v1.31.2 AS pmtiles-builder
-FROM node:${NODE_VERSION}-bookworm-slim AS node-builder
+FROM node:24.22.2-bookworm-slim AS node-builder
 FROM ghcr.io/openwatersio/tippecanoe:2.79.0 AS tippecanoe-builder
-
 FROM ghcr.io/osgeo/gdal:ubuntu-small-3.13.3
 
 ARG TARGETARCH
