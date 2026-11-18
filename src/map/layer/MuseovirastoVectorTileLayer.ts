@@ -430,20 +430,21 @@ function createMuseovirastoStyle(id: string, source: string): Style {
 function createMuseovirastoPointStyle(id: string): Style {
   const stroke = new Stroke({ color: "#161616", width: 1 })
   const fill = new Fill({ color: museovirastoColor(id) })
+  // OpenLayersin vektoritiilien osumahaku tarvitsee tämän myös ilman declutteria.
+  const options = { fill, stroke, declutterMode: "none" as const }
   if (id.includes("alakohde")) {
     return new Style({
       image: new RegularShape({
         points: 5,
         radius: 7,
         radius2: 3,
-        fill,
-        stroke
+        ...options
       })
     })
   }
   if (id.includes("maailmanperinto")) {
     return new Style({
-      image: new RegularShape({ points: 5, radius: 7, fill, stroke })
+      image: new RegularShape({ points: 5, radius: 7, ...options })
     })
   }
   if (id.includes("havaintokohde")) {
@@ -452,12 +453,11 @@ function createMuseovirastoPointStyle(id: string): Style {
         points: 4,
         radius: 6,
         angle: Math.PI / 4,
-        fill,
-        stroke
+        ...options
       })
     })
   }
-  return new Style({ image: new CircleStyle({ radius: 5, fill, stroke }) })
+  return new Style({ image: new CircleStyle({ radius: 5, ...options }) })
 }
 
 function museovirastoColor(id: string): string {

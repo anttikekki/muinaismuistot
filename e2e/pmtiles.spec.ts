@@ -54,9 +54,11 @@ test("PMTiles/D1 map, search, export, permanent link and identify", async ({ pag
   await expect(page.locator(".accordion-item").first()).toBeVisible()
 })
 
-test("search omits the area matching an archaeological point", async ({ page }) => {
+test("search and map click identify an archaeological point", async ({ page }) => {
+  const registryId = "1000097130"
+  const pointLayer = "rajapinta_suojellut:muinaisjaannos_piste"
   await page.goto(`${vectorQuery}#center=402431%2C6748200&zoom=12`)
-  await openSearch(page, "1000097130")
+  await openSearch(page, registryId)
 
   expect(await page.locator(".accordion-item").count()).toBe(1)
   expect((await exportedFeature(page)).properties).toEqual(expect.objectContaining({
@@ -71,7 +73,21 @@ test("search omits the area matching an archaeological point", async ({ page }) 
   expect(Number(parameters.get("x"))).toBeLessThan(800_000)
   expect(Number(parameters.get("y"))).toBeGreaterThan(6_500_000)
   expect(Number(parameters.get("y"))).toBeLessThan(7_800_000)
-  expect(parameters.get("linkedFeatureLayer")).toBe(
-    "rajapinta_suojellut:muinaisjaannos_piste"
+  expect(parameters.get("linkedFeatureLayer")).toBe(pointLayer)
+
+  // Use the point's coordinates without opening a linked feature or enabling area layers.
+  const mapParameters = new URLSearchParams({
+    center: `${parameters.get("x")},${parameters.get("y")}`,
+    zoom: "14",
+    museovirastoLayer: pointLayer
+  })
+  await page.goto(`/#${mapParameters}`)
+  await expect(page.locator(".ol-viewport")).toBeVisible()
+  const pointDetails = page.locator(
+    `.accordion-header a[href*="linkedFeatureId=${registryId}"]`
   )
+  await expect(async () => {
+    await clickMapCenter(page)
+    await expect(pointDetails).toBeVisible({ timeout: 2_000 })
+  }).toPass({ timeout: 30_000 })
 })
